@@ -1,0 +1,8 @@
+
+Mysql workbranch:
+	mysql root password: 	GmcxryfsCLieHd0RwOJYkISNuKXqySaJVCL6lFucBApINviYOnGQ0HGeBXqvJaVYRPsfUhjONEcKlS
+
+User:
+	User Name:				AttilaUdvardi
+	Role:					DB Admin
+	password: 				NyVjurIoFLEOiJfPZS6qxCzbmekLlJPuTeCnsIqHvciOVBzgXS2m

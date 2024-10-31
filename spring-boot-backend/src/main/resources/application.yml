@@ -1,0 +1,17 @@
+server:
+  port: 8989
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+  application:
+    name: lucas_backend
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/lucasdb
+    username: root
+    password: GmcxryfsCLieHd0RwOJYkISNuKXqySaJVCL6lFucBApINviYOnGQ0HGeBXqvJaVYRPsfUhjONEcKlS
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
