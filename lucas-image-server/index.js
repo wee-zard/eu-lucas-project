@@ -79,5 +79,6 @@ app.listen(process.argv[2] ?? 3001, () => {
 const ImageFetchersUtil = require('./services/imageFetchersUtil');
 ImageFetchersUtil.FetchFromLucasSite();
 
+
 //const SchedulerUtil = require('./services/schedulersUtil');
 //SchedulerUtil.InitScheduler();

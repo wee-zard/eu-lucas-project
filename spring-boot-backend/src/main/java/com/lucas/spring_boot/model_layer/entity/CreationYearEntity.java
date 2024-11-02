@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 
+import java.util.Objects;
+
 @Data
 @Builder
 @Getter
@@ -18,6 +20,19 @@ public class CreationYearEntity {
     @Id
     @Column(name = "year", length = 4, nullable = false)
     public int year;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreationYearEntity that = (CreationYearEntity) o;
+        return year == that.year;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year);
+    }
 
     @Override
     public String toString() {

@@ -63,8 +63,9 @@ public class CreationYearServiceImpl implements CreationYearService {
     public void isCreationYearIncludedInTheDB(int creationYear) {
         ArrayList<CreationYearEntity> creationYears = getCreationYears();
 
-        Optional<CreationYearEntity> selectedCreationYearEntity = creationYears.stream()
-                .filter(creationYearEntity -> creationYearEntity.year == creationYear)
+        Optional<CreationYearEntity> selectedCreationYearEntity = creationYears
+                .stream()
+                .filter(year -> year.getYear() == creationYear)
                 .findAny();
 
         if (selectedCreationYearEntity.isEmpty()) {

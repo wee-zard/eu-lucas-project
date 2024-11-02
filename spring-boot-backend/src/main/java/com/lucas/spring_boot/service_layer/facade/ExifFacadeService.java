@@ -2,6 +2,7 @@ package com.lucas.spring_boot.service_layer.facade;
 
 import com.lucas.spring_boot.model_layer.entity.ImageEntity;
 import com.lucas.spring_boot.model_layer.models.ExifDataModel;
+import com.lucas.spring_boot.model_layer.request.ImageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

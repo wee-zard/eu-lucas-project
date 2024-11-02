@@ -58,6 +58,7 @@ public class CreationDirectionServiceImpl implements CreationDirectionService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void isCreationDirectionIncludedInTheDB(String creationDirection) {
         ArrayList<CreationDirectionEntity> creationDirectionEntities = getCreationDirections();
 

@@ -1,4 +1,5 @@
 const fs = require("fs");
+const {ExifData} = require('../model/ExifData');
 
 const FilesUtil = {
 
@@ -6,13 +7,33 @@ const FilesUtil = {
 
   /**
    * @param {string} localFilePath
-   * @param {(byteLength: number) => void} callback 
+   * @param {(buffer: Buffer | undefined) => void} callback 
+   */
+  ExtractBufferOfLocalImage: (localFilePath, callback) => {
+    try {
+      fs.readFile(localFilePath, (err, buffer) => {
+        if (err) {
+          console.error("[Error in ExtractImageSizeOfLocalImage readFile]:", err);
+          callback(undefined);
+        }
+        else callback(buffer);
+      });
+    } catch (err) {
+      console.error("[Error in ExtractImageSizeOfLocalImage]:", err);
+      callback(undefined);
+    }
+  },
+
+
+  /**
+   * @param {string} localFilePath
+   * @param {(byteLength: ExifData) => void} callback 
    */
   ExtractImageSizeOfLocalImage: (localFilePath, callback) => {
     try {
       fs.readFile(localFilePath, (err, buffer) => {
         if (err) console.error("[Error in ExtractImageSizeOfLocalImage readFile]:", err);
-        else callback(buffer.byteLength);
+        else callback(new ExifData("ImageSize", buffer.byteLength));
       });
     } catch (err) {
       console.error("[Error in ExtractImageSizeOfLocalImage]:", err);
@@ -43,7 +64,7 @@ const FilesUtil = {
 
   /**
    * @param {string} directoryPath
-   * @param {ArrayBuffer} responseData
+   * @param {Buffer} responseData
    * @param {() => void} callback - Called when the image is successfuly created in the local directory.
    */
   WriteToFileInLocalDirectory: (directoryPath, responseData, callback) => {

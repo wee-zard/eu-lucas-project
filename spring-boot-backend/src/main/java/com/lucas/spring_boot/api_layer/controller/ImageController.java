@@ -15,9 +15,9 @@ import java.util.Optional;
 public class ImageController {
     private ImageFacadeService imageFacadeService;
     private ExifFacadeService exifFacadeService;
-    @PostMapping("/post-new-image")
+    @PostMapping("/save-image")
     public @ResponseBody void postNewImage(@RequestBody ImageRequest imageRequest) {
-        Optional<ImageEntity> uploadedImage = imageFacadeService.addImage(imageRequest);
-        uploadedImage.ifPresent(imageEntity -> exifFacadeService.saveImageExifHeader(imageRequest.getExifData(), imageEntity));
+        Optional<ImageEntity> imageToUpload = imageFacadeService.getImageEntity(imageRequest);
+        imageToUpload.ifPresent(imageEntity -> exifFacadeService.saveImageExifHeader(imageRequest.getExifData(), imageEntity));
     }
 }

@@ -23,7 +23,7 @@ public class ExifKeyServiceImpl implements ExifKeyService {
     @Override
     @Cacheable(SERVICE_CACHE_NAME)
     public ArrayList<ExifKeyEntity> getExifKeys() {
-        return (ArrayList<ExifKeyEntity>) exifKeyRepository.findAll();
+        return exifKeyRepository.fetchAllExifKeys();
     }
 
     /**

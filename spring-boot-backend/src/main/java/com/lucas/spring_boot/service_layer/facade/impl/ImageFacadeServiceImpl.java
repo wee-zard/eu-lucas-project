@@ -10,7 +10,11 @@ import com.lucas.spring_boot.service_layer.service.ImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -24,11 +28,11 @@ public class ImageFacadeServiceImpl implements ImageFacadeService {
      * {@inheritDoc}
      */
     @Override
-    public Optional<ImageEntity> addImage(ImageRequest imageRequest) {
+    public Optional<ImageEntity> getImageEntity(ImageRequest imageRequest) {
         if(!imageService.isImageNameAlreadyExists(imageRequest.imageName)) {
-            creationYearService.isCreationYearIncludedInTheDB(imageRequest.year);
-            creationDirectionService.isCreationDirectionIncludedInTheDB(imageRequest.directionName);
-            creationCountryService.isCreationDirectionIncludedInTheDB(imageRequest.countryCode, imageRequest.countryName);
+            creationYearService.isCreationYearIncludedInTheDB(imageRequest.getYear());
+            creationDirectionService.isCreationDirectionIncludedInTheDB(imageRequest.getDirectionName());
+            creationCountryService.isCreationDirectionIncludedInTheDB(imageRequest.getCountryCode(), imageRequest.getCountryName());
             return Optional.ofNullable(imageService.saveImage(
                 ImageEntity
                     .builder()

@@ -3,9 +3,7 @@ package com.lucas.spring_boot.api_layer.controller;
 import com.lucas.spring_boot.model_layer.entity.CreationYearEntity;
 import com.lucas.spring_boot.service_layer.service.CreationYearService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
