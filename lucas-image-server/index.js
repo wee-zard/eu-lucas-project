@@ -71,13 +71,21 @@ app.post('/image', (req, res) => {
 
 // =====================
 
+/**
+ * TODO: Implement an endpoint that will fetch the error logs of the lucas-image-server in a json file.
+ * If no error log found, then write out "No error Log found".
+ * Why do I need this endpoint? Lets assume that the lucas-image-server will run at a user for a long time,
+ * but he discovered that something is not working with this server. With a public endpoin, we could fetch
+ * the error logs instead of opening the project folder and reading the logs itself (in my opinion).
+ */
+
 app.listen(process.argv[2] ?? 3001, () => {
   console.log(`listening for requests on port ${process.argv[2] ?? 3001}`)
 })
 
 // ===============================================================
-const ImageFetchersUtil = require('./services/imageFetchersUtil');
-ImageFetchersUtil.FetchFromLucasSite();
+const {ImageFetchersUtil} = require('./services/imageFetchersUtil');
+new ImageFetchersUtil();
 
 
 //const SchedulerUtil = require('./services/schedulersUtil');

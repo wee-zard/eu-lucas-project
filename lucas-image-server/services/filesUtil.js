@@ -50,7 +50,7 @@ const FilesUtil = {
     if (!FilesUtil.IsDirectoryExist(directoryPath)) {
       try {
         fs.mkdir(`${directoryPath}`, (error) => {
-          if (error) console.error("[Error in CreateDirectoryIfNotExistsAlready mkdir]:", err);
+          if (error) console.error("[Error in CreateDirectoryIfNotExistsAlready mkdir]:", error);
         });
       } catch (err) {
         console.error("[Error in CreateDirectoryIfNotExistsAlready]:", err);
