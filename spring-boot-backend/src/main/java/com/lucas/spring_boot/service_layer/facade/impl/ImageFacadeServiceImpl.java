@@ -47,4 +47,14 @@ public class ImageFacadeServiceImpl implements ImageFacadeService {
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<ImageEntity> getRandomImage() {
+        return imageService.getRandomImage();
+    }
+
+    @Override
+    public ArrayList<ImageEntity> getRandomImages() {
+        return imageService.getRandomImages();
+    }
 }

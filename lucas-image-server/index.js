@@ -4,6 +4,8 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const FilesUtil = require('./services/filesUtil');
+const UrlHelper = require('./helper/UrlHelper');
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -11,7 +13,8 @@ app.use(bodyParser.json());
 // ========================
 //joining path of directory 
 const LocalDirectoryPath = {
-  ImagesFolder: path.join(__dirname, 'resources', 'images'),
+  ImagesFolder: path.join(__dirname, 'resources', 'lucas'),
+  LucasImageServer: path.join("")
 }
 
 // ===========================
@@ -33,26 +36,71 @@ app.post('/app', (_, res) => {
 })
 
 // ===========================================
-app.get('/fetch-single-image', (req, res) => {
-  // Handle the POST request here
+app.post('/image', (req, res) => {
+  const images = req.body.requestBody;
 
-  console.log('fetch-single-image', req.query, req.body);
+  imagesToFetch = images.length;
+  let base64Results = [];
 
-  const filedata = path.join(LocalDirectoryPath.ImagesFolder, "38023110C.jpg");
-  fs.readFile(`${filedata}`, (err, data) => {
-    if (err) {
-      // Fail if the file can't be read. Send a response back to the client
-      res.status(404).json({ error: 'Error while fetching image from the server!' });
-      res.writeHead(200, {'Content-Type': 'image/jpeg'}).end(data); // Send the file data to the browser.
+  images.forEach(element => {
+    const imagePath = path.join(
+      Boolean(element.isImageFromLocalEnvironment) 
+        ? LocalDirectoryPath.ImagesFolder
+        : "https://gisco-services.ec.europa.eu/lucas/photos/", 
+      element.year.toString(),
+      element.countryCode,
+      element.latitude < 100 
+        ? (element.latitude < 10 ? '00'+element.latitude : '0'+element.latitude) 
+        : element.latitude,
+      element.longitude < 100 
+      ? (element.longitude < 10 ? '00'+element.longitude : '0'+element.longitude) 
+      : element.longitude,
+      element.imageName
+    );
+    if (element.isImageFromLocalEnvironment) {
+      FilesUtil.FetchImageFromLocalDirectory(imagePath, (err, data) => {
+        if (err) {
+          imagesToFetch--;
+        } //res.status(404).json({ error: 'Cannot found image in the requested location!' });
+        else {
+          const base64StringFormat = "data:image/jpeg;base64," + Buffer.from(data).toString('base64');
+          base64Results.push(base64StringFormat);
+          imagesToFetch--;
+          if (imagesToFetch <= 0) {
+            res.status(200).json(base64Results);
+          }
+        };
+      });
     } else {
-      // Send the file data to the browser.
-      res.writeHead(200, {'Content-Type': 'image/jpeg'}).end(data);
+      fetch(imagePath)
+        .then(async response => {
+          if (response) {
+            const result = await response.arrayBuffer();
+            const base64StringFormat = "data:image/jpeg;base64," + Buffer.from(result).toString('base64');
+            base64Results.push(base64StringFormat);
+            imagesToFetch--;
+            if (imagesToFetch <= 0) {
+              res.status(200).json(base64Results);
+            }
+          } else {
+            imagesToFetch--;
+          }
+        }).catch((err) => {
+          imagesToFetch--;
+        });
     }
+
+
+        
+    
+      
+
+
   });
 })
 
 // ===============================
-app.post('/image', (req, res) => {
+app.post('/image123', (req, res) => {
   // Handle the POST request here
   //const data = req.body;
 
@@ -79,13 +127,20 @@ app.post('/image', (req, res) => {
  * the error logs instead of opening the project folder and reading the logs itself (in my opinion).
  */
 
-app.listen(process.argv[2] ?? 3001, () => {
-  console.log(`listening for requests on port ${process.argv[2] ?? 3001}`)
+const defaultPort = 3001;
+
+app.listen(process.argv[2] ?? defaultPort, () => {
+  console.log(`listening for requests on port ${process.argv[2] ?? defaultPort}`)
 })
 
+/**
+ * TODO: Csak a HU mappában lévő képek kellenek nekünk 2006-tól 2022-ig.
+ * Esetleg lehetne egyszerűsíteni, hogy egy gombnyomással, a felhasználó kezdeményezze
+ * a képek letöltését a távoli lucas képadatbázisból.
+ */
 // ===============================================================
-const {ImageFetchersUtil} = require('./services/imageFetchersUtil');
-new ImageFetchersUtil();
+//const {ImageFetchersUtil} = require('./services/imageFetchersUtil');
+//new ImageFetchersUtil();
 
 
 //const SchedulerUtil = require('./services/schedulersUtil');

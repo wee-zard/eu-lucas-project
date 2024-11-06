@@ -16,6 +16,7 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "Image")
 @Table(name = "image")
 public class ImageEntity {

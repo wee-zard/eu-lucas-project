@@ -3,6 +3,23 @@ const {ImageBuffer} = require('../model/ImageBuffer');
 const { JobEventEmitterEnums } = require("../enums/Enums");
 const UrlHelper = require("../helper/UrlHelper");
 
+/**
+ * TODO: Implement the archive.
+ * Once an image is updated to the db, then we must archive the url path of the image
+ * in a json file for the purpose of ignoring the "imageFetch" from the lucas server,
+ * when the requested image is downloaded already to the host.
+ * 
+ * Part 1: If the image data is uploaded, then save the image path in the archive.
+ * - If the image path is not present in the archive, then save the image path in the archive, 
+ * else ignore it.
+ * 
+ * Part 2: Once we processes the DomText and reaches a tag that has an image href tag,
+ * then we must process the archive. If the image path and the href image path is the same,
+ * then pass the process of the image and return, else continue the job.
+ * 
+ * With this implementation, we could save resources, as we do not need to download
+ * every images from the lucas website time-to-time.
+ */
 class ImageToLocalRepoJob {
   /**
    * The number of active thread during the job.

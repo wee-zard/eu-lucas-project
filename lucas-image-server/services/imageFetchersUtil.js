@@ -82,7 +82,7 @@ class ImageFetchersUtil {
       if (this.IsJobContollerCancelled()) {
         clearInterval(job);
       }
-    }, [1000]);
+    }, [5000]);
   }
 };
 

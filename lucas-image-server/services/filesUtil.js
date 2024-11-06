@@ -3,6 +3,14 @@ const {ExifData} = require('../model/ExifData');
 
 const FilesUtil = {
 
+  /**
+   * @param {string} imagePath path to the image in the local directory system.
+   * @param {(NodeJS.ErrnoException | null, Buffer) => void} callback ...
+   */
+  FetchImageFromLocalDirectory: (imagePath, callback) => {
+    fs.readFile(`${imagePath}`, (err, data) => callback(err, data));
+  },
+
   IsDirectoryExist: (directoryPath) => fs.existsSync(`${directoryPath}`),
 
   /**

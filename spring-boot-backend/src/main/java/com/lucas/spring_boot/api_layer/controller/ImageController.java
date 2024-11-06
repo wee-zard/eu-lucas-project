@@ -7,6 +7,7 @@ import com.lucas.spring_boot.service_layer.facade.ImageFacadeService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -19,5 +20,17 @@ public class ImageController {
     public @ResponseBody void postNewImage(@RequestBody ImageRequest imageRequest) {
         Optional<ImageEntity> imageToUpload = imageFacadeService.getImageEntity(imageRequest);
         imageToUpload.ifPresent(imageEntity -> exifFacadeService.saveImageExifHeader(imageRequest.getExifData(), imageEntity));
+    }
+
+    @CrossOrigin
+    @GetMapping("/random-image")
+    public Optional<ImageEntity> getRandomImage() {
+        return imageFacadeService.getRandomImage();
+    }
+
+    @CrossOrigin
+    @GetMapping("/random-images")
+    public ArrayList<ImageEntity> getRandomImages() {
+        return imageFacadeService.getRandomImages();
     }
 }
