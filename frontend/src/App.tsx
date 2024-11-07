@@ -1,15 +1,16 @@
-import React, { StrictMode } from 'react';
-import './App.css';
-import TmpScreen from './app/screen/TmpScreen';
+import React from 'react';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import AppRouterProvider from './app/Routers/AppRouterProvider';
 
-function App() {
+const App = () => {
+  const googleOAuthProviderClientId = process.env.REACT_APP_USE_GOOGLE_OAUT_PROVIDER_CLIENT_ID ?? "";
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <StrictMode>
-          <TmpScreen />
-        </StrictMode>
+    <div>
+      <header>
+        <GoogleOAuthProvider clientId={googleOAuthProviderClientId}>
+          <AppRouterProvider/>
+        </GoogleOAuthProvider>;
       </header>
     </div>
   );
