@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "CreationDirection")
-@Table(name = "creation_direction")
+@Table(name = "tb_creation_direction")
 public class CreationDirectionEntity {
     @Id
     @Column(name = "direction_name", length = 20, nullable = false, columnDefinition = "TEXT")

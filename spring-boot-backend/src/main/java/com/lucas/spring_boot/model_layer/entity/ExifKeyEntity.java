@@ -15,7 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "ExifKey")
-@Table(name = "exif_key")
+@Table(name = "tb_exif_key")
 public class ExifKeyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

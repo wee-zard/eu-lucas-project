@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "CreationCountry")
-@Table(name = "creation_country")
+@Table(name = "tb_creation_country")
 public class CreationCountryEntity {
     @Id
     @Column(name = "country_code", length=2, nullable = false, columnDefinition = "TEXT")

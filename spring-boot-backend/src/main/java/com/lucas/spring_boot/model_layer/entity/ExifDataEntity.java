@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "ExifData")
-@Table(name = "exif_data")
+@Table(name = "tb_exif_data")
 public class ExifDataEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

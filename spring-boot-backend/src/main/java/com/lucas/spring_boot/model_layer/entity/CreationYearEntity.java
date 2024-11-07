@@ -15,7 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "CreationYear")
-@Table(name = "creation_year")
+@Table(name = "tb_creation_year")
 public class CreationYearEntity {
     @Id
     @Column(name = "year", length = 4, nullable = false)
