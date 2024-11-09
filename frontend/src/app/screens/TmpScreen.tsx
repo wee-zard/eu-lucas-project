@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import { fetchImage, getRandomImages } from '../../api/command/imageCommand';
-import ImageRequest from '../../model/ImageRequest';
+import { fetchImage, getRandomImages } from '../api/command/imageCommand';
+import ImageRequest from '../model/ImageRequest';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import ImageModel from '../../model/ImageModel';
+import ImageModel from '../model/ImageModel';
 import { CircularProgress } from '@mui/material';
 
 const TmpScreen = () => {

@@ -1,31 +1,34 @@
 import React from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
+import { GoogleLogin,  } from '@react-oauth/google';
+import { useCookies } from 'react-cookie'
+import { CookiesTitle, ScreenUrls } from '../model/enum';
+import { redirectToUrl } from '../providers/RedirectionProvider';
 
 const LoginScreen = () => {
+    const [_, setCookie] = useCookies([CookiesTitle.GoogleOAuthToken]);
+
+    const handleLogin = (credential: string) => {
+        setCookie(CookiesTitle.GoogleOAuthToken, credential, { path: '/' });
+    };
 
   return (
     <div>
-        <div>
-
-        </div>
-        <div>
         <GoogleLogin
             onSuccess={credentialResponse => {
                 /** The credentialResponse is a jwt token */
                 if (credentialResponse?.credential) {
-                    const decoded = jwtDecode(credentialResponse.credential);
-                    /** We decoded the jwt token into readable object */
-                    console.log("[GoogleLogin onSuccess]:", decoded);
+                    handleLogin(credentialResponse.credential);
+
+                    /**Is credential.email is valid? */
+                    redirectToUrl(ScreenUrls.LucasScreenPath);
                 }
             }}
             onError={() => {
-                console.log('[GoogleLogin onError]: Login Failed');
+                console.error('[GoogleLogin onError]: Login Failed');
             }}
-            />;
-        </div>
+        />
     </div>
-  );
+  )
 }
 
 export default LoginScreen;

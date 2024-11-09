@@ -30,3 +30,15 @@ export type BackendControllerEndpoints =
 
 export type RootServiceEndpoints =
     ImageServiceEndpoints;
+
+export enum CookiesTitle {
+    GoogleOAuthToken = "google_oauth_token",
+}
+
+export enum ScreenUrls {
+    DefaultScreenPath = "/",
+    LoginScreenPath = "/login",
+    LucasScreenPath = "/lucas",
+    FilterScreenPath = "/lucas/filter",
+    NotFoundScreenPath = "*",
+}

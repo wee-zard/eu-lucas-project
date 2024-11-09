@@ -20,7 +20,7 @@ public class UserEntity {
     public Long id;
     @Column(name = "auth_token", length = 256)
     public String authToken;
-    @Column(name = "email_address", length = 320, nullable = false)
+    @Column(name = "email_address", length = 1155, nullable = false)
     public String emailAddress;
     @Column(name = "username", length = 100)
     public String userName;
