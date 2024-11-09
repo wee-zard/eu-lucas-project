@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database_layer.repository.UserRepository;
+import com.lucas.spring.database.repositories.UserRepository;
 import com.lucas.spring.model.entity.StatusEntity;
 import com.lucas.spring.model.entity.UserEntity;
 import com.lucas.spring.services.service.UserService;

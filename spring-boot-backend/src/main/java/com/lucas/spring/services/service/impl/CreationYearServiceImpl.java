@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database_layer.repository.CreationYearRepository;
+import com.lucas.spring.database.repositories.CreationYearRepository;
 import com.lucas.spring.model.expection.YearNotFoundException;
 import com.lucas.spring.model.entity.CreationYearEntity;
 import com.lucas.spring.services.service.CreationYearService;
@@ -60,7 +60,7 @@ public class CreationYearServiceImpl implements CreationYearService {
      * {@inheritDoc}
      */
     @Override
-    public void isCreationYearIncludedInTheDB(int creationYear) {
+    public void isCreationYearIncludedInTheDb(int creationYear) {
         ArrayList<CreationYearEntity> creationYears = getCreationYears();
 
         Optional<CreationYearEntity> selectedCreationYearEntity = creationYears

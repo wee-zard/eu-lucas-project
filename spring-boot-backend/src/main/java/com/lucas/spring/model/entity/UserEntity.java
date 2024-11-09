@@ -33,21 +33,21 @@ public class UserEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "user_id")
-  public Long id;
+  private Long id;
   @Column(name = "auth_token", length = 256)
-  public String authToken;
+  private String authToken;
   @Column(name = "email_address", length = 1155, nullable = false)
-  public String emailAddress;
+  private String emailAddress;
   @Column(name = "username", length = 100)
-  public String userName;
+  private String userName;
   @CreationTimestamp
-  public Instant creationTime;
+  private Instant creationTime;
   @ManyToOne
   @JoinColumn(name = "status_id", nullable = false)
-  public StatusEntity status;
+  private StatusEntity status;
 
   @Override
-  public String toString() {
+  public final String toString() {
     return "UserEntity{"
               + "id=" + id
               + ", authToken='" + authToken + '\''

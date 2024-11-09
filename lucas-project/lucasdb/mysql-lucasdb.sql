@@ -52,9 +52,9 @@ create table tb_user_root (
 	 * "There is a length limit on email addresses. 
 	 * That limit is a maximum of 64 characters (octets) in the "local part" (before the "@") 
 	 * and a maximum of 255 characters (octets) in the domain part (after the "@")
-	 * for a total length of 320 characters.
+	 * for a total length of 1155 characters.
 	 */
-	email_address varchar(320) not null,
+	email_address varchar(1155) not null,
 	username varchar(100) null,
 	creation_time Timestamp,
 	status_id bigint not null,

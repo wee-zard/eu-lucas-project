@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database_layer.repository.ImageRepository;
+import com.lucas.spring.database.repositories.ImageRepository;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.services.service.ImageService;
 import lombok.AllArgsConstructor;

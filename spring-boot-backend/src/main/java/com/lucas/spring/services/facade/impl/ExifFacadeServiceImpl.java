@@ -29,7 +29,7 @@ public class ExifFacadeServiceImpl implements ExifFacadeService {
                 .stream()
                 .map(ExifDataModel::getExifKey)
                 .collect(Collectors.toSet()))
-        ).forEach(exifKey -> exifKeyService.isExifKeyIncludedInTheDB(exifKey));
+        ).forEach(exifKey -> exifKeyService.isExifKeyIncludedInTheDb(exifKey));
 
         exifDataModels
                 .stream()

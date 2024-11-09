@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database_layer.repository.StatusRepository;
+import com.lucas.spring.database.repositories.StatusRepository;
 import com.lucas.spring.model.entity.StatusEntity;
 import com.lucas.spring.model.expection.StatusNotFoundException;
 import com.lucas.spring.services.service.StatusService;

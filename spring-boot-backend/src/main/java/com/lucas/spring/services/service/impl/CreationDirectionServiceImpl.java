@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database_layer.repository.CreationDirectionRepository;
+import com.lucas.spring.database.repositories.CreationDirectionRepository;
 import com.lucas.spring.model.expection.DirectionNotFoundException;
 import com.lucas.spring.model.entity.CreationDirectionEntity;
 import com.lucas.spring.services.service.CreationDirectionService;
@@ -59,11 +59,11 @@ public class CreationDirectionServiceImpl implements CreationDirectionService {
      * {@inheritDoc}
      */
     @Override
-    public void isCreationDirectionIncludedInTheDB(String creationDirection) {
+    public void isCreationDirectionIncludedInTheDd(String creationDirection) {
         ArrayList<CreationDirectionEntity> creationDirectionEntities = getCreationDirections();
 
         Optional<CreationDirectionEntity> selectedCreationDirectionEntity = creationDirectionEntities.stream()
-                .filter(creationDirectionEntity -> creationDirectionEntity.directionName.equals(creationDirection))
+                .filter(creationDirectionEntity -> creationDirectionEntity.getDirectionName().equals(creationDirection))
                 .findAny();
 
         if (selectedCreationDirectionEntity.isEmpty()) {

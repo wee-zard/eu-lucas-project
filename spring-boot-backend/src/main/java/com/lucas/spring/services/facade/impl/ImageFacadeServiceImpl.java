@@ -27,9 +27,9 @@ public class ImageFacadeServiceImpl implements ImageFacadeService {
     @Override
     public Optional<ImageEntity> getImageEntity(ImageRequest imageRequest) {
         if(!imageService.isImageNameAlreadyExists(imageRequest.imageName)) {
-            creationYearService.isCreationYearIncludedInTheDB(imageRequest.getYear());
-            creationDirectionService.isCreationDirectionIncludedInTheDB(imageRequest.getDirectionName());
-            creationCountryService.isCreationDirectionIncludedInTheDB(imageRequest.getCountryCode(), imageRequest.getCountryName());
+            creationYearService.isCreationYearIncludedInTheDb(imageRequest.getYear());
+            creationDirectionService.isCreationDirectionIncludedInTheDd(imageRequest.getDirectionName());
+            creationCountryService.isCreationDirectionIncludedInTheDb(imageRequest.getCountryCode(), imageRequest.getCountryName());
             return Optional.ofNullable(imageService.saveImage(
                 ImageEntity
                     .builder()

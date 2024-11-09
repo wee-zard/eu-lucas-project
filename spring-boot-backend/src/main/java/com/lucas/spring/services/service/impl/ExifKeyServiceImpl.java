@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database_layer.repository.ExifKeyRepository;
+import com.lucas.spring.database.repositories.ExifKeyRepository;
 import com.lucas.spring.model.entity.ExifKeyEntity;
 import com.lucas.spring.model.expection.ExifKeyNotFoundException;
 import com.lucas.spring.services.service.ExifKeyService;
@@ -60,7 +60,7 @@ public class ExifKeyServiceImpl implements ExifKeyService {
      * {@inheritDoc}
      */
     @Override
-    public void isExifKeyIncludedInTheDB(String exifKey) {
+    public void isExifKeyIncludedInTheDb(String exifKey) {
         Optional<ExifKeyEntity> selectedExifKey = getExifKeys().stream()
                 .filter(dbExifKey -> dbExifKey.exifKeyName.equals(exifKey))
                 .findAny();

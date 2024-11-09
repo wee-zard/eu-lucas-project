@@ -1,4 +1,4 @@
-package com.lucas.spring.database_layer.repository;
+package com.lucas.spring.database.repositories;
 
 import com.lucas.spring.model.entity.StatusEntity;
 import org.springframework.data.jpa.repository.Query;
