@@ -15,3 +15,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          #algorithms: RS256
+          #issuer-uri: https://accounts.google.com
+          #client-id: 881063630893-4uhl458c5h5lb4pm8rtuh8n1vq6eeueb.apps.googleusercontent.com

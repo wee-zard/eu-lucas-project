@@ -20,10 +20,10 @@ public class ExifKeyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exif_code")
-    public Long exifCode;
+    private Long exifCode;
 
     @Column(name = "exif_key_name", length = 100, nullable = false)
-    public String exifKeyName;
+    private String exifKeyName;
 
     @Override
     public String toString() {

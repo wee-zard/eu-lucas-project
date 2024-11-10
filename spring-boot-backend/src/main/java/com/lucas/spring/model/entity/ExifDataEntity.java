@@ -15,18 +15,18 @@ public class ExifDataEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exif_id")
-    public Long exifId;
+    private Long exifId;
 
     @Column(name = "exif_value", nullable = false, length = 100)
-    public String exifValue;
+    private String exifValue;
 
     @ManyToOne
     @JoinColumn(name = "exif_key_id")
-    public ExifKeyEntity exifKeyEntity;
+    private ExifKeyEntity exifKeyEntity;
 
     @ManyToOne
     @JoinColumn(name = "image_id")
-    public ImageEntity imageEntity;
+    private ImageEntity imageEntity;
 
     @Override
     public String toString() {

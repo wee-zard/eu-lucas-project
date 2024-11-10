@@ -33,7 +33,7 @@ public class ExifKeyServiceImpl implements ExifKeyService {
     public ExifKeyEntity getExifKey(String exifKey) {
         Optional<ExifKeyEntity> selectedExifKey = getExifKeys()
                 .stream()
-                .filter(exifKeyEntity -> exifKeyEntity.exifKeyName.equals(exifKey))
+                .filter(exifKeyEntity -> exifKeyEntity.getExifKeyName().equals(exifKey))
                 .findFirst();
 
         if (selectedExifKey.isPresent()) {
@@ -62,7 +62,7 @@ public class ExifKeyServiceImpl implements ExifKeyService {
     @Override
     public void isExifKeyIncludedInTheDb(String exifKey) {
         Optional<ExifKeyEntity> selectedExifKey = getExifKeys().stream()
-                .filter(dbExifKey -> dbExifKey.exifKeyName.equals(exifKey))
+                .filter(dbExifKey -> dbExifKey.getExifKeyName().equals(exifKey))
                 .findAny();
 
         if (selectedExifKey.isEmpty()) {

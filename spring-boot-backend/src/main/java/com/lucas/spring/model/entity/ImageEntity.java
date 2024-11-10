@@ -23,40 +23,40 @@ public class ImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Long id;
+    private Long id;
     /**
      * The name of the image.
      */
     @Column(name = "image_name", nullable = false, columnDefinition = "TEXT", length = 50)
-    public String imageName;
+    private String imageName;
     /**
      * The longitude circle of the gps.
      */
     @Column(name = "gps_longitude_circle", nullable = false, length = 3)
-    public int gpsLongitudeCircle;
+    private int gpsLongitudeCircle;
     /**
      * The latitude circle of the gps.
      */
     @Column(name = "gps_latitude_circle", nullable = false, length = 3)
-    public int gpsLatitudeCircle;
+    private int gpsLatitudeCircle;
     /**
      * The direction where the image was taken.
      */
     @ManyToOne
     @JoinColumn(name = "direction_name")
-    public CreationDirectionEntity direction;
+    private CreationDirectionEntity direction;
     /**
      * The country where the image was taken.
      */
     @ManyToOne
     @JoinColumn(name = "country_code")
-    public CreationCountryEntity country;
+    private CreationCountryEntity country;
     /**
      * The year when the image was taken.
      */
     @ManyToOne
     @JoinColumn(name = "year")
-    public CreationYearEntity year;
+    private CreationYearEntity year;
 
     @Override
     public String toString() {

@@ -14,9 +14,9 @@ import lombok.*;
 public class StatusEntity {
     @Id
     @Column(name = "status_id")
-    public Long id;
+    private Long id;
     @Column(name = "status_name", length = 100)
-    public String statusName;
+    private String statusName;
 
     @Override
     public String toString() {

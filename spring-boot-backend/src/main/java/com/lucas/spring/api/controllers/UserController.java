@@ -1,5 +1,6 @@
 package com.lucas.spring.api.controllers;
 
+import com.lucas.spring.helper.annotations.token.TokenValidation;
 import com.lucas.spring.model.expection.LoginException;
 import com.lucas.spring.model.expection.PermissionDeniedException;
 import com.lucas.spring.model.request.EmailRequest;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/user")
 @AllArgsConstructor
-public final class UserController {
+public class UserController {
   private final UserFacade userFacade;
 
   /**
@@ -52,22 +53,12 @@ public final class UserController {
    * @param emailRequest The email address to add to the server.
    *     It is different from the authenticator's email.
    */
+  @TokenValidation
   @PostMapping("/save-email")
   public void postEmailAddressToDb(
       @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication,
       @RequestBody final EmailRequest emailRequest
   ) {
-    if (authentication == null) {
-      throw new PermissionDeniedException();
-    }
-    /*
-     * TODO: Extra step: Validate, if the Authentication is a valid Google OAuth2 token,
-     *  and the email address from the token is present in the system or not.
-     */
-    final boolean isEmailRegistered = userFacade.isEmailRegisteredInDB(authentication);
-    if (!isEmailRegistered) {
-      throw new PermissionDeniedException();
-    }
     userFacade.saveEmailAddress(emailRequest.getEmailAddress());
   }
 }

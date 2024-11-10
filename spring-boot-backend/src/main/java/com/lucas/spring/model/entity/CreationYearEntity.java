@@ -19,7 +19,7 @@ import java.util.Objects;
 public class CreationYearEntity {
     @Id
     @Column(name = "year", length = 4, nullable = false)
-    public int year;
+    private int year;
 
     @Override
     public boolean equals(Object o) {
