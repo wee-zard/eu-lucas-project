@@ -7,8 +7,8 @@ import FilterScreen from '../screens/FilterScreen';
 import { ScreenUrls } from '../model/enum';
 import DefaultScreen from '../screens/DefaultScreen';
 import NavigationProvider from './NavigationProvider';
-import useGoogleAccountGuard from '../guards/useGoogleAccountGuard';
 import RouterModel from '../model/RouterModel';
+import { guardGoogleAccount } from '../guards/useGoogleAccountGuard';
 
 const AppRouterProvider = () => {
 
@@ -19,11 +19,35 @@ const AppRouterProvider = () => {
    */
 
   const routers: RouterModel[] = [
-    { path: ScreenUrls.DefaultScreenPath, guards: [], component: <DefaultScreen /> },
-    { path: ScreenUrls.LoginScreenPath, guards: [], component: <LoginScreen /> },
-    { path: ScreenUrls.LucasScreenPath, guards: [useGoogleAccountGuard], component: <TmpScreen /> },
-    { path: ScreenUrls.FilterScreenPath, guards: [useGoogleAccountGuard], component: <FilterScreen />},
-    { path: ScreenUrls.NotFoundScreenPath, guards: [], component: <NotFoundScreen /> },
+    { 
+      path: ScreenUrls.DefaultScreenPath, 
+      guards: [!guardGoogleAccount()], 
+      component: <DefaultScreen />,
+      redirectionUrl: ScreenUrls.LucasScreenPath,
+    },
+    { 
+      path: ScreenUrls.LoginScreenPath, 
+      guards: [!guardGoogleAccount()], 
+      component: <LoginScreen />,
+      redirectionUrl: ScreenUrls.LucasScreenPath,
+    },
+    { 
+      path: ScreenUrls.LucasScreenPath,
+      guards: [guardGoogleAccount()],
+      component: <TmpScreen />,
+      redirectionUrl: ScreenUrls.LoginScreenPath
+    },
+    { 
+      path: ScreenUrls.FilterScreenPath,
+      guards: [guardGoogleAccount()],
+      component: <FilterScreen />,
+      redirectionUrl: ScreenUrls.LoginScreenPath
+    },
+    { 
+      path: ScreenUrls.NotFoundScreenPath,
+      guards: [],
+      component: <NotFoundScreen />,
+    },
   ];
   
   return (
@@ -37,7 +61,8 @@ const AppRouterProvider = () => {
             element={
               <NavigationProvider 
                 guards={routerModel.guards} 
-                component={routerModel.component} 
+                component={routerModel.component}
+                redirectionUrl={routerModel.redirectionUrl}
               />
             }
           />

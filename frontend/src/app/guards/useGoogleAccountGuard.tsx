@@ -1,17 +1,13 @@
 import { jwtDecode } from "jwt-decode";
-import { CookiesTitle, ScreenUrls } from "../model/enum";
-import { useCookies } from "react-cookie";
+import { LocalStorageKeys } from "../model/enum";
 import { googleLogout } from "@react-oauth/google";
-import { redirectToUrl } from "../providers/RedirectionProvider";
 
-const useGoogleAccountGuard = () => {
-  const cookieManager = useCookies([CookiesTitle.GoogleOAuthToken]);
-
+export const guardGoogleAccount = () => {
   const isGoogleAccountProvided = () => {
-    const googleCredential = cookieManager[0]?.google_oauth_token;
-    if (googleCredential) {
-      const decoded = jwtDecode(googleCredential);
-      const currentTime = new Date().getTime();
+    const googleOAuthToken = localStorage.getItem(LocalStorageKeys.GoogleOAuthToken);
+    if (googleOAuthToken) {
+      const decoded = jwtDecode(googleOAuthToken);
+      const currentTime = Math.floor(new Date().getTime()/1000);
       if (
         decoded?.iat &&
         decoded.exp &&
@@ -20,14 +16,14 @@ const useGoogleAccountGuard = () => {
       ) {
         return true;
       } else {
-        cookieManager[2](CookiesTitle.GoogleOAuthToken);
+        localStorage.removeItem(LocalStorageKeys.GoogleOAuthToken);
         googleLogout();
         /** TODO: User failed upon token validation! displaying error message */
-        redirectToUrl(ScreenUrls.LoginScreenPath);
       }
     } else {
+      localStorage.removeItem(LocalStorageKeys.GoogleOAuthToken);
+      googleLogout();
       /** TODO: User failed upon token validation! displaying error message */
-      redirectToUrl(ScreenUrls.LoginScreenPath);
     }
   };
 
@@ -35,5 +31,3 @@ const useGoogleAccountGuard = () => {
     isGoogleAccountProvided() ?? false
   );
 };
-
-export default useGoogleAccountGuard;

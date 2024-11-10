@@ -1,34 +1,55 @@
-import React from 'react';
-import { GoogleLogin,  } from '@react-oauth/google';
-import { useCookies } from 'react-cookie'
-import { CookiesTitle, ScreenUrls } from '../model/enum';
-import { redirectToUrl } from '../providers/RedirectionProvider';
+import React, { useEffect } from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import { LocalStorageKeys, ScreenUrls } from "../model/enum";
+import { redirectToUrl } from "../providers/RedirectionProvider";
+import { validateEmailAddress } from "../api/command/userCommands";
 
 const LoginScreen = () => {
-    const [_, setCookie] = useCookies([CookiesTitle.GoogleOAuthToken]);
 
-    const handleLogin = (credential: string) => {
-        setCookie(CookiesTitle.GoogleOAuthToken, credential, { path: '/' });
-    };
+  const handleLogin = (credential: string) => {
+    localStorage.setItem(LocalStorageKeys.GoogleOAuthToken, credential);
+  };
+
+  useEffect(() => {
+    const credential = localStorage.getItem(LocalStorageKeys.GoogleOAuthToken);
+    if (credential) {
+      /**
+       * If user has a Google OAuth Cookie, then redirect to the Lucas site.
+       * When arriving to the site, an automatic guard will run to check
+       * if the user has a valid, non-expired token.
+       * If the token expired, then the cookie will be deleted there, and
+       * the user will be redirected to this place again.
+       */
+      redirectToUrl(ScreenUrls.LucasScreenPath);
+    }
+  }, []);
 
   return (
     <div>
-        <GoogleLogin
-            onSuccess={credentialResponse => {
-                /** The credentialResponse is a jwt token */
-                if (credentialResponse?.credential) {
-                    handleLogin(credentialResponse.credential);
-
-                    /**Is credential.email is valid? */
-                    redirectToUrl(ScreenUrls.LucasScreenPath);
+      <GoogleLogin
+        onSuccess={(credentialResponse) => {
+          /** The credentialResponse is a jwt token */
+          if (credentialResponse?.credential) {
+            validateEmailAddress(credentialResponse.credential).then(
+              (isEmailValid) => {
+                if (isEmailValid && credentialResponse?.credential) {
+                  handleLogin(credentialResponse.credential);
+                  redirectToUrl(ScreenUrls.LucasScreenPath);
+                } else {
+                  /** TODO: Throw error in the page. */
+                  console.error("[GoogleLogin onError]: Login Failed");
                 }
-            }}
-            onError={() => {
-                console.error('[GoogleLogin onError]: Login Failed');
-            }}
-        />
+              }
+            );
+          }
+        }}
+        onError={() => {
+          /** TODO: Throw error in the page. */
+          console.error("[GoogleLogin onError]: Login Failed");
+        }}
+      />
     </div>
-  )
-}
+  );
+};
 
 export default LoginScreen;

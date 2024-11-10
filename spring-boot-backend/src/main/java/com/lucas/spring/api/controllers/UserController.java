@@ -2,16 +2,11 @@ package com.lucas.spring.api.controllers;
 
 import com.lucas.spring.helper.annotations.token.TokenValidation;
 import com.lucas.spring.model.expection.LoginException;
-import com.lucas.spring.model.expection.PermissionDeniedException;
 import com.lucas.spring.model.request.EmailRequest;
 import com.lucas.spring.services.facade.UserFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Stores the endpoints related to the user.
@@ -24,35 +19,27 @@ public class UserController {
 
   /**
    * An endpoint to validate the provided email address to check,
-   * if it is present in the server or not. If not, then throw
-   * a {@link LoginException}.
+   * if it is present in the server or not.
    *
-   * @param emailRequest The email address to add to the server.
-   *     It is different from the authenticator's email.
+   * @param authentication The authenticated user who initiated someone's email
+   *     to be added to the server.
    */
+  @CrossOrigin
+  @TokenValidation
   @PostMapping("/validate-email")
-  public void postValidateEmailAddress(@RequestBody final EmailRequest emailRequest) {
-    if (!userFacade.isEmailRegisteredInDB(emailRequest.getEmailAddress())) {
-      throw new LoginException();
-    }
-  }
+  public void postValidateEmailAddress(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication
+  ) {}
 
   /**
    * An endpoint to upload email addresses to the db by another users.
-   * <p>
-   * If the authentication token is not present in the header,
-   * then throw {@link PermissionDeniedException}.
-   * </p>
-   * <p>
-   * If the email address of the requester is not present in the server,
-   * then throw {@link PermissionDeniedException} as well.
-   * </p>
    *
    * @param authentication The authenticated user who initiated someone's email
-   *     to be added to the server. This should be a Google OAuth2 token!
+   *     to be added to the server.
    * @param emailRequest The email address to add to the server.
    *     It is different from the authenticator's email.
    */
+  @CrossOrigin
   @TokenValidation
   @PostMapping("/save-email")
   public void postEmailAddressToDb(

@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { redirectToUrl } from './RedirectionProvider';
+import { ScreenUrls } from '../model/enum';
 
 type Props = {
-  guards: (() => boolean)[];
+  guards: boolean[];
   component: JSX.Element;
+  redirectionUrl?: ScreenUrls;
 };
 
-const NavigationProvider = ({guards, component}: Props) => {
+const NavigationProvider = ({guards, component, redirectionUrl}: Props) => {
 
-  const isGuardsPassed = guards.every(guard => guard());
+  const [isValid, setValid] = useState(false);
+
+  useEffect(() => {
+    const isGuardsPassed = guards.every(guard => guard);
+    if (!isGuardsPassed && redirectionUrl) {
+      redirectToUrl(redirectionUrl);
+    } else {
+      setValid(true);
+    }
+  }, []);
 
   return (
     <React.Fragment>
-      { isGuardsPassed ? component : null}
+      { isValid ? component : null}
     </React.Fragment>
   );
 }

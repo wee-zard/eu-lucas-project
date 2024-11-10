@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import { fetchImage, getRandomImages } from '../api/command/imageCommand';
-import ImageRequest from '../model/ImageRequest';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -31,6 +29,7 @@ const TmpScreen = () => {
     }, [imagePath])
 
     const fetchData = (isImageFromLocalEnvironment: boolean) => {
+        /*
         getRandomImages((data) => {
             const imageRequests: ImageRequest[] = data.map(value => ({
                 year: value.year.year,
@@ -47,10 +46,12 @@ const TmpScreen = () => {
                 setLoading(false);
             });
         });
+        */
     }
 
     return (
         <React.Fragment>
+            13121231231231
             <div style={{display: "grid", gap: "16px"}}>
                 <div style={{display: "flex", gap: "16px"}}>
                     <Button variant="outlined" onClick={() => {

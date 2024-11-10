@@ -1,37 +1,45 @@
+/**
+ * Endpoints of the Lucas-Image-Server
+ */
 export enum ImageServiceEndpoints {
     FetchImage = "/image",
     RandomImage = "/random-image",
     RandomImages = "/random-images",
 }
 
-export enum BackendControllers {
-    ApiImage = "/api/image",
-    ApiCountry = "api/country",
-    ApiDirection = "api/direction",
+export enum BackendUserControllerEndpoints {
+    ValidateEmail = "/api/user/validate-email",
+    SaveEmail = "/api/user/save-email",
 }
 
-export enum BackendImageControllerEndpoints {
-    RandomImage = "/random-image",
-    RandomImages = "/random-images",
-}
+/**
+ * Stores the backend endpoints in one place.
+ */
+export type BackendControllerEndpointTypes =
+    BackendUserControllerEndpoints;
 
-export enum BackendYearControllerEndpoints {
-    GetCreationYears = "/get-creation-year",
-}
-
-export enum BackendDirectionControllerEndpoints {
-    GetCreationDirectionYears = "/get-creation-direction",
-}
-
-export type BackendControllerEndpoints =
-    BackendImageControllerEndpoints
-    | BackendYearControllerEndpoints
-    | BackendDirectionControllerEndpoints;
-
-export type RootServiceEndpoints =
+/**
+ * Stores the Lucas-image-server endpoints in one place.
+ */
+export type LucasImageServiceEndpointTypes =
     ImageServiceEndpoints;
 
-export enum CookiesTitle {
+/**
+ * Universal type that hold the endpoints of the whole project.
+ */
+export type RootEndpoints =
+    LucasImageServiceEndpointTypes
+    | BackendControllerEndpointTypes;
+
+/**
+ * The list of servers where the api requests could be sent out to.
+ */
+export enum ServersToConnectTo {
+    Backend,
+    LucasImageServer
+};
+
+export enum LocalStorageKeys {
     GoogleOAuthToken = "google_oauth_token",
 }
 
