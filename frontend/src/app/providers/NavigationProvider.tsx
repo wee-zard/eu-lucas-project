@@ -19,7 +19,7 @@ const NavigationProvider = ({guards, component, redirectionUrl}: Props) => {
     } else {
       setValid(true);
     }
-  }, []);
+  }, [guards, redirectionUrl]);
 
   return (
     <React.Fragment>

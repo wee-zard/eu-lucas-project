@@ -1,7 +1,6 @@
 package com.lucas.spring.api.controllers;
 
 import com.lucas.spring.helper.annotations.token.TokenValidation;
-import com.lucas.spring.model.expection.LoginException;
 import com.lucas.spring.model.request.EmailRequest;
 import com.lucas.spring.services.facade.UserFacade;
 import lombok.AllArgsConstructor;

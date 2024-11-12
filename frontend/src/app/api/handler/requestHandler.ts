@@ -1,5 +1,4 @@
-import axios, { isAxiosError } from "axios";
-import CustomAxiosResponse from "../../model/CustomAxiosResponse";
+import axios from "axios";
 import AuthorizationToken from "../../model/AuthorizationToken";
 import { RootEndpoints, ServersToConnectTo } from "../../model/enum";
 
