@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import imageReducer from "./reducers/imageReducer";
 import dialogReducer from "./reducers/dialogReducer";
+import creationYearReducer from "./reducers/creationYearReducer";
 
 const store = configureStore({
   reducer: {
     imageStore: imageReducer,
     dialogStore: dialogReducer,
+    creationYearStore: creationYearReducer,
   },
 });
 

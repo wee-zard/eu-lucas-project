@@ -38,10 +38,10 @@ const StyledButton = ({
         onClick={onClick}
         disabled={isDisabled}
       >
-        <StyledComponentGap gap={"8px"}>
-          <div style={{ display: "flex" }}>{buttonIcon}</div>
+        <CustomComponentGap>
+          { buttonIcon ? <StyledIconHolder>{buttonIcon}</StyledIconHolder> : null }
           <div>{buttonText}</div>
-        </StyledComponentGap>
+        </CustomComponentGap>
       </CustomButtonDesign>
     </Tooltip>
   );
@@ -49,6 +49,15 @@ const StyledButton = ({
 
 export default StyledButton;
 
-const CustomButtonDesign = styled(Button)<{}>((props) => ({
+const CustomComponentGap = styled(StyledComponentGap)<{}>(() => ({
+  gap: "8px",
+  padding: "8px",
+}))
+
+const StyledIconHolder = styled.div<{}>(() => ({
+  display: "flex"
+}));
+
+const CustomButtonDesign = styled(Button)<{}>(() => ({
   borderRadius: "8px",
 }));

@@ -60,6 +60,24 @@ export const postCommand = (
   );
 };
 
+/**
+ * @param authtoken The access token of the currently browsing user.
+ */
+export const getCommand = (
+  serverToUse: ServersToConnectTo,
+  universalEndpoint: RootEndpoints,
+  params: any,
+  authtoken?: string,
+) => {
+  return axios.get(
+    `${fetchServerPath(serverToUse)}${universalEndpoint}`, 
+    {
+      ...getRequestHeader(authtoken),
+      params: !!params ? params : undefined
+    },
+  );
+};
+
 /*
 export const getRequestBackend = (
   controller: BackendControllers,

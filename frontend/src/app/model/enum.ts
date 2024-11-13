@@ -12,10 +12,16 @@ export enum BackendUserControllerEndpoints {
   SaveEmail = "/api/user/save-email",
 }
 
+export enum BackendCreationYearControllerEndpoints {
+  GetCreationYears = "/api/year/get-creation-years",
+}
+
 /**
  * Stores the backend endpoints in one place.
  */
-export type BackendControllerEndpointTypes = BackendUserControllerEndpoints;
+export type BackendControllerEndpointTypes = 
+  BackendUserControllerEndpoints
+  | BackendCreationYearControllerEndpoints;
 
 /**
  * Stores the Lucas-image-server endpoints in one place.
@@ -49,13 +55,26 @@ export enum ScreenUrls {
 }
 
 export enum FilteringScreenTexts {
-    ClearAllTooltip = "Kijelölések megszüntetése",
-    ClearAllText = "Clear All",
-    AddImageTooltip = "Új kép kiválasztása",
-    AddImageText = "Add new",
-    DownloadTooltip = "Kijelölt képek letöltése",
+  ClearAllTooltip = "Kijelölések megszüntetése",
+  ClearAllText = "Clear All",
+  AddImageTooltip = "Új kép kiválasztása",
+  AddImageText = "Add new",
+  DownloadTooltip = "Kijelölt képek letöltése",
+}
+
+export enum FilteringDialogTexts {
+  DisagreeButtonText = "Mégsem",
+  AgreeButtonText = "Mentés",
+}
+
+export enum FilterDialogFilterOptions{
+  Year = "Év",
+  Country = "Ország",
+  Coordinates = "Koordináta",
+  Direction = "Készítés iránya",
+  ExifData = "Exif adat",
 }
 
 export enum DialogToOpens {
-    FilteringDialog = "Filtering Dialog",
+  FilteringDialog = "Filtering Dialog",
 }

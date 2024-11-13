@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -8,20 +7,19 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectIsDialogOpen } from "../../redux/selectors/dialogSelector";
-import { DialogToOpens } from "../../model/enum";
+import { DialogToOpens, FilteringDialogTexts } from "../../model/enum";
 import { RootState } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDialogToOpen } from "../../redux/actions/dialogActions";
 import styled from "@emotion/styled";
-import { setSelectedImage } from "../../redux/actions/imageActions";
+import { setImageFilteringForm, setSelectedImage } from "../../redux/actions/imageActions";
 import { selectSelectedImages } from "../../redux/selectors/imageSelector";
-import {
-  StyledComponentGap,
-  StyledFullWidthAndHeight,
-} from "../../global/globalStyles";
+import { StyledComponentGap, StyledFullWidthAndHeight } from "../../global/globalStyles";
 import FilterSelectionColumn from "./FilterSelectionColumn";
-import FilterFormColumn from "./FilterFormColumn";
+import FilterFormColumn from "./formWindows/FilterFormColumn";
 import FilterImagePickerColumn from "./FilterImagePickerColumn";
+import StyledButton from "../../components/StyledButton";
+import ImageFilteringForm from "../../model/ImageFilteringForm";
 
 const FilteringDialog = () => {
   const selectedImages = useSelector(selectSelectedImages);
@@ -30,39 +28,46 @@ const FilteringDialog = () => {
   );
   const dispatch = useDispatch();
 
+  const handleDialogClose = () => {
+    dispatch(setDialogToOpen(undefined));
+    dispatch(setImageFilteringForm(new ImageFilteringForm()));
+  }
+
   return (
     <StyledDialog
       open={dialogToOpen}
-      onClose={() => dispatch(setDialogToOpen(undefined))}
+      onClose={handleDialogClose}
     >
-      <DialogTitle style={{ display: "flex", justifyContent: "center", padding: "16px" }}>
-        Use Google's location service?
-      </DialogTitle>
-      <DialogContent>
+      <StyledDialogTitle>
+        Képek szűrése
+      </StyledDialogTitle>
+      <DialogContent sx={{padding: "0px"}}>
         <StyledDialogContentHolder>
           <FilterSelectionColumn />
           <FilterFormColumn />
           <FilterImagePickerColumn />
         </StyledDialogContentHolder>
       </DialogContent>
-      <DialogActions>
-        <Button
-          /** TODO: Replace button with styled button */
-          onClick={() => {
-            dispatch(setDialogToOpen(undefined));
-          }}
-        >
-          Disagree
-        </Button>
-        <Button
-          /** TODO: Replace button with styled button */
-          onClick={() => {
-            dispatch(setSelectedImage([...selectedImages, 0]));
-            dispatch(setDialogToOpen(undefined));
-          }}
-        >
-          Agree
-        </Button>
+      <DialogActions sx={{padding: "0px"}}>
+        <StyledActionsHolder>
+          <StyledButton
+            buttonText={FilteringDialogTexts.DisagreeButtonText}
+            buttonColor="primary"
+            buttonVariant="outlined"
+            onClick={handleDialogClose}
+          />
+          <StyledButton
+            buttonText={FilteringDialogTexts.AgreeButtonText}
+            isDisabled={true}
+            buttonColor="primary"
+            buttonVariant="outlined"
+            onClick={() => {
+              /** TODO: Do something with this. */
+              dispatch(setSelectedImage([...selectedImages, 0]));
+              dispatch(setDialogToOpen(undefined));
+            }}
+          />
+        </StyledActionsHolder>
       </DialogActions>
     </StyledDialog>
   );
@@ -74,14 +79,23 @@ const StyledDialog = styled(Dialog)<{}>((props) => ({
   "& .MuiPaper-root": {
     ...StyledFullWidthAndHeight(),
     maxWidth: "80%",
-    maxHeight: "70%",
+    maxHeight: "80%",
     borderRadius: "16px",
-    padding: "12px",
-    //flexWrap: "wrap",
-  },
+    padding: "24px",
+  }
 }));
 
-const StyledDialogContentHolder = styled(StyledComponentGap)<{}>((props) => ({
-  gap: "24px",
+const StyledDialogTitle = styled(DialogTitle)<{}>(() => ({
+  display: "flex", 
+  justifyContent: "center", 
+  padding: "16px",
+}));
+
+const StyledDialogContentHolder = styled(StyledComponentGap)<{}>(() => ({
+  gap: "16px",
   ...StyledFullWidthAndHeight(),
+}));
+
+const StyledActionsHolder = styled(StyledComponentGap)<{}>(() => ({
+  paddingTop: "16px"
 }));
