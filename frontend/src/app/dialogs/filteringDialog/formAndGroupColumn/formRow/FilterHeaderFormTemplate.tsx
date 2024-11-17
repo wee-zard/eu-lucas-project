@@ -23,18 +23,12 @@ type DisplayingForm = {
 };
 
 const FilterHeaderFormTemplate = () => {
+  const listOfCreationYears = useCreationYearStorageInit();
+  const listOfCreationCountries = useCreationCountryStorageInit();
+  const listOfCreationDirections = useCreationDirectionStorageInit();
   const selectedFilterTab = useSelector(selectSelectedFilterTab);
   const [componentToRender, setComponentToRender] = useState<DisplayingForm>();
   const defaultFilterformGroup: FilterFormGroups = {selectedFilterTab: selectedFilterTab};
-
-  const listOfCreationYears = useCreationYearStorageInit();
-  const selectedYearOptions = listOfCreationYears.map((obj) => obj.year.toString());
-
-  const listOfCreationCountries = useCreationCountryStorageInit();
-  const selectedCountryOptions = listOfCreationCountries.map((obj) => `(${obj.countryCode}) ${obj.countryName}`);
-
-  const listOfCreationDirections = useCreationDirectionStorageInit();
-  const selectedDirectionOptions = listOfCreationDirections.map((obj) => obj.directionName);
 
   const handleInitOfComponentToRender = () => {
     if (selectedFilterTab.toString()) {
@@ -45,7 +39,7 @@ const FilterHeaderFormTemplate = () => {
             filteringFormTemplate: [
               {
                 inputTitle: "Év",
-                options: selectedYearOptions.sort(),
+                options: listOfCreationYears.map((obj) => obj.year.toString()).sort(),
                 inputKey: FilteringFormInputKeys.SelectInput,
               },
               {
@@ -61,7 +55,7 @@ const FilterHeaderFormTemplate = () => {
             filteringFormTemplate: [
               {
                 inputTitle: "Ország",
-                options: selectedCountryOptions.sort(),
+                options: listOfCreationCountries.map((obj) => `(${obj.countryCode}) ${obj.countryName}`).sort(),
                 inputKey: FilteringFormInputKeys.SelectInput,
               },
               {
@@ -84,7 +78,7 @@ const FilterHeaderFormTemplate = () => {
             filteringFormTemplate: [
               {
                 inputTitle: "Irány",
-                options: selectedDirectionOptions.sort(),
+                options: listOfCreationDirections.map((obj) => obj.directionName).sort(),
                 inputKey: FilteringFormInputKeys.SelectInput,
               },
               {

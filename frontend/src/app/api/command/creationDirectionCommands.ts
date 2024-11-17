@@ -1,9 +1,10 @@
 import { getLocalStorageItem } from "../../helper/localStorageUtil";
-import { NotificationSeverity, throwNotification } from "../../helper/notificationUtil";
-import CreationCountryDto from "../../model/CreationCountryDto";
+import {
+  NotificationSeverity,
+  throwNotification,
+} from "../../helper/notificationUtil";
 import CreationDirectionDto from "../../model/CreationDirectionDto";
 import {
-    BackendCreationCountryControllerEndpoints,
   BackendCreationDirectionControllerEndpoints,
   LocalStorageKeys,
   ServersToConnectTo,
@@ -14,7 +15,10 @@ export const getCreationDirections = async () => {
   try {
     const authToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
     if (!authToken) {
-      throwNotification(NotificationSeverity.Error, "Error! Authentication token is not found!");
+      throwNotification(
+        NotificationSeverity.Error,
+        "Error! Authentication token is not found!"
+      );
       return null;
     }
     const response = await getCommand(
@@ -30,7 +34,10 @@ export const getCreationDirections = async () => {
     const listOfCreationYears: CreationDirectionDto[] = response.data;
     return listOfCreationYears;
   } catch (error) {
-    throwNotification(NotificationSeverity.Error, "Error while executing the fetch of Directions!");
+    throwNotification(
+      NotificationSeverity.Error,
+      "Error while executing the fetch of Directions!"
+    );
     return null;
   }
 };
