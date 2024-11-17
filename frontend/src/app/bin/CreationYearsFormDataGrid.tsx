@@ -1,8 +1,8 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import { columns, rows } from "../../../../global/globalGridColDefs";
-import { StyledTextHolder } from "../../selectionColumn/FilterSelectionColumn";
+import { columns, rows } from "../global/globalGridColDefs";
+import { StyledTextHolder } from "../dialogs/filteringDialog/selectionColumn/FilterSelectionColumn";
 
 const CreationYearsFormDataGrid = () => {
   // TODO: Implemnet a data grid! https://mui.com/x/react-data-grid/
