@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { CreationYearConsts } from "../consts/creationYearConsts";
 import { getCreationYears } from "../../api/command/creationYearCommands";
-import CreationYearDto from "../../model/CreationYearDto";
+import CreationYearDto from "../../model/dto/CreationYearDto";
 
 export const setCreationYearRequest = () => {
   return {

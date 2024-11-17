@@ -7,6 +7,10 @@ import { selectListOfCreationCountry } from "../redux/selectors/creationCountryS
 import { requestCreationCountries } from "../redux/actions/creationCountryActions";
 import { selectListOfCreationDirection } from "../redux/selectors/creationDirectionSelecor";
 import { requestCreationDirectiones } from "../redux/actions/creationDirectionActions";
+import { selectListOfCoordinateX } from "../redux/selectors/coordinateXSelector";
+import { requestCoordinateXList } from "../redux/actions/coordinateXActions";
+import { selectListOfCoordinateY } from "../redux/selectors/coordinateYSelector";
+import { requestCoordinateYList } from "../redux/actions/coordinateYActions";
 
 export const useCreationYearStorageInit = () => {
   const list = useSelector(selectListOfCreationYears);
@@ -43,6 +47,34 @@ export const useCreationDirectionStorageInit = () => {
   useEffect(() => {
     if (list.length === 0) {
       requestCreationDirectiones(dispatch);
+    }
+    // eslint-disable-next-line
+  }, [list]);
+
+  return list;
+};
+
+export const useCoordinateXStorageInit = () => {
+  const list = useSelector(selectListOfCoordinateX);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (list.length === 0) {
+      requestCoordinateXList(dispatch);
+    }
+    // eslint-disable-next-line
+  }, [list]);
+
+  return list;
+};
+
+export const useCoordinateYStorageInit = () => {
+  const list = useSelector(selectListOfCoordinateY);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (list.length === 0) {
+      requestCoordinateYList(dispatch);
     }
     // eslint-disable-next-line
   }, [list]);

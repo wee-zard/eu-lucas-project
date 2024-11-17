@@ -1,6 +1,6 @@
 import { getLocalStorageItem } from "../../helper/localStorageUtil";
 import { NotificationSeverity, throwNotification } from "../../helper/notificationUtil";
-import CreationCountryDto from "../../model/CreationCountryDto";
+import CreationCountryDto from "../../model/dto/CreationCountryDto";
 import {
     BackendCreationCountryControllerEndpoints,
   LocalStorageKeys,

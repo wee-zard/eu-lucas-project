@@ -1,6 +1,6 @@
 import { UnknownAction } from "redux";
-import CreationCountryDto from "../../model/CreationCountryDto";
-import { CreationCountryConsts } from "../consts/creationCountryConts";
+import CreationCountryDto from "../../model/dto/CreationCountryDto";
+import { CreationCountryConsts } from "../consts/creationCountryConsts";
 
 interface CreationCountryType {
   isCreationCountryLoading: boolean;

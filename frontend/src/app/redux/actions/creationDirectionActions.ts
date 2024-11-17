@@ -1,6 +1,6 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { CreationDirectionConsts } from "../consts/creationDirectionConsts";
-import CreationDirectionDto from "../../model/CreationDirectionDto";
+import CreationDirectionDto from "../../model/dto/CreationDirectionDto";
 import { getCreationDirections } from "../../api/command/creationDirectionCommands";
 
 export const setCreationDirectionRequest = () => {

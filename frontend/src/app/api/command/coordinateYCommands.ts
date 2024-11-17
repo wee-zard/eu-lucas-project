@@ -3,15 +3,15 @@ import {
   NotificationSeverity,
   throwNotification,
 } from "../../helper/notificationUtil";
-import CreationDirectionDto from "../../model/dto/CreationDirectionDto";
+import CoordinateYDto from "../../model/dto/CoordinateYDto";
 import {
-  BackendCreationDirectionControllerEndpoints,
+  BackendCoordinateYControllerEndpoints,
   LocalStorageKeys,
   ServersToConnectTo,
 } from "../../model/enum";
 import { getCommand } from "../handler/requestHandler";
 
-export const getCreationDirections = async () => {
+export const getCoordinateYList = async () => {
   try {
     const authToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
     if (!authToken) {
@@ -23,7 +23,7 @@ export const getCreationDirections = async () => {
     }
     const response = await getCommand(
       ServersToConnectTo.Backend,
-      BackendCreationDirectionControllerEndpoints.GetCreationDirections,
+      BackendCoordinateYControllerEndpoints.GetCoordinateYList,
       {},
       authToken
     );
@@ -31,12 +31,12 @@ export const getCreationDirections = async () => {
       throwNotification(NotificationSeverity.Error, response.data.message);
       return null;
     }
-    const listOfCreationYears: CreationDirectionDto[] = response.data;
+    const listOfCreationYears: CoordinateYDto[] = response.data;
     return listOfCreationYears;
   } catch (error) {
     throwNotification(
       NotificationSeverity.Error,
-      "Error while executing the fetch of Directions!"
+      "Error while executing the fetch of y coordinates!"
     );
     return null;
   }

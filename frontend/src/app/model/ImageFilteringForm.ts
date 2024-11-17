@@ -1,4 +1,4 @@
-import CreationYearDto from "./CreationYearDto";
+import CreationYearDto from "./dto/CreationYearDto";
 
 /**
  * It is not used!

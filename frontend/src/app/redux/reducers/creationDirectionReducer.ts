@@ -1,5 +1,5 @@
 import { UnknownAction } from "redux";
-import CreationDirectionDto from "../../model/CreationDirectionDto";
+import CreationDirectionDto from "../../model/dto/CreationDirectionDto";
 import { CreationDirectionConsts } from "../consts/creationDirectionConsts";
 
 interface CreationDirectionType {

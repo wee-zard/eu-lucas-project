@@ -4,6 +4,8 @@ import dialogReducer from "./reducers/dialogReducer";
 import creationYearReducer from "./reducers/creationYearReducer";
 import creationCountryReducer from "./reducers/creationCountryReducer";
 import creationDirectionReducer from "./reducers/creationDirectionReducer";
+import coordinateXReducer from "./reducers/coordinateXReducer";
+import coordinateYReducer from "./reducers/coordinateYReducer";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ const store = configureStore({
     creationYearStore: creationYearReducer,
     creationCountryStore: creationCountryReducer,
     creationDirectionStore: creationDirectionReducer,
+    coordinateXStore: coordinateXReducer,
+    coordinateYStore: coordinateYReducer,
   },
 });
 

@@ -1,5 +1,5 @@
 import { getLocalStorageItem } from "../../helper/localStorageUtil";
-import CreationYearDto from "../../model/CreationYearDto";
+import CreationYearDto from "../../model/dto/CreationYearDto";
 import {
   BackendCreationYearControllerEndpoints,
   LocalStorageKeys,

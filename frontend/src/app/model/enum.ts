@@ -24,6 +24,14 @@ export enum BackendCreationDirectionControllerEndpoints {
   GetCreationDirections = "/api/direction/get-creation-direction",
 }
 
+export enum BackendCoordinateXControllerEndpoints {
+  GetCoordinateXList = "/api/coordinate-x/get-coordinate-x",
+}
+
+export enum BackendCoordinateYControllerEndpoints {
+  GetCoordinateYList = "/api/coordinate-y/get-coordinate-y",
+}
+
 /**
  * Stores the backend endpoints in one place.
  */
@@ -31,7 +39,10 @@ export type BackendControllerEndpointTypes =
   BackendUserControllerEndpoints
   | BackendCreationYearControllerEndpoints
   | BackendCreationCountryControllerEndpoints
-  | BackendCreationDirectionControllerEndpoints;
+  | BackendCreationDirectionControllerEndpoints
+  | BackendCoordinateXControllerEndpoints
+  | BackendCoordinateYControllerEndpoints
+  ;
 
 /**
  * Stores the Lucas-image-server endpoints in one place.
@@ -116,6 +127,7 @@ export enum FormLogicalExpressions {
 
 export enum FilteringFormInputKeys {
   SelectInput = "Select Input",
+  SelectInputSecond = "Select Input Second",
   OperatorInput = "Operator Input",
   TextfieldInput = "Textfield Input",
 }

@@ -1,6 +1,6 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { CreationCountryConsts } from "../consts/creationCountryConts";
-import CreationCountryDto from "../../model/CreationCountryDto";
+import { CreationCountryConsts } from "../consts/creationCountryConsts";
+import CreationCountryDto from "../../model/dto/CreationCountryDto";
 import { getCreationCountries } from "../../api/command/creationCountryCommands";
 
 export const setCreationCountryRequest = () => {

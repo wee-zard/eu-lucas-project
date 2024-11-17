@@ -13,7 +13,7 @@ import {
   FilteringFormInputKeys,
 } from "../../../../model/enum";
 import { FilterFormGroups } from "../../../../model/FilterFormComponents";
-import { useCreationCountryStorageInit, useCreationDirectionStorageInit, useCreationYearStorageInit } from "../../../../hooks/useStorageInit";
+import { useCoordinateXStorageInit, useCoordinateYStorageInit, useCreationCountryStorageInit, useCreationDirectionStorageInit, useCreationYearStorageInit } from "../../../../hooks/useStorageInit";
 import { operatorSpecificItems } from "../../../../helper/filterFormUtils";
 import { FilterFormTemplate } from "../../../../model/FilterFormTemplate";
 
@@ -26,6 +26,8 @@ const FilterHeaderFormTemplate = () => {
   const listOfCreationYears = useCreationYearStorageInit();
   const listOfCreationCountries = useCreationCountryStorageInit();
   const listOfCreationDirections = useCreationDirectionStorageInit();
+  const listOfCoordinateX = useCoordinateXStorageInit();
+  const listOfCoordinateY = useCoordinateYStorageInit();
   const selectedFilterTab = useSelector(selectSelectedFilterTab);
   const [componentToRender, setComponentToRender] = useState<DisplayingForm>();
   const defaultFilterformGroup: FilterFormGroups = {selectedFilterTab: selectedFilterTab};
@@ -68,16 +70,44 @@ const FilterHeaderFormTemplate = () => {
         [FilterDialogFilterOptions.XCoordinates]: () =>
           setComponentToRender({
             title: "Kép X koordinátái",
-
-            /** TODO: ... */
-            filteringFormTemplate: [],
+            filteringFormTemplate: [
+              {
+                inputTitle: "X Koordináta (alsó határ)",
+                options: listOfCoordinateX.map((obj) => obj.coordinateX.toString()).sort(),
+                inputKey: FilteringFormInputKeys.SelectInput,
+              },
+              {
+                inputTitle: "Operáció",
+                options: operatorSpecificItems.sort(),
+                inputKey: FilteringFormInputKeys.OperatorInput,
+              },
+              {
+                inputTitle: "X Koordináta (felső határ)",
+                options: listOfCoordinateX.map((obj) => obj.coordinateX.toString()).sort(),
+                inputKey: FilteringFormInputKeys.SelectInputSecond,
+              },
+            ],
           }),
         [FilterDialogFilterOptions.YCoordinates]: () =>
           setComponentToRender({
             title: "Kép Y koordinátái",
-
-            /** TODO: ... */
-            filteringFormTemplate: [],
+            filteringFormTemplate: [
+              {
+                inputTitle: "Y Koordináta (alsó határ)",
+                options: listOfCoordinateY.map((obj) => obj.coordinateY.toString()).sort(),
+                inputKey: FilteringFormInputKeys.SelectInput,
+              },
+              {
+                inputTitle: "Operáció",
+                options: operatorSpecificItems.sort(),
+                inputKey: FilteringFormInputKeys.OperatorInput,
+              },
+              {
+                inputTitle: "Y Koordináta (felső határ)",
+                options: listOfCoordinateY.map((obj) => obj.coordinateY.toString()).sort(),
+                inputKey: FilteringFormInputKeys.SelectInputSecond,
+              },
+            ],
           }),
         [FilterDialogFilterOptions.Direction]: () =>
           setComponentToRender({

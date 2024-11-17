@@ -1,5 +1,5 @@
 import { UnknownAction } from "redux";
-import CreationYearDto from "../../model/CreationYearDto";
+import CreationYearDto from "../../model/dto/CreationYearDto";
 import { CreationYearConsts } from "../consts/creationYearConsts";
 
 interface CreationYearType {

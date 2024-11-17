@@ -49,6 +49,9 @@ const FilterHeaderFormDisplayer = ({
           ...filterFormComponent,
           operatorInput: value as OperatorItems,
         }),
+      /** TODO: ... */
+      [FilteringFormInputKeys.SelectInputSecond]: () => null,
+      /** TODO: ... */
       [FilteringFormInputKeys.TextfieldInput]: () => null,
     });
     handler[key].call(() => null);
@@ -57,7 +60,10 @@ const FilterHeaderFormDisplayer = ({
   return (
     <StyledComponentGap display={"grid"} gap={"8px"}>
       <StyledComponentGap gap={"8px"}>
-        {filteringFormTemplate.map((obj, index) => (
+        {filteringFormTemplate.map((obj, index) => 
+        (obj.inputKey === FilteringFormInputKeys.SelectInput 
+          || obj.inputKey === FilteringFormInputKeys.OperatorInput) &&
+        (
           <StyledInputHolder key={index}>
             <StyledSelectComponent
               inputTitle={obj.inputTitle}
