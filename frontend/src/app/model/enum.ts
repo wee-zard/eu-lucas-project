@@ -78,7 +78,7 @@ export enum FilteringDialogTexts {
   AgreeButtonText = "Mentés",
 }
 
-export enum FilterDialogFilterOptions{
+export enum FilterDialogFilterOptions {
   Year = "Év",
   Country = "Ország",
   XCoordinates = "X Koordináta",

@@ -30,16 +30,6 @@ public class ImageEntity {
     @Column(name = "image_name", nullable = false, columnDefinition = "TEXT", length = 50)
     private String imageName;
     /**
-     * The longitude circle of the gps.
-     */
-    @Column(name = "gps_longitude_circle", nullable = false, length = 3)
-    private int gpsLongitudeCircle;
-    /**
-     * The latitude circle of the gps.
-     */
-    @Column(name = "gps_latitude_circle", nullable = false, length = 3)
-    private int gpsLatitudeCircle;
-    /**
      * The direction where the image was taken.
      */
     @ManyToOne
@@ -57,17 +47,29 @@ public class ImageEntity {
     @ManyToOne
     @JoinColumn(name = "year")
     private CreationYearEntity year;
+    /**
+     * The X coordinate of the image from where it was taken.
+     */
+    @ManyToOne
+    @JoinColumn(name = "coordinate_x")
+    private CoordinateXEntity coordinateX;
+    /**
+     * The Y coordinate of the image from where it was taken.
+     */
+    @ManyToOne
+    @JoinColumn(name = "coordinate_y")
+    private CoordinateYEntity coordinateY;
 
     @Override
     public String toString() {
-        return "Image{" +
+        return "ImageEntity{" +
                 "id=" + id +
                 ", imageName='" + imageName + '\'' +
-                ", gpsLongitudeCircle=" + gpsLongitudeCircle +
-                ", gpsLatitudeCircle=" + gpsLatitudeCircle +
                 ", direction=" + direction +
                 ", country=" + country +
                 ", year=" + year +
+                ", coordinateX=" + coordinateX +
+                ", coordinateY=" + coordinateY +
                 '}';
     }
 }

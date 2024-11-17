@@ -19,7 +19,7 @@ const StyledListItemButton = ({ listItem }: Props) => {
 
   return (
     <ListItemHolder
-      sx={{ height: "60px" }}
+      sx={{ height: "48px" }}
       selected={selectedFilterTab === listItem.name}
       onClick={() => dispatch(setSelectedFilterTab(listItem.name))}
     >

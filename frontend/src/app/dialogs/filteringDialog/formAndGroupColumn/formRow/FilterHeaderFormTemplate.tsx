@@ -138,7 +138,11 @@ const FilterHeaderFormTemplate = () => {
               filteringFormTemplate={componentToRender?.filteringFormTemplate}
             />
           ) : (
-            <React.Fragment>
+            <React.Fragment
+              /** TODO: Remove later, when every element is implemented
+               * in the above section.
+               */
+            >
               {componentToRender?.title} will be implemented here...
             </React.Fragment>
           )}

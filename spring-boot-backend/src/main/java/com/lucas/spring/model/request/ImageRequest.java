@@ -13,14 +13,14 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ImageRequest {
-    public int year;
-    public String countryCode;
-    public String countryName;
-    public int latitude;
-    public int longitude;
-    public String imageName;
-    public String directionName;
-    public ArrayList<ExifDataModel> exifData;
+    private int year;
+    private String countryCode;
+    private String countryName;
+    private Integer coordinateX;
+    private Integer coordinateY;
+    private String imageName;
+    private String directionName;
+    private ArrayList<ExifDataModel> exifData;
 
     @Override
     public String toString() {
@@ -28,8 +28,8 @@ public class ImageRequest {
                 "year=" + year +
                 ", countryCode='" + countryCode + '\'' +
                 ", countryName='" + countryName + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
+                ", latitude=" + coordinateX +
+                ", longitude=" + coordinateY +
                 ", imageName='" + imageName + '\'' +
                 ", directionName='" + directionName + '\'' +
                 ", exifData=" + exifData +

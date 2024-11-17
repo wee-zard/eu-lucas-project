@@ -3,39 +3,44 @@ package com.lucas.spring.services.facade.impl;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.request.ImageRequest;
 import com.lucas.spring.services.facade.ImageFacadeService;
-import com.lucas.spring.services.service.CreationCountryService;
-import com.lucas.spring.services.service.CreationDirectionService;
 import com.lucas.spring.services.service.CreationYearService;
+import com.lucas.spring.services.service.CreationDirectionService;
+import com.lucas.spring.services.service.CreationCountryService;
+import com.lucas.spring.services.service.CoordinateXService;
+import com.lucas.spring.services.service.CoordinateYService;
 import com.lucas.spring.services.service.ImageService;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
 public class ImageFacadeServiceImpl implements ImageFacadeService {
-    private CreationYearService creationYearService;
-    private CreationDirectionService creationDirectionService;
-    private CreationCountryService creationCountryService;
-    private ImageService imageService;
+    private final CreationYearService creationYearService;
+    private final CreationDirectionService creationDirectionService;
+    private final CreationCountryService creationCountryService;
+    private final CoordinateXService coordinateXService;
+    private final CoordinateYService coordinateYService;
+    private final ImageService imageService;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Optional<ImageEntity> getImageEntity(ImageRequest imageRequest) {
-        if(!imageService.isImageNameAlreadyExists(imageRequest.imageName)) {
+        if(!imageService.isImageNameAlreadyExists(imageRequest.getImageName())) {
             creationYearService.isCreationYearIncludedInTheDb(imageRequest.getYear());
             creationDirectionService.isCreationDirectionIncludedInTheDd(imageRequest.getDirectionName());
             creationCountryService.isCreationDirectionIncludedInTheDb(imageRequest.getCountryCode(), imageRequest.getCountryName());
+            coordinateXService.isCoordinateXIncludedInTheDb(imageRequest.getCoordinateX());
+            coordinateYService.isCoordinateYIncludedInTheDb(imageRequest.getCoordinateY());
             return Optional.ofNullable(imageService.saveImage(
                 ImageEntity
                     .builder()
                     .imageName(imageRequest.getImageName())
-                    .gpsLongitudeCircle(imageRequest.getLongitude())
-                    .gpsLatitudeCircle(imageRequest.getLatitude())
+                    .coordinateY(coordinateYService.getCoordinateY(imageRequest.getCoordinateY()))
+                    .coordinateX(coordinateXService.getCoordinateX(imageRequest.getCoordinateX()))
                     .direction(creationDirectionService.getCreationDirection(imageRequest.getDirectionName()))
                     .country(creationCountryService.getCreationCountry(imageRequest.getCountryCode()))
                     .year(creationYearService.getCreationYear(imageRequest.getYear()))
