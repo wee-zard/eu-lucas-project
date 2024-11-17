@@ -65,9 +65,16 @@ const FilterHeaderFormTemplate = () => {
               },
             ],
           }),
-        [FilterDialogFilterOptions.Coordinates]: () =>
+        [FilterDialogFilterOptions.XCoordinates]: () =>
           setComponentToRender({
-            title: "Kép koordinátái",
+            title: "Kép X koordinátái",
+
+            /** TODO: ... */
+            filteringFormTemplate: [],
+          }),
+        [FilterDialogFilterOptions.YCoordinates]: () =>
+          setComponentToRender({
+            title: "Kép Y koordinátái",
 
             /** TODO: ... */
             filteringFormTemplate: [],

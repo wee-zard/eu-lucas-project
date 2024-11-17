@@ -16,7 +16,8 @@ import { FilterDialogFilterOptions } from "../../../model/enum";
 export const listItemOptions: ListItemModel[] = [
   { name: FilterDialogFilterOptions.Year, icon: <AccessTimeIcon /> },
   { name: FilterDialogFilterOptions.Country, icon: <LanguageIcon /> },
-  { name: FilterDialogFilterOptions.Coordinates, icon: <PlaceIcon /> },
+  { name: FilterDialogFilterOptions.XCoordinates, icon: <PlaceIcon /> },
+  { name: FilterDialogFilterOptions.YCoordinates, icon: <PlaceIcon /> },
   { name: FilterDialogFilterOptions.Direction, icon: <ExploreIcon /> },
   { name: FilterDialogFilterOptions.ExifData, icon: <DataObjectIcon /> },
   { name: FilterDialogFilterOptions.Plant, icon: <GrassIcon /> },

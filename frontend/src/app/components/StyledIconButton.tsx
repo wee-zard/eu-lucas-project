@@ -17,9 +17,11 @@ const StyledIconButton = ({
 }: Props) => {
   return (
     <Tooltip title={tooltopTitle} placement="top">
-      <IconButton onClick={onClick} disabled={isDisabled}>
-        {buttonIcon}
-      </IconButton>
+      <span>
+        <IconButton onClick={onClick} disabled={isDisabled}>
+          {buttonIcon}
+        </IconButton>
+      </span>
     </Tooltip>
   );
 };

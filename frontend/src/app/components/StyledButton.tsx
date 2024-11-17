@@ -32,17 +32,19 @@ const StyledButton = ({
 }: Props) => {
   return (
     <Tooltip title={tooltopTitle} placement="top">
-      <CustomButtonDesign
-        variant={buttonVariant}
-        color={buttonColor}
-        onClick={onClick}
-        disabled={isDisabled}
-      >
-        <CustomComponentGap>
-          { buttonIcon ? <StyledIconHolder>{buttonIcon}</StyledIconHolder> : null }
-          <div>{buttonText}</div>
-        </CustomComponentGap>
-      </CustomButtonDesign>
+      <span>
+        <CustomButtonDesign
+          variant={buttonVariant}
+          color={buttonColor}
+          onClick={onClick}
+          disabled={isDisabled}
+        >
+          <CustomComponentGap>
+            { buttonIcon ? <StyledIconHolder>{buttonIcon}</StyledIconHolder> : null }
+            <div>{buttonText}</div>
+          </CustomComponentGap>
+        </CustomButtonDesign>
+      </span>
     </Tooltip>
   );
 };

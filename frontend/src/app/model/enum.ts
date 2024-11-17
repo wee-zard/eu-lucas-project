@@ -81,7 +81,8 @@ export enum FilteringDialogTexts {
 export enum FilterDialogFilterOptions{
   Year = "Év",
   Country = "Ország",
-  Coordinates = "Koordináta",
+  XCoordinates = "X Koordináta",
+  YCoordinates = "Y Koordináta",
   Direction = "Készítés iránya",
   ExifData = "Exif adat",
   Plant = "Növények",
