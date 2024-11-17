@@ -22,8 +22,21 @@ export const windowBorders = () => {
   };
 };
 
-/**
- * TODO: Implement a custom scrollbar and add that bar to different components.
- * https://www.geeksforgeeks.org/how-to-create-a-custom-scrollbar-using-css/ 
- * https://stackoverflow.com/questions/53772429/material-ui-how-can-i-style-the-scrollbar-with-css-in-js 
- */
+export type ScrollBarProps = {
+  width: string,
+}
+
+export const customScrollBar = (obj?: ScrollBarProps) => ({
+  '::-webkit-scrollbar': {
+    width: obj?.width ?? '5px',
+  },
+  '::-webkit-scrollbar-track': {
+    '-webkit-box-shadow': 'inset 0 0 6px rgba(0, 0, 50, 0.35)',
+    borderRadius: "12px",
+  },
+  '::-webkit-scrollbar-thumb': {
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    outline: '1px solid gray',
+    borderRadius: "12px",
+  }
+});

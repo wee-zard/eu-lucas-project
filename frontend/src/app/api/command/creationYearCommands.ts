@@ -1,14 +1,15 @@
-import { getAuthToken } from "../../helper/localStorageUtil";
+import { getLocalStorageItem } from "../../helper/localStorageUtil";
 import CreationYearDto from "../../model/CreationYearDto";
 import {
   BackendCreationYearControllerEndpoints,
+  LocalStorageKeys,
   ServersToConnectTo,
 } from "../../model/enum";
 import { getCommand } from "../handler/requestHandler";
 
 export const getCreationYears = async () => {
   try {
-    const authToken = getAuthToken();
+    const authToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
     if (!authToken) {
       return null;
     }

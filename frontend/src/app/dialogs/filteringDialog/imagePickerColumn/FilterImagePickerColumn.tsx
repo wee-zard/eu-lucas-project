@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { windowBorders } from "../../global/globalStyles";
+import { windowBorders } from "../../../global/globalStyles";
 
 const FilterImagePickerColumn = () => {
   return (
     <StyledDialogColumnHolder>
-      123123
+      xcycyxcxy
     </StyledDialogColumnHolder>
   );
 };

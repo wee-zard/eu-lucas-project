@@ -2,7 +2,7 @@ import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import { columns, rows } from "../../../../global/globalGridColDefs";
-import { StyledTextHolder } from "../../FilterSelectionColumn";
+import { StyledTextHolder } from "../../selectionColumn/FilterSelectionColumn";
 
 const CreationYearsFormDataGrid = () => {
   // TODO: Implemnet a data grid! https://mui.com/x/react-data-grid/
@@ -23,6 +23,7 @@ const CreationYearsFormDataGrid = () => {
             },
           }}
           pageSizeOptions={[5]}
+          //density={"compact"}
           disableRowSelectionOnClick
           disableAutosize
           disableColumnResize

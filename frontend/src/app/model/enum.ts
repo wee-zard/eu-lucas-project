@@ -16,12 +16,22 @@ export enum BackendCreationYearControllerEndpoints {
   GetCreationYears = "/api/year/get-creation-years",
 }
 
+export enum BackendCreationCountryControllerEndpoints {
+  GetCreationCountries = "/api/country/get-creation-countries",
+}
+
+export enum BackendCreationDirectionControllerEndpoints {
+  GetCreationDirections = "/api/direction/get-creation-direction",
+}
+
 /**
  * Stores the backend endpoints in one place.
  */
 export type BackendControllerEndpointTypes = 
   BackendUserControllerEndpoints
-  | BackendCreationYearControllerEndpoints;
+  | BackendCreationYearControllerEndpoints
+  | BackendCreationCountryControllerEndpoints
+  | BackendCreationDirectionControllerEndpoints;
 
 /**
  * Stores the Lucas-image-server endpoints in one place.
@@ -45,6 +55,7 @@ export enum ServersToConnectTo {
 
 export enum LocalStorageKeys {
   GoogleOAuthToken = "google_oauth_token",
+  NotificationColor = "toolpad-mode",
 }
 
 export enum ScreenUrls {
@@ -73,8 +84,37 @@ export enum FilterDialogFilterOptions{
   Coordinates = "Koordináta",
   Direction = "Készítés iránya",
   ExifData = "Exif adat",
+  Plant = "Növények",
+  Algorith = "Algoritmus",
 }
 
 export enum DialogToOpens {
   FilteringDialog = "Filtering Dialog",
+}
+
+export enum OperatorSpecificItems {
+  Equals = "equals",
+  DoesNotEqual = "does not equal",
+}
+
+export enum OperatorNonSpecificItems {
+  Contains = "contains",
+  DoesNotContain = "does not contain",
+  StartsWith = "starts with",
+  EndsWith = "ends with",
+  IsEmpty = "is empty",
+  IsNotEmpty = "is not empty",
+  IsAnyOf = "is any of",
+}
+
+export enum FormLogicalExpressions {
+  And = "And",
+  Or = "Or",
+  Not = "Not",
+}
+
+export enum FilteringFormInputKeys {
+  SelectInput = "Select Input",
+  OperatorInput = "Operator Input",
+  TextfieldInput = "Textfield Input",
 }

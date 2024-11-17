@@ -2,12 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import imageReducer from "./reducers/imageReducer";
 import dialogReducer from "./reducers/dialogReducer";
 import creationYearReducer from "./reducers/creationYearReducer";
+import creationCountryReducer from "./reducers/creationCountryReducer";
+import creationDirectionReducer from "./reducers/creationDirectionReducer";
 
 const store = configureStore({
   reducer: {
     imageStore: imageReducer,
     dialogStore: dialogReducer,
     creationYearStore: creationYearReducer,
+    creationCountryStore: creationCountryReducer,
+    creationDirectionStore: creationDirectionReducer,
   },
 });
 

@@ -1,5 +1,6 @@
 import { FilterDialogFilterOptions } from "../../model/enum";
-import ImageFilteringForm from "../../model/ImageFilteringForm";
+import { FilterFormDataGrid } from "../../model/FilterFormComponents";
+import { ImageFilteringForm } from "../../model/ImageFilteringForm";
 import { ImageConsts } from "../consts/imageConsts";
 
 export const setSelectedImage = (data: number[]) => {
@@ -16,9 +17,16 @@ export const setSelectedFilterTab = (data: FilterDialogFilterOptions) => {
   };
 };
 
-export const setImageFilteringForm = (data: ImageFilteringForm) => {
+export const setImageFilteringForm = (data?: ImageFilteringForm) => {
   return {
     type: ImageConsts.SET_IMAGE_FILTERING_FORM,
+    payload: data,
+  };
+};
+
+export const setFilterFormDatagrid = (data: FilterFormDataGrid) => {
+  return {
+    type: ImageConsts.SET_FILTER_FORM_DATA_GRID,
     payload: data,
   };
 };

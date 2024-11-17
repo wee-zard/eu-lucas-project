@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/scheduler")
 @AllArgsConstructor
-public final class SchedulerController {
+public class SchedulerController {
   @GetMapping("/get-scheduler-properties")
   public String getSchedulerProperties() {
     return "";

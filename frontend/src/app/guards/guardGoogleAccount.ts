@@ -1,10 +1,11 @@
 import { jwtDecode } from "jwt-decode";
+import { getLocalStorageItem, removeLocalStorageItem } from "../helper/localStorageUtil";
+import { LocalStorageKeys } from "../model/enum";
 import { googleLogout } from "@react-oauth/google";
-import { getAuthToken, removeAuthToken } from "../helper/localStorageUtil";
 
 export const guardGoogleAccount = () => {
   const isGoogleAccountProvided = () => {
-    const googleOAuthToken = getAuthToken();
+    const googleOAuthToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
     if (googleOAuthToken) {
       const decoded = jwtDecode(googleOAuthToken);
       const currentTime = Math.floor(new Date().getTime()/1000);
@@ -16,12 +17,12 @@ export const guardGoogleAccount = () => {
       ) {
         return true;
       } else {
-        removeAuthToken();
+        removeLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
         googleLogout();
         /** TODO: User failed upon token validation! displaying error message */
       }
     } else {
-      removeAuthToken();
+      removeLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
       googleLogout();
       /** TODO: User failed upon token validation! displaying error message */
     }

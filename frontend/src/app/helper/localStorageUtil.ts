@@ -1,19 +1,19 @@
 import { LocalStorageKeys } from "../model/enum";
 
-export const getAuthToken = () => {
-  const token = localStorage.getItem(LocalStorageKeys.GoogleOAuthToken);
-  if (token) {
-    return token;
+export const getLocalStorageItem = (key: LocalStorageKeys) => {
+  const item = localStorage.getItem(key);
+  if (item) {
+    return item;
   } else {
     /** TODO: Implement error handle here */
     console.error("Error! Authentication token is not found!");
   }
 };
 
-export const setAuthToken = (token: string) => {
-  localStorage.setItem(LocalStorageKeys.GoogleOAuthToken, token);
+export const setLocalStorageItem = (item: string, key: LocalStorageKeys) => {
+  localStorage.setItem(key, item);
 };
 
-export const removeAuthToken = () => {
-  localStorage.removeItem(LocalStorageKeys.GoogleOAuthToken);
+export const removeLocalStorageItem = (key: LocalStorageKeys) => {
+  localStorage.removeItem(key);
 }

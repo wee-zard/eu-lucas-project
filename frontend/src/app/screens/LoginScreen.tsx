@@ -3,7 +3,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { LocalStorageKeys, ScreenUrls } from "../model/enum";
 import { redirectToUrl } from "../providers/RedirectionProvider";
 import { validateEmailAddress } from "../api/command/userCommands";
-import { getAuthToken } from "../helper/localStorageUtil";
+import { getLocalStorageItem } from "../helper/localStorageUtil";
 
 const LoginScreen = () => {
 
@@ -12,7 +12,7 @@ const LoginScreen = () => {
   };
 
   useEffect(() => {
-    const credential = getAuthToken();
+    const credential = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
     if (credential) {
       /**
        * If user has a Google OAuth Cookie, then redirect to the Lucas site.

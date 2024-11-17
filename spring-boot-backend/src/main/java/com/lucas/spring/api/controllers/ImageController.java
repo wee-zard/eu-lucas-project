@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/image")
 @AllArgsConstructor
-public final class ImageController {
+public class ImageController {
   private final ImageFacadeService imageFacadeService;
   private final ExifFacadeService exifFacadeService;
 

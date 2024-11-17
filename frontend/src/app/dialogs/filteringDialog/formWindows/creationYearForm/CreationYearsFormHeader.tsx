@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useCreationYearStorageInit } from "../../../../hooks/useStorageInit";
 import Slider from "@mui/material/Slider";
 import { Mark } from "@mui/material/Slider/useSlider.types";
-import { StyledTextHolder } from "../../FilterSelectionColumn";
+import { StyledTextHolder } from "../../selectionColumn/FilterSelectionColumn";
 import styled from "@emotion/styled";
 import StyledButton from "../../../../components/StyledButton";
 import { FilteringDialogTexts } from "../../../../model/enum";
@@ -14,7 +14,7 @@ import { selectImageFilteringForm } from "../../../../redux/selectors/imageSelec
 
 const CreationYearsFormHeader = () => {
   const getYearsMark = (): Mark[] => {
-    const filteredListOfCreationYears = listOfCreationYears.filter((yearObj) =>
+    const filteredListOfCreationYears = listOfCreationYears.filter((yearObj) => imageFilteringForm &&
       imageFilteringForm.creationYearForm.every(
         (yearForm) => yearObj.year !== yearForm.year
       )
@@ -59,15 +59,17 @@ const CreationYearsFormHeader = () => {
     if (!selectedCreationYear) {
       return;
     }
-    dispatch(
-      setImageFilteringForm({
-        ...imageFilteringForm,
-        creationYearForm: [
-          ...imageFilteringForm.creationYearForm,
-          selectedCreationYear,
-        ],
-      })
-    );
+    if (imageFilteringForm) {
+      dispatch(
+        setImageFilteringForm({
+          ...imageFilteringForm,
+          creationYearForm: [
+            ...imageFilteringForm.creationYearForm,
+            selectedCreationYear,
+          ],
+        })
+      );
+    }
   };
 
   return (

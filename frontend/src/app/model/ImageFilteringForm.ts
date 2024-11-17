@@ -1,11 +1,12 @@
 import CreationYearDto from "./CreationYearDto";
 
-export default class ImageFilteringForm {
-    constructor(
-        public creationYearForm: CreationYearDto[] = [],
-        public creationCountryForm: any[] = [],
-        public coordinateForm: any[] = [],
-        public creationDirectionForm: any[] = [],
-        public exifDataForm: any[] = [],
-    ) {}
+/**
+ * It is not used!
+ */
+export type ImageFilteringForm = {
+    creationYearForm: CreationYearDto[],
+    creationCountryForm: CreationYearDto[],
+    coordinateForm: CreationYearDto[],
+    creationDirectionForm: CreationYearDto[],
+    exifDataForm: CreationYearDto[],
 }

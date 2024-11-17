@@ -15,11 +15,10 @@ import styled from "@emotion/styled";
 import { setImageFilteringForm, setSelectedImage } from "../../redux/actions/imageActions";
 import { selectSelectedImages } from "../../redux/selectors/imageSelector";
 import { StyledComponentGap, StyledFullWidthAndHeight } from "../../global/globalStyles";
-import FilterSelectionColumn from "./FilterSelectionColumn";
-import FilterFormColumn from "./formWindows/FilterFormColumn";
-import FilterImagePickerColumn from "./FilterImagePickerColumn";
+import FilterSelectionColumn from "./selectionColumn/FilterSelectionColumn";
 import StyledButton from "../../components/StyledButton";
-import ImageFilteringForm from "../../model/ImageFilteringForm";
+import FilterImagePickerColumn from "./imagePickerColumn/FilterImagePickerColumn";
+import FilterFormAndGroupColumn from "./formAndGroupColumn/FilterFormAndGroupColumn";
 
 const FilteringDialog = () => {
   const selectedImages = useSelector(selectSelectedImages);
@@ -30,7 +29,7 @@ const FilteringDialog = () => {
 
   const handleDialogClose = () => {
     dispatch(setDialogToOpen(undefined));
-    dispatch(setImageFilteringForm(new ImageFilteringForm()));
+    dispatch(setImageFilteringForm(undefined));
   }
 
   return (
@@ -44,7 +43,7 @@ const FilteringDialog = () => {
       <DialogContent sx={{padding: "0px"}}>
         <StyledDialogContentHolder>
           <FilterSelectionColumn />
-          <FilterFormColumn />
+          <FilterFormAndGroupColumn />
           <FilterImagePickerColumn />
         </StyledDialogContentHolder>
       </DialogContent>
