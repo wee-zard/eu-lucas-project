@@ -1,8 +1,9 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import {
   FormLogicalExpressions,
-  OperatorNonSpecificItems,
-  OperatorSpecificItems,
+  OperatorTextfieldItems,
+  OperatorSelectItems,
+  OperatorComperableItems,
 } from "../model/enum";
 import {
   FilterFormDataGrid,
@@ -12,11 +13,16 @@ import {
 import { setFilterFormDatagrid } from "../redux/actions/imageActions";
 import { NotificationSeverity, throwNotification } from "./notificationUtil";
 
-export const operatorSpecificItems = Object.values(OperatorSpecificItems);
+export const operatorSelectItems = Object.values(OperatorSelectItems);
 
-export const operatorNonSpecificItems = [
-  operatorSpecificItems,
-  ...Object.values(OperatorNonSpecificItems),
+export const operatorComparableItems = [
+  ...operatorSelectItems,
+  ...Object.values(OperatorComperableItems)
+];
+
+export const operatorTextfieldItems = [
+  ...operatorSelectItems,
+  ...Object.values(OperatorTextfieldItems),
 ];
 
 export const initFilterFormDataGrid: FilterFormDataGrid = {

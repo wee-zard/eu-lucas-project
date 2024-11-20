@@ -12,25 +12,26 @@ import {
   OperatorItems,
 } from "../../../../model/FilterFormComponents";
 import { useSelector } from "react-redux";
-import { selectFilterFormDataGrid } from "../../../../redux/selectors/imageSelector";
+import { selectFilterFormDataGrid, selectSelectedFilterTab } from "../../../../redux/selectors/imageSelector";
 import { useDispatch } from "react-redux";
 import { saveFilterFormcomponent } from "../../../../helper/filterFormUtils";
 import { FilterFormTemplate } from "../../../../model/FilterFormTemplate";
 
 type Props = {
-  defaultFilterFormGroup: FilterFormGroups;
   filteringFormTemplate: FilterFormTemplate[];
 };
 
 const FilterHeaderFormDisplayer = ({
-  defaultFilterFormGroup,
   filteringFormTemplate,
 }: Props) => {
   const dispatch = useDispatch();
   const filterFormDataGrid = useSelector(selectFilterFormDataGrid);
+  const selectedFilterTab = useSelector(selectSelectedFilterTab);
+  const defaultFilterFormGroup: FilterFormGroups = {
+    selectedFilterTab: selectedFilterTab,
+  };
 
-  const [filterFormComponent, setFilterFormComponent] =
-    useState<FilterFormGroups>(defaultFilterFormGroup);
+  const [filterFormComponent, setFilterFormComponent] = useState<FilterFormGroups>(defaultFilterFormGroup);
 
   const handleOnSubmit = () => {
     saveFilterFormcomponent(filterFormComponent, filterFormDataGrid, dispatch);
@@ -50,29 +51,35 @@ const FilterHeaderFormDisplayer = ({
           operatorInput: value as OperatorItems,
         }),
       /** TODO: ... */
-      [FilteringFormInputKeys.SelectInputSecond]: () => null,
-      /** TODO: ... */
       [FilteringFormInputKeys.TextfieldInput]: () => null,
     });
     handler[key].call(() => null);
   };
 
+  const renderStyledInput = (inputKey: FilteringFormInputKeys) => {
+    const obj = filteringFormTemplate.find(
+      (form) => form.inputKey === inputKey
+    );
+    const formInputValue = Object.entries(filterFormComponent).find(
+      (pair) => pair[0] === obj?.inputKey
+    )?.[1]?.toString();
+    return obj ? (
+      <StyledInputHolder>
+        <StyledSelectComponent
+          inputTitle={obj.inputTitle}
+          options={obj.options}
+          inputValue={formInputValue ?? ""}
+          setValue={(value) => handleValueChanges(obj.inputKey, value)}
+        />
+      </StyledInputHolder>
+    ) : null;
+  };
+
   return (
     <StyledComponentGap display={"grid"} gap={"8px"}>
       <StyledComponentGap gap={"8px"}>
-        {filteringFormTemplate.map((obj, index) => 
-        (obj.inputKey === FilteringFormInputKeys.SelectInput 
-          || obj.inputKey === FilteringFormInputKeys.OperatorInput) &&
-        (
-          <StyledInputHolder key={index}>
-            <StyledSelectComponent
-              inputTitle={obj.inputTitle}
-              options={obj.options}
-              inputValue={filterFormComponent.selectInput}
-              setValue={(value) => handleValueChanges(obj.inputKey, value)}
-            />
-          </StyledInputHolder>
-        ))}
+        {renderStyledInput(FilteringFormInputKeys.SelectInput)}
+        {renderStyledInput(FilteringFormInputKeys.OperatorInput)}
       </StyledComponentGap>
       <StyledButtonHolder>
         <StyledButton

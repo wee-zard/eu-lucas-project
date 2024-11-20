@@ -1,26 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 type Props = {
   inputTitle?: string;
-  options?: string[];
+  options: string[];
   inputValue?: string;
   setValue: (value: string) => void;
 };
 
 const StyledSelectComponent = ({
-  inputTitle = "Age",
-  options = [],
-  inputValue = "",
+  inputTitle,
+  options,
+  inputValue,
   setValue,
 }: Props) => {
-
-  const [componentValue, setComponentValue] = useState("");
-
   const handleSelectionProcess = (event: any) => {
     const selectedOption = event.target.value ?? "";
     setValue(selectedOption);
-    setComponentValue(selectedOption);
   };
 
   const ITEM_HEIGHT = 48;
@@ -33,15 +29,15 @@ const StyledSelectComponent = ({
     },
   };
 
-  useEffect(() => {
-    setComponentValue(inputValue);
-  }, [inputValue])
+  const getInputValue = () => {
+    return inputValue && options.includes(inputValue, 0) ? inputValue : "";
+  }
 
   return (
     <FormControl fullWidth>
       <InputLabel>{inputTitle}</InputLabel>
       <Select 
-        value={componentValue} 
+        value={getInputValue()} 
         label={inputTitle}
         MenuProps={MenuProps}
         onChange={handleSelectionProcess}

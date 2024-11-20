@@ -13,8 +13,17 @@ import {
   FilteringFormInputKeys,
 } from "../../../../model/enum";
 import { FilterFormGroups } from "../../../../model/FilterFormComponents";
-import { useCoordinateXStorageInit, useCoordinateYStorageInit, useCreationCountryStorageInit, useCreationDirectionStorageInit, useCreationYearStorageInit } from "../../../../hooks/useStorageInit";
-import { operatorSpecificItems } from "../../../../helper/filterFormUtils";
+import {
+  useCoordinateXStorageInit,
+  useCoordinateYStorageInit,
+  useCreationCountryStorageInit,
+  useCreationDirectionStorageInit,
+  useCreationYearStorageInit,
+} from "../../../../hooks/useStorageInit";
+import {
+  operatorComparableItems,
+  operatorSelectItems,
+} from "../../../../helper/filterFormUtils";
 import { FilterFormTemplate } from "../../../../model/FilterFormTemplate";
 
 type DisplayingForm = {
@@ -30,9 +39,8 @@ const FilterHeaderFormTemplate = () => {
   const listOfCoordinateY = useCoordinateYStorageInit();
   const selectedFilterTab = useSelector(selectSelectedFilterTab);
   const [componentToRender, setComponentToRender] = useState<DisplayingForm>();
-  const defaultFilterformGroup: FilterFormGroups = {selectedFilterTab: selectedFilterTab};
 
-  const handleInitOfComponentToRender = () => {
+  useEffect(() => {
     if (selectedFilterTab.toString()) {
       const handler = Object.freeze({
         [FilterDialogFilterOptions.Year]: () =>
@@ -41,12 +49,14 @@ const FilterHeaderFormTemplate = () => {
             filteringFormTemplate: [
               {
                 inputTitle: "Év",
-                options: listOfCreationYears.map((obj) => obj.year.toString()).sort(),
+                options: listOfCreationYears
+                  .map((obj) => obj.year.toString())
+                  .sort(),
                 inputKey: FilteringFormInputKeys.SelectInput,
               },
               {
                 inputTitle: "Operáció",
-                options: operatorSpecificItems.sort(),
+                options: operatorSelectItems.sort(),
                 inputKey: FilteringFormInputKeys.OperatorInput,
               },
             ],
@@ -57,12 +67,14 @@ const FilterHeaderFormTemplate = () => {
             filteringFormTemplate: [
               {
                 inputTitle: "Ország",
-                options: listOfCreationCountries.map((obj) => `(${obj.countryCode}) ${obj.countryName}`).sort(),
+                options: listOfCreationCountries
+                  .map((obj) => `(${obj.countryCode}) ${obj.countryName}`)
+                  .sort(),
                 inputKey: FilteringFormInputKeys.SelectInput,
               },
               {
                 inputTitle: "Operáció",
-                options: operatorSpecificItems.sort(),
+                options: operatorSelectItems.sort(),
                 inputKey: FilteringFormInputKeys.OperatorInput,
               },
             ],
@@ -72,19 +84,16 @@ const FilterHeaderFormTemplate = () => {
             title: "Kép X koordinátái",
             filteringFormTemplate: [
               {
-                inputTitle: "X Koordináta (alsó határ)",
-                options: listOfCoordinateX.map((obj) => obj.coordinateX.toString()).sort(),
+                inputTitle: "X Koordináta",
+                options: listOfCoordinateX
+                  .sort()
+                  .map((obj) => obj.coordinateX.toString()),
                 inputKey: FilteringFormInputKeys.SelectInput,
               },
               {
                 inputTitle: "Operáció",
-                options: operatorSpecificItems.sort(),
+                options: operatorComparableItems.sort(),
                 inputKey: FilteringFormInputKeys.OperatorInput,
-              },
-              {
-                inputTitle: "X Koordináta (felső határ)",
-                options: listOfCoordinateX.map((obj) => obj.coordinateX.toString()).sort(),
-                inputKey: FilteringFormInputKeys.SelectInputSecond,
               },
             ],
           }),
@@ -93,19 +102,16 @@ const FilterHeaderFormTemplate = () => {
             title: "Kép Y koordinátái",
             filteringFormTemplate: [
               {
-                inputTitle: "Y Koordináta (alsó határ)",
-                options: listOfCoordinateY.map((obj) => obj.coordinateY.toString()).sort(),
+                inputTitle: "Y Koordináta",
+                options: listOfCoordinateY
+                  .sort()
+                  .map((obj) => obj.coordinateY.toString()),
                 inputKey: FilteringFormInputKeys.SelectInput,
               },
               {
                 inputTitle: "Operáció",
-                options: operatorSpecificItems.sort(),
+                options: operatorComparableItems.sort(),
                 inputKey: FilteringFormInputKeys.OperatorInput,
-              },
-              {
-                inputTitle: "Y Koordináta (felső határ)",
-                options: listOfCoordinateY.map((obj) => obj.coordinateY.toString()).sort(),
-                inputKey: FilteringFormInputKeys.SelectInputSecond,
               },
             ],
           }),
@@ -115,12 +121,14 @@ const FilterHeaderFormTemplate = () => {
             filteringFormTemplate: [
               {
                 inputTitle: "Irány",
-                options: listOfCreationDirections.map((obj) => obj.directionName).sort(),
+                options: listOfCreationDirections
+                  .map((obj) => obj.directionName)
+                  .sort(),
                 inputKey: FilteringFormInputKeys.SelectInput,
               },
               {
                 inputTitle: "Operáció",
-                options: operatorSpecificItems.sort(),
+                options: operatorSelectItems.sort(),
                 inputKey: FilteringFormInputKeys.OperatorInput,
               },
             ],
@@ -149,11 +157,8 @@ const FilterHeaderFormTemplate = () => {
       });
       handler[selectedFilterTab].call(() => null);
     }
-  };
-
-  useEffect(() => {
-    handleInitOfComponentToRender();
-  }, [selectedFilterTab]);
+  // eslint-disable-next-line
+  }, [selectedFilterTab, listOfCreationYears]);
 
   return (
     <StyledDialogColumnHolder>
@@ -162,16 +167,16 @@ const FilterHeaderFormTemplate = () => {
       </StyledFormHeaderHolder>
       <StyledFormHeaderHolder display={"flow"}>
         <CustomComponentGap>
-          {componentToRender && componentToRender.filteringFormTemplate.length > 0 ? (
+          {componentToRender &&
+          componentToRender.filteringFormTemplate.length > 0 ? (
             <FilterHeaderFormDisplayer
-              defaultFilterFormGroup={defaultFilterformGroup}
               filteringFormTemplate={componentToRender?.filteringFormTemplate}
             />
           ) : (
             <React.Fragment
-              /** TODO: Remove later, when every element is implemented
-               * in the above section.
-               */
+            /** TODO: Remove later, when every element is implemented
+             * in the above section.
+             */
             >
               {componentToRender?.title} will be implemented here...
             </React.Fragment>

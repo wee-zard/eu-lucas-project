@@ -104,12 +104,12 @@ export enum DialogToOpens {
   FilteringDialog = "Filtering Dialog",
 }
 
-export enum OperatorSpecificItems {
-  Equals = "equals",
-  DoesNotEqual = "does not equal",
+export enum OperatorSelectItems {
+  Equals = "= (egyenlő)",
+  DoesNotEqual = "!= (nem egyenlő)",
 }
 
-export enum OperatorNonSpecificItems {
+export enum OperatorTextfieldItems {
   Contains = "contains",
   DoesNotContain = "does not contain",
   StartsWith = "starts with",
@@ -119,6 +119,13 @@ export enum OperatorNonSpecificItems {
   IsAnyOf = "is any of",
 }
 
+export enum OperatorComperableItems {
+  Contains = "< (kisebb)",
+  DoesNotContain = "<= (kisebb egyenlő)",
+  StartsWith = "> (nagyobb)",
+  EndsWith = ">= (nagyobb egyenlő)",
+}
+
 export enum FormLogicalExpressions {
   And = "And",
   Or = "Or",
@@ -126,8 +133,7 @@ export enum FormLogicalExpressions {
 }
 
 export enum FilteringFormInputKeys {
-  SelectInput = "Select Input",
-  SelectInputSecond = "Select Input Second",
-  OperatorInput = "Operator Input",
-  TextfieldInput = "Textfield Input",
+  SelectInput = "selectInput",
+  OperatorInput = "operatorInput",
+  TextfieldInput = "textFieldInput",
 }

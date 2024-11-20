@@ -22,18 +22,18 @@ create table tb_coordinate_x (
 	coordinate_x int(3) not null primary key
 );
 
-create table tb_coordinate_Y (
+create table tb_coordinate_y (
 	coordinate_y int(3) not null primary key
 );
 
 create table tb_image (
 	id bigint AUTO_INCREMENT PRIMARY KEY,
 	image_name varchar(50) not null,
-	coordinate_x int(3) not null,
-	coordinate_y int(3) not null,
 	country_code varchar(2) not null,
 	year int(4) not null,
 	direction_name varchar(20) not null,
+	coordinate_x int(3) not null,
+	coordinate_y int(3) not null,
 	foreign key(country_code) references tb_creation_country(country_code),
 	foreign key(year) references tb_creation_year(year),
 	foreign key(direction_name) references tb_creation_direction(direction_name),

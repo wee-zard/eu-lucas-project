@@ -1,11 +1,12 @@
 import {
   FilterDialogFilterOptions,
   FormLogicalExpressions,
-  OperatorNonSpecificItems,
-  OperatorSpecificItems,
+  OperatorTextfieldItems,
+  OperatorSelectItems,
+  OperatorComperableItems,
 } from "./enum";
 
-export type OperatorItems = OperatorSpecificItems | OperatorNonSpecificItems;
+export type OperatorItems = OperatorSelectItems | OperatorTextfieldItems | OperatorComperableItems;
 
 export type FilterFormDataGrid = {
   filterFormGroups: FilterFormGroups[];
