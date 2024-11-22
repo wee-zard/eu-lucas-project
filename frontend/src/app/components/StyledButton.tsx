@@ -38,6 +38,7 @@ const StyledButton = ({
           color={buttonColor}
           onClick={onClick}
           disabled={isDisabled}
+          type="submit"
         >
           <CustomComponentGap>
             { buttonIcon ? <StyledIconHolder>{buttonIcon}</StyledIconHolder> : null }

@@ -6,6 +6,7 @@ import creationCountryReducer from "./reducers/creationCountryReducer";
 import creationDirectionReducer from "./reducers/creationDirectionReducer";
 import coordinateXReducer from "./reducers/coordinateXReducer";
 import coordinateYReducer from "./reducers/coordinateYReducer";
+import exifKeyReducer from "./reducers/exifKeyReducer";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     creationDirectionStore: creationDirectionReducer,
     coordinateXStore: coordinateXReducer,
     coordinateYStore: coordinateYReducer,
+    exifKeyStore: exifKeyReducer,
   },
 });
 

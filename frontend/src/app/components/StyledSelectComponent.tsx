@@ -34,7 +34,7 @@ const StyledSelectComponent = ({
   }
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth required>
       <InputLabel>{inputTitle}</InputLabel>
       <Select 
         value={getInputValue()} 

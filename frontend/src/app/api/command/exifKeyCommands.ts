@@ -2,15 +2,15 @@ import {
   NotificationSeverity,
   throwNotification,
 } from "../../helper/notificationUtil";
-import CreationDirectionDto from "../../model/dto/CreationDirectionDto";
+import ExifKeyDto from "../../model/dto/ExifKeyDto";
 import {
-  BackendCreationDirectionControllerEndpoints,
+  BackendExifKeyControllerEndpoints,
   ServersToConnectTo,
 } from "../../model/enum";
 import { getAuthToken } from "../handler/requestAuthToken";
 import { getCommand } from "../handler/requestHandler";
 
-export const getCreationDirections = async () => {
+export const getExifKeyList = async () => {
   try {
     const authToken = getAuthToken();
     if (!authToken) {
@@ -18,7 +18,7 @@ export const getCreationDirections = async () => {
     }
     const response = await getCommand(
       ServersToConnectTo.Backend,
-      BackendCreationDirectionControllerEndpoints.GetCreationDirections,
+      BackendExifKeyControllerEndpoints.GetExifKeyList,
       {},
       authToken
     );
@@ -26,12 +26,12 @@ export const getCreationDirections = async () => {
       throwNotification(NotificationSeverity.Error, response.data.message);
       return null;
     }
-    const listOfCreationYears: CreationDirectionDto[] = response.data;
+    const listOfCreationYears: ExifKeyDto[] = response.data;
     return listOfCreationYears;
   } catch (error) {
     throwNotification(
       NotificationSeverity.Error,
-      "Error while executing the fetch of Directions!"
+      "Error while executing the fetch of exif keys!"
     );
     return null;
   }

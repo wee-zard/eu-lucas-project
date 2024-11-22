@@ -19,10 +19,12 @@ import {
   useCreationCountryStorageInit,
   useCreationDirectionStorageInit,
   useCreationYearStorageInit,
+  useExifKeyStorageInit,
 } from "../../../../hooks/useStorageInit";
 import {
   operatorComparableItems,
   operatorSelectItems,
+  operatorTextfieldItems,
 } from "../../../../helper/filterFormUtils";
 import { FilterFormTemplate } from "../../../../model/FilterFormTemplate";
 
@@ -37,6 +39,7 @@ const FilterHeaderFormTemplate = () => {
   const listOfCreationDirections = useCreationDirectionStorageInit();
   const listOfCoordinateX = useCoordinateXStorageInit();
   const listOfCoordinateY = useCoordinateYStorageInit();
+  const listOfExifKeys = useExifKeyStorageInit();
   const selectedFilterTab = useSelector(selectSelectedFilterTab);
   const [componentToRender, setComponentToRender] = useState<DisplayingForm>();
 
@@ -136,9 +139,22 @@ const FilterHeaderFormTemplate = () => {
         [FilterDialogFilterOptions.ExifData]: () =>
           setComponentToRender({
             title: "Kép exif adatai",
-
-            /** TODO: ... */
-            filteringFormTemplate: [],
+            filteringFormTemplate: [
+              {
+                inputTitle: "Exif kulcs",
+                options: listOfExifKeys.map((obj) => obj.exifKeyName).sort(),
+                inputKey: FilteringFormInputKeys.SelectInput,
+              },
+              {
+                inputTitle: "Operáció",
+                options: operatorTextfieldItems.sort(),
+                inputKey: FilteringFormInputKeys.OperatorInput,
+              },
+              {
+                inputTitle: "Exif érték",
+                inputKey: FilteringFormInputKeys.TextfieldInput,
+              },
+            ],
           }),
         [FilterDialogFilterOptions.Plant]: () =>
           setComponentToRender({
@@ -157,7 +173,7 @@ const FilterHeaderFormTemplate = () => {
       });
       handler[selectedFilterTab].call(() => null);
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [selectedFilterTab, listOfCreationYears]);
 
   return (

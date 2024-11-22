@@ -1,18 +1,19 @@
-import { getLocalStorageItem } from "../../helper/localStorageUtil";
-import { NotificationSeverity, throwNotification } from "../../helper/notificationUtil";
+import {
+  NotificationSeverity,
+  throwNotification,
+} from "../../helper/notificationUtil";
 import CreationCountryDto from "../../model/dto/CreationCountryDto";
 import {
-    BackendCreationCountryControllerEndpoints,
-  LocalStorageKeys,
+  BackendCreationCountryControllerEndpoints,
   ServersToConnectTo,
 } from "../../model/enum";
+import { getAuthToken } from "../handler/requestAuthToken";
 import { getCommand } from "../handler/requestHandler";
 
 export const getCreationCountries = async () => {
   try {
-    const authToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
+    const authToken = getAuthToken();
     if (!authToken) {
-      throwNotification(NotificationSeverity.Error, "Error! Authentication token is not found!");
       return null;
     }
     const response = await getCommand(
@@ -28,7 +29,10 @@ export const getCreationCountries = async () => {
     const listOfCreationYears: CreationCountryDto[] = response.data;
     return listOfCreationYears;
   } catch (error) {
-    throwNotification(NotificationSeverity.Error, "Error while executing the fetch of creation Countries!");
+    throwNotification(
+      NotificationSeverity.Error,
+      "Error while executing the fetch of creation Countries!"
+    );
     return null;
   }
 };

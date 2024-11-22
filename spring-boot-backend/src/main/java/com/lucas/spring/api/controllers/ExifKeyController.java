@@ -1,8 +1,8 @@
 package com.lucas.spring.api.controllers;
 
 import com.lucas.spring.helper.annotations.token.TokenValidation;
-import com.lucas.spring.model.entity.CreationYearEntity;
-import com.lucas.spring.services.service.CreationYearService;
+import com.lucas.spring.model.entity.ExifKeyEntity;
+import com.lucas.spring.services.service.ExifKeyService;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Stores the endpoints related to the creation year.
+ * Stores the endpoints related to the exif keys.
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "api/year")
-public class CreationYearController {
-  private final CreationYearService creationYearService;
+@RequestMapping(path = "api/exif-key")
+public class ExifKeyController {
+  private final ExifKeyService exifKeyService;
 
   @CrossOrigin
   @TokenValidation
-  @GetMapping("/get-creation-years")
-  public ArrayList<CreationYearEntity> getCreationYears(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication
+  @GetMapping
+  public ArrayList<ExifKeyEntity> getCreationYears(
+      @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication
   ) {
-    return creationYearService.getCreationYears();
+    return exifKeyService.getExifKeys();
   }
 }

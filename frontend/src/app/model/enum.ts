@@ -32,6 +32,10 @@ export enum BackendCoordinateYControllerEndpoints {
   GetCoordinateYList = "/api/coordinate-y/get-coordinate-y",
 }
 
+export enum BackendExifKeyControllerEndpoints {
+  GetExifKeyList = "/api/exif-key",
+}
+
 /**
  * Stores the backend endpoints in one place.
  */
@@ -42,6 +46,7 @@ export type BackendControllerEndpointTypes =
   | BackendCreationDirectionControllerEndpoints
   | BackendCoordinateXControllerEndpoints
   | BackendCoordinateYControllerEndpoints
+  | BackendExifKeyControllerEndpoints
   ;
 
 /**

@@ -1,4 +1,3 @@
-import { getLocalStorageItem } from "../../helper/localStorageUtil";
 import {
   NotificationSeverity,
   throwNotification,
@@ -6,19 +5,15 @@ import {
 import CoordinateXDto from "../../model/dto/CoordinateXDto";
 import {
   BackendCoordinateXControllerEndpoints,
-  LocalStorageKeys,
   ServersToConnectTo,
 } from "../../model/enum";
+import { getAuthToken } from "../handler/requestAuthToken";
 import { getCommand } from "../handler/requestHandler";
 
 export const getCoordinateXList = async () => {
   try {
-    const authToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
+    const authToken = getAuthToken();
     if (!authToken) {
-      throwNotification(
-        NotificationSeverity.Error,
-        "Error! Authentication token is not found!"
-      );
       return null;
     }
     const response = await getCommand(
