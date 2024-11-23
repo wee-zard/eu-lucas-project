@@ -3,6 +3,8 @@ package com.lucas.spring.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +21,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "PlantName")
 @Table(name = "tb_plant_name")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class PlantNameEntity {
+  public static final int PLANT_NAME_LENGTH = 200;
   @Id
-  @Column(name = "plant_scientific_name", length = 200, nullable = false, columnDefinition = "TEXT")
+  @Column(name = "plant_scientific_name", length = PLANT_NAME_LENGTH, nullable = false, columnDefinition = "TEXT")
   private String plantScientificName;
 }

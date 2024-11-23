@@ -53,23 +53,23 @@ create table tb_plant_common_name (
 );
 
 create table tb_plant_species (
-	plant_species_name varchar(200) PRIMARY KEY,
-	foreign key(plant_species_name) references tb_plant_name(plant_scientific_name)
+	plant_scientific_name varchar(200) PRIMARY KEY,
+	foreign key(plant_scientific_name) references tb_plant_name(plant_scientific_name)
 );
 
-create table tb_plant_type (
-	plant_name varchar(200) PRIMARY KEY,
+create table tb_plant (
+	plant_scientific_name varchar(200) PRIMARY KEY,
 	is_plant_invasive TINYINT(1) not null,
 	plant_species_name varchar(200) null,
-	foreign key(plant_name) references tb_plant_name(plant_scientific_name),
-	foreign key(plant_species_name) references tb_plant_species(plant_species_name)
+	foreign key(plant_scientific_name) references tb_plant_name(plant_scientific_name),
+	foreign key(plant_species_name) references tb_plant_species(plant_scientific_name)
 );
 
 create table tb_plant_in_image (
 	image_plant_name varchar(200) not null,
 	image_id bigint not null,
 	foreign key(image_id) references tb_image(id),
-	foreign key(image_plant_name) references tb_plant_type(plant_name),
+	foreign key(image_plant_name) references tb_plant(plant_scientific_name),
 	PRIMARY KEY(image_plant_name, image_id)
 );
 
@@ -118,6 +118,52 @@ create table tb_user_admin (
 	foreign key(user_admin_id) references tb_user_root(user_id)
 );
 
+create table tb_procedure (
+	prodecure_id bigint PRIMARY KEY,
+	prodecure_name varchar(200) not null,
+	proceduer_init_user_id bigint not null,
+	foreign key(proceduer_init_user_id) references tb_user_root(user_id)
+);
+
+create table tb_procedure_log (
+	prodecure_log_id bigint PRIMARY KEY,
+	prodecure_id bigint not null,
+	creation_time datetime not null,
+	image_to_analyse bigint not null,
+	proceduer_log_init_user_id bigint not null,
+	foreign key(proceduer_log_init_user_id) references tb_user_root(user_id),
+	foreign key(prodecure_id) references tb_procedure(prodecure_id),
+	foreign key(image_to_analyse) references tb_image(id)
+);
+
+create table tb_procedure_log_params (
+	prodecure_log_id bigint not null,
+	procedure_param_name varchar(50) not null,
+	foreign key(prodecure_log_id) references tb_procedure_log(prodecure_log_id),
+	PRIMARY KEY(prodecure_log_id, procedure_param_name)
+);
+
+create table tb_bounding_box(
+	bounding_box_id bigint AUTO_INCREMENT PRIMARY KEY,
+	probability_of_detection int(3) null,
+	min_point point not null,
+	max_point point not null,
+	is_homogen TINYINT(1) not null,
+	plant_scientific_name varchar(200) not null,
+	image_to_analyse bigint not null,
+	prodecure_log_id bigint not null,
+	foreign key(prodecure_log_id) references tb_procedure_log(prodecure_log_id),
+	foreign key(image_to_analyse) references tb_image(id),
+	foreign key(plant_scientific_name) references tb_plant(plant_scientific_name)
+);
+
 INSERT INTO tb_status values(1, "Pending");
 INSERT INTO tb_status values(2, "Blocked");
 INSERT INTO tb_status values(3, "Activated");
+
+insert into tb_creation_year values(2008);
+insert into tb_creation_year values(2012);
+insert into tb_creation_year values(2015);
+insert into tb_creation_year values(2018);
+insert into tb_creation_year values(2021);
+insert into tb_creation_year values(2024);

@@ -7,9 +7,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-
-import lombok.*;
+import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @Builder
@@ -59,6 +65,9 @@ public class ImageEntity {
     @ManyToOne
     @JoinColumn(name = "coordinate_y")
     private CoordinateYEntity coordinateY;
+
+    @ManyToMany(mappedBy = "listOfImages")
+    private Set<PlantEntity> listOfPlants;
 
     @Override
     public String toString() {
