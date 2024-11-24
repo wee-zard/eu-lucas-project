@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   StyledComponentGap,
+  StyledScrollBarHolder,
   windowBorders,
 } from "../../../../global/globalStyles";
 import styled from "@emotion/styled";
@@ -12,7 +13,6 @@ import {
   FilterDialogFilterOptions,
   FilteringFormInputKeys,
 } from "../../../../model/enum";
-import { FilterFormGroups } from "../../../../model/FilterFormComponents";
 import {
   useCoordinateXStorageInit,
   useCoordinateYStorageInit,
@@ -205,9 +205,10 @@ const FilterHeaderFormTemplate = () => {
 
 export default FilterHeaderFormTemplate;
 
-const StyledDialogColumnHolder = styled.div<{}>((props) => ({
+const StyledDialogColumnHolder = styled(StyledScrollBarHolder)<{}>((props) => ({
   width: "100%",
   height: "100%",
+  maxHeight: "35%", /** This is the value that changes the hight of this component! */
   display: "flex",
   gap: "16px",
   flexDirection: "column",

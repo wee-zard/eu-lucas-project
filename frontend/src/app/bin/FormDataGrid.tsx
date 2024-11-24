@@ -1,11 +1,22 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import { columns, rows } from "../global/globalGridColDefs";
+import { columns, GridColumnRowDef } from "../global/globalGridColDefs";
 import { StyledTextHolder } from "../dialogs/filteringDialog/selectionColumn/FilterSelectionColumn";
+import { useSelector } from "react-redux";
+import { selectFilterFormDataGrid } from "../redux/selectors/imageSelector";
 
-const CreationYearsFormDataGrid = () => {
+const FormDataGrid = () => {
   // TODO: Implemnet a data grid! https://mui.com/x/react-data-grid/
+
+  const filterFormDataGrid = useSelector(selectFilterFormDataGrid);
+  const dataGridRows: GridColumnRowDef[] = filterFormDataGrid.filterFormGroups.map((form) => ({
+    id: form.inputFormId?.toString() ?? "",
+    key: form.selectInput ?? "",
+    operator: form.operatorInput ?? "",
+    value: form.textFieldInput ?? ""
+  }))
+
 
   return (
     <div>
@@ -13,7 +24,7 @@ const CreationYearsFormDataGrid = () => {
 
       <Box sx={{ height: 285, width: "100%" }}>
         <DataGrid
-          rows={rows}
+          rows={dataGridRows}
           columns={columns}
           initialState={{
             pagination: {
@@ -22,7 +33,7 @@ const CreationYearsFormDataGrid = () => {
               },
             },
           }}
-          pageSizeOptions={[5]}
+          //pageSizeOptions={[5]}
           //density={"compact"}
           disableRowSelectionOnClick
           disableAutosize
@@ -36,4 +47,4 @@ const CreationYearsFormDataGrid = () => {
   );
 };
 
-export default CreationYearsFormDataGrid;
+export default FormDataGrid;

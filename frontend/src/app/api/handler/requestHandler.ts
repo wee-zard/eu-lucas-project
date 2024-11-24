@@ -5,21 +5,6 @@ import { RootEndpoints, ServersToConnectTo } from "../../model/enum";
 const imageServerPath = process.env.REACT_APP_USE_IMAGE_SERVER_PATH ?? "";
 const backendServerPath = process.env.REACT_APP_USE_BACKEND ?? "";
 
-/*
-export const postRequest = (
-  rootServiceEndpoint: RootServiceEndpoints,
-  requestBody: unknown,
-  callback: (axiosResponse: CustomAxiosResponse) => void
-) => {
-  try {
-    axios.post(`${imageServerPath}${rootServiceEndpoint}`, {requestBody})
-    .then((res) => callback({res: res.data}));
-  } catch(err: unknown) {
-    callback({err: isAxiosError(err) ? err : null});
-  }
-};
-*/
-
 /**
  * @param serverToUse The server we want to connect to.
  * @returns Returns the url of the server we want to connect to.
@@ -77,19 +62,3 @@ export const getCommand = (
     },
   );
 };
-
-/*
-export const getRequestBackend = (
-  controller: BackendControllers,
-  backendControllerEndpoint: BackendControllerEndpointTypes,
-  requestBody: unknown,
-  callback: (axiosResponse: CustomAxiosResponse) => void
-) => {
-  try {
-    axios.get(`${backendServerPath}${controller}${backendControllerEndpoint}`)
-    .then((res) => callback({res: res.data}));
-  } catch(err: unknown) {
-    callback({err: isAxiosError(err) ? err : null});
-  }
-};
-*/

@@ -101,28 +101,26 @@ const FilterHeaderFormDisplayer = ({ filteringFormTemplate }: Props) => {
   };
 
   return (
-    <form onSubmit={handleOnSubmit}>
-      <StyledComponentGap display={"grid"} gap={"8px"}>
-        <StyledComponentGap gap={"8px"}>
-          {renderStyledInput(FilteringFormInputKeys.SelectInput)}
-          {renderStyledInput(FilteringFormInputKeys.OperatorInput)}
-        </StyledComponentGap>
-        {selectedFilterTab === FilterDialogFilterOptions.ExifData ? (
-          <StyledComponentGap gap={"8px"}>
-            {renderStyledInput(FilteringFormInputKeys.TextfieldInput)}
-          </StyledComponentGap>
-        ) : null}
-        <StyledButtonHolder>
-          <StyledButton
-            isDisabled={isSaveButtonDisabled}
-            buttonText={FilteringDialogTexts.AgreeButtonText}
-            buttonColor="success"
-            buttonVariant="outlined"
-            onClick={() => null}
-          />
-        </StyledButtonHolder>
+    <StyledComponentGap display={"grid"} gap={"8px"}>
+      <StyledComponentGap gap={"8px"}>
+        {renderStyledInput(FilteringFormInputKeys.SelectInput)}
+        {renderStyledInput(FilteringFormInputKeys.OperatorInput)}
       </StyledComponentGap>
-    </form>
+      {selectedFilterTab === FilterDialogFilterOptions.ExifData ? (
+        <StyledComponentGap gap={"8px"}>
+          {renderStyledInput(FilteringFormInputKeys.TextfieldInput)}
+        </StyledComponentGap>
+      ) : null}
+      <StyledButtonHolder>
+        <StyledButton
+          isDisabled={isSaveButtonDisabled}
+          buttonText={FilteringDialogTexts.AgreeButtonText}
+          buttonColor="success"
+          buttonVariant="outlined"
+          onClick={handleOnSubmit}
+        />
+      </StyledButtonHolder>
+    </StyledComponentGap>
   );
 };
 

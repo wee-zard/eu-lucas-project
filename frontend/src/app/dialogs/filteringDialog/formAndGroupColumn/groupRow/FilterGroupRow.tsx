@@ -1,18 +1,21 @@
 import styled from "@emotion/styled";
 import React from "react";
-import {windowBorders} from "../../../../global/globalStyles";
+import {StyledScrollBarHolder, windowBorders} from "../../../../global/globalStyles";
+import FormDataGrid from "../../../../bin/FormDataGrid";
 
 const FilterGroupRow = () => {
   return (
     <StyledDialogColumnHolder>
-      <StyledFormHeaderHolder>11111</StyledFormHeaderHolder>
+      <StyledFormHeaderHolder>
+        <FormDataGrid />
+      </StyledFormHeaderHolder>
     </StyledDialogColumnHolder>
   );
 };
 
 export default FilterGroupRow;
 
-const StyledDialogColumnHolder = styled.div<{}>((props) => ({
+const StyledDialogColumnHolder = styled(StyledScrollBarHolder)<{}>((props) => ({
   width: "100%",
   height: "100%",
   ...windowBorders(),

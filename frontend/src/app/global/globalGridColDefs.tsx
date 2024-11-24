@@ -1,30 +1,39 @@
 import { GridColDef } from "@mui/x-data-grid/models/colDef";
 
-export const columns: GridColDef<(typeof rows)[number]>[] = [
+export type GridColumnRowDef = {
+  id: string,
+  key: string,
+  operator: string,
+  value: string,
+};
+
+export const columns: GridColDef<(GridColumnRowDef)>[] = [
   {
     field: "id",
     headerName: "ID",
     width: 90,
+    flex: 1
   },
   {
-    field: "firstName",
-    headerName: "First name",
+    field: "key",
+    headerName: "Kulcs",
     width: 150,
-    editable: true,
+    editable: false,
   },
   {
-    field: "lastName",
-    headerName: "Last name",
+    field: "operator",
+    headerName: "Operáció",
     width: 150,
-    editable: true,
+    editable: false,
   },
   {
-    field: "age",
-    headerName: "Age",
-    type: "number",
+    field: "value",
+    headerName: "Érték",
+    //type: "number",
     width: 110,
-    editable: true,
+    editable: false,
   },
+  /*
   {
     field: "fullName",
     headerName: "Full name",
@@ -33,20 +42,5 @@ export const columns: GridColDef<(typeof rows)[number]>[] = [
     width: 160,
     valueGetter: (value, row) => `${row.firstName || ""} ${row.lastName || ""}`,
   },
-];
-
-export const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 14 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 31 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 31 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 11 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 10, lastName: "Roxie1", firstName: "Harvey", age: 65 },
-  { id: 11, lastName: "Roxie2", firstName: "Harvey", age: 65 },
-  { id: 12, lastName: "Roxie2", firstName: "Harvey", age: 65 },
-  { id: 13, lastName: "Roxie3", firstName: "Harvey", age: 65 },
+  */
 ];

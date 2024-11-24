@@ -40,3 +40,9 @@ export const customScrollBar = (obj?: ScrollBarProps) => ({
     borderRadius: "12px",
   }
 });
+
+export const StyledScrollBarHolder = styled.div<{}>((props) => ({
+  overflow: "auto",
+  overflowX: "hidden",
+  ...customScrollBar(),
+}));

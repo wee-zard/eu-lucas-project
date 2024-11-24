@@ -1,6 +1,6 @@
 export default class ExifKeyDto {
     constructor(
-        public exifCode: number,
+        public id: number,
         public exifKeyName: string,
     ){}
 }
