@@ -16,11 +16,13 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Data
 @Builder
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Image")
@@ -68,17 +70,4 @@ public class ImageEntity {
 
     @ManyToMany(mappedBy = "listOfImages")
     private Set<PlantEntity> listOfPlants;
-
-    @Override
-    public String toString() {
-        return "ImageEntity{" +
-                "id=" + id +
-                ", imageName='" + imageName + '\'' +
-                ", direction=" + direction +
-                ", country=" + country +
-                ", year=" + year +
-                ", coordinateX=" + coordinateX +
-                ", coordinateY=" + coordinateY +
-                '}';
-    }
 }

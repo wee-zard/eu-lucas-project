@@ -7,6 +7,7 @@ import com.lucas.spring.services.facade.UserFacade;
 import com.lucas.spring.services.service.EncryptionService;
 import com.lucas.spring.services.service.StatusService;
 import com.lucas.spring.services.service.UserService;
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Service
 public class UserFacadeImpl implements UserFacade {
+    private static final String ADMIN_EMAIL = "udvattila99@gmail.com";
     private EncryptionService encryptionService;
     private UserService userService;
     private StatusService statusService;
@@ -43,6 +45,18 @@ public class UserFacadeImpl implements UserFacade {
             userService.saveEmailAddress(encryptedString, statusEntity);
         } else {
             throw new EncryptionFailedException();
+        }
+    }
+
+    /**
+     * Init the user table with a default user who could get
+     * access to the application.
+     */
+    @PostConstruct
+    private void defaultUserAddition() {
+        ArrayList<String> userEmails = userService.getAllUsersEmail();
+        if (userEmails.isEmpty()) {
+            saveEmailAddress(ADMIN_EMAIL);
         }
     }
 }

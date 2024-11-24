@@ -13,8 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
  * of the entity.
  */
 @Getter
-@SuperBuilder
-public abstract class AuditedEntity extends BaseEntity {
+public abstract class AuditedEntity /* BaseEntity */ {
   /**
    * The creation time of the entity.
    */

@@ -4,18 +4,21 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import jakarta.persistence.MappedSuperclass;
+import lombok.*;
 
 /**
  * An entity which is used to init the auto increment id column
  * of the different table entities.
  */
 @Getter
-@AllArgsConstructor
+@Setter
+@MappedSuperclass
+@ToString
+@Data
 public abstract class BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private Long id;
+  private final Long id;
 }

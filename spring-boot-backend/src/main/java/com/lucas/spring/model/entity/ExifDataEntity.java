@@ -10,24 +10,22 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@Data
 @Builder
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "ExifData")
 @Table(name = "tb_exif_data")
 public class ExifDataEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "exif_id")
-  private Long exifId;
+  @Column(name = "id")
+  private final Long id;
 
   @Column(name = "exif_value", nullable = false, length = 100)
   private String exifValue;
@@ -39,14 +37,4 @@ public class ExifDataEntity {
   @ManyToOne
   @JoinColumn(name = "image_id")
   private ImageEntity imageEntity;
-
-  @Override
-  public String toString() {
-    return "ExifDataEntity{"
-        + "exifId=" + exifId
-        + ", exifValue='" + exifValue + '\''
-        + ", exifKeyId=" + exifKeyEntity
-        + ", imageId=" + imageEntity
-        + '}';
-  }
 }

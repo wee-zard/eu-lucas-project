@@ -7,8 +7,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Defines a compact primary key that holds two columns of
@@ -16,9 +14,7 @@ import lombok.Setter;
  * via a foreign key relation.
  */
 @Getter
-@Setter
 @Embeddable
-@NoArgsConstructor
 @AllArgsConstructor
 public class EmbeddablePlanetCommonName {
   /**

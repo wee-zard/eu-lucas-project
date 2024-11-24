@@ -1,14 +1,16 @@
 package com.lucas.spring.model.entity;
 
-import com.lucas.spring.model.entity.abstraction.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 /**
  * A procedure entity that stores the columns of the procedure table.
@@ -19,8 +21,12 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Entity(name = "Procedure")
 @Table(name = "tb_procedure")
-@SuperBuilder
-public class ProcedureEntity extends BaseEntity {
+@AllArgsConstructor
+public class ProcedureEntity {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private final Long id;
 
   /**
    * The name of the procedure.
@@ -32,6 +38,6 @@ public class ProcedureEntity extends BaseEntity {
    * The user who created the procedure.
    */
   @ManyToOne
-  @JoinColumn(name = "user_id", nullable = false)
+  @JoinColumn(name = "init_user_id", nullable = false)
   private UserEntity initUserId;
 }

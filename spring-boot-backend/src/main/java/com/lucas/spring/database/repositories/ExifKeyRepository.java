@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 @Repository
 public interface ExifKeyRepository extends CrudRepository<ExifKeyEntity, Long> {
-    @Query("SELECT new com.lucas.spring.model.entity.ExifKeyEntity(e.exifCode, e.exifKeyName) " +
+    @Query("SELECT new com.lucas.spring.model.entity.ExifKeyEntity(e.id, e.exifKeyName) " +
             "FROM ExifKey e")
     ArrayList<ExifKeyEntity> fetchAllExifKeys();
 }

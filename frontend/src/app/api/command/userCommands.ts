@@ -1,4 +1,8 @@
 import {
+  NotificationSeverity,
+  throwNotification,
+} from "../../helper/notificationUtil";
+import {
   BackendUserControllerEndpoints,
   ServersToConnectTo,
 } from "../../model/enum";
@@ -13,14 +17,15 @@ export const validateEmailAddress = async (authtoken: string) => {
       authtoken
     );
     if (response.status !== 200) {
-      /** TODO: Display error message popup */
-      console.error(response.data.message);
+      throwNotification(NotificationSeverity.Error, response.data.message);
       return null;
     }
     return true;
   } catch (error) {
-    /** TODO: Display error message popup */
-    console.error(error);
+    throwNotification(
+      NotificationSeverity.Error,
+      "Váratlan hiba történt a bejelentkezés során! Próbáld meg újra a bejelentkezést később!"
+    );
     return null;
   }
 };

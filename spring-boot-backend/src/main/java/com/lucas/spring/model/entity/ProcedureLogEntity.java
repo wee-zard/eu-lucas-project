@@ -1,13 +1,16 @@
 package com.lucas.spring.model.entity;
 
-import com.lucas.spring.model.entity.abstraction.BaseEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
 /**
@@ -15,27 +18,33 @@ import org.hibernate.annotations.CreationTimestamp;
  * Producer logs which are logs from the run Procedures.
  */
 @Getter
-@SuperBuilder
-public class ProcedureLogEntity extends BaseEntity {
+@AllArgsConstructor
+@Entity(name = "ProcedureLog")
+@Table(name = "tb_procedure_log")
+public class ProcedureLogEntity {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private final Long id;
   /**
    * The procedure that was used on the image.
    */
   @ManyToOne
-  @JoinColumn(name = "id", nullable = false)
+  @JoinColumn(name = "procedure_id", nullable = false)
   private ProcedureEntity initUserId;
 
   /**
    * The image which was used with the procedure.
    */
-  @ManyToMany
-  @JoinColumn(name = "id", nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "image_to_analyse", nullable = false)
   private ImageEntity imageToAnalyse;
 
   /**
    * The user who created the log.
    */
-  @ManyToMany
-  @JoinColumn(name = "user_id", nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "log_init_user_id", nullable = false)
   private UserEntity logInitUser;
 
   /**

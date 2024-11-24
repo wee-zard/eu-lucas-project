@@ -4,9 +4,6 @@ export const getLocalStorageItem = (key: LocalStorageKeys) => {
   const item = localStorage.getItem(key);
   if (item) {
     return item;
-  } else {
-    /** TODO: Implement error handle here */
-    console.error("Error! Authentication token is not found!");
   }
 };
 
