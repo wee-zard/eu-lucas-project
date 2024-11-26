@@ -1,5 +1,6 @@
 import React from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
+import styled from "@emotion/styled";
 
 type Props = {
   inputTitle?: string;
@@ -34,13 +35,14 @@ const StyledSelectComponent = ({
   }
 
   return (
-    <FormControl fullWidth required>
+    <FormControl fullWidth required sx={{ ".MuiInputLabel-root" : {top: "-5px"}}}>
       <InputLabel>{inputTitle}</InputLabel>
       <Select 
         value={getInputValue()} 
         label={inputTitle}
         MenuProps={MenuProps}
         onChange={handleSelectionProcess}
+        sx={{ height: "40px" }}
       >
         {options.map((option, index) => (
           <MenuItem
@@ -56,3 +58,7 @@ const StyledSelectComponent = ({
 };
 
 export default StyledSelectComponent;
+
+const StyledSelectHolder = styled(Select)<{}>((props) => ({
+  height: "40px",
+}));

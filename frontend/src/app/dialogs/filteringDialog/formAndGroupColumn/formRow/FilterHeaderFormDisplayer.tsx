@@ -111,7 +111,7 @@ const FilterHeaderFormDisplayer = ({ filteringFormTemplate }: Props) => {
           {renderStyledInput(FilteringFormInputKeys.TextfieldInput)}
         </StyledComponentGap>
       ) : null}
-      <StyledButtonHolder>
+      <StyledButtonHolder style={{paddingTop: "8px"}}>
         <StyledButton
           isDisabled={isSaveButtonDisabled}
           buttonText={FilteringDialogTexts.AgreeButtonText}

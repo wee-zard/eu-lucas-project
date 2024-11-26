@@ -63,4 +63,5 @@ const StyledIconHolder = styled.div<{}>(() => ({
 
 const CustomButtonDesign = styled(Button)<{}>(() => ({
   borderRadius: "8px",
+  height: "40px",
 }));

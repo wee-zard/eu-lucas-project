@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import {StyledScrollBarHolder, windowBorders} from "../../../../global/globalStyles";
-import FormDataGrid from "../../../../bin/FormDataGrid";
+import FormDataGrid from "./FormDataGrid";
 
 const FilterGroupRow = () => {
   return (

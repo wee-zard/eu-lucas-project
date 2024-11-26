@@ -1,5 +1,6 @@
 import React from "react";
 import { FormControl, TextField } from "@mui/material";
+import styled from "@emotion/styled";
 
 type Props = {
   inputTitle?: string;
@@ -22,8 +23,13 @@ const StyledTextFieldComponent = ({
   }
 
   return (
-    <FormControl fullWidth>
-      <TextField 
+    <FormControl fullWidth sx={{ 
+      ".MuiInputBase-root": { 
+        height: "40px",
+        top: "5px"
+      }}}
+    >
+      <StyledSelectHolder 
         value={getInputValue()} 
         label={inputTitle}
         onChange={handleSelectionProcess}
@@ -34,3 +40,8 @@ const StyledTextFieldComponent = ({
 };
 
 export default StyledTextFieldComponent;
+
+const StyledSelectHolder = styled(TextField)<{}>((props) => ({
+  height: "40px",
+}));
+

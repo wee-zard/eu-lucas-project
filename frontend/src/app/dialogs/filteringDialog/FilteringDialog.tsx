@@ -77,7 +77,7 @@ const StyledDialog = styled(Dialog)<{}>((props) => ({
   "& .MuiPaper-root": {
     ...StyledFullWidthAndHeight(),
     maxWidth: "80%",
-    maxHeight: "80%",
+    maxHeight: "90%",
     borderRadius: "16px",
     padding: "24px",
   }
