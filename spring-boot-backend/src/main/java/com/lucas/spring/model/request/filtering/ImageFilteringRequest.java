@@ -18,10 +18,10 @@ public class ImageFilteringRequest {
   /**
    * The filtering groups which must be applied on the images.
    */
-  private ArrayList<FilterFormGroup> filterFormGroups;
+  private ArrayList<FilterComponents> filterComponents;
 
   /**
-   * Relationships between the filterFormGroups.
+   * Defines the relationships between the groups.
    */
-  private FilterFormRelation relations;
+  private ArrayList<FormRelation> groupRelations;
 }

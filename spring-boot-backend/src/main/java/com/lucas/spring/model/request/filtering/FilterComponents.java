@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class FilterFormGroup {
+public class FilterComponents {
   private Number groupFormId;
   private Number inputFormId;
   private FilterOption selectedFilterTab;

@@ -1,6 +1,7 @@
 package com.lucas.spring.model.request.filtering;
 
 import com.lucas.spring.model.enums.FormLogicalExpression;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,23 @@ public class FormRelation {
    * Defines the relationship between the component.
    */
   private FormLogicalExpression logicalExpression;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FormRelation that = (FormRelation) o;
+    return Objects.equals(inputComponentId, that.inputComponentId)
+            && Objects.equals(outputComponentId, that.outputComponentId)
+            && logicalExpression == that.logicalExpression;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(inputComponentId, outputComponentId, logicalExpression);
+  }
 }
