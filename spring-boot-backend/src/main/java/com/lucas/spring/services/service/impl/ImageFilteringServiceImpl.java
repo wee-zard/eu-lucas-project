@@ -1,10 +1,18 @@
 package com.lucas.spring.services.service.impl;
 
+import com.lucas.spring.model.entity.CoordinateXEntity;
+import com.lucas.spring.model.entity.CoordinateYEntity;
+import com.lucas.spring.model.entity.CreationCountryEntity;
+import com.lucas.spring.model.entity.CreationDirectionEntity;
 import com.lucas.spring.model.entity.CreationYearEntity;
 import com.lucas.spring.model.entity.ImageEntity;
+import com.lucas.spring.model.entity.abstraction.BaseComparatorEntity;
+import com.lucas.spring.model.enums.FilterOption;
 import com.lucas.spring.model.enums.FormLogicalExpression;
 import com.lucas.spring.model.enums.ImageFilteringEnum;
+import com.lucas.spring.model.enums.InputFormatErrors;
 import com.lucas.spring.model.expection.ImageFilteringException;
+import com.lucas.spring.model.expection.InputFormatException;
 import com.lucas.spring.model.request.filtering.FilterComponents;
 import com.lucas.spring.model.request.filtering.FormRelation;
 import com.lucas.spring.model.request.filtering.ImageFilteringRequest;
@@ -13,6 +21,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -132,41 +141,25 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
             final ArrayList<FilterComponents> filterComponents,
             final FormLogicalExpression expression
   ) {
-    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
     // Expected result
-    CriteriaQuery<ImageEntity> criteriaQuery = criteriaBuilder.createQuery(ImageEntity.class);
+    CriteriaQuery<ImageEntity> criteriaQuery = cb.createQuery(ImageEntity.class);
 
-    // -- select all users with role = 'User'
-    // SELECT * FROM users WHERE role = 'User';
     // Select * FROM Image;
-    Root<ImageEntity> imageEntityRoot = criteriaQuery.from(ImageEntity.class);
+    Root<ImageEntity> root = criteriaQuery.from(ImageEntity.class);
 
-    // ------------------------------------------------------------------------
     // Result list that contains the predicates of the filter query.
     List<Predicate> predicates = new ArrayList<>();
 
     // Fill up the predicate list with values based on the active filters in the list.
     filterComponents.forEach(component -> {
-      // TODO: ...
       switch (component.getSelectedFilterTab()) {
-        case YEAR -> {
-
-          // Select only images which based on their "year" attribute are equal to x.
-          Predicate predicate = criteriaBuilder.equal(
-                imageEntityRoot.get("year"),
-                CreationYearEntity
-                    .builder()
-                    .year(Integer.parseInt(component.getSelectInput()))
-                    .build()
-          );
-
-          // Add the new predicate to the map, indexed by the group id.
-          predicates.add(predicate);
-        }
-        case COUNTRY -> {
-                //return "country";
-        }
+        case YEAR -> predicates.add(filterRootByCreationYears(cb, root, component));
+        case COUNTRY -> predicates.add(filterRootByCreationCountry(cb, root, component));
+        case X_COORDINATE -> predicates.add(filterRootByCoordinateX(cb, root, component));
+        case Y_COORDINATE -> predicates.add(filterRootByCoordinateY(cb, root, component));
+        case DIRECTION -> predicates.add(filterRootByCoordinateDirectionName(cb, root, component));
         default -> throw new ImageFilteringException(
                 ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED
         );
@@ -181,6 +174,164 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
 
     return applyExpressionOnPredicates(expression, predicates);
   }
+
+  /* ================================================================================ */
+
+  private Predicate filterRootByCreationYears(
+          final CriteriaBuilder cb,
+          final Root<ImageEntity> root,
+          final FilterComponents component
+  ) {
+    try {
+      // Init a creation year entity with the provided filter values.
+      CreationYearEntity entity = CreationYearEntity
+              .builder()
+              .year(Integer.parseInt(component.getSelectInput()))
+              .build();
+
+      Path<BaseComparatorEntity> path = root.get(FilterOption.YEAR.getTableColumn());
+      return applyExpressionsOnFilterComponents(cb, component, path, entity);
+    } catch (NumberFormatException exception) {
+      throw new InputFormatException(
+              InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
+              component.toString()
+      );
+    }
+  }
+
+  private Predicate filterRootByCreationCountry(
+          final CriteriaBuilder cb,
+          final Root<ImageEntity> root,
+          final FilterComponents component
+  ) {
+    try {
+      String[] countryData = component.getSelectInput().split(" ");
+      String countryCode = countryData[0];
+      String countryName = countryData[1]
+              .replace("\\(", "")
+              .replace("\\)", "");
+
+      // Init the creation country entity with the provided filter values.
+      CreationCountryEntity entity = CreationCountryEntity
+              .builder()
+              .countryCode(countryCode)
+              .countryName(countryName)
+              .build();
+
+      Path<BaseComparatorEntity> path = root.get(FilterOption.COUNTRY.getTableColumn());
+      return applyExpressionsOnFilterComponents(cb, component, path, entity);
+    } catch (IndexOutOfBoundsException exception) {
+      // TODO: throw new exception
+      throw new ImageFilteringException(
+              ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED
+      );
+    }
+  }
+
+  private Predicate filterRootByCoordinateX(
+          final CriteriaBuilder cb,
+          final Root<ImageEntity> root,
+          final FilterComponents component
+  ) {
+    try {
+      // Init the creation country entity with the provided filter values.
+      CoordinateXEntity entity = CoordinateXEntity
+              .builder()
+              .coordinateX(Integer.parseInt(component.getSelectInput()))
+              .build();
+
+      Path<BaseComparatorEntity> path = root.get(FilterOption.X_COORDINATE.getTableColumn());
+      return applyExpressionsOnFilterComponents(cb, component, path, entity);
+    } catch (NumberFormatException exception) {
+      // TODO: throw new exception
+      throw new ImageFilteringException(
+              ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED
+      );
+    }
+  }
+
+  private Predicate filterRootByCoordinateY(
+          final CriteriaBuilder cb,
+          final Root<ImageEntity> root,
+          final FilterComponents component
+  ) {
+    try {
+      // Init the creation country entity with the provided filter values.
+      CoordinateYEntity entity = CoordinateYEntity
+              .builder()
+              .coordinateY(Integer.parseInt(component.getSelectInput()))
+              .build();
+
+      Path<BaseComparatorEntity> path = root.get(FilterOption.Y_COORDINATE.getTableColumn());
+      return applyExpressionsOnFilterComponents(cb, component, path, entity);
+    } catch (NumberFormatException exception) {
+      // TODO: throw new exception
+      throw new ImageFilteringException(
+              ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED
+      );
+    }
+  }
+
+  private Predicate filterRootByCoordinateDirectionName(
+          final CriteriaBuilder cb,
+          final Root<ImageEntity> root,
+          final FilterComponents component
+  ) {
+    // Init the creation country entity with the provided filter values.
+    CreationDirectionEntity entity = CreationDirectionEntity
+            .builder()
+            .directionName(component.getSelectInput())
+            .build();
+
+    Path<BaseComparatorEntity> path = root.get(FilterOption.DIRECTION.getTableColumn());
+    return applyExpressionsOnFilterComponents(cb, component, path, entity);
+  }
+
+
+
+  private Predicate applyExpressionsOnFilterComponents(
+          final CriteriaBuilder cb,
+          final FilterComponents component,
+          final Path<BaseComparatorEntity> path,
+          final BaseComparatorEntity entity
+  ) {
+    Predicate predicate = null;
+    switch (component.getOperatorInput()) {
+      case EQUALS -> predicate = cb.equal(path, entity);
+      case DOES_NOT_EQUALS -> predicate = cb.notEqual(path, entity);
+      case LESS -> predicate = cb.lessThan(path, entity);
+      case LESS_OR_EQUAL -> predicate = cb.lessThanOrEqualTo(path, entity);
+      case GREATER -> predicate = cb.greaterThan(path, entity);
+      case GREATER_OR_EQUAL -> predicate = cb.greaterThanOrEqualTo(path, entity);
+      default -> throw new ImageFilteringException(
+              ImageFilteringEnum.UNKNOWN_OR_NO_OPERATOR_PROVIDED,
+              component.toString()
+      );
+    }
+    return predicate;
+  }
+
+  private Predicate applyExpressionsOnTextBasedFilters(
+          final CriteriaBuilder cb,
+          final FilterComponents component,
+          final Path<String> path,
+          final String entity
+  ) {
+    Predicate predicate = null;
+    switch (component.getOperatorInput()) {
+      case CONTAINS -> predicate = cb.like(path, "%" + entity + "%");
+      case DOES_NOT_CONTAIN -> predicate = cb.notLike(path, "%" + entity + "%");
+      case STARTS_WITH -> predicate = cb.like(path, entity + "%");
+      case ENDS_WITH -> predicate = cb.like(path, "%" + entity);
+      default -> throw new ImageFilteringException(
+              ImageFilteringEnum.UNKNOWN_OR_NO_OPERATOR_PROVIDED,
+              component.toString()
+      );
+    }
+    return predicate;
+  }
+
+  /* ================================================================================ */
 
   /**
    * ...
@@ -295,4 +446,6 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
       );
     }
   }
+
+  /* ================================================================================ */
 }

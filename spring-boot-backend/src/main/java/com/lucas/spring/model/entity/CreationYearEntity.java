@@ -1,5 +1,6 @@
 package com.lucas.spring.model.entity;
 
+import com.lucas.spring.model.entity.abstraction.BaseComparatorEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,16 +12,18 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Data
 @Builder
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "CreationYear")
 @Table(name = "tb_creation_year")
-public class CreationYearEntity {
+public class CreationYearEntity extends BaseComparatorEntity<CreationYearEntity> {
   @Id
   @Column(name = "year", length = 4, nullable = false)
   private int year;
@@ -42,10 +45,14 @@ public class CreationYearEntity {
     return Objects.hash(year);
   }
 
+  /**
+   * Defines the comparison between two {@link CreationYearEntity} type object.
+   *
+   * @param creationYearEntity The object to compare with.
+   * @return an int.
+   */
   @Override
-  public String toString() {
-    return "CreationYearEntity{"
-            + "year=" + year
-            + '}';
+  public int compareTo(CreationYearEntity creationYearEntity) {
+    return Integer.compare(getYear(), creationYearEntity.getYear());
   }
 }

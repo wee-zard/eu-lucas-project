@@ -9,13 +9,20 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum FilterOption {
-  YEAR("Év"),
-  COUNTRY("Ország"),
-  X_COORDINATE("X Koordináta"),
-  Y_COORDINATE("Y Koordináta"),
-  DIRECTION("Készítés iránya"),
-  EXIF_DATE("Exif adat"),
-  PLANT("Növények"),
-  ALGORITHM("Algoritmus");
+  YEAR("Év", "year"),
+  COUNTRY("Ország", "country_code"),
+  X_COORDINATE("X Koordináta", "coordinate_x"),
+  Y_COORDINATE("Y Koordináta", "coordinate_y"),
+  DIRECTION("Készítés iránya", "direction_name"),
+  EXIF_DATE("Exif adat", null), //TODO: ...
+  PLANT("Növények", null), //TODO: ...
+  ALGORITHM("Algoritmus", null); //TODO: ...
+  /**
+   * The name displayed in the side of the frontend.
+   */
   private final String optionName;
+  /**
+   * The name of the table column associated with the enum.
+   */
+  private final String tableColumn;
 }

@@ -125,10 +125,10 @@ export enum OperatorTextfieldItems {
 }
 
 export enum OperatorComperableItems {
-  Contains = "< (kisebb)",
-  DoesNotContain = "<= (kisebb egyenlő)",
-  StartsWith = "> (nagyobb)",
-  EndsWith = ">= (nagyobb egyenlő)",
+  Less = "< (kisebb)",
+  LessOrEqual = "<= (kisebb egyenlő)",
+  Greater = "> (nagyobb)",
+  GreaterOrEqual = ">= (nagyobb egyenlő)",
 }
 
 export enum FormLogicalExpressions {

@@ -14,7 +14,8 @@ public enum ImageFilteringEnum {
   NO_FILTER_COMPONENT_PROVIDED("no-filter-component-provided"),
   NO_RECURSIVE_GROUP_RELATION_PROVIDED("no-recursive-group-relationship-provided"),
   NO_RECURSIVE_GROUP_RELATION_PROVIDED_BY_GROUP_ID("no-recursive-group-relationship-provided-by-group-id"),
+  UNKNOWN_OR_NO_OPERATOR_PROVIDED("unknown-or-no-operator-provided"),
   UNKNOWN_OR_NO_LOGICAL_EXPRESSION_PROVIDED("unknown-or-no-logical-expression-provided"),
   UNKNOWN_OR_NO_FILTER_TAB_PROVIDED("unknown-or-no-filter-tab-provided");
-  public final String messageName;
+  private final String messageName;
 }
