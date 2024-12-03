@@ -9,8 +9,8 @@ import org.springframework.data.repository.CrudRepository;
  * The repository of the Y Coordinate of the images.
  */
 public interface CoordinateYRepository extends CrudRepository<CoordinateYEntity, Integer> {
-    @Query("SELECT new com.lucas.spring.model.entity.CoordinateYEntity(coordinate_y.coordinateY) "
-            + "FROM CoordinateY coordinate_y")
+    @Query("SELECT new com.lucas.spring.model.entity.CoordinateYEntity(y.coordinateY) "
+            + "FROM CoordinateY y")
     ArrayList<CoordinateYEntity> fetchAllCoordinateYEntities();
 }
 

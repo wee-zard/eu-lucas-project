@@ -17,8 +17,8 @@ public class ImageRequest {
     private int year;
     private String countryCode;
     private String countryName;
-    private Integer coordinateX;
-    private Integer coordinateY;
+    private int coordinateX;
+    private int coordinateY;
     private String imageName;
     private String directionName;
     private ArrayList<ExifDataModel> exifData;

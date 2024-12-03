@@ -49,12 +49,12 @@ app.post('/image', (req, res) => {
         : "https://gisco-services.ec.europa.eu/lucas/photos/", 
       element.year.toString(),
       element.countryCode,
-      element.latitude < 100 
-        ? (element.latitude < 10 ? '00'+element.latitude : '0'+element.latitude) 
-        : element.latitude,
-      element.longitude < 100 
-      ? (element.longitude < 10 ? '00'+element.longitude : '0'+element.longitude) 
-      : element.longitude,
+      element.coordinateX < 100 
+        ? (element.coordinateX < 10 ? '00'+element.coordinateX : '0'+element.coordinateX) 
+        : element.coordinateX,
+      element.coordinateY < 100 
+      ? (element.coordinateY < 10 ? '00'+element.coordinateY : '0'+element.coordinateY) 
+      : element.coordinateY,
       element.imageName
     );
     if (element.isImageFromLocalEnvironment) {
@@ -134,13 +134,13 @@ app.listen(process.argv[2] ?? defaultPort, () => {
 })
 
 /**
- * TODO: Csak a HU mappában lévő képek kellenek nekünk 2006-tól 2022-ig.
+ * TODO: Csak a HU mappában lévő képek kellenek nekünk 2006-tól 20xx-ig.
  * Esetleg lehetne egyszerűsíteni, hogy egy gombnyomással, a felhasználó kezdeményezze
  * a képek letöltését a távoli lucas képadatbázisból.
  */
 // ===============================================================
-//const {ImageFetchersUtil} = require('./services/imageFetchersUtil');
-//new ImageFetchersUtil();
+const {ImageFetchersUtil} = require('./services/imageFetchersUtil');
+new ImageFetchersUtil();
 
 
 //const SchedulerUtil = require('./services/schedulersUtil');

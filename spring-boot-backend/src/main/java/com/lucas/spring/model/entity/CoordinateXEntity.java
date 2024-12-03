@@ -24,7 +24,7 @@ import lombok.ToString;
 public class CoordinateXEntity extends BaseComparatorEntity<CoordinateXEntity> {
   @Id
   @Column(name = "coordinate_x", length = 3, nullable = false)
-  private Integer coordinateX;
+  private int coordinateX;
 
   @Override
   public boolean equals(Object o) {

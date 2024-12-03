@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.lang.String;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,10 +48,10 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
    */
   @Override
   public void filterImage(final ImageFilteringRequest request) {
-    if (request.getFilterComponents().size() == 0) {
+    if (request.getFilterComponents().isEmpty()) {
       throw new ImageFilteringException(ImageFilteringEnum.NO_FILTER_COMPONENT_PROVIDED);
     }
-    if (request.getGroupRelations().size() == 0) {
+    if (request.getGroupRelations().isEmpty()) {
       throw new ImageFilteringException(ImageFilteringEnum.NO_RECURSIVE_GROUP_RELATION_PROVIDED);
     }
 
@@ -311,25 +312,25 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
     return predicate;
   }
 
-  private Predicate applyExpressionsOnTextBasedFilters(
-          final CriteriaBuilder cb,
-          final FilterComponents component,
-          final Path<String> path,
-          final String entity
-  ) {
-    Predicate predicate = null;
-    switch (component.getOperatorInput()) {
-      case CONTAINS -> predicate = cb.like(path, "%" + entity + "%");
-      case DOES_NOT_CONTAIN -> predicate = cb.notLike(path, "%" + entity + "%");
-      case STARTS_WITH -> predicate = cb.like(path, entity + "%");
-      case ENDS_WITH -> predicate = cb.like(path, "%" + entity);
-      default -> throw new ImageFilteringException(
-              ImageFilteringEnum.UNKNOWN_OR_NO_OPERATOR_PROVIDED,
-              component.toString()
-      );
-    }
-    return predicate;
-  }
+//  private Predicate applyExpressionsOnTextBasedFilters(
+//          final CriteriaBuilder cb,
+//          final FilterComponents component,
+//          final Path<String> path,
+//          final String entity
+//  ) {
+//    Predicate predicate = null;
+//    switch (component.getOperatorInput()) {
+//      case CONTAINS -> predicate = cb.like(path, "%" + entity + "%");
+//      case DOES_NOT_CONTAIN -> predicate = cb.notLike(path, "%" + entity + "%");
+//      case STARTS_WITH -> predicate = cb.like(path, entity + "%");
+//      case ENDS_WITH -> predicate = cb.like(path, "%" + entity);
+//      default -> throw new ImageFilteringException(
+//              ImageFilteringEnum.UNKNOWN_OR_NO_OPERATOR_PROVIDED,
+//              component.toString()
+//      );
+//    }
+//    return predicate;
+//  }
 
   /* ================================================================================ */
 
@@ -351,7 +352,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
       // Only one predicate is present in map. Give back that as a result.
       final List<Predicate> groupPredicates = new ArrayList<>();
       groupPredicatesMap.forEach((groupId, predicate) -> groupPredicates.add(predicate));
-      return groupPredicates.getFirst();
+      return groupPredicates.get(0);
     } else {
       // At least one predicate must be present in the map.
       throw new ImageFilteringException(ImageFilteringEnum.NO_PREDICATE_GENERATED_BY_FILTERS);
@@ -409,7 +410,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
         if (predicateList.size() >= 2) {
           // Combine the filtered predicates
           Predicate combinedPredicates = applyExpressionOnPredicates(
-                  relations.getFirst().getLogicalExpression(),
+                  relations.get(0).getLogicalExpression(),
                   predicateList
           );
 

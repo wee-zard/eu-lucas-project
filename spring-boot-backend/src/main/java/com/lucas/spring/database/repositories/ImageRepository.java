@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -15,12 +14,12 @@ import java.util.Optional;
  */
 @Repository
 public interface ImageRepository extends CrudRepository<ImageEntity, Integer> {
-    @Query(nativeQuery = true, value = "SELECT image_name FROM image where image_name = :imageName")
+    @Query(nativeQuery = true, value = "SELECT image_name FROM tb_image where image_name = :imageName")
     Optional<String> isImageNameAlreadyExists(@Param("imageName") String imageName);
 
-    @Query(nativeQuery = true, value = "SELECT * from image order by Rand() Limit 1")
+    @Query(nativeQuery = true, value = "SELECT * from tb_image order by Rand() Limit 1")
     Optional<ImageEntity> getRandomImage();
 
-    @Query(nativeQuery = true, value = "SELECT * from image order by Rand() Limit 9")
+    @Query(nativeQuery = true, value = "SELECT * from tb_image order by Rand() Limit 9")
     ArrayList<ImageEntity> getRandomImages();
 }

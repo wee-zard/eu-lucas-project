@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CoordinateXRepository extends CrudRepository<CoordinateXEntity, Integer> {
-  @Query("SELECT new com.lucas.spring.model.entity.CoordinateXEntity(coordinate_x.coordinateX) "
-            + "FROM CoordinateX coordinate_x")
+  @Query("SELECT new com.lucas.spring.model.entity.CoordinateXEntity(x.coordinateX) "
+            + "FROM CoordinateX x")
   ArrayList<CoordinateXEntity> fetchAllCoordinateXEntities();
 }

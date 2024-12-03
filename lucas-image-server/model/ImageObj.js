@@ -4,8 +4,8 @@ class ImageObj {
     year;
     countryCode;
     countryName;
-    latitude;
-    longitude;
+    coordinateX;
+    coordinateY;
     imageName;
     directionName;
 
@@ -13,8 +13,8 @@ class ImageObj {
      * @param {number} year 
      * @param {string} countryCode 
      * @param {string} countryName 
-     * @param {number} latitude 
-     * @param {number} longitude 
+     * @param {number} coordinateX 
+     * @param {number} coordinateY 
      * @param {string} imageName 
      * @param {string} directionName 
      */
@@ -22,16 +22,16 @@ class ImageObj {
         year,
         countryCode,
         countryName,
-        latitude,
-        longitude,
+        coordinateX,
+        coordinateY,
         imageName,
         directionName,
     ){
         this.year = year;
         this.countryCode = countryCode;
         this.countryName = countryName;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.coordinateX = coordinateX;
+        this.coordinateY = coordinateY;
         this.imageName = imageName;
         this.directionName = directionName;
     }
@@ -52,8 +52,8 @@ class ImageObjWithExifData extends ImageObj {
             imageObj.year, 
             imageObj.countryCode, 
             imageObj.countryName, 
-            imageObj.latitude, 
-            imageObj.longitude, 
+            imageObj.coordinateX, 
+            imageObj.coordinateY, 
             imageObj.imageName, 
             imageObj.directionName
         );

@@ -24,7 +24,7 @@ const UrlHelper = {
    */
   LucasRemoteRootImageDirectoryPath: IsUseRemoteLucasImageRootDirectory
     ? path.join("https://gisco-services.ec.europa.eu/lucas/photos/", "")
-    : path.join("https://gisco-services.ec.europa.eu/lucas/photos/2006/DE/", ""),
+    : path.join("https://gisco-services.ec.europa.eu/lucas/photos/2006/HU/", ""),
 
   /**
    * The path to the local directory that is containing the images from the
@@ -32,7 +32,7 @@ const UrlHelper = {
    */
   LucasLocalRootImageDirectoryPath: IsUseRemoteLucasImageRootDirectory
     ? [...localLucasDirectory, ""].join("\\")
-    : [...localLucasDirectory, "2006", "DE", ""].join("\\"),
+    : [...localLucasDirectory, "2006", "HU", ""].join("\\"),
 
   /**
    * TODO: Finish the javadoc later.
