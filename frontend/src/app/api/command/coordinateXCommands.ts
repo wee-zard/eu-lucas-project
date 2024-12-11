@@ -1,7 +1,3 @@
-import {
-  NotificationSeverity,
-  throwNotification,
-} from "../../helper/notificationUtil";
 import CoordinateXDto from "../../model/dto/CoordinateXDto";
 import {
   BackendCoordinateXControllerEndpoints,
@@ -9,6 +5,7 @@ import {
 } from "../../model/enum";
 import { getAuthToken } from "../handler/requestAuthToken";
 import { getCommand } from "../handler/requestHandler";
+import { handleErrorMessageFromAxiosResponse, handleErrorMessageFromCatchBranch } from "./common/displayCommandError";
 
 export const getCoordinateXList = async () => {
   try {
@@ -22,17 +19,15 @@ export const getCoordinateXList = async () => {
       {},
       authToken
     );
-    if (response.status !== 200) {
-      throwNotification(NotificationSeverity.Error, response.data.message);
+    if (handleErrorMessageFromAxiosResponse(response)) {
       return null;
     }
     const listOfCreationYears: CoordinateXDto[] = response.data;
     return listOfCreationYears;
   } catch (error) {
-    throwNotification(
-      NotificationSeverity.Error,
+    handleErrorMessageFromCatchBranch(
       "Error while executing the fetch of x coordinates!"
-    );
+    )
     return null;
   }
 };

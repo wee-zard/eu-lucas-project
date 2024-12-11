@@ -10,7 +10,7 @@ import {
   FilterFormGroups,
   FormRelations,
 } from "../model/FilterFormComponents";
-import { setFilterFormDatagrid } from "../redux/actions/imageActions";
+import { setFilterFormDataDrid } from "../redux/actions/imageActions";
 import { NotificationSeverity, throwNotification } from "./notificationUtil";
 
 export const operatorSelectItems = Object.values(OperatorSelectItems);
@@ -26,17 +26,14 @@ export const operatorTextfieldItems = [
 ];
 
 export const initFilterFormDataGrid: FilterFormDataGrid = {
-  filterFormGroups: [],
-  relations: {
-    inputRelations: [],
-    groupRelations: [],
-  },
+  filterComponents: [],
+  groupRelations: [],
 };
 
 const fetchFormGroupWithUndefinedGroupId = (
   filterFormDataGrid: FilterFormDataGrid
 ) => {
-  return filterFormDataGrid.filterFormGroups.filter(
+  return filterFormDataGrid.filterComponents.filter(
     (group) => !group.groupFormId
   );
 };
@@ -71,7 +68,7 @@ const fetchLogicalExpressionOfInputComponents = (
     const outputComponentId = selectedGroupInputIds.pop();
     if (inputComponentId && outputComponentId) {
       const filterFormRelations =
-        filterFormDataGrid.relations.inputRelations.find(
+        filterFormDataGrid.groupRelations.find(
           (group) =>
             group.inputComponentId === inputComponentId &&
             group.outputComponentId === outputComponentId
@@ -88,6 +85,7 @@ export const definedRelationsBetweenFormGroups = (
   inputFormGroupId: number,
   filterFormDataGrid: FilterFormDataGrid
 ): FormRelations[] => {
+  /*
   const selectedGroup = fetchFormGroupWithUndefinedGroupId(filterFormDataGrid);
   if (selectedGroup) {
     const selectedGroupInputIds = selectedGroup.map((group) =>
@@ -99,19 +97,24 @@ export const definedRelationsBetweenFormGroups = (
     );
     return selectedGroup.map((group) => ({
       inputComponentId: inputFormGroupId,
-      outputComponentId: Number(group.inputFormId),
-      logicalExpression: logicalExpression,
+      outputComponentId: inputFormGroupId, //Number(group.inputFormId),
+      logicalExpression: FormLogicalExpressions.And, //logicalExpression,
     }));
   }
-  return [];
+  */
+  return [{
+    inputComponentId: undefined,
+    outputComponentId: undefined,
+    logicalExpression: FormLogicalExpressions.And
+  }];
 };
 
-export const saveFilterFormcomponent = (
+export const saveFilterFormComponent = (
   filterFormComponent: FilterFormGroups,
   filterFormDataGrid: FilterFormDataGrid,
   dispatch: Dispatch
 ) => {
-  // Is inputForm is already in the undefined group?
+  // Is inputForm already in the undefined group?
   if (
     isFilterGroupAlreadyExistsInTheDataGrid(
       filterFormComponent,
@@ -124,18 +127,18 @@ export const saveFilterFormcomponent = (
   }
 
   const inputFormId =
-    filterFormDataGrid.filterFormGroups.length > 0
+    filterFormDataGrid.filterComponents.length > 0
       ? Math.max(
-          ...filterFormDataGrid.filterFormGroups.map(
+          ...filterFormDataGrid.filterComponents.map(
             (group) => group.inputFormId ?? 0
           )
         ) + 1
       : 1;
 
   dispatch(
-    setFilterFormDatagrid({
-      filterFormGroups: [
-        ...filterFormDataGrid.filterFormGroups,
+    setFilterFormDataDrid({
+      filterComponents: [
+        ...filterFormDataGrid.filterComponents,
         /**
          * The new Filter Group to display in the Data Grid.
          * Defined without a GroupId.
@@ -145,28 +148,24 @@ export const saveFilterFormcomponent = (
           inputFormId: inputFormId,
         },
       ],
-      relations:
-        filterFormDataGrid.filterFormGroups.length === 0
-          ? /**
-             * If there is no component in the list, then there is
-             * no need to add relations between the components.
-             */
-            {
-              ...filterFormDataGrid.relations,
-            }
-          : /**
-             * We need to add relations between the components.
-             */
-            {
-              inputRelations: [
-                ...filterFormDataGrid.relations.inputRelations,
-                ...definedRelationsBetweenFormGroups(
-                  inputFormId,
-                  filterFormDataGrid
-                ),
-              ],
-              groupRelations: [...filterFormDataGrid.relations.groupRelations],
-            },
+      groupRelations: 
+        /**
+         * We need to add relations between the components.
+         */
+        [
+          {
+            inputComponentId: undefined,
+            outputComponentId: undefined,
+            logicalExpression: FormLogicalExpressions.And
+          }
+          /*
+          ...definedRelationsBetweenFormGroups(
+            inputFormId,
+            filterFormDataGrid
+          ),
+          */
+          //...filterFormDataGrid.groupRelations
+        ],
     })
   );
 };

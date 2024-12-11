@@ -24,7 +24,7 @@ export const setImageFilteringForm = (data?: ImageFilteringForm) => {
   };
 };
 
-export const setFilterFormDatagrid = (data: FilterFormDataGrid) => {
+export const setFilterFormDataDrid = (data: FilterFormDataGrid) => {
   return {
     type: ImageConsts.SET_FILTER_FORM_DATA_GRID,
     payload: data,

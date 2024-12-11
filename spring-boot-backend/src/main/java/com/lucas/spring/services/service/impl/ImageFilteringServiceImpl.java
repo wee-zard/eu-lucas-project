@@ -24,6 +24,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +32,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.lang.String;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -47,13 +49,17 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
    * {@inheritDoc}
    */
   @Override
-  public void filterImage(final ImageFilteringRequest request) {
+  public Page<ImageEntity> filterImage(final ImageFilteringRequest request) {
     if (request.getFilterComponents().isEmpty()) {
       throw new ImageFilteringException(ImageFilteringEnum.NO_FILTER_COMPONENT_PROVIDED);
     }
     if (request.getGroupRelations().isEmpty()) {
       throw new ImageFilteringException(ImageFilteringEnum.NO_RECURSIVE_GROUP_RELATION_PROVIDED);
     }
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<ImageEntity> criteriaQuery = criteriaBuilder.createQuery(ImageEntity.class);
+    Root<ImageEntity> root = criteriaQuery.from(ImageEntity.class);
 
     // Give back all of existing groupIds from the filtering request.
     Set<Number> groups = request
@@ -68,7 +74,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
     // Fill up the map with predicates.
     groups.forEach(groupId -> {
       // Give back the applied predicate of the filter components in the requested group id.
-      Predicate appliedPredicateOfTheGroup = getAppliedPredicateByGroupId(request, groupId);
+      Predicate appliedPredicateOfTheGroup = getAppliedPredicateByGroupId(criteriaBuilder, root, request, groupId);
 
       // Add the applied predicate to the map.
       groupPredicatesMap.put(groupId, appliedPredicateOfTheGroup);
@@ -76,23 +82,22 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
 
     // Call predicate dispatcher and merge all the predicates into one.
     final Predicate allMergedPredicate = predicateDispatcher(
+            criteriaBuilder,
             groupPredicatesMap,
             request.getGroupRelations()
     );
 
     // TODO: Only one predicate remains. Add it to the query and send back the Page.
-    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-    CriteriaQuery<ImageEntity> criteriaQuery = criteriaBuilder.createQuery(ImageEntity.class);
-    Root<ImageEntity> imageEntityRoot = criteriaQuery.from(ImageEntity.class);
-    criteriaQuery.select(imageEntityRoot).where(allMergedPredicate);
+    criteriaQuery.select(root).where(allMergedPredicate);
     TypedQuery<ImageEntity> query = entityManager.createQuery(criteriaQuery);
 
     // TODO: Wrap these values into an object (Pageable Request)
-    final int pageNumber = 1;
-    final int pageSize = 10;
+    final int pageNumber = 0;
+    final int pageSize = 9;
     query.setFirstResult(pageNumber);
     query.setMaxResults(pageSize);
     List<ImageEntity> filteredImages = query.getResultList();
+    return new PageImpl<>(filteredImages);
   }
 
   /**
@@ -104,6 +109,8 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
    * @return a combination of possible multiple predicates.
    */
   private Predicate getAppliedPredicateByGroupId(
+          final CriteriaBuilder cb,
+          final Root<ImageEntity> root,
           final ImageFilteringRequest request,
           final Number groupId
   ) {
@@ -135,21 +142,15 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
             );
 
     // Give back the applied predicate of the filter components in the requested group id.
-    return getPredicateOfTheGroup(filterComponents, formLogicalExpression);
+    return getPredicateOfTheGroup(cb, root, filterComponents, formLogicalExpression);
   }
 
   private Predicate getPredicateOfTheGroup(
+            final CriteriaBuilder cb,
+            final Root<ImageEntity> root,
             final ArrayList<FilterComponents> filterComponents,
             final FormLogicalExpression expression
   ) {
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-
-    // Expected result
-    CriteriaQuery<ImageEntity> criteriaQuery = cb.createQuery(ImageEntity.class);
-
-    // Select * FROM Image;
-    Root<ImageEntity> root = criteriaQuery.from(ImageEntity.class);
-
     // Result list that contains the predicates of the filter query.
     List<Predicate> predicates = new ArrayList<>();
 
@@ -169,11 +170,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
 
     // ---------------------------------------
     // Connect with each other the predicates.
-
-    // Select from the image table.
-    //criteriaQuery.select(imageEntityRoot);
-
-    return applyExpressionOnPredicates(expression, predicates);
+    return applyExpressionOnPredicates(cb, expression, predicates);
   }
 
   /* ================================================================================ */
@@ -342,12 +339,13 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
    * @param request the filters we want to use to fetch the images.
    */
   private Predicate predicateDispatcher(
+          final CriteriaBuilder criteriaBuilder,
           final Map<Number, Predicate> groupPredicatesMap,
           final List<FormRelation> request
   ) {
     if (groupPredicatesMap.size() > 2) {
       // Apply expression between the group entities.
-      return mergeGroupPredicates(groupPredicatesMap, request);
+      return mergeGroupPredicates(criteriaBuilder, groupPredicatesMap, request);
     } else if (groupPredicatesMap.size() == 1) {
       // Only one predicate is present in map. Give back that as a result.
       final List<Predicate> groupPredicates = new ArrayList<>();
@@ -368,6 +366,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
    *                           mapping them on the key of the groupIds.
    */
   private Predicate mergeGroupPredicates(
+          final CriteriaBuilder criteriaBuilder,
           final Map<Number, Predicate> groupPredicatesMap,
           final List<FormRelation> request
   ) {
@@ -410,6 +409,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
         if (predicateList.size() >= 2) {
           // Combine the filtered predicates
           Predicate combinedPredicates = applyExpressionOnPredicates(
+                  criteriaBuilder,
                   relations.get(0).getLogicalExpression(),
                   predicateList
           );
@@ -423,14 +423,14 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
       }
     });
 
-    return predicateDispatcher(resultGroupPredicatesMap, request);
+    return predicateDispatcher(criteriaBuilder, resultGroupPredicatesMap, request);
   }
 
   private Predicate applyExpressionOnPredicates(
+            final CriteriaBuilder criteriaBuilder,
             final FormLogicalExpression expression,
             final List<Predicate> predicates
   ) {
-    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     switch (expression) {
       case AND -> {
         return criteriaBuilder.and(predicates.toArray(Predicate[]::new));

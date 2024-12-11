@@ -18,7 +18,7 @@ import {
   selectSelectedFilterTab,
 } from "../../../../redux/selectors/imageSelector";
 import { useDispatch } from "react-redux";
-import { saveFilterFormcomponent } from "../../../../helper/filterFormUtils";
+import { saveFilterFormComponent } from "../../../../helper/filterFormUtils";
 import { FilterFormTemplate } from "../../../../model/FilterFormTemplate";
 import StyledTextFieldComponent from "../../../../components/StyledTextFieldComponent";
 import { NotificationSeverity, throwNotification } from "../../../../helper/notificationUtil";
@@ -37,7 +37,7 @@ const FilterHeaderFormDisplayer = ({ filteringFormTemplate }: Props) => {
 
   const handleOnSubmit = () => {
     if (!isSaveButtonDisabled) {
-      saveFilterFormcomponent(filterFormComponent, filterFormDataGrid, dispatch);
+      saveFilterFormComponent(filterFormComponent, filterFormDataGrid, dispatch);
       setFilterFormComponent(defaultFilterFormGroup);
     } else {
       throwNotification(NotificationSeverity.Warning, "Figyelmeztetés! Csak akkor mentheted el az űrlapot, ha minden elemet kitöltöttél.")

@@ -36,6 +36,10 @@ export enum BackendExifKeyControllerEndpoints {
   GetExifKeyList = "/api/exif-key",
 }
 
+export enum BackendImageControllerEndpoints {
+  PostFilterImage = "/api/image/filter-image",
+}
+
 /**
  * Stores the backend endpoints in one place.
  */
@@ -47,6 +51,7 @@ export type BackendControllerEndpointTypes =
   | BackendCoordinateXControllerEndpoints
   | BackendCoordinateYControllerEndpoints
   | BackendExifKeyControllerEndpoints
+  | BackendImageControllerEndpoints
   ;
 
 /**
@@ -110,7 +115,7 @@ export enum DialogToOpens {
 }
 
 export enum OperatorSelectItems {
-  Equals = "= (egyenlő)",
+  Equals = "== (egyenlő)",
   DoesNotEqual = "!= (nem egyenlő)",
 }
 
@@ -119,9 +124,9 @@ export enum OperatorTextfieldItems {
   DoesNotContain = "does not contain",
   StartsWith = "starts with",
   EndsWith = "ends with",
-  IsEmpty = "is empty",
-  IsNotEmpty = "is not empty",
-  IsAnyOf = "is any of",
+  //IsEmpty = "is empty",
+  //IsNotEmpty = "is not empty",
+  //IsAnyOf = "is any of",
 }
 
 export enum OperatorComperableItems {
@@ -132,9 +137,9 @@ export enum OperatorComperableItems {
 }
 
 export enum FormLogicalExpressions {
-  And = "And",
-  Or = "Or",
-  Not = "Not",
+  And = "AND",
+  Or = "OR",
+  Not = "NOT",
 }
 
 export enum FilteringFormInputKeys {

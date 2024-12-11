@@ -15,7 +15,7 @@ public class BaseExceptionToBaseErrorResponseConverter
    * {@inheritDoc}
    */
   @Override
-  public BaseErrorResponse convert(BaseException source) {
+  public BaseErrorResponse convert(final BaseException source) {
     return BaseErrorResponse
             .builder()
             .message(source.getMessage())

@@ -12,13 +12,14 @@ import { RootState } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDialogToOpen } from "../../redux/actions/dialogActions";
 import styled from "@emotion/styled";
-import { setSelectedImage } from "../../redux/actions/imageActions";
+import { setFilterFormDataDrid, setSelectedImage } from "../../redux/actions/imageActions";
 import { selectSelectedImages } from "../../redux/selectors/imageSelector";
 import { StyledComponentGap, StyledFullWidthAndHeight } from "../../global/globalStyles";
 import FilterSelectionColumn from "./selectionColumn/FilterSelectionColumn";
 import StyledButton from "../../components/StyledButton";
 import FilterImagePickerColumn from "./imagePickerColumn/FilterImagePickerColumn";
 import FilterFormAndGroupColumn from "./formAndGroupColumn/FilterFormAndGroupColumn";
+import { initFilterFormDataGrid } from "../../helper/filterFormUtils";
 
 const FilteringDialog = () => {
   const selectedImages = useSelector(selectSelectedImages);
@@ -29,6 +30,7 @@ const FilteringDialog = () => {
 
   const handleDialogClose = () => {
     dispatch(setDialogToOpen(undefined));
+    dispatch(setFilterFormDataDrid(initFilterFormDataGrid));
   }
 
   return (

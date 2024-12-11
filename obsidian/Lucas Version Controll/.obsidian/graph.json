@@ -1,0 +1,44 @@
+{
+  "collapse-filter": false,
+  "search": "path:\"Kanban Board\" -file:\"Lucas Kanban\"",
+  "showTags": true,
+  "showAttachments": true,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "line:(Bug)",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    },
+    {
+      "query": "line:(Todo)",
+      "color": {
+        "a": 1,
+        "rgb": 1219493
+      }
+    },
+    {
+      "query": "line:(Client)",
+      "color": {
+        "a": 1,
+        "rgb": 12832790
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1.01174636174636,
+  "lineSizeMultiplier": 1.03212058212058,
+  "collapse-forces": false,
+  "centerStrength": 0.410602910602911,
+  "repelStrength": 10.2910602910603,
+  "linkStrength": 1,
+  "linkDistance": 178,
+  "scale": 0.7132754626224529,
+  "close": false
+}

@@ -1,0 +1,18 @@
+{
+  "types": {
+    "aliases": "aliases",
+    "cssclasses": "multitext",
+    "tags": "tags",
+    "dátum idő": "datetime",
+    "Created": "date",
+    "mechanics": "text",
+    "is-there-boss": "text",
+    "id": "number",
+    "type": "multitext",
+    "priority": "multitext",
+    "related": "multitext",
+    "platform": "multitext",
+    "creation-time": "datetime",
+    "sprint": "number"
+  }
+}

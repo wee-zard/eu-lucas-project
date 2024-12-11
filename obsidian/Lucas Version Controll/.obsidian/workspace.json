@@ -1,0 +1,213 @@
+{
+  "main": {
+    "id": "1d5cf3ab9233a6d2",
+    "type": "split",
+    "children": [
+      {
+        "id": "b81b2d4ecff0c24f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5de6a424c27d8bf7",
+            "type": "leaf",
+            "state": {
+              "type": "kanban",
+              "state": {
+                "file": "Kanban Board/Lucas Kanban.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": [
+                    false,
+                    false,
+                    false,
+                    false,
+                    false
+                  ]
+                }
+              },
+              "icon": "lucide-trello",
+              "title": "Lucas Kanban"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ed2cc05574d708de",
+    "type": "split",
+    "children": [
+      {
+        "id": "c023e71774f60c62",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "981b7d1df804e240",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Fájlkezelő"
+            }
+          },
+          {
+            "id": "9a9a61684274d104",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Keresés"
+            }
+          },
+          {
+            "id": "39ee05846bf89a44",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Könyvjelzők"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 262
+  },
+  "right": {
+    "id": "dfb91359a319a8ad",
+    "type": "split",
+    "children": [
+      {
+        "id": "30a5545d58b223d7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fef380edff7303c5",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Kanban Board/Lucas Kanban.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Lucas Kanban visszahivatkozásai"
+            }
+          },
+          {
+            "id": "4924370438ec1fbe",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Kanban Board/Lucas Kanban.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Kimenő linkek Lucas Kanban jegyzetből"
+            }
+          },
+          {
+            "id": "dedc94f18a4a7fc6",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "a8cd01d7bc25dc6e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Kanban Board/Lucas Kanban.md"
+              },
+              "icon": "lucide-list",
+              "title": "Lucas Kanban vázlata"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "templater-obsidian:Templater": false,
+      "switcher:Gyors váltó megnyitása": false,
+      "graph:Grafikon nézet megnyitása": false,
+      "canvas:Új vászon létrehozása": false,
+      "daily-notes:Mai jegyzet megnyitása": false,
+      "templates:Sablon beszúrása": false,
+      "command-palette:Parancspaletta megnyitása": false,
+      "obsidian-kanban:Create new board": false
+    }
+  },
+  "active": "5de6a424c27d8bf7",
+  "lastOpenFiles": [
+    "Templates/Node Template.md",
+    "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/057 - Új design létrehozása a FilteringDialog oldalhoz.md",
+    "Kanban Board/Nodes/052 - Loading komponens megjelenítése.md",
+    "Kanban Board/Nodes/056 - Loading ikon megjelenítése a timeline komponenshez.md",
+    "Kanban Board/Nodes/042 - Google OAuth oldal befejezése.md",
+    "Kanban Board/Nodes/044 - Profilkép megjelenítése a Mat Toolbar-on.md",
+    "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
+    "Kanban Board/Nodes/041 - Toast popup hibaüzenetek 5sec helyett 10sec ideig maradjon a képernyőn.md",
+    "Kanban Board/Nodes/040 - Image Server implementálása.md",
+    "Kanban Board/Nodes/039 - Procedures oldal létrehozása.md",
+    "Kanban Board/Nodes/038 - Adatbázis feltöltése adatokkal.md",
+    "Kanban Board/Nodes/037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba.md",
+    "Kanban Board/Nodes/036 - UtilClass létrehozása.md",
+    "Kanban Board/Nodes/035 - Tranzakció kezelés megvalósítása és versenyhelyzet kiküszöbölése.md",
+    "Kanban Board/Nodes/034 - ErrorHandling minden esetben internal-server-errort dob vissza.md",
+    "Kanban Board/Nodes/033 - Dto megvalósítása és az adatbázis logikai rétegének elrejtése.md",
+    "Kanban Board/Nodes/032 - Minden endpoint kerüljön authentikációhoz kötve.md",
+    "Kanban Board/Nodes/031 - Ha a törölt user bejelentkezve maradt, akkor ne tudjon kezdeményezni semmilyen utasítást.md",
+    "Kanban Board/Nodes/030 - A szűrési oldalon az űrlap kitöltésekor, a renderelés javításra kerüljön.md",
+    "Kanban Board/Nodes/029 - Lucas-image-server átmozgatása a backend-re és ott implementálni a képek feldolgozását.md",
+    "Kanban Board/Nodes/028 - Alkalmazás dockerizálása.md",
+    "Kanban Board/Nodes/027 - ManageUsers oldal implementálása.md",
+    "Kanban Board/Nodes/026 - Report oldal implementálása.md",
+    "Kanban Board/Nodes/025 - Settings oldal implementálása.md",
+    "Kanban Board/Nodes/024 - Manual oldal implementálása.md",
+    "Kanban Board/Images/logo.png",
+    "Pasted image 20241207205636.png",
+    "Kanban Board/Images/Pasted image 20241207090805.png",
+    "Kanban Board/Images",
+    "Kanban Board/Images/Pasted image 20241206223448.png",
+    "Kanban Board/Images/Pasted image 20241206222934.png",
+    "Templates",
+    "Kanban Board/Nodes",
+    "Kanban Board"
+  ]
+}

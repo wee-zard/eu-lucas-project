@@ -10,7 +10,7 @@ const FormDataGrid = () => {
   // TODO: Implemnet a data grid! https://mui.com/x/react-data-grid/
 
   const filterFormDataGrid = useSelector(selectFilterFormDataGrid);
-  const dataGridRows: GridColumnRowDef[] = filterFormDataGrid.filterFormGroups.map((form) => ({
+  const dataGridRows: GridColumnRowDef[] = filterFormDataGrid.filterComponents.map((form) => ({
     id: form.inputFormId?.toString() ?? "",
     key: form.selectInput ?? "",
     operator: form.operatorInput ?? "",

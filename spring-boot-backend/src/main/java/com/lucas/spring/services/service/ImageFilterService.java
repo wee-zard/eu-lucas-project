@@ -1,6 +1,8 @@
 package com.lucas.spring.services.service;
 
+import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.request.filtering.ImageFilteringRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,5 +15,5 @@ public interface ImageFilterService {
    *
    * @param imageFilteringRequest the filters we want to use to fetch the images.
    */
-  void filterImage(ImageFilteringRequest imageFilteringRequest);
+  Page<ImageEntity> filterImage(ImageFilteringRequest imageFilteringRequest);
 }

@@ -9,18 +9,13 @@ import {
 export type OperatorItems = OperatorSelectItems | OperatorTextfieldItems | OperatorComperableItems;
 
 export type FilterFormDataGrid = {
-  filterFormGroups: FilterFormGroups[];
-  relations: FilterFormRelations;
-};
-
-export type FilterFormRelations = {
-  inputRelations: FormRelations[];
+  filterComponents: FilterFormGroups[];
   groupRelations: FormRelations[];
 };
 
 export type FormRelations = {
-  inputComponentId: number;
-  outputComponentId: number;
+  inputComponentId?: number;
+  outputComponentId?: number;
   logicalExpression: FormLogicalExpressions;
 };
 
