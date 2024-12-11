@@ -13,6 +13,7 @@
     "related": "multitext",
     "platform": "multitext",
     "creation-time": "datetime",
-    "sprint": "number"
+    "sprint": "number",
+    "kanban-plugin": "checkbox"
   }
 }

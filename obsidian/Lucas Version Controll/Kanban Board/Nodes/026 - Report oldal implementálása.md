@@ -5,7 +5,7 @@ type:
 priority:
   - High
 related:
-  - "[[024 - Manual oldal implementálása]]"
+  - "[[023 - Sidebar-on lévő menüpontok véglegesítése]]"
 platform:
   - frontend
 creation-time: 2024-12-07T09:16:00

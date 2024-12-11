@@ -11,25 +11,31 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * Storing the most important information
  * related to the users.
  */
+@Data
+@ToString
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "User")
 @Table(name = "tb_user_root")
 public class UserEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private final Long id;
+  private Long id;
   @Column(name = "auth_token", length = 256)
   private String authToken;
   @Column(name = "email_address", length = 1155, nullable = false)
@@ -41,15 +47,4 @@ public class UserEntity {
   @ManyToOne
   @JoinColumn(name = "status_id", nullable = false)
   private StatusEntity status;
-
-  @Override
-  public String toString() {
-    return "UserEntity{" +
-            "authToken='" + authToken + '\'' +
-            ", emailAddress='" + emailAddress + '\'' +
-            ", userName='" + userName + '\'' +
-            ", creationTime=" + creationTime +
-            ", status=" + status +
-            "} " + super.toString();
-  }
 }

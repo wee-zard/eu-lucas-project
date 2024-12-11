@@ -28,6 +28,20 @@
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
             }
+          },
+          {
+            "id": "67f6c9c5fad28939",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/058 - Email kiküldésének implementálása.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "058 - Email kiküldésének implementálása"
+            }
           }
         ]
       }
@@ -172,11 +186,23 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "5de6a424c27d8bf7",
+  "active": "981b7d1df804e240",
   "lastOpenFiles": [
-    "Templates/Node Template.md",
+    "Kanban Board/Nodes/065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel.md",
     "Kanban Board/Lucas Kanban.md",
     "Kanban Board/Nodes/057 - Új design létrehozása a FilteringDialog oldalhoz.md",
+    "Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md",
+    "Kanban Board/Nodes/063 - Validátorok hozzárendelése a Report üzenetekhez.md",
+    "Kanban Board/Nodes/058 - Email kiküldésének implementálása.md",
+    "Kanban Board/Images/Pasted image 20241211231810.png",
+    "Kanban Board/Nodes/026 - Report oldal implementálása.md",
+    "Kanban Board/Nodes/062 - Lehessen képet feltölteni a csatolmányként report küldése során.md",
+    "Kanban Board/Nodes/060 - Scheduler a félóránkénti report emailek kiküldésére.md",
+    "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
+    "Kanban Board/Nodes/061 - Tesztek írása és futtatása.md",
+    "Kanban Board/Nodes/059 - Report oldal és űrlap létrehozása.md",
+    "Kanban Board/Nodes/024 - Manual oldal implementálása.md",
+    "Templates/Node Template.md",
     "Kanban Board/Nodes/052 - Loading komponens megjelenítése.md",
     "Kanban Board/Nodes/056 - Loading ikon megjelenítése a timeline komponenshez.md",
     "Kanban Board/Nodes/042 - Google OAuth oldal befejezése.md",
@@ -189,17 +215,6 @@
     "Kanban Board/Nodes/037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba.md",
     "Kanban Board/Nodes/036 - UtilClass létrehozása.md",
     "Kanban Board/Nodes/035 - Tranzakció kezelés megvalósítása és versenyhelyzet kiküszöbölése.md",
-    "Kanban Board/Nodes/034 - ErrorHandling minden esetben internal-server-errort dob vissza.md",
-    "Kanban Board/Nodes/033 - Dto megvalósítása és az adatbázis logikai rétegének elrejtése.md",
-    "Kanban Board/Nodes/032 - Minden endpoint kerüljön authentikációhoz kötve.md",
-    "Kanban Board/Nodes/031 - Ha a törölt user bejelentkezve maradt, akkor ne tudjon kezdeményezni semmilyen utasítást.md",
-    "Kanban Board/Nodes/030 - A szűrési oldalon az űrlap kitöltésekor, a renderelés javításra kerüljön.md",
-    "Kanban Board/Nodes/029 - Lucas-image-server átmozgatása a backend-re és ott implementálni a képek feldolgozását.md",
-    "Kanban Board/Nodes/028 - Alkalmazás dockerizálása.md",
-    "Kanban Board/Nodes/027 - ManageUsers oldal implementálása.md",
-    "Kanban Board/Nodes/026 - Report oldal implementálása.md",
-    "Kanban Board/Nodes/025 - Settings oldal implementálása.md",
-    "Kanban Board/Nodes/024 - Manual oldal implementálása.md",
     "Kanban Board/Images/logo.png",
     "Pasted image 20241207205636.png",
     "Kanban Board/Images/Pasted image 20241207090805.png",

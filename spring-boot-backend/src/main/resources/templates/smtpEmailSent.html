@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ASD</title>
+    <style>
+        .row {
+          padding-right: 8px;
+          font-weight: bold;
+          display: flex;
+        }
+    </style>
+</head>
+<body>
+    <p>Dear <span th:utext="${name}"></span>,</p>
+    <p>There is a report that needs your review. Please check it out!</p>
+    <table>
+        <tr>
+            <td class="row">Title:</td>
+            <td th:utext="${title}"></td>
+        </tr>
+        <tr>
+            <td class="row">Type:</td>
+            <td th:utext="${type}"></td>
+        </tr>
+        <tr>
+            <td class="row">Reporter:</td>
+            <td><span th:utext="${username}"></span> (<span th:utext="${userid}"></span>)</td>
+        </tr>
+        <tr>
+            <td class="row">Message:</td>
+            <td th:utext="${message}"></td>
+        </tr>
+    </table>
+    <p>Thanks.</p>
+</body>
+</html>

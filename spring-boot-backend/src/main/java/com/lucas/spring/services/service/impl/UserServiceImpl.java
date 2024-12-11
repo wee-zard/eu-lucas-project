@@ -22,6 +22,17 @@ public class UserServiceImpl implements UserService {
   /**
    * {@inheritDoc}
    */
+  @Override
+  public UserEntity getUserById(final Long userId) {
+    // TODO: Better error message here
+    return userRepository
+            .findById(userId)
+            .orElseThrow(() -> new RuntimeException("User is not found!"));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Cacheable(SERVICE_CACHE_NAME)
   @Override
   public ArrayList<String> getAllUsersEmail() {
@@ -33,12 +44,37 @@ public class UserServiceImpl implements UserService {
    */
   @CacheEvict(SERVICE_CACHE_NAME)
   @Override
-  public void saveEmailAddress(String emailAddress, StatusEntity statusEntity) {
+  public void saveEmailAddress(
+          final String emailAddress,
+          final StatusEntity statusEntity
+  ) {
+    saveEmailAddressByProvidedParams(emailAddress, statusEntity, null);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @CacheEvict(SERVICE_CACHE_NAME)
+  @Override
+  public void saveEmailAddressWithUserName(
+          final String emailAddress,
+          final StatusEntity statusEntity,
+          final String userName
+  ) {
+    saveEmailAddressByProvidedParams(emailAddress, statusEntity, userName);
+  }
+
+  private void saveEmailAddressByProvidedParams(
+          final String emailAddress,
+          final StatusEntity statusEntity,
+          final String userName
+  ) {
     UserEntity userEntity = UserEntity
-          .builder()
-          .emailAddress(emailAddress)
-          .status(statusEntity)
-          .build();
+            .builder()
+            .emailAddress(emailAddress)
+            .userName(userName)
+            .status(statusEntity)
+            .build();
     userRepository.save(userEntity);
   }
 }

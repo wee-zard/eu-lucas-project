@@ -1,7 +1,7 @@
 ---
 id: 57
 type:
-  - 🟦Todo
+  - 🟨Client
 priority:
   - High
 related: 

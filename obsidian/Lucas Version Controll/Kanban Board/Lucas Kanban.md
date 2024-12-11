@@ -26,6 +26,10 @@ kanban-plugin: board
 - [ ] [[051 - Exifdata űrlap mezőjében a Textfield helyett Autocomplete input mezőt használjunk]]
 - [ ] [[054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban]]
 - [ ] [[055 - Loading ikon megjelenítése a képek lekérdezéséhez]]
+- [ ] [[062 - Lehessen képet feltölteni a csatolmányként report küldése során]]
+- [ ] [[063 - Validátorok hozzárendelése a Report üzenetekhez]]
+- [ ] [[064 - Validálás Validátorok kollektor]]
+- [ ] [[060 - Scheduler a félóránkénti report emailek kiküldésére]]
 
 
 ## 🔴ToDo
@@ -42,7 +46,6 @@ kanban-plugin: board
 - [ ] [[022 - ErrorLog létrehozása a production-ben dobásra került hibák visszakereshetősége céljából]]
 - [ ] [[024 - Manual oldal implementálása]]
 - [ ] [[025 - Settings oldal implementálása]]
-- [ ] [[026 - Report oldal implementálása]]
 - [ ] [[027 - ManageUsers oldal implementálása]]
 - [ ] [[029 - Lucas-image-server átmozgatása a backend-re és ott implementálni a képek feldolgozását]]
 - [ ] [[033 - Dto megvalósítása és az adatbázis logikai rétegének elrejtése]]
@@ -57,6 +60,9 @@ kanban-plugin: board
 - [ ] [[048 - Legyen egy Reset gomb a Filtering Dialog ablakban az aktív szűrések törlése céljából]]
 - [ ] [[053 - Loading ikon megjelenítése a bejelentkezési oldalhoz]]
 - [ ] [[056 - Loading ikon megjelenítése a timeline komponenshez]]
+- [ ] [[059 - Report oldal és űrlap létrehozása]]
+- [ ] [[061 - Tesztek írása és futtatása]]
+- [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
 
 
 ## 🔴Client Requests
@@ -74,12 +80,14 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
+- [ ] [[026 - Report oldal implementálása]]
 - [ ] [[057 - Új design létrehozása a FilteringDialog oldalhoz]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[058 - Email kiküldésének implementálása]]
 
 
 ***
@@ -115,6 +123,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[false,false,false,false,false],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"creation-time","label":"creation-time","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
+{"kanban-plugin":"board","list-collapse":[false,false,false,false,false],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
 ```
 %%
