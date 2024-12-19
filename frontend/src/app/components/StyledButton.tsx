@@ -5,7 +5,7 @@ import { StyledComponentGap } from "../global/globalStyles";
 import styled from "@emotion/styled";
 
 type Props = {
-  tooltopTitle?: string;
+  tooltipTitle?: string;
   buttonText: string;
   buttonIcon?: JSX.Element;
   buttonVariant?: "text" | "outlined" | "contained";
@@ -22,7 +22,7 @@ type Props = {
 };
 
 const StyledButton = ({
-  tooltopTitle,
+  tooltipTitle,
   buttonText,
   buttonIcon,
   buttonVariant,
@@ -31,7 +31,7 @@ const StyledButton = ({
   onClick,
 }: Props) => {
   return (
-    <Tooltip title={tooltopTitle} placement="top">
+    <Tooltip title={tooltipTitle} placement="top">
       <span>
         <CustomButtonDesign
           variant={buttonVariant}

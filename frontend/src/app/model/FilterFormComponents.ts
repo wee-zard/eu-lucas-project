@@ -3,10 +3,10 @@ import {
   FormLogicalExpressions,
   OperatorTextfieldItems,
   OperatorSelectItems,
-  OperatorComperableItems,
+  OperatorComparableItems,
 } from "./enum";
 
-export type OperatorItems = OperatorSelectItems | OperatorTextfieldItems | OperatorComperableItems;
+export type OperatorItems = OperatorSelectItems | OperatorTextfieldItems | OperatorComparableItems;
 
 export type FilterFormDataGrid = {
   filterComponents: FilterFormGroups[];

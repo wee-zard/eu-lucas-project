@@ -9,6 +9,7 @@ related:
 platform:
   - frontend
 creation-time: 2024-12-07T09:16:00
+sprint: 1
 ---
 Elvárt működés: 
 - Amennyiben a felhasználó valamilyen hibát talál, vagy hibát tapasztal, avagy nem tetszik neki valami az oldallal kapcsolatban, avagy nehezen tudja értelmezni az oldal és a szűrési felület működését, akkor bejelentéseket tehetnek.

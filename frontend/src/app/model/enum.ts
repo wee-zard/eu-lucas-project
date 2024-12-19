@@ -115,8 +115,8 @@ export enum DialogToOpens {
 }
 
 export enum OperatorSelectItems {
-  Equals = "== (egyenlő)",
-  DoesNotEqual = "!= (nem egyenlő)",
+  Equals = "==",
+  DoesNotEqual = "!=",
 }
 
 export enum OperatorTextfieldItems {
@@ -129,11 +129,11 @@ export enum OperatorTextfieldItems {
   //IsAnyOf = "is any of",
 }
 
-export enum OperatorComperableItems {
-  Less = "< (kisebb)",
-  LessOrEqual = "<= (kisebb egyenlő)",
-  Greater = "> (nagyobb)",
-  GreaterOrEqual = ">= (nagyobb egyenlő)",
+export enum OperatorComparableItems {
+  Less = "<",
+  LessOrEqual = "<=",
+  Greater = ">",
+  GreaterOrEqual = ">=",
 }
 
 export enum FormLogicalExpressions {
@@ -146,4 +146,10 @@ export enum FilteringFormInputKeys {
   SelectInput = "selectInput",
   OperatorInput = "operatorInput",
   TextfieldInput = "textFieldInput",
+}
+
+export enum MenuActions {
+  CANCEL = "CANCEL",
+  SUBMIT = "SUBMIT",
+  CLEAR_ALL = "CLEAR_ALL"
 }

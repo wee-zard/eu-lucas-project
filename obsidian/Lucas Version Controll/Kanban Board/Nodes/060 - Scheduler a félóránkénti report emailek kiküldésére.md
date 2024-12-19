@@ -8,7 +8,7 @@ related:
   - "[[026 - Report oldal implementálása]]"
 platform:
   - backend
-sprint: 1
+sprint: 
 creation-time: 2024-12-11T20:14:00
 ---
 Aktuális működés:

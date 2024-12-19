@@ -19,7 +19,7 @@ const FilteringScreenHeader = () => {
   return (
     <StyledHeaderHolder>
       <StyledButton
-        tooltopTitle={FilteringScreenTexts.ClearAllTooltip}
+        tooltipTitle={FilteringScreenTexts.ClearAllTooltip}
         buttonText={FilteringScreenTexts.ClearAllText}
         buttonColor="error"
         buttonVariant="outlined"
@@ -29,7 +29,7 @@ const FilteringScreenHeader = () => {
       />
       <StyledComponentGap>
         <StyledButton
-          tooltopTitle={FilteringScreenTexts.AddImageTooltip}
+          tooltipTitle={FilteringScreenTexts.AddImageTooltip}
           buttonText={FilteringScreenTexts.AddImageText}
           buttonColor="success"
           buttonVariant="outlined"
@@ -37,7 +37,10 @@ const FilteringScreenHeader = () => {
           onClick={() => dispatch(setDialogToOpen(DialogToOpens.FilteringDialog))}
         />
         <StyledIconButton
-          tooltopTitle={FilteringScreenTexts.DownloadTooltip}
+          tooltip={{
+            tooltipTitle: FilteringScreenTexts.DownloadTooltip,
+            tooltipPlacement: "top",
+          }}
           buttonIcon={<DownloadIcon />}
           onClick={
             () =>

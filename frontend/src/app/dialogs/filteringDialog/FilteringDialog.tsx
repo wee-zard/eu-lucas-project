@@ -12,14 +12,18 @@ import { RootState } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDialogToOpen } from "../../redux/actions/dialogActions";
 import styled from "@emotion/styled";
-import { setFilterFormDataDrid, setSelectedImage } from "../../redux/actions/imageActions";
+import {
+  setFilterFormDataGrid,
+  setSelectedImage,
+} from "../../redux/actions/imageActions";
 import { selectSelectedImages } from "../../redux/selectors/imageSelector";
-import { StyledComponentGap, StyledFullWidthAndHeight } from "../../global/globalStyles";
-import FilterSelectionColumn from "./selectionColumn/FilterSelectionColumn";
+import {
+  StyledComponentGap,
+  StyledFullWidthAndHeight,
+} from "../../global/globalStyles";
 import StyledButton from "../../components/StyledButton";
-import FilterImagePickerColumn from "./imagePickerColumn/FilterImagePickerColumn";
-import FilterFormAndGroupColumn from "./formAndGroupColumn/FilterFormAndGroupColumn";
 import { initFilterFormDataGrid } from "../../helper/filterFormUtils";
+import FilteringMenu from "./FilteringMenu";
 
 const FilteringDialog = () => {
   const selectedImages = useSelector(selectSelectedImages);
@@ -30,25 +34,37 @@ const FilteringDialog = () => {
 
   const handleDialogClose = () => {
     dispatch(setDialogToOpen(undefined));
-    dispatch(setFilterFormDataDrid(initFilterFormDataGrid));
-  }
+    dispatch(setFilterFormDataGrid(initFilterFormDataGrid));
+  };
 
   return (
-    <StyledDialog
-      open={dialogToOpen}
-      onClose={handleDialogClose}
-    >
-      <StyledDialogTitle>
-        Képek szűrése
-      </StyledDialogTitle>
-      <DialogContent sx={{padding: "0px"}}>
+    <StyledDialog open={dialogToOpen} onClose={handleDialogClose}>
+      <StyledDialogTitle>Képek szűrése</StyledDialogTitle>
+      <DialogContent sx={{ padding: "0px" }}>
         <StyledDialogContentHolder>
-          <FilterSelectionColumn />
-          <FilterFormAndGroupColumn />
-          <FilterImagePickerColumn />
+          {false
+            ? null
+            : /*
+              //TODO: Old version of app. Remove later...
+              <React.Fragment>
+                <FilterSelectionColumn />
+                <FilterFormAndGroupColumn />
+                <FilterImagePickerColumn />
+              </React.Fragment> 
+              */
+              null}
+
+          <div>
+            <div>
+              <FilteringMenu />
+            </div>
+            <div>
+              Táblázat itt lesz
+            </div>
+          </div>
         </StyledDialogContentHolder>
       </DialogContent>
-      <DialogActions sx={{padding: "0px"}}>
+      <DialogActions sx={{ padding: "0px" }}>
         <StyledActionsHolder>
           <StyledButton
             buttonText={FilteringDialogTexts.DisagreeButtonText}
@@ -82,12 +98,12 @@ const StyledDialog = styled(Dialog)<{}>((props) => ({
     maxHeight: "90%",
     borderRadius: "16px",
     padding: "24px",
-  }
+  },
 }));
 
 const StyledDialogTitle = styled(DialogTitle)<{}>(() => ({
-  display: "flex", 
-  justifyContent: "center", 
+  display: "flex",
+  justifyContent: "center",
   padding: "16px",
 }));
 
@@ -97,5 +113,5 @@ const StyledDialogContentHolder = styled(StyledComponentGap)<{}>(() => ({
 }));
 
 const StyledActionsHolder = styled(StyledComponentGap)<{}>(() => ({
-  paddingTop: "16px"
+  paddingTop: "16px",
 }));

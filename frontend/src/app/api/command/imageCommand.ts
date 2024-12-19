@@ -1,4 +1,4 @@
-import { OperatorComperableItems, OperatorSelectItems } from './../../model/enum';
+import { OperatorComparableItems, OperatorSelectItems } from './../../model/enum';
 import { NotificationSeverity, throwNotification } from "../../helper/notificationUtil";
 import { BackendImageControllerEndpoints, FilterDialogFilterOptions, ServersToConnectTo } from "../../model/enum";
 import { FilterFormDataGrid, OperatorItems } from "../../model/FilterFormComponents";
@@ -75,13 +75,13 @@ const filterTabToConstEnum = (option: FilterDialogFilterOptions): string => {
 // TODO: Delete later
 const filterOperatorToConstEnum = (option?: OperatorItems): string => {
   switch(option) {
-    case OperatorComperableItems.Greater:
+    case OperatorComparableItems.Greater:
       return "GREATER";
-    case OperatorComperableItems.GreaterOrEqual:
+    case OperatorComparableItems.GreaterOrEqual:
       return "GREATER_OR_EQUAL";
-    case OperatorComperableItems.Less:
+    case OperatorComparableItems.Less:
       return "LESS";
-    case OperatorComperableItems.LessOrEqual:
+    case OperatorComparableItems.LessOrEqual:
       return "LESS_OR_EQUAL";
     case OperatorSelectItems.DoesNotEqual:
       return "DOES_NOT_EQUALS";

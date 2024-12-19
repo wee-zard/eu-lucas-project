@@ -20,28 +20,31 @@ const StyledTextFieldComponent = ({
 
   const getInputValue = () => {
     return inputValue ?? "";
-  }
+  };
 
   return (
-    <FormControl fullWidth sx={{ 
-      ".MuiInputBase-root": { 
-        height: "40px",
-        top: "5px"
-      }}}
-    >
-      <StyledSelectHolder 
-        value={getInputValue()} 
+    <CustomFormControl fullWidth required>
+      <TextField
+        value={getInputValue()}
         label={inputTitle}
         onChange={handleSelectionProcess}
         required
       />
-    </FormControl>
+    </CustomFormControl>
   );
 };
 
 export default StyledTextFieldComponent;
 
-const StyledSelectHolder = styled(TextField)<{}>((props) => ({
-  height: "40px",
+const CustomFormControl = styled(FormControl)<{}>((props) => ({
+  "& .MuiFormLabel-root": {
+    top: "-5px",
+  },
+  "& .MuiInputBase-root": {
+    height: "40px",
+  },
+  "fieldset": {
+    borderRadius: "12px",
+    height: "45px",
+  }
 }));
-

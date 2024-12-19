@@ -3,21 +3,21 @@ import {
   FormLogicalExpressions,
   OperatorTextfieldItems,
   OperatorSelectItems,
-  OperatorComperableItems,
+  OperatorComparableItems,
 } from "../model/enum";
 import {
   FilterFormDataGrid,
   FilterFormGroups,
   FormRelations,
 } from "../model/FilterFormComponents";
-import { setFilterFormDataDrid } from "../redux/actions/imageActions";
+import { setFilterFormDataGrid } from "../redux/actions/imageActions";
 import { NotificationSeverity, throwNotification } from "./notificationUtil";
 
 export const operatorSelectItems = Object.values(OperatorSelectItems);
 
 export const operatorComparableItems = [
   ...operatorSelectItems,
-  ...Object.values(OperatorComperableItems)
+  ...Object.values(OperatorComparableItems)
 ];
 
 export const operatorTextfieldItems = [
@@ -136,7 +136,7 @@ export const saveFilterFormComponent = (
       : 1;
 
   dispatch(
-    setFilterFormDataDrid({
+    setFilterFormDataGrid({
       filterComponents: [
         ...filterFormDataGrid.filterComponents,
         /**

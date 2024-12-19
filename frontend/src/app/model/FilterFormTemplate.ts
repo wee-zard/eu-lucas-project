@@ -1,7 +1,7 @@
 import { FilteringFormInputKeys } from "./enum";
 
 export type FilterFormTemplate = {
-    inputTitle: string;
-    options?: string[];
-    inputKey: FilteringFormInputKeys;
-}
+  inputTitle: string;
+  options?: string[];
+  inputKey: FilteringFormInputKeys;
+};

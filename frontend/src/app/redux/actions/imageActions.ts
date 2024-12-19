@@ -1,4 +1,5 @@
-import { FilterDialogFilterOptions } from "../../model/enum";
+import { QueryBuilderModel } from "app/model/QueryBuilderModel";
+import { FilterDialogFilterOptions, MenuActions } from "../../model/enum";
 import { FilterFormDataGrid } from "../../model/FilterFormComponents";
 import { ImageFilteringForm } from "../../model/ImageFilteringForm";
 import { ImageConsts } from "../consts/imageConsts";
@@ -24,9 +25,23 @@ export const setImageFilteringForm = (data?: ImageFilteringForm) => {
   };
 };
 
-export const setFilterFormDataDrid = (data: FilterFormDataGrid) => {
+export const setFilterFormDataGrid = (data: FilterFormDataGrid) => {
   return {
     type: ImageConsts.SET_FILTER_FORM_DATA_GRID,
+    payload: data,
+  };
+};
+
+export const setFilterMenuAction = (data?: MenuActions) => {
+  return {
+    type: ImageConsts.SET_FILTER_MENU_ACTION,
+    payload: data,
+  };
+};
+
+export const setQueryBuilderModel = (data: QueryBuilderModel) => {
+  return {
+    type: ImageConsts.SET_QUERY_BUILDER_MODEL,
     payload: data,
   };
 };

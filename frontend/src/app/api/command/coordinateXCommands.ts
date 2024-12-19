@@ -22,12 +22,12 @@ export const getCoordinateXList = async () => {
     if (handleErrorMessageFromAxiosResponse(response)) {
       return null;
     }
-    const listOfCreationYears: CoordinateXDto[] = response.data;
-    return listOfCreationYears;
+    const responseList: CoordinateXDto[] = response.data;
+    return responseList;
   } catch (error) {
     handleErrorMessageFromCatchBranch(
       "Error while executing the fetch of x coordinates!"
-    )
+    );
     return null;
   }
 };

@@ -22,7 +22,7 @@ const coordinateXReducer = (
         ...state,
         isCoordinateXLoading: false,
       };
-    case CoordinateXConsts.REQUESTING_COORDINATE_X_SUCCEDED:
+    case CoordinateXConsts.REQUESTING_COORDINATE_X_SUCCEEDED:
       return {
         ...state,
         listOfCoordinateX: action.payload as CoordinateXDto[],

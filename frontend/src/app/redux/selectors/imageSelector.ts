@@ -7,3 +7,9 @@ export const selectSelectedFilterTab = (state: RootState) => state.imageStore.se
 export const selectImageFilteringForm = (state: RootState) => state.imageStore.imageFilteringForm;
 
 export const selectFilterFormDataGrid = (state: RootState) => state.imageStore.filterFormDataGrid;
+
+export const selectFilterMenuActions = (state: RootState) => state.imageStore.filterMenuAction;
+
+export const selectQueryBuilderModel = (state: RootState) => state.imageStore.queryBuilderModel;
+
+export const selectImageStorage = (state: RootState) => state.imageStore;

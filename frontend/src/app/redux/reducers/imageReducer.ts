@@ -1,15 +1,18 @@
 import { UnknownAction } from "redux";
 import { ImageConsts } from "../consts/imageConsts";
-import { FilterDialogFilterOptions } from "../../model/enum";
+import { FilterDialogFilterOptions, MenuActions } from "../../model/enum";
 import { ImageFilteringForm } from "../../model/ImageFilteringForm";
 import { FilterFormDataGrid } from "../../model/FilterFormComponents";
 import { initFilterFormDataGrid } from "../../helper/filterFormUtils";
+import { initQueryBuilderObj, QueryBuilderModel } from "app/model/QueryBuilderModel";
 
 interface ImageType {
   selectedImages: number[];
   selectedFilterTab: FilterDialogFilterOptions;
   filterFormDataGrid: FilterFormDataGrid;
   imageFilteringForm?: ImageFilteringForm;
+  filterMenuAction?: MenuActions;
+  queryBuilderModel: QueryBuilderModel;
 }
 
 const initialState: ImageType = {
@@ -17,6 +20,8 @@ const initialState: ImageType = {
   selectedFilterTab: FilterDialogFilterOptions.Year,
   filterFormDataGrid: initFilterFormDataGrid,
   imageFilteringForm: undefined,
+  filterMenuAction: undefined,
+  queryBuilderModel: initQueryBuilderObj(),
 };
 
 const imageReducer = (
@@ -43,6 +48,16 @@ const imageReducer = (
       return {
         ...state,
         filterFormDataGrid: action.payload as FilterFormDataGrid,
+      };
+    case ImageConsts.SET_FILTER_MENU_ACTION:
+      return {
+        ...state,
+        filterMenuAction: action.payload as MenuActions | undefined,
+      };
+    case ImageConsts.SET_QUERY_BUILDER_MODEL:
+      return {
+        ...state,
+        queryBuilderModel: action.payload as QueryBuilderModel,
       };
     default:
       return {

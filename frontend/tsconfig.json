@@ -1,11 +1,31 @@
 {
+  //"extends": "./tsconfig.json",
   "compilerOptions": {
+    "baseUrl" : "./src",
+    "paths": {
+      /*
+      "@api/*": ["./app/api/*"],
+      "@cards/*": ["./app/cards/*"],
+      "@components/*": ["./app/components/*"],
+      "@dialogs/*": ["./app/dialogs/*"],
+      "@global/*": ["./app/global/*"],
+      "@guards/*": ["./app/guards/*"],
+      "@helper/*": ["./app/helper/*"],
+      "@hooks/*": ["./app/hooks/*"],
+      "@model/*": ["./app/model/*"],
+      "@navigation/*": ["./app/navigation/*"],
+      "@providers/*": ["./app/providers/*"],
+      "@redux/*": ["./app/redux/*"],
+      "@screens/*": ["./app/screens/*"],
+      */
+    },
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    //"noImplicitAny": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,9 +38,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx" //"jsx": "react-native",
   },
   "include": [
-    "src"
+    "./src/**/*"
   ]
 }

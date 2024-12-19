@@ -1,6 +1,13 @@
 import React from "react";
-import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
-import styled from "@emotion/styled";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectProps,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { customScrollBar } from "app/global/globalStyles";
 
 type Props = {
   inputTitle?: string;
@@ -20,45 +27,48 @@ const StyledSelectComponent = ({
     setValue(selectedOption);
   };
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      },
-    },
-  };
-
   const getInputValue = () => {
     return inputValue && options.includes(inputValue, 0) ? inputValue : "";
-  }
+  };
 
   return (
-    <FormControl fullWidth required sx={{ ".MuiInputLabel-root" : {top: "-5px"}}}>
+    <FormControl
+      fullWidth
+      required
+      sx={{ ".MuiInputLabel-root": { top: "-5px" } }}
+    >
       <InputLabel>{inputTitle}</InputLabel>
-      <Select 
-        value={getInputValue()} 
+      <StyledSelect
+        value={getInputValue()}
         label={inputTitle}
-        MenuProps={MenuProps}
         onChange={handleSelectionProcess}
-        sx={{ height: "40px" }}
       >
         {options.map((option, index) => (
-          <MenuItem
-            value={option}
-            key={index}
-          >
+          <MenuItem value={option} key={index}>
             {option}
           </MenuItem>
         ))}
-      </Select>
+      </StyledSelect>
     </FormControl>
   );
 };
 
 export default StyledSelectComponent;
 
-const StyledSelectHolder = styled(Select)<{}>((props) => ({
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+
+const BaseSelect = styled(Select)(({ theme }) => ({
   height: "40px",
+  borderRadius: "12px",
+}));
+
+const StyledSelect = styled(({ className, ...props }: SelectProps) => (
+  <BaseSelect {...props} MenuProps={{ PaperProps: { className } }} />
+))(({ theme }) => ({
+  maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+  borderRadius: "12px",
+  overflow: "auto",
+  overflowX: "hidden",
+  ...customScrollBar(),
 }));

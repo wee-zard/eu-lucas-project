@@ -21,7 +21,6 @@ kanban-plugin: board
 - [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]
 - [ ] [[046 - Szűrési táblázat nem reszponzív, mérete nem változik dinamikusan az ablak méretének módosításával]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
-- [ ] [[049 - Custom Scrollbar stílus nincsen használva a Filtering Dialog űrlapj input mezőiben]]
 - [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]]
 - [ ] [[051 - Exifdata űrlap mezőjében a Textfield helyett Autocomplete input mezőt használjunk]]
 - [ ] [[054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban]]
@@ -30,6 +29,7 @@ kanban-plugin: board
 - [ ] [[063 - Validátorok hozzárendelése a Report üzenetekhez]]
 - [ ] [[064 - Validálás Validátorok kollektor]]
 - [ ] [[060 - Scheduler a félóránkénti report emailek kiküldésére]]
+- [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
 
 
 ## 🔴ToDo
@@ -82,11 +82,18 @@ kanban-plugin: board
 
 - [ ] [[026 - Report oldal implementálása]]
 - [ ] [[057 - Új design létrehozása a FilteringDialog oldalhoz]]
+- [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
+- [ ] [[067 - Path alias használata a relatív útvonali fájlok importálása helyett]]
+- [ ] [[068 - Új Query Builder implementálása a frontenden]]
+- [ ] [[071 - Query Builder implementálása a Backend oldalon]]
+- [ ] [[072 - Query Builder optimalizáció és React memo használata]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[049 - Custom Scrollbar stílus nincsen használva a Filtering Dialog űrlapj input mezőiben]]
+- [ ] [[069 - Környezetfüggetlen nyelvtan definiálása az új QueryBuilder-hez]]
 - [ ] [[058 - Email kiküldésének implementálása]]
 
 

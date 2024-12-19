@@ -13,9 +13,9 @@ export const setCoordinateXFailed = () => {
     type: CoordinateXConsts.REQUESTING_COORDINATE_X_FAILED,
   };
 };
-export const setCoordinateXSucceded = (data: CoordinateXDto[]) => {
+export const setCoordinateXSucceeded = (data: CoordinateXDto[]) => {
   return {
-    type: CoordinateXConsts.REQUESTING_COORDINATE_X_SUCCEDED,
+    type: CoordinateXConsts.REQUESTING_COORDINATE_X_SUCCEEDED,
     payload: data,
   };
 };
@@ -24,7 +24,7 @@ export const requestCoordinateXList = (dispatch: Dispatch) => {
   getCoordinateXList()
     .then((response) => {
       if (response) {
-        dispatch(setCoordinateXSucceded(response));
+        dispatch(setCoordinateXSucceeded(response));
       } else {
         dispatch(setCoordinateXFailed());
       }
