@@ -2,23 +2,27 @@ import StyledIconButton from "app/components/StyledIconButton";
 import React from "react";
 import StyledSelectComponent from "app/components/StyledSelectComponent";
 import { FilterDialogFilterOptions } from "app/model/enum";
-import { getNewIdToElement, QueryComponent } from "app/model/QueryBuilderModel";
+import { getNewIdToElement, QueryComponent, QueryGroup } from "app/model/QueryBuilderModel";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import FilteringInputField from "./FilteringInputField";
 import { StyledInputHolder } from "./FilteringMenu";
 import styled from "@emotion/styled";
 import { StyledComponentGap } from "app/global/globalStyles";
+import { useSelector } from "react-redux";
+import { selectQueryBranch } from "app/redux/selectors/imageSelector";
+import { RootState } from "app/redux/store";
 
 type Props = {
-  queryComponent: QueryComponent;
+  id: number;
   callback: (queryComponent?: QueryComponent) => void;
 };
 
 const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
-  queryComponent,
+  id,
   callback,
 }: Props) {
-  console.log("[FilteringQueryComponent]: rendered", queryComponent);
+  console.log("[FilteringQueryComponent]: rendered");
+  const queryComponent = useSelector((state) => selectQueryBranch(state as RootState, id)) as QueryComponent;
 
   /**
    * TODO: The input fields will be implemented here!

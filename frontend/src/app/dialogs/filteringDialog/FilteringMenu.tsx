@@ -58,7 +58,7 @@ const FilteringMenu = () => {
           <StyledMenuContentHolder>
             <StyledMenuInnerContentHolder>
               <FilteringMenuBody
-                queryBuilderModel={queryBuilderModel}
+                id={queryBuilderModel.id}
                 callback={(builder) => dispatch(setQueryBuilderModel(builder))}
               />
             </StyledMenuInnerContentHolder>

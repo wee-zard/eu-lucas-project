@@ -14,14 +14,14 @@ export type QueryBuilderModel = {
   id: number,
   queryMultiTypes: QueryMultiType[],
   queryElementRelation?: QueryElementRelations,
-  queryType?: string,// = QueryTypes.QUERY_BUILDER,
+  queryType: QueryTypes,// = QueryTypes.QUERY_BUILDER,
 }
 
 export type QueryGroup = {
   id: number,
   queryComponents: QueryComponent[],
   queryElementRelation?: QueryElementRelations,
-  queryType?: string,// = QueryTypes.QUERY_GROUP,
+  queryType: QueryTypes,// = QueryTypes.QUERY_GROUP,
 }
 
 export type QueryComponent = {

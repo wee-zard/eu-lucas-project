@@ -1,33 +1,36 @@
 import React from "react";
 import {
-  QueryBuilderModel,
-  QueryGroup,
   QueryMultiType,
   QueryTypes,
 } from "app/model/QueryBuilderModel";
 import FilteringQueryGroup from "./FilteringQueryGroup";
 import FilteringMenuBody from "./FilteringMenuBody";
+import { useSelector } from "react-redux";
+import { selectQueryBranch } from "app/redux/selectors/imageSelector";
+import { RootState } from "app/redux/store";
 
 type Props = {
-  multiType: QueryMultiType;
+  id: number;
   callback: (multiType?: QueryMultiType) => void;
 };
 
-const FilteringQueryMultiType = ({ multiType, callback }: Props) => {
+const FilteringQueryMultiType = ({ id, callback }: Props) => {
   console.log("[FilteringQueryMultiType]: RENDERED");
+
+  const multiType = useSelector((state) => selectQueryBranch(state as RootState, id)) as QueryMultiType;
 
   return (
     <React.Fragment>
       {multiType.queryType === QueryTypes.QUERY_BUILDER ? (
         <FilteringMenuBody
-          queryBuilderModel={multiType as QueryBuilderModel}
+          id={multiType.id}
           callback={(modifiedQueryBuilderModel) =>
             callback(modifiedQueryBuilderModel)
           }
         />
       ) : multiType.queryType === QueryTypes.QUERY_GROUP ? (
         <FilteringQueryGroup
-          queryGroup={multiType as QueryGroup}
+          id={multiType.id}
           callback={(queryGroup) => callback(queryGroup)}
         />
       ) : null}

@@ -12,14 +12,18 @@ import FilteringQueryComponent from "./FilteringQueryComponent";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { OtherworldlyGreeting } from "./OtherworldlyGreeting";
+import { RootState } from "app/redux/store";
+import { selectQueryBranch } from "app/redux/selectors/imageSelector";
+import { useSelector } from "react-redux";
 
 type Props = {
-  queryGroup: QueryGroup;
+  id: number;
   callback: (queryGroup?: QueryGroup) => void;
 };
 
-const FilteringQueryGroup = ({ queryGroup, callback }: Props) => {
+const FilteringQueryGroup = ({ id, callback }: Props) => {
   console.log("[FilteringQueryGroup]: RENDERED");
+  const queryGroup = useSelector((state) => selectQueryBranch(state as RootState, id)) as QueryGroup;
 
   /*
    * One button must be displayed here for the purpose
@@ -98,9 +102,9 @@ const FilteringQueryGroup = ({ queryGroup, callback }: Props) => {
               <div key={queryComponent.id}>
                 {
                   // TODO: Remove this if check later, and remove the component in the else case.
-                  queryGroup.queryComponents.length > 1000 ? (
+                  queryGroup.queryComponents.length > 0 ? (
                     <FilteringQueryComponent
-                      queryComponent={queryComponent}
+                      id={queryComponent.id}
                       callback={(modifiedQueryComponent) => {
                         if (modifiedQueryComponent) {
                           const components = queryGroup.queryComponents.map(
