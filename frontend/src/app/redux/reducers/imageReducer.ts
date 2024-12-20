@@ -4,7 +4,7 @@ import { FilterDialogFilterOptions, MenuActions } from "../../model/enum";
 import { ImageFilteringForm } from "../../model/ImageFilteringForm";
 import { FilterFormDataGrid } from "../../model/FilterFormComponents";
 import { initFilterFormDataGrid } from "../../helper/filterFormUtils";
-import { initQueryBuilderObj, QueryBuilderModel } from "app/model/QueryBuilderModel";
+import { initFirstQueryParent, initQueryBuilderObj, QueryBuilderModel } from "app/model/QueryBuilderModel";
 
 interface ImageType {
   selectedImages: number[];
@@ -21,7 +21,7 @@ const initialState: ImageType = {
   filterFormDataGrid: initFilterFormDataGrid,
   imageFilteringForm: undefined,
   filterMenuAction: undefined,
-  queryBuilderModel: initQueryBuilderObj(),
+  queryBuilderModel: initQueryBuilderObj(initFirstQueryParent),
 };
 
 const imageReducer = (

@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { setDialogToOpen } from "../../redux/actions/dialogActions";
 import styled from "@emotion/styled";
 import {
-  setFilterFormDataGrid,
   setSelectedImage,
 } from "../../redux/actions/imageActions";
 import { selectSelectedImages } from "../../redux/selectors/imageSelector";
@@ -22,7 +21,6 @@ import {
   StyledFullWidthAndHeight,
 } from "../../global/globalStyles";
 import StyledButton from "../../components/StyledButton";
-import { initFilterFormDataGrid } from "../../helper/filterFormUtils";
 import FilteringMenu from "./FilteringMenu";
 
 const FilteringDialog = () => {
@@ -34,7 +32,6 @@ const FilteringDialog = () => {
 
   const handleDialogClose = () => {
     dispatch(setDialogToOpen(undefined));
-    dispatch(setFilterFormDataGrid(initFilterFormDataGrid));
   };
 
   return (

@@ -1,41 +1,40 @@
-import React from "react";
-import {
-  QueryMultiType,
-  QueryTypes,
-} from "app/model/QueryBuilderModel";
+import React, { useEffect, useState } from "react";
+import { QueryMultiType, QueryTypes } from "app/model/QueryBuilderModel";
 import FilteringQueryGroup from "./FilteringQueryGroup";
 import FilteringMenuBody from "./FilteringMenuBody";
-import { useSelector } from "react-redux";
-import { selectQueryBranch } from "app/redux/selectors/imageSelector";
-import { RootState } from "app/redux/store";
+import { FilteringHelper } from "app/helper/filteringHelper";
 
 type Props = {
   id: number;
-  callback: (multiType?: QueryMultiType) => void;
 };
 
-const FilteringQueryMultiType = ({ id, callback }: Props) => {
+const FilteringQueryMultiType = React.memo(function FilteringQueryMultiType({
+  id,
+}: Props) {
   console.log("[FilteringQueryMultiType]: RENDERED");
 
-  const multiType = useSelector((state) => selectQueryBranch(state as RootState, id)) as QueryMultiType;
+  const renderComponent = () => {
+    const states = FilteringHelper.getUpdatedStates<QueryMultiType>(id);
+    return states.filtered.queryType === QueryTypes.QUERY_BUILDER ? (
+      <FilteringMenuBody id={states.filtered.id} />
+    ) : (
+      <FilteringQueryGroup id={states.filtered.id} />
+    );
+  };
 
-  return (
-    <React.Fragment>
-      {multiType.queryType === QueryTypes.QUERY_BUILDER ? (
-        <FilteringMenuBody
-          id={multiType.id}
-          callback={(modifiedQueryBuilderModel) =>
-            callback(modifiedQueryBuilderModel)
-          }
-        />
-      ) : multiType.queryType === QueryTypes.QUERY_GROUP ? (
-        <FilteringQueryGroup
-          id={multiType.id}
-          callback={(queryGroup) => callback(queryGroup)}
-        />
-      ) : null}
-    </React.Fragment>
-  );
-};
+  const [element, setElement] = useState(renderComponent());
+
+  useEffect(() => {
+    const states = FilteringHelper.getUpdatedStates<QueryMultiType>(id);
+    const eventName = FilteringHelper.getEventListenerName(states.filtered.id);
+    window.addEventListener(eventName, () => setElement(renderComponent()));
+    return () =>
+      window.removeEventListener(eventName, () =>
+        setElement(renderComponent())
+      );
+  }, []);
+
+  return <React.Fragment>{element}</React.Fragment>;
+});
 
 export default FilteringQueryMultiType;

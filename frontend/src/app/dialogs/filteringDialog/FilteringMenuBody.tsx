@@ -1,31 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import {
-  getNewIdToElement,
   initQueryBuilderObj,
+  initQueryGroupObj,
   QueryBuilderModel,
-  QueryGroup,
   QueryMultiType,
-  QueryTypes,
 } from "app/model/QueryBuilderModel";
 import StyledButton from "app/components/StyledButton";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FilteringQueryMultiType from "./FilteringQueryMultiType";
 import { StyledComponentGap } from "app/global/globalStyles";
 import { FilteringHelper } from "app/helper/filteringHelper";
-import { useSelector } from "react-redux";
-import { selectQueryBranch } from "app/redux/selectors/imageSelector";
-import { RootState } from "app/redux/store";
+import { setQueryBuilderModelLocalStorage } from "./FilteringMenu";
 
 type Props = {
   id: number;
-  callback: (modifiedQueryBuilderModel: QueryBuilderModel) => void;
 };
 
-const FilteringMenuBody = ({ id, callback }: Props) => {
+const FilteringMenuBody = React.memo(function FilteringMenuBody({ id }: Props) {
   console.log("[FilteringMenuBody]: RENDERED");
-
-  const queryBuilderModel = useSelector((state) => selectQueryBranch(state as RootState, id)) as QueryBuilderModel;
 
   /**
    * Adding a new {@link QueryBuilderModel} to the TREE.
@@ -33,81 +26,92 @@ const FilteringMenuBody = ({ id, callback }: Props) => {
    * exists in the actual branch.
    */
   const handleClickOnAddGroup = () => {
+    const states = FilteringHelper.getUpdatedStates<QueryBuilderModel>(id);
     const modifiedQueryMultiTypes: QueryMultiType[] = [
-      ...queryBuilderModel.queryMultiTypes,
-      initQueryBuilderObj(),
+      ...states.filtered.queryMultiTypes,
+      initQueryBuilderObj(states.filtered.id),
     ];
-    callback(
-      FilteringHelper.modifyQueryBuilderModel(
-        modifiedQueryMultiTypes,
-        queryBuilderModel
-      )
+    const modifiedQueryBuilderModel = FilteringHelper.modifyQueryBuilderModel(
+      modifiedQueryMultiTypes,
+      states.filtered
     );
+    const obj = FilteringHelper.handleFilterChanges(
+      states.root,
+      id,
+      modifiedQueryBuilderModel
+    );
+    setQueryBuilderModelLocalStorage(obj);
+    FilteringHelper.sendUpdateEvent(states.filtered.id);
   };
 
-  /**
-   * Adding a new {@link QueryGroup} to the TREE.
-   */
   const handleClickOnAddCondition = () => {
-    const newQueryGroup: QueryGroup = {
-      id: getNewIdToElement(),
-      queryType: QueryTypes.QUERY_GROUP,
-      queryComponents: [{ id: getNewIdToElement() + 1 }],
-    };
+    const states = FilteringHelper.getUpdatedStates<QueryBuilderModel>(id);
     const modifiedQueryMultiTypes: QueryMultiType[] = [
-      ...queryBuilderModel.queryMultiTypes,
-      newQueryGroup,
+      ...states.filtered.queryMultiTypes,
+      initQueryGroupObj(states.filtered.id),
     ];
-    callback(
-      FilteringHelper.modifyQueryBuilderModel(
-        modifiedQueryMultiTypes,
-        queryBuilderModel
-      )
+    const modifiedQueryBuilderModel = FilteringHelper.modifyQueryBuilderModel(
+      modifiedQueryMultiTypes,
+      states.filtered
     );
+    const obj = FilteringHelper.handleFilterChanges(
+      states.root,
+      id,
+      modifiedQueryBuilderModel
+    );
+    setQueryBuilderModelLocalStorage(obj);
+    FilteringHelper.sendUpdateEvent(states.filtered.id);
   };
 
-  return (
-    <StyledQueryBuilderHolder>
-      {queryBuilderModel.queryMultiTypes.length > 0 ? (
-        queryBuilderModel.queryMultiTypes.map((multiType: QueryMultiType) => (
-          <div key={multiType.id}>
-            <FilteringQueryMultiType
-              id={multiType.id}
-              callback={(modifiedMultiType) =>
-                callback(
-                  FilteringHelper.handleSliceOutOldBranchReplaceWithNewOne(
-                    queryBuilderModel,
-                    multiType.id,
-                    modifiedMultiType
-                  )
-                )
-              }
-            />
-          </div>
-        ))
-      ) : (
-        <StyledEmptyQueryBuilderHolder>
-          EMPTY QUERY BUILDER MODEL FIELD
-        </StyledEmptyQueryBuilderHolder>
-      )}
+  const renderComponent = () => {
+    const states = FilteringHelper.getUpdatedStates<QueryBuilderModel>(id);
+    return (
+      <StyledQueryBuilderHolder>
+        {states.filtered.queryMultiTypes.length > 0 ? (
+          states.filtered.queryMultiTypes.map((multiType: QueryMultiType) => (
+            <div key={multiType.id}>
+              <FilteringQueryMultiType id={multiType.id} />
+            </div>
+          ))
+        ) : (
+          <StyledEmptyQueryBuilderHolder>
+            EMPTY QUERY BUILDER MODEL FIELD
+          </StyledEmptyQueryBuilderHolder>
+        )}
 
-      <StyledComponentGap gap={"8px"}>
-        <StyledButton
-          buttonIcon={<AddCircleOutlineIcon />}
-          buttonText="Add condition"
-          onClick={handleClickOnAddCondition}
-        />
-        {queryBuilderModel.queryMultiTypes.length > 0 ? (
+        <StyledComponentGap gap={"8px"}>
           <StyledButton
             buttonIcon={<AddCircleOutlineIcon />}
-            buttonText="Add group"
-            onClick={handleClickOnAddGroup}
+            buttonText="Add condition"
+            onClick={handleClickOnAddCondition}
           />
-        ) : null}
-      </StyledComponentGap>
-    </StyledQueryBuilderHolder>
-  );
-};
+          {states.filtered.queryMultiTypes.length > 0 ? (
+            <StyledButton
+              buttonIcon={<AddCircleOutlineIcon />}
+              buttonText="Add group"
+              onClick={handleClickOnAddGroup}
+            />
+          ) : null}
+        </StyledComponentGap>
+      </StyledQueryBuilderHolder>
+    );
+  };
+
+  const [element, setElement] = useState(renderComponent());
+
+  useEffect(() => {
+    const eventName = FilteringHelper.getEventListenerName(
+      FilteringHelper.getUpdatedStates<QueryBuilderModel>(id).filtered.id
+    );
+    window.addEventListener(eventName, () => setElement(renderComponent()));
+    return () =>
+      window.removeEventListener(eventName, () =>
+        setElement(renderComponent())
+      );
+  }, []);
+
+  return <React.Fragment>{element}</React.Fragment>;
+});
 
 export default FilteringMenuBody;
 

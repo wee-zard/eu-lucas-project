@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StyledIconButton from "app/components/StyledIconButton";
 import styled from "@emotion/styled";
 import { StyledComponentGap } from "app/global/globalStyles";
@@ -12,18 +12,17 @@ import FilteringQueryComponent from "./FilteringQueryComponent";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { OtherworldlyGreeting } from "./OtherworldlyGreeting";
-import { RootState } from "app/redux/store";
-import { selectQueryBranch } from "app/redux/selectors/imageSelector";
-import { useSelector } from "react-redux";
+import { FilteringHelper } from "app/helper/filteringHelper";
+import { setQueryBuilderModelLocalStorage } from "./FilteringMenu";
 
 type Props = {
   id: number;
-  callback: (queryGroup?: QueryGroup) => void;
 };
 
-const FilteringQueryGroup = ({ id, callback }: Props) => {
+const FilteringQueryGroup = React.memo(function FilteringQueryGroup({
+  id,
+}: Props) {
   console.log("[FilteringQueryGroup]: RENDERED");
-  const queryGroup = useSelector((state) => selectQueryBranch(state as RootState, id)) as QueryGroup;
 
   /*
    * One button must be displayed here for the purpose
@@ -36,128 +35,123 @@ const FilteringQueryGroup = ({ id, callback }: Props) => {
    * what the users could overwrite later.
    */
   const handleOnClickAddFilterCondition = () => {
+    const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
     const modifiedQueryComponents: QueryComponent[] = [
-      ...queryGroup.queryComponents,
-      { id: getNewIdToElement() },
+      ...states.filtered.queryComponents,
+      { id: getNewIdToElement(), parentId: states.filtered.id },
     ];
-    callback({
-      id: queryGroup.id,
-      queryType: queryGroup.queryType,
+    const modifiedQueryGroup: QueryGroup = {
+      ...states.filtered,
       queryComponents: modifiedQueryComponents,
       queryElementRelation:
-        !queryGroup.queryElementRelation && modifiedQueryComponents.length === 2
+        !states.filtered.queryElementRelation &&
+        modifiedQueryComponents.length === 2
           ? QueryElementRelations.And
-          : queryGroup.queryElementRelation,
-    });
+          : states.filtered.queryElementRelation,
+    };
+    const obj = FilteringHelper.handleFilterChanges(
+      states.root,
+      id,
+      modifiedQueryGroup
+    );
+    setQueryBuilderModelLocalStorage(obj);
+    // Update the component itself on changes.
+    FilteringHelper.sendUpdateEvent(states.filtered.id);
   };
 
-  return (
-    <StyledQueryComponentHolder>
-      {
-        /**
-         * Display the relations between the {@link QueryComponent} elements.
-         */
-        /*
+  const handleOnClickRemoveQueryGroup = () => {
+    const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
+    const obj = FilteringHelper.handleFilterChanges(states.root, id);
+    setQueryBuilderModelLocalStorage(obj);
+    FilteringHelper.sendUpdateEvent(states.filtered.parentId);
+  };
+
+  const renderComponent = () => {
+    const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
+    return (
+      <StyledQueryComponentHolder>
+        {
+          /**
+           * Display the relations between the {@link QueryComponent} elements.
+           */
+          /*
           queryGroup.queryElementRelation ? (
             <div>{queryGroup.queryElementRelation}</div>
           ) : queryGroup.queryComponents.length === 1 ? (
             <div>WHERE</div>
           ) : null
           */
-        <StyledGroupActionsHolder>
-          <div>WHERE</div>
-          <StyledComponentGap>
-            <StyledIconButton
-              buttonIcon={<AddCircleOutlineIcon />}
-              tooltip={{
-                tooltipTitle: "Add Filter Condition",
-                tooltipPlacement: "top",
-              }}
-              onClick={handleOnClickAddFilterCondition}
-            />
-            <StyledIconButton
-              buttonIcon={<DeleteForeverOutlinedIcon />}
-              tooltip={{
-                tooltipTitle: "Remove Query Group",
-                tooltipPlacement: "right-start",
-              }}
-              onClick={() => callback()}
-            />
-          </StyledComponentGap>
-        </StyledGroupActionsHolder>
-      }
-
-      <React.Fragment>
-        {
-          /**
-           * TODO: There is a case, where the length of the query components is zero.
-           * This case, please display a text to the user, that "GROUP IS EMPTY".
-           */
-          /**
-           * Display the Query Components.
-           * If no component is in the array, then nothing will be displayed.
-           */
-          queryGroup.queryComponents.length > 0 ? (
-            queryGroup.queryComponents.map((queryComponent) => (
-              <div key={queryComponent.id}>
-                {
-                  // TODO: Remove this if check later, and remove the component in the else case.
-                  queryGroup.queryComponents.length > 0 ? (
-                    <FilteringQueryComponent
-                      id={queryComponent.id}
-                      callback={(modifiedQueryComponent) => {
-                        if (modifiedQueryComponent) {
-                          const components = queryGroup.queryComponents.map(
-                            (item) =>
-                              item.id === queryComponent.id
-                                ? modifiedQueryComponent
-                                : item
-                          );
-                          const modifiedQueryGroup: QueryGroup = {
-                            ...queryGroup,
-                            queryComponents: components,
-                            queryElementRelation:
-                              !queryGroup.queryElementRelation &&
-                              components.length === 2
-                                ? (queryGroup.queryElementRelation =
-                                    QueryElementRelations.And)
-                                : queryGroup.queryElementRelation,
-                          };
-                          callback(modifiedQueryGroup);
-                        } else {
-                          const components = queryGroup.queryComponents.filter(
-                            (item) => item.id !== queryComponent.id
-                          );
-                          const modifiedQueryGroup: QueryGroup = {
-                            ...queryGroup,
-                            queryComponents: components,
-                            queryElementRelation:
-                              !queryGroup.queryElementRelation &&
-                              components.length === 2
-                                ? (queryGroup.queryElementRelation =
-                                    QueryElementRelations.And)
-                                : queryGroup.queryElementRelation,
-                          };
-                          callback(modifiedQueryGroup);
-                        }
-                      }}
-                    />
-                  ) : (
-                    <OtherworldlyGreeting />
-                  )
-                }
-              </div>
-            ))
-          ) : (
-            <StyledEmptyGroupHolder>
-              EMPTY QUERY GROUP FIELD!!!!!!!!!!!!!!!!!!
-            </StyledEmptyGroupHolder>
-          )
+          <StyledGroupActionsHolder>
+            <div>WHERE</div>
+            <StyledComponentGap>
+              <StyledIconButton
+                buttonIcon={<AddCircleOutlineIcon />}
+                tooltip={{
+                  tooltipTitle: "Add Filter Condition",
+                  tooltipPlacement: "top",
+                }}
+                onClick={handleOnClickAddFilterCondition}
+              />
+              <StyledIconButton
+                buttonIcon={<DeleteForeverOutlinedIcon />}
+                tooltip={{
+                  tooltipTitle: "Remove Query Group",
+                  tooltipPlacement: "right-start",
+                }}
+                onClick={handleOnClickRemoveQueryGroup}
+              />
+            </StyledComponentGap>
+          </StyledGroupActionsHolder>
         }
-      </React.Fragment>
-    </StyledQueryComponentHolder>
-  );
-};
+
+        <React.Fragment>
+          {
+            /**
+             * TODO: There is a case, where the length of the query components is zero.
+             * This case, please display a text to the user, that "GROUP IS EMPTY".
+             */
+            /**
+             * Display the Query Components.
+             * If no component is in the array, then nothing will be displayed.
+             */
+            states.filtered.queryComponents.length > 0 ? (
+              states.filtered.queryComponents.map((queryComponent) => (
+                <div key={queryComponent.id}>
+                  {
+                    // TODO: Remove this if check later, and remove the component in the else case.
+                    states.filtered.queryComponents.length > 0 ? (
+                      <FilteringQueryComponent id={queryComponent.id} />
+                    ) : (
+                      <OtherworldlyGreeting />
+                    )
+                  }
+                </div>
+              ))
+            ) : (
+              <StyledEmptyGroupHolder>
+                EMPTY QUERY GROUP FIELD!!!!!!!!!!!!!!!!!!
+              </StyledEmptyGroupHolder>
+            )
+          }
+        </React.Fragment>
+      </StyledQueryComponentHolder>
+    );
+  };
+
+  const [element, setElement] = useState(renderComponent());
+
+  useEffect(() => {
+    const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
+    const eventName = FilteringHelper.getEventListenerName(states.filtered.id);
+    window.addEventListener(eventName, () => setElement(renderComponent()));
+    return () =>
+      window.removeEventListener(eventName, () =>
+        setElement(renderComponent())
+      );
+  }, []);
+
+  return <React.Fragment>{element}</React.Fragment>;
+});
 
 export default FilteringQueryGroup;
 

@@ -11,18 +11,20 @@ export enum QueryTypes {
 }
 
 export type QueryBuilderModel = {
-  id: number,
-  queryMultiTypes: QueryMultiType[],
-  queryElementRelation?: QueryElementRelations,
-  queryType: QueryTypes,// = QueryTypes.QUERY_BUILDER,
-}
+  id: number;
+  parentId: number;
+  queryMultiTypes: QueryMultiType[];
+  queryElementRelation?: QueryElementRelations;
+  queryType: QueryTypes; // = QueryTypes.QUERY_BUILDER,
+};
 
 export type QueryGroup = {
-  id: number,
-  queryComponents: QueryComponent[],
-  queryElementRelation?: QueryElementRelations,
-  queryType: QueryTypes,// = QueryTypes.QUERY_GROUP,
-}
+  id: number;
+  parentId: number;
+  queryComponents: QueryComponent[];
+  queryElementRelation?: QueryElementRelations;
+  queryType: QueryTypes; // = QueryTypes.QUERY_GROUP,
+};
 
 export type QueryComponent = {
   /**
@@ -30,6 +32,7 @@ export type QueryComponent = {
    * in ISO String format.
    */
   id: number;
+  parentId: number;
   selectedFilterTab?: FilterDialogFilterOptions;
   groupFormId?: number;
   inputFormId?: number;
@@ -59,16 +62,29 @@ export type QueryConditions =
 
 export const getNewIdToElement = () => Date.now();
 
-export const initQueryBuilderObj = (): QueryBuilderModel => ({
-  id: getNewIdToElement(),
-  queryType: QueryTypes.QUERY_BUILDER,
-  queryMultiTypes: [
-    {
-      id: getNewIdToElement() + 1,
-      queryType: QueryTypes.QUERY_GROUP,
-      queryComponents: [{ id: getNewIdToElement() + 2 }],
-    },
-  ],
-});
+export const initFirstQueryParent = -1;
 
+export const initQueryBuilderObj = (parentId: number): QueryBuilderModel => {
+  const id = getNewIdToElement();
+  return {
+    id: id + 2,
+    parentId: parentId,
+    queryType: QueryTypes.QUERY_BUILDER,
+    queryMultiTypes: [initQueryGroupObj(id + 2)],
+  };
+};
 
+export const initQueryGroupObj = (parentId: number): QueryGroup => {
+  const id = getNewIdToElement();
+  return {
+    id: id,
+    parentId: parentId,
+    queryType: QueryTypes.QUERY_GROUP,
+    queryComponents: [
+      {
+        id: id + 1,
+        parentId: id,
+      },
+    ],
+  };
+};

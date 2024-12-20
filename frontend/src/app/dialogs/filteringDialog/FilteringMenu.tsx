@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Divider, Menu } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import StyledIconButton from "app/components/StyledIconButton";
@@ -6,22 +6,20 @@ import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import { selectImageStorage } from "app/redux/selectors/imageSelector";
 import { MenuActions } from "app/model/enum";
-import {
-  setFilterMenuAction,
-  setQueryBuilderModel,
-} from "app/redux/actions/imageActions";
+import { setFilterMenuAction } from "app/redux/actions/imageActions";
 import FilteringMenuBody from "./FilteringMenuBody";
 import { customScrollBar } from "app/global/globalStyles";
 import FilteringMenuActions from "./FilteringMenuActions";
-import { initQueryBuilderObj } from "app/model/QueryBuilderModel";
+import {
+  initFirstQueryParent,
+  initQueryBuilderObj,
+  QueryBuilderModel,
+} from "app/model/QueryBuilderModel";
 
 const FilteringMenu = () => {
   console.log("[FilteringMenu]: RENDERED");
 
-  const { filterMenuAction, queryBuilderModel } =
-    useSelector(selectImageStorage);
-
-  //const filterMenuActions = useSelector(selectFilterMenuActions);
+  const { filterMenuAction } = useSelector(selectImageStorage);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
@@ -38,7 +36,9 @@ const FilteringMenu = () => {
       dispatch(setFilterMenuAction());
       handleClose();
     } else if (filterMenuAction === MenuActions.CLEAR_ALL) {
-      dispatch(setQueryBuilderModel({ ...initQueryBuilderObj() }));
+      const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
+      localStorage.setItem("filtering", JSON.stringify(defaultBuilder));
+      setQueryBuilderModelLocalStorage(defaultBuilder);
       dispatch(setFilterMenuAction());
     }
   }, [dispatch, filterMenuAction]);
@@ -57,10 +57,7 @@ const FilteringMenu = () => {
           <Divider />
           <StyledMenuContentHolder>
             <StyledMenuInnerContentHolder>
-              <FilteringMenuBody
-                id={queryBuilderModel.id}
-                callback={(builder) => dispatch(setQueryBuilderModel(builder))}
-              />
+              <FilteringMenuBody id={getQueryBuilderModel().id} />
             </StyledMenuInnerContentHolder>
           </StyledMenuContentHolder>
           <Divider />
@@ -72,6 +69,23 @@ const FilteringMenu = () => {
 };
 
 export default FilteringMenu;
+
+export const setQueryBuilderModelLocalStorage = (
+  queryBuilder: QueryBuilderModel
+) => {
+  localStorage.setItem("filtering", JSON.stringify(queryBuilder));
+};
+
+export const getQueryBuilderModel = () => {
+  const obj = localStorage.getItem("filtering");
+  if (obj) {
+    return JSON.parse(obj) as QueryBuilderModel;
+  } else {
+    const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
+    setQueryBuilderModelLocalStorage(defaultBuilder);
+    return defaultBuilder;
+  }
+};
 
 const StyledMenuContentHolder = styled.div<{}>((props) => ({
   display: "grid",
