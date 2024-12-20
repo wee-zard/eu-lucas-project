@@ -99,15 +99,14 @@ const FilteringMenuBody = React.memo(function FilteringMenuBody({ id }: Props) {
 
   const [element, setElement] = useState(renderComponent());
 
+  const updateElement = () => setElement(renderComponent());
+  
   useEffect(() => {
     const eventName = FilteringHelper.getEventListenerName(
       FilteringHelper.getUpdatedStates<QueryBuilderModel>(id).filtered.id
     );
-    window.addEventListener(eventName, () => setElement(renderComponent()));
-    return () =>
-      window.removeEventListener(eventName, () =>
-        setElement(renderComponent())
-      );
+    window.addEventListener(eventName, updateElement);
+    return () => window.removeEventListener(eventName, updateElement);
   }, []);
 
   return <React.Fragment>{element}</React.Fragment>;

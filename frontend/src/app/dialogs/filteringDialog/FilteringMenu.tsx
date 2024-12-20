@@ -15,11 +15,13 @@ import {
   initQueryBuilderObj,
   QueryBuilderModel,
 } from "app/model/QueryBuilderModel";
+import { FilteringHelper } from "app/helper/filteringHelper";
 
 const FilteringMenu = () => {
   console.log("[FilteringMenu]: RENDERED");
 
   const { filterMenuAction } = useSelector(selectImageStorage);
+  const [element, setElement] = useState<JSX.Element>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
@@ -31,6 +33,17 @@ const FilteringMenu = () => {
     setAnchorEl(null);
   };
 
+  const renderComponent = () => {
+    console.log(getQueryBuilderModel().id);
+    return (<FilteringMenuBody id={getQueryBuilderModel().id} />);
+  }
+
+  useEffect(() => {
+    if (!element) {
+      setElement(renderComponent());
+    }
+  }, [element]);
+
   useEffect(() => {
     if (filterMenuAction === MenuActions.CANCEL) {
       dispatch(setFilterMenuAction());
@@ -39,6 +52,7 @@ const FilteringMenu = () => {
       const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
       localStorage.setItem("filtering", JSON.stringify(defaultBuilder));
       setQueryBuilderModelLocalStorage(defaultBuilder);
+      setElement(undefined);
       dispatch(setFilterMenuAction());
     }
   }, [dispatch, filterMenuAction]);
@@ -57,7 +71,7 @@ const FilteringMenu = () => {
           <Divider />
           <StyledMenuContentHolder>
             <StyledMenuInnerContentHolder>
-              <FilteringMenuBody id={getQueryBuilderModel().id} />
+              {element}
             </StyledMenuInnerContentHolder>
           </StyledMenuContentHolder>
           <Divider />

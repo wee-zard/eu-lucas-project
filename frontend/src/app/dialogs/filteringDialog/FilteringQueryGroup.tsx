@@ -140,14 +140,13 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({
 
   const [element, setElement] = useState(renderComponent());
 
+  const updateElement = () => setElement(renderComponent());
+
   useEffect(() => {
     const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
     const eventName = FilteringHelper.getEventListenerName(states.filtered.id);
-    window.addEventListener(eventName, () => setElement(renderComponent()));
-    return () =>
-      window.removeEventListener(eventName, () =>
-        setElement(renderComponent())
-      );
+    window.addEventListener(eventName, updateElement);
+    return () => window.removeEventListener(eventName, updateElement);
   }, []);
 
   return <React.Fragment>{element}</React.Fragment>;
