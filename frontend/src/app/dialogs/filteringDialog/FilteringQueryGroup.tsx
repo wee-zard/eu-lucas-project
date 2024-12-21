@@ -11,9 +11,9 @@ import {
 import FilteringQueryComponent from "./FilteringQueryComponent";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import { OtherworldlyGreeting } from "./OtherworldlyGreeting";
 import { FilteringHelper } from "app/helper/filteringHelper";
 import { setQueryBuilderModelLocalStorage } from "./FilteringMenu";
+import StyledSelectComponent from "app/components/StyledSelectComponent";
 
 type Props = {
   id: number;
@@ -66,73 +66,133 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({
     FilteringHelper.sendUpdateEvent(states.filtered.parentId);
   };
 
+  const handleElementRelationSelection = (value: string) => {
+    const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
+    const modifiedQueryGroup: QueryGroup = {
+      ...states.filtered,
+      queryElementRelation: value as QueryElementRelations,
+    };
+    const obj = FilteringHelper.handleFilterChanges(
+      states.root,
+      id,
+      modifiedQueryGroup
+    );
+    setQueryBuilderModelLocalStorage(obj);
+    // Update the component itself on changes.
+    FilteringHelper.sendUpdateEvent(states.filtered.id);
+  };
+
+  const displayQueryElementRelationAction = (
+    index: number,
+    queryElementRelation?: QueryElementRelations
+  ) => {
+    /**
+     * TODO: Ez lehetne egy pure component.
+     * Csak azon input mezők kerüljenek renderelésre, amiket tényleg módosítottunk.
+     * Ha módosítást csinálunk a Group-on belül, pl. törlünk egy sort, vagy felveszünk egy sort,
+     * akkor ne kelljen minden egyes sorhoz külön renderelni a WHERE, AND/OR értékeket.
+     */
+    return index === 0 ? (
+      <StyledQueryActionRelationHolder>WHERE</StyledQueryActionRelationHolder>
+    ) : (
+      <StyledQueryActionRelationHolder>
+        <StyledSelectComponent
+          inputTitle={"Relation"}
+          options={Object.values(QueryElementRelations)}
+          inputValue={queryElementRelation ?? ""}
+          setValue={handleElementRelationSelection}
+          isDisabled={index > 1}
+        />
+      </StyledQueryActionRelationHolder>
+    );
+  };
+
   const renderComponent = () => {
     const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
     return (
       <StyledQueryComponentHolder>
-        {
-          /**
-           * Display the relations between the {@link QueryComponent} elements.
-           */
-          /*
-          queryGroup.queryElementRelation ? (
-            <div>{queryGroup.queryElementRelation}</div>
-          ) : queryGroup.queryComponents.length === 1 ? (
-            <div>WHERE</div>
-          ) : null
-          */
-          <StyledGroupActionsHolder>
-            <div>WHERE</div>
-            <StyledComponentGap>
-              <StyledIconButton
-                buttonIcon={<AddCircleOutlineIcon />}
-                tooltip={{
-                  tooltipTitle: "Add Filter Condition",
-                  tooltipPlacement: "top",
-                }}
-                onClick={handleOnClickAddFilterCondition}
-              />
-              <StyledIconButton
-                buttonIcon={<DeleteForeverOutlinedIcon />}
-                tooltip={{
-                  tooltipTitle: "Remove Query Group",
-                  tooltipPlacement: "right-start",
-                }}
-                onClick={handleOnClickRemoveQueryGroup}
-              />
-            </StyledComponentGap>
-          </StyledGroupActionsHolder>
-        }
-
+        <StyledGroupActionsHolder>
+          <StyledComponentGap>
+            <StyledIconButton
+              buttonIcon={<AddCircleOutlineIcon />}
+              tooltip={{
+                tooltipTitle: "Add Filter Condition",
+                tooltipPlacement: "top",
+              }}
+              onClick={handleOnClickAddFilterCondition}
+            />
+            <StyledIconButton
+              buttonIcon={<DeleteForeverOutlinedIcon />}
+              tooltip={{
+                tooltipTitle: "Remove Query Group",
+                tooltipPlacement: "right-start",
+              }}
+              onClick={handleOnClickRemoveQueryGroup}
+            />
+          </StyledComponentGap>
+        </StyledGroupActionsHolder>
         <React.Fragment>
-          {
-            /**
-             * TODO: There is a case, where the length of the query components is zero.
-             * This case, please display a text to the user, that "GROUP IS EMPTY".
-             */
-            /**
-             * Display the Query Components.
-             * If no component is in the array, then nothing will be displayed.
-             */
-            states.filtered.queryComponents.length > 0 ? (
-              states.filtered.queryComponents.map((queryComponent) => (
-                <div key={queryComponent.id}>
-                  {
-                    // TODO: Remove this if check later, and remove the component in the else case.
-                    states.filtered.queryComponents.length > 0 ? (
+          {states.filtered.queryComponents.length > 0 ? (
+            <StyledComponentGap>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
+                <StyledQueryActionRelationHolder>
+                  WHERE
+                </StyledQueryActionRelationHolder>
+                {states.filtered.queryComponents.length > 1 ? (
+                  <div
+                    style={{
+                      height: "100%",
+                      gap: "8px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>
+                      <StyledQueryActionRelationHolder>
+                        <StyledSelectComponent
+                          inputTitle={"Relation"}
+                          options={Object.values(QueryElementRelations)}
+                          inputValue={
+                            states.filtered.queryElementRelation ?? ""
+                          }
+                          setValue={handleElementRelationSelection}
+                        />
+                      </StyledQueryActionRelationHolder>
+                    </div>
+                    <div
+                      style={{
+                        height: "100%",
+                        borderLeft: "5px solid green",
+                        borderTop: "5px solid green",
+                        borderBottom: "5px solid green",
+                        borderRadius: "16px",
+                        width: "12px",
+                      }}
+                    ></div>
+                  </div>
+                ) : null}
+              </div>
+              <StyledFilterComponentsHolder>
+                {states.filtered.queryComponents.map(
+                  (queryComponent, index) => (
+                    <div key={queryComponent.id}>
                       <FilteringQueryComponent id={queryComponent.id} />
-                    ) : (
-                      <OtherworldlyGreeting />
-                    )
-                  }
-                </div>
-              ))
-            ) : (
-              <StyledEmptyGroupHolder>
-                EMPTY QUERY GROUP FIELD!!!!!!!!!!!!!!!!!!
-              </StyledEmptyGroupHolder>
-            )
-          }
+                    </div>
+                  )
+                )}
+              </StyledFilterComponentsHolder>
+            </StyledComponentGap>
+          ) : (
+            <StyledEmptyGroupHolder>
+              EMPTY QUERY GROUP FIELD!!!!!!!!!!!!!!!!!!
+            </StyledEmptyGroupHolder>
+          )}
         </React.Fragment>
       </StyledQueryComponentHolder>
     );
@@ -154,6 +214,26 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({
 
 export default FilteringQueryGroup;
 
+const StyledFilterComponentsHolder = styled.div<{}>((props) => ({
+  width: "100%",
+  display: "grid",
+  gap: "16px",
+}));
+
+/**
+ * TODO: a WHERE, AND/OR gombok szélessége lehetne 50%, míg a mellette megjelenő
+ * teljes komponens lehetne 100%. Cél, hogy %-os szélességet adjak meg ezen komponensnek,
+ * mintsem px/vh szélességet.
+ */
+const StyledQueryActionRelationHolder = styled.div<{}>((props) => ({
+  display: "flex",
+  alignItems: "center",
+  minWidth: "10vh",
+  height: "40px",
+  minHeight: "40px",
+  justifyContent: "center",
+}));
+
 const StyledQueryComponentHolder = styled.div<{}>((props) => ({
   display: "grid",
   gap: "16px",
@@ -173,7 +253,7 @@ const StyledEmptyGroupHolder = styled.div<{}>((props) => ({
 
 const StyledGroupActionsHolder = styled.div<{}>((props) => ({
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "end",
   alignItems: "center",
   paddingLeft: "8px",
 }));

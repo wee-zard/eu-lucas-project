@@ -15,7 +15,7 @@ export type QueryBuilderModel = {
   parentId: number;
   queryMultiTypes: QueryMultiType[];
   queryElementRelation?: QueryElementRelations;
-  queryType: QueryTypes; // = QueryTypes.QUERY_BUILDER,
+  queryType: QueryTypes;
 };
 
 export type QueryGroup = {
@@ -23,7 +23,7 @@ export type QueryGroup = {
   parentId: number;
   queryComponents: QueryComponent[];
   queryElementRelation?: QueryElementRelations;
-  queryType: QueryTypes; // = QueryTypes.QUERY_GROUP,
+  queryType: QueryTypes;
 };
 
 export type QueryComponent = {

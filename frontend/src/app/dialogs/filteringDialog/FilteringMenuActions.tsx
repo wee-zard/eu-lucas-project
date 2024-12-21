@@ -38,12 +38,6 @@ const FilteringMenuActions = React.memo(function FilteringMenuActions() {
 
 export default FilteringMenuActions;
 
-export const StyledInputHolder = styled.div<{ $elementWidth?: string }>(
-  (props) => ({
-    width: props.$elementWidth ?? "100%",
-  })
-);
-
 const StyledMenuActionsHolder = styled.div<{}>((props) => ({
   padding: "16px",
   display: "flex",

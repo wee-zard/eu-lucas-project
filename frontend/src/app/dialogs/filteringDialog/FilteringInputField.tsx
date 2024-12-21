@@ -1,5 +1,4 @@
 import React from "react";
-import FilteringInputComponent from "./FilteringInputComponent";
 import { QueryComponent } from "app/model/QueryBuilderModel";
 import {
   useCoordinateXStorageInit,
@@ -19,6 +18,11 @@ import {
   operatorSelectItems,
   operatorTextfieldItems,
 } from "app/helper/filterFormUtils";
+import { useSelectedTabToFilterTemplate } from "app/hooks/useConversionHooks";
+import { StyledInputHolder } from "./FilteringMenu";
+import StyledSelectComponent from "app/components/StyledSelectComponent";
+import StyledTextFieldComponent from "app/components/StyledTextFieldComponent";
+import { OperatorItems } from "app/model/FilterFormComponents";
 
 type Props = {
   component: QueryComponent;
@@ -26,6 +30,9 @@ type Props = {
 };
 
 const FilteringInputField = ({ component, setComponent }: Props) => {
+  console.log("[FilteringInputField]:", component);
+
+  /*
   const listOfCreationYears = useCreationYearStorageInit();
   const listOfCreationCountries = useCreationCountryStorageInit();
   const listOfCreationDirections = useCreationDirectionStorageInit();
@@ -33,9 +40,8 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
   const listOfCoordinateY = useCoordinateYStorageInit();
   const listOfExifKeys = useExifKeyStorageInit();
 
-  console.log("[FilteringInputField]:", component);
-
   const getFilterFormTemplate = (): FilterFormTemplate[] => {
+    if (component?.selectedFilterTab) {
       switch (component.selectedFilterTab) {
         case FilterDialogFilterOptions.Year:
           return [
@@ -136,17 +142,92 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
         default:
           return [];
       }
+    }
+    return [];
+  };
+  */
+
+  const filterFormTemplate: FilterFormTemplate[] =
+    useSelectedTabToFilterTemplate(component?.selectedFilterTab);
+
+  const handleValueChanges = (key: FilteringFormInputKeys, value: string) => {
+    const handler = Object.freeze({
+      [FilteringFormInputKeys.SelectInput]: () =>
+        setComponent({
+          ...component,
+          selectInput: value,
+        }),
+      [FilteringFormInputKeys.OperatorInput]: () =>
+        setComponent({
+          ...component,
+          operatorInput: value as OperatorItems,
+        }),
+      [FilteringFormInputKeys.TextfieldInput]: () =>
+        setComponent({
+          ...component,
+          textFieldInput: value,
+        }),
+    });
+    handler[key].call(() => null);
+  };
+
+  const renderInputField = (template: FilterFormTemplate) => {
+    switch (template.inputKey) {
+      case FilteringFormInputKeys.SelectInput:
+        return (
+          <StyledInputHolder>
+            <StyledSelectComponent
+              inputTitle={template.inputTitle}
+              options={template.options ?? []}
+              inputValue={component.selectInput ?? ""}
+              setValue={(value) =>
+                handleValueChanges(FilteringFormInputKeys.SelectInput, value)
+              }
+            />
+          </StyledInputHolder>
+        );
+      case FilteringFormInputKeys.OperatorInput:
+        return (
+          <StyledInputHolder
+            $elementWidth={
+              template.inputKey === FilteringFormInputKeys.OperatorInput
+                ? "50%"
+                : undefined
+            }
+          >
+            <StyledSelectComponent
+              inputTitle={template.inputTitle}
+              options={template.options ?? []}
+              inputValue={component.operatorInput ?? ""}
+              setValue={(value) =>
+                handleValueChanges(FilteringFormInputKeys.OperatorInput, value)
+              }
+            />
+          </StyledInputHolder>
+        );
+      case FilteringFormInputKeys.TextfieldInput:
+        return (
+          <StyledInputHolder>
+            <StyledTextFieldComponent
+              inputTitle={template.inputTitle}
+              inputValue={component.textFieldInput ?? ""}
+              setValue={(value) =>
+                handleValueChanges(FilteringFormInputKeys.TextfieldInput, value)
+              }
+            />
+          </StyledInputHolder>
+        );
+    }
   };
 
   return (
     <React.Fragment>
-      { component.selectedFilterTab ? (
-        <FilteringInputComponent
-          filteringFormTemplate={getFilterFormTemplate()}
-          selectedFilterTab={component.selectedFilterTab}
-          component={component}
-          setComponent={setComponent}
-        />
+      {component.selectedFilterTab && filterFormTemplate.length > 0 ? (
+        filterFormTemplate.map((template, index) => (
+          <React.Fragment key={index}>
+            {renderInputField(template)}
+          </React.Fragment>
+        ))
       ) : (
         <React.Fragment
         /** TODO: Remove later, when every element is implemented

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormControl, TextField } from "@mui/material";
 import styled from "@emotion/styled";
 
@@ -13,19 +13,20 @@ const StyledTextFieldComponent = ({
   inputValue,
   setValue,
 }: Props) => {
+  const [inputFieldValue, setInputFieldValue] = useState("");
+
   const handleSelectionProcess = (event: any) => {
-    const selectedOption = event.target.value ?? "";
-    setValue(selectedOption);
+    setInputFieldValue(event.target.value ?? "");
   };
 
-  const getInputValue = () => {
-    return inputValue ?? "";
-  };
+  useEffect(() => {
+    setInputFieldValue(inputValue ?? "");
+  }, [inputValue])
 
   return (
     <CustomFormControl fullWidth required>
       <TextField
-        value={getInputValue()}
+        value={inputFieldValue}
         label={inputTitle}
         onChange={handleSelectionProcess}
         required

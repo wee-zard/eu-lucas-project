@@ -45,12 +45,6 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
       ...states.filtered,
       selectedFilterTab: selectedFilter as FilterDialogFilterOptions,
     };
-    console.log(
-      "handleComponentSelection",
-      modifiedQueryComponent,
-      states.filtered,
-      id
-    );
     const obj = FilteringHelper.handleFilterChanges(
       states.root,
       id,
@@ -79,7 +73,6 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
    */
   const renderComponent = () => {
     const states = FilteringHelper.getUpdatedStates<QueryComponent>(id);
-    console.log("[FilteringQueryComponent]:", states, id);
     return (
       <StyledQueryComponentHolder>
         <StyledInputHolder>
@@ -125,4 +118,5 @@ export default FilteringQueryComponent;
 
 const StyledQueryComponentHolder = styled(StyledComponentGap)<{}>((props) => ({
   justifyContent: "space-between",
+  //display: "contents",
 }));

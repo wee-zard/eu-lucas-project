@@ -43,7 +43,8 @@
               "title": "068 - Új Query Builder implementálása a frontenden"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -186,18 +187,20 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "21dde8e84cff000a",
+  "active": "22a8dabdf9d248aa",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/072 - Query Builder optimalizáció és React memo használata.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/057 - Új design létrehozása a FilteringDialog oldalhoz.md",
     "Kanban Board/Nodes/068 - Új Query Builder implementálása a frontenden.md",
+    "Kanban Board/Nodes/074 - Filtering oldalon a 4 input mező a szűrési feltétel megadásakor, egy tetszőleges input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését.md",
+    "Kanban Board/Nodes/073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert.md",
+    "Kanban Board/Nodes/072 - Query Builder optimalizáció és React memo használata.md",
     "Kanban Board/Images/original-ec8989fb0d57510c0a457662028ebd46 1.png",
     "Kanban Board/Images/original-ec8989fb0d57510c0a457662028ebd46.png",
     "Kanban Board/Images/Pasted image 20241215185036.png",
     "Kanban Board/Nodes/049 - Custom Scrollbar stílus nincsen használva a Filtering Dialog űrlapj input mezőiben.md",
     "Kanban Board/Images/Pasted image 20241215165036.png",
     "Kanban Board/Nodes/071 - Query Builder implementálása a Backend oldalon.md",
-    "Kanban Board/Nodes/057 - Új design létrehozása a FilteringDialog oldalhoz.md",
     "Kanban Board/Nodes/069 - Környezetfüggetlen nyelvtan definiálása az új QueryBuilder-hez.md",
     "Kanban Board/Nodes/070 - Spellchecker-ből jövő hibák és elírások javítása.md",
     "Kanban Board/Images/query-builder-grammar.png",
@@ -217,8 +220,6 @@
     "Kanban Board/Nodes/066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni.md",
     "Kanban Board/Nodes/062 - Lehessen képet feltölteni a csatolmányként report küldése során.md",
     "Kanban Board/Nodes/063 - Validátorok hozzárendelése a Report üzenetekhez.md",
-    "Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md",
-    "Kanban Board/Nodes/065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel.md",
     "Kanban Board/Images/Pasted image 20241211231810.png",
     "Kanban Board/Images/logo.png",
     "Pasted image 20241207205636.png",

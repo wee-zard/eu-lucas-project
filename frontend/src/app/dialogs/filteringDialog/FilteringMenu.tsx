@@ -15,7 +15,6 @@ import {
   initQueryBuilderObj,
   QueryBuilderModel,
 } from "app/model/QueryBuilderModel";
-import { FilteringHelper } from "app/helper/filteringHelper";
 
 const FilteringMenu = () => {
   console.log("[FilteringMenu]: RENDERED");
@@ -34,7 +33,6 @@ const FilteringMenu = () => {
   };
 
   const renderComponent = () => {
-    console.log(getQueryBuilderModel().id);
     return (<FilteringMenuBody id={getQueryBuilderModel().id} />);
   }
 
@@ -50,7 +48,6 @@ const FilteringMenu = () => {
       handleClose();
     } else if (filterMenuAction === MenuActions.CLEAR_ALL) {
       const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
-      localStorage.setItem("filtering", JSON.stringify(defaultBuilder));
       setQueryBuilderModelLocalStorage(defaultBuilder);
       setElement(undefined);
       dispatch(setFilterMenuAction());

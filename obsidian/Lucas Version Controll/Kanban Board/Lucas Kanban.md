@@ -30,6 +30,8 @@ kanban-plugin: board
 - [ ] [[064 - Validálás Validátorok kollektor]]
 - [ ] [[060 - Scheduler a félóránkénti report emailek kiküldésére]]
 - [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
+- [ ] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
+- [ ] [[074 - Filtering oldalon a 4 input mező a szűrési feltétel megadásakor, egy tetszőleges input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését]]
 
 
 ## 🔴ToDo
@@ -81,17 +83,17 @@ kanban-plugin: board
 ## 🟡In Progress
 
 - [ ] [[026 - Report oldal implementálása]]
-- [ ] [[057 - Új design létrehozása a FilteringDialog oldalhoz]]
 - [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
 - [ ] [[067 - Path alias használata a relatív útvonali fájlok importálása helyett]]
 - [ ] [[068 - Új Query Builder implementálása a frontenden]]
 - [ ] [[071 - Query Builder implementálása a Backend oldalon]]
-- [ ] [[072 - Query Builder optimalizáció és React memo használata]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[057 - Új design létrehozása a FilteringDialog oldalhoz]]
+- [ ] [[072 - Query Builder optimalizáció és React memo használata]]
 - [ ] [[049 - Custom Scrollbar stílus nincsen használva a Filtering Dialog űrlapj input mezőiben]]
 - [ ] [[069 - Környezetfüggetlen nyelvtan definiálása az új QueryBuilder-hez]]
 - [ ] [[058 - Email kiküldésének implementálása]]

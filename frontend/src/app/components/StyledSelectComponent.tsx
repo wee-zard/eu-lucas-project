@@ -12,6 +12,7 @@ import { customScrollBar } from "app/global/globalStyles";
 type Props = {
   inputTitle?: string;
   options: string[];
+  isDisabled?: boolean;
   inputValue?: string;
   setValue: (value: string) => void;
 };
@@ -20,6 +21,7 @@ const StyledSelectComponent = ({
   inputTitle,
   options,
   inputValue,
+  isDisabled,
   setValue,
 }: Props) => {
   const handleSelectionProcess = (event: any) => {
@@ -42,6 +44,7 @@ const StyledSelectComponent = ({
         value={getInputValue()}
         label={inputTitle}
         onChange={handleSelectionProcess}
+        disabled={isDisabled}
       >
         {options.map((option, index) => (
           <MenuItem value={option} key={index}>
