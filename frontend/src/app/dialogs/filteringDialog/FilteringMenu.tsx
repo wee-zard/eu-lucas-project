@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Menu } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import StyledIconButton from "app/components/StyledIconButton";
+import StyledIconButton from "@components/StyledIconButton";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
-import { selectImageStorage } from "app/redux/selectors/imageSelector";
-import { MenuActions } from "app/model/enum";
-import { setFilterMenuAction } from "app/redux/actions/imageActions";
-import FilteringMenuBody from "./FilteringMenuBody";
-import { customScrollBar } from "app/global/globalStyles";
+import { selectImageStorage } from "@redux/selectors/imageSelector";
+import { MenuActions } from "@model/enum";
+import { setFilterMenuAction } from "@redux/actions/imageActions";
+import { customScrollBar } from "@global/globalStyles";
 import FilteringMenuActions from "./FilteringMenuActions";
 import {
   initFirstQueryParent,
   initQueryBuilderObj,
-  QueryBuilderModel,
-} from "app/model/QueryBuilderModel";
+} from "@model/QueryBuilderModel";
+import FilteringQueryBuilder from "./FilteringQueryBuilder";
+import { LocalStorageUtils } from "@helper/localStorageUtil";
 
 const FilteringMenu = () => {
   console.log("[FilteringMenu]: RENDERED");
@@ -33,7 +33,7 @@ const FilteringMenu = () => {
   };
 
   const renderComponent = () => {
-    return (<FilteringMenuBody id={getQueryBuilderModel().id} />);
+    return (<FilteringQueryBuilder id={LocalStorageUtils.getQueryBuilderModel().id} />);
   }
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const FilteringMenu = () => {
       handleClose();
     } else if (filterMenuAction === MenuActions.CLEAR_ALL) {
       const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
-      setQueryBuilderModelLocalStorage(defaultBuilder);
+      LocalStorageUtils.setQueryBuilderModelLocalStorage(defaultBuilder);
       setElement(undefined);
       dispatch(setFilterMenuAction());
     }
@@ -81,33 +81,16 @@ const FilteringMenu = () => {
 
 export default FilteringMenu;
 
-export const setQueryBuilderModelLocalStorage = (
-  queryBuilder: QueryBuilderModel
-) => {
-  localStorage.setItem("filtering", JSON.stringify(queryBuilder));
-};
-
-export const getQueryBuilderModel = () => {
-  const obj = localStorage.getItem("filtering");
-  if (obj) {
-    return JSON.parse(obj) as QueryBuilderModel;
-  } else {
-    const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
-    setQueryBuilderModelLocalStorage(defaultBuilder);
-    return defaultBuilder;
-  }
-};
-
 const StyledMenuContentHolder = styled.div<{}>((props) => ({
   display: "grid",
   gap: "8px",
-  height: "500px",
+  height: "60vh",
   overflow: "auto",
   ...customScrollBar(),
 }));
 
 const StyledMenuInnerContentHolder = styled.div<{}>((props) => ({
-  paddingBottom: "16px",
+  padding: "16px",
 }));
 
 const StyledMenuHeaderHolder = styled.div<{}>((props) => ({
@@ -118,6 +101,7 @@ const StyledMenu = styled(Menu)<{}>((props) => ({
   "& .MuiPaper-root": {
     padding: "0 16px 0 16px",
     width: "80%",
+    height: "80%",
   },
 }));
 

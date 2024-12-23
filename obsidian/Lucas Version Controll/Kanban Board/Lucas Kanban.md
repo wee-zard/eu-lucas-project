@@ -19,7 +19,6 @@ kanban-plugin: board
 - [ ] [[034 - ErrorHandling minden esetben internal-server-errort dob vissza]]
 - [ ] [[041 - Toast popup hibaüzenetek 5sec helyett 10sec ideig maradjon a képernyőn]]
 - [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]
-- [ ] [[046 - Szűrési táblázat nem reszponzív, mérete nem változik dinamikusan az ablak méretének módosításával]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
 - [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]]
 - [ ] [[051 - Exifdata űrlap mezőjében a Textfield helyett Autocomplete input mezőt használjunk]]
@@ -32,6 +31,8 @@ kanban-plugin: board
 - [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
 - [ ] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
 - [ ] [[074 - Filtering oldalon a 4 input mező a szűrési feltétel megadásakor, egy tetszőleges input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését]]
+- [ ] [[086 - Középső egérgombbal rányomva a Filter oldal menüpontjára a NotFound oldalra navigál az oldal]]
+- [ ] [[087 - NotFound oldalról nem lehet egy kattintással visza navigálni a főoldalra]]
 
 
 ## 🔴ToDo
@@ -39,7 +40,7 @@ kanban-plugin: board
 - [ ] [[002 - Hibaüzenetek egységesítése]]
 - [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[005 - Átmozgatni a error üzeneteket a commands mappában a commands common mappában lévő fájlokba]]
-- [ ] [[010 -Lapozás implementálása a szűrt képek ablakában]]
+- [ ] [[010 - Lapozás implementálása a szűrt képek ablakában]]
 - [ ] [[011 - Kiválasztott képek letöltése és zip fájlba való elmentése]]
 - [ ] [[013 - CheckStyle hibák javítása a Backend oldalán]]
 - [ ] [[015 - Nagy méretű táblák partícionálása]]
@@ -59,12 +60,20 @@ kanban-plugin: board
 - [ ] [[040 - Image Server implementálása]]
 - [ ] [[044 - Profilkép megjelenítése a Mat Toolbar-on]]
 - [ ] [[045 - Saját logó tervezése és megjelenítése a bejelentkezés, és a Mat Toolbar-on]]
-- [ ] [[048 - Legyen egy Reset gomb a Filtering Dialog ablakban az aktív szűrések törlése céljából]]
 - [ ] [[053 - Loading ikon megjelenítése a bejelentkezési oldalhoz]]
 - [ ] [[056 - Loading ikon megjelenítése a timeline komponenshez]]
 - [ ] [[059 - Report oldal és űrlap létrehozása]]
 - [ ] [[061 - Tesztek írása és futtatása]]
 - [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
+- [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]]
+- [ ] [[079 - Tervezés - EK-diagram elkészítése]]
+- [ ] [[080 - Tervezés - Egyedmodel-diagram elkészítése]]
+- [ ] [[081 - Tervezés - Logikai adatfolyam-diagram elkészítése]]
+- [ ] [[082 - Tervezés - Menütervek elkészítése bejelentkezett és nem-bejelentkezett felhasználók részére]]
+- [ ] [[083 - Tervezés - Egyed-esemény mátrix elkészítése]]
+- [ ] [[084 - Tervezés - Szekvencia-diagram elkészítése a QueryBuilder használatához]]
+- [ ] [[085 - Tervezés - UML diagrammok elkészítése]]
+- [ ] [[088 - 5 FilteringGroup-ot egymásba ágyazva túl kicsivé teszi a szűrési feltételek input mezőit]]
 
 
 ## 🔴Client Requests
@@ -78,6 +87,7 @@ kanban-plugin: board
 - [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[042 - Google OAuth oldal befejezése]]
 - [ ] [[052 - Loading komponens megjelenítése]]
+- [ ] [[078 - Szakdolgozat dokumentációjához szükséges diagramok létrehozása]]
 
 
 ## 🟡In Progress
@@ -85,13 +95,18 @@ kanban-plugin: board
 - [ ] [[026 - Report oldal implementálása]]
 - [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
 - [ ] [[067 - Path alias használata a relatív útvonali fájlok importálása helyett]]
-- [ ] [[068 - Új Query Builder implementálása a frontenden]]
 - [ ] [[071 - Query Builder implementálása a Backend oldalon]]
+- [ ] [[077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban]]
+- [ ] [[076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[089 - Textfield - Nem lehet S -t karaktert megadni a Textfieldben]]
+- [ ] [[068 - Új Query Builder implementálása a frontenden]]
+- [ ] [[048 - Legyen egy Reset gomb a Filtering Dialog ablakban az aktív szűrések törlése céljából]]
+- [ ] [[046 - Szűrési táblázat nem reszponzív, mérete nem változik dinamikusan az ablak méretének módosításával]]
 - [ ] [[057 - Új design létrehozása a FilteringDialog oldalhoz]]
 - [ ] [[072 - Query Builder optimalizáció és React memo használata]]
 - [ ] [[049 - Custom Scrollbar stílus nincsen használva a Filtering Dialog űrlapj input mezőiben]]

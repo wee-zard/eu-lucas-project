@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FormControl, TextField } from "@mui/material";
 import styled from "@emotion/styled";
 
@@ -13,23 +13,21 @@ const StyledTextFieldComponent = ({
   inputValue,
   setValue,
 }: Props) => {
-  const [inputFieldValue, setInputFieldValue] = useState("");
-
   const handleSelectionProcess = (event: any) => {
-    setInputFieldValue(event.target.value ?? "");
+    setValue(event.target.value ?? "");
   };
 
-  useEffect(() => {
-    setInputFieldValue(inputValue ?? "");
-  }, [inputValue])
+  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+  }
 
   return (
     <CustomFormControl fullWidth required>
       <TextField
-        value={inputFieldValue}
+        value={inputValue}
         label={inputTitle}
         onChange={handleSelectionProcess}
-        required
+        onKeyDown={handleOnKeyDown}
       />
     </CustomFormControl>
   );

@@ -1,28 +1,12 @@
 import React from "react";
-import { QueryComponent } from "app/model/QueryBuilderModel";
-import {
-  useCoordinateXStorageInit,
-  useCoordinateYStorageInit,
-  useCreationCountryStorageInit,
-  useCreationDirectionStorageInit,
-  useCreationYearStorageInit,
-  useExifKeyStorageInit,
-} from "app/hooks/useStorageInit";
-import { FilterFormTemplate } from "app/model/FilterFormTemplate";
-import {
-  FilterDialogFilterOptions,
-  FilteringFormInputKeys,
-} from "app/model/enum";
-import {
-  operatorComparableItems,
-  operatorSelectItems,
-  operatorTextfieldItems,
-} from "app/helper/filterFormUtils";
-import { useSelectedTabToFilterTemplate } from "app/hooks/useConversionHooks";
+import { QueryComponent } from "@model/QueryBuilderModel";
+import { FilterFormTemplate } from "@model/FilterFormTemplate";
+import { FilteringFormInputKeys } from "@model/enum";
+import { useSelectedTabToFilterTemplate } from "@hooks/useConversionHooks";
 import { StyledInputHolder } from "./FilteringMenu";
-import StyledSelectComponent from "app/components/StyledSelectComponent";
-import StyledTextFieldComponent from "app/components/StyledTextFieldComponent";
-import { OperatorItems } from "app/model/FilterFormComponents";
+import StyledSelectComponent from "@components/StyledSelectComponent";
+import StyledTextFieldComponent from "@components/StyledTextFieldComponent";
+import { OperatorItems } from "@model/FilterFormComponents";
 
 type Props = {
   component: QueryComponent;
@@ -31,121 +15,6 @@ type Props = {
 
 const FilteringInputField = ({ component, setComponent }: Props) => {
   console.log("[FilteringInputField]:", component);
-
-  /*
-  const listOfCreationYears = useCreationYearStorageInit();
-  const listOfCreationCountries = useCreationCountryStorageInit();
-  const listOfCreationDirections = useCreationDirectionStorageInit();
-  const listOfCoordinateX = useCoordinateXStorageInit();
-  const listOfCoordinateY = useCoordinateYStorageInit();
-  const listOfExifKeys = useExifKeyStorageInit();
-
-  const getFilterFormTemplate = (): FilterFormTemplate[] => {
-    if (component?.selectedFilterTab) {
-      switch (component.selectedFilterTab) {
-        case FilterDialogFilterOptions.Year:
-          return [
-            {
-              inputTitle: "Év",
-              options: listOfCreationYears
-                .map((obj) => obj.year.toString())
-                .sort(),
-              inputKey: FilteringFormInputKeys.SelectInput,
-            },
-            {
-              inputTitle: "Feltétel",
-              options: operatorSelectItems.sort(),
-              inputKey: FilteringFormInputKeys.OperatorInput,
-            },
-          ];
-        case FilterDialogFilterOptions.Country:
-          return [
-            {
-              inputTitle: "Ország",
-              options: listOfCreationCountries
-                .map((obj) => `(${obj.countryCode}) ${obj.countryName}`)
-                .sort(),
-              inputKey: FilteringFormInputKeys.SelectInput,
-            },
-            {
-              inputTitle: "Feltétel",
-              options: operatorSelectItems.sort(),
-              inputKey: FilteringFormInputKeys.OperatorInput,
-            },
-          ];
-        case FilterDialogFilterOptions.XCoordinates:
-          return [
-            {
-              inputTitle: "X Koordináta",
-              options: listOfCoordinateX
-                .sort()
-                .map((obj) => obj.coordinateX.toString()),
-              inputKey: FilteringFormInputKeys.SelectInput,
-            },
-            {
-              inputTitle: "Feltétel",
-              options: operatorComparableItems.sort(),
-              inputKey: FilteringFormInputKeys.OperatorInput,
-            },
-          ];
-        case FilterDialogFilterOptions.YCoordinates:
-          return [
-            {
-              inputTitle: "Y Koordináta",
-              options: listOfCoordinateY
-                .sort()
-                .map((obj) => obj.coordinateY.toString()),
-              inputKey: FilteringFormInputKeys.SelectInput,
-            },
-            {
-              inputTitle: "Feltétel",
-              options: operatorComparableItems.sort(),
-              inputKey: FilteringFormInputKeys.OperatorInput,
-            },
-          ];
-        case FilterDialogFilterOptions.Direction:
-          return [
-            {
-              inputTitle: "Irány",
-              options: listOfCreationDirections
-                .map((obj) => obj.directionName)
-                .sort(),
-              inputKey: FilteringFormInputKeys.SelectInput,
-            },
-            {
-              inputTitle: "Feltétel",
-              options: operatorSelectItems.sort(),
-              inputKey: FilteringFormInputKeys.OperatorInput,
-            },
-          ];
-        case FilterDialogFilterOptions.ExifData:
-          return [
-            {
-              inputTitle: "Exif kulcs",
-              options: listOfExifKeys.map((obj) => obj.exifKeyName).sort(),
-              inputKey: FilteringFormInputKeys.SelectInput,
-            },
-            {
-              inputTitle: "Feltétel",
-              options: operatorTextfieldItems.sort(),
-              inputKey: FilteringFormInputKeys.OperatorInput,
-            },
-            {
-              inputTitle: "Exif érték",
-              inputKey: FilteringFormInputKeys.TextfieldInput,
-            },
-          ];
-        case FilterDialogFilterOptions.Plant:
-          return [];
-        case FilterDialogFilterOptions.Algorith:
-          return [];
-        default:
-          return [];
-      }
-    }
-    return [];
-  };
-  */
 
   const filterFormTemplate: FilterFormTemplate[] =
     useSelectedTabToFilterTemplate(component?.selectedFilterTab);
@@ -222,21 +91,11 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
 
   return (
     <React.Fragment>
-      {component.selectedFilterTab && filterFormTemplate.length > 0 ? (
-        filterFormTemplate.map((template, index) => (
-          <React.Fragment key={index}>
-            {renderInputField(template)}
-          </React.Fragment>
-        ))
-      ) : (
-        <React.Fragment
-        /** TODO: Remove later, when every element is implemented
-         * in the above section.
-         */
-        >
-          selected filter tab is empty! Do something with it, developer!
+      {filterFormTemplate.map((template, index) => (
+        <React.Fragment key={index}>
+          {renderInputField(template)}
         </React.Fragment>
-      )}
+      ))}
     </React.Fragment>
   );
 };

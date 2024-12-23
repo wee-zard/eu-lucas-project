@@ -30,17 +30,31 @@
             }
           },
           {
-            "id": "22a8dabdf9d248aa",
+            "id": "c9486e138662088a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Kanban Board/Nodes/068 - Új Query Builder implementálása a frontenden.md",
+                "file": "Kanban Board/Nodes/067 - Path alias használata a relatív útvonali fájlok importálása helyett.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "068 - Új Query Builder implementálása a frontenden"
+              "title": "067 - Path alias használata a relatív útvonali fájlok importálása helyett"
+            }
+          },
+          {
+            "id": "e7e3af93ce389b4c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén"
             }
           }
         ],
@@ -187,45 +201,45 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "22a8dabdf9d248aa",
+  "active": "c9486e138662088a",
   "lastOpenFiles": [
     "Kanban Board/Lucas Kanban.md",
-    "Kanban Board/Nodes/057 - Új design létrehozása a FilteringDialog oldalhoz.md",
     "Kanban Board/Nodes/068 - Új Query Builder implementálása a frontenden.md",
+    "Kanban Board/Nodes/076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén.md",
+    "Kanban Board/Nodes/089 - Textfield - Nem lehet S -t karaktert megadni a Textfieldben.md",
+    "Kanban Board/Nodes/063 - Validátorok hozzárendelése a Report üzenetekhez.md",
+    "Kanban Board/Nodes/048 - Legyen egy Reset gomb a Filtering Dialog ablakban az aktív szűrések törlése céljából.md",
+    "Kanban Board/Nodes/088 - 5 FilteringGroup-ot egymásba ágyazva túl kicsivé teszi a szűrési feltételek input mezőit.md",
+    "Pasted image 20241222230213.png",
+    "Kanban Board/Nodes/071 - Query Builder implementálása a Backend oldalon.md",
+    "Kanban Board/Nodes/086 - Középső egérgombbal rányomva a Filter oldal menüpontjára a NotFound oldalra navigál az oldal.md",
+    "Kanban Board/Nodes/087 - NotFound oldalról nem lehet egy kattintással visza navigálni a főoldalra.md",
+    "Pasted image 20241222183946.png",
+    "Kanban Board/Images/Pasted image 20241222183708.png",
+    "Kanban Board/Nodes/075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából.md",
+    "Kanban Board/Nodes/085 - Tervezés - UML diagrammok elkészítése.md",
+    "Kanban Board/Nodes/078 - Szakdolgozat dokumentációjához szükséges diagramok létrehozása.md",
+    "Kanban Board/Nodes/084 - Tervezés - Szekvencia-diagram elkészítése a QueryBuilder használatához.md",
+    "Kanban Board/Nodes/083 - Tervezés - Egyed-esemény mátrix elkészítése.md",
+    "Kanban Board/Nodes/082 - Tervezés - Menütervek elkészítése bejelentkezett és nem-bejelentkezett felhasználók részére.md",
+    "Kanban Board/Nodes/081 - Tervezés - Logikai adatfolyam-diagram elkészítése.md",
+    "Kanban Board/Nodes/080 - Tervezés - Egyedmodel-diagram elkészítése.md",
+    "Kanban Board/Nodes/079 - Tervezés - EK-diagram elkészítése.md",
+    "Kanban Board/Nodes/010 - Lapozás implementálása a szűrt képek ablakában.md",
+    "Kanban Board/Nodes/077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban.md",
+    "Kanban Board/Nodes/046 - Szűrési táblázat nem reszponzív, mérete nem változik dinamikusan az ablak méretének módosításával.md",
+    "Kanban Board/Nodes/057 - Új design létrehozása a FilteringDialog oldalhoz.md",
     "Kanban Board/Nodes/074 - Filtering oldalon a 4 input mező a szűrési feltétel megadásakor, egy tetszőleges input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését.md",
     "Kanban Board/Nodes/073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert.md",
     "Kanban Board/Nodes/072 - Query Builder optimalizáció és React memo használata.md",
     "Kanban Board/Images/original-ec8989fb0d57510c0a457662028ebd46 1.png",
     "Kanban Board/Images/original-ec8989fb0d57510c0a457662028ebd46.png",
     "Kanban Board/Images/Pasted image 20241215185036.png",
-    "Kanban Board/Nodes/049 - Custom Scrollbar stílus nincsen használva a Filtering Dialog űrlapj input mezőiben.md",
     "Kanban Board/Images/Pasted image 20241215165036.png",
-    "Kanban Board/Nodes/071 - Query Builder implementálása a Backend oldalon.md",
-    "Kanban Board/Nodes/069 - Környezetfüggetlen nyelvtan definiálása az új QueryBuilder-hez.md",
-    "Kanban Board/Nodes/070 - Spellchecker-ből jövő hibák és elírások javítása.md",
     "Kanban Board/Images/query-builder-grammar.png",
-    "Kanban Board/Nodes/067 - Path alias használata a relatív útvonali fájlok importálása helyett.md",
-    "Kanban Board/Nodes/051 - Exifdata űrlap mezőjében a Textfield helyett Autocomplete input mezőt használjunk.md",
-    "Kanban Board/Nodes/050 - Filtering Dialog input mezői nem kerülnek validálásra.md",
-    "Kanban Board/Nodes/052 - Loading komponens megjelenítése.md",
-    "Kanban Board/Nodes/053 - Loading ikon megjelenítése a bejelentkezési oldalhoz.md",
-    "Kanban Board/Nodes/054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban.md",
-    "Kanban Board/Nodes/055 - Loading ikon megjelenítése a képek lekérdezéséhez.md",
-    "Kanban Board/Nodes/056 - Loading ikon megjelenítése a timeline komponenshez.md",
-    "Kanban Board/Nodes/058 - Email kiküldésének implementálása.md",
-    "Kanban Board/Nodes/059 - Report oldal és űrlap létrehozása.md",
-    "Kanban Board/Nodes/061 - Tesztek írása és futtatása.md",
-    "Kanban Board/Nodes/060 - Scheduler a félóránkénti report emailek kiküldésére.md",
-    "Kanban Board/Nodes/026 - Report oldal implementálása.md",
-    "Kanban Board/Nodes/066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni.md",
-    "Kanban Board/Nodes/062 - Lehessen képet feltölteni a csatolmányként report küldése során.md",
-    "Kanban Board/Nodes/063 - Validátorok hozzárendelése a Report üzenetekhez.md",
     "Kanban Board/Images/Pasted image 20241211231810.png",
     "Kanban Board/Images/logo.png",
-    "Pasted image 20241207205636.png",
-    "Kanban Board/Images/Pasted image 20241207090805.png",
     "Kanban Board/Images",
-    "Kanban Board/Images/Pasted image 20241206223448.png",
     "Templates",
     "Kanban Board/Nodes",
     "Kanban Board"

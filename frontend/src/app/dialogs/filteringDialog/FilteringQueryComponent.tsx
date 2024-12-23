@@ -1,17 +1,15 @@
-import StyledIconButton from "app/components/StyledIconButton";
+import StyledIconButton from "@components/StyledIconButton";
 import React, { useEffect, useState } from "react";
-import StyledSelectComponent from "app/components/StyledSelectComponent";
-import { FilterDialogFilterOptions } from "app/model/enum";
-import { QueryComponent } from "app/model/QueryBuilderModel";
+import StyledSelectComponent from "@components/StyledSelectComponent";
+import { FilterDialogFilterOptions } from "@model/enum";
+import { QueryComponent } from "@model/QueryBuilderModel";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import FilteringInputField from "./FilteringInputField";
-import {
-  setQueryBuilderModelLocalStorage,
-  StyledInputHolder,
-} from "./FilteringMenu";
+import { StyledInputHolder } from "./FilteringMenu";
 import styled from "@emotion/styled";
-import { StyledComponentGap } from "app/global/globalStyles";
-import { FilteringHelper } from "app/helper/filteringHelper";
+import { StyledComponentGap } from "@global/globalStyles";
+import { FilteringHelper } from "@helper/filteringHelper";
+import { LocalStorageUtils } from "@helper/localStorageUtil";
 
 type Props = {
   id: number;
@@ -29,7 +27,7 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
       id,
       changedComponent
     );
-    setQueryBuilderModelLocalStorage(obj);
+    LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
     // Update the component itself on changes.
     FilteringHelper.sendUpdateEvent(states.filtered.id);
   };
@@ -42,7 +40,8 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
   const handleComponentSelection = (selectedFilter: string) => {
     const states = FilteringHelper.getUpdatedStates<QueryComponent>(id);
     const modifiedQueryComponent: QueryComponent = {
-      ...states.filtered,
+      id: states.filtered.id,
+      parentId: states.filtered.parentId,
       selectedFilterTab: selectedFilter as FilterDialogFilterOptions,
     };
     const obj = FilteringHelper.handleFilterChanges(
@@ -50,7 +49,7 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
       id,
       modifiedQueryComponent
     );
-    setQueryBuilderModelLocalStorage(obj);
+    LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
     // Update the component itself on changes.
     FilteringHelper.sendUpdateEvent(states.filtered.id);
   };
@@ -58,15 +57,12 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
   const handleComponentRemoval = () => {
     const states = FilteringHelper.getUpdatedStates<QueryComponent>(id);
     const obj = FilteringHelper.handleFilterChanges(states.root, id);
-    setQueryBuilderModelLocalStorage(obj);
+    LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
     // Update the parent component itself on component deletion.
     FilteringHelper.sendUpdateEvent(states.filtered.parentId);
   };
 
   /**
-   * TODO: The input fields will be implemented here!
-   * There should be an option the delete the whole "queryComponent".
-   *
    * First, check if the selectedFilterTab has any value.
    * - if yes, then display the corresponding input fields with their values.
    * - else display only the select input field.
@@ -117,6 +113,6 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
 export default FilteringQueryComponent;
 
 const StyledQueryComponentHolder = styled(StyledComponentGap)<{}>((props) => ({
+  paddingRight: "8px",
   justifyContent: "space-between",
-  //display: "contents",
 }));

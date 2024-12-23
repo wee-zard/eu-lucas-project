@@ -17,15 +17,12 @@ Query Builder TODO:
 - [x] Lehessen component-et törölni
 - [x] Lehessen group-ot törölni
 - [x] Lehessen mindent is törölni
-- [ ] Kerüljön megjelenítésre a WHERE, és az AND/OR kulcsszavak
-- [ ] Lehessen változtatni az AND/OR kapcsolatokat → a szükséges helyen kerüljön frissítésre.
-- [ ] Lehessen mozgatni az egyes Component/Group-okat.
+- [x] Kerüljön megjelenítésre a WHERE, és az AND/OR kulcsszavak
+- [x] Lehessen változtatni az AND/OR kapcsolatokat → a szükséges helyen kerüljön frissítésre.
+	- [x] Minden QueryGroup-hoz kerüljön megjelenítésre, és szükségszerűen módosíthatóak legyenek.
+	- [x] Minden QueryBuilderModel-hez kerüljön megjelenítésre, és szükség esetén lehessen módosítani azokat.
 - [x] Legyen egy gomb, amivel alkalmazni lehet a felhasználó által összerakott Query Buildert. Itt egy olyan sor kerüljön felvételre, ahol az ADD CONDITION, ADD GROUP és a SAVE gombok fixen maradnak a pozíciójukon (sticky).
-- [ ] Stílus alkalmazása az egyes react elemeken.
-- [ ] Validálni a Query Build Model egyes elemeit, és amennyiben azok nem mennek át a validáláson (pl. túl hosszú szöveg megadása input mezőben, nem engedélyezett karakterek kerülnek használara text input mezőben) → 
-	- [ ] Hibaüzenet megjelenítése a komponensek alatt egy piros üzenetben
-	- [ ] Maga az input mező is piros legyen.
-	- [ ] Amennyiben a felhasználó módosítja az adott input mező értékét, akkor a hibaüzenet kerüljön eltűntetésre azonnal.
+- [x] Stílus alkalmazása az egyes react elemeken.
 - [x] UseMemo használata (azért, hogy azon React Component-ek, amiknek a props-ja nem változott meg, ne kerüljenek re-renderelésre. Itt fontos, hogy meg kell változtatni a következőket)
 	- [x] Csak azon *Sub-Branch* kerüljön módosításra, amit ténylegesen módosítottunk, a *Branch*-en feljebb lévő ágakat NE kelljen újra renderelni.
 	- [x] Érdemes lenne a *QueryBuildModel* objektumot eltárolni a *Redux Storage*-ben, és onnan lekérni mindig az értékét.

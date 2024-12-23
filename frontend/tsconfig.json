@@ -1,9 +1,7 @@
 {
-  //"extends": "./tsconfig.json",
   "compilerOptions": {
     "baseUrl" : "./src",
     "paths": {
-      /*
       "@api/*": ["./app/api/*"],
       "@cards/*": ["./app/cards/*"],
       "@components/*": ["./app/components/*"],
@@ -17,7 +15,6 @@
       "@providers/*": ["./app/providers/*"],
       "@redux/*": ["./app/redux/*"],
       "@screens/*": ["./app/screens/*"],
-      */
     },
     "target": "es5",
     "lib": [

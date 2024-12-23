@@ -8,12 +8,13 @@ import {
 export enum QueryTypes {
   QUERY_BUILDER = "QUERY_BUILDER",
   QUERY_GROUP = "QUERY_GROUP",
+  QUERY_COMPONENT = "QUERY_COMPONENT",
 }
 
 export type QueryBuilderModel = {
   id: number;
   parentId: number;
-  queryMultiTypes: QueryMultiType[];
+  listOfQueries: QueryMultiType[];
   queryElementRelation?: QueryElementRelations;
   queryType: QueryTypes;
 };
@@ -21,7 +22,7 @@ export type QueryBuilderModel = {
 export type QueryGroup = {
   id: number;
   parentId: number;
-  queryComponents: QueryComponent[];
+  listOfQueries: QueryComponent[];
   queryElementRelation?: QueryElementRelations;
   queryType: QueryTypes;
 };
@@ -70,7 +71,7 @@ export const initQueryBuilderObj = (parentId: number): QueryBuilderModel => {
     id: id + 2,
     parentId: parentId,
     queryType: QueryTypes.QUERY_BUILDER,
-    queryMultiTypes: [initQueryGroupObj(id + 2)],
+    listOfQueries: [initQueryGroupObj(id + 2)],
   };
 };
 
@@ -80,7 +81,7 @@ export const initQueryGroupObj = (parentId: number): QueryGroup => {
     id: id,
     parentId: parentId,
     queryType: QueryTypes.QUERY_GROUP,
-    queryComponents: [
+    listOfQueries: [
       {
         id: id + 1,
         parentId: id,

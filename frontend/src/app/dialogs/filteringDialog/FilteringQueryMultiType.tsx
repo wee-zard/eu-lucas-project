@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { QueryMultiType, QueryTypes } from "app/model/QueryBuilderModel";
+import { QueryMultiType, QueryTypes } from "@model/QueryBuilderModel";
 import FilteringQueryGroup from "./FilteringQueryGroup";
-import FilteringMenuBody from "./FilteringMenuBody";
-import { FilteringHelper } from "app/helper/filteringHelper";
+import FilteringQueryBuilder from "./FilteringQueryBuilder";
+import { FilteringHelper } from "@helper/filteringHelper";
+import styled from "@emotion/styled";
 
 type Props = {
   id: number;
@@ -16,7 +17,9 @@ const FilteringQueryMultiType = React.memo(function FilteringQueryMultiType({
   const renderComponent = () => {
     const states = FilteringHelper.getUpdatedStates<QueryMultiType>(id);
     return states.filtered.queryType === QueryTypes.QUERY_BUILDER ? (
-      <FilteringMenuBody id={states.filtered.id} />
+      <StyledQueryBuilderHolder>
+        <FilteringQueryBuilder id={states.filtered.id} />
+      </StyledQueryBuilderHolder>
     ) : (
       <FilteringQueryGroup id={states.filtered.id} />
     );
@@ -37,3 +40,13 @@ const FilteringQueryMultiType = React.memo(function FilteringQueryMultiType({
 });
 
 export default FilteringQueryMultiType;
+
+const StyledQueryBuilderHolder = styled.div<{}>((props) => ({
+  display: "grid",
+  gap: "8px",
+  margin: "16px 0 16px 16px",
+  borderLeft: "4px solid cyan",
+  padding: "8px 0 8px 8px",
+  borderRadius: "12px",
+  boxShadow: "0px 4px 12px rgba(73, 174, 181, 0.27)",
+}));

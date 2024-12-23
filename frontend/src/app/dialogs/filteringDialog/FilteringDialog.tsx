@@ -6,21 +6,19 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectIsDialogOpen } from "../../redux/selectors/dialogSelector";
-import { DialogToOpens, FilteringDialogTexts } from "../../model/enum";
-import { RootState } from "../../redux/store";
+import { selectIsDialogOpen } from "@redux/selectors/dialogSelector";
+import { DialogToOpens, FilteringDialogTexts } from "@model/enum";
+import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";
-import { setDialogToOpen } from "../../redux/actions/dialogActions";
+import { setDialogToOpen } from "@redux/actions/dialogActions";
 import styled from "@emotion/styled";
-import {
-  setSelectedImage,
-} from "../../redux/actions/imageActions";
-import { selectSelectedImages } from "../../redux/selectors/imageSelector";
+import { setSelectedImage } from "@redux/actions/imageActions";
+import { selectSelectedImages } from "@redux/selectors/imageSelector";
 import {
   StyledComponentGap,
   StyledFullWidthAndHeight,
-} from "../../global/globalStyles";
-import StyledButton from "../../components/StyledButton";
+} from "@global/globalStyles";
+import StyledButton from "@components/StyledButton";
 import FilteringMenu from "./FilteringMenu";
 
 const FilteringDialog = () => {
@@ -39,25 +37,11 @@ const FilteringDialog = () => {
       <StyledDialogTitle>Képek szűrése</StyledDialogTitle>
       <DialogContent sx={{ padding: "0px" }}>
         <StyledDialogContentHolder>
-          {false
-            ? null
-            : /*
-              //TODO: Old version of app. Remove later...
-              <React.Fragment>
-                <FilterSelectionColumn />
-                <FilterFormAndGroupColumn />
-                <FilterImagePickerColumn />
-              </React.Fragment> 
-              */
-              null}
-
           <div>
             <div>
               <FilteringMenu />
             </div>
-            <div>
-              Táblázat itt lesz
-            </div>
+            <div>Táblázat itt lesz</div>
           </div>
         </StyledDialogContentHolder>
       </DialogContent>

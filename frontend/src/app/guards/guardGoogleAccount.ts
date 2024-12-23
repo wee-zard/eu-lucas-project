@@ -1,8 +1,8 @@
 import { jwtDecode } from "jwt-decode";
-import { getLocalStorageItem, removeLocalStorageItem } from "../helper/localStorageUtil";
-import { LocalStorageKeys } from "../model/enum";
+import { getLocalStorageItem, removeLocalStorageItem } from "@helper/localStorageUtil";
+import { LocalStorageKeys } from "@model/enum";
 import { googleLogout } from "@react-oauth/google";
-import { NotificationSeverity, throwNotification } from "../helper/notificationUtil";
+import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
 
 export const guardGoogleAccount = () => {
   const googleOAuthToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);

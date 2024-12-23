@@ -1,7 +1,7 @@
 import {
   FilterDialogFilterOptions,
   FilteringFormInputKeys,
-} from "app/model/enum";
+} from "@model/enum";
 import {
   useCoordinateXStorageInit,
   useCoordinateYStorageInit,
@@ -10,12 +10,12 @@ import {
   useCreationYearStorageInit,
   useExifKeyStorageInit,
 } from "./useStorageInit";
-import { FilterFormTemplate } from "app/model/FilterFormTemplate";
+import { FilterFormTemplate } from "@model/FilterFormTemplate";
 import {
   operatorComparableItems,
   operatorSelectItems,
   operatorTextfieldItems,
-} from "app/helper/filterFormUtils";
+} from "@helper/filterFormUtils";
 
 export const useSelectedTabToFilterTemplate = (
   filterTab?: FilterDialogFilterOptions

@@ -1,12 +1,12 @@
 import React from "react";
-import StyledIconButton from "app/components/StyledIconButton";
+import StyledIconButton from "@components/StyledIconButton";
 import styled from "@emotion/styled";
-import StyledButton from "app/components/StyledButton";
+import StyledButton from "@components/StyledButton";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import { StyledComponentGap } from "app/global/globalStyles";
+import { StyledComponentGap } from "@global/globalStyles";
 import { useDispatch } from "react-redux";
-import { setFilterMenuAction } from "app/redux/actions/imageActions";
-import { MenuActions } from "app/model/enum";
+import { setFilterMenuAction } from "@redux/actions/imageActions";
+import { MenuActions } from "@model/enum";
 
 const FilteringMenuActions = React.memo(function FilteringMenuActions() {
   const dispatch = useDispatch();

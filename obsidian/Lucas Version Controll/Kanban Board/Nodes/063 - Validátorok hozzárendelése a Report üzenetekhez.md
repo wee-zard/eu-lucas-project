@@ -23,6 +23,10 @@ Aktuális működés:
 		- Hossza legfeljebb 2000 karakter hosszú lehet.
 		- Karakterei csak egy véges karakterkészletből kerülhet ki (pl. 0-9, a-z, a-Z, és egy kevés szimbólum)
 		- NEM lehet üres
+-  Validálni a Query Build Model egyes elemeit, és amennyiben azok nem mennek át a validáláson (pl. túl hosszú szöveg megadása input mezőben, nem engedélyezett karakterek kerülnek használara text input mezőben) → 
+	- [ ] Hibaüzenet megjelenítése a komponensek alatt egy piros üzenetben
+	- [ ] Maga az input mező is piros legyen.
+	- [ ] Amennyiben a felhasználó módosítja az adott input mező értékét, akkor a hibaüzenet kerüljön eltűntetésre azonnal.
 
 Elvárt működés: 
 - Validálásért felelős annotációk hozzárendelése a Request objektumhoz.

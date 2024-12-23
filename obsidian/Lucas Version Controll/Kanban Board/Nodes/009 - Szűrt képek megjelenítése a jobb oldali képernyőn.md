@@ -5,7 +5,7 @@ type:
 priority:
   - High
 related:
-  - "[[010 -Lapozás implementálása a szűrt képek ablakában]]"
+  - "[[010 - Lapozás implementálása a szűrt képek ablakában]]"
 platform:
   - frontend
 creation-time: 2024-12-07T09:24:00

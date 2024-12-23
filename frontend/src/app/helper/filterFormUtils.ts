@@ -4,13 +4,13 @@ import {
   OperatorTextfieldItems,
   OperatorSelectItems,
   OperatorComparableItems,
-} from "../model/enum";
+} from "@model/enum";
 import {
   FilterFormDataGrid,
   FilterFormGroups,
   FormRelations,
-} from "../model/FilterFormComponents";
-import { setFilterFormDataGrid } from "../redux/actions/imageActions";
+} from "@model/FilterFormComponents";
+import { setFilterFormDataGrid } from "@redux/actions/imageActions";
 import { NotificationSeverity, throwNotification } from "./notificationUtil";
 
 export const operatorSelectItems = Object.values(OperatorSelectItems);
