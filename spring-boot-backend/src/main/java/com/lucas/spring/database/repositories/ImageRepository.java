@@ -16,10 +16,4 @@ import java.util.Optional;
 public interface ImageRepository extends CrudRepository<ImageEntity, Integer> {
     @Query(nativeQuery = true, value = "SELECT image_name FROM tb_image where image_name = :imageName")
     Optional<String> isImageNameAlreadyExists(@Param("imageName") String imageName);
-
-    @Query(nativeQuery = true, value = "SELECT * from tb_image order by Rand() Limit 1")
-    Optional<ImageEntity> getRandomImage();
-
-    @Query(nativeQuery = true, value = "SELECT * from tb_image order by Rand() Limit 9")
-    ArrayList<ImageEntity> getRandomImages();
 }

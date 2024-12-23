@@ -1,8 +1,6 @@
 package com.lucas.spring.services.service;
 
 import com.lucas.spring.model.entity.ImageEntity;
-import java.util.ArrayList;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,18 +23,4 @@ public interface ImageService {
    * @param imageEntity the image we want to save.
    */
   ImageEntity saveImage(ImageEntity imageEntity);
-
-  /**
-   * Fetches a random image entity from the db.
-   *
-   * @return the random image entity.
-   */
-  Optional<ImageEntity> getRandomImage();
-
-  /**
-   * Fetches 10 random image entities from the db.
-   *
-   * @return the random image entities.
-   */
-  ArrayList<ImageEntity> getRandomImages();
 }

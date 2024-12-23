@@ -4,7 +4,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import StyledIconButton from "@components/StyledIconButton";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
-import { selectImageStorage } from "@redux/selectors/imageSelector";
+import { selectFilterMenuActions } from "@redux/selectors/imageSelector";
 import { MenuActions } from "@model/enum";
 import { setFilterMenuAction } from "@redux/actions/imageActions";
 import { customScrollBar } from "@global/globalStyles";
@@ -19,7 +19,7 @@ import { LocalStorageUtils } from "@helper/localStorageUtil";
 const FilteringMenu = () => {
   console.log("[FilteringMenu]: RENDERED");
 
-  const { filterMenuAction } = useSelector(selectImageStorage);
+  const filterMenuAction = useSelector(selectFilterMenuActions);
   const [element, setElement] = useState<JSX.Element>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -43,14 +43,20 @@ const FilteringMenu = () => {
   }, [element]);
 
   useEffect(() => {
-    if (filterMenuAction === MenuActions.CANCEL) {
-      dispatch(setFilterMenuAction());
-      handleClose();
-    } else if (filterMenuAction === MenuActions.CLEAR_ALL) {
-      const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
-      LocalStorageUtils.setQueryBuilderModelLocalStorage(defaultBuilder);
-      setElement(undefined);
-      dispatch(setFilterMenuAction());
+    switch(filterMenuAction) {
+      case MenuActions.CANCEL:
+        dispatch(setFilterMenuAction());
+        handleClose();
+        break;
+      case MenuActions.SUBMIT:
+        handleClose();
+        break;
+      case MenuActions.CLEAR_ALL:
+        const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
+        LocalStorageUtils.setQueryBuilderModelLocalStorage(defaultBuilder);
+        setElement(undefined);
+        dispatch(setFilterMenuAction());
+        break;
     }
   }, [dispatch, filterMenuAction]);
 
@@ -58,7 +64,6 @@ const FilteringMenu = () => {
     <div>
       <StyledIconButton onClick={handleClick} buttonIcon={<FilterListIcon />} />
       <StyledMenu
-        id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}

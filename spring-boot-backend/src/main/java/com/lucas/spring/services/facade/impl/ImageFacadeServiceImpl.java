@@ -9,7 +9,6 @@ import com.lucas.spring.services.service.CreationCountryService;
 import com.lucas.spring.services.service.CreationDirectionService;
 import com.lucas.spring.services.service.CreationYearService;
 import com.lucas.spring.services.service.ImageService;
-import java.util.ArrayList;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -57,21 +56,5 @@ public class ImageFacadeServiceImpl implements ImageFacadeService {
     } else {
       return Optional.empty();
     }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Optional<ImageEntity> getRandomImage() {
-    return imageService.getRandomImage();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public ArrayList<ImageEntity> getRandomImages() {
-    return imageService.getRandomImages();
   }
 }

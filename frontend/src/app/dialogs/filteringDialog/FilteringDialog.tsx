@@ -20,6 +20,7 @@ import {
 } from "@global/globalStyles";
 import StyledButton from "@components/StyledButton";
 import FilteringMenu from "./FilteringMenu";
+import FilteringDialogImageDisplay from "./FilteringDialogImageDisplay";
 
 const FilteringDialog = () => {
   const selectedImages = useSelector(selectSelectedImages);
@@ -37,12 +38,8 @@ const FilteringDialog = () => {
       <StyledDialogTitle>Képek szűrése</StyledDialogTitle>
       <DialogContent sx={{ padding: "0px" }}>
         <StyledDialogContentHolder>
-          <div>
-            <div>
-              <FilteringMenu />
-            </div>
-            <div>Táblázat itt lesz</div>
-          </div>
+          <FilteringMenu />
+          <FilteringDialogImageDisplay />
         </StyledDialogContentHolder>
       </DialogContent>
       <DialogActions sx={{ padding: "0px" }}>

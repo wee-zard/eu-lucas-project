@@ -4,6 +4,18 @@ kanban-plugin: board
 
 ---
 
+## Documentation & Planning
+
+- [ ] [[078 - Szakdolgozat dokumentációjához szükséges diagramok létrehozása]]
+- [ ] [[079 - Tervezés - EK-diagram elkészítése]]
+- [ ] [[080 - Tervezés - Egyedmodel-diagram elkészítése]]
+- [ ] [[081 - Tervezés - Logikai adatfolyam-diagram elkészítése]]
+- [ ] [[082 - Tervezés - Menütervek elkészítése bejelentkezett és nem-bejelentkezett felhasználók részére]]
+- [ ] [[083 - Tervezés - Egyed-esemény mátrix elkészítése]]
+- [ ] [[084 - Tervezés - Szekvencia-diagram elkészítése a QueryBuilder használatához]]
+- [ ] [[085 - Tervezés - UML diagrammok elkészítése]]
+
+
 ## 🔴Backlog
 
 - [ ] [[001 - Google bejelentkezés során 3 hibaüzenet kerül dobásra 1 helyett]]
@@ -33,6 +45,9 @@ kanban-plugin: board
 - [ ] [[074 - Filtering oldalon a 4 input mező a szűrési feltétel megadásakor, egy tetszőleges input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését]]
 - [ ] [[086 - Középső egérgombbal rányomva a Filter oldal menüpontjára a NotFound oldalra navigál az oldal]]
 - [ ] [[087 - NotFound oldalról nem lehet egy kattintással visza navigálni a főoldalra]]
+- [ ] [[090 - FilteringDialog - Amikor először építi fel az input mezőket az ablak, akkor bizonyos esetekben többször újra rendereli az egész ablakot]]
+- [ ] [[088 - 5 FilteringGroup-ot egymásba ágyazva túl kicsivé teszi a szűrési feltételek input mezőit]]
+- [ ] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]]
 
 
 ## 🔴ToDo
@@ -66,14 +81,6 @@ kanban-plugin: board
 - [ ] [[061 - Tesztek írása és futtatása]]
 - [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]]
-- [ ] [[079 - Tervezés - EK-diagram elkészítése]]
-- [ ] [[080 - Tervezés - Egyedmodel-diagram elkészítése]]
-- [ ] [[081 - Tervezés - Logikai adatfolyam-diagram elkészítése]]
-- [ ] [[082 - Tervezés - Menütervek elkészítése bejelentkezett és nem-bejelentkezett felhasználók részére]]
-- [ ] [[083 - Tervezés - Egyed-esemény mátrix elkészítése]]
-- [ ] [[084 - Tervezés - Szekvencia-diagram elkészítése a QueryBuilder használatához]]
-- [ ] [[085 - Tervezés - UML diagrammok elkészítése]]
-- [ ] [[088 - 5 FilteringGroup-ot egymásba ágyazva túl kicsivé teszi a szűrési feltételek input mezőit]]
 
 
 ## 🔴Client Requests
@@ -87,22 +94,25 @@ kanban-plugin: board
 - [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[042 - Google OAuth oldal befejezése]]
 - [ ] [[052 - Loading komponens megjelenítése]]
-- [ ] [[078 - Szakdolgozat dokumentációjához szükséges diagramok létrehozása]]
+- [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]]
 
 
 ## 🟡In Progress
 
 - [ ] [[026 - Report oldal implementálása]]
 - [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
-- [ ] [[067 - Path alias használata a relatív útvonali fájlok importálása helyett]]
-- [ ] [[071 - Query Builder implementálása a Backend oldalon]]
 - [ ] [[077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén]]
+- [ ] [[092 - ConversionService initializálása és Config fájl létrehozása]]
+- [ ] [[093 - Filtering - Feltakarítani az előző demo által bemutatott szűrés logikáját, ami lecserélésre került]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[091 - PageableRequest implementálása a backend oldalán, ami szabadon paraméterezhető legyen]]
+- [ ] [[067 - Path alias használata a relatív útvonali fájlok importálása helyett]]
+- [ ] [[071 - Query Builder implementálása a Backend oldalon]]
 - [ ] [[089 - Textfield - Nem lehet S -t karaktert megadni a Textfieldben]]
 - [ ] [[068 - Új Query Builder implementálása a frontenden]]
 - [ ] [[048 - Legyen egy Reset gomb a Filtering Dialog ablakban az aktív szűrések törlése céljából]]
@@ -147,6 +157,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[false,false,false,false,false],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
+{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,false],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
 ```
 %%

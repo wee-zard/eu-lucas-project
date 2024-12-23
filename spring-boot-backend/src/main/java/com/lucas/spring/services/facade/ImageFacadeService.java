@@ -2,7 +2,6 @@ package com.lucas.spring.services.facade;
 
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.request.ImageRequest;
-import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +18,4 @@ public interface ImageFacadeService {
    * @return The Image Entity to add later to the db.
    */
   Optional<ImageEntity> getImageEntity(ImageRequest imageRequest);
-
-  /**
-   * Fetches a random image entity from the db.
-   *
-   * @return the random image entity.
-   */
-  Optional<ImageEntity> getRandomImage();
-
-  /**
-   * Fetches 10 random image entity from the db.
-   *
-   * @return the random image entities.
-   */
-  ArrayList<ImageEntity> getRandomImages();
 }

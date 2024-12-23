@@ -1,7 +1,8 @@
 package com.lucas.spring.services.service;
 
 import com.lucas.spring.model.entity.ImageEntity;
-import com.lucas.spring.model.request.filtering.ImageFilteringRequest;
+import com.lucas.spring.model.request.filtering.FilteringQueryRequest;
+import com.lucas.spring.model.models.PageableProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface ImageFilterService {
+
   /**
    * Create a criteria builder based on the provided active filters.
    *
-   * @param imageFilteringRequest the filters we want to use to fetch the images.
+   * @param filteringQueryRequest the filters we want to use to fetch the images.
+   * @param pageableProperties the properties of the pageable response.
    */
-  Page<ImageEntity> filterImage(ImageFilteringRequest imageFilteringRequest);
+  Page<ImageEntity> filterImages(FilteringQueryRequest filteringQueryRequest, PageableProperties pageableProperties);
 }

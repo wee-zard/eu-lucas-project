@@ -1,6 +1,8 @@
 package com.lucas.spring.model.response;
 
 import java.util.List;
+
+import com.lucas.spring.model.models.PageableProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,14 +14,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class PageableResponse<T> {
   /**
-   * The currently active page.
+   * The properties of the Pageable response.
    */
-  private Integer pageNo;
-
-  /**
-   * The size of the page (this is the pagination).
-   */
-  private Integer pageSize;
+  private PageableProperties properties;
 
   /**
    * The list of items that is sent back to the requester.
