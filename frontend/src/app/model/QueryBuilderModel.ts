@@ -1,15 +1,12 @@
 import {
   FilterDialogFilterOptions,
+  OperatorComparableItemNames,
   OperatorComparableItems,
+  OperatorSelectItemNames,
   OperatorSelectItems,
   OperatorTextfieldItems,
+  QueryTypes,
 } from "./enum";
-
-export enum QueryTypes {
-  QUERY_BUILDER = "QUERY_BUILDER",
-  QUERY_GROUP = "QUERY_GROUP",
-  QUERY_COMPONENT = "QUERY_COMPONENT",
-}
 
 export type QueryBuilderModel = {
   id: number;
@@ -89,3 +86,16 @@ export const initQueryGroupObj = (parentId: number): QueryGroup => {
     ],
   };
 };
+
+export const operatorSelectItems = Object.values(OperatorSelectItemNames);
+
+export const operatorComparableItems = [
+  ...operatorSelectItems,
+  ...Object.values(OperatorComparableItemNames),
+];
+
+// TODO: It is not used yet. Please change the Object.values(OperatorTextfieldItems) to look the same as the above ones.
+export const operatorTextfieldItems = [
+  ...operatorSelectItems,
+  ...Object.values(OperatorTextfieldItems),
+];

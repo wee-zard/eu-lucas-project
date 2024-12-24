@@ -2,14 +2,11 @@ import { UnknownAction } from "redux";
 import { ImageConsts } from "../consts/imageConsts";
 import { FilterDialogFilterOptions, MenuActions } from "../../model/enum";
 import { ImageFilteringForm } from "../../model/ImageFilteringForm";
-import { FilterFormDataGrid } from "../../model/FilterFormComponents";
-import { initFilterFormDataGrid } from "../../helper/filterFormUtils";
 import { initFirstQueryParent, initQueryBuilderObj, QueryBuilderModel } from "app/model/QueryBuilderModel";
 
 interface ImageType {
   selectedImages: number[];
   selectedFilterTab: FilterDialogFilterOptions;
-  filterFormDataGrid: FilterFormDataGrid;
   imageFilteringForm?: ImageFilteringForm;
   filterMenuAction?: MenuActions;
   queryBuilderModel: QueryBuilderModel;
@@ -18,7 +15,6 @@ interface ImageType {
 const initialState: ImageType = {
   selectedImages: [],
   selectedFilterTab: FilterDialogFilterOptions.Year,
-  filterFormDataGrid: initFilterFormDataGrid,
   imageFilteringForm: undefined,
   filterMenuAction: undefined,
   queryBuilderModel: initQueryBuilderObj(initFirstQueryParent),
@@ -43,11 +39,6 @@ const imageReducer = (
       return {
         ...state,
         imageFilteringForm: action.payload as ImageFilteringForm | undefined,
-      };
-    case ImageConsts.SET_FILTER_FORM_DATA_GRID:
-      return {
-        ...state,
-        filterFormDataGrid: action.payload as FilterFormDataGrid,
       };
     case ImageConsts.SET_FILTER_MENU_ACTION:
       return {

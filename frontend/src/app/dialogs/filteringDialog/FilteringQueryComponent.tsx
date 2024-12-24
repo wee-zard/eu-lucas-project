@@ -1,7 +1,10 @@
 import StyledIconButton from "@components/StyledIconButton";
 import React, { useEffect, useState } from "react";
 import StyledSelectComponent from "@components/StyledSelectComponent";
-import { FilterDialogFilterOptions } from "@model/enum";
+import {
+  FilterDialogFilterOptionNames,
+  FilterDialogFilterOptions,
+} from "@model/enum";
 import { QueryComponent } from "@model/QueryBuilderModel";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import FilteringInputField from "./FilteringInputField";
@@ -10,6 +13,7 @@ import styled from "@emotion/styled";
 import { StyledComponentGap } from "@global/globalStyles";
 import { FilteringHelper } from "@helper/filteringHelper";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
+import { ConversionUtils } from "@helper/conversionUtils";
 
 type Props = {
   id: number;
@@ -74,9 +78,19 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
         <StyledInputHolder>
           <StyledSelectComponent
             inputTitle={"Query By"}
-            options={Object.values(FilterDialogFilterOptions)}
-            inputValue={states.filtered?.selectedFilterTab ?? ""}
-            setValue={handleComponentSelection}
+            options={Object.values(FilterDialogFilterOptionNames)}
+            inputValue={
+              ConversionUtils.FilterOptionsToFilterOptionNames(
+                states.filtered?.selectedFilterTab
+              ) ?? ""
+            }
+            setValue={(item) =>
+              handleComponentSelection(
+                ConversionUtils.FilterOptionNamesToFilterOptions(
+                  item as FilterDialogFilterOptionNames
+                )
+              )
+            }
           />
         </StyledInputHolder>
         {states.filtered?.selectedFilterTab ? (

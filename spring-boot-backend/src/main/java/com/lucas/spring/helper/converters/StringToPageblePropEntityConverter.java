@@ -14,7 +14,7 @@ public class StringToPageblePropEntityConverter
         implements Converter<String, PageableProperties> {
 
   private static final String PAGE_SIZE = "pageSize";
-  private static final String PAGE_NO = "pageNO";
+  private static final String PAGE_NO = "pageNo";
 
   /**
    * {@inheritDoc}
@@ -47,14 +47,14 @@ public class StringToPageblePropEntityConverter
       throw new RuntimeException("Pageable Properties are not defined!");
     }
     // Properties must contain a ";" character to separate the properties from each other.
-    if (source.contains(";")) {
+    if (!source.contains(";")) {
       throw new RuntimeException("Pageable Properties format is invalid!");
     }
     // Init all the pageable properties that is present in the request header.
     final String[] properties = source.split(";");
     final Map<String, String> pageablePropertiesMap = new HashMap<>();
     for (final String property : properties) {
-      if (property.contains("=")) {
+      if (!property.contains("=")) {
         throw new RuntimeException("Pageable Properties format is invalid!");
       }
       final String[] splitProperty = property.split("=");

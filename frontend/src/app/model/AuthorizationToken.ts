@@ -1,11 +1,9 @@
 export default class AuthorizationToken {
-    constructor (
-        public authtoken: string
-    ) {}
+  constructor(public authToken: string) {}
 
-    public toString(): string {
-        return `Bearer ${this.authtoken}`;
-    }
+  public toString(): string {
+    return `Bearer ${this.authToken}`;
+  }
 
-    public getHeader = () => ({ headers: { Authorization: this.toString() }})
+  public getHeader = () => ({ Authorization: this.toString() });
 }

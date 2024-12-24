@@ -1,6 +1,7 @@
 import axios from "axios";
-import AuthorizationToken from "../../model/AuthorizationToken";
 import { RootEndpoints, ServersToConnectTo } from "../../model/enum";
+import PageableProperties from "@model/PageableProperties";
+import { RequestHeaderHandler } from "./requestHeaderHandler";
 
 const imageServerPath = process.env.REACT_APP_USE_IMAGE_SERVER_PATH ?? "";
 const backendServerPath = process.env.REACT_APP_USE_BACKEND ?? "";
@@ -16,49 +17,36 @@ const fetchServerPath = (serverToUse: ServersToConnectTo) => {
     case ServersToConnectTo.LucasImageServer:
       return imageServerPath;
   }
-}
+};
 
 /**
- * @param authtoken The auth token of the currently browsing user.
- * @returns Returns an object that hold the token in the header
- *     for the api requests.
- */
-const getRequestHeader = (authtoken?: string) => {
-  return authtoken 
-    ? { ...(new AuthorizationToken(authtoken).getHeader()) }
-    : {};
-}
-
-/**
- * @param authtoken The access token of the currently browsing user.
+ * @param authToken The access token of the currently browsing user.
  */
 export const postCommand = (
   serverToUse: ServersToConnectTo,
   universalEndpoint: RootEndpoints,
   obj: any,
-  authtoken?: string,
+  authToken?: string,
+  pageableProperties?: PageableProperties
 ) => {
   return axios.post(
-    `${fetchServerPath(serverToUse)}${universalEndpoint}`, 
-    obj, 
-    getRequestHeader(authtoken),
+    `${fetchServerPath(serverToUse)}${universalEndpoint}`,
+    obj,
+    RequestHeaderHandler.getRequestHeader(authToken, pageableProperties)
   );
 };
 
 /**
- * @param authtoken The access token of the currently browsing user.
+ * @param authToken The access token of the currently browsing user.
  */
 export const getCommand = (
   serverToUse: ServersToConnectTo,
   universalEndpoint: RootEndpoints,
   params: any,
-  authtoken?: string,
+  authToken?: string
 ) => {
-  return axios.get(
-    `${fetchServerPath(serverToUse)}${universalEndpoint}`, 
-    {
-      ...getRequestHeader(authtoken),
-      params: !!params ? params : undefined
-    },
-  );
+  return axios.get(`${fetchServerPath(serverToUse)}${universalEndpoint}`, {
+    ...RequestHeaderHandler.getRequestHeader(authToken),
+    params: !!params ? params : undefined,
+  });
 };

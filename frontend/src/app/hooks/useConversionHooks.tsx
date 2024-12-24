@@ -11,11 +11,7 @@ import {
   useExifKeyStorageInit,
 } from "./useStorageInit";
 import { FilterFormTemplate } from "@model/FilterFormTemplate";
-import {
-  operatorComparableItems,
-  operatorSelectItems,
-  operatorTextfieldItems,
-} from "@helper/filterFormUtils";
+import { operatorComparableItems, operatorSelectItems, operatorTextfieldItems } from "@model/QueryBuilderModel";
 
 export const useSelectedTabToFilterTemplate = (
   filterTab?: FilterDialogFilterOptions

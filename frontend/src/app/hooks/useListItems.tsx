@@ -8,6 +8,9 @@ import PlaceIcon from "@mui/icons-material/Place";
 import GrassIcon from "@mui/icons-material/Grass";
 import TerminalIcon from "@mui/icons-material/Terminal";
 
+/*
+ * TODO: Remove later, as no component is using it.
+ */
 export const useFilteringListItems = () => {
   const listItemOptions: ListItemModel[] = [
     { name: FilterDialogFilterOptions.Year, icon: <AccessTimeIcon /> },

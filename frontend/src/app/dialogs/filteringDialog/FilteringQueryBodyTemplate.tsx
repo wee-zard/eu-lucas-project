@@ -4,12 +4,12 @@ import { StyledComponentGap } from "@global/globalStyles";
 import {
   QueryComponent,
   QueryMultiType,
-  QueryTypes,
 } from "@model/QueryBuilderModel";
 import FilteringQueryComponent from "./FilteringQueryComponent";
 import FilteringQueryRelation from "./FilteringQueryRelation";
 import FilteringQueryMultiType from "./FilteringQueryMultiType";
 import { ArrayUtils } from "@helper/arrayUtils";
+import { QueryTypes } from "@model/enum";
 
 type Props = {
   queryMultiType: QueryMultiType;

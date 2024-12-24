@@ -8,13 +8,13 @@ import {
 } from "../../model/enum";
 import { postCommand } from "../handler/requestHandler";
 
-export const validateEmailAddress = async (authtoken: string) => {
+export const validateEmailAddress = async (authToken: string) => {
   try {
     const response = await postCommand(
       ServersToConnectTo.Backend,
       BackendUserControllerEndpoints.ValidateEmail,
       {},
-      authtoken
+      authToken
     );
     if (response.status !== 200) {
       throwNotification(NotificationSeverity.Error, response.data.message);

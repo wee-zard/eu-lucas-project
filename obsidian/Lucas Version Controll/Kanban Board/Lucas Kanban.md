@@ -82,7 +82,8 @@ kanban-plugin: board
 - [ ] [[061 - Tesztek írása és futtatása]]
 - [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]]
-- [ ] [[096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből.]]
+- [ ] [[096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből]]
+- [ ] [[098 - Verziószám hozzáadása a projekthez, és annak növelése minden demo bemutatása után]]
 
 
 ## 🔴Client Requests
@@ -102,13 +103,13 @@ kanban-plugin: board
 - [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
 - [ ] [[077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén]]
-- [ ] [[092 - ConversionService initializálása és Config fájl létrehozása]]
-- [ ] [[093 - Filtering - Feltakarítani az előző demo által bemutatott szűrés logikáját, ami lecserélésre került]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[092 - ConversionService initializálása és Config fájl létrehozása]]
+- [ ] [[093 - Filtering - Feltakarítani az előző demo által bemutatott szűrés logikáját, ami lecserélésre került]]
 - [ ] [[006 - @deprecated - Képek szűrésének megvalósítása]]
 - [ ] [[007 - @deprecated - Minden szűrési opcióhoz kerüljenek megjelenítésre a megfelelő űrlapok]]
 - [ ] [[008 - @deprecated - Aktív szűrési tábla logikájának implementálása]]

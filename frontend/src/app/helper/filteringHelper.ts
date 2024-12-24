@@ -1,9 +1,9 @@
 import { LocalStorageUtils } from '@helper/localStorageUtil';
+import { QueryTypes } from '@model/enum';
 import {
   QueryComponent,
   QueryGroup,
   QueryMultiType,
-  QueryTypes,
 } from "@model/QueryBuilderModel";
 import {
   QueryBuilderModel,

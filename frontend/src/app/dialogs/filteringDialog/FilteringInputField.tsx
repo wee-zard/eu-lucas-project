@@ -1,12 +1,12 @@
 import React from "react";
-import { QueryComponent } from "@model/QueryBuilderModel";
+import { QueryComponent, QueryConditions } from "@model/QueryBuilderModel";
 import { FilterFormTemplate } from "@model/FilterFormTemplate";
 import { FilteringFormInputKeys } from "@model/enum";
 import { useSelectedTabToFilterTemplate } from "@hooks/useConversionHooks";
 import { StyledInputHolder } from "./FilteringMenu";
 import StyledSelectComponent from "@components/StyledSelectComponent";
 import StyledTextFieldComponent from "@components/StyledTextFieldComponent";
-import { OperatorItems } from "@model/FilterFormComponents";
+import { ConversionUtils } from "@helper/conversionUtils";
 
 type Props = {
   component: QueryComponent;
@@ -29,7 +29,7 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
       [FilteringFormInputKeys.OperatorInput]: () =>
         setComponent({
           ...component,
-          operatorInput: value as OperatorItems,
+          operatorInput: value as QueryConditions,
         }),
       [FilteringFormInputKeys.TextfieldInput]: () =>
         setComponent({
@@ -67,9 +67,11 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
             <StyledSelectComponent
               inputTitle={template.inputTitle}
               options={template.options ?? []}
-              inputValue={component.operatorInput ?? ""}
+              inputValue={ConversionUtils.OperatorItemsToOperatorItemNames(component.operatorInput) ?? ""}
               setValue={(value) =>
-                handleValueChanges(FilteringFormInputKeys.OperatorInput, value)
+                handleValueChanges(
+                  FilteringFormInputKeys.OperatorInput,
+                  ConversionUtils.OperatorItemNamesToOperatorItems(value))
               }
             />
           </StyledInputHolder>

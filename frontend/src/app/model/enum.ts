@@ -37,7 +37,7 @@ export enum BackendExifKeyControllerEndpoints {
 }
 
 export enum BackendImageControllerEndpoints {
-  PostFilterImage = "/api/image/filter-image",
+  PostFilterImage = "/api/image/filter-images",
 }
 
 /**
@@ -101,14 +101,25 @@ export enum FilteringDialogTexts {
 }
 
 export enum FilterDialogFilterOptions {
+  Year = "YEAR",
+  Country = "COUNTRY",
+  XCoordinates = "X_COORDINATE",
+  YCoordinates = "Y_COORDINATE",
+  Direction = "DIRECTION",
+  ExifData = "EXIF_DATA",
+  Plant = "PLANT",
+  Algorith = "ALGORITHM",
+}
+
+export enum FilterDialogFilterOptionNames {
   Year = "Év",
   Country = "Ország",
   XCoordinates = "X Koordináta",
   YCoordinates = "Y Koordináta",
-  Direction = "Készítés iránya",
+  Direction = "Készítés Iránya",
   ExifData = "Exif adat",
-  Plant = "Növények",
-  Algorith = "Algoritmus",
+  Plant = "Növény",
+  Algorith = "Eljárás",
 }
 
 export enum DialogToOpens {
@@ -116,6 +127,11 @@ export enum DialogToOpens {
 }
 
 export enum OperatorSelectItems {
+  Equals = "EQUALS",
+  DoesNotEqual = "DOES_NOT_EQUALS",
+}
+
+export enum OperatorSelectItemNames {
   Equals = "==",
   DoesNotEqual = "!=",
 }
@@ -131,16 +147,17 @@ export enum OperatorTextfieldItems {
 }
 
 export enum OperatorComparableItems {
+  Less = "LESS",
+  LessOrEqual = "LESS_OR_EQUAL",
+  Greater = "GREATER",
+  GreaterOrEqual = "GREATER_OR_EQUAL",
+}
+
+export enum OperatorComparableItemNames {
   Less = "<",
   LessOrEqual = "<=",
   Greater = ">",
   GreaterOrEqual = ">=",
-}
-
-export enum FormLogicalExpressions {
-  And = "AND",
-  Or = "OR",
-  Not = "NOT",
 }
 
 export enum FilteringFormInputKeys {
@@ -153,4 +170,10 @@ export enum MenuActions {
   CANCEL = "CANCEL",
   SUBMIT = "SUBMIT",
   CLEAR_ALL = "CLEAR_ALL"
+}
+
+export enum QueryTypes {
+  QUERY_BUILDER = "QUERY_BUILDER",
+  QUERY_GROUP = "QUERY_GROUP",
+  QUERY_COMPONENT = "QUERY_COMPONENT",
 }

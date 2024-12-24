@@ -55,7 +55,7 @@ public class ImageController extends BaseController {
    */
   @TokenValidation
   @CrossOrigin
-  @PostMapping("/query-builder-image")
+  @PostMapping("/filter-images")
   public PageableResponse<ImageDto> postQueryBuilderImage(
           @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication,
           @RequestHeader(PAGEABLE_PROPERTIES) PageableProperties pageableProperties,

@@ -6,12 +6,12 @@ import {
   QueryElementRelations,
   QueryGroup,
   QueryMultiType,
-  QueryTypes,
 } from "@model/QueryBuilderModel";
 import { FilteringHelper } from "@helper/filteringHelper";
 import StyledSelectComponent from "@components/StyledSelectComponent";
 import { minWidthOfRelationColumn } from "./FilteringQueryBodyTemplate";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
+import { QueryTypes } from "@model/enum";
 
 type Props = {
   queryMultiType: QueryMultiType;

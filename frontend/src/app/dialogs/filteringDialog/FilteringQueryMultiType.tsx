@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { QueryMultiType, QueryTypes } from "@model/QueryBuilderModel";
+import { QueryMultiType } from "@model/QueryBuilderModel";
 import FilteringQueryGroup from "./FilteringQueryGroup";
 import FilteringQueryBuilder from "./FilteringQueryBuilder";
 import { FilteringHelper } from "@helper/filteringHelper";
 import styled from "@emotion/styled";
+import { QueryTypes } from "@model/enum";
 
 type Props = {
   id: number;

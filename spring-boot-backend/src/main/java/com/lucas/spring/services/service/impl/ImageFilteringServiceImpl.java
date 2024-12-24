@@ -11,6 +11,7 @@ import com.lucas.spring.model.entity.abstraction.BaseComparatorEntity;
 import com.lucas.spring.model.enums.FilterOption;
 import com.lucas.spring.model.enums.ImageFilteringEnum;
 import com.lucas.spring.model.enums.QueryElementRelations;
+import com.lucas.spring.model.enums.QueryType;
 import com.lucas.spring.model.expection.ImageFilteringException;
 import com.lucas.spring.model.request.filtering.FilteringQueryRequest;
 import com.lucas.spring.model.request.filtering.QueryBuilder;
@@ -110,13 +111,13 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
             .getListOfQueries()
             .stream()
             .map(queryMultiType -> {
-              if (queryMultiType instanceof QueryBuilder) {
+              if (queryMultiType.getQueryType().equals(QueryType.QUERY_BUILDER)) {
                 return getSubBranchOfQueryBuilder(
                     criteriaBuilder,
                     root,
                     (QueryBuilder) queryMultiType
                 );
-              } else if (queryMultiType instanceof QueryGroup) {
+              } else if (queryMultiType.getQueryType().equals(QueryType.QUERY_GROUP)) {
                 return getSubBranchOfComponent(
                     criteriaBuilder,
                     root,
