@@ -1,10 +1,10 @@
 package com.lucas.spring.helper.converters;
 
 import com.lucas.spring.model.models.PageableProperties;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 /**
  * Defines a conversion from {@link String} to {@link PageableProperties}.

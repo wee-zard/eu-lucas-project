@@ -1,5 +1,6 @@
 package com.lucas.spring.model.dto;
 
+import com.lucas.spring.model.dto.abstraction.RootDto;
 import com.lucas.spring.model.entity.ImageEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @AllArgsConstructor
-public class ImageDto {
+public class ImageDto extends RootDto {
   private Long id;
   private String imageName;
   private String direction;

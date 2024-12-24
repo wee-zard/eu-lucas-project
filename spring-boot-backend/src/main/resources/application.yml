@@ -10,7 +10,7 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/lucasdb
     username: root
     password: GmcxryfsCLieHd0RwOJYkISNuKXqySaJVCL6lFucBApINviYOnGQ0HGeBXqvJaVYRPsfUhjONEcKlS
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver #com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: none #or update

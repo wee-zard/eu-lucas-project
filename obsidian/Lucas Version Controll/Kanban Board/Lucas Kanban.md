@@ -48,6 +48,7 @@ kanban-plugin: board
 - [ ] [[090 - FilteringDialog - Amikor először építi fel az input mezőket az ablak, akkor bizonyos esetekben többször újra rendereli az egész ablakot]]
 - [ ] [[088 - 5 FilteringGroup-ot egymásba ágyazva túl kicsivé teszi a szűrési feltételek input mezőit]]
 - [ ] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]]
+- [ ] [[097 - TokenValidation - Át lehet mozgatni ezen aspect osztályba a @RequestHeader-ben érkező Authentikációs tokent]]
 
 
 ## 🔴ToDo
@@ -81,15 +82,12 @@ kanban-plugin: board
 - [ ] [[061 - Tesztek írása és futtatása]]
 - [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]]
+- [ ] [[096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből.]]
 
 
 ## 🔴Client Requests
 
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
-- [ ] [[006 - Képek szűrésének megvalósítása]]
-- [ ] [[007 - Minden szűrési opcióhoz kerüljenek megjelenítésre a megfelelő űrlapok]]
-- [ ] [[008 - Aktív szűrési tábla logikájának implementálása]]
-- [ ] [[009 - Szűrt képek megjelenítése a jobb oldali képernyőn]]
 - [ ] [[023 - Sidebar-on lévő menüpontok véglegesítése]]
 - [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[042 - Google OAuth oldal befejezése]]
@@ -99,6 +97,7 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
+- [ ] [[009 - Szűrt képek megjelenítése a jobb oldali képernyőn]]
 - [ ] [[026 - Report oldal implementálása]]
 - [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
 - [ ] [[077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban]]
@@ -110,6 +109,9 @@ kanban-plugin: board
 ## 🟢Done
 
 **Complete**
+- [ ] [[006 - @deprecated - Képek szűrésének megvalósítása]]
+- [ ] [[007 - @deprecated - Minden szűrési opcióhoz kerüljenek megjelenítésre a megfelelő űrlapok]]
+- [ ] [[008 - @deprecated - Aktív szűrési tábla logikájának implementálása]]
 - [ ] [[091 - PageableRequest implementálása a backend oldalán, ami szabadon paraméterezhető legyen]]
 - [ ] [[067 - Path alias használata a relatív útvonali fájlok importálása helyett]]
 - [ ] [[071 - Query Builder implementálása a Backend oldalon]]

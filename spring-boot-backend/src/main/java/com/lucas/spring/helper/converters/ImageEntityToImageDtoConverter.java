@@ -18,13 +18,13 @@ public class ImageEntityToImageDtoConverter
   @Override
   public ImageDto convert(final ImageEntity source) {
     return ImageDto.builder()
-//            .id(source.getId())
-//            .year(source.getYear().getYear())
-//            .imageName(source.getImageName())
-//            .country(source.getCountry().getCountryCode())
-//            .direction(source.getDirection().getDirectionName())
-//            .coordinateX(source.getCoordinateX().getCoordinateX())
-//            .coordinateY(source.getCoordinateY().getCoordinateY())
+            .id(source.getId())
+            .year(source.getYear().getYear())
+            .imageName(source.getImageName())
+            .country(source.getCountry().getCountryCode())
+            .direction(source.getDirection().getDirectionName())
+            .coordinateX(source.getCoordinateX().getCoordinateX())
+            .coordinateY(source.getCoordinateY().getCoordinateY())
             .build();
   }
 }

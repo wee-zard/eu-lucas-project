@@ -5,7 +5,7 @@ type:
 priority:
   - Medium
 related:
-  - "[[006 - Képek szűrésének megvalósítása]]"
+  - "[[006 - @deprecated - Képek szűrésének megvalósítása]]"
 platform:
   - frontend
 creation-time: 2024-12-07T09:24:00
