@@ -13,5 +13,6 @@ import lombok.NoArgsConstructor;
 public class QueryMultiType extends QueryRoot {
   private QueryElementRelations queryElementRelation;
   private QueryType queryType;
-  private List<?> listOfQueries;
+  private List<QueryMultiType> listOfQueries;
+  private List<QueryComponent> listOfComponents;
 }

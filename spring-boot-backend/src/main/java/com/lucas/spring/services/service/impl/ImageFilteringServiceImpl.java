@@ -1,23 +1,19 @@
 package com.lucas.spring.services.service.impl;
 
 import com.lucas.spring.helper.helpers.BuildEntityUtil;
-import com.lucas.spring.model.entity.CoordinateXEntity;
-import com.lucas.spring.model.entity.CoordinateYEntity;
-import com.lucas.spring.model.entity.CreationCountryEntity;
-import com.lucas.spring.model.entity.CreationDirectionEntity;
 import com.lucas.spring.model.entity.CreationYearEntity;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.entity.abstraction.BaseComparatorEntity;
 import com.lucas.spring.model.enums.FilterOption;
 import com.lucas.spring.model.enums.ImageFilteringEnum;
+import com.lucas.spring.model.enums.OperatorOption;
 import com.lucas.spring.model.enums.QueryElementRelations;
 import com.lucas.spring.model.enums.QueryType;
 import com.lucas.spring.model.expection.ImageFilteringException;
-import com.lucas.spring.model.request.filtering.FilteringQueryRequest;
-import com.lucas.spring.model.request.filtering.QueryBuilder;
-import com.lucas.spring.model.request.filtering.QueryComponent;
-import com.lucas.spring.model.request.filtering.QueryGroup;
 import com.lucas.spring.model.models.PageableProperties;
+import com.lucas.spring.model.request.filtering.FilteringQueryRequest;
+import com.lucas.spring.model.request.filtering.QueryComponent;
+import com.lucas.spring.model.request.filtering.QueryMultiType;
 import com.lucas.spring.services.service.ImageFilterService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -26,7 +22,6 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -40,8 +35,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ImageFilteringServiceImpl implements ImageFilterService {
   private final EntityManager entityManager;
-
-  /* ================================================================================ */
 
 //  private Predicate applyExpressionsOnTextBasedFilters(
 //          final CriteriaBuilder cb,
@@ -63,125 +56,79 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
 //    return predicate;
 //  }
 
-  /* ================================================================================ */
-
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Page<ImageEntity> filterImages(
-          final FilteringQueryRequest filteringQueryRequest,
+          final FilteringQueryRequest request,
           final PageableProperties pageableProperties
   ) {
-    if (filteringQueryRequest.getQueryBuilder().getListOfQueries().isEmpty()) {
-      // TODO: Throw an error stating that the init list cannot be empty.
+    if (request.getQueryBuilder().getListOfQueries().isEmpty()) {
+      // TODO: Throw a better error message.
       throw new RuntimeException("List of queries are empty!");
     }
     if (pageableProperties == null) {
-      // TODO: Throw an error stating that the init list cannot be empty.
+      // TODO: Throw a better error message.
       throw new RuntimeException("Pageable Properties are not provided!");
     }
 
     // Setting up the objects for the query builder.
-    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-    CriteriaQuery<ImageEntity> criteriaQuery = criteriaBuilder.createQuery(ImageEntity.class);
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<ImageEntity> criteriaQuery = cb.createQuery(ImageEntity.class);
+
+    // TODO: If we want to select from procedures or plants, we needs to extend the FROM section.
     Root<ImageEntity> root = criteriaQuery.from(ImageEntity.class);
 
     // Get the merged predicates.
-    final Predicate allMergedPredicate = getSubBranchOfComponent(
-            criteriaBuilder,
-            root,
-            filteringQueryRequest.getQueryBuilder()
-    );
+    final Predicate predicate = getSubBranchOfComponent(cb, root, request.getQueryBuilder());
 
     // Add the merged predicates to the query.
-    criteriaQuery.select(root).where(allMergedPredicate);
+    criteriaQuery.select(root).where(predicate);
     TypedQuery<ImageEntity> query = entityManager.createQuery(criteriaQuery);
 
     // Wrap these values into a Pageable Request.
-    query.setFirstResult(pageableProperties.getPageSize());
-    query.setMaxResults(pageableProperties.getPageNo());
+    query.setFirstResult(pageableProperties.getPageNo());
+    query.setMaxResults(pageableProperties.getPageSize());
     List<ImageEntity> filteredImages = query.getResultList();
     return new PageImpl<>(filteredImages);
   }
 
   private Predicate getSubBranchOfComponent(
-          final CriteriaBuilder criteriaBuilder,
-          final Root<ImageEntity> root,
-          final QueryBuilder queryBuilder
+          CriteriaBuilder cb,
+          Root<ImageEntity> root,
+          QueryMultiType query
   ) {
-    final List<Predicate> queryBuilderPredicates = queryBuilder
-            .getListOfQueries()
-            .stream()
-            .map(queryMultiType -> {
-              if (queryMultiType.getQueryType().equals(QueryType.QUERY_BUILDER)) {
-                return getSubBranchOfQueryBuilder(
-                    criteriaBuilder,
-                    root,
-                    (QueryBuilder) queryMultiType
-                );
-              } else if (queryMultiType.getQueryType().equals(QueryType.QUERY_GROUP)) {
-                return getSubBranchOfComponent(
-                    criteriaBuilder,
-                    root,
-                    (QueryGroup) queryMultiType
-                );
-              } else {
-                // TODO: Throw new error, as the instance of the object in unknown.
-                throw new RuntimeException("Unknown instance of object is detected"
-                        + " in the getSubBranchOfComponent method");
-              }
-            })
-            .toList();
-
-    // Merge these predicates into one by their common expression, that could be AND/OR.
-    return applyRelationOnPredicates(
-            criteriaBuilder,
-            queryBuilder.getQueryElementRelation(),
-            queryBuilderPredicates
-    );
+    final List<Predicate> listOfPredicates = getListOfPredicates(cb, root, query);
+    return applyRelationOnPredicates(cb, query.getQueryElementRelation(), listOfPredicates);
   }
 
-  private Predicate getSubBranchOfComponent(
-          final CriteriaBuilder criteriaBuilder,
-          final Root<ImageEntity> root,
-          final QueryGroup queryGroup
+  private List<Predicate> getListOfPredicates(
+          CriteriaBuilder cb,
+          Root<ImageEntity> root,
+          QueryMultiType query
   ) {
-    // Get the list of predicates one by one.
-    final List<Predicate> queryComponentPredicates = getPredicatesOfQueryComponents(
-            criteriaBuilder,
-            root,
-            queryGroup.getListOfQueries()
-    );
-
-    // Merge these predicates into one by their common expression, that could be AND/OR.
-    return applyRelationOnPredicates(
-            criteriaBuilder,
-            queryGroup.getQueryElementRelation(),
-            queryComponentPredicates
-    );
-  }
-
-  private Predicate getSubBranchOfQueryBuilder(
-          final CriteriaBuilder criteriaBuilder,
-          final Root<ImageEntity> root,
-          final QueryBuilder queryBuilder
-  ) {
-    final List<Predicate> queryBuilderPredicates = queryBuilder
-            .getListOfQueries()
-            .stream()
-            .map(queryMultiType -> getSubBranchOfComponent(criteriaBuilder, root, queryBuilder))
-            .toList();
-
-    // Merge these predicates into one by their common expression, that could be AND/OR.
-    return applyRelationOnPredicates(
-            criteriaBuilder,
-            queryBuilder.getQueryElementRelation(),
-            queryBuilderPredicates
-    );
+    if (query.getListOfQueries() != null) {
+      return query.getListOfQueries()
+              .stream()
+              .map(queryGroup -> getSubBranchOfComponent(cb, root, queryGroup))
+              .toList();
+    } else if (query.getListOfComponents() != null) {
+      return query.getListOfComponents()
+              .stream()
+              .map(queryComponent -> getPredicateOfQueryComponent(cb, root, queryComponent))
+              .toList();
+      //return getListOfPredicatesFromQueryGroup(cb, root, query);
+    } else {
+      // TODO: Throw a better error message.
+      throw new RuntimeException("No component or group provided!");
+    }
   }
 
   private Predicate applyRelationOnPredicates(
-      final CriteriaBuilder criteriaBuilder,
-      final QueryElementRelations relations,
-      final List<Predicate> predicates
+      CriteriaBuilder criteriaBuilder,
+      QueryElementRelations relations,
+      List<Predicate> predicates
   ) {
     final Predicate[] arrayOfPredicates = predicates.toArray(Predicate[]::new);
     if (relations == null || relations == QueryElementRelations.AND) {
@@ -195,88 +142,51 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
     }
   }
 
-  private List<Predicate> getPredicatesOfQueryComponents(
-          final CriteriaBuilder cb,
-          final Root<ImageEntity> root,
-          final List<QueryComponent> filterComponents
+  private Predicate getPredicateOfQueryComponent(
+          CriteriaBuilder cb,
+          Root<ImageEntity> root,
+          QueryComponent component
   ) {
-    // Result list that contains the predicates of the filter query.
-    List<Predicate> predicates = new ArrayList<>();
-
-    // Fill up the predicate list with values based on the active filters in the list.
-    filterComponents.forEach(component -> {
-      switch (component.getSelectedFilterTab()) {
-        case YEAR -> predicates.add(filterByCreationYears(cb, root, component));
-        case COUNTRY -> predicates.add(filterByCreationCountry(cb, root, component));
-        case X_COORDINATE -> predicates.add(filterByCoordinateX(cb, root, component));
-        case Y_COORDINATE -> predicates.add(filterByCoordinateY(cb, root, component));
-        case DIRECTION -> predicates.add(filterByDirectionName(cb, root, component));
-        // TODO: Plants and ExifData should be listed here in the future.
-        default -> throw new ImageFilteringException(
-                ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED
-        );
+    final OperatorOption operatorInput = component.getOperatorInput();
+    switch (component.getSelectedFilterTab()) {
+      case YEAR -> {
+        return applyOperatorOnComponents(cb, operatorInput,
+                root.get(FilterOption.YEAR.getTableColumn()),
+                BuildEntityUtil.buildCreationYearEntity(component));
       }
-    });
-    return predicates;
-  }
-
-  private Predicate filterByCreationYears(
-          final CriteriaBuilder cb,
-          final Root<ImageEntity> root,
-          final QueryComponent component
-  ) {
-    CreationYearEntity entity = BuildEntityUtil.buildCreationYearEntity(component);
-    Path<BaseComparatorEntity> path = root.get(FilterOption.YEAR.getTableColumn());
-    return applyOperatorOnComponents(cb, component, path, entity);
-  }
-
-  private Predicate filterByCreationCountry(
-          final CriteriaBuilder cb,
-          final Root<ImageEntity> root,
-          final QueryComponent component
-  ) {
-    CreationCountryEntity entity = BuildEntityUtil.buildCreationCountryEntity(component);
-    Path<BaseComparatorEntity> path = root.get(FilterOption.COUNTRY.getTableColumn());
-    return applyOperatorOnComponents(cb, component, path, entity);
-  }
-
-  private Predicate filterByCoordinateX(
-          final CriteriaBuilder cb,
-          final Root<ImageEntity> root,
-          final QueryComponent component
-  ) {
-    CoordinateXEntity entity = BuildEntityUtil.buildCoordinateX(component);
-    Path<BaseComparatorEntity> path = root.get(FilterOption.X_COORDINATE.getTableColumn());
-    return applyOperatorOnComponents(cb, component, path, entity);
-  }
-
-  private Predicate filterByCoordinateY(
-          final CriteriaBuilder cb,
-          final Root<ImageEntity> root,
-          final QueryComponent component
-  ) {
-    CoordinateYEntity entity = BuildEntityUtil.buildByCoordinateY(component);
-    Path<BaseComparatorEntity> path = root.get(FilterOption.Y_COORDINATE.getTableColumn());
-    return applyOperatorOnComponents(cb, component, path, entity);
-  }
-
-  private Predicate filterByDirectionName(
-          final CriteriaBuilder cb,
-          final Root<ImageEntity> root,
-          final QueryComponent component
-  ) {
-    CreationDirectionEntity entity = BuildEntityUtil.buildDirectionName(component);
-    Path<BaseComparatorEntity> path = root.get(FilterOption.DIRECTION.getTableColumn());
-    return applyOperatorOnComponents(cb, component, path, entity);
+      case COUNTRY -> {
+        return applyOperatorOnComponents(cb, operatorInput,
+                root.get(FilterOption.COUNTRY.getTableColumn()),
+                BuildEntityUtil.buildCreationCountryEntity(component));
+      }
+      case X_COORDINATE -> {
+        return applyOperatorOnComponents(cb, operatorInput,
+                root.get(FilterOption.X_COORDINATE.getTableColumn()),
+                BuildEntityUtil.buildCoordinateX(component));
+      }
+      case Y_COORDINATE -> {
+        return applyOperatorOnComponents(cb, operatorInput,
+                root.get(FilterOption.Y_COORDINATE.getTableColumn()),
+                BuildEntityUtil.buildByCoordinateY(component));
+      }
+      case DIRECTION -> {
+        return applyOperatorOnComponents(cb, operatorInput,
+                root.get(FilterOption.DIRECTION.getTableColumn()),
+                BuildEntityUtil.buildDirectionName(component));
+      }
+      default -> throw new ImageFilteringException(
+        ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED
+      );
+    }
   }
 
   private Predicate applyOperatorOnComponents(
-          final CriteriaBuilder cb,
-          final QueryComponent component,
-          final Path<BaseComparatorEntity> path,
-          final BaseComparatorEntity entity
+          CriteriaBuilder cb,
+          OperatorOption operatorOption,
+          Path<BaseComparatorEntity> path,
+          BaseComparatorEntity entity
   ) {
-    switch (component.getOperatorInput()) {
+    switch (operatorOption) {
       case EQUALS -> {
         return cb.equal(path, entity);
       }
@@ -296,8 +206,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
         return cb.greaterThanOrEqualTo(path, entity);
       }
       default -> throw new ImageFilteringException(
-            ImageFilteringEnum.UNKNOWN_OR_NO_OPERATOR_PROVIDED,
-            component.toString()
+            ImageFilteringEnum.UNKNOWN_OR_NO_OPERATOR_PROVIDED
       );
     }
   }

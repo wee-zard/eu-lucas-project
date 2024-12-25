@@ -1,7 +1,8 @@
+import PageableProperties from "@model/PageableProperties";
+
 export default class PageableResponse<T> {
     constructor(
-        public pageSize: number,
-        public pageNu: number,
+        public properties: PageableProperties,
         public pageItems: T[] = [],
     ){}
 }

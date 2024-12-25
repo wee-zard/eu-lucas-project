@@ -2,7 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import { StyledComponentGap } from "@global/globalStyles";
 import {
+  QueryBuilderModel,
   QueryComponent,
+  QueryGroup,
   QueryMultiType,
 } from "@model/QueryBuilderModel";
 import FilteringQueryComponent from "./FilteringQueryComponent";
@@ -25,25 +27,28 @@ const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
       <FilteringQueryComponent id={id} />
     );
 
+  const getListOfElements =
+    queryMultiType.queryType === QueryTypes.QUERY_BUILDER
+      ? (queryMultiType as QueryBuilderModel).listOfQueries
+      : (queryMultiType as QueryGroup).listOfComponents;
+
   return (
     <StyledQueryHolder>
       <StyledComponentGridGap>
         <StyledCustomComponentGap>
           <StyledMinWidthComponent>WHERE</StyledMinWidthComponent>
-          <StyledMaxWidthComponentHolder
-            key={queryMultiType.listOfQueries[0].id}
-          >
-            {getFilteringComponent(queryMultiType.listOfQueries[0].id)}
+          <StyledMaxWidthComponentHolder key={getListOfElements[0].id}>
+            {getFilteringComponent(getListOfElements[0].id)}
           </StyledMaxWidthComponentHolder>
         </StyledCustomComponentGap>
 
-        {queryMultiType.listOfQueries.length > 1 ? (
+        {getListOfElements.length > 1 ? (
           <StyledCustomComponentGap>
             <FilteringQueryRelation queryMultiType={queryMultiType} />
             <StyledComponentGridGap $isWidthFull>
               {ArrayUtils.getListWithoutFirstElement<
                 QueryMultiType | QueryComponent
-              >(queryMultiType.listOfQueries).map((element) => (
+              >(getListOfElements).map((element) => (
                 <div key={element.id}>{getFilteringComponent(element.id)}</div>
               ))}
             </StyledComponentGridGap>

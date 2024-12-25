@@ -12,8 +12,10 @@ import com.lucas.spring.services.facade.ExifFacadeService;
 import com.lucas.spring.services.facade.ImageFacadeService;
 import com.lucas.spring.services.service.ImageFilterService;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
-import org.springframework.http.HttpHeaders;
+
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,12 +28,25 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(path = "api/image")
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class ImageController extends BaseController {
   private final ImageFacadeService imageFacadeService;
   private final ExifFacadeService exifFacadeService;
   private final ImageFilterService imageFilterService;
   public static final String PAGEABLE_PROPERTIES = "X-Pageable-Properties";
+  public ConversionService conversionService;
+
+  ImageController(
+          final ConversionService conversionService,
+          final ImageFilterService imageFilterService,
+          final ExifFacadeService exifFacadeService,
+          final ImageFacadeService imageFacadeService
+  ) {
+    super(conversionService);
+    this.imageFacadeService = imageFacadeService;
+    this.exifFacadeService = exifFacadeService;
+    this.imageFilterService = imageFilterService;
+  }
 
   /**
    * An endpoint to upload image information to the db.
@@ -53,11 +68,11 @@ public class ImageController extends BaseController {
    *
    * @param filteringQueryRequest The request containing the filters.
    */
-  @TokenValidation
+  //@TokenValidation
   @CrossOrigin
   @PostMapping("/filter-images")
   public PageableResponse<ImageDto> postQueryBuilderImage(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication,
+          //@RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication,
           @RequestHeader(PAGEABLE_PROPERTIES) PageableProperties pageableProperties,
           @RequestBody FilteringQueryRequest filteringQueryRequest
   ) {

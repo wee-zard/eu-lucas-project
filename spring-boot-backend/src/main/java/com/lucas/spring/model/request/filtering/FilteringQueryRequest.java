@@ -15,5 +15,5 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FilteringQueryRequest {
-  private QueryBuilder queryBuilder;
+  private QueryMultiType queryBuilder;
 }

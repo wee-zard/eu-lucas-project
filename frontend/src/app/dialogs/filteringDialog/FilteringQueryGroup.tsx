@@ -19,7 +19,7 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({
     return (
       <StyledQueryComponentHolder>
         <FilteringQueryGroupActions id={id} />
-        {states.filtered.listOfQueries.length > 0 ? (
+        {states.filtered.listOfComponents.length > 0 ? (
           <FilteringQueryBodyTemplate queryMultiType={states.filtered} />
         ) : (
           <StyledEmptyGroupHolder

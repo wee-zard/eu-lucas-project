@@ -10,10 +10,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum FilterOption {
   YEAR("Év", "year"),
-  COUNTRY("Ország", "country_code"),
-  X_COORDINATE("X Koordináta", "coordinate_x"),
-  Y_COORDINATE("Y Koordináta", "coordinate_y"),
-  DIRECTION("Készítés iránya", "direction_name"),
+  COUNTRY("Ország", "country"),
+  X_COORDINATE("X Koordináta", "coordinateX"),
+  Y_COORDINATE("Y Koordináta", "coordinateY"),
+  DIRECTION("Készítés iránya", "direction"),
   EXIF_DATA("Exif adat", null), //TODO: ...
   PLANT("Növények", null), //TODO: ...
   ALGORITHM("Algoritmus", null); //TODO: ...

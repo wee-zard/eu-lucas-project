@@ -29,7 +29,7 @@ export const getImageByFilters = async (request: FilteringQueryRequest, pageable
   } catch (error) {
     throwNotification(
       NotificationSeverity.Error,
-      "Error while executing the filter images by filters!"
+      "" + error,
     );
     return null;
   }

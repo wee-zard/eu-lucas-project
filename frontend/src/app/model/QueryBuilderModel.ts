@@ -19,7 +19,7 @@ export type QueryBuilderModel = {
 export type QueryGroup = {
   id: number;
   parentId: number;
-  listOfQueries: QueryComponent[];
+  listOfComponents: QueryComponent[];
   queryElementRelation?: QueryElementRelations;
   queryType: QueryTypes;
 };
@@ -78,7 +78,7 @@ export const initQueryGroupObj = (parentId: number): QueryGroup => {
     id: id,
     parentId: parentId,
     queryType: QueryTypes.QUERY_GROUP,
-    listOfQueries: [
+    listOfComponents: [
       {
         id: id + 1,
         parentId: id,

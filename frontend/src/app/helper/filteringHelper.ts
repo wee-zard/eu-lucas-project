@@ -70,7 +70,7 @@ export const FilteringHelper = {
     };
 
     const getSubBranchOfQueryGroup = (queryGroup: QueryGroup) =>
-      queryGroup.listOfQueries.find((item) => item.id === id);
+      queryGroup.listOfComponents.find((item) => item.id === id);
 
     const getSubBranchOfComponent = (queryMultiType: QueryMultiType) => {
       if (queryMultiType.id === id) {
@@ -93,12 +93,12 @@ export const FilteringHelper = {
     modifiedQueryComponent?: QueryComponent
   ) => {
     if (modifiedQueryComponent) {
-      const components = queryGroup.listOfQueries.map((item) =>
+      const components = queryGroup.listOfComponents.map((item) =>
         item.id === queryComponent.id ? modifiedQueryComponent : item
       );
       const modifiedQueryGroup: QueryGroup = {
         ...queryGroup,
-        listOfQueries: components,
+        listOfComponents: components,
         queryElementRelation:
           !queryGroup.queryElementRelation && components.length === 2
             ? (queryGroup.queryElementRelation = QueryElementRelations.And)
@@ -106,12 +106,12 @@ export const FilteringHelper = {
       };
       return modifiedQueryGroup;
     } else {
-      const components = queryGroup.listOfQueries.filter(
+      const components = queryGroup.listOfComponents.filter(
         (item) => item.id !== queryComponent.id
       );
       const modifiedQueryGroup: QueryGroup = {
         ...queryGroup,
-        listOfQueries: components,
+        listOfComponents: components,
         queryElementRelation:
           !queryGroup.queryElementRelation && components.length === 2
             ? (queryGroup.queryElementRelation = QueryElementRelations.And)
@@ -156,7 +156,7 @@ export const FilteringHelper = {
       queryGroup: QueryGroup,
       callback: (group?: QueryGroup) => void
     ) => {
-      const originalComponent = queryGroup.listOfQueries.find(
+      const originalComponent = queryGroup.listOfComponents.find(
         (item) => item.id === id
       );
       if (originalComponent) {

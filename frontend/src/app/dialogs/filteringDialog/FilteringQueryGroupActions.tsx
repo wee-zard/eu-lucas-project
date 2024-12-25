@@ -33,12 +33,12 @@ const FilteringQueryGroupActions = React.memo(
     const handleOnClickAddFilterCondition = () => {
       const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
       const modifiedQueryComponents: QueryComponent[] = [
-        ...states.filtered.listOfQueries,
+        ...states.filtered.listOfComponents,
         { id: getNewIdToElement(), parentId: states.filtered.id },
       ];
       const modifiedQueryGroup: QueryGroup = {
         ...states.filtered,
-        listOfQueries: modifiedQueryComponents,
+        listOfComponents: modifiedQueryComponents,
         queryElementRelation:
           !states.filtered.queryElementRelation &&
           modifiedQueryComponents.length === 2

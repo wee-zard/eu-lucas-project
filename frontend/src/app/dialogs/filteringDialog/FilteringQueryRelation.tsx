@@ -20,6 +20,11 @@ type Props = {
 const FilteringQueryRelation = ({ queryMultiType }: Props) => {
   console.log("[FilteringQueryRelation]: RENDERED");
 
+  const isListLengthBiggerThenTwo =
+    queryMultiType.queryType === QueryTypes.QUERY_BUILDER
+      ? (queryMultiType as QueryBuilderModel).listOfQueries.length > 2
+      : (queryMultiType as QueryGroup).listOfComponents.length > 2;
+
   const handleFilteringChanges = (
     modifiedQuery: QueryComponent | QueryMultiType
   ) => {
@@ -52,18 +57,14 @@ const FilteringQueryRelation = ({ queryMultiType }: Props) => {
   return (
     <StyledQueryRelationHolder>
       <StyledQueryRelationInputHolder>
-        {queryMultiType.listOfQueries.length > 2 ? (
-          <StyledTopQueryRelationHolder />
-        ) : null}
+        {isListLengthBiggerThenTwo ? <StyledTopQueryRelationHolder /> : null}
         <StyledSelectComponent
           inputTitle={"Relation"}
           options={Object.values(QueryElementRelations)}
           inputValue={queryMultiType.queryElementRelation ?? ""}
           setValue={handleElementRelationSelection}
         />
-        {queryMultiType.listOfQueries.length > 2 ? (
-          <StyledBottomQueryRelationHolder />
-        ) : null}
+        {isListLengthBiggerThenTwo ? <StyledBottomQueryRelationHolder /> : null}
       </StyledQueryRelationInputHolder>
     </StyledQueryRelationHolder>
   );

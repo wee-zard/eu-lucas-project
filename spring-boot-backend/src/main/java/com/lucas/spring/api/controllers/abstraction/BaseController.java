@@ -5,8 +5,14 @@ import com.lucas.spring.model.models.PageableProperties;
 import com.lucas.spring.model.response.PageableResponse;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.domain.Page;
 
 /**
@@ -14,7 +20,6 @@ import org.springframework.data.domain.Page;
  * The dto is a pageable response dto.
  */
 @AllArgsConstructor
-@NoArgsConstructor
 public abstract class BaseController {
   public ConversionService conversionService;
 
