@@ -1,6 +1,10 @@
 package com.lucas.spring.helper.helpers;
 
-import com.lucas.spring.model.entity.*;
+import com.lucas.spring.model.entity.CoordinateXEntity;
+import com.lucas.spring.model.entity.CoordinateYEntity;
+import com.lucas.spring.model.entity.CreationCountryEntity;
+import com.lucas.spring.model.entity.CreationDirectionEntity;
+import com.lucas.spring.model.entity.CreationYearEntity;
 import com.lucas.spring.model.enums.ImageFilteringEnum;
 import com.lucas.spring.model.enums.InputFormatErrors;
 import com.lucas.spring.model.expection.ImageFilteringException;
@@ -8,44 +12,45 @@ import com.lucas.spring.model.expection.InputFormatException;
 import com.lucas.spring.model.request.filtering.QueryComponent;
 import lombok.experimental.UtilityClass;
 
+/**
+ * Creates entity builders based on the provided {@link QueryComponent}
+ * from the Query Builder for the purpose of comparing objects.
+ */
 @UtilityClass
 public class BuildEntityUtil {
-    public CreationYearEntity buildCreationYearEntity(final QueryComponent component) {
-        try {
-            // Init a creation year entity with the provided filter values.
-            return CreationYearEntity
-                    .builder()
-                    .year(Integer.parseInt(component.getSelectInput()))
-                    .build();
-        } catch (NumberFormatException exception) {
-            throw new InputFormatException(
-                    InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
-                    component.toString()
-            );
-        }
-    }
 
-    public CreationCountryEntity buildCreationCountryEntity(final QueryComponent component) {
-        try {
-            // TODO: This should be more simple.
-            String[] countryData = component.getSelectInput().split(" ");
-            String countryCode = countryData[0];
-            String countryName = countryData[1]
-                    .replace("\\(", "")
-                    .replace("\\)", "");
-            // Init the creation country entity with the provided filter values.
-            return CreationCountryEntity
-                    .builder()
-                    .countryCode(countryCode)
-                    .countryName(countryName)
-                    .build();
-        } catch (IndexOutOfBoundsException exception) {
-            // TODO: throw new exception
-            throw new ImageFilteringException(
-                    ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED
-            );
-        }
+  /**
+   * Init a {@link CreationDirectionEntity} with the provided filter values.
+   *
+   * @param component The user provided {@link QueryComponent} that.
+   * @return a {@link CreationDirectionEntity} built object.
+   */
+  public CreationYearEntity buildCreationYearEntity(final QueryComponent component) {
+    try {
+      return CreationYearEntity
+                .builder()
+                .year(Integer.parseInt(component.getSelectInput()))
+                .build();
+    } catch (NumberFormatException exception) {
+      throw new InputFormatException(
+                InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
+                component.toString()
+      );
     }
+  }
+
+  /**
+   * Init a {@link CreationCountryEntity} with the provided filter values.
+   *
+   * @param component The user provided {@link QueryComponent} that.
+   * @return a {@link CreationCountryEntity} built object.
+   */
+  public CreationCountryEntity buildCreationCountryEntity(final QueryComponent component) {
+    return CreationCountryEntity
+            .builder()
+            .countryCode(component.getSelectInput())
+            .build();
+  }
 
   /**
    * Creates a {@link CoordinateXEntity} based on the provided {@link QueryComponent}.
@@ -55,7 +60,6 @@ public class BuildEntityUtil {
    */
   public CoordinateXEntity buildCoordinateX(final QueryComponent component) {
     try {
-      // Init the creation country entity with the provided filter values.
       return CoordinateXEntity
             .builder()
             .coordinateX(Integer.parseInt(component.getSelectInput()))
@@ -76,7 +80,6 @@ public class BuildEntityUtil {
    */
   public CoordinateYEntity buildByCoordinateY(final QueryComponent component) {
     try {
-      // Init the creation country entity with the provided filter values.
       return CoordinateYEntity
             .builder()
             .coordinateY(Integer.parseInt(component.getSelectInput()))
@@ -96,7 +99,6 @@ public class BuildEntityUtil {
    * @return Returns a {@link CreationDirectionEntity} entity.
    */
   public CreationDirectionEntity buildDirectionName(final QueryComponent component) {
-    // Init the creation country entity with the provided filter values.
     return CreationDirectionEntity
             .builder()
             .directionName(component.getSelectInput())

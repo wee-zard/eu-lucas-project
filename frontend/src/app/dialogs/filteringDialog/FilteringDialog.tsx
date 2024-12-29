@@ -1,68 +1,42 @@
 import React from "react";
 import {
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectIsDialogOpen } from "@redux/selectors/dialogSelector";
-import { DialogToOpens, FilteringDialogTexts } from "@model/enum";
+import { DialogToOpens } from "@model/enum";
 import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";
 import { setDialogToOpen } from "@redux/actions/dialogActions";
 import styled from "@emotion/styled";
-import { setSelectedImage } from "@redux/actions/imageActions";
-import { selectSelectedImages } from "@redux/selectors/imageSelector";
 import {
   StyledComponentGap,
   StyledFullWidthAndHeight,
 } from "@global/globalStyles";
-import StyledButton from "@components/StyledButton";
-import FilteringMenu from "./FilteringMenu";
-import FilteringDialogImageDisplay from "./FilteringDialogImageDisplay";
+import FilteringMenu from "@dialogs/filteringDialog/FilteringMenu";
+import FilteringDialogImageDisplay from "@dialogs/filteringDialog/FilteringDialogImageDisplay";
+import FilteringDialogActions from "./FilteringDialogActions";
 
 const FilteringDialog = () => {
-  const selectedImages = useSelector(selectSelectedImages);
   const dialogToOpen = useSelector((state) =>
     selectIsDialogOpen(state as RootState, DialogToOpens.FilteringDialog)
   );
   const dispatch = useDispatch();
 
-  const handleDialogClose = () => {
-    dispatch(setDialogToOpen(undefined));
-  };
+  const handleDialogClose = () => dispatch(setDialogToOpen(undefined));
 
   return (
     <StyledDialog open={dialogToOpen} onClose={handleDialogClose}>
       <StyledDialogTitle>Képek szűrése</StyledDialogTitle>
-      <DialogContent sx={{ padding: "0px" }}>
-        <StyledDialogContentHolder>
+      <StyledDialogContent>
+        <StyledDialogContentHolder display={"grid"}>
           <FilteringMenu />
           <FilteringDialogImageDisplay />
         </StyledDialogContentHolder>
-      </DialogContent>
-      <DialogActions sx={{ padding: "0px" }}>
-        <StyledActionsHolder>
-          <StyledButton
-            buttonText={FilteringDialogTexts.DisagreeButtonText}
-            buttonColor="primary"
-            buttonVariant="outlined"
-            onClick={handleDialogClose}
-          />
-          <StyledButton
-            buttonText={FilteringDialogTexts.AgreeButtonText}
-            isDisabled={true}
-            buttonColor="primary"
-            buttonVariant="outlined"
-            onClick={() => {
-              /** TODO: Do something with this. */
-              dispatch(setSelectedImage([...selectedImages, 0]));
-              dispatch(setDialogToOpen(undefined));
-            }}
-          />
-        </StyledActionsHolder>
-      </DialogActions>
+      </StyledDialogContent>
+      <FilteringDialogActions />
     </StyledDialog>
   );
 };
@@ -85,11 +59,13 @@ const StyledDialogTitle = styled(DialogTitle)<{}>(() => ({
   padding: "16px",
 }));
 
-const StyledDialogContentHolder = styled(StyledComponentGap)<{}>(() => ({
+const StyledDialogContentHolder = styled(StyledComponentGap)<{}>((props) => ({
   gap: "16px",
-  ...StyledFullWidthAndHeight(),
+  width: "100%",
 }));
 
-const StyledActionsHolder = styled(StyledComponentGap)<{}>(() => ({
-  paddingTop: "16px",
+const StyledDialogContent = styled(DialogContent)<{}>((props) => ({
+  padding: "0px",
+  overflowY: "hidden",
+  display: "flex",
 }));

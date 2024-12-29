@@ -169,11 +169,18 @@ export enum FilteringFormInputKeys {
 export enum MenuActions {
   CANCEL = "CANCEL",
   SUBMIT = "SUBMIT",
-  CLEAR_ALL = "CLEAR_ALL"
+  CLEAR_ALL = "CLEAR_ALL",
+  PAGINATION_CHANGE = "PAGINATION_CHANGE",
 }
 
 export enum QueryTypes {
   QUERY_BUILDER = "QUERY_BUILDER",
   QUERY_GROUP = "QUERY_GROUP",
   QUERY_COMPONENT = "QUERY_COMPONENT",
+}
+
+export enum SelectedImageActionTooltipTitles {
+  Delete = "Kép eltávolítása a kiválasztott képek közül",
+  Edit = "Szűrési feltételek módosítása",
+  Search = "Befoglaló téglalapok megjelenítése",
 }

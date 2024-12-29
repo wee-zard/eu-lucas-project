@@ -12,10 +12,8 @@ import com.lucas.spring.services.facade.ExifFacadeService;
 import com.lucas.spring.services.facade.ImageFacadeService;
 import com.lucas.spring.services.service.ImageFilterService;
 import java.util.Optional;
-
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,13 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(path = "api/image")
-@EqualsAndHashCode(callSuper = true)
 public class ImageController extends BaseController {
   private final ImageFacadeService imageFacadeService;
   private final ExifFacadeService exifFacadeService;
   private final ImageFilterService imageFilterService;
   public static final String PAGEABLE_PROPERTIES = "X-Pageable-Properties";
-  public ConversionService conversionService;
 
   ImageController(
           final ConversionService conversionService,
@@ -65,14 +61,20 @@ public class ImageController extends BaseController {
 
   /**
    * An endpoint to apply filters on the image table.
+   * Filter images by the provided query builder, while giving back only the
+   * necessary length of records from the db based on the values of the {@link PageableProperties}.
    *
    * @param filteringQueryRequest The request containing the filters.
+   * @return Returns a {@link PageableResponse} that contains the list of images that are
+   *     satisfying the query builder, and only giving back a limited number of them based on
+   *     the value of the {@link PageableProperties}, while converting the result
+   *     {@link ImageEntity} into {@link ImageDto}.
    */
-  //@TokenValidation
+  @TokenValidation
   @CrossOrigin
   @PostMapping("/filter-images")
   public PageableResponse<ImageDto> postQueryBuilderImage(
-          //@RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication,
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication,
           @RequestHeader(PAGEABLE_PROPERTIES) PageableProperties pageableProperties,
           @RequestBody FilteringQueryRequest filteringQueryRequest
   ) {

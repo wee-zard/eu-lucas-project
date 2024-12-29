@@ -5,6 +5,7 @@ import FilteringQueryBuilder from "./FilteringQueryBuilder";
 import { FilteringHelper } from "@helper/filteringHelper";
 import styled from "@emotion/styled";
 import { QueryTypes } from "@model/enum";
+import { IdUtils } from "@helper/idUtils";
 
 type Props = {
   id: number;
@@ -32,7 +33,7 @@ const FilteringQueryMultiType = React.memo(function FilteringQueryMultiType({
 
   useEffect(() => {
     const states = FilteringHelper.getUpdatedStates<QueryMultiType>(id);
-    const eventName = FilteringHelper.getEventListenerName(states.filtered.id);
+    const eventName = IdUtils.getEventListenerName(states.filtered.id);
     window.addEventListener(eventName, updateElement);
     return () => window.removeEventListener(eventName, updateElement);
   }, []);

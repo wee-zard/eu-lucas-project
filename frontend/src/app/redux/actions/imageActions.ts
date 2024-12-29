@@ -1,17 +1,18 @@
-import { QueryBuilderModel } from "app/model/QueryBuilderModel";
-import { FilterDialogFilterOptions, MenuActions } from "../../model/enum";
-import { ImageConsts } from "../consts/imageConsts";
+import { MenuActions } from "@model/enum";
+import { ImageConsts } from "@redux/consts/imageConsts";
+import PageableProperties from "@model/PageableProperties";
+import SelectedImagesModel from "@model/SelectedImagesModel";
 
-export const setSelectedImage = (data: number[]) => {
+export const setListOfSelectedImages = (data: SelectedImagesModel[]) => {
   return {
-    type: ImageConsts.SET_SELECTED_IMAGES,
+    type: ImageConsts.SET_LIST_OF_SELECTED_IMAGES,
     payload: data,
   };
 };
 
-export const setSelectedFilterTab = (data: FilterDialogFilterOptions) => {
+export const setSelectedImage = (data?: SelectedImagesModel) => {
   return {
-    type: ImageConsts.SET_SELECTED_FILTER_TAB,
+    type: ImageConsts.SET_SELECTED_IMAGE,
     payload: data,
   };
 };
@@ -23,9 +24,9 @@ export const setFilterMenuAction = (data?: MenuActions) => {
   };
 };
 
-export const setQueryBuilderModel = (data: QueryBuilderModel) => {
+export const setFilteringPageableProperties = (data: PageableProperties) => {
   return {
-    type: ImageConsts.SET_QUERY_BUILDER_MODEL,
+    type: ImageConsts.SET_FILTERING_PAGEABLE_PROPERTIES,
     payload: data,
   };
 };

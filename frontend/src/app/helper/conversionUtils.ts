@@ -1,3 +1,4 @@
+import CreationCountryDto from "@model/dto/CreationCountryDto";
 import {
   FilterDialogFilterOptionNames,
   FilterDialogFilterOptions,
@@ -87,5 +88,51 @@ export const ConversionUtils = {
       default:
         return item ?? "";
     }
+  },
+
+  /**
+   * Converts the list of countries into format string for the purpose of displaying
+   * the countries for the users in a readable format.
+   *
+   * @param listOfCreationCountries The list of all the countries what we want to display.
+   * @returns The format string list of the countries.
+   */
+  CreationCountriesToFormatString: (
+    listOfCreationCountries: CreationCountryDto[]
+  ) => {
+    return listOfCreationCountries
+      .map((obj) => ConversionUtils.CreationCountryToFormatString(obj))
+      .sort();
+  },
+
+  /**
+   * Convert a singular {@link CreationCountryDto} into format string for the purpose of displaying
+   * the countries for the users in a readable format.
+   *
+   * @param listOfCreationCountries The list of all the countries what we want to display.
+   * @returns The format string list of the countries.
+   */
+  CreationCountryToFormatString: (obj?: CreationCountryDto) =>
+    obj ? `(${obj.countryCode}) ${obj.countryName}` : "",
+
+  /**
+   * Converts a singular format string into {@link CreationCountryDto}.
+   * Transform all the list of countries into format string and checks which of the format string matches the
+   * user provided format string and returns the dto.
+   *
+   * @param formatString The user selected format string format of a {@link CreationCountryDto} object.
+   * @param listOfCreationCountries The list of all the countries.
+   * @returns the country code of the format string.
+   */
+  FormatStringToCreationCountryDto: (
+    formatString: string,
+    listOfCreationCountries: CreationCountryDto[]
+  ) => {
+    const country = listOfCreationCountries.find(
+      (countryDto) =>
+        ConversionUtils.CreationCountryToFormatString(countryDto) ===
+        formatString
+    );
+    return country?.countryCode ?? "";
   },
 };

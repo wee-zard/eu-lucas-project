@@ -1,7 +1,4 @@
-import {
-  FilterDialogFilterOptions,
-  FilteringFormInputKeys,
-} from "@model/enum";
+import { FilterDialogFilterOptions, FilteringFormInputKeys } from "@model/enum";
 import {
   useCoordinateXStorageInit,
   useCoordinateYStorageInit,
@@ -11,7 +8,12 @@ import {
   useExifKeyStorageInit,
 } from "./useStorageInit";
 import { FilterFormTemplate } from "@model/FilterFormTemplate";
-import { operatorComparableItems, operatorSelectItems, operatorTextfieldItems } from "@model/QueryBuilderModel";
+import {
+  operatorComparableItems,
+  operatorSelectItems,
+  operatorTextfieldItems,
+} from "@model/QueryBuilderModel";
+import { ConversionUtils } from "@helper/conversionUtils";
 
 export const useSelectedTabToFilterTemplate = (
   filterTab?: FilterDialogFilterOptions
@@ -47,9 +49,9 @@ export const useSelectedTabToFilterTemplate = (
         return [
           {
             inputTitle: "Ország",
-            options: listOfCreationCountries
-              .map((obj) => `(${obj.countryCode}) ${obj.countryName}`)
-              .sort(),
+            options: ConversionUtils.CreationCountriesToFormatString(
+              listOfCreationCountries
+            ),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {

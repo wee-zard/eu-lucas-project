@@ -36,7 +36,7 @@ export const RequestHeaderHandler = {
       ? {
           headers: {
             ...requestHeader.headers,
-            ...pageableProperties.getHeader(),
+            ...{"X-Pageable-Properties": `pageNo=${pageableProperties.pageNo};pageSize=${pageableProperties.pageSize}`},
           },
         }
       : requestHeader;

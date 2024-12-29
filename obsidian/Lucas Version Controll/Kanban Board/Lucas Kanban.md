@@ -49,6 +49,11 @@ kanban-plugin: board
 - [ ] [[088 - 5 FilteringGroup-ot egymásba ágyazva túl kicsivé teszi a szűrési feltételek input mezőit]]
 - [ ] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]]
 - [ ] [[097 - TokenValidation - Át lehet mozgatni ezen aspect osztályba a @RequestHeader-ben érkező Authentikációs tokent]]
+- [ ] [[100 - Filtering - A localStorage-ben eltárolt adatok betöltése esetén, hibaüzenet kerül dobásra]]
+- [ ] [[103 - Using kebab-case for css properties in objects is not supported. Did you mean WebkitBoxShadow Error Component Stack]]
+- [ ] [[104 - Filtering - Kiválasztott képre való rákattintás esetén, a szűrés eredmény képek kerüljenek megjelenítésre]]
+- [ ] [[105 - Filtering - Add New gombra való rányomás esetén, egy teljesen üres szűrési felület kerüljön megjelenítésre]]
+- [ ] [[108 - Filtering - Jobb szöveg kiíratása azon esetekben, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép]]
 
 
 ## 🔴ToDo
@@ -56,7 +61,6 @@ kanban-plugin: board
 - [ ] [[002 - Hibaüzenetek egységesítése]]
 - [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[005 - Átmozgatni a error üzeneteket a commands mappában a commands common mappában lévő fájlokba]]
-- [ ] [[010 - Lapozás implementálása a szűrt képek ablakában]]
 - [ ] [[011 - Kiválasztott képek letöltése és zip fájlba való elmentése]]
 - [ ] [[013 - CheckStyle hibák javítása a Backend oldalán]]
 - [ ] [[015 - Nagy méretű táblák partícionálása]]
@@ -84,6 +88,10 @@ kanban-plugin: board
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]]
 - [ ] [[096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből]]
 - [ ] [[098 - Verziószám hozzáadása a projekthez, és annak növelése minden demo bemutatása után]]
+- [ ] [[101 - Profile - Kijelentkezés implementálása]]
+- [ ] [[102 - localStorage kiürítése bejelentkezés & kijelentkezés során]]
+- [ ] [[111 - Query Builder - Animáció - TransitionGroup animáció hozzáadása a Query Builder-hez]]
+- [ ] [[112 - Animáció - react-native-reanimated csomag használata az alkalmazásban]]
 
 
 ## 🔴Client Requests
@@ -98,7 +106,6 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
-- [ ] [[009 - Szűrt képek megjelenítése a jobb oldali képernyőn]]
 - [ ] [[026 - Report oldal implementálása]]
 - [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
 - [ ] [[077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban]]
@@ -108,6 +115,13 @@ kanban-plugin: board
 ## 🟢Done
 
 **Complete**
+- [ ] [[107 - Filtering - Mentés gombon jelenjen meg, hogy pontosan hány kép lett kiválasztva]]
+- [ ] [[110 - Filtering - A szűrt képkártyák mérete ne fix méretű legyen, hanem reszponzív méretű]]
+- [ ] [[009 - Szűrt képek megjelenítése a jobb oldali képernyőn]]
+- [ ] [[010 - Lapozás implementálása a szűrt képek ablakában]]
+- [ ] [[109 - Filtering - Listázott képekhez tartozó Scrollbar stílusa nem megfelelő]]
+- [ ] [[106 - Filtering - A Szűrési gomb nem a szűrt képek felett helyezkedik el, hanem az mellett]]
+- [ ] [[099 - Filtering - Nem tudok az országokra szűrni, azon belül is Magyarországra]]
 - [ ] [[092 - ConversionService initializálása és Config fájl létrehozása]]
 - [ ] [[093 - Filtering - Feltakarítani az előző demo által bemutatott szűrés logikáját, ami lecserélésre került]]
 - [ ] [[006 - @deprecated - Képek szűrésének megvalósítása]]
@@ -160,6 +174,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,false],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
+{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,true],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
 ```
 %%

@@ -4,6 +4,7 @@ import { QueryBuilderModel } from "@model/QueryBuilderModel";
 import { FilteringHelper } from "@helper/filteringHelper";
 import FilteringQueryBuilderActions from "./FilteringQueryBuilderActions";
 import FilteringQueryBodyTemplate from "./FilteringQueryBodyTemplate";
+import { IdUtils } from "@helper/idUtils";
 
 type Props = {
   id: number;
@@ -39,7 +40,7 @@ const FilteringQueryBuilder = React.memo(function FilteringQueryBuilder({
   const updateElement = () => setElement(renderComponent());
 
   useEffect(() => {
-    const eventName = FilteringHelper.getEventListenerName(
+    const eventName = IdUtils.getEventListenerName(
       FilteringHelper.getUpdatedStates<QueryBuilderModel>(id).filtered.id
     );
     window.addEventListener(eventName, updateElement);

@@ -17,26 +17,27 @@ export const removeLocalStorageItem = (key: LocalStorageKeys) => {
 }
 
 export const LocalStorageUtils = {
+  initQueryBuilderModelLocalStorage: () => {
+    const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
+    LocalStorageUtils.setQueryBuilderModelLocalStorage(defaultBuilder);
+    return defaultBuilder;
+  },
+
   setQueryBuilderModelLocalStorage: (
-    builder: QueryBuilderModel
+    builder?: QueryBuilderModel
   ) => {
     setLocalStorageItem(JSON.stringify(builder), LocalStorageKeys.FilteringDialog);
   },
   
   getQueryBuilderModel: () => {
     const obj = getLocalStorageItem(LocalStorageKeys.FilteringDialog);
-    if (obj) {
-      try {
-        return JSON.parse(obj) as QueryBuilderModel;
-      } catch (err) {
-        const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
-        LocalStorageUtils.setQueryBuilderModelLocalStorage(defaultBuilder);
-        return defaultBuilder;
-      }
-    } else {
-      const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
-      LocalStorageUtils.setQueryBuilderModelLocalStorage(defaultBuilder);
-      return defaultBuilder;
+    if (!obj) {
+      return LocalStorageUtils.initQueryBuilderModelLocalStorage();
+    }
+    try {
+      return JSON.parse(obj) as QueryBuilderModel;
+    } catch (err) {
+      return LocalStorageUtils.initQueryBuilderModelLocalStorage();
     }
   },
 }

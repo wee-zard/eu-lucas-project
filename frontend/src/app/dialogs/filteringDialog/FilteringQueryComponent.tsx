@@ -14,6 +14,7 @@ import { StyledComponentGap } from "@global/globalStyles";
 import { FilteringHelper } from "@helper/filteringHelper";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { ConversionUtils } from "@helper/conversionUtils";
+import { IdUtils } from "@helper/idUtils";
 
 type Props = {
   id: number;
@@ -116,7 +117,7 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
 
   useEffect(() => {
     const states = FilteringHelper.getUpdatedStates<QueryComponent>(id);
-    const eventName = FilteringHelper.getEventListenerName(states.filtered.id);
+    const eventName = IdUtils.getEventListenerName(states.filtered.id);
     window.addEventListener(eventName, updateElement);
     return () => window.removeEventListener(eventName, updateElement);
   }, []);

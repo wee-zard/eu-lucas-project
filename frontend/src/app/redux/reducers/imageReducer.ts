@@ -1,20 +1,33 @@
 import { UnknownAction } from "redux";
-import { ImageConsts } from "../consts/imageConsts";
-import { FilterDialogFilterOptions, MenuActions } from "../../model/enum";
-import { initFirstQueryParent, initQueryBuilderObj, QueryBuilderModel } from "app/model/QueryBuilderModel";
+import { ImageConsts } from "@redux/consts/imageConsts";
+import { MenuActions } from "@model/enum";
+import PageableProperties from "@model/PageableProperties";
+import SelectedImagesModel from "@model/SelectedImagesModel";
 
 interface ImageType {
-  selectedImages: number[];
-  selectedFilterTab: FilterDialogFilterOptions;
+  /**
+   * Stores the list of selected images what the user selected through the Filter dialog.
+   */
+  listOfSelectedImages: SelectedImagesModel[];
+  /**
+   * Stores the currently active selected image model that is displayed in the Filter dialog.
+   */
+  selectedImage?: SelectedImagesModel;
+  /**
+   * Stores the action that can be fired from the Filter dialog. 
+   */
   filterMenuAction?: MenuActions;
-  queryBuilderModel: QueryBuilderModel;
+  /**
+   * Stores the properties of the page where the filtered images are displayed.
+   */
+  filteringPageableProperties: PageableProperties;
 }
 
 const initialState: ImageType = {
-  selectedImages: [],
-  selectedFilterTab: FilterDialogFilterOptions.Year,
+  listOfSelectedImages: [],
+  selectedImage: undefined,
   filterMenuAction: undefined,
-  queryBuilderModel: initQueryBuilderObj(initFirstQueryParent),
+  filteringPageableProperties: { pageNo: 0, pageSize: 9},
 };
 
 const imageReducer = (
@@ -22,25 +35,25 @@ const imageReducer = (
   action: UnknownAction
 ): ImageType => {
   switch (action.type) {
-    case ImageConsts.SET_SELECTED_IMAGES:
+    case ImageConsts.SET_LIST_OF_SELECTED_IMAGES:
       return {
         ...state,
-        selectedImages: action.payload as number[],
+        listOfSelectedImages: action.payload as SelectedImagesModel[],
       };
-    case ImageConsts.SET_SELECTED_FILTER_TAB:
+    case ImageConsts.SET_SELECTED_IMAGE:
       return {
         ...state,
-        selectedFilterTab: action.payload as FilterDialogFilterOptions,
+        selectedImage: action.payload as SelectedImagesModel,
       };
     case ImageConsts.SET_FILTER_MENU_ACTION:
       return {
         ...state,
         filterMenuAction: action.payload as MenuActions | undefined,
       };
-    case ImageConsts.SET_QUERY_BUILDER_MODEL:
+    case ImageConsts.SET_FILTERING_PAGEABLE_PROPERTIES:
       return {
         ...state,
-        queryBuilderModel: action.payload as QueryBuilderModel,
+        filteringPageableProperties: action.payload as PageableProperties,
       };
     default:
       return {

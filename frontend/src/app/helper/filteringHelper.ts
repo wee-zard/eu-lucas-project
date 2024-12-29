@@ -9,6 +9,7 @@ import {
   QueryBuilderModel,
   QueryElementRelations,
 } from "@model/QueryBuilderModel";
+import { IdUtils } from './idUtils';
 
 export type StateUpdateProps<T> = {
   root: QueryBuilderModel,
@@ -197,12 +198,9 @@ export const FilteringHelper = {
     return result as QueryBuilderModel;
   },
 
-  getEventListenerName: (componentId: number) =>
-    `QueryBuilderEventListener_${componentId}`,
-
   sendUpdateEvent: (componentId: number) =>
     window.dispatchEvent(
-      new Event(FilteringHelper.getEventListenerName(componentId))
+      new Event(IdUtils.getEventListenerName(componentId))
     ),
 
   /**

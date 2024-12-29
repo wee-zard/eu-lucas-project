@@ -3,18 +3,37 @@ import styled from "@emotion/styled";
 import ClearIcon from "@mui/icons-material/Clear";
 import DownloadIcon from "@mui/icons-material/Download";
 import AddIcon from "@mui/icons-material/Add";
-import StyledButton from "../../components/StyledButton";
-import StyledIconButton from "../../components/StyledIconButton";
-import { StyledComponentGap } from "../../global/globalStyles";
-import { DialogToOpens, FilteringScreenTexts } from "../../model/enum";
+import StyledButton from "@components/StyledButton";
+import StyledIconButton from "@components/StyledIconButton";
+import { StyledComponentGap } from "@global/globalStyles";
+import { DialogToOpens, FilteringScreenTexts } from "@model/enum";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSelectedImages } from "../../redux/selectors/imageSelector";
-import { setSelectedImage } from "../../redux/actions/imageActions";
-import { setDialogToOpen } from "../../redux/actions/dialogActions";
+import { setDialogToOpen } from "@redux/actions/dialogActions";
+import {
+  setListOfSelectedImages,
+  setSelectedImage,
+} from "@redux/actions/imageActions";
+import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 
 const FilteringScreenHeader = () => {
-  const numberOfCards = useSelector(selectSelectedImages);
+  const listOfSelectedImages = useSelector(selectListOfSelectedImages);
   const dispatch = useDispatch();
+  const handleClearAll = () => dispatch(setListOfSelectedImages([]));
+  const handleAddImage = () => {
+    dispatch(setDialogToOpen(DialogToOpens.FilteringDialog));
+    dispatch(
+      setSelectedImage({
+        id:
+          listOfSelectedImages.length > 0
+            ? Math.max(
+                ...listOfSelectedImages.map((selectedImage) => selectedImage.id)
+              ) + 1
+            : 1,
+        images: [],
+        query: undefined,
+      })
+    );
+  };
 
   return (
     <StyledHeaderHolder>
@@ -23,9 +42,9 @@ const FilteringScreenHeader = () => {
         buttonText={FilteringScreenTexts.ClearAllText}
         buttonColor="error"
         buttonVariant="outlined"
-        isDisabled={numberOfCards.length === 0}
+        isDisabled={listOfSelectedImages.length === 0}
         buttonIcon={<ClearIcon />}
-        onClick={() => dispatch(setSelectedImage([]))}
+        onClick={handleClearAll}
       />
       <StyledComponentGap>
         <StyledButton
@@ -34,7 +53,7 @@ const FilteringScreenHeader = () => {
           buttonColor="success"
           buttonVariant="outlined"
           buttonIcon={<AddIcon />}
-          onClick={() => dispatch(setDialogToOpen(DialogToOpens.FilteringDialog))}
+          onClick={handleAddImage}
         />
         <StyledIconButton
           tooltip={{
