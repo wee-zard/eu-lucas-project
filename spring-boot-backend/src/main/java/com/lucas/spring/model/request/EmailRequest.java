@@ -4,11 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+/**
+ * Defines a request where the users
+ * could add their email to the server.
+ */
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmailRequest {
-    public String emailAddress;
+  public String emailAddress;
 }

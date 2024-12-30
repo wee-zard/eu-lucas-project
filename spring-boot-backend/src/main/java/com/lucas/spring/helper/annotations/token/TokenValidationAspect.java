@@ -16,6 +16,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Provides a custom annotation that will check if in the
+ * authorization of the user is valid, or else throws a
+ * {@link PermissionDeniedException} message back to the user.
+ */
 @Aspect
 @Component
 @AllArgsConstructor
@@ -63,7 +68,7 @@ public class TokenValidationAspect {
       throw new PermissionDeniedException();
     }
 
-    final boolean isEmailRegistered = userFacade.isEmailRegisteredInDB(
+    final boolean isEmailRegistered = userFacade.isEmailExists(
             (String) jsonObject.get("email")
     );
     if (!isEmailRegistered) {
@@ -71,6 +76,12 @@ public class TokenValidationAspect {
     }
   }
 
+  /**
+   * Defines the custom annotation that can be applied to
+   * the controller.
+   *
+   * @param joinPoint The joint points.
+   */
   @Around("@annotation(TokenValidation)")
   public final Object tokenValidation(
           final ProceedingJoinPoint joinPoint

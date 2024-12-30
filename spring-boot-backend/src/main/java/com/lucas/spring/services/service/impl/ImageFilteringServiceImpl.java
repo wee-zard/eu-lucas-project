@@ -1,14 +1,12 @@
 package com.lucas.spring.services.service.impl;
 
 import com.lucas.spring.helper.helpers.BuildEntityUtil;
-import com.lucas.spring.model.entity.CreationYearEntity;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.entity.abstraction.BaseComparatorEntity;
 import com.lucas.spring.model.enums.FilterOption;
 import com.lucas.spring.model.enums.ImageFilteringEnum;
 import com.lucas.spring.model.enums.OperatorOption;
 import com.lucas.spring.model.enums.QueryElementRelations;
-import com.lucas.spring.model.enums.QueryType;
 import com.lucas.spring.model.expection.ImageFilteringException;
 import com.lucas.spring.model.models.PageableProperties;
 import com.lucas.spring.model.request.filtering.FilteringQueryRequest;
@@ -36,25 +34,25 @@ import org.springframework.stereotype.Service;
 public class ImageFilteringServiceImpl implements ImageFilterService {
   private final EntityManager entityManager;
 
-//  private Predicate applyExpressionsOnTextBasedFilters(
-//          final CriteriaBuilder cb,
-//          final FilterComponents component,
-//          final Path<String> path,
-//          final String entity
-//  ) {
-//    Predicate predicate = null;
-//    switch (component.getOperatorInput()) {
-//      case CONTAINS -> predicate = cb.like(path, "%" + entity + "%");
-//      case DOES_NOT_CONTAIN -> predicate = cb.notLike(path, "%" + entity + "%");
-//      case STARTS_WITH -> predicate = cb.like(path, entity + "%");
-//      case ENDS_WITH -> predicate = cb.like(path, "%" + entity);
-//      default -> throw new ImageFilteringException(
-//              ImageFilteringEnum.UNKNOWN_OR_NO_OPERATOR_PROVIDED,
-//              component.toString()
-//      );
-//    }
-//    return predicate;
-//  }
+  //  private Predicate applyExpressionsOnTextBasedFilters(
+  //          final CriteriaBuilder cb,
+  //          final FilterComponents component,
+  //          final Path<String> path,
+  //          final String entity
+  //  ) {
+  //    Predicate predicate = null;
+  //    switch (component.getOperatorInput()) {
+  //      case CONTAINS -> predicate = cb.like(path, "%" + entity + "%");
+  //      case DOES_NOT_CONTAIN -> predicate = cb.notLike(path, "%" + entity + "%");
+  //      case STARTS_WITH -> predicate = cb.like(path, entity + "%");
+  //      case ENDS_WITH -> predicate = cb.like(path, "%" + entity);
+  //      default -> throw new ImageFilteringException(
+  //              ImageFilteringEnum.UNKNOWN_OR_NO_OPERATOR_PROVIDED,
+  //              component.toString()
+  //      );
+  //    }
+  //    return predicate;
+  //  }
 
   /**
    * {@inheritDoc}
@@ -118,7 +116,6 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
               .stream()
               .map(queryComponent -> getPredicateOfQueryComponent(cb, root, queryComponent))
               .toList();
-      //return getListOfPredicatesFromQueryGroup(cb, root, query);
     } else {
       // TODO: Throw a better error message.
       throw new RuntimeException("No component or group provided!");

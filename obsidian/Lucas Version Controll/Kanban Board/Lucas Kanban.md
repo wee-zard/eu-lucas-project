@@ -20,7 +20,6 @@ kanban-plugin: board
 
 - [ ] [[001 - Google bejelentkezés során 3 hibaüzenet kerül dobásra 1 helyett]]
 - [ ] [[012 - FilterDialog ablakának dinamikus háttérszín adása a megjelenő Dark Light mode bekapcsolásával]]
-- [ ] [[014 - EncryptionService-ben nem került hibaüzenet dobásra, amennyiben a program hibára fut]]
 - [ ] [[016 - ExifData szűrés esetén az text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]]
 - [ ] [[018 - Licensz vizsgálat minden npm csomagra]]
 - [ ] [[020 - Google OAuth token csak 3 után kerüljön lejáratra az alapértelmezett 1 óra helyett]]
@@ -52,8 +51,8 @@ kanban-plugin: board
 - [ ] [[100 - Filtering - A localStorage-ben eltárolt adatok betöltése esetén, hibaüzenet kerül dobásra]]
 - [ ] [[103 - Using kebab-case for css properties in objects is not supported. Did you mean WebkitBoxShadow Error Component Stack]]
 - [ ] [[104 - Filtering - Kiválasztott képre való rákattintás esetén, a szűrés eredmény képek kerüljenek megjelenítésre]]
-- [ ] [[105 - Filtering - Add New gombra való rányomás esetén, egy teljesen üres szűrési felület kerüljön megjelenítésre]]
 - [ ] [[108 - Filtering - Jobb szöveg kiíratása azon esetekben, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép]]
+- [ ] [[113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon]]
 
 
 ## 🔴ToDo
@@ -98,7 +97,7 @@ kanban-plugin: board
 
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
 - [ ] [[023 - Sidebar-on lévő menüpontok véglegesítése]]
-- [ ] [[028 - Alkalmazás dockerizálása]]
+- [ ] [[026 - Report oldal implementálása]]
 - [ ] [[042 - Google OAuth oldal befejezése]]
 - [ ] [[052 - Loading komponens megjelenítése]]
 - [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]]
@@ -106,8 +105,8 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
-- [ ] [[026 - Report oldal implementálása]]
-- [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
+- [ ] [[105 - Filtering - Add New gombra való rányomás esetén, egy teljesen üres szűrési felület kerüljön megjelenítésre]]
+- [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén]]
 
@@ -115,6 +114,8 @@ kanban-plugin: board
 ## 🟢Done
 
 **Complete**
+- [ ] [[014 - EncryptionService-ben nem került hibaüzenet dobásra, amennyiben a program hibára fut]]
+- [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
 - [ ] [[107 - Filtering - Mentés gombon jelenjen meg, hogy pontosan hány kép lett kiválasztva]]
 - [ ] [[110 - Filtering - A szűrt képkártyák mérete ne fix méretű legyen, hanem reszponzív méretű]]
 - [ ] [[009 - Szűrt képek megjelenítése a jobb oldali képernyőn]]

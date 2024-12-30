@@ -17,7 +17,7 @@ import {
 } from "@global/globalStyles";
 import FilteringMenu from "@dialogs/filteringDialog/FilteringMenu";
 import FilteringDialogImageDisplay from "@dialogs/filteringDialog/FilteringDialogImageDisplay";
-import FilteringDialogActions from "./FilteringDialogActions";
+import FilteringDialogActions from "@dialogs/filteringDialog/FilteringDialogActions";
 
 const FilteringDialog = () => {
   const dialogToOpen = useSelector((state) =>

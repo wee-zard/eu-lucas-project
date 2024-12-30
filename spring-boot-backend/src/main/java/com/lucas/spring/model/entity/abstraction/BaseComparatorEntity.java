@@ -4,7 +4,6 @@ package com.lucas.spring.model.entity.abstraction;
  * Represents an entity that implemented the method
  * of {@link Comparable} for the purpose of comparing the
  * different table entities with each others.
- *
  * <a href="https://www.baeldung.com/java-comparator-comparable#3-java-8-comparators">Java 8 Comparators documentation.</a>
  *
  * @param <T> A generic type of object.

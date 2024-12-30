@@ -13,6 +13,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * An entity which is used to init the Bound boxes
+ * that have been applied on the images.
+ */
 @Getter
 @Setter
 @ToString

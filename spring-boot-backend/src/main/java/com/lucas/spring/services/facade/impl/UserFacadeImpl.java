@@ -1,6 +1,7 @@
 package com.lucas.spring.services.facade.impl;
 
 import com.lucas.spring.model.entity.StatusEntity;
+import com.lucas.spring.model.enums.EncryptionFailedEnums;
 import com.lucas.spring.model.enums.StatusEnum;
 import com.lucas.spring.model.expection.EncryptionFailedException;
 import com.lucas.spring.services.facade.UserFacade;
@@ -29,7 +30,7 @@ public class UserFacadeImpl implements UserFacade {
    * {@inheritDoc}
    */
   @Override
-  public boolean isEmailRegisteredInDB(String emailAddress) {
+  public boolean isEmailExists(String emailAddress) {
     return userService.getAllUsersEmail()
         .stream()
         .map(hashedEmail -> encryptionService.decrypt(hashedEmail))
@@ -49,7 +50,7 @@ public class UserFacadeImpl implements UserFacade {
     if (encryptedString != null) {
       userService.saveEmailAddress(encryptedString, statusEntity);
     } else {
-      throw new EncryptionFailedException();
+      throw new EncryptionFailedException(EncryptionFailedEnums.ENCRYPTION_STRING_IS_EMPTY);
     }
   }
 

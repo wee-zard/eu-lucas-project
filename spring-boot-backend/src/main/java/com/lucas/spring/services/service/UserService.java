@@ -41,5 +41,8 @@ public interface UserService {
    * @param statusEntity The status which the user will be given.
    * @param userName The name of the user.
    */
-  void saveEmailAddressWithUserName(String emailAddress, StatusEntity statusEntity, String userName);
+  void saveEmailAddressWithUserName(
+          String emailAddress,
+          StatusEntity statusEntity,
+          String userName);
 }

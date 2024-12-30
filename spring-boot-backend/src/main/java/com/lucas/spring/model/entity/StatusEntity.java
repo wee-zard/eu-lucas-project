@@ -10,27 +10,24 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+/**
+ * Defines a Status entity that is stored in the db.
+ */
 @Data
 @Builder
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Status")
 @Table(name = "tb_status")
 public class StatusEntity {
-    @Id
-    @Column(name = "status_id")
-    private Long id;
-    @Column(name = "status_name", length = 100)
-    private String statusName;
-
-    @Override
-    public String toString() {
-        return "StatusEntity{" +
-                "id=" + id +
-                ", statusName='" + statusName + '\'' +
-                '}';
-    }
+  @Id
+  @Column(name = "status_id")
+  private Long id;
+  @Column(name = "status_name", length = 100)
+  private String statusName;
 }

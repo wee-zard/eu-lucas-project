@@ -4,6 +4,10 @@ import com.lucas.spring.model.entity.CoordinateYEntity;
 import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
+/**
+ * An interface service where we store methods
+ * related to the Y coordinates of the images.
+ */
 @Service
 public interface CoordinateYService {
   /**

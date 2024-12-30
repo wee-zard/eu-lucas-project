@@ -11,6 +11,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
+  /**
+   * Get the list of all hashed emails from the ssb.
+   *
+   * @return Returns every hashed emails.
+   */
   @Query("SELECT user.emailAddress FROM User user")
   ArrayList<String> getAllUsersEmail();
 }

@@ -29,6 +29,7 @@ import {
 import { useSelector } from "react-redux";
 import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
+import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
 
 type Props = {
   imageDto: ImageDto;
@@ -72,7 +73,8 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
     title: SelectedImageActionTooltipTitles
   ) => {
     const handler = Object.freeze({
-      [SelectedImageActionTooltipTitles.Search]: () => null,
+      // TODO: A befoglaló téglalapok itt lesz implementálva egy dialógus ablak meghívásával.
+      [SelectedImageActionTooltipTitles.Search]: () => throwNotification(NotificationSeverity.Info, "A befoglaló téglalapok megjelenítése itt lesz implementálva..."),
       [SelectedImageActionTooltipTitles.Edit]: () => {
         dispatch(setDialogToOpen(DialogToOpens.FilteringDialog));
         dispatch(setSelectedImage(imageModel));
@@ -99,8 +101,6 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
     handler[title].call(() => null);
     handleClose();
   };
-
-  // https://mui.com/material-ui/react-timeline/
 
   return (
     <StyledCardTemplate>
