@@ -1,33 +1,20 @@
-import CoordinateXDto from "../../model/dto/CoordinateXDto";
+import CoordinateXDto from "@model/dto/CoordinateXDto";
 import {
   BackendCoordinateXControllerEndpoints,
+  RequestCommandTypes,
   ServersToConnectTo,
-} from "../../model/enum";
-import { getAuthToken } from "../handler/requestAuthToken";
-import { getCommand } from "../handler/requestHandler";
-import { handleErrorMessageFromAxiosResponse, handleErrorMessageFromCatchBranch } from "./common/displayCommandError";
+} from "@model/enum";
+import commandHandler from "@api/handler/requestHandler";
 
 export const getCoordinateXList = async () => {
-  try {
-    const authToken = getAuthToken();
-    if (!authToken) {
-      return null;
-    }
-    const response = await getCommand(
-      ServersToConnectTo.Backend,
-      BackendCoordinateXControllerEndpoints.GetCoordinateXList,
-      {},
-      authToken
-    );
-    if (handleErrorMessageFromAxiosResponse(response)) {
-      return null;
-    }
-    const responseList: CoordinateXDto[] = response.data;
-    return responseList;
-  } catch (error) {
-    handleErrorMessageFromCatchBranch(
-      "Error while executing the fetch of x coordinates!"
-    );
-    return null;
-  }
+  return commandHandler<CoordinateXDto[]>({
+    type: RequestCommandTypes.GET,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendCoordinateXControllerEndpoints.GetCoordinateXList,
+    obj: {},
+    header: {
+      isAuthTokenNeeded: true,
+    },
+    errorMessage: "Error while executing the fetch of x coordinates!",
+  });
 };

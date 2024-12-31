@@ -1,31 +1,19 @@
 import {
-  NotificationSeverity,
-  throwNotification,
-} from "../../helper/notificationUtil";
-import {
   BackendUserControllerEndpoints,
+  RequestCommandTypes,
   ServersToConnectTo,
-} from "../../model/enum";
-import { postCommand } from "../handler/requestHandler";
+} from "@model/enum";
+import commandHandler from "@api/handler/requestHandler";
 
-export const validateEmailAddress = async (authToken: string) => {
-  try {
-    const response = await postCommand(
-      ServersToConnectTo.Backend,
-      BackendUserControllerEndpoints.ValidateEmail,
-      {},
-      authToken
-    );
-    if (response.status !== 200) {
-      throwNotification(NotificationSeverity.Error, response.data.message);
-      return null;
-    }
-    return true;
-  } catch (error) {
-    throwNotification(
-      NotificationSeverity.Error,
-      "Váratlan hiba történt a bejelentkezés során! Próbáld meg újra a bejelentkezést később!"
-    );
-    return null;
-  }
+export const validateEmailAddress = async () => {
+  return commandHandler<any>({
+    type: RequestCommandTypes.POST,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendUserControllerEndpoints.ValidateEmail,
+    obj: {},
+    header: {
+      isAuthTokenNeeded: true,
+    },
+    errorMessage: "Váratlan hiba történt a bejelentkezés során! Próbáld meg újra a bejelentkezést később!",
+  });
 };

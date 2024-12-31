@@ -149,27 +149,29 @@ export const getImageFromRemoteServer = (obj: ImageDto) => {
   return `${remoteUrl}/${obj.year}/${obj.country}/${x}/${y}/${obj.imageName}`;
 };
 
-const StyledCard = styled(StyledCardTemplate)<{ $isCardSelected: boolean }>((props) => ({
-  "&.MuiPaper-root": {
-    background: props.$isCardSelected
-      ? "linear-gradient(to right bottom, #ffffff, #ffff00aa, #00000050)"
-      : "#00000020",
+const StyledCard = styled(StyledCardTemplate)<{ $isCardSelected: boolean }>(
+  (props) => ({
+    "&.MuiPaper-root": {
+      background: props.$isCardSelected
+        ? "linear-gradient(to right bottom, #ffffff, #ffff00aa, #00000050)"
+        : "#00000020",
 
-    // Properties of the ripple.
-    cursor: "pointer",
-    position: "relative",
-    overflow: "hidden",
-    span: {
-      position: "absolute",
-      borderRadius: "50%",
-      backgroundColor: "rgba(255, 255, 255, 0.7)",
-      width: "100px",
-      height: "100px",
-      animation: "ripple 1s",
-      opacity: "0",
+      // Properties of the ripple.
+      cursor: "pointer",
+      position: "relative",
+      overflow: "hidden",
+      span: {
+        position: "absolute",
+        borderRadius: "50%",
+        backgroundColor: "rgba(255, 255, 255, 0.7)",
+        width: "100px",
+        height: "100px",
+        animation: "ripple 1s",
+        opacity: "0",
+      },
     },
-  },
-}));
+  })
+);
 
 const StyledCardsHolder = styled(StyledComponentGap)<{}>((props) => ({
   flexWrap: "wrap",

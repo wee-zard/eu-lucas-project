@@ -7,8 +7,6 @@ import ImageCard from "@dialogs/filteringDialog/ImageCard";
 
 const FilteringScreenBody = () => {
   const listOfSelectedImages = useSelector(selectListOfSelectedImages);
-  console.log("[listOfSelectedImages]:", listOfSelectedImages);
-
   return (
     <div>
       {listOfSelectedImages.length === 0 ? (

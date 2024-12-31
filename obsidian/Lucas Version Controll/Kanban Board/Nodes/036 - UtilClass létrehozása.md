@@ -7,7 +7,7 @@ priority:
 related: 
 platform:
   - backend
-sprint: 
+sprint: 1
 creation-time: 2024-12-07T10:29:00
 ---
 Elvárt működés: 

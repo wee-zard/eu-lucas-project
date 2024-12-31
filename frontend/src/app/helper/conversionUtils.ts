@@ -6,8 +6,12 @@ import {
   OperatorComparableItems,
   OperatorSelectItemNames,
   OperatorSelectItems,
+  ServersToConnectTo,
 } from "@model/enum";
 import { QueryConditions } from "@model/QueryBuilderModel";
+
+const imageServerPath = process.env.REACT_APP_USE_IMAGE_SERVER_PATH ?? "";
+const backendServerPath = process.env.REACT_APP_USE_BACKEND ?? "";
 
 export const ConversionUtils = {
   FilterOptionNamesToFilterOptions: (item: FilterDialogFilterOptionNames) => {
@@ -134,5 +138,22 @@ export const ConversionUtils = {
         formatString
     );
     return country?.countryCode ?? "";
+  },
+
+  /**
+   * Converts the provided server connection string to
+   * a backend server path that is mainly used in the send out
+   * of the http requests to set the destination of the requests.
+   * 
+   * @param serverToUse The server we want to connect to.
+   * @returns Returns the url of the server we want to connect to.
+   */
+  ServerConnectionToServerPath: (serverToUse: ServersToConnectTo) => {
+    switch (serverToUse) {
+      case ServersToConnectTo.Backend:
+        return backendServerPath;
+      case ServersToConnectTo.LucasImageServer:
+        return imageServerPath;
+    }
   },
 };

@@ -8,6 +8,7 @@ related:
 platform:
   - frontend
 creation-time: 2024-12-07T09:23:00
+sprint: 1
 ---
 Elvárt működés: 
 - Minden error üzenet, amit az axios api hívásokból kapunk a commands mappában, azok legyenek kiszervezve a commons mappában lévő fájlokba. Ezen mappában lévő metódusok kerüljenek meghívásra.

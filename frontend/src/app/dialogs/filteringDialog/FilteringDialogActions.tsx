@@ -32,8 +32,6 @@ const FilteringDialogActions = () => {
 
   const handleAgreeButtonClick = () => {
     if (selectedImage) {
-
-      console.log("handleAgreeButtonClick:", selectedImage, listOfSelectedImages, listOfSelectedImages.filter((image) => image.id === selectedImage.id));
       // If the selectedImage is exists in the listOfSelectedImages list, if yes, then override that object, else add a new object to the list.
       dispatch(
         setListOfSelectedImages(

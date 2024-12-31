@@ -1,6 +1,5 @@
 import React from "react";
 import { CardContent, CardMedia, Menu } from "@mui/material";
-import Zoom from "@mui/material/Zoom";
 import ImageDto from "@model/dto/ImageDto";
 import { getImageFromRemoteServer } from "@dialogs/filteringDialog/FilteringDialogImageDisplay";
 import styled from "@emotion/styled";
@@ -29,7 +28,11 @@ import {
 import { useSelector } from "react-redux";
 import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
-import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
+import {
+  NotificationSeverity,
+  throwNotification,
+} from "@helper/notificationUtil";
+import StyledZoomMap from "@components/StyledZoomMap";
 
 type Props = {
   imageDto: ImageDto;
@@ -37,7 +40,6 @@ type Props = {
 };
 
 type SelectedImageAction = {
-  transitionDelay: number;
   icon: any;
   tooltipTitle: SelectedImageActionTooltipTitles;
 };
@@ -53,17 +55,14 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
 
   const imageActionsObj: SelectedImageAction[] = [
     {
-      transitionDelay: 0,
       icon: <DeleteForeverOutlinedIcon color={"error"} />,
       tooltipTitle: SelectedImageActionTooltipTitles.Delete,
     },
     {
-      transitionDelay: 350,
       icon: <EditOutlinedIcon />,
       tooltipTitle: SelectedImageActionTooltipTitles.Edit,
     },
     {
-      transitionDelay: 700,
       icon: <ImageSearchOutlinedIcon />,
       tooltipTitle: SelectedImageActionTooltipTitles.Search,
     },
@@ -74,7 +73,11 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
   ) => {
     const handler = Object.freeze({
       // TODO: A befoglaló téglalapok itt lesz implementálva egy dialógus ablak meghívásával.
-      [SelectedImageActionTooltipTitles.Search]: () => throwNotification(NotificationSeverity.Info, "A befoglaló téglalapok megjelenítése itt lesz implementálva..."),
+      [SelectedImageActionTooltipTitles.Search]: () =>
+        throwNotification(
+          NotificationSeverity.Info,
+          "A befoglaló téglalapok megjelenítése itt lesz implementálva..."
+        ),
       [SelectedImageActionTooltipTitles.Edit]: () => {
         dispatch(setDialogToOpen(DialogToOpens.FilteringDialog));
         dispatch(setSelectedImage(imageModel));
@@ -136,26 +139,24 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
           >
             <StyledImageActionsHolder>
               {imageActionsObj.map((imageActionObj, index) => (
-                <Zoom
+                <StyledZoomMap
                   key={index}
-                  in={open}
-                  style={{
-                    transitionDelay: `${imageActionObj.transitionDelay}ms`,
-                  }}
-                >
-                  <StyledIconButtonHolder>
-                    <StyledIconButton
-                      buttonIcon={imageActionObj.icon}
-                      tooltip={{
-                        tooltipTitle: imageActionObj.tooltipTitle,
-                        tooltipPlacement: "left-start",
-                      }}
-                      onClick={() =>
-                        handleClickOnImageAction(imageActionObj.tooltipTitle)
-                      }
-                    />
-                  </StyledIconButtonHolder>
-                </Zoom>
+                  index={index}
+                  children={
+                    <StyledIconButtonHolder>
+                      <StyledIconButton
+                        buttonIcon={imageActionObj.icon}
+                        tooltip={{
+                          tooltipTitle: imageActionObj.tooltipTitle,
+                          tooltipPlacement: "left-start",
+                        }}
+                        onClick={() =>
+                          handleClickOnImageAction(imageActionObj.tooltipTitle)
+                        }
+                      />
+                    </StyledIconButtonHolder>
+                  }
+                />
               ))}
             </StyledImageActionsHolder>
           </Menu>

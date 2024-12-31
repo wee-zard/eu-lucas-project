@@ -184,3 +184,10 @@ export enum SelectedImageActionTooltipTitles {
   Edit = "Szűrési feltételek módosítása",
   Search = "Befoglaló téglalapok megjelenítése",
 }
+
+export enum RequestCommandTypes {
+  GET,
+  POST,
+  DELETE,
+  PUT,
+}

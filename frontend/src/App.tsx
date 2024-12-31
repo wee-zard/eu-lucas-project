@@ -16,7 +16,7 @@ const App = () => {
       </header>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={8000}
         hideProgressBar={false}
         closeOnClick={true}
         pauseOnHover={true}

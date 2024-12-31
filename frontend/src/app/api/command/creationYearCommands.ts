@@ -1,33 +1,20 @@
-import CreationYearDto from "../../model/dto/CreationYearDto";
+import CreationYearDto from "@model/dto/CreationYearDto";
 import {
   BackendCreationYearControllerEndpoints,
+  RequestCommandTypes,
   ServersToConnectTo,
-} from "../../model/enum";
-import { getAuthToken } from "../handler/requestAuthToken";
-import { getCommand } from "../handler/requestHandler";
+} from "@model/enum";
+import commandHandler from "@api/handler/requestHandler";
 
 export const getCreationYears = async () => {
-  try {
-    const authToken = getAuthToken();
-    if (!authToken) {
-      return null;
-    }
-    const response = await getCommand(
-      ServersToConnectTo.Backend,
-      BackendCreationYearControllerEndpoints.GetCreationYears,
-      {},
-      authToken
-    );
-    if (response.status !== 200) {
-      /** TODO: Display error message popup */
-      console.error(response.data.message);
-      return null;
-    }
-    const listOfCreationYears: CreationYearDto[] = response.data;
-    return listOfCreationYears;
-  } catch (error) {
-    /** TODO: Display error message popup */
-    console.error(error);
-    return null;
-  }
+  return commandHandler<CreationYearDto[]>({
+    type: RequestCommandTypes.GET,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendCreationYearControllerEndpoints.GetCreationYears,
+    obj: {},
+    header: {
+      isAuthTokenNeeded: true,
+    },
+    errorMessage: "Error while executing the fetch of creation years command!",
+  });
 };

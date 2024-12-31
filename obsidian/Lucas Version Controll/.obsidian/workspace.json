@@ -6,7 +6,6 @@
       {
         "id": "ab1f18a073797adc",
         "type": "tabs",
-        "dimension": 59.13226032190343,
         "children": [
           {
             "id": "21dde8e84cff000a",
@@ -29,27 +28,6 @@
               },
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
-            }
-          }
-        ]
-      },
-      {
-        "id": "3bc6c84bb3c7b1f0",
-        "type": "tabs",
-        "dimension": 40.86773967809657,
-        "children": [
-          {
-            "id": "e7e3af93ce389b4c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Kanban Board/Nodes/076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén"
             }
           }
         ]
@@ -197,13 +175,19 @@
   },
   "active": "21dde8e84cff000a",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/104 - Filtering - Kiválasztott képre való rákattintás esetén, a szűrés eredmény képek kerüljenek megjelenítésre.md",
+    "Kanban Board/Nodes/002 - Hibaüzenetek egységesítése.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/005 - Átmozgatni a error üzeneteket a commands mappában a commands common mappában lévő fájlokba.md",
+    "Kanban Board/Nodes/111 - Query Builder - Animáció - TransitionGroup animáció hozzáadása a Query Builder-hez.md",
+    "Kanban Board/Nodes/040 - Image Server implementálása.md",
+    "Kanban Board/Nodes/036 - UtilClass létrehozása.md",
+    "Kanban Board/Nodes/041 - Toast popup hibaüzenetek 5sec helyett 8sec ideig maradjon a képernyőn.md",
+    "Kanban Board/Nodes/030 - A szűrési oldalon az űrlap kitöltésekor, a renderelés javításra kerüljön.md",
+    "Kanban Board/Nodes/104 - Filtering - Kiválasztott képre való rákattintás esetén, a szűrés eredmény képek kerüljenek megjelenítésre.md",
     "Kanban Board/Nodes/113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon.md",
     "Kanban Board/Nodes/066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni.md",
     "Kanban Board/Nodes/112 - Animáció - react-native-reanimated csomag használata az alkalmazásban.md",
     "Kanban Board/Nodes/110 - Filtering - A szűrt képkártyák mérete ne fix méretű legyen, hanem reszponzív méretű.md",
-    "Kanban Board/Nodes/111 - Query Builder - Animáció - TransitionGroup animáció hozzáadása a Query Builder-hez.md",
     "Kanban Board/Nodes/009 - Szűrt képek megjelenítése a jobb oldali képernyőn.md",
     "Kanban Board/Nodes/010 - Lapozás implementálása a szűrt képek ablakában.md",
     "Kanban Board/Nodes/108 - Filtering - Jobb szöveg kiíratása azon esetekben, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép.md",
@@ -222,12 +206,6 @@
     "Kanban Board/Nodes/076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén.md",
     "Kanban Board/Nodes/102 - localStorage kiürítése bejelentkezés & kijelentkezés során.md",
     "Kanban Board/Nodes/101 - Profile - Kijelentkezés implementálása.md",
-    "Kanban Board/Nodes/100 - Filtering - A localStorage-ben eltárolt adatok betöltése esetén, hibaüzenet kerül dobásra.md",
-    "Kanban Board/Nodes/028 - Alkalmazás dockerizálása.md",
-    "Kanban Board/Nodes/071 - Query Builder implementálása a Backend oldalon.md",
-    "Kanban Board/Nodes/092 - ConversionService initializálása és Config fájl létrehozása.md",
-    "Kanban Board/Nodes/098 - Verziószám hozzáadása a projekthez, és annak növelése minden demo bemutatása után.md",
-    "Kanban Board/Nodes/096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből.md",
     "Kanban Board/Images/Pasted image 20241222230213.png",
     "Pasted image 20241222183946.png",
     "Kanban Board/Images/Pasted image 20241222183708.png",

@@ -24,11 +24,9 @@ kanban-plugin: board
 - [ ] [[018 - Licensz vizsgálat minden npm csomagra]]
 - [ ] [[020 - Google OAuth token csak 3 után kerüljön lejáratra az alapértelmezett 1 óra helyett]]
 - [ ] [[021 - Try-catch to axios http request methods, so we could handle the thrown exceptions]]
-- [ ] [[030 - A szűrési oldalon az űrlap kitöltésekor, a renderelés javításra kerüljön]]
 - [ ] [[031 - Ha a törölt user bejelentkezve maradt, akkor ne tudjon kezdeményezni semmilyen utasítást]]
 - [ ] [[032 - Minden endpoint kerüljön authentikációhoz kötve]]
 - [ ] [[034 - ErrorHandling minden esetben internal-server-errort dob vissza]]
-- [ ] [[041 - Toast popup hibaüzenetek 5sec helyett 10sec ideig maradjon a képernyőn]]
 - [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
 - [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]]
@@ -57,9 +55,7 @@ kanban-plugin: board
 
 ## 🔴ToDo
 
-- [ ] [[002 - Hibaüzenetek egységesítése]]
 - [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
-- [ ] [[005 - Átmozgatni a error üzeneteket a commands mappában a commands common mappában lévő fájlokba]]
 - [ ] [[011 - Kiválasztott képek letöltése és zip fájlba való elmentése]]
 - [ ] [[013 - CheckStyle hibák javítása a Backend oldalán]]
 - [ ] [[015 - Nagy méretű táblák partícionálása]]
@@ -72,10 +68,6 @@ kanban-plugin: board
 - [ ] [[029 - Lucas-image-server átmozgatása a backend-re és ott implementálni a képek feldolgozását]]
 - [ ] [[033 - Dto megvalósítása és az adatbázis logikai rétegének elrejtése]]
 - [ ] [[035 - Tranzakció kezelés megvalósítása és versenyhelyzet kiküszöbölése]]
-- [ ] [[036 - UtilClass létrehozása]]
-- [ ] [[037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba]]
-- [ ] [[038 - Adatbázis feltöltése adatokkal]]
-- [ ] [[039 - Procedures oldal létrehozása]]
 - [ ] [[040 - Image Server implementálása]]
 - [ ] [[044 - Profilkép megjelenítése a Mat Toolbar-on]]
 - [ ] [[045 - Saját logó tervezése és megjelenítése a bejelentkezés, és a Mat Toolbar-on]]
@@ -89,7 +81,6 @@ kanban-plugin: board
 - [ ] [[098 - Verziószám hozzáadása a projekthez, és annak növelése minden demo bemutatása után]]
 - [ ] [[101 - Profile - Kijelentkezés implementálása]]
 - [ ] [[102 - localStorage kiürítése bejelentkezés & kijelentkezés során]]
-- [ ] [[111 - Query Builder - Animáció - TransitionGroup animáció hozzáadása a Query Builder-hez]]
 - [ ] [[112 - Animáció - react-native-reanimated csomag használata az alkalmazásban]]
 
 
@@ -105,6 +96,10 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
+- [ ] [[111 - Query Builder - Animáció - TransitionGroup animáció hozzáadása a Query Builder-hez]]
+- [ ] [[039 - Procedures oldal létrehozása]]
+- [ ] [[038 - Adatbázis feltöltése adatokkal]]
+- [ ] [[037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba]]
 - [ ] [[105 - Filtering - Add New gombra való rányomás esetén, egy teljesen üres szűrési felület kerüljön megjelenítésre]]
 - [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban]]
@@ -114,6 +109,11 @@ kanban-plugin: board
 ## 🟢Done
 
 **Complete**
+- [ ] [[005 - Átmozgatni a error üzeneteket a commands mappában a commands common mappában lévő fájlokba]]
+- [ ] [[002 - Hibaüzenetek egységesítése]]
+- [ ] [[036 - UtilClass létrehozása]]
+- [ ] [[041 - Toast popup hibaüzenetek 5sec helyett 8sec ideig maradjon a képernyőn]]
+- [ ] [[030 - A szűrési oldalon az űrlap kitöltésekor, a renderelés javításra kerüljön]]
 - [ ] [[014 - EncryptionService-ben nem került hibaüzenet dobásra, amennyiben a program hibára fut]]
 - [ ] [[066 - Report emailek behívásáért felelős endpoint-ot csak megfelelő authentikáció mellett lehessen elérni]]
 - [ ] [[107 - Filtering - Mentés gombon jelenjen meg, hogy pontosan hány kép lett kiválasztva]]

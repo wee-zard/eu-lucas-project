@@ -1,38 +1,20 @@
-import {
-  NotificationSeverity,
-  throwNotification,
-} from "../../helper/notificationUtil";
-import CreationDirectionDto from "../../model/dto/CreationDirectionDto";
+import CreationDirectionDto from "@model/dto/CreationDirectionDto";
 import {
   BackendCreationDirectionControllerEndpoints,
+  RequestCommandTypes,
   ServersToConnectTo,
-} from "../../model/enum";
-import { getAuthToken } from "../handler/requestAuthToken";
-import { getCommand } from "../handler/requestHandler";
+} from "@model/enum";
+import commandHandler from "@api/handler/requestHandler";
 
 export const getCreationDirections = async () => {
-  try {
-    const authToken = getAuthToken();
-    if (!authToken) {
-      return null;
-    }
-    const response = await getCommand(
-      ServersToConnectTo.Backend,
-      BackendCreationDirectionControllerEndpoints.GetCreationDirections,
-      {},
-      authToken
-    );
-    if (response.status !== 200) {
-      throwNotification(NotificationSeverity.Error, response.data.message);
-      return null;
-    }
-    const listOfCreationYears: CreationDirectionDto[] = response.data;
-    return listOfCreationYears;
-  } catch (error) {
-    throwNotification(
-      NotificationSeverity.Error,
-      "Error while executing the fetch of Directions!"
-    );
-    return null;
-  }
+  return commandHandler<CreationDirectionDto[]>({
+    type: RequestCommandTypes.GET,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendCreationDirectionControllerEndpoints.GetCreationDirections,
+    obj: {},
+    header: {
+      isAuthTokenNeeded: true,
+    },
+    errorMessage: "Error while executing the fetch of Directions!",
+  });
 };
