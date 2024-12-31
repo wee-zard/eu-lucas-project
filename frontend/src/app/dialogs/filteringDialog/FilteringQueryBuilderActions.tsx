@@ -12,6 +12,7 @@ import { StyledComponentGap } from "@global/globalStyles";
 import { FilteringHelper, StateUpdateProps } from "@helper/filteringHelper";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
+import styled from "@emotion/styled";
 
 type Props = {
   id: number,
@@ -72,7 +73,7 @@ const FilteringQueryBuilderActions = ({ id, states }: Props) => {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
+    <StyledActionsHolder>
       <StyledComponentGap gap={"8px"}>
         <StyledButton
           buttonIcon={<AddCircleOutlineIcon />}
@@ -94,8 +95,13 @@ const FilteringQueryBuilderActions = ({ id, states }: Props) => {
           onClick={handleClickOnRemoveGroup}
         />
       ) : null}
-    </div>
+    </StyledActionsHolder>
   );
 };
 
 export default FilteringQueryBuilderActions;
+
+const StyledActionsHolder = styled.div<{}>((props) => ({
+  display: "flex",
+  justifyContent: "space-between",
+}));

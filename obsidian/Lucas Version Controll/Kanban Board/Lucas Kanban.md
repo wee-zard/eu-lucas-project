@@ -18,7 +18,6 @@ kanban-plugin: board
 
 ## 🔴Backlog
 
-- [ ] [[001 - Google bejelentkezés során 3 hibaüzenet kerül dobásra 1 helyett]]
 - [ ] [[012 - FilterDialog ablakának dinamikus háttérszín adása a megjelenő Dark Light mode bekapcsolásával]]
 - [ ] [[016 - ExifData szűrés esetén az text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]]
 - [ ] [[018 - Licensz vizsgálat minden npm csomagra]]
@@ -96,19 +95,21 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
-- [ ] [[111 - Query Builder - Animáció - TransitionGroup animáció hozzáadása a Query Builder-hez]]
 - [ ] [[039 - Procedures oldal létrehozása]]
 - [ ] [[038 - Adatbázis feltöltése adatokkal]]
 - [ ] [[037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba]]
-- [ ] [[105 - Filtering - Add New gombra való rányomás esetén, egy teljesen üres szűrési felület kerüljön megjelenítésre]]
 - [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban]]
-- [ ] [[076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[111 - Query Builder - Animáció - TransitionGroup animáció hozzáadása a Query Builder-hez]]
+- [ ] [[076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén]]
+- [ ] [[105 - Filtering - Add New gombra való rányomás esetén, egy teljesen üres szűrési felület kerüljön megjelenítésre]]
+- [ ] [[001 - Google bejelentkezés során 3 hibaüzenet kerül dobásra 1 helyett]]
+- [ ] [[114 - Login oldal el lett törve - Sikeres authentikáció után a felhasználó nem kerül átnavigálásra a dashboard oldalra]]
 - [ ] [[005 - Átmozgatni a error üzeneteket a commands mappában a commands common mappában lévő fájlokba]]
 - [ ] [[002 - Hibaüzenetek egységesítése]]
 - [ ] [[036 - UtilClass létrehozása]]

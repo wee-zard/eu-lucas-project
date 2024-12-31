@@ -14,12 +14,14 @@ import {
   setSelectedImage,
 } from "@redux/actions/imageActions";
 import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
+import { LocalStorageUtils } from "@helper/localStorageUtil";
 
 const FilteringScreenHeader = () => {
   const listOfSelectedImages = useSelector(selectListOfSelectedImages);
   const dispatch = useDispatch();
   const handleClearAll = () => dispatch(setListOfSelectedImages([]));
   const handleAddImage = () => {
+    LocalStorageUtils.initQueryBuilderModelLocalStorage();
     dispatch(setDialogToOpen(DialogToOpens.FilteringDialog));
     dispatch(
       setSelectedImage({

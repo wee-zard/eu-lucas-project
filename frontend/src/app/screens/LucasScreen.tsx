@@ -3,21 +3,21 @@ import { extendTheme } from "@mui/material/styles";
 import { AppProvider, Branding, Navigation } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { PageContainer } from "@toolpad/core/PageContainer";
-import { useToolpadRouterHook } from "../hooks/useToolpadRouterHook";
-import { NavigationTitles } from "../navigations/ToolpadNavigations";
-import FilteringScreen from "./filteringScreen/FilteringScreen";
-import TmpScreen from "./TmpScreen";
+import { useToolpadRouterHook } from "@hooks/useToolpadRouterHook";
+import { NavigationTitles } from "@navigation/ToolpadNavigations";
+import TmpScreen from "@screens/TmpScreen";
+import FilteringScreen from "@screens/filteringScreen/FilteringScreen";
 
 type Props = {
-  toolpadNavigations?: Navigation;
+  navigation?: Navigation;
   renderComponent?: JSX.Element;
 };
 
-const LucasScreen = ({toolpadNavigations = [], renderComponent}: Props) => {
+const LucasScreen = ({navigation = [], renderComponent}: Props) => {
 
-  const isNavigationBarHidden = toolpadNavigations.length === 0;
+  const isNavigationBarHidden = navigation.length === 0;
   const router = useToolpadRouterHook(`/${NavigationTitles.Dashboard}`);
-  const toolpadTitle: Branding = {
+  const appTitle: Branding = {
     title: 'Lucas Image Analyzer',
     //logo: undefined, /** TODO: Put my application logo here! */
   };
@@ -41,10 +41,10 @@ const LucasScreen = ({toolpadNavigations = [], renderComponent}: Props) => {
 
   return (
     <AppProvider
-      navigation={toolpadNavigations}
+      navigation={navigation}
       router={router}
-      theme={toolpadTheme}
-      branding={toolpadTitle}
+      theme={appTheme}
+      branding={appTitle}
     >
       <DashboardLayout hideNavigation={isNavigationBarHidden}>
         <PageContainer>
@@ -64,7 +64,7 @@ const LucasScreen = ({toolpadNavigations = [], renderComponent}: Props) => {
 
 export default LucasScreen;
 
-const toolpadTheme = extendTheme({
+const appTheme = extendTheme({
   colorSchemes: { dark: true, light: true },
   colorSchemeSelector: "class",
   defaultColorScheme: "light",

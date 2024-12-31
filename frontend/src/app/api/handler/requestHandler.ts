@@ -1,5 +1,4 @@
 import axios from "axios";
-import PageableProperties from "@model/PageableProperties";
 import { RequestHeaderHandler } from "@api/handler/requestHeaderHandler";
 import RequestCommand from "@model/RequestCommand";
 import { ConversionUtils } from "@helper/conversionUtils";
@@ -61,7 +60,7 @@ const commandHandlerDispatcher = (command: RequestCommand) => {
 /**
  * Send out a get http request to the provided server, to the provided endpoint.
  * It is optionally carries the auth token of the currently logged-in user,
- * with their {@link PageableProperties}.
+ * with their pageable properties.
  *
  * @param command A request command template which will be used to construct a
  * new http request.
@@ -84,7 +83,7 @@ const postCommand = (command: RequestCommand) => {
 /**
  * Send out a get http request to the provided server, to the provided endpoint.
  * It is optionally carries the auth token of the currently logged-in user,
- * with their {@link PageableProperties}.
+ * with their pageable properties.
  *
  * @param command A request command template which will be used to construct a
  * new http request.

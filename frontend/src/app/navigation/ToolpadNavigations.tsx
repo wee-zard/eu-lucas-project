@@ -40,7 +40,7 @@ export enum ToolpadNavigationKind {
   Page = "page",
 }
 
-export const toolpadNavigations: Navigation = [
+export const navigation: Navigation = [
   // ==================================
   {
     kind: ToolpadNavigationKind.Header,

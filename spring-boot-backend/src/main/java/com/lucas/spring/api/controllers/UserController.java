@@ -2,15 +2,11 @@ package com.lucas.spring.api.controllers;
 
 import com.lucas.spring.helper.annotations.token.TokenValidation;
 import com.lucas.spring.model.request.EmailRequest;
+import com.lucas.spring.model.response.BaseResponse;
 import com.lucas.spring.services.facade.UserFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Stores the endpoints related to the user.
@@ -31,9 +27,11 @@ public class UserController {
   @CrossOrigin
   @TokenValidation
   @PostMapping("/validate-email")
-  public void postValidateEmailAddress(
+  public BaseResponse postValidateEmailAddress(
           @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication
-  ) {}
+  ) {
+    return new BaseResponse();
+  }
 
   /**
    * An endpoint to upload email addresses to the db by another users.

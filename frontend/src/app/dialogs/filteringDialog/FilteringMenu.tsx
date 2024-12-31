@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Divider, Menu } from "@mui/material";
+import { Divider, Menu, Typography } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import StyledIconButton from "@components/StyledIconButton";
 import styled from "@emotion/styled";
@@ -25,16 +25,12 @@ const FilteringMenu = () => {
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>
     setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const renderComponent = () => {
-    return (<FilteringQueryBuilder id={LocalStorageUtils.getQueryBuilderModel().id} />);
-  }
+  const handleClose = () => setAnchorEl(null);
+  const renderComponent = () => (
+    <FilteringQueryBuilder id={LocalStorageUtils.getQueryBuilderModel().id} />
+  );
 
   useEffect(() => {
     if (!element) {
@@ -43,7 +39,7 @@ const FilteringMenu = () => {
   }, [element]);
 
   useEffect(() => {
-    switch(filterMenuAction) {
+    switch (filterMenuAction) {
       case MenuActions.CANCEL:
         dispatch(setFilterMenuAction());
         handleClose();
@@ -63,22 +59,26 @@ const FilteringMenu = () => {
   return (
     <div>
       <StyledIconButton onClick={handleClick} buttonIcon={<FilterListIcon />} />
-      <StyledMenu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        <div>
-          <StyledMenuHeaderHolder>Szűrés képekre</StyledMenuHeaderHolder>
-          <Divider />
-          <StyledMenuContentHolder>
-            <StyledMenuInnerContentHolder>
-              {element}
-            </StyledMenuInnerContentHolder>
-          </StyledMenuContentHolder>
-          <Divider />
-          <FilteringMenuActions />
-        </div>
+      <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
+        <StyledMenuHeaderHolder>
+          <Typography
+            variant="h5"
+            gutterBottom
+            sx={{
+              textShadow: "1px 1px 1px black",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            Szűrés feltételek megadása
+          </Typography>
+        </StyledMenuHeaderHolder>
+        <Divider />
+        <StyledMenuContentHolder>
+          <StyledMenuInnerContentHolder>{element}</StyledMenuInnerContentHolder>
+        </StyledMenuContentHolder>
+        <Divider />
+        <FilteringMenuActions />
       </StyledMenu>
     </div>
   );
@@ -89,7 +89,7 @@ export default FilteringMenu;
 const StyledMenuContentHolder = styled.div<{}>((props) => ({
   display: "grid",
   gap: "8px",
-  height: "60vh",
+  height: "80%",
   overflow: "auto",
   ...customScrollBar(),
 }));
@@ -100,6 +100,7 @@ const StyledMenuInnerContentHolder = styled.div<{}>((props) => ({
 
 const StyledMenuHeaderHolder = styled.div<{}>((props) => ({
   padding: "16px",
+  height: "10%",
 }));
 
 const StyledMenu = styled(Menu)<{}>((props) => ({
@@ -107,6 +108,9 @@ const StyledMenu = styled(Menu)<{}>((props) => ({
     padding: "0 16px 0 16px",
     width: "80%",
     height: "80%",
+  },
+  "& .MuiList-root": {
+    height: "-webkit-fill-available",
   },
 }));
 

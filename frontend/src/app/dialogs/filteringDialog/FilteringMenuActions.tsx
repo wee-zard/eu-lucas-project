@@ -64,4 +64,5 @@ const StyledMenuActionsHolder = styled.div<{}>((props) => ({
   display: "flex",
   justifyContent: "space-between",
   gap: "16px",
+  height: "10%",
 }));

@@ -4,8 +4,7 @@ type:
   - 🟨Client
 priority:
   - High
-related:
-  - "[[037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba]]"
+related: []
 platform:
   - frontend
 sprint: 

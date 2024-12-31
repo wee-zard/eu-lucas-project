@@ -77,6 +77,7 @@ const FilteringDialogActions = () => {
           isDisabled={isAgreeButtonDisabled}
           buttonColor="primary"
           buttonVariant="outlined"
+          buttonType={"submit"}
           onClick={handleAgreeButtonClick}
         />
       </StyledActionsHolder>

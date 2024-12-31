@@ -1,7 +1,7 @@
 ---
 id: 37
 type:
-  - 🟦Todo
+  - 🟨Client
 priority:
   - Medium
 related:

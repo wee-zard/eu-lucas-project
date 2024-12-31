@@ -7,7 +7,7 @@ priority:
 related: 
 platform:
   - frontend
-sprint: 
+sprint: 1
 creation-time: 2024-12-28T20:52:00
 ---
 Aktuális működés:

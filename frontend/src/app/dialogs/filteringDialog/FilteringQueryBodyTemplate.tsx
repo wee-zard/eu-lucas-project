@@ -12,6 +12,8 @@ import FilteringQueryRelation from "./FilteringQueryRelation";
 import FilteringQueryMultiType from "./FilteringQueryMultiType";
 import { ArrayUtils } from "@helper/arrayUtils";
 import { QueryTypes } from "@model/enum";
+import { TransitionGroup } from "react-transition-group";
+import Collapse from "@mui/material/Collapse";
 
 type Props = {
   queryMultiType: QueryMultiType;
@@ -35,25 +37,35 @@ const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
   return (
     <StyledQueryHolder>
       <StyledComponentGridGap>
-        <StyledCustomComponentGap>
-          <StyledMinWidthComponent>WHERE</StyledMinWidthComponent>
-          <StyledMaxWidthComponentHolder key={getListOfElements[0].id}>
-            {getFilteringComponent(getListOfElements[0].id)}
-          </StyledMaxWidthComponentHolder>
-        </StyledCustomComponentGap>
+        <StyledTransitionGroup unmountOnExit>
+          <Collapse>
+            <StyledCustomComponentGap>
+              <StyledMinWidthComponent>WHERE</StyledMinWidthComponent>
+              <StyledMaxWidthComponentHolder key={getListOfElements[0].id}>
+                {getFilteringComponent(getListOfElements[0].id)}
+              </StyledMaxWidthComponentHolder>
+            </StyledCustomComponentGap>
+          </Collapse>
 
-        {getListOfElements.length > 1 ? (
-          <StyledCustomComponentGap>
-            <FilteringQueryRelation queryMultiType={queryMultiType} />
-            <StyledComponentGridGap $isWidthFull>
-              {ArrayUtils.getListWithoutFirstElement<
-                QueryMultiType | QueryComponent
-              >(getListOfElements).map((element) => (
-                <div key={element.id}>{getFilteringComponent(element.id)}</div>
-              ))}
-            </StyledComponentGridGap>
-          </StyledCustomComponentGap>
-        ) : null}
+          {getListOfElements.length > 1 ? (
+            <Collapse>
+              <StyledCustomComponentGap>
+                <FilteringQueryRelation queryMultiType={queryMultiType} />
+                <StyledComponentGridGap $isWidthFull>
+                  <StyledTransitionGroup unmountOnExit>
+                    {ArrayUtils.getListWithoutFirstElement<
+                      QueryMultiType | QueryComponent
+                    >(getListOfElements).map((element) => (
+                      <Collapse key={element.id}>
+                        {getFilteringComponent(element.id)}
+                      </Collapse>
+                    ))}
+                  </StyledTransitionGroup>
+                </StyledComponentGridGap>
+              </StyledCustomComponentGap>
+            </Collapse>
+          ) : null}
+        </StyledTransitionGroup>
       </StyledComponentGridGap>
     </StyledQueryHolder>
   );
@@ -62,6 +74,11 @@ const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
 export default FilteringQueryBodyTemplate;
 
 export const minWidthOfRelationColumn = "100px";
+
+const StyledTransitionGroup = styled(TransitionGroup)<{}>((props) => ({
+  display: "grid",
+  gap: "8px",
+}))
 
 const StyledMinWidthComponent = styled.div<{}>((props) => ({
   minWidth: minWidthOfRelationColumn,
@@ -85,6 +102,7 @@ const StyledComponentGridGap = styled.div<{ $isWidthFull?: boolean }>(
 
 const StyledCustomComponentGap = styled(StyledComponentGap)<{}>((props) => ({
   alignItems: "center",
+  height: "100%",
 }));
 
 const StyledMaxWidthComponentHolder = styled.div<{}>((props) => ({

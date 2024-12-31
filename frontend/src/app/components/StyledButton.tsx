@@ -18,6 +18,7 @@ type Props = {
     | "info"
     | "warning";
   isDisabled?: boolean;
+  buttonType?: "button" | "submit" | "reset" | undefined;
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
@@ -28,6 +29,7 @@ const StyledButton = ({
   buttonVariant,
   buttonColor,
   isDisabled,
+  buttonType,
   onClick,
 }: Props) => {
   return (
@@ -38,7 +40,7 @@ const StyledButton = ({
           color={buttonColor}
           onClick={onClick}
           disabled={isDisabled}
-          type="submit"
+          type={buttonType}
         >
           <CustomComponentGap>
             { buttonIcon ? <StyledIconHolder>{buttonIcon}</StyledIconHolder> : null }
