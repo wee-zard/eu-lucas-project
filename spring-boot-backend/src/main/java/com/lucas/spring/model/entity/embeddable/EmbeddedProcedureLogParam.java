@@ -6,6 +6,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -14,6 +15,7 @@ import lombok.ToString;
  * while one of them is in relation with the table
  * via a foreign key relation.
  */
+@Builder
 @Getter
 @ToString
 @Embeddable
@@ -24,7 +26,6 @@ public class EmbeddedProcedureLogParam {
    */
   @Column(name = "procedure_param_name", length = 50, nullable = false, columnDefinition = "TEXT")
   private String procedureParamName;
-
   /**
    * A foreign key reference to the procedure logs.
    */

@@ -1,7 +1,7 @@
 package com.lucas.spring.api.controllers;
 
-import com.lucas.spring.helper.annotations.token.TokenValidation;
 import com.lucas.spring.model.entity.CreationYearEntity;
+import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.services.service.CreationYearService;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
@@ -22,10 +22,9 @@ public class CreationYearController {
   private final CreationYearService creationYearService;
 
   @CrossOrigin
-  @TokenValidation
   @GetMapping("/get-creation-years")
   public ArrayList<CreationYearEntity> getCreationYears(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
     return creationYearService.getCreationYears();
   }

@@ -1,6 +1,9 @@
 package com.lucas.spring.services.facade;
 
+import com.lucas.spring.model.models.AuthenticatedUser;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * An interface service where we store methods
@@ -11,14 +14,12 @@ import org.springframework.stereotype.Service;
 public interface UserFacade {
 
   /**
-   * Determines whether the provided email address exists in the
-   * db or not.
+   * Determines whether the provided email address exists in the db or not.
    *
    * @param emailAddress the user's gmail address.
-   * @return Returns true, if the provided email exists in the db,
-   *     false otherwise.
+   * @return Returns the authenticated use if exists.
    */
-  boolean isEmailExists(String emailAddress);
+  Optional<AuthenticatedUser> isEmailExists(String emailAddress);
 
   /**
    * Adding a user's email address to the db.

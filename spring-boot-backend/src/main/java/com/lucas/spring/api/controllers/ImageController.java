@@ -1,9 +1,9 @@
 package com.lucas.spring.api.controllers;
 
 import com.lucas.spring.api.controllers.abstraction.BaseController;
-import com.lucas.spring.helper.annotations.token.TokenValidation;
 import com.lucas.spring.model.dto.ImageDto;
 import com.lucas.spring.model.entity.ImageEntity;
+import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.model.models.PageableProperties;
 import com.lucas.spring.model.request.ImageRequest;
 import com.lucas.spring.model.request.filtering.FilteringQueryRequest;
@@ -70,11 +70,10 @@ public class ImageController extends BaseController {
    *     the value of the {@link PageableProperties}, while converting the result
    *     {@link ImageEntity} into {@link ImageDto}.
    */
-  @TokenValidation
   @CrossOrigin
   @PostMapping("/filter-images")
   public PageableResponse<ImageDto> postQueryBuilderImage(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication,
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
           @RequestHeader(PAGEABLE_PROPERTIES) PageableProperties pageableProperties,
           @RequestBody FilteringQueryRequest filteringQueryRequest
   ) {

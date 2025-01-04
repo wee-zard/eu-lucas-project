@@ -32,7 +32,7 @@ public class ImageFacadeServiceImpl implements ImageFacadeService {
    */
   @Override
   public Optional<ImageEntity> getImageEntity(final ImageRequest imageRequest) {
-    if (!imageService.isImageNameAlreadyExists(imageRequest.getImageName())) {
+    if (!imageService.isImageAlreadyExists(imageRequest)) {
       creationYearService.isCreationYearIncludedInTheDb(imageRequest.getYear());
       creationDirectionService.isCreationDirectionIncludedInTheDd(imageRequest.getDirectionName());
       creationCountryService.isCreationDirectionIncludedInTheDb(

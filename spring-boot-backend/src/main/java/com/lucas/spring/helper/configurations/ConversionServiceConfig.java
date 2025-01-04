@@ -10,20 +10,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Configuration of the {@link org.springframework.core.convert.ConversionService},
+ * Configuration of the {@link ConversionService},
  * so we can initialize them in the constructors.
  */
 @Configuration
 public class ConversionServiceConfig implements WebMvcConfigurer {
   /**
-   * It will initialize a new {@link org.springframework.core.convert.ConversionService},
+   * It will initialize a new {@link ConversionService},
    * with the help of the {@link ConversionServiceFactoryBean}. It will search for all
    * converters in the project and add them to the {@link ConversionServiceFactoryBean}.
    * With this, we have access to all converters in the project via the
-   * {@link org.springframework.core.convert.ConversionService}.
+   * {@link ConversionService}.
    *
-   * @return a new instance of {@link org.springframework.core.convert.ConversionService}, so we
-   *     can initialize the {@link org.springframework.core.convert.ConversionService}
+   * @return a new instance of {@link ConversionService}, so we
+   *     can initialize the {@link ConversionService}
    *     in the constructor and perform the convert method.
    */
   @Primary

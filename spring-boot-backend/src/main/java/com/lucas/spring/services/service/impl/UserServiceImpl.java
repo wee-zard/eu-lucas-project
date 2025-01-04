@@ -3,6 +3,7 @@ package com.lucas.spring.services.service.impl;
 import com.lucas.spring.database.repositories.UserRepository;
 import com.lucas.spring.model.entity.StatusEntity;
 import com.lucas.spring.model.entity.UserEntity;
+import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.services.service.UserService;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
    */
   @Cacheable(SERVICE_CACHE_NAME)
   @Override
-  public ArrayList<String> getAllUsersEmail() {
+  public ArrayList<AuthenticatedUser> getAllUsersEmail() {
     return userRepository.getAllUsersEmail();
   }
 

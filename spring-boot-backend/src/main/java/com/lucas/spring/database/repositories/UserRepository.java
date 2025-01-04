@@ -1,6 +1,7 @@
 package com.lucas.spring.database.repositories;
 
 import com.lucas.spring.model.entity.UserEntity;
+import com.lucas.spring.model.models.AuthenticatedUser;
 import java.util.ArrayList;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,6 +17,7 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
    *
    * @return Returns every hashed emails.
    */
-  @Query("SELECT user.emailAddress FROM User user")
-  ArrayList<String> getAllUsersEmail();
+  @Query("SELECT new com.lucas.spring.model.models.AuthenticatedUser("
+          + "u.emailAddress, u.id) FROM User u")
+  ArrayList<AuthenticatedUser> getAllUsersEmail();
 }

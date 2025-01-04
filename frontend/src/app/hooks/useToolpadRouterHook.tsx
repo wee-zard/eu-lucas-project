@@ -1,8 +1,9 @@
 import React from "react";
 import { Router } from "@toolpad/core/AppProvider";
+import { NavigationSegments } from "@navigation/ToolpadNavigations";
 
-export const useToolpadRouterHook = (initialPath: string): Router => {
-  const [pathname, setPathname] = React.useState(initialPath);
+export const useToolpadRouterHook = (initialPath: NavigationSegments): Router => {
+  const [pathname, setPathname] = React.useState(`/${initialPath}`);
 
   const router = React.useMemo(() => {
     return {

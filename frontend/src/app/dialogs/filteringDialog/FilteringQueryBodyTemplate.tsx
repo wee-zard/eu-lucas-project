@@ -78,7 +78,7 @@ export const minWidthOfRelationColumn = "100px";
 const StyledTransitionGroup = styled(TransitionGroup)<{}>((props) => ({
   display: "grid",
   gap: "8px",
-}))
+}));
 
 const StyledMinWidthComponent = styled.div<{}>((props) => ({
   minWidth: minWidthOfRelationColumn,

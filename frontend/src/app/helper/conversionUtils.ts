@@ -144,7 +144,7 @@ export const ConversionUtils = {
    * Converts the provided server connection string to
    * a backend server path that is mainly used in the send out
    * of the http requests to set the destination of the requests.
-   * 
+   *
    * @param serverToUse The server we want to connect to.
    * @returns Returns the url of the server we want to connect to.
    */

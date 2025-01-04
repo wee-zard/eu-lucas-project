@@ -7,7 +7,7 @@ priority:
 related: 
 platform:
   - database
-sprint: 
+sprint: 1
 creation-time: 2024-12-07T20:16:00
 ---
 Elvárt működés: 

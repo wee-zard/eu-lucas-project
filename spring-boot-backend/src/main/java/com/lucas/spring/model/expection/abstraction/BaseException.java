@@ -1,6 +1,5 @@
 package com.lucas.spring.model.expection.abstraction;
 
-import jakarta.annotation.Nullable;
 import lombok.Getter;
 
 /**
@@ -11,7 +10,7 @@ public abstract class BaseException extends RuntimeException {
   /**
    * Tells that at which param the error message is thrown error.
    */
-  private @Nullable String errorAtParam;
+  private String errorAtParam;
 
   /**
    * Throws an error message.

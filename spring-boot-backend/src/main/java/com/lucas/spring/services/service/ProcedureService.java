@@ -1,0 +1,39 @@
+package com.lucas.spring.services.service;
+
+import com.lucas.spring.model.entity.ProcedureEntity;
+import com.lucas.spring.model.entity.UserEntity;
+import java.util.Optional;
+import org.springframework.stereotype.Service;
+
+/**
+ * Stores methods related to the Procedures.
+ */
+@Service
+public interface ProcedureService {
+
+  /**
+   * Creates a new procedure.
+   *
+   * @param name The name of the procedure.
+   * @param user The user who created the procedure.
+   * @return Returns the new Procedure object.
+   */
+  ProcedureEntity createProcedure(String name, UserEntity user);
+
+  /**
+   * Fetch the procedure from the db by the name of the procedure if its exists.
+   *
+   * @param name The name of the procedure.
+   * @return Returns the procedure associated with the provided name if its exists.
+   */
+  Optional<ProcedureEntity> getProcedureByName(String name);
+
+  /**
+   * Fetch the procedure from the db by the name of the procedure.
+   *
+   * @param name The name of the procedure.
+   * @param user The user who created the procedure.
+   * @return Returns the procedure associated with the provided name.
+   */
+  ProcedureEntity getProcedureByNameAndInitIfNotExists(String name, UserEntity user);
+}

@@ -1,6 +1,8 @@
 package com.lucas.spring.services.service;
 
 import com.lucas.spring.model.entity.ImageEntity;
+import com.lucas.spring.model.request.ImageRequest;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +17,7 @@ public interface ImageService {
    * @param imageName The name of the image which we want to check if it is exists in the db or not.
    * @return the image name if exists else null.
    */
-  boolean isImageNameAlreadyExists(String imageName);
+  boolean isImageAlreadyExists(ImageRequest imageName);
 
   /**
    * Save the image to the db.
@@ -23,4 +25,14 @@ public interface ImageService {
    * @param imageEntity the image we want to save.
    */
   ImageEntity saveImage(ImageEntity imageEntity);
+
+  /**
+   * Fetch the {@link ImageEntity} from the db
+   * by the name of the image if exists.
+   *
+   * @param name The name of the image.
+   * @param year The year when the image was taken.
+   * @return Returns a {@link ImageEntity} object if exists.
+   */
+  Optional<ImageEntity> getImageByNameAndYear(String name, Number year);
 }

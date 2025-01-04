@@ -4,11 +4,7 @@ type:
   - 🟨Client
 priority:
   - Medium
-related:
-  - "[[053 - Loading ikon megjelenítése a bejelentkezési oldalhoz]]"
-  - "[[054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban]]"
-  - "[[055 - Loading ikon megjelenítése a képek lekérdezéséhez]]"
-  - "[[056 - Loading ikon megjelenítése a timeline komponenshez]]"
+related: []
 platform:
   - frontend
 sprint: 

@@ -1,6 +1,6 @@
 package com.lucas.spring.api.controllers;
 
-import com.lucas.spring.helper.annotations.token.TokenValidation;
+import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.model.request.SmtpEmailRequest;
 import com.lucas.spring.services.service.SmtpEmailService;
 import jakarta.mail.MessagingException;
@@ -28,10 +28,9 @@ public class SmtpEmailController {
    * @param emailRequest ...
    */
   @CrossOrigin
-  @TokenValidation
   @PostMapping("/report-log")
   public String postReportEmail(
-      @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication,
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
       @RequestBody final SmtpEmailRequest emailRequest
   ) throws MessagingException {
     return smtpEmailService.sendSimpleMail(emailRequest);

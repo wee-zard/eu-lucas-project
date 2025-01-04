@@ -18,6 +18,7 @@ kanban-plugin: board
 
 ## 🔴Backlog
 
+- [ ] [[113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon]]
 - [ ] [[012 - FilterDialog ablakának dinamikus háttérszín adása a megjelenő Dark Light mode bekapcsolásával]]
 - [ ] [[016 - ExifData szűrés esetén az text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]]
 - [ ] [[018 - Licensz vizsgálat minden npm csomagra]]
@@ -49,7 +50,10 @@ kanban-plugin: board
 - [ ] [[103 - Using kebab-case for css properties in objects is not supported. Did you mean WebkitBoxShadow Error Component Stack]]
 - [ ] [[104 - Filtering - Kiválasztott képre való rákattintás esetén, a szűrés eredmény képek kerüljenek megjelenítésre]]
 - [ ] [[108 - Filtering - Jobb szöveg kiíratása azon esetekben, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép]]
-- [ ] [[113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon]]
+- [ ] [[123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével]]
+- [ ] [[124 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, miközben a képlekérdezések leáll]]
+- [ ] [[125 - Endpoint - Egyszerűsíteni az egyes Endpoint-ok neveit]]
+- [ ] [[126 - Exception - Generic Exception dobása - Exception osztályok egyesítése egy Generic osztállyá, amiből minden exception öröklődik]]
 
 
 ## 🔴ToDo
@@ -91,20 +95,28 @@ kanban-plugin: board
 - [ ] [[042 - Google OAuth oldal befejezése]]
 - [ ] [[052 - Loading komponens megjelenítése]]
 - [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]]
+- [ ] [[115 - Növények mentén lehessen szűrni a FilteringDialog ablakban]]
+- [ ] [[116 - Befoglaló téglalapok mentén lehessen szűrni a FilteringDialog ablakban]]
+- [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]]
+- [ ] [[118 - Adatbázos feltöltése a képekhez tartozó EXIF adatokkal]]
+- [ ] [[119 - Settings - Legyen egy gomb, amivel frissíteni lehet az adatbázisban lévő képinformációkat]]
 
 
 ## 🟡In Progress
 
 - [ ] [[039 - Procedures oldal létrehozása]]
-- [ ] [[038 - Adatbázis feltöltése adatokkal]]
 - [ ] [[037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba]]
 - [ ] [[028 - Alkalmazás dockerizálása]]
-- [ ] [[077 - Eljárások és Növények mentén is lehessen szűrni a FilteringDialog ablakban]]
+- [ ] [[077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban]]
+- [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
+- [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[122 - Az adatbázishoz tartozó rekordok kerüljenek betöltésre docker-ben]]
+- [ ] [[038 - Adatbázis feltöltése adatokkal]]
 - [ ] [[111 - Query Builder - Animáció - TransitionGroup animáció hozzáadása a Query Builder-hez]]
 - [ ] [[076 - Filtering Dialog szűrési ablak magassága nem reszponzív, a böngésző zoom módosítása esetén]]
 - [ ] [[105 - Filtering - Add New gombra való rányomás esetén, egy teljesen üres szűrési felület kerüljön megjelenítésre]]

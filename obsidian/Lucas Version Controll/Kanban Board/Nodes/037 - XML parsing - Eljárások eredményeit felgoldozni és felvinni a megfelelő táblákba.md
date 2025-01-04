@@ -9,7 +9,7 @@ related:
 platform:
   - frontend
   - backend
-sprint: 
+sprint: 1
 creation-time: 2024-12-07T19:49:00
 ---
 Elvárt működés: 

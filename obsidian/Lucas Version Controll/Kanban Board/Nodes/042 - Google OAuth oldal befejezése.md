@@ -5,10 +5,7 @@ type:
   - 🟥Bug
 priority:
   - High
-related:
-  - "[[020 - Google OAuth token csak 3 után kerüljön lejáratra az alapértelmezett 1 óra helyett]]"
-  - "[[001 - Google bejelentkezés során 3 hibaüzenet kerül dobásra 1 helyett]]"
-  - "[[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]"
+related: []
 platform:
   - frontend
 sprint: 

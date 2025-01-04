@@ -6,20 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Store the params used in the procedures.
  */
-@Data
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "ProcedureLogParam")
 @Table(name = "tb_procedure_log_params")
 public class ProcedureLogParamEntity {

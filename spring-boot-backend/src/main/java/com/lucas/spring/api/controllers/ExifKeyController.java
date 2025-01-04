@@ -1,7 +1,7 @@
 package com.lucas.spring.api.controllers;
 
-import com.lucas.spring.helper.annotations.token.TokenValidation;
 import com.lucas.spring.model.entity.ExifKeyEntity;
+import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.services.service.ExifKeyService;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
@@ -22,10 +22,9 @@ public class ExifKeyController {
   private final ExifKeyService exifKeyService;
 
   @CrossOrigin
-  @TokenValidation
   @GetMapping
   public ArrayList<ExifKeyEntity> getCreationYears(
-      @RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
     return exifKeyService.getExifKeys();
   }

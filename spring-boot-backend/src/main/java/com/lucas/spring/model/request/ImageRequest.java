@@ -3,23 +3,25 @@ package com.lucas.spring.model.request;
 import com.lucas.spring.model.models.ExifDataModel;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Stores the properties of the images that are
+ * present in the lucas remote image server.
+ */
 @Getter
-@Setter
+@Builder
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor
 public class ImageRequest {
-    private int year;
-    private String countryCode;
-    private String countryName;
-    private int coordinateX;
-    private int coordinateY;
-    private String imageName;
-    private String directionName;
-    private ArrayList<ExifDataModel> exifData;
+  private int year;
+  private String countryCode;
+  private String countryName;
+  private int coordinateX;
+  private int coordinateY;
+  private String imageName;
+  private String directionName;
+  private ArrayList<ExifDataModel> exifData;
 }

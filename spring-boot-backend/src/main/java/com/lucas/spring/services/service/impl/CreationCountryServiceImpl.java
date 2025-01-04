@@ -65,11 +65,9 @@ public class CreationCountryServiceImpl implements CreationCountryService {
    */
   @Override
   public void isCreationDirectionIncludedInTheDb(String countryCode, String countryName) {
-    ArrayList<CreationCountryEntity> creationDirectionEntities = getCreationCountries();
-
-    Optional<CreationCountryEntity> selectedCreationCountryEntity = creationDirectionEntities
+    final Optional<CreationCountryEntity> selectedCreationCountryEntity = getCreationCountries()
           .stream()
-          .filter(creationCountryEntity -> creationCountryEntity.getCountryName().equals(countryCode))
+          .filter(entity -> entity.getCountryCode().equals(countryCode))
           .findAny();
 
     if (selectedCreationCountryEntity.isEmpty()) {

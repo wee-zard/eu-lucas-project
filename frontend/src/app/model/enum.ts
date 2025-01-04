@@ -191,3 +191,10 @@ export enum RequestCommandTypes {
   DELETE,
   PUT,
 }
+
+export enum ProcedureFileMessages {
+  FileIsSuccessfullyUploaded = "A fájl sikeresen feltöltésre került!",
+  FileExtensionIsNotXml = "Hiba! A fájl nem XML kiterjesztésű!",
+  XmlToObjectError = "Hiba! Nem sikerült objektummá alakítani az XML fájlt!",
+  XmlDateInvalidFormat = "Hiba! A 'date' nem megfelelő formátumú! Elvárt formátum: 'ÉÉÉÉHHNNÓÓPP'",
+}

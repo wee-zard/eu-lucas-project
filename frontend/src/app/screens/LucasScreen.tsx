@@ -1,24 +1,23 @@
-import React from "react";
 import { extendTheme } from "@mui/material/styles";
 import { AppProvider, Branding, Navigation } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { PageContainer } from "@toolpad/core/PageContainer";
 import { useToolpadRouterHook } from "@hooks/useToolpadRouterHook";
-import { NavigationTitles } from "@navigation/ToolpadNavigations";
+import { NavigationSegments } from "@navigation/ToolpadNavigations";
 import TmpScreen from "@screens/TmpScreen";
 import FilteringScreen from "@screens/filteringScreen/FilteringScreen";
+import UploadProcedureScreen from "@screens/uploadProcedureScreen/UploadProcedureScreen";
 
 type Props = {
   navigation?: Navigation;
   renderComponent?: JSX.Element;
 };
 
-const LucasScreen = ({navigation = [], renderComponent}: Props) => {
-
+const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
   const isNavigationBarHidden = navigation.length === 0;
-  const router = useToolpadRouterHook(`/${NavigationTitles.Dashboard}`);
+  const router = useToolpadRouterHook(NavigationSegments.Dashboard);
   const appTitle: Branding = {
-    title: 'Lucas Image Analyzer',
+    title: "Lucas Image Analyzer",
     //logo: undefined, /** TODO: Put my application logo here! */
   };
 
@@ -28,16 +27,17 @@ const LucasScreen = ({navigation = [], renderComponent}: Props) => {
     if (pathList.length > 1) {
       pathName = pathList[pathList.length - 1];
     }
-    switch(pathName) {
-      case NavigationTitles.Filtering:
+    switch (pathName) {
+      case NavigationSegments.Filtering:
         return <FilteringScreen />;
-      case NavigationTitles.Default:
-      case NavigationTitles.Dashboard:
+      case NavigationSegments.UploadProcedureResults:
+        return <UploadProcedureScreen />;
+      case NavigationSegments.Dashboard:
         return <TmpScreen></TmpScreen>;
       default:
         return <TmpScreen></TmpScreen>;
     }
-  }
+  };
 
   return (
     <AppProvider
@@ -48,14 +48,11 @@ const LucasScreen = ({navigation = [], renderComponent}: Props) => {
     >
       <DashboardLayout hideNavigation={isNavigationBarHidden}>
         <PageContainer>
-          {isNavigationBarHidden ? 
-              <React.Fragment>
-                {renderComponent}
-              </React.Fragment>
-            : 
-              <React.Fragment>
-                {renderComponentByRouterPath()}
-              </React.Fragment>}
+          {isNavigationBarHidden ? (
+            <>{renderComponent}</>
+          ) : (
+            <>{renderComponentByRouterPath()}</>
+          )}
         </PageContainer>
       </DashboardLayout>
     </AppProvider>

@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -17,11 +18,15 @@ import org.hibernate.annotations.CreationTimestamp;
  * An entity storing the column information of the
  * Producer logs which are logs from the run Procedures.
  */
+@Builder
 @Getter
 @AllArgsConstructor
 @Entity(name = "ProcedureLog")
 @Table(name = "tb_procedure_log")
 public class ProcedureLogEntity {
+  /**
+   * The unique identifier of the log.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
@@ -31,22 +36,19 @@ public class ProcedureLogEntity {
    */
   @ManyToOne
   @JoinColumn(name = "procedure_id", nullable = false)
-  private ProcedureEntity initUserId;
-
+  private ProcedureEntity procedure;
   /**
    * The image which was used with the procedure.
    */
   @ManyToOne
   @JoinColumn(name = "image_to_analyse", nullable = false)
-  private ImageEntity imageToAnalyse;
-
+  private ImageEntity image;
   /**
    * The user who created the log.
    */
   @ManyToOne
   @JoinColumn(name = "log_init_user_id", nullable = false)
-  private UserEntity logInitUser;
-
+  private UserEntity user;
   /**
    * The creation time of the log.
    */

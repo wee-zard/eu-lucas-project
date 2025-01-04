@@ -15,6 +15,7 @@ module.exports = {
       '@providers': path.resolve(__dirname, 'src/app/providers'),
       '@redux': path.resolve(__dirname, 'src/app/redux'),
       '@screens': path.resolve(__dirname, 'src/app/screens'),
+      '@media': path.resolve(__dirname, 'src/app/media'),
     },
   },
 };

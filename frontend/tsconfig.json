@@ -15,6 +15,7 @@
       "@providers/*": ["./app/providers/*"],
       "@redux/*": ["./app/redux/*"],
       "@screens/*": ["./app/screens/*"],
+      "@media/*" : ["./app/media/*"],
     },
     "target": "es5",
     "lib": [

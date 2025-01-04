@@ -1,40 +1,43 @@
-import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import DescriptionIcon from "@mui/icons-material/Description";
-import LayersIcon from "@mui/icons-material/Layers";
 import { Navigation } from "@toolpad/core/AppProvider";
-import FilterListIcon from '@mui/icons-material/FilterList';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import FilterListIcon from "@mui/icons-material/FilterList";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import FunctionsIcon from "@mui/icons-material/Functions";
+import TableRowsIcon from "@mui/icons-material/TableRows";
+import ReportProblemIcon from "@mui/icons-material/ReportProblem";
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+
+export enum NavigationSegments {
+  ManageProcedures = "ManageProcedures",
+  UploadProcedureResults = "UploadProcedureResults",
+  ReportError = "ReportErrors",
+  Settings = "Settings",
+  Manual = "Manual",
+  Filtering = "Filtering",
+  Dashboard = "Dashboard",
+}
 
 export enum NavigationTitles {
   // ===== New Menu options ===== //
-  Default = "",
   Images = "Images",
   Filtering = "Filtering",
 
+  Procedures = "Procedures",
+  ManageProcedures = "Manage Procedures",
+  UploadProcedureResults = "Upload Procedure Results",
+
   Others = "Others",
+  ReportError = "Report Errors",
   Settings = "Settings",
   Manual = "Manual",
 
-  Management = "Management",
-  UserManagement = "User Management",
-  
-
   // ===== Old Menu options ===== //
-  MainItems = "Main items",
   Dashboard = "Dashboard",
-  Orders = "Orders",
-  Analytics = "Analytics",
-  Reports = "Reports",
-  Sales = "Sales",
-  Traffic = "Traffic",
-  Integrations = "Integrations",
+  MainItems = "Main items",
 }
 
-export enum ToolpadNavigationKind {
+export enum NavigationKind {
   Header = "header",
   Divider = "divider",
   Page = "page",
@@ -43,86 +46,77 @@ export enum ToolpadNavigationKind {
 export const navigation: Navigation = [
   // ==================================
   {
-    kind: ToolpadNavigationKind.Header,
+    kind: NavigationKind.Header,
     title: NavigationTitles.MainItems,
   },
   {
-    segment: NavigationTitles.Dashboard,
+    segment: NavigationSegments.Dashboard,
     title: NavigationTitles.Dashboard,
     icon: <DashboardIcon />,
   },
-  {
-    segment: NavigationTitles.Management,
-    title: NavigationTitles.Management,
-    icon: <ShoppingCartIcon />,
-    children: [
-      {
-        segment: NavigationTitles.UserManagement,
-        title: NavigationTitles.UserManagement,
-        icon: <DescriptionIcon />,
-      },
-    ]
-  },
-  {
-    kind: ToolpadNavigationKind.Divider,
-  },
   // ==================================
   {
-    kind: ToolpadNavigationKind.Header,
-    title: NavigationTitles.Analytics,
+    kind: NavigationKind.Divider,
   },
   {
-    segment: NavigationTitles.Reports,
-    title: NavigationTitles.Reports,
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: NavigationTitles.Sales,
-        title: NavigationTitles.Sales,
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: NavigationTitles.Traffic,
-        title: NavigationTitles.Traffic,
-        icon: <DescriptionIcon />,
-      },
-    ],
-  },
-  {
-    segment: NavigationTitles.Integrations,
-    title: NavigationTitles.Integrations,
-    icon: <LayersIcon />,
-  },
-  // ==================================
-  {
-    kind: ToolpadNavigationKind.Divider,
-  },
-  {
-    kind: ToolpadNavigationKind.Header,
+    kind: NavigationKind.Header,
     title: NavigationTitles.Images,
   },
   {
-    segment: NavigationTitles.Filtering,
+    segment: NavigationSegments.Filtering,
     title: NavigationTitles.Filtering,
     icon: <FilterListIcon />,
-    //children: [],
   },
   // ==================================
   {
-    kind: ToolpadNavigationKind.Divider,
+    kind: NavigationKind.Divider,
   },
   {
-    kind: ToolpadNavigationKind.Header,
+    kind: NavigationKind.Header,
+    title: NavigationTitles.Procedures,
+  },
+  {
+    segment: NavigationTitles.Procedures,
+    title: NavigationTitles.Procedures,
+    icon: <TableRowsIcon />,
+    children: [
+      {
+        // Page where the users could manage the procedures such as adding, modifying, and removing them.
+        segment: NavigationSegments.ManageProcedures,
+        title: NavigationTitles.ManageProcedures,
+        icon: <FunctionsIcon />,
+      },
+      {
+        // Page where the users could upload past procedure results to the server.
+        segment: NavigationSegments.UploadProcedureResults,
+        title: NavigationTitles.UploadProcedureResults,
+        icon: <UploadFileIcon />,
+      },
+    ],
+  },
+  // ==================================
+  {
+    kind: NavigationKind.Divider,
+  },
+  {
+    kind: NavigationKind.Header,
     title: NavigationTitles.Others,
   },
   {
-    segment: NavigationTitles.Manual,
-    title: NavigationTitles.Manual,
-    icon: <LibraryBooksIcon />,
-    //children: [],
+    // Page where the users report issues and bugs found in the application.
+    segment: NavigationSegments.ReportError,
+    title: NavigationTitles.ReportError,
+    icon: <ReportProblemIcon />,
   },
   {
-    segment: NavigationTitles.Settings,
+    // Page where the users could read articles about how to use the application.
+    segment: NavigationSegments.Manual,
+    title: NavigationTitles.Manual,
+    icon: <LibraryBooksIcon />,
+  },
+  {
+    // Page where the users could set important properties of the application.
+    segment: NavigationSegments.Settings,
     title: NavigationTitles.Settings,
     icon: <SettingsIcon />,
   },

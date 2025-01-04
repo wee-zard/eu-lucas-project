@@ -3,6 +3,8 @@ package com.lucas.spring.services.service;
 import com.lucas.spring.model.entity.StatusEntity;
 import com.lucas.spring.model.entity.UserEntity;
 import java.util.ArrayList;
+
+import com.lucas.spring.model.models.AuthenticatedUser;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,7 +26,7 @@ public interface UserService {
    *
    * @return Returns the hashed format of the email addresses of the users.
    */
-  ArrayList<String> getAllUsersEmail();
+  ArrayList<AuthenticatedUser> getAllUsersEmail();
 
   /**
    * Save the provided email address.

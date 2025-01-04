@@ -33,7 +33,3 @@ create table tb_user_admin (
 	user_admin_id bigint PRIMARY KEY,
 	foreign key(user_admin_id) references tb_user_root(id)
 );
-
-INSERT INTO tb_status values(1, "Pending");
-INSERT INTO tb_status values(2, "Blocked");
-INSERT INTO tb_status values(3, "Activated");

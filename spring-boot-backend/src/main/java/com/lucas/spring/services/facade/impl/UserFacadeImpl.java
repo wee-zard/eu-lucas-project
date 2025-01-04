@@ -4,13 +4,15 @@ import com.lucas.spring.model.entity.StatusEntity;
 import com.lucas.spring.model.enums.EncryptionFailedEnums;
 import com.lucas.spring.model.enums.StatusEnum;
 import com.lucas.spring.model.expection.EncryptionFailedException;
+import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.services.facade.UserFacade;
 import com.lucas.spring.services.service.EncryptionService;
 import com.lucas.spring.services.service.StatusService;
 import com.lucas.spring.services.service.UserService;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +32,14 @@ public class UserFacadeImpl implements UserFacade {
    * {@inheritDoc}
    */
   @Override
-  public boolean isEmailExists(String emailAddress) {
+  public Optional<AuthenticatedUser> isEmailExists(String emailAddress) {
     return userService.getAllUsersEmail()
-        .stream()
-        .map(hashedEmail -> encryptionService.decrypt(hashedEmail))
-        .collect(Collectors.toCollection(ArrayList::new)
-        ).stream()
-        .anyMatch(nonHashedEmail -> nonHashedEmail != null
-                && nonHashedEmail.split(" ")[0].equals(emailAddress));
+            .stream()
+            .filter(user -> {
+              final String userNonHashedEmail = encryptionService.decrypt(user.getEmail());
+              return userNonHashedEmail != null
+                      && userNonHashedEmail.split(" ")[0].equals(emailAddress);
+            }).findFirst();
   }
 
   /**
@@ -60,7 +62,7 @@ public class UserFacadeImpl implements UserFacade {
    */
   @PostConstruct
   private void defaultUserAddition() {
-    ArrayList<String> userEmails = userService.getAllUsersEmail();
+    ArrayList<AuthenticatedUser> userEmails = userService.getAllUsersEmail();
     if (userEmails.isEmpty()) {
       saveEmailAddress(ADMIN);
     }

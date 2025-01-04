@@ -9,16 +9,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
  * An entity which is used to init the Bound boxes
  * that have been applied on the images.
  */
+@Builder
 @Getter
-@Setter
 @ToString
 @AllArgsConstructor
 @Entity(name = "BoundingBox")
