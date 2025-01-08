@@ -11,12 +11,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Data
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Entity(name = "PlantCommonName")
 @Table(name = "tb_plant_common_name")
 public class  PlantCommonNameEntity {

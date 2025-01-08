@@ -10,6 +10,7 @@ import { ProcedureFileMessages } from "@model/enum";
 import ProcedureResultRequest from "@model/request/ProcedureResultRequest";
 import ProcedureLogError from "@model/error/ProcedureLogError";
 import ProcedureLogUtils from "@helper/procedureLogUtils";
+import { uploadProcedureResult } from "@api/command/procedureCommands";
 
 const UploadProcedureScreen = () => {
   const [submitEvent, setSubmitEvent] =
@@ -69,20 +70,18 @@ const UploadProcedureScreen = () => {
               procedureModel.annotation.object
             ),
           };
-
-          // TODO: Send the new object to the backend for save.
-
-          console.log("Result Model:", requestModel);
+          uploadProcedureResult(requestModel).then((result) => {
+            addNewErrorFile(
+              result
+                ? ProcedureFileMessages.FileIsSuccessfullyUploaded
+                : ProcedureFileMessages.ErrorWhileProcessingFileAtServer,
+              file
+            );
+          });
         } catch (error: any) {
           if (error instanceof ProcedureLogError) {
             // Error occurred during the parse of the XML file.
-            setListOfModels((prev) => [
-              ...prev,
-              {
-                file: file,
-                message: error.message as ProcedureFileMessages,
-              },
-            ]);
+            addNewErrorFile(error.message as ProcedureFileMessages, file);
           }
         } finally {
           setListOfFiles(listOfFiles.filter((_, index) => index !== 0));
@@ -92,6 +91,16 @@ const UploadProcedureScreen = () => {
       setSubmitEvent(undefined);
     }
   }, [listOfFiles]);
+
+  const addNewErrorFile = (message: ProcedureFileMessages, file: File) => {
+    setListOfModels((prev) => [
+      ...prev,
+      {
+        file: file,
+        message: message,
+      },
+    ]);
+  };
 
   const displayDragAndDropComponent = () => {
     if (submitEvent) {

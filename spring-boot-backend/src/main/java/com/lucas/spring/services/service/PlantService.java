@@ -1,5 +1,6 @@
 package com.lucas.spring.services.service;
 
+import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.entity.PlantEntity;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -45,4 +46,14 @@ public interface PlantService {
    * @param plantEntity The updated entity we want to save.
    */
   PlantEntity updatePlant(PlantEntity plantEntity);
+
+  /**
+   * Add {@link ImageEntity} to the provided {@link PlantEntity}.
+   * This will create a relation between the plant and the image.
+   *
+   * @param plantEntity The plant which we want to add the image.
+   * @param imageEntity The image we want to add to the plant.
+   * @return Returns a {@link PlantEntity}.
+   */
+  PlantEntity addImageEntityToPlant(PlantEntity plantEntity, ImageEntity imageEntity);
 }

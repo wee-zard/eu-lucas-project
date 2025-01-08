@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -24,18 +25,17 @@ import lombok.Setter;
 @Entity(name = "Procedure")
 @Table(name = "tb_procedure")
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProcedureEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private final Long id;
-
+  private Long id;
   /**
    * The name of the procedure.
    */
   @Column(name = "name", unique = true, length = 200, nullable = false)
   private String name;
-
   /**
    * The user who created the procedure.
    */

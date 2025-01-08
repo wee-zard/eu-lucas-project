@@ -29,5 +29,5 @@ public class ProcedureResultObject {
    * Tells that at what percentage the detected plant
    * is invasive.
    */
-  private Number confidence;
+  private Integer confidence;
 }

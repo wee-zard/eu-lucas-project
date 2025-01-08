@@ -1,14 +1,18 @@
 package com.lucas.spring.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,30 +24,31 @@ import lombok.Setter;
 @Setter
 @Entity(name = "Plant")
 @Table(name = "tb_plant")
+@PrimaryKeyJoinColumn(name = "plantScientificName")
 public class PlantEntity extends PlantNameEntity {
   /**
    * Tells whether the plant is invasive or not.
    */
   @Column(name = "is_plant_invasive", length = 1, nullable = false)
-  private final Boolean isPlantInvasive;
+  private Boolean isPlantInvasive;
   /**
    * Stores the species category of the plant.
    */
   @ManyToOne
   @JoinColumn(name = "plant_species_name")
-  private final PlantSpeciesEntity plantSpeciesName;
+  private PlantSpeciesEntity plantSpeciesName;
   /**
    * Stores the images that have been associated
    * with this plant.
    * <a href="https://www.baeldung.com/jpa-many-to-many">Many-to-Man relations implementation</a>
    */
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(
       name = "tb_plant_in_image",
       joinColumns = @JoinColumn(name = "image_plant_name"),
       inverseJoinColumns = @JoinColumn(name = "image_id")
   )
-  private final Set<ImageEntity> listOfImages;
+  private Set<ImageEntity> listOfImages;
 
   /**
    * Init all the attributes of the entity.
@@ -69,6 +74,16 @@ public class PlantEntity extends PlantNameEntity {
   ) {
     super(plantScientificName);
     this.isPlantInvasive = isPlantInvasive;
+    this.plantSpeciesName = null;
+    this.listOfImages = new HashSet<>();
+  }
+
+  /**
+   * Init all the attributes of the entity.
+   */
+  public PlantEntity() {
+    super();
+    this.isPlantInvasive = null;
     this.plantSpeciesName = null;
     this.listOfImages = new HashSet<>();
   }

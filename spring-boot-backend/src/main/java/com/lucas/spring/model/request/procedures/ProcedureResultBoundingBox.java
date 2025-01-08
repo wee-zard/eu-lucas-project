@@ -12,8 +12,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ProcedureResultBoundingBox {
-  private Number xmin;
-  private Number ymin;
-  private Number xmax;
-  private Number ymax;
+  private Integer xmin;
+  private Integer ymin;
+  private Integer xmax;
+  private Integer ymax;
 }

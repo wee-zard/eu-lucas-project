@@ -40,6 +40,10 @@ export enum BackendImageControllerEndpoints {
   PostFilterImage = "/api/image/filter-images",
 }
 
+export enum BackendProcedureControllerEndpoints {
+  UploadProcedureLog = "/api/procedure/upload",
+}
+
 /**
  * Stores the backend endpoints in one place.
  */
@@ -52,6 +56,7 @@ export type BackendControllerEndpointTypes =
   | BackendCoordinateYControllerEndpoints
   | BackendExifKeyControllerEndpoints
   | BackendImageControllerEndpoints
+  | BackendProcedureControllerEndpoints
   ;
 
 /**
@@ -193,8 +198,13 @@ export enum RequestCommandTypes {
 }
 
 export enum ProcedureFileMessages {
+  ErrorWhileProcessingFileAtServer = "Váratlan hiba történt a fájl feldolgozása közben a szerver oldalon!",
   FileIsSuccessfullyUploaded = "A fájl sikeresen feltöltésre került!",
   FileExtensionIsNotXml = "Hiba! A fájl nem XML kiterjesztésű!",
   XmlToObjectError = "Hiba! Nem sikerült objektummá alakítani az XML fájlt!",
-  XmlDateInvalidFormat = "Hiba! A 'date' nem megfelelő formátumú! Elvárt formátum: 'ÉÉÉÉHHNNÓÓPP'",
+  XmlDateInvalidFormat = "Hiba! A 'date' nem megfelelő formátumú! Elvárt formátum: <date>ÉÉÉÉHHNNÓÓPP<date>",
+  ErrorExtractingProcedureMethodName = "Hiba! A 'method' nem megfelelő formátumú! Elvárt formátum: <method>$METHOD_NAME model='$LARGE' epochs='$EPOCH' param1='$PARAM1' param2='$PARAM2'</method>",
+  ErrorExtractingImageName = "Hiba! A 'filename' nem megfelelő formátumú! Elvárt formátum: <filename>$YEAR_$IMAGENAME_$POSTFIX.jpg</filename>",
+  ErrorInvasiveResultIsNotPresent = "Hiba! A 'name' nem tartalmazza a következő értékek valamelyikét:  '1db' vagy 'Homogén'!",
+  ErrorObjectNameIsInvalidFormat = "Hiba! A 'name' nem tartalmaz szóközt, amivel el lehetne választani a növény nevét a növény osztályozásától!"
 }

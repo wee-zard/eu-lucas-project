@@ -1,5 +1,6 @@
 package com.lucas.spring.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,11 +23,9 @@ import lombok.ToString;
  * Defines the structure of the Image entity
  * and the image table represent in the db.
  */
-@Data
 @Builder
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Image")
@@ -78,6 +77,6 @@ public class ImageEntity {
    * List of plants that have been found in the image
    * by a specific image analyzer.
    */
-  @ManyToMany(mappedBy = "listOfImages")
+  @ManyToMany(mappedBy = "listOfImages", cascade = CascadeType.ALL)
   private Set<PlantEntity> listOfPlants;
 }

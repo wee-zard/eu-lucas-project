@@ -4,11 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
 @AllArgsConstructor
+//@NoArgsConstructor
 @Entity(name = "PlantSpecies")
 @Table(name = "tb_plant_species")
 public class PlantSpeciesEntity extends PlantNameEntity {

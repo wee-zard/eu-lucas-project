@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 /**
@@ -21,6 +22,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Builder
 @Getter
 @AllArgsConstructor
+//@NoArgsConstructor
 @Entity(name = "ProcedureLog")
 @Table(name = "tb_procedure_log")
 public class ProcedureLogEntity {
@@ -30,7 +32,7 @@ public class ProcedureLogEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private final Long id;
+  private Long id;
   /**
    * The procedure that was used on the image.
    */

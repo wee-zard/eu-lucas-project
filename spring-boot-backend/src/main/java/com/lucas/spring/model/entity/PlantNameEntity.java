@@ -8,15 +8,16 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Data
+/**
+ * Defines the structure of the Plant Name entity
+ * that is the root of all Plant entities that stores
+ * the scientific name of the plants.
+ */
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "PlantName")

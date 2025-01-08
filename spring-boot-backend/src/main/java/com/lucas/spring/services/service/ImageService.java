@@ -1,6 +1,7 @@
 package com.lucas.spring.services.service;
 
 import com.lucas.spring.model.entity.ImageEntity;
+import com.lucas.spring.model.expection.ImageException;
 import com.lucas.spring.model.request.ImageRequest;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,7 @@ public interface ImageService {
    * @param name The name of the image.
    * @param year The year when the image was taken.
    * @return Returns a {@link ImageEntity} object if exists.
+   * @throws ImageException Thrown, when the image is not present in the db.
    */
-  Optional<ImageEntity> getImageByNameAndYear(String name, Number year);
+  ImageEntity getImageByNameAndYear(String name, Number year);
 }

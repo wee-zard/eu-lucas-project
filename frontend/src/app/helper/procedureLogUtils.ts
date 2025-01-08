@@ -28,24 +28,44 @@ const ProcedureLogUtils = {
     }
   },
 
-  getMethodNameByLog: (method: string) => method.split(" ")[0],
+  getMethodNameByLog: (method: string) => {
+    try {
+      return method.split(" ")[0];
+    } catch (error) {
+      throw new ProcedureLogError(
+        ProcedureFileMessages.ErrorExtractingProcedureMethodName
+      );
+    }
+  },
 
   getParamsByLog: (method: string) => {
-    return method
-      .split(" ")
-      .filter((element) => element.toLowerCase().includes("param"))
-      .map((element) => element.split("=")[1].replaceAll('"', ""))
-      .filter((element) => element.length > 0);
+    try {
+      return method
+        .split(" ")
+        .filter((element) => element.toLowerCase().includes("param"))
+        .map((element) => element.split("=")[1].replaceAll('"', ""))
+        .filter((element) => element.length > 0);
+    } catch (error) {
+      throw new ProcedureLogError(
+        ProcedureFileMessages.ErrorExtractingProcedureMethodName
+      );
+    }
   },
 
   getFileByLog: (file: string): ProcedureResultRequestFile => {
-    const splitFile = file.split("_");
-    const splitFileExtension = file.split(".");
-    return {
-      fileName: `${splitFile[1]}.${splitFileExtension[splitFileExtension.length - 1]}`,
-      year: Number(splitFile[0]),
-      countryCode: "HU",
-    };
+    try {
+      const splitFile = file.split("_");
+      const splitFileExtension = file.split(".");
+      return {
+        fileName: `${splitFile[1]}.${splitFileExtension[splitFileExtension.length - 1]}`,
+        year: Number(splitFile[0]),
+        countryCode: "HU",
+      };
+    } catch (error) {
+      throw new ProcedureLogError(
+        ProcedureFileMessages.ErrorExtractingImageName
+      );
+    }
   },
 
   getObjectsByLog: (
@@ -53,13 +73,23 @@ const ProcedureLogUtils = {
   ): ProcedureResultRequestObject[] => {
     return objects.map((object) => {
       const splitFileName = object.name.split(" ");
+      if (!object.name.includes("1db") && !object.name.includes("Homogén")) {
+        throw new ProcedureLogError(
+          ProcedureFileMessages.ErrorInvasiveResultIsNotPresent
+        );
+      }
+      if (splitFileName.length < 2) {
+        throw new ProcedureLogError(
+          ProcedureFileMessages.ErrorObjectNameIsInvalidFormat
+        );
+      }
       return {
         plantName: splitFileName
           .filter((_, index) => index !== splitFileName.length - 1)
           .join(" "),
         isInvasive: splitFileName[splitFileName.length - 1] === "1db",
         boundingBox: object.bndbox,
-        confidence: object.confidence ?  object.confidence * 100 : undefined,
+        confidence: object.confidence ? Math.round(object.confidence * 100) : undefined,
       };
     });
   },

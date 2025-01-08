@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -21,28 +22,29 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "BoundingBox")
 @Table(name = "tb_bounding_box")
 public class BoundingBoxEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private final Long id;
+  private Long id;
 
   @Column(name = "probability_of_detection", length = 3)
-  private Number probabilityOfDetection;
+  private Integer probabilityOfDetection;
 
   @Column(name = "min_coordinate_x", length = 4, nullable = false)
-  private Number minCoordinateX;
+  private Integer minCoordinateX;
 
   @Column(name = "max_coordinate_x", length = 4, nullable = false)
-  private Number maxCoordinateX;
+  private Integer maxCoordinateX;
 
   @Column(name = "min_coordinate_y", length = 4, nullable = false)
-  private Number minCoordinateY;
+  private Integer minCoordinateY;
 
   @Column(name = "max_coordinate_y", length = 4, nullable = false)
-  private Number maxCoordinateY;
+  private Integer maxCoordinateY;
 
   @Column(name = "is_homogenous", nullable = false, length = 1)
   private Boolean homogenous;

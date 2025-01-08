@@ -2,6 +2,8 @@ package com.lucas.spring.services.service.impl;
 
 import com.lucas.spring.database.repositories.ImageRepository;
 import com.lucas.spring.model.entity.ImageEntity;
+import com.lucas.spring.model.enums.ImageExceptionEnums;
+import com.lucas.spring.model.expection.ImageException;
 import com.lucas.spring.model.request.ImageRequest;
 import com.lucas.spring.services.service.ImageService;
 import java.util.Optional;
@@ -43,7 +45,10 @@ public class ImageServiceImpl implements ImageService {
    * {@inheritDoc}
    */
   @Override
-  public Optional<ImageEntity> getImageByNameAndYear(final String name, final Number year) {
-    return imageRepository.getEntityByNameAndYear(name, year);
+  public ImageEntity getImageByNameAndYear(final String name, final Number year) {
+    return imageRepository.getEntityByNameAndYear(name, year)
+            .orElseThrow(() -> new ImageException(
+                    ImageExceptionEnums.IMAGE_NOT_FOUND,
+                    String.format("%s %s", year, name)));
   }
 }

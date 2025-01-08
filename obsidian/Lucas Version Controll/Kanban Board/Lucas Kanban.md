@@ -54,6 +54,11 @@ kanban-plugin: board
 - [ ] [[124 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, miközben a képlekérdezések leáll]]
 - [ ] [[125 - Endpoint - Egyszerűsíteni az egyes Endpoint-ok neveit]]
 - [ ] [[126 - Exception - Generic Exception dobása - Exception osztályok egyesítése egy Generic osztállyá, amiből minden exception öröklődik]]
+- [ ] [[127 - Native Query ne kerüljön használatra a Repository-ban, mivel emiatt nem lesz Portable az SQL utasítás]]
+- [ ] [[128 - Integer - Helyettesíteni az int típust Integer típussal a backend oldalán]]
+- [ ] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]]
+- [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljünk el]]
+- [ ] [[133 - JpaRepository használata CrudRepository helyett]]
 
 
 ## 🔴ToDo
@@ -105,16 +110,18 @@ kanban-plugin: board
 ## 🟡In Progress
 
 - [ ] [[039 - Procedures oldal létrehozása]]
-- [ ] [[037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba]]
 - [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
 - [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
+- [ ] [[129 - XML Parsing - A frontend oldalon kerüljön egy loading ikon megjelenítésre a parse és a backend válasz megkapásáig]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[132 - Procedure Log - Képeket hozzárendelni növényekhez StackingOverflow hibát dob]]
+- [ ] [[037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba]]
 - [ ] [[122 - Az adatbázishoz tartozó rekordok kerüljenek betöltésre docker-ben]]
 - [ ] [[038 - Adatbázis feltöltése adatokkal]]
 - [ ] [[111 - Query Builder - Animáció - TransitionGroup animáció hozzáadása a Query Builder-hez]]
@@ -188,6 +195,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,true],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
+{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,false],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
 ```
 %%

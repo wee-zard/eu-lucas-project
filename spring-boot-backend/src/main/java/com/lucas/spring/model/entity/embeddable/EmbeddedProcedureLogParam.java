@@ -8,7 +8,9 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 /**
  * Defines a compact primary key that holds two columns of a table
@@ -20,6 +22,8 @@ import lombok.ToString;
 @ToString
 @Embeddable
 @AllArgsConstructor
+@NoArgsConstructor
+@Component
 public class EmbeddedProcedureLogParam {
   /**
    * The name of the param that is used in the procedure log.
