@@ -22,7 +22,6 @@ kanban-plugin: board
 - [ ] [[012 - FilterDialog ablakának dinamikus háttérszín adása a megjelenő Dark Light mode bekapcsolásával]]
 - [ ] [[016 - ExifData szűrés esetén az text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]]
 - [ ] [[018 - Licensz vizsgálat minden npm csomagra]]
-- [ ] [[020 - Google OAuth token csak 3 után kerüljön lejáratra az alapértelmezett 1 óra helyett]]
 - [ ] [[021 - Try-catch to axios http request methods, so we could handle the thrown exceptions]]
 - [ ] [[031 - Ha a törölt user bejelentkezve maradt, akkor ne tudjon kezdeményezni semmilyen utasítást]]
 - [ ] [[032 - Minden endpoint kerüljön authentikációhoz kötve]]
@@ -96,7 +95,6 @@ kanban-plugin: board
 
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
 - [ ] [[023 - Sidebar-on lévő menüpontok véglegesítése]]
-- [ ] [[026 - Report oldal implementálása]]
 - [ ] [[042 - Google OAuth oldal befejezése]]
 - [ ] [[052 - Loading komponens megjelenítése]]
 - [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]]
@@ -109,17 +107,19 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
+- [ ] [[020 - Google OAuth - új Access Token generálása a Refresh Token segítségével, a token lejárata véget]]
 - [ ] [[039 - Procedures oldal létrehozása]]
 - [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
 - [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
-- [ ] [[129 - XML Parsing - A frontend oldalon kerüljön egy loading ikon megjelenítésre a parse és a backend válasz megkapásáig]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[129 - XML Parsing - A frontend oldalon kerüljön egy loading ikon megjelenítésre a parse és a backend válasz megkapásáig]]
+- [ ] [[026 - Report oldal implementálása]]
 - [ ] [[132 - Procedure Log - Képeket hozzárendelni növényekhez StackingOverflow hibát dob]]
 - [ ] [[037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba]]
 - [ ] [[122 - Az adatbázishoz tartozó rekordok kerüljenek betöltésre docker-ben]]
@@ -195,6 +195,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,false],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
+{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,true],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
 ```
 %%

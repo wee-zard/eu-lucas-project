@@ -79,7 +79,14 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({
         <StyledInputHolder>
           <StyledSelectComponent
             inputTitle={"Query By"}
-            options={Object.values(FilterDialogFilterOptionNames)}
+            // TODO: Change it back to the following: Object.values(FilterDialogFilterOptionNames)
+            options={[
+              FilterDialogFilterOptionNames.Country,
+              FilterDialogFilterOptionNames.Direction,
+              FilterDialogFilterOptionNames.XCoordinates,
+              FilterDialogFilterOptionNames.YCoordinates,
+              FilterDialogFilterOptionNames.Year,
+            ].sort()}
             inputValue={
               ConversionUtils.FilterOptionsToFilterOptionNames(
                 states.filtered?.selectedFilterTab

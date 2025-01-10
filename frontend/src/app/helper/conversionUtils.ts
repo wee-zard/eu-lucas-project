@@ -6,12 +6,15 @@ import {
   OperatorComparableItems,
   OperatorSelectItemNames,
   OperatorSelectItems,
+  ReportTypes,
+  ReportTypesNames,
   ServersToConnectTo,
 } from "@model/enum";
 import { QueryConditions } from "@model/QueryBuilderModel";
 
 const imageServerPath = process.env.REACT_APP_USE_IMAGE_SERVER_PATH ?? "";
 const backendServerPath = process.env.REACT_APP_USE_BACKEND ?? "";
+const googleServerPath = process.env.REACT_APP_USE_GOOGLE_SERVER ?? "";
 
 export const ConversionUtils = {
   FilterOptionNamesToFilterOptions: (item: FilterDialogFilterOptionNames) => {
@@ -154,6 +157,26 @@ export const ConversionUtils = {
         return backendServerPath;
       case ServersToConnectTo.LucasImageServer:
         return imageServerPath;
+      case ServersToConnectTo.GoogleServer:
+        return googleServerPath;
+    }
+  },
+
+  ReportTypesNamesToReportTypes: (reportTypeName: ReportTypesNames) => {
+    switch (reportTypeName) {
+      case ReportTypesNames.BUG:
+        return ReportTypes.BUG;
+      case ReportTypesNames.REQUEST_FEATURE:
+        return ReportTypes.REQUEST_FEATURE;
+    }
+  },
+
+  ReportTypesToReportTypeNames: (reportType?: ReportTypes) => {
+    switch (reportType) {
+      case ReportTypes.BUG:
+        return ReportTypesNames.BUG;
+      case ReportTypes.REQUEST_FEATURE:
+        return ReportTypesNames.REQUEST_FEATURE;
     }
   },
 };

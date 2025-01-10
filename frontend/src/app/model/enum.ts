@@ -44,6 +44,13 @@ export enum BackendProcedureControllerEndpoints {
   UploadProcedureLog = "/api/procedure/upload",
 }
 
+export enum BackendSmtpEmailControllerEndpoints {
+  ReportEmail = "/api/email/report",
+}
+
+export enum GoogleTokenEndpoints {
+  Token = "/token",
+}
 /**
  * Stores the backend endpoints in one place.
  */
@@ -57,6 +64,7 @@ export type BackendControllerEndpointTypes =
   | BackendExifKeyControllerEndpoints
   | BackendImageControllerEndpoints
   | BackendProcedureControllerEndpoints
+  | BackendSmtpEmailControllerEndpoints
   ;
 
 /**
@@ -65,11 +73,18 @@ export type BackendControllerEndpointTypes =
 export type LucasImageServiceEndpointTypes = ImageServiceEndpoints;
 
 /**
+ * Stores the Google server endpoints in one place.
+ */
+export type GoogleServiceEndpointTypes = GoogleTokenEndpoints;
+
+/**
  * Universal type that hold the endpoints of the whole project.
  */
 export type RootEndpoints =
   | LucasImageServiceEndpointTypes
-  | BackendControllerEndpointTypes;
+  | BackendControllerEndpointTypes
+  | GoogleServiceEndpointTypes
+  ;
 
 /**
  * The list of servers where the api requests could be sent out to.
@@ -77,10 +92,12 @@ export type RootEndpoints =
 export enum ServersToConnectTo {
   Backend,
   LucasImageServer,
+  GoogleServer,
 }
 
 export enum LocalStorageKeys {
   GoogleOAuthToken = "google_oauth_token",
+  GoogleRefreshToken = "google-refresh-token",
   NotificationColor = "toolpad-mode",
   FilteringDialog = "filtering-dialog",
 }
@@ -207,4 +224,29 @@ export enum ProcedureFileMessages {
   ErrorExtractingImageName = "Hiba! A 'filename' nem megfelelő formátumú! Elvárt formátum: <filename>$YEAR_$IMAGENAME_$POSTFIX.jpg</filename>",
   ErrorInvasiveResultIsNotPresent = "Hiba! A 'name' nem tartalmazza a következő értékek valamelyikét:  '1db' vagy 'Homogén'!",
   ErrorObjectNameIsInvalidFormat = "Hiba! A 'name' nem tartalmaz szóközt, amivel el lehetne választani a növény nevét a növény osztályozásától!"
+}
+
+export enum ReportTypes {
+  BUG = "BUG",
+  REQUEST_FEATURE = "REQUEST_FEATURE",
+}
+
+export enum ReportTypesNames {
+  BUG = "Hibabejelentés",
+  REQUEST_FEATURE = "Javaslat",
+}
+
+export enum UniqueErrorResponseTypes {
+  UNAUTHORIZED = "UNAUTHORIZED",
+}
+
+export enum GuardResultTypes {
+  PENDING = 'PENDING',
+  FAILED = 'FAILED',
+  PASSED = 'PASSED',
+}
+
+export enum GuardTypes {
+  NOT_LOGGED_IN_GUARD = 'NOT_LOGGED_IN_GUARD',
+  GOOGLE_ACCOUNT_GUARD = 'GOOGLE_ACCOUNT_GUARD',
 }

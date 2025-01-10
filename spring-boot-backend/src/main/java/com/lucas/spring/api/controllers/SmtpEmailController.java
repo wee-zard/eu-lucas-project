@@ -23,16 +23,16 @@ public class SmtpEmailController {
   private final SmtpEmailService smtpEmailService;
 
   /**
-   * ...
+   * Upload a report log and send it out to an email address.
    *
-   * @param emailRequest ...
+   * @param emailRequest The email template we want to send to the server.
    */
   @CrossOrigin
-  @PostMapping("/report-log")
+  @PostMapping("/report")
   public String postReportEmail(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
+      @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
       @RequestBody final SmtpEmailRequest emailRequest
   ) throws MessagingException {
-    return smtpEmailService.sendSimpleMail(emailRequest);
+    return smtpEmailService.sendSimpleMail(emailRequest, authenticatedUser.getUserId());
   }
 }

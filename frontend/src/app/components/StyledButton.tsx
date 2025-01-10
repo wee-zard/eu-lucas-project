@@ -57,7 +57,7 @@ export default StyledButton;
 const CustomComponentGap = styled(StyledComponentGap)<{}>(() => ({
   gap: "8px",
   padding: "8px",
-}))
+}));
 
 const StyledIconHolder = styled.div<{}>(() => ({
   display: "flex"

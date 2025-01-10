@@ -24,3 +24,12 @@ Aktuális működés:
 Elvárt működés: 
 - Kitalálni, hogy pontosan milyen menüpontokat akarok megjeleníteni a Sidebar-on.
 - Ezen menüpontok mindegyikét megjeleníteni és megvalósítani.
+- Oldalak:
+	- [ ] Manual oldal
+	- [ ] Settings oldal
+	- [x] Report oldal
+	- [ ] Manage Users oldal
+	- [ ] Procedure oldal
+		- [x] XML fájlok feltöltése
+		- [ ] Manage Procedure & ProcedureLogs oldal
+	- [ ] Image Server implementálása?

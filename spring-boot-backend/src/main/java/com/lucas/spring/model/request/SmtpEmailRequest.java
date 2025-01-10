@@ -22,10 +22,6 @@ public class SmtpEmailRequest {
    */
   private ReportTypes reportType;
   /**
-   * The reporting user.
-   */
-  private Long user;
-  /**
    * The main content of the report.
    */
   private String message;

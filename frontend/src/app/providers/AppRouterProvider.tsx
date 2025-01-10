@@ -1,14 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationProvider from '@providers/NavigationProvider';
-import { urlNavigation } from '@navigation/UrlNavigations';
+import { navigationRoutes } from '@navigation/navigationRoutes';
 
 const AppRouterProvider = () => {
-
   return (
     <BrowserRouter>
       <Routes>
-        { urlNavigation.map((routerModel, index) => (
+        { navigationRoutes.map((routerModel, index) => (
           <Route 
             key={index}
             index={index === 0}

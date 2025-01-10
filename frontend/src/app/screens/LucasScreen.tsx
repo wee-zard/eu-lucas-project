@@ -7,6 +7,7 @@ import { NavigationSegments } from "@navigation/ToolpadNavigations";
 import TmpScreen from "@screens/TmpScreen";
 import FilteringScreen from "@screens/filteringScreen/FilteringScreen";
 import UploadProcedureScreen from "@screens/uploadProcedureScreen/UploadProcedureScreen";
+import ReportScreen from "@screens/ReportScreen";
 
 type Props = {
   navigation?: Navigation;
@@ -32,8 +33,8 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
         return <FilteringScreen />;
       case NavigationSegments.UploadProcedureResults:
         return <UploadProcedureScreen />;
-      case NavigationSegments.Dashboard:
-        return <TmpScreen></TmpScreen>;
+      case NavigationSegments.ReportError:
+        return <ReportScreen></ReportScreen>;
       default:
         return <TmpScreen></TmpScreen>;
     }

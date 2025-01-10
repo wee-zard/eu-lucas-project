@@ -11,6 +11,7 @@ import ProcedureResultRequest from "@model/request/ProcedureResultRequest";
 import ProcedureLogError from "@model/error/ProcedureLogError";
 import ProcedureLogUtils from "@helper/procedureLogUtils";
 import { uploadProcedureResult } from "@api/command/procedureCommands";
+import StyledBackdrop from "@components/StyledBackdrop";
 
 const UploadProcedureScreen = () => {
   const [submitEvent, setSubmitEvent] =
@@ -109,7 +110,7 @@ const UploadProcedureScreen = () => {
       return (
         <React.Fragment>
           <UploadIcon width={100} height={100} fill="gray" />
-          Drag & Drop fájlokat itt
+          Drag & Drop fájlokat ide
         </React.Fragment>
       );
     }
@@ -143,6 +144,7 @@ const UploadProcedureScreen = () => {
 
       <UploadFileAccordionCard listOfModels={listOfModels} />
       <UploadFileAccordionCard listOfModels={listOfModels} isErrorOnly />
+      <StyledBackdrop isBackdropOpen={!!submitEvent} />
     </StyledComponentGap>
   );
 };

@@ -1,5 +1,4 @@
-import guardGoogleAccount from "@guards/guardGoogleAccount";
-import { ScreenUrls } from "@model/enum";
+import { GuardTypes, ScreenUrls } from "@model/enum";
 import RouterModel from "@model/RouterModel";
 import DefaultScreen from "@screens/DefaultScreen";
 import LoginScreen from "@screens/LoginScreen";
@@ -7,24 +6,24 @@ import NotFoundScreen from "@screens/NotFoundScreen";
 import LucasScreen from "@screens/LucasScreen";
 import { navigation } from "@navigation/ToolpadNavigations";
 
-export const urlNavigation: RouterModel[] = [
+export const navigationRoutes: RouterModel[] = [
   {
     path: ScreenUrls.DefaultScreenPath,
     redirectionUrl: ScreenUrls.LucasScreenPath,
-    guards: [!guardGoogleAccount(true)],
-    component: <LucasScreen renderComponent={<DefaultScreen />} />
+    guards: [GuardTypes.NOT_LOGGED_IN_GUARD],
+    component: <LucasScreen renderComponent={<DefaultScreen />} />,
   },
   {
     path: ScreenUrls.LoginScreenPath,
     redirectionUrl: ScreenUrls.LucasScreenPath,
-    guards: [!guardGoogleAccount(true)],
-    component: <LucasScreen renderComponent={<LoginScreen />} />
+    guards: [GuardTypes.NOT_LOGGED_IN_GUARD],
+    component: <LucasScreen renderComponent={<LoginScreen />} />,
   },
   {
     path: ScreenUrls.LucasScreenPath,
     redirectionUrl: ScreenUrls.LoginScreenPath,
-    guards: [guardGoogleAccount(false)],
-    component: <LucasScreen navigation={navigation} />
+    guards: [GuardTypes.GOOGLE_ACCOUNT_GUARD],
+    component: <LucasScreen navigation={navigation} />,
   },
   {
     path: ScreenUrls.NotFoundScreenPath,

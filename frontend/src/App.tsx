@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  const googleOAuthProviderClientId = process.env.REACT_APP_USE_GOOGLE_OAUT_PROVIDER_CLIENT_ID ?? "";
+  const googleOAuthProviderClientId = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_ID ?? "";
 
   return (
     <div>

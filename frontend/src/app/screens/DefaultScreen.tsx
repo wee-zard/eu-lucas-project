@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
-import { ScreenUrls } from '../model/enum';
-import { redirectToUrl } from '../providers/RedirectionProvider';
+import React, { useEffect } from "react";
+import { ScreenUrls } from "../model/enum";
+import { redirectToUrl } from "../providers/RedirectionProvider";
 
 const DefaultScreen = () => {
+  useEffect(() => {
+    redirectToUrl(ScreenUrls.LoginScreenPath);
+  }, []);
 
-    useEffect(() => {
-        redirectToUrl(ScreenUrls.LoginScreenPath);
-    }, []);
-
-    return (
-        <React.Fragment></React.Fragment>
-    )
+  return <React.Fragment></React.Fragment>;
 };
 
 export default DefaultScreen;

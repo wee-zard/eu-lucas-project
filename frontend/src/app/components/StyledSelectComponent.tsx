@@ -7,13 +7,14 @@ import {
   SelectProps,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { customScrollBar } from "app/global/globalStyles";
+import { customScrollBar, StyledComponentGap } from "@global/globalStyles";
 
 type Props = {
   inputTitle?: string;
   options: string[];
   isDisabled?: boolean;
   inputValue?: string;
+  errorMessage?: string;
   setValue: (value: string) => void;
 };
 
@@ -22,6 +23,7 @@ const StyledSelectComponent = ({
   options,
   inputValue,
   isDisabled,
+  errorMessage,
   setValue,
 }: Props) => {
   const handleSelectionProcess = (event: any) => {
@@ -39,19 +41,25 @@ const StyledSelectComponent = ({
       required
       sx={{ ".MuiInputLabel-root": { top: "-5px" } }}
     >
-      <InputLabel>{inputTitle}</InputLabel>
-      <StyledSelect
-        value={getInputValue()}
-        label={inputTitle}
-        onChange={handleSelectionProcess}
-        disabled={isDisabled}
-      >
-        {options.map((option, index) => (
-          <MenuItem value={option} key={index}>
-            {option}
-          </MenuItem>
-        ))}
-      </StyledSelect>
+      <StyledComponentGap display={"grid"}>
+        <InputLabel>{inputTitle}</InputLabel>
+        <StyledSelect
+          value={getInputValue()}
+          label={inputTitle}
+          onChange={handleSelectionProcess}
+          disabled={isDisabled}
+          error={!!errorMessage}
+        >
+          {options.map((option, index) => (
+            <MenuItem value={option} key={index}>
+              {option}
+            </MenuItem>
+          ))}
+        </StyledSelect>
+        {errorMessage ? (
+          <StyledErrorMessageHolder>{errorMessage}</StyledErrorMessageHolder>
+        ) : null}
+      </StyledComponentGap>
     </FormControl>
   );
 };
@@ -60,6 +68,11 @@ export default StyledSelectComponent;
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
+
+export const StyledErrorMessageHolder = styled("div")<{}>((props) => ({
+  color: "red",
+  fontSize: "14px",
+}));
 
 const BaseSelect = styled(Select)(({ theme }) => ({
   height: "40px",

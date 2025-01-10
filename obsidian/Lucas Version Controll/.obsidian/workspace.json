@@ -22,12 +22,54 @@
                     false,
                     false,
                     false,
-                    false
+                    true
                   ]
                 }
               },
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
+            }
+          },
+          {
+            "id": "6eb404a271c06ae0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/020 - Google OAuth - új Access Token generálása a Refresh Token segítségével, a token lejárata véget.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "020 - Google OAuth - új Access Token generálása a Refresh Token segítségével, a token lejárata véget"
+            }
+          },
+          {
+            "id": "0eaad212d2084089",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "043 - Google OAuth gomb középre igazítása és stílus hozzáadása"
+            }
+          },
+          {
+            "id": "0a42f2246e7a3ea9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/028 - Alkalmazás dockerizálása.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "028 - Alkalmazás dockerizálása"
             }
           }
         ]
@@ -175,9 +217,15 @@
   },
   "active": "21dde8e84cff000a",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban.md",
+    "Kanban Board/Nodes/020 - Google OAuth - új Access Token generálása a Refresh Token segítségével, a token lejárata véget.md",
+    "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
     "Kanban Board/Lucas Kanban.md",
     "Kanban Board/Nodes/028 - Alkalmazás dockerizálása.md",
+    "Kanban Board/Nodes/049 - Custom Scrollbar stílus nincsen használva a Filtering Dialog űrlapj input mezőiben.md",
+    "Kanban Board/Nodes/023 - Sidebar-on lévő menüpontok véglegesítése.md",
+    "Kanban Board/Nodes/026 - Report oldal implementálása.md",
+    "Kanban Board/Nodes/072 - Query Builder optimalizáció és React memo használata.md",
+    "Kanban Board/Nodes/077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban.md",
     "Kanban Board/Nodes/129 - XML Parsing - A frontend oldalon kerüljön egy loading ikon megjelenítésre a parse és a backend válasz megkapásáig.md",
     "Kanban Board/Nodes/132 - Procedure Log - Képeket hozzárendelni növényekhez StackingOverflow hibát dob.md",
     "Kanban Board/Nodes/131 - ProcedureLog és BoundingBox duplikációkat kerüljünk el.md",
@@ -187,7 +235,6 @@
     "Kanban Board/Nodes/037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba.md",
     "Kanban Board/Nodes/128 - Integer - Helyettesíteni az int típust Integer típussal a backend oldalán.md",
     "Kanban Board/Nodes/127 - Native Query ne kerüljön használatra a Repository-ban, mivel emiatt nem lesz Portable az SQL utasítás.md",
-    "Kanban Board/Nodes/023 - Sidebar-on lévő menüpontok véglegesítése.md",
     "Kanban Board/Nodes/126 - Exception - Generic Exception dobása - Exception osztályok egyesítése egy Generic osztállyá, amiből minden exception öröklődik.md",
     "Kanban Board/Nodes/113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon.md",
     "Kanban Board/Nodes/125 - Endpoint - Egyszerűsíteni az egyes Endpoint-ok neveit.md",
@@ -196,11 +243,6 @@
     "Kanban Board/Nodes/038 - Adatbázis feltöltése adatokkal.md",
     "Kanban Board/Nodes/124 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, miközben a képlekérdezések leáll.md",
     "Kanban Board/Nodes/123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével.md",
-    "Kanban Board/Nodes/121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén.md",
-    "Kanban Board/Nodes/119 - Settings - Legyen egy gomb, amivel frissíteni lehet az adatbázisban lévő képinformációkat.md",
-    "Kanban Board/Nodes/118 - Adatbázos feltöltése a képekhez tartozó EXIF adatokkal.md",
-    "Kanban Board/Nodes/042 - Google OAuth oldal befejezése.md",
-    "Kanban Board/Nodes/052 - Loading komponens megjelenítése.md",
     "Kanban Board/Images/Pasted image 20241226130426.png",
     "Kanban Board/Images/Pasted image 20241226130403.png",
     "Pasted image 20241226130339.png",
