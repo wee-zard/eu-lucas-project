@@ -116,13 +116,13 @@ kanban-plugin: board
 - [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
 - [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
 - [ ] [[137 - Docker compose feltöltése Docker Hub-ra és az ottani repository levédése jelszóval]]
-- [ ] [[138 - Demo google fiók létrehozása és hozzáadása a projekthez, hogy a témavezetőm meg tudja tekinteni a projektet]]
 - [ ] [[139 - Dokumentálás - Dokumentálni a témavezetőmnek az alkalmazás letöltését és annak beütemezését]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[138 - Demo google fiók létrehozása és hozzáadása a projekthez, hogy a témavezetőm meg tudja tekinteni a projektet]]
 - [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[129 - XML Parsing - A frontend oldalon kerüljön egy loading ikon megjelenítésre a parse és a backend válasz megkapásáig]]
 - [ ] [[026 - Report oldal implementálása]]

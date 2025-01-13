@@ -12,7 +12,6 @@ import com.lucas.spring.services.service.UserService;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Optional;
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +26,7 @@ public class UserFacadeImpl implements UserFacade {
   private UserService userService;
   private StatusService statusService;
   private static final String ADMIN = "udvattila99@gmail.com";
+  private static final String GUEST_ADMIN = "lucas.eu.guest@gmail.com";
 
   /**
    * {@inheritDoc}
@@ -65,6 +65,7 @@ public class UserFacadeImpl implements UserFacade {
     ArrayList<AuthenticatedUser> userEmails = userService.getAllUsersEmail();
     if (userEmails.isEmpty()) {
       saveEmailAddress(ADMIN);
+      saveEmailAddress(GUEST_ADMIN);
     }
   }
 }
