@@ -1,42 +1,34 @@
 server:
   port: 8989
+#spring:
+#  batch:
+#    jdbc:
+#      initialize-schema: always
+#  application:
+#    name: lucas_backend
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    generate-ddl: false
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#===== Actuator HEALTH properties ======#
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
 spring:
-  batch:
-    jdbc:
-      initialize-schema: always
-  application:
-    name: lucas_backend
-  datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/lucasdb
-    username: root
-    password: GmcxryfsCLieHd0RwOJYkISNuKXqySaJVCL6lFucBApINviYOnGQ0HGeBXqvJaVYRPsfUhjONEcKlS
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: none #or update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
   flyway:
     enabled: true
-    url: jdbc:mysql://localhost:3306/lucasdb
-    password: GmcxryfsCLieHd0RwOJYkISNuKXqySaJVCL6lFucBApINviYOnGQ0HGeBXqvJaVYRPsfUhjONEcKlS
-    user: root
-    schemas: lucasdb
     locations: classpath:db/migration/lucasdb
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          #algorithms: RS256
-          #issuer-uri: https://accounts.google.com
-          #client-id: 881063630893-4uhl458c5h5lb4pm8rtuh8n1vq6eeueb.apps.googleusercontent.com
   mail:
     host: smtp.gmail.com
     port: 587
-    username: lucas.eu.noreply@gmail.com
-    recipient: udvattila99@gmail.com
     properties:
       mail:
         smtp:

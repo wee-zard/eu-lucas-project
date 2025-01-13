@@ -58,6 +58,9 @@ kanban-plugin: board
 - [ ] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]]
 - [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljünk el]]
 - [ ] [[133 - JpaRepository használata CrudRepository helyett]]
+- [ ] [[134 - Sebezhetőségek javítása a pom.xml-ben]]
+- [ ] [[135 - DefaultSqlScriptExecutor DB Integer display width is deprecated and will be removed in a future release. (SQL State HY000 - Error Code 1681)]]
+- [ ] [[136 - Backend Runtime Warning üzenetek javítása]]
 
 
 ## 🔴ToDo
@@ -109,15 +112,18 @@ kanban-plugin: board
 
 - [ ] [[020 - Google OAuth - új Access Token generálása a Refresh Token segítségével, a token lejárata véget]]
 - [ ] [[039 - Procedures oldal létrehozása]]
-- [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
 - [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
+- [ ] [[137 - Docker compose feltöltése Docker Hub-ra és az ottani repository levédése jelszóval]]
+- [ ] [[138 - Demo google fiók létrehozása és hozzáadása a projekthez, hogy a témavezetőm meg tudja tekinteni a projektet]]
+- [ ] [[139 - Dokumentálás - Dokumentálni a témavezetőmnek az alkalmazás letöltését és annak beütemezését]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[028 - Alkalmazás dockerizálása]]
 - [ ] [[129 - XML Parsing - A frontend oldalon kerüljön egy loading ikon megjelenítésre a parse és a backend válasz megkapásáig]]
 - [ ] [[026 - Report oldal implementálása]]
 - [ ] [[132 - Procedure Log - Képeket hozzárendelni növényekhez StackingOverflow hibát dob]]
