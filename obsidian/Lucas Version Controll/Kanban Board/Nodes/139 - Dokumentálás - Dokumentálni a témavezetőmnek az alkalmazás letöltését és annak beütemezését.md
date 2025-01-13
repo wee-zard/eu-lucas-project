@@ -14,12 +14,11 @@ Aktuális működés:
 
 Elvárt működés: 
 - Docker Hub
-	- [ ] Milyen repositoba van feltöltve a lucas projekt?
-	- [ ] Milyen jelszóval tudja letölteni azt?
-	- [ ] Hogyan tudja elindítnai a projektet, ami ezen repository-ban van? (milyen gombokat kell megnyomni a Docker Hub oldalán)
+	- [x] Milyen repositoba van feltöltve a lucas projekt?
+	- [x] Hogyan tudja elindítnai a projektet, ami ezen repository-ban van? (milyen gombokat kell megnyomni a Docker Hub oldalán)
 - Url
-	- [ ] Milyen url-en keresztül fogja tudni elérni az alkalmazást: http://localhost:3000
-	- [ ] Mik azok a portok, amik használatra kerültek az alkalmazás során: (80, 3000, 8989, 3307)
+	- [x] Milyen url-en keresztül fogja tudni elérni az alkalmazást: http://localhost:3000
+	- [x] Mik azok a portok, amik használatra kerültek az alkalmazás során: (80, 3000, 8989, 3307)
 - Adatbázis:
 	- [ ] Hogyan tud csatlakozni a docker container-ben futó adatbázishoz (port, szerepkör, adatbázis neve, jelszó, stb.)
 - Funkciók:

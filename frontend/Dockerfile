@@ -33,6 +33,20 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copying built assets from builder
 COPY --from=builder /app/build /usr/share/nginx/html
 
-EXPOSE 3000 80
+# We need to make sure not to run the container as a non root user
+# for better security
+WORKDIR /app
+RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
+        chown -R nginx:nginx /var/cache/nginx && \
+        chown -R nginx:nginx /var/log/nginx && \
+        chown -R nginx:nginx /etc/nginx/conf.d
+RUN touch /var/run/nginx.pid && \
+        chown -R nginx:nginx /var/run/nginx.pid
 
+USER nginx
+
+# Expose port 80 for the NGINX server
+EXPOSE 80
+
+# Command to start NGINX when the container is run
 CMD ["nginx", "-g", "daemon off;"]

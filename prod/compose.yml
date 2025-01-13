@@ -1,26 +1,20 @@
 version: "3"
 services:
   lucas-frontend:
+    image: udvattila99/lucas-eu-frontend
     restart: unless-stopped
-    build: ./frontend
     expose: 
       - '3000'
     ports:
       - '3000:80'
-    volumes:
-      - ./frontend/:/app
-      - ./frontend/node_modules:/app/node_modules
     environment:
       NODE_ENV: production
     depends_on:
       - lucas-backend
-      #  condition: service_healthy
-      #lucas-mysqldb:
-      #  condition: service_healthy
 
   lucas-backend:
+    image: udvattila99/lucas-eu-backend
     restart: unless-stopped
-    build: ./spring-boot-backend
     ports:
       - "8989:8989"
     environment:
@@ -32,16 +26,9 @@ services:
     depends_on:
       lucas-mysqldb:
         condition: service_healthy
-    #healthcheck:
-    #  test: curl -f http://lucas-backend:8989/actuator/health || exit 1
-    #  interval: 7s
-    #  retries: 10
-    #  timeout: 7s
 
   lucas-mysqldb:
     image: mysql:latest
-    #volumes:
-    #  -  /home/user/Desktop/db:/var/lib/mysql
     ports:
      - "3307:3307"
     environment:
