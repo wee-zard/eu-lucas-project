@@ -1,31 +1,23 @@
-import { LocalStorageUtils } from '@helper/localStorageUtil';
-import { QueryTypes } from '@model/enum';
-import {
-  QueryComponent,
-  QueryGroup,
-  QueryMultiType,
-} from "@model/QueryBuilderModel";
-import {
-  QueryBuilderModel,
-  QueryElementRelations,
-} from "@model/QueryBuilderModel";
-import { IdUtils } from './idUtils';
+import { LocalStorageUtils } from "@helper/localStorageUtil";
+import { QueryTypes } from "@model/enum";
+import { QueryComponent, QueryGroup, QueryMultiType } from "@model/QueryBuilderModel";
+import { QueryBuilderModel, QueryElementRelations } from "@model/QueryBuilderModel";
+import { IdUtils } from "./idUtils";
 
 export type StateUpdateProps<T> = {
-  root: QueryBuilderModel,
-  filtered: T,
-}
+  root: QueryBuilderModel;
+  filtered: T;
+};
 
 export const FilteringHelper = {
   modifyQueryBuilderModel: (
     modifiedQueryMultiTypes: QueryMultiType[],
-    queryBuilderModel: QueryBuilderModel
+    queryBuilderModel: QueryBuilderModel,
   ): QueryBuilderModel => ({
     ...queryBuilderModel,
     listOfQueries: modifiedQueryMultiTypes,
     queryElementRelation:
-      !queryBuilderModel.queryElementRelation &&
-      modifiedQueryMultiTypes.length === 2
+      !queryBuilderModel.queryElementRelation && modifiedQueryMultiTypes.length === 2
         ? QueryElementRelations.And
         : queryBuilderModel.queryElementRelation,
   }),
@@ -33,21 +25,19 @@ export const FilteringHelper = {
   handleSliceOutOldBranchReplaceWithNewOne: (
     queryBuilderModel: QueryBuilderModel,
     index: number,
-    modifiedMultiType?: QueryMultiType
+    modifiedMultiType?: QueryMultiType,
   ): QueryBuilderModel => {
     const newQueryBuilderModel: QueryBuilderModel = {
       ...queryBuilderModel,
       listOfQueries: modifiedMultiType
         ? queryBuilderModel.listOfQueries.map((multiType) =>
-            multiType.id === index ? modifiedMultiType : multiType
+            multiType.id === index ? modifiedMultiType : multiType,
           )
-        : queryBuilderModel.listOfQueries.filter(
-            (multiType) => multiType.id !== index
-          ),
+        : queryBuilderModel.listOfQueries.filter((multiType) => multiType.id !== index),
     };
     return FilteringHelper.modifyQueryBuilderModel(
       newQueryBuilderModel.listOfQueries,
-      newQueryBuilderModel
+      newQueryBuilderModel,
     );
   },
 
@@ -82,6 +72,7 @@ export const FilteringHelper = {
       } else if (queryMultiType.queryType === QueryTypes.QUERY_GROUP) {
         return getSubBranchOfQueryGroup(queryMultiType as QueryGroup);
       }
+      return undefined;
     };
 
     let result = getSubBranchOfComponent(root);
@@ -91,11 +82,11 @@ export const FilteringHelper = {
   handleFilteringQueryComponentChanges: (
     queryGroup: QueryGroup,
     queryComponent: QueryComponent,
-    modifiedQueryComponent?: QueryComponent
+    modifiedQueryComponent?: QueryComponent,
   ) => {
     if (modifiedQueryComponent) {
       const components = queryGroup.listOfComponents.map((item) =>
-        item.id === queryComponent.id ? modifiedQueryComponent : item
+        item.id === queryComponent.id ? modifiedQueryComponent : item,
       );
       const modifiedQueryGroup: QueryGroup = {
         ...queryGroup,
@@ -108,7 +99,7 @@ export const FilteringHelper = {
       return modifiedQueryGroup;
     } else {
       const components = queryGroup.listOfComponents.filter(
-        (item) => item.id !== queryComponent.id
+        (item) => item.id !== queryComponent.id,
       );
       const modifiedQueryGroup: QueryGroup = {
         ...queryGroup,
@@ -126,24 +117,22 @@ export const FilteringHelper = {
   handleFilterChanges: (
     root: QueryMultiType,
     id: number,
-    modifiedQueryComponent?: QueryComponent | QueryMultiType
+    modifiedQueryComponent?: QueryComponent | QueryMultiType,
   ): QueryBuilderModel => {
     const getSubBrachOfQueryBuilder = (
       queryBuilder: QueryBuilderModel,
-      callback: (modifiedQueryBuilderModel: QueryBuilderModel) => void
+      callback: (modifiedQueryBuilderModel: QueryBuilderModel) => void,
     ) => {
       let tmpResult: QueryMultiType | QueryComponent | undefined;
       for (const queryMultiType of queryBuilder.listOfQueries) {
-        const tmp = getSubBranchOfComponent(
-          queryMultiType,
-          (modifiedMultiType) =>
-            callback(
-              FilteringHelper.handleSliceOutOldBranchReplaceWithNewOne(
-                queryBuilder,
-                queryMultiType.id,
-                modifiedMultiType
-              )
-            )
+        const tmp = getSubBranchOfComponent(queryMultiType, (modifiedMultiType) =>
+          callback(
+            FilteringHelper.handleSliceOutOldBranchReplaceWithNewOne(
+              queryBuilder,
+              queryMultiType.id,
+              modifiedMultiType,
+            ),
+          ),
         );
         if (tmp) {
           tmpResult = tmp;
@@ -155,18 +144,16 @@ export const FilteringHelper = {
 
     const getSubBranchOfQueryGroup = (
       queryGroup: QueryGroup,
-      callback: (group?: QueryGroup) => void
+      callback: (group?: QueryGroup) => void,
     ) => {
-      const originalComponent = queryGroup.listOfComponents.find(
-        (item) => item.id === id
-      );
+      const originalComponent = queryGroup.listOfComponents.find((item) => item.id === id);
       if (originalComponent) {
         callback(
           FilteringHelper.handleFilteringQueryComponentChanges(
             queryGroup,
             originalComponent,
-            modifiedQueryComponent
-          )
+            modifiedQueryComponent,
+          ),
         );
       }
       return originalComponent;
@@ -175,19 +162,17 @@ export const FilteringHelper = {
     // Optimization needs
     const getSubBranchOfComponent = (
       queryMultiType: QueryMultiType,
-      callback: (queryMultiType?: QueryMultiType) => void
+      callback: (queryMultiType?: QueryMultiType) => void,
     ) => {
       if (queryMultiType.id === id) {
         callback(modifiedQueryComponent as QueryMultiType);
       }
       if (queryMultiType.queryType === QueryTypes.QUERY_BUILDER) {
-        return getSubBrachOfQueryBuilder(
-          queryMultiType as QueryBuilderModel,
-          callback
-        );
+        return getSubBrachOfQueryBuilder(queryMultiType as QueryBuilderModel, callback);
       } else if (queryMultiType.queryType === QueryTypes.QUERY_GROUP) {
         return getSubBranchOfQueryGroup(queryMultiType as QueryGroup, callback);
       }
+      return undefined;
     };
 
     let result: QueryBuilderModel | undefined;
@@ -199,9 +184,7 @@ export const FilteringHelper = {
   },
 
   sendUpdateEvent: (componentId: number) =>
-    window.dispatchEvent(
-      new Event(IdUtils.getEventListenerName(componentId))
-    ),
+    window.dispatchEvent(new Event(IdUtils.getEventListenerName(componentId))),
 
   /**
    * Give back the states from the local storage.
@@ -210,7 +193,7 @@ export const FilteringHelper = {
     const queryBuilderModel = LocalStorageUtils.getQueryBuilderModel();
     const builder = FilteringHelper.getBranchFromTreeById(
       LocalStorageUtils.getQueryBuilderModel(),
-      id
+      id,
     ) as T;
     return {
       root: queryBuilderModel,

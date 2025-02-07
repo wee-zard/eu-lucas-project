@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { StyledComponentGap } from "@global/globalStyles";
 import {
@@ -53,12 +52,10 @@ const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
                 <FilteringQueryRelation queryMultiType={queryMultiType} />
                 <StyledComponentGridGap $isWidthFull>
                   <StyledTransitionGroup unmountOnExit>
-                    {ArrayUtils.getListWithoutFirstElement<
-                      QueryMultiType | QueryComponent
-                    >(getListOfElements).map((element) => (
-                      <Collapse key={element.id}>
-                        {getFilteringComponent(element.id)}
-                      </Collapse>
+                    {ArrayUtils.getListWithoutFirstElement<QueryMultiType | QueryComponent>(
+                      getListOfElements,
+                    ).map((element) => (
+                      <Collapse key={element.id}>{getFilteringComponent(element.id)}</Collapse>
                     ))}
                   </StyledTransitionGroup>
                 </StyledComponentGridGap>
@@ -75,36 +72,34 @@ export default FilteringQueryBodyTemplate;
 
 export const minWidthOfRelationColumn = "100px";
 
-const StyledTransitionGroup = styled(TransitionGroup)<{}>((props) => ({
+const StyledTransitionGroup = styled(TransitionGroup)<{}>((_) => ({
   display: "grid",
   gap: "8px",
 }));
 
-const StyledMinWidthComponent = styled.div<{}>((props) => ({
+const StyledMinWidthComponent = styled.div<{}>((_) => ({
   minWidth: minWidthOfRelationColumn,
   display: "flex",
   justifyContent: "center",
 }));
 
-export const StyledQueryHolder = styled.div<{}>((props) => ({
+export const StyledQueryHolder = styled.div<{}>((_) => ({
   width: "100%",
   display: "grid",
   gap: "16px",
 }));
 
-const StyledComponentGridGap = styled.div<{ $isWidthFull?: boolean }>(
-  (props) => ({
-    display: "grid",
-    gap: "8px",
-    width: props.$isWidthFull ? "100%" : undefined,
-  })
-);
+const StyledComponentGridGap = styled.div<{ $isWidthFull?: boolean }>((props) => ({
+  display: "grid",
+  gap: "8px",
+  width: props.$isWidthFull ? "100%" : undefined,
+}));
 
-const StyledCustomComponentGap = styled(StyledComponentGap)<{}>((props) => ({
+const StyledCustomComponentGap = styled(StyledComponentGap)<{}>((_) => ({
   alignItems: "center",
   height: "100%",
 }));
 
-const StyledMaxWidthComponentHolder = styled.div<{}>((props) => ({
+const StyledMaxWidthComponentHolder = styled.div<{}>((_) => ({
   width: "100%",
 }));

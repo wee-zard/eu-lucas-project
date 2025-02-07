@@ -1,9 +1,5 @@
-import React from "react";
 import { StyledComponentGap } from "@global/globalStyles";
-import {
-  setFilteringPageableProperties,
-  setFilterMenuAction,
-} from "@redux/actions/imageActions";
+import { setFilteringPageableProperties, setFilterMenuAction } from "@redux/actions/imageActions";
 import { selectImageStorage } from "@redux/selectors/imageSelector";
 import { useDispatch, useSelector } from "react-redux";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -25,7 +21,7 @@ const FilteringDialogImageDisplayPagination = () => {
         setFilteringPageableProperties({
           ...filteringPageableProperties,
           pageNo: filteringPageableProperties.pageNo - filteringPageableProperties.pageSize,
-        })
+        }),
       );
     }
   };
@@ -36,7 +32,7 @@ const FilteringDialogImageDisplayPagination = () => {
       setFilteringPageableProperties({
         ...filteringPageableProperties,
         pageNo: filteringPageableProperties.pageNo + filteringPageableProperties.pageSize,
-      })
+      }),
     );
   };
 
@@ -47,10 +43,7 @@ const FilteringDialogImageDisplayPagination = () => {
         isDisabled={filteringPageableProperties.pageNo === 0}
         onClick={handleLeftPaginationClick}
       />
-      <StyledIconButton
-        buttonIcon={<ChevronRightIcon />}
-        onClick={handleRightPaginationClick}
-      />
+      <StyledIconButton buttonIcon={<ChevronRightIcon />} onClick={handleRightPaginationClick} />
     </StyledComponentGap>
   );
 };

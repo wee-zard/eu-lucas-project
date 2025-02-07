@@ -1,9 +1,4 @@
-import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectIsDialogOpen } from "@redux/selectors/dialogSelector";
 import { DialogToOpens } from "@model/enum";
@@ -11,17 +6,14 @@ import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";
 import { setDialogToOpen } from "@redux/actions/dialogActions";
 import styled from "@emotion/styled";
-import {
-  StyledComponentGap,
-  StyledFullWidthAndHeight,
-} from "@global/globalStyles";
+import { StyledComponentGap, StyledFullWidthAndHeight } from "@global/globalStyles";
 import FilteringMenu from "@dialogs/filteringDialog/FilteringMenu";
 import FilteringDialogImageDisplay from "@dialogs/filteringDialog/FilteringDialogImageDisplay";
 import FilteringDialogActions from "@dialogs/filteringDialog/FilteringDialogActions";
 
 const FilteringDialog = () => {
   const dialogToOpen = useSelector((state) =>
-    selectIsDialogOpen(state as RootState, DialogToOpens.FilteringDialog)
+    selectIsDialogOpen(state as RootState, DialogToOpens.FilteringDialog),
   );
   const dispatch = useDispatch();
 
@@ -43,7 +35,7 @@ const FilteringDialog = () => {
 
 export default FilteringDialog;
 
-const StyledDialog = styled(Dialog)<{}>((props) => ({
+const StyledDialog = styled(Dialog)<{}>((_) => ({
   "& .MuiPaper-root": {
     ...StyledFullWidthAndHeight(),
     maxWidth: "80%",
@@ -59,12 +51,12 @@ const StyledDialogTitle = styled(DialogTitle)<{}>(() => ({
   padding: "16px",
 }));
 
-const StyledDialogContentHolder = styled(StyledComponentGap)<{}>((props) => ({
+const StyledDialogContentHolder = styled(StyledComponentGap)<{}>((_) => ({
   gap: "16px",
   width: "100%",
 }));
 
-const StyledDialogContent = styled(DialogContent)<{}>((props) => ({
+const StyledDialogContent = styled(DialogContent)<{}>((_) => ({
   padding: "0px",
   overflowY: "hidden",
   display: "flex",

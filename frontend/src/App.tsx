@@ -1,4 +1,3 @@
-import React from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import AppRouterProvider from './app/providers/AppRouterProvider';
 import { ToastContainer } from "react-toastify";

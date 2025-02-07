@@ -23,25 +23,25 @@ export const windowBorders = () => {
 };
 
 export type ScrollBarProps = {
-  width: string,
-}
+  width: string;
+};
 
 export const customScrollBar = (obj?: ScrollBarProps) => ({
-  '::-webkit-scrollbar': {
-    width: obj?.width ?? '5px',
+  "::-webkit-scrollbar": {
+    width: obj?.width ?? "5px",
   },
-  '::-webkit-scrollbar-track': {
-    '-webkit-box-shadow': 'inset 0 0 6px rgba(0, 0, 50, 0.35)',
+  "::-webkit-scrollbar-track": {
+    "-webkit-box-shadow": "inset 0 0 6px rgba(0, 0, 50, 0.35)",
     borderRadius: "12px",
   },
-  '::-webkit-scrollbar-thumb': {
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
-    outline: '1px solid gray',
+  "::-webkit-scrollbar-thumb": {
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
+    outline: "1px solid gray",
     borderRadius: "12px",
-  }
+  },
 });
 
-export const StyledScrollBarHolder = styled.div<{}>((props) => ({
+export const StyledScrollBarHolder = styled.div<{}>((_) => ({
   overflow: "auto",
   overflowX: "hidden",
   ...customScrollBar(),

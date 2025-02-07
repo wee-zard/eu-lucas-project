@@ -1,4 +1,3 @@
-import React from "react";
 import Zoom from "@mui/material/Zoom";
 
 type Props = {
@@ -8,14 +7,8 @@ type Props = {
   children: JSX.Element;
 };
 
-const StyledZoomMap = ({
-  index,
-  zoomIn = true,
-  transitionDelay = 350,
-  children,
-}: Props) => {
-  const getTransitionDelayByIndex = (delay: number) =>
-    `${delay * index}ms`;
+const StyledZoomMap = ({ index, zoomIn = true, transitionDelay = 350, children }: Props) => {
+  const getTransitionDelayByIndex = (delay: number) => `${delay * index}ms`;
 
   return (
     <Zoom

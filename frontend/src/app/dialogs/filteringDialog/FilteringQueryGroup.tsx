@@ -10,9 +10,7 @@ type Props = {
   id: number;
 };
 
-const FilteringQueryGroup = React.memo(function FilteringQueryGroup({
-  id,
-}: Props) {
+const FilteringQueryGroup = React.memo(function FilteringQueryGroup({ id }: Props) {
   console.log("[FilteringQueryGroup]: RENDERED");
 
   const renderComponent = () => {
@@ -50,13 +48,13 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({
 
 export default FilteringQueryGroup;
 
-export const StyledQueryHolder = styled.div<{}>((props) => ({
+export const StyledQueryHolder = styled.div<{}>((_) => ({
   width: "100%",
   display: "grid",
   gap: "16px",
 }));
 
-const StyledQueryComponentHolder = styled.div<{}>((props) => ({
+const StyledQueryComponentHolder = styled.div<{}>((_) => ({
   display: "grid",
   gap: "16px",
   margin: "16px 0 16px 16px",
@@ -66,7 +64,7 @@ const StyledQueryComponentHolder = styled.div<{}>((props) => ({
   borderRadius: "12px",
 }));
 
-const StyledEmptyGroupHolder = styled.div<{}>((props) => ({
+const StyledEmptyGroupHolder = styled.div<{}>((_) => ({
   margin: "16px",
   borderLeft: "2px solid orange",
   padding: "8px",

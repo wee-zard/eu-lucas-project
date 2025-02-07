@@ -72,7 +72,7 @@ const UploadFileAccordionCard = ({ listOfModels, isErrorOnly }: Props) => {
 
 export default UploadFileAccordionCard;
 
-const StyledCollapse = styled(Collapse)<{}>((props) => ({
+const StyledCollapse = styled(Collapse)<{}>((_) => ({
   ...uploadProcedureCommonStyles,
 }));
 
@@ -82,7 +82,7 @@ const StyledMessageHolder = styled("div")<{ $isError?: boolean }>((props) => ({
   fontSize: "x-large",
 }));
 
-const StyledRightFileHolder = styled("div")<{}>((props) => ({
+const StyledRightFileHolder = styled("div")<{}>((_) => ({
   display: "grid",
   alignItems: "center",
   width: "100%",
@@ -98,7 +98,7 @@ const StyledFileHolder = styled("div")<{ $isError?: boolean }>((props) => ({
   gap: 16,
 }));
 
-const StyledTransitionGroup = styled(TransitionGroup)<{}>((props) => ({
+const StyledTransitionGroup = styled(TransitionGroup)<{}>((_) => ({
   display: "grid",
   gap: "32px",
 }));

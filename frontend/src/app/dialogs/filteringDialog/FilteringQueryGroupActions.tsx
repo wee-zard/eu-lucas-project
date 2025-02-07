@@ -16,78 +16,71 @@ type Props = {
   id: number;
 };
 
-const FilteringQueryGroupActions = React.memo(
-  function FilteringQueryGroupActions({ id }: Props) {
-    console.log("[FilteringQueryGroupActions]: RENDERED");
+const FilteringQueryGroupActions = React.memo(function FilteringQueryGroupActions({ id }: Props) {
+  console.log("[FilteringQueryGroupActions]: RENDERED");
 
-    /*
-     * One button must be displayed here for the purpose
-     * of adding new {@link QueryComponent} type of objects into the list
-     * and displaying them in the menu.
-     *
-     * If the number of components in the group are exactly two,
-     * then assign an AND value to the {@link QueryElementRelations}.
-     * This will be the default relation between the components,
-     * what the users could overwrite later.
-     */
-    const handleOnClickAddFilterCondition = () => {
-      const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
-      const modifiedQueryComponents: QueryComponent[] = [
-        ...states.filtered.listOfComponents,
-        { id: getNewIdToElement(), parentId: states.filtered.id },
-      ];
-      const modifiedQueryGroup: QueryGroup = {
-        ...states.filtered,
-        listOfComponents: modifiedQueryComponents,
-        queryElementRelation:
-          !states.filtered.queryElementRelation &&
-          modifiedQueryComponents.length === 2
-            ? QueryElementRelations.And
-            : states.filtered.queryElementRelation,
-      };
-      const obj = FilteringHelper.handleFilterChanges(
-        states.root,
-        id,
-        modifiedQueryGroup
-      );
-      LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
-      // Update the component itself on changes.
-      FilteringHelper.sendUpdateEvent(states.filtered.id);
+  /*
+   * One button must be displayed here for the purpose
+   * of adding new {@link QueryComponent} type of objects into the list
+   * and displaying them in the menu.
+   *
+   * If the number of components in the group are exactly two,
+   * then assign an AND value to the {@link QueryElementRelations}.
+   * This will be the default relation between the components,
+   * what the users could overwrite later.
+   */
+  const handleOnClickAddFilterCondition = () => {
+    const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
+    const modifiedQueryComponents: QueryComponent[] = [
+      ...states.filtered.listOfComponents,
+      { id: getNewIdToElement(), parentId: states.filtered.id },
+    ];
+    const modifiedQueryGroup: QueryGroup = {
+      ...states.filtered,
+      listOfComponents: modifiedQueryComponents,
+      queryElementRelation:
+        !states.filtered.queryElementRelation && modifiedQueryComponents.length === 2
+          ? QueryElementRelations.And
+          : states.filtered.queryElementRelation,
     };
+    const obj = FilteringHelper.handleFilterChanges(states.root, id, modifiedQueryGroup);
+    LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
+    // Update the component itself on changes.
+    FilteringHelper.sendUpdateEvent(states.filtered.id);
+  };
 
-    const handleOnClickRemoveQueryGroup = () => {
-      const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
-      const obj = FilteringHelper.handleFilterChanges(states.root, id);
-      LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
-      FilteringHelper.sendUpdateEvent(states.filtered.parentId);
-    };
+  const handleOnClickRemoveQueryGroup = () => {
+    const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
+    const obj = FilteringHelper.handleFilterChanges(states.root, id);
+    LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
+    FilteringHelper.sendUpdateEvent(states.filtered.parentId);
+  };
 
-    return (
-      <StyledGroupActionsHolder>
-        <StyledIconButton
-          buttonIcon={<AddCircleOutlineIcon />}
-          tooltip={{
-            tooltipTitle: "Add Filter Condition",
-            tooltipPlacement: "top",
-          }}
-          onClick={handleOnClickAddFilterCondition}
-        />
-        <StyledIconButton
-          buttonIcon={<DeleteForeverOutlinedIcon />}
-          tooltip={{
-            tooltipTitle: "Remove Query Group",
-            tooltipPlacement: "right-start",
-          }}
-          onClick={handleOnClickRemoveQueryGroup}
-        />
-      </StyledGroupActionsHolder>
-    );
-  }
-);
+  return (
+    <StyledGroupActionsHolder>
+      <StyledIconButton
+        buttonIcon={<AddCircleOutlineIcon />}
+        tooltip={{
+          tooltipTitle: "Add Filter Condition",
+          tooltipPlacement: "top",
+        }}
+        onClick={handleOnClickAddFilterCondition}
+      />
+      <StyledIconButton
+        buttonIcon={<DeleteForeverOutlinedIcon />}
+        tooltip={{
+          tooltipTitle: "Remove Query Group",
+          tooltipPlacement: "right-start",
+        }}
+        onClick={handleOnClickRemoveQueryGroup}
+      />
+    </StyledGroupActionsHolder>
+  );
+});
 
 export default FilteringQueryGroupActions;
 
-const StyledGroupActionsHolder = styled.div<{}>((props) => ({
+const StyledGroupActionsHolder = styled.div<{}>((_) => ({
   display: "flex",
   gap: "16px",
   justifyContent: "end",

@@ -35,7 +35,7 @@ const UploadFileCard = ({ file }: Props) => {
 
 export default UploadFileCard;
 
-const StyledRightFileHolder = styled("div")<{}>((props) => ({
+const StyledRightFileHolder = styled("div")<{}>((_) => ({
   display: "grid",
   alignItems: "center",
   width: "100%",

@@ -10,9 +10,7 @@ type Props = {
   id: number;
 };
 
-const FilteringQueryBuilder = React.memo(function FilteringQueryBuilder({
-  id,
-}: Props) {
+const FilteringQueryBuilder = React.memo(function FilteringQueryBuilder({ id }: Props) {
   console.log("[FilteringQueryBuilder]: RENDERED");
 
   const renderComponent = () => {
@@ -41,7 +39,7 @@ const FilteringQueryBuilder = React.memo(function FilteringQueryBuilder({
 
   useEffect(() => {
     const eventName = IdUtils.getEventListenerName(
-      FilteringHelper.getUpdatedStates<QueryBuilderModel>(id).filtered.id
+      FilteringHelper.getUpdatedStates<QueryBuilderModel>(id).filtered.id,
     );
     window.addEventListener(eventName, updateElement);
     return () => window.removeEventListener(eventName, updateElement);
@@ -52,7 +50,7 @@ const FilteringQueryBuilder = React.memo(function FilteringQueryBuilder({
 
 export default FilteringQueryBuilder;
 
-const StyledEmptyQueryBuilderHolder = styled.div<{}>((props) => ({
+const StyledEmptyQueryBuilderHolder = styled.div<{}>((_) => ({
   margin: "16px",
   borderLeft: "2px solid yellow",
   padding: "8px",

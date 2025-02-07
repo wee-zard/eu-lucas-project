@@ -1,4 +1,3 @@
-import React from "react";
 import {
   initFirstQueryParent,
   initQueryBuilderObj,
@@ -15,7 +14,7 @@ import { LocalStorageUtils } from "@helper/localStorageUtil";
 import styled from "@emotion/styled";
 
 type Props = {
-  id: number,
+  id: number;
   states: StateUpdateProps<QueryBuilderModel>;
 };
 
@@ -35,12 +34,12 @@ const FilteringQueryBuilderActions = ({ id, states }: Props) => {
     ];
     const modifiedQueryBuilderModel = FilteringHelper.modifyQueryBuilderModel(
       modifiedQueryMultiTypes,
-      localStates.filtered
+      localStates.filtered,
     );
     const obj = FilteringHelper.handleFilterChanges(
       localStates.root,
       localStates.filtered.id,
-      modifiedQueryBuilderModel
+      modifiedQueryBuilderModel,
     );
     LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
     FilteringHelper.sendUpdateEvent(localStates.filtered.id);
@@ -54,12 +53,12 @@ const FilteringQueryBuilderActions = ({ id, states }: Props) => {
     ];
     const modifiedQueryBuilderModel = FilteringHelper.modifyQueryBuilderModel(
       modifiedQueryMultiTypes,
-      localStates.filtered
+      localStates.filtered,
     );
     const obj = FilteringHelper.handleFilterChanges(
       localStates.root,
       localStates.filtered.id,
-      modifiedQueryBuilderModel
+      modifiedQueryBuilderModel,
     );
     LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
     FilteringHelper.sendUpdateEvent(localStates.filtered.id);
@@ -101,7 +100,7 @@ const FilteringQueryBuilderActions = ({ id, states }: Props) => {
 
 export default FilteringQueryBuilderActions;
 
-const StyledActionsHolder = styled.div<{}>((props) => ({
+const StyledActionsHolder = styled.div<{}>((_) => ({
   display: "flex",
   justifyContent: "space-between",
 }));

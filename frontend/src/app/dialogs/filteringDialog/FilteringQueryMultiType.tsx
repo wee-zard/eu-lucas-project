@@ -11,9 +11,7 @@ type Props = {
   id: number;
 };
 
-const FilteringQueryMultiType = React.memo(function FilteringQueryMultiType({
-  id,
-}: Props) {
+const FilteringQueryMultiType = React.memo(function FilteringQueryMultiType({ id }: Props) {
   console.log("[FilteringQueryMultiType]: RENDERED");
 
   const renderComponent = () => {
@@ -43,7 +41,7 @@ const FilteringQueryMultiType = React.memo(function FilteringQueryMultiType({
 
 export default FilteringQueryMultiType;
 
-const StyledQueryBuilderHolder = styled.div<{}>((props) => ({
+const StyledQueryBuilderHolder = styled.div<{}>((_) => ({
   display: "grid",
   gap: "8px",
   margin: "16px 0 16px 16px",

@@ -6,15 +6,10 @@ import StyledTextFieldComponent from "@components/StyledTextFieldComponent";
 import { StyledInputHolder } from "@dialogs/filteringDialog/FilteringMenu";
 import { StyledComponentGap } from "@global/globalStyles";
 import { ConversionUtils } from "@helper/conversionUtils";
-import {
-  NotificationSeverity,
-  throwNotification,
-} from "@helper/notificationUtil";
+import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
 import { ReportTypes, ReportTypesNames } from "@model/enum";
-import SmtpEmailRequest, {
-  SmtpEmailRequestError,
-} from "@model/request/SmtpEmailRequest";
-import React, { useState } from "react";
+import SmtpEmailRequest, { SmtpEmailRequestError } from "@model/request/SmtpEmailRequest";
+import { useState } from "react";
 
 const ReportScreen = () => {
   const titleCharacterLimit = 200;
@@ -25,14 +20,8 @@ const ReportScreen = () => {
 
   const handleReportTitleChange = (title: string) => {
     if (title.length <= titleCharacterLimit) {
-      setRequest({
-        ...request,
-        title,
-      });
-      setRequestError({
-        ...requestError,
-        title: undefined,
-      });
+      setRequest({ ...request, title });
+      setRequestError({ ...requestError, title: undefined });
     }
   };
 
@@ -62,20 +51,17 @@ const ReportScreen = () => {
 
   const getReportTypesNames = (value: unknown) => {
     handleReportTypeSelection(
-      ConversionUtils.ReportTypesNamesToReportTypes(value as ReportTypesNames)
+      ConversionUtils.ReportTypesNamesToReportTypes(value as ReportTypesNames),
     );
   };
 
-  const getReportTypes =
-    ConversionUtils.ReportTypesToReportTypeNames(request?.reportType) ?? "";
+  const getReportTypes = ConversionUtils.ReportTypesToReportTypeNames(request?.reportType) ?? "";
 
   const submitReport = () => {
     setDisabled(true);
     const tmpError: SmtpEmailRequestError = {
       title: !!request.title ? undefined : "A mező kitöltése kötelező",
-      reportType: !!request.reportType
-        ? undefined
-        : "A mező kitöltése kötelező",
+      reportType: !!request.reportType ? undefined : "A mező kitöltése kötelező",
       message: !!request.message ? undefined : "A mező kitöltése kötelező",
     };
     const isErrorNotFound = Object.values(tmpError).every((error) => !error);
@@ -86,16 +72,13 @@ const ReportScreen = () => {
             setRequest(new SmtpEmailRequest());
             throwNotification(
               NotificationSeverity.Success,
-              "A bejelentés sikeresen el lett küldve!"
+              "A bejelentés sikeresen el lett küldve!",
             );
           }
           setDisabled(false);
         })
-        .catch((error) =>
-          throwNotification(
-            NotificationSeverity.Error,
-            "A bejelentést nem sikerült elküldeni!"
-          )
+        .catch((_) =>
+          throwNotification(NotificationSeverity.Error, "A bejelentést nem sikerült elküldeni!"),
         );
     } else {
       setDisabled(false);

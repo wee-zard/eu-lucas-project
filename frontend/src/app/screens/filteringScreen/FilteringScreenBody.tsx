@@ -16,12 +16,9 @@ const FilteringScreenBody = () => {
           {listOfSelectedImages.map((selectedImageModel) =>
             selectedImageModel.images.map((imageDto) => (
               <React.Fragment key={`${selectedImageModel.id}-${imageDto.id}`}>
-                <ImageCard
-                  imageDto={imageDto}
-                  imageModel={selectedImageModel}
-                />
+                <ImageCard imageDto={imageDto} imageModel={selectedImageModel} />
               </React.Fragment>
-            ))
+            )),
           )}
         </StyledCardsHolder>
       )}
@@ -31,12 +28,12 @@ const FilteringScreenBody = () => {
 
 export default FilteringScreenBody;
 
-const StyledCardsHolder = styled(StyledComponentGap)<{}>((props) => ({
+const StyledCardsHolder = styled(StyledComponentGap)<{}>((_) => ({
   flexWrap: "wrap",
   display: "flex",
 }));
 
-const StyledEmptyBody = styled.div<{}>((props) => ({
+const StyledEmptyBody = styled.div<{}>((_) => ({
   display: "flex",
   justifyContent: "center",
   fontStyle: "italic",

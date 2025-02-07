@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import {
   QueryBuilderModel,
@@ -25,13 +24,11 @@ const FilteringQueryRelation = ({ queryMultiType }: Props) => {
       ? (queryMultiType as QueryBuilderModel).listOfQueries.length > 2
       : (queryMultiType as QueryGroup).listOfComponents.length > 2;
 
-  const handleFilteringChanges = (
-    modifiedQuery: QueryComponent | QueryMultiType
-  ) => {
+  const handleFilteringChanges = (modifiedQuery: QueryComponent | QueryMultiType) => {
     const obj = FilteringHelper.handleFilterChanges(
       LocalStorageUtils.getQueryBuilderModel(),
       queryMultiType.id,
-      modifiedQuery
+      modifiedQuery,
     );
     LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
     // Update the component itself on changes.
@@ -72,7 +69,7 @@ const FilteringQueryRelation = ({ queryMultiType }: Props) => {
 
 export default FilteringQueryRelation;
 
-const StyledQueryRelationHolder = styled.div<{}>((props) => ({
+const StyledQueryRelationHolder = styled.div<{}>((_) => ({
   display: "flex",
   flexDirection: "column",
   gap: "16px",
@@ -81,7 +78,7 @@ const StyledQueryRelationHolder = styled.div<{}>((props) => ({
   minWidth: minWidthOfRelationColumn,
 }));
 
-const StyledQueryRelationInputHolder = styled.div<{}>((props) => ({
+const StyledQueryRelationInputHolder = styled.div<{}>((_) => ({
   height: "100%",
   display: "contents",
 }));
@@ -91,7 +88,7 @@ const commonStyles = {
   borderRadius: "16px",
 };
 
-const StyledRootQueryRelationHolder = styled.div<{}>((props) => ({
+const StyledRootQueryRelationHolder = styled.div<{}>((_) => ({
   display: "flex",
   height: "100%",
   justifyContent: "center",
@@ -99,16 +96,12 @@ const StyledRootQueryRelationHolder = styled.div<{}>((props) => ({
   borderLeft: commonStyles.borderColor,
 }));
 
-const StyledTopQueryRelationHolder = styled(StyledRootQueryRelationHolder)<{}>(
-  (props) => ({
-    borderTop: commonStyles.borderColor,
-    borderTopLeftRadius: commonStyles.borderRadius,
-  })
-);
+const StyledTopQueryRelationHolder = styled(StyledRootQueryRelationHolder)<{}>((_) => ({
+  borderTop: commonStyles.borderColor,
+  borderTopLeftRadius: commonStyles.borderRadius,
+}));
 
-const StyledBottomQueryRelationHolder = styled(
-  StyledRootQueryRelationHolder
-)<{}>((props) => ({
+const StyledBottomQueryRelationHolder = styled(StyledRootQueryRelationHolder)<{}>((_) => ({
   borderBottom: commonStyles.borderColor,
   borderBottomLeftRadius: commonStyles.borderRadius,
 }));

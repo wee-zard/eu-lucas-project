@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FormControl,
   InputLabel,
@@ -69,19 +68,19 @@ export default StyledSelectComponent;
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
-export const StyledErrorMessageHolder = styled("div")<{}>((props) => ({
+export const StyledErrorMessageHolder = styled("div")<{}>((_) => ({
   color: "red",
   fontSize: "14px",
 }));
 
-const BaseSelect = styled(Select)(({ theme }) => ({
+const BaseSelect = styled(Select)((_) => ({
   height: "40px",
   borderRadius: "12px",
 }));
 
 const StyledSelect = styled(({ className, ...props }: SelectProps) => (
   <BaseSelect {...props} MenuProps={{ PaperProps: { className } }} />
-))(({ theme }) => ({
+))((_) => ({
   maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
   borderRadius: "12px",
   overflow: "auto",

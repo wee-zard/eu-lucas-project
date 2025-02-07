@@ -61,6 +61,8 @@ kanban-plugin: board
 - [ ] [[134 - Sebezhetőségek javítása a pom.xml-ben]]
 - [ ] [[135 - DefaultSqlScriptExecutor DB Integer display width is deprecated and will be removed in a future release. (SQL State HY000 - Error Code 1681)]]
 - [ ] [[136 - Backend Runtime Warning üzenetek javítása]]
+- [ ] [[144 - Sensitive data must be stored in the .env file outside of the project]]
+- [ ] [[145 - .Env fájl változói egy Utils fájlba kerüljenek eltárolásra]]
 
 
 ## 🔴ToDo
@@ -92,6 +94,14 @@ kanban-plugin: board
 - [ ] [[101 - Profile - Kijelentkezés implementálása]]
 - [ ] [[102 - localStorage kiürítése bejelentkezés & kijelentkezés során]]
 - [ ] [[112 - Animáció - react-native-reanimated csomag használata az alkalmazásban]]
+- [ ] [[140 - Lottiefiles - Confirmation popup használata, sikeres űrlap elküldése során]]
+- [ ] [[141 - Lottifiles - Login oldal animációval]]
+- [ ] [[142 - Lottifiles - Under construction animáció]]
+- [ ] [[143 - Lottifiles - 404 Not found animáció]]
+- [ ] [[146 - Az adatbázis kerüljön kiszervezésre, és globálisan elérhető legyen]]
+- [ ] [[147 - Stílus változók kerüljenek kiszervezésre egy külön variables.scss fájlba]]
+- [ ] [[148 - Spring Üzleti Alkalmazások Fejlesztése kurzus videóinek feldolgozása]]
+- [ ] [[149 - NoImplicitAny változó használata a tsconfig fájlban]]
 
 
 ## 🔴Client Requests

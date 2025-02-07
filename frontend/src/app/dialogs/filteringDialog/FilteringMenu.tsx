@@ -9,10 +9,7 @@ import { MenuActions } from "@model/enum";
 import { setFilterMenuAction } from "@redux/actions/imageActions";
 import { customScrollBar } from "@global/globalStyles";
 import FilteringMenuActions from "./FilteringMenuActions";
-import {
-  initFirstQueryParent,
-  initQueryBuilderObj,
-} from "@model/QueryBuilderModel";
+import { initFirstQueryParent, initQueryBuilderObj } from "@model/QueryBuilderModel";
 import FilteringQueryBuilder from "./FilteringQueryBuilder";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 
@@ -86,7 +83,7 @@ const FilteringMenu = () => {
 
 export default FilteringMenu;
 
-const StyledMenuContentHolder = styled.div<{}>((props) => ({
+const StyledMenuContentHolder = styled.div<{}>((_) => ({
   display: "grid",
   gap: "8px",
   height: "80%",
@@ -94,16 +91,16 @@ const StyledMenuContentHolder = styled.div<{}>((props) => ({
   ...customScrollBar(),
 }));
 
-const StyledMenuInnerContentHolder = styled.div<{}>((props) => ({
+const StyledMenuInnerContentHolder = styled.div<{}>((_) => ({
   padding: "16px",
 }));
 
-const StyledMenuHeaderHolder = styled.div<{}>((props) => ({
+const StyledMenuHeaderHolder = styled.div<{}>((_) => ({
   padding: "16px",
   height: "10%",
 }));
 
-const StyledMenu = styled(Menu)<{}>((props) => ({
+const StyledMenu = styled(Menu)<{}>((_) => ({
   "& .MuiPaper-root": {
     padding: "0 16px 0 16px",
     width: "80%",
@@ -114,8 +111,6 @@ const StyledMenu = styled(Menu)<{}>((props) => ({
   },
 }));
 
-export const StyledInputHolder = styled.div<{ $elementWidth?: string }>(
-  (props) => ({
-    width: props.$elementWidth ?? "100%",
-  })
-);
+export const StyledInputHolder = styled.div<{ $elementWidth?: string }>((props) => ({
+  width: props.$elementWidth ?? "100%",
+}));

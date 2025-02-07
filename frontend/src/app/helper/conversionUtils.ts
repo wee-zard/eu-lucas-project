@@ -57,6 +57,7 @@ export const ConversionUtils = {
       case FilterDialogFilterOptions.YCoordinates:
         return FilterDialogFilterOptionNames.YCoordinates;
     }
+    return undefined;
   },
 
   OperatorItemsToOperatorItemNames: (item?: QueryConditions) => {
@@ -104,9 +105,7 @@ export const ConversionUtils = {
    * @param listOfCreationCountries The list of all the countries what we want to display.
    * @returns The format string list of the countries.
    */
-  CreationCountriesToFormatString: (
-    listOfCreationCountries: CreationCountryDto[]
-  ) => {
+  CreationCountriesToFormatString: (listOfCreationCountries: CreationCountryDto[]) => {
     return listOfCreationCountries
       .map((obj) => ConversionUtils.CreationCountryToFormatString(obj))
       .sort();
@@ -133,12 +132,10 @@ export const ConversionUtils = {
    */
   FormatStringToCreationCountryDto: (
     formatString: string,
-    listOfCreationCountries: CreationCountryDto[]
+    listOfCreationCountries: CreationCountryDto[],
   ) => {
     const country = listOfCreationCountries.find(
-      (countryDto) =>
-        ConversionUtils.CreationCountryToFormatString(countryDto) ===
-        formatString
+      (countryDto) => ConversionUtils.CreationCountryToFormatString(countryDto) === formatString,
     );
     return country?.countryCode ?? "";
   },
@@ -178,5 +175,6 @@ export const ConversionUtils = {
       case ReportTypes.REQUEST_FEATURE:
         return ReportTypesNames.REQUEST_FEATURE;
     }
+    return undefined;
   },
 };

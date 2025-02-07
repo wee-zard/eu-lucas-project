@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
-export const StyledCardTemplate = styled(Card)<{}>((props) => ({
+export const StyledCardTemplate = styled(Card)<{}>((_) => ({
   "&.MuiPaper-root": {
     padding: "8px",
     borderRadius: "8px",
@@ -24,6 +24,6 @@ export const StyledCardTemplate = styled(Card)<{}>((props) => ({
   },
 }));
 
-export const StyledTypography = styled(Typography)<{}>((props) => ({
+export const StyledTypography = styled(Typography)<{}>((_) => ({
   textShadow: "1px 1px 1px black",
 }));

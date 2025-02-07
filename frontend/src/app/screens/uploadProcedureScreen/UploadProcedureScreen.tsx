@@ -155,7 +155,7 @@ export const uploadProcedureCommonStyles = {
   margin: "0 10%",
 };
 
-const StyledDragAndDropHolder = styled("div")<{}>((props) => ({
+const StyledDragAndDropHolder = styled("div")<{}>((_) => ({
   position: "absolute",
   display: "grid",
   gap: "8px",
@@ -163,11 +163,11 @@ const StyledDragAndDropHolder = styled("div")<{}>((props) => ({
   fontSize: "x-large",
 }));
 
-const CustomStyledComponentGap = styled(StyledComponentGap)<{}>((props) => ({
+const CustomStyledComponentGap = styled(StyledComponentGap)<{}>((_) => ({
   ...uploadProcedureCommonStyles,
 }));
 
-const VisuallyHiddenInput = styled("input")<{}>((props) => ({
+const VisuallyHiddenInput = styled("input")<{}>((_) => ({
   clip: "rect(0 0 0 0)",
   opacity: 0,
   height: 350,
@@ -177,7 +177,7 @@ const VisuallyHiddenInput = styled("input")<{}>((props) => ({
   cursor: "pointer",
 }));
 
-const StyledBoxHolder = styled("div")<{}>((props) => ({
+const StyledBoxHolder = styled("div")<{}>((_) => ({
   ...uploadProcedureCommonStyles,
   position: "relative",
   display: "flex",

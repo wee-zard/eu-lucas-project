@@ -49,7 +49,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Fájlkezelő"
@@ -163,9 +164,9 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "graph:Gráf nézet megnyitása": false,
       "templater-obsidian:Templater": false,
       "switcher:Gyors váltó megnyitása": false,
-      "graph:Grafikon nézet megnyitása": false,
       "canvas:Új vászon létrehozása": false,
       "daily-notes:Mai jegyzet megnyitása": false,
       "templates:Sablon beszúrása": false,
@@ -175,8 +176,18 @@
   },
   "active": "21dde8e84cff000a",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
+    "Kanban Board/Nodes/149 - NoImplicitAny változó használata a tsconfig fájlban.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/148 - Spring Üzleti Alkalmazások Fejlesztése kurzus videóinek feldolgozása.md",
+    "Kanban Board/Nodes/147 - Stílus változók kerüljenek kiszervezésre egy külön variables.scss fájlba.md",
+    "Kanban Board/Nodes/146 - Az adatbázis kerüljön kiszervezésre, és globálisan elérhető legyen.md",
+    "Kanban Board/Nodes/145 - .Env fájl változói egy Utils fájlba kerüljenek eltárolásra.md",
+    "Kanban Board/Nodes/144 - Sensitive data must be stored in the .env file outside of the project.md",
+    "Kanban Board/Nodes/143 - Lottifiles - 404 Not found animáció.md",
+    "Kanban Board/Nodes/142 - Lottifiles - Under construction animáció.md",
+    "Kanban Board/Nodes/141 - Lottifiles - Login oldal animációval.md",
+    "Kanban Board/Nodes/140 - Lottiefiles - Confirmation popup használata, sikeres űrlap elküldése során.md",
+    "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
     "Kanban Board/Nodes/020 - Google OAuth - új Access Token generálása a Refresh Token segítségével, a token lejárata véget.md",
     "Kanban Board/Nodes/139 - Dokumentálás - Dokumentálni a témavezetőmnek az alkalmazás letöltését és annak beütemezését.md",
     "Kanban Board/Nodes/137 - Docker compose feltöltése Docker Hub.md",
@@ -191,16 +202,6 @@
     "Kanban Board/Nodes/072 - Query Builder optimalizáció és React memo használata.md",
     "Kanban Board/Nodes/077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban.md",
     "Kanban Board/Nodes/129 - XML Parsing - A frontend oldalon kerüljön egy loading ikon megjelenítésre a parse és a backend válasz megkapásáig.md",
-    "Kanban Board/Nodes/132 - Procedure Log - Képeket hozzárendelni növényekhez StackingOverflow hibát dob.md",
-    "Kanban Board/Nodes/131 - ProcedureLog és BoundingBox duplikációkat kerüljünk el.md",
-    "Kanban Board/Nodes/039 - Procedures oldal létrehozása.md",
-    "Kanban Board/Nodes/133 - JpaRepository használata CrudRepository helyett.md",
-    "Kanban Board/Nodes/130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja.md",
-    "Kanban Board/Nodes/037 - XML parsing - Eljárások eredményeit felgoldozni és felvinni a megfelelő táblákba.md",
-    "Kanban Board/Nodes/128 - Integer - Helyettesíteni az int típust Integer típussal a backend oldalán.md",
-    "Kanban Board/Nodes/127 - Native Query ne kerüljön használatra a Repository-ban, mivel emiatt nem lesz Portable az SQL utasítás.md",
-    "Kanban Board/Nodes/126 - Exception - Generic Exception dobása - Exception osztályok egyesítése egy Generic osztállyá, amiből minden exception öröklődik.md",
-    "Kanban Board/Nodes/113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon.md",
     "Kanban Board/Images/Pasted image 20241226130426.png",
     "Kanban Board/Images/Pasted image 20241226130403.png",
     "Pasted image 20241226130339.png",

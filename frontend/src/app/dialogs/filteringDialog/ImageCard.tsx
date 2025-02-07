@@ -12,11 +12,7 @@ import StyledIconButton from "@components/StyledIconButton";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import ImageSearchOutlinedIcon from "@mui/icons-material/ImageSearchOutlined";
-import {
-  DialogToOpens,
-  MenuActions,
-  SelectedImageActionTooltipTitles,
-} from "@model/enum";
+import { DialogToOpens, MenuActions, SelectedImageActionTooltipTitles } from "@model/enum";
 import { useDispatch } from "react-redux";
 import { setDialogToOpen } from "@redux/actions/dialogActions";
 import SelectedImagesModel from "@model/SelectedImagesModel";
@@ -28,10 +24,7 @@ import {
 import { useSelector } from "react-redux";
 import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
-import {
-  NotificationSeverity,
-  throwNotification,
-} from "@helper/notificationUtil";
+import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
 import StyledZoomMap from "@components/StyledZoomMap";
 
 type Props = {
@@ -68,15 +61,13 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
     },
   ];
 
-  const handleClickOnImageAction = (
-    title: SelectedImageActionTooltipTitles
-  ) => {
+  const handleClickOnImageAction = (title: SelectedImageActionTooltipTitles) => {
     const handler = Object.freeze({
       // TODO: A befoglaló téglalapok itt lesz implementálva egy dialógus ablak meghívásával.
       [SelectedImageActionTooltipTitles.Search]: () =>
         throwNotification(
           NotificationSeverity.Info,
-          "A befoglaló téglalapok megjelenítése itt lesz implementálva..."
+          "A befoglaló téglalapok megjelenítése itt lesz implementálva...",
         ),
       [SelectedImageActionTooltipTitles.Edit]: () => {
         dispatch(setDialogToOpen(DialogToOpens.FilteringDialog));
@@ -92,12 +83,10 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
               ...model,
               images:
                 model.id === imageModel.id
-                  ? imageModel.images.filter(
-                      (image) => image.id !== imageDto.id
-                    )
+                  ? imageModel.images.filter((image) => image.id !== imageDto.id)
                   : model.images,
-            }))
-          )
+            })),
+          ),
         );
       },
     });
@@ -116,10 +105,7 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
       <StyledCardContent>
         <StyledTypography>{imageDto.imageName}</StyledTypography>
         <div>
-          <StyledIconButton
-            buttonIcon={<MoreVertIcon />}
-            onClick={handleClick}
-          />
+          <StyledIconButton buttonIcon={<MoreVertIcon />} onClick={handleClick} />
           <Menu
             anchorEl={anchorEl}
             open={open}
@@ -150,9 +136,7 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
                           tooltipTitle: imageActionObj.tooltipTitle,
                           tooltipPlacement: "left-start",
                         }}
-                        onClick={() =>
-                          handleClickOnImageAction(imageActionObj.tooltipTitle)
-                        }
+                        onClick={() => handleClickOnImageAction(imageActionObj.tooltipTitle)}
                       />
                     </StyledIconButtonHolder>
                   }
@@ -168,18 +152,18 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
 
 export default ImageCard;
 
-const StyledCardContent = styled(CardContent)<{}>((props) => ({
+const StyledCardContent = styled(CardContent)<{}>((_) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
 }));
 
-const StyledIconButtonHolder = styled.div<{}>((props) => ({
+const StyledIconButtonHolder = styled.div<{}>((_) => ({
   display: "flex",
   justifyContent: "center",
 }));
 
-const StyledImageActionsHolder = styled.div<{}>((props) => ({
+const StyledImageActionsHolder = styled.div<{}>((_) => ({
   display: "flex",
   gap: "8px",
   flexDirection: "column-reverse",

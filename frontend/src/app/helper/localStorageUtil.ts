@@ -1,4 +1,8 @@
-import { initFirstQueryParent, initQueryBuilderObj, QueryBuilderModel } from "@model/QueryBuilderModel";
+import {
+  initFirstQueryParent,
+  initQueryBuilderObj,
+  QueryBuilderModel,
+} from "@model/QueryBuilderModel";
 import { LocalStorageKeys } from "@model/enum";
 
 export const getLocalStorageItem = (key: LocalStorageKeys) => {
@@ -6,6 +10,7 @@ export const getLocalStorageItem = (key: LocalStorageKeys) => {
   if (item) {
     return item;
   }
+  return undefined;
 };
 
 export const setLocalStorageItem = (item: string, key: LocalStorageKeys) => {
@@ -14,7 +19,7 @@ export const setLocalStorageItem = (item: string, key: LocalStorageKeys) => {
 
 export const removeLocalStorageItem = (key: LocalStorageKeys) => {
   localStorage.removeItem(key);
-}
+};
 
 export const LocalStorageUtils = {
   initQueryBuilderModelLocalStorage: () => {
@@ -23,12 +28,10 @@ export const LocalStorageUtils = {
     return defaultBuilder;
   },
 
-  setQueryBuilderModelLocalStorage: (
-    builder?: QueryBuilderModel
-  ) => {
+  setQueryBuilderModelLocalStorage: (builder?: QueryBuilderModel) => {
     setLocalStorageItem(JSON.stringify(builder), LocalStorageKeys.FilteringDialog);
   },
-  
+
   getQueryBuilderModel: () => {
     const obj = getLocalStorageItem(LocalStorageKeys.FilteringDialog);
     if (!obj) {
@@ -40,4 +43,4 @@ export const LocalStorageUtils = {
       return LocalStorageUtils.initQueryBuilderModelLocalStorage();
     }
   },
-}
+};
