@@ -1,3 +1,5 @@
+import i18n from "@i18n/i18nHandler";
+
 const NotFoundScreen = () => {
   /*
   useEffect(() => {
@@ -6,7 +8,7 @@ const NotFoundScreen = () => {
   */
 
   /** TODO: Impement a default 404 Not Found page. */
-  return <div>404 Not Found!</div>;
+  return <div>{i18n.t("screens.not-found-page-not-found")}</div>;
 };
 
 export default NotFoundScreen;

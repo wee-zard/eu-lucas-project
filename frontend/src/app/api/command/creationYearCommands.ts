@@ -13,7 +13,7 @@ export const getCreationYears = async () => {
     endpoint: BackendCreationYearControllerEndpoints.GetCreationYears,
     obj: {},
     header: {
-      isAuthTokenNeeded: true,
+      isAuthTokenMandatory: true,
     },
     errorMessage: "Error while executing the fetch of creation years command!",
   });

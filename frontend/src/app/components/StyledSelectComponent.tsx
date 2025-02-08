@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectProps,
-} from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, SelectProps } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { customScrollBar, StyledComponentGap } from "@global/globalStyles";
 
@@ -35,11 +29,7 @@ const StyledSelectComponent = ({
   };
 
   return (
-    <FormControl
-      fullWidth
-      required
-      sx={{ ".MuiInputLabel-root": { top: "-5px" } }}
-    >
+    <FormControl fullWidth required sx={{ ".MuiInputLabel-root": { top: "-5px" } }}>
       <StyledComponentGap display={"grid"}>
         <InputLabel>{inputTitle}</InputLabel>
         <StyledSelect
@@ -55,9 +45,7 @@ const StyledSelectComponent = ({
             </MenuItem>
           ))}
         </StyledSelect>
-        {errorMessage ? (
-          <StyledErrorMessageHolder>{errorMessage}</StyledErrorMessageHolder>
-        ) : null}
+        {errorMessage ? <StyledErrorMessageHolder>{errorMessage}</StyledErrorMessageHolder> : null}
       </StyledComponentGap>
     </FormControl>
   );

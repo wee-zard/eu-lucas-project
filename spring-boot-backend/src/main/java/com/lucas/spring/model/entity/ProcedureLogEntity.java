@@ -22,7 +22,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Builder
 @Getter
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 @Entity(name = "ProcedureLog")
 @Table(name = "tb_procedure_log")
 public class ProcedureLogEntity {

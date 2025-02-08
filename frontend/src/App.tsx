@@ -1,5 +1,5 @@
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import AppRouterProvider from './app/providers/AppRouterProvider';
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import AppRouterProvider from "./app/providers/AppRouterProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,7 +10,7 @@ const App = () => {
     <div>
       <header>
         <GoogleOAuthProvider clientId={googleOAuthProviderClientId}>
-          <AppRouterProvider/>
+          <AppRouterProvider />
         </GoogleOAuthProvider>
       </header>
       <ToastContainer
@@ -20,10 +20,10 @@ const App = () => {
         closeOnClick={true}
         pauseOnHover={true}
         draggable={false}
-        theme={"light"} 
+        theme={"light"}
       />
     </div>
   );
-}
+};
 
 export default App;

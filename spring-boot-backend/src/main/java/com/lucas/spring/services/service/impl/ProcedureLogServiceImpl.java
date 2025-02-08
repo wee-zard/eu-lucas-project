@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.ProcedureLogRepository;
+import com.lucas.spring.repositories.ProcedureLogRepository;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.entity.ProcedureEntity;
 import com.lucas.spring.model.entity.ProcedureLogEntity;

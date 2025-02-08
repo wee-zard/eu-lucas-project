@@ -21,8 +21,8 @@ export const ConversionUtils = {
     switch (item) {
       case FilterDialogFilterOptionNames.Year:
         return FilterDialogFilterOptions.Year;
-      case FilterDialogFilterOptionNames.Algorith:
-        return FilterDialogFilterOptions.Algorith;
+      case FilterDialogFilterOptionNames.Algorithm:
+        return FilterDialogFilterOptions.Algorithm;
       case FilterDialogFilterOptionNames.Country:
         return FilterDialogFilterOptions.Country;
       case FilterDialogFilterOptionNames.Direction:
@@ -35,6 +35,10 @@ export const ConversionUtils = {
         return FilterDialogFilterOptions.XCoordinates;
       case FilterDialogFilterOptionNames.YCoordinates:
         return FilterDialogFilterOptions.YCoordinates;
+      case FilterDialogFilterOptionNames.ProcedureName:
+        return FilterDialogFilterOptions.ProcedureName;
+      case FilterDialogFilterOptionNames.ProcedureParams:
+        return FilterDialogFilterOptions.ProcedureParams;
     }
   },
 
@@ -42,8 +46,8 @@ export const ConversionUtils = {
     switch (item) {
       case FilterDialogFilterOptions.Year:
         return FilterDialogFilterOptionNames.Year;
-      case FilterDialogFilterOptions.Algorith:
-        return FilterDialogFilterOptionNames.Algorith;
+      case FilterDialogFilterOptions.Algorithm:
+        return FilterDialogFilterOptionNames.Algorithm;
       case FilterDialogFilterOptions.Country:
         return FilterDialogFilterOptionNames.Country;
       case FilterDialogFilterOptions.Direction:
@@ -56,6 +60,9 @@ export const ConversionUtils = {
         return FilterDialogFilterOptionNames.XCoordinates;
       case FilterDialogFilterOptions.YCoordinates:
         return FilterDialogFilterOptionNames.YCoordinates;
+      case FilterDialogFilterOptions.ProcedureName:
+        return FilterDialogFilterOptionNames.ProcedureName;
+      case FilterDialogFilterOptions.ProcedureParams:
     }
     return undefined;
   },

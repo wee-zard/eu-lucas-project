@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.BoundingBoxRepository;
+import com.lucas.spring.repositories.BoundingBoxRepository;
 import com.lucas.spring.model.entity.BoundingBoxEntity;
 import com.lucas.spring.services.service.BoundingBoxService;
 import lombok.AllArgsConstructor;

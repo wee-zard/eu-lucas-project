@@ -15,7 +15,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @AllArgsConstructor
-public class ImageDto extends RootDto {
+public class ImageDto implements RootDto {
   private Long id;
   private String imageName;
   private String direction;

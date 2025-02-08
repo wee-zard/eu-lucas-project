@@ -2,6 +2,7 @@ package com.lucas.spring.services.service;
 
 import com.lucas.spring.model.entity.ProcedureEntity;
 import com.lucas.spring.model.entity.UserEntity;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,13 @@ public interface ProcedureService {
    * @return Returns the new Procedure object.
    */
   ProcedureEntity createProcedure(String name, UserEntity user);
+
+  /**
+   * Fetch the list of procedures.
+   *
+   * @return The list of procedures.
+   */
+  List<ProcedureEntity> getProcedures();
 
   /**
    * Fetch the procedure from the db by the name of the procedure if its exists.

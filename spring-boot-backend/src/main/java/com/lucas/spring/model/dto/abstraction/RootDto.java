@@ -7,5 +7,5 @@ package com.lucas.spring.model.dto.abstraction;
  * help us pass it as an argument, and other entity classes will
  * not be able to pass if they are not extended from this class.
  */
-public abstract class RootDto {
+public interface RootDto {
 }

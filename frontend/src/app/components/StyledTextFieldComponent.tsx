@@ -1,6 +1,5 @@
 import React from "react";
-import { FormControl, TextField } from "@mui/material";
-import styled from "@emotion/styled";
+import { FormControl, styled, TextField } from "@mui/material";
 import { StyledErrorMessageHolder } from "./StyledSelectComponent";
 import { StyledComponentGap } from "@global/globalStyles";
 
@@ -17,7 +16,7 @@ type Props = {
 const StyledTextFieldComponent = ({
   inputTitle,
   inputValue,
-  isMultilineActive,
+  isMultilineActive = false,
   multilineRows,
   helperText,
   errorMessage,
@@ -32,11 +31,7 @@ const StyledTextFieldComponent = ({
   };
 
   return (
-    <CustomFormControl
-      fullWidth
-      required
-      $isMultilineActive={isMultilineActive}
-    >
+    <CustomFormControl fullWidth required is_multiline_active={+isMultilineActive}>
       <StyledComponentGap display={"grid"}>
         <TextField
           value={inputValue}
@@ -49,9 +44,7 @@ const StyledTextFieldComponent = ({
           error={!!errorMessage}
           required
         />
-        {errorMessage ? (
-          <StyledErrorMessageHolder>{errorMessage}</StyledErrorMessageHolder>
-        ) : null}
+        {errorMessage ? <StyledErrorMessageHolder>{errorMessage}</StyledErrorMessageHolder> : null}
       </StyledComponentGap>
     </CustomFormControl>
   );
@@ -59,17 +52,15 @@ const StyledTextFieldComponent = ({
 
 export default StyledTextFieldComponent;
 
-const CustomFormControl = styled(FormControl)<{ $isMultilineActive?: boolean }>(
-  (props) => ({
-    "& .MuiFormLabel-root": {
-      top: "-5px",
-    },
-    "& .MuiInputBase-root": {
-      height: props.$isMultilineActive ? undefined : "40px",
-    },
-    fieldset: {
-      borderRadius: "12px",
-      height: props.$isMultilineActive ? undefined : "45px",
-    },
-  })
-);
+const CustomFormControl = styled(FormControl)<{ is_multiline_active?: number }>((props) => ({
+  "& .MuiFormLabel-root": {
+    top: "-5px",
+  },
+  "& .MuiInputBase-root": {
+    height: props.is_multiline_active ? undefined : "40px",
+  },
+  fieldset: {
+    borderRadius: "12px",
+    height: props.is_multiline_active ? undefined : "45px",
+  },
+}));

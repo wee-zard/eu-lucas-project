@@ -1,3 +1,9 @@
+// TODO: Delete later, as it is not used anywhere in the project.
+export const isDataCanBeRequested = (listLength: number, isDataRequested: boolean) => {
+  return listLength === 0 && !isDataRequested;
+};
+
+/*
 import { useSelector } from "react-redux";
 import { selectListOfCreationYears } from "@redux/selectors/creationYearSelector";
 import { useEffect, useState } from "react";
@@ -113,3 +119,4 @@ export const useExifKeyStorageInit = () => {
 
   return list;
 }
+*/

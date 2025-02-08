@@ -1,16 +1,14 @@
+import ApplicationStorageModel from "@model/ApplicationStorageModel";
 import {
   initFirstQueryParent,
   initQueryBuilderObj,
   QueryBuilderModel,
 } from "@model/QueryBuilderModel";
-import { LocalStorageKeys } from "@model/enum";
+import { ApplicationStorageKeys, LocalStorageKeys } from "@model/enum";
+import { Dispatch } from "@reduxjs/toolkit";
 
 export const getLocalStorageItem = (key: LocalStorageKeys) => {
-  const item = localStorage.getItem(key);
-  if (item) {
-    return item;
-  }
-  return undefined;
+  return localStorage.getItem(key) ?? undefined;
 };
 
 export const setLocalStorageItem = (item: string, key: LocalStorageKeys) => {
@@ -43,4 +41,29 @@ export const LocalStorageUtils = {
       return LocalStorageUtils.initQueryBuilderModelLocalStorage();
     }
   },
+};
+
+type ApplicationStorageType = {
+  dispatch: Dispatch;
+  key: ApplicationStorageKeys; // TODO: This may be removed, as the generic T type can do the job.
+  initMethod: (dispatch: Dispatch, storage: ApplicationStorageModel) => void;
+  successful: (result: any) => any;
+};
+
+export const fetchListFromApplicationStorage = <T>(storageType: ApplicationStorageType): void => {
+  const appStorageRaw = getLocalStorageItem(LocalStorageKeys.ApplicationStorage);
+
+  if (!appStorageRaw) {
+    storageType.initMethod(storageType.dispatch, new ApplicationStorageModel());
+    return;
+  }
+
+  const storage: ApplicationStorageModel = JSON.parse(appStorageRaw);
+  const subStorage = storage[storageType.key];
+
+  if (subStorage && subStorage.length > 0) {
+    storageType.dispatch(storageType.successful(subStorage as T[]));
+  } else {
+    storageType.initMethod(storageType.dispatch, storage);
+  }
 };

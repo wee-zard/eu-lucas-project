@@ -1,10 +1,5 @@
 import { styled } from "@mui/material/styles";
-import {
-  Box,
-  LinearProgress,
-  linearProgressClasses,
-  Typography,
-} from "@mui/material";
+import { Box, LinearProgress, linearProgressClasses, Typography } from "@mui/material";
 
 type Props = {
   file: File;

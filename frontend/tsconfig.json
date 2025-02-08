@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl" : "./src",
+    "baseUrl": "./src",
     "paths": {
       "@api/*": ["./app/api/*"],
       "@cards/*": ["./app/cards/*"],
@@ -15,14 +15,11 @@
       "@providers/*": ["./app/providers/*"],
       "@redux/*": ["./app/redux/*"],
       "@screens/*": ["./app/screens/*"],
-      "@media/*" : ["./app/media/*"],
+      "@media/*": ["./app/media/*"],
+      "@i18n/*": ["./app/i18n/*"]
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -43,9 +40,8 @@
     "strictNullChecks": true,
     "useUnknownInCatchVariables": true,
     "noImplicitAny": true,
+    "noImplicitOverride": true,
     "jsx": "react-jsx" //"jsx": "react-native",
   },
-  "include": [
-    "./src/**/*"
-  ]
+  "include": ["./src/**/*"]
 }

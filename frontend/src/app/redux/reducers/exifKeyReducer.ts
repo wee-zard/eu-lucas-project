@@ -12,17 +12,14 @@ const initialState: ExifKeyType = {
   listOfExifKeys: [],
 };
 
-const exifKeyReducer = (
-  state = initialState,
-  action: UnknownAction
-): ExifKeyType => {
+const exifKeyReducer = (state = initialState, action: UnknownAction): ExifKeyType => {
   switch (action.type) {
     case ExifKeyConsts.REQUESTING_EXIF_KEY_FAILED:
       return {
         ...state,
         isExifKeysLoading: false,
       };
-    case ExifKeyConsts.REQUESTING_EXIF_KEY_SUCCEDED:
+    case ExifKeyConsts.REQUESTING_EXIF_KEY_SUCCEEDED:
       return {
         ...state,
         listOfExifKeys: action.payload as ExifKeyDto[],

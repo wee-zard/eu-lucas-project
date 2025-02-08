@@ -2,11 +2,7 @@ import axios from "axios";
 import { RequestHeaderHandler } from "@api/handler/requestHeaderHandler";
 import RequestCommand from "@model/RequestCommand";
 import { ConversionUtils } from "@helper/conversionUtils";
-import {
-  LocalStorageKeys,
-  RequestCommandTypes,
-  UniqueErrorResponseTypes,
-} from "@model/enum";
+import { LocalStorageKeys, RequestCommandTypes, UniqueErrorResponseTypes } from "@model/enum";
 import RequestCommandError from "@model/error/RequestCommandError";
 import getAuthToken from "@api/handler/requestAuthToken";
 import handleNotificationThrowOfErrorMessage from "@api/handler/errorMessageHandler";
@@ -32,16 +28,10 @@ const commandHandler = async <T>(command: RequestCommand) => {
 const handleUnauthorizedError = async <T>(command: RequestCommand) => {
   // Authentication failed, we need to update the access token by the refresh token
   const accessTokenResponse = await getNewAccessToken();
-  if (
-    accessTokenResponse &&
-    accessTokenResponse !== UniqueErrorResponseTypes.UNAUTHORIZED
-  ) {
+  if (accessTokenResponse && accessTokenResponse !== UniqueErrorResponseTypes.UNAUTHORIZED) {
     // Set the new access token in the storage.
     // TODO: This should be saved in the db as well.
-    setLocalStorageItem(
-      accessTokenResponse.id_token,
-      LocalStorageKeys.GoogleOAuthToken
-    );
+    setLocalStorageItem(accessTokenResponse.id_token, LocalStorageKeys.GoogleOAuthToken);
 
     // Resend the request to the server by the provided command and return the final results.
     const response = await genericDispatcher<T>(command);
@@ -88,14 +78,10 @@ const commandHandlerDispatcher = (command: RequestCommand) => {
       return postCommand(command);
     case RequestCommandTypes.DELETE:
       // TODO: Implement the delete command method here...
-      throw new RequestCommandError(
-        "Delete request method have not been implemented yet!"
-      );
+      throw new RequestCommandError("Delete request method have not been implemented yet!");
     case RequestCommandTypes.PUT:
       // TODO: Implement the put command method here...
-      throw new RequestCommandError(
-        "Put request method have not been implemented yet!"
-      );
+      throw new RequestCommandError("Put request method have not been implemented yet!");
     default:
       throw new RequestCommandError("Request method type is not provided!");
   }
@@ -111,16 +97,11 @@ const commandHandlerDispatcher = (command: RequestCommand) => {
  * @returns Returns the response of the {@link axios} request.
  */
 const postCommand = (command: RequestCommand) => {
-  const authToken = command.header.isAuthTokenNeeded
-    ? getAuthToken()
-    : undefined;
+  const authToken = command.header.isAuthTokenMandatory ? getAuthToken() : undefined;
   return axios.post(
     `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`,
     command.obj,
-    RequestHeaderHandler.getRequestHeader(
-      authToken,
-      command.header.pageableProperties
-    )
+    RequestHeaderHandler.getRequestHeader(authToken, command.header.pageableProperties),
   );
 };
 
@@ -134,15 +115,13 @@ const postCommand = (command: RequestCommand) => {
  * @returns Returns the response of the {@link axios} request.
  */
 const getCommand = (command: RequestCommand) => {
-  const authToken = command.header.isAuthTokenNeeded
-    ? getAuthToken()
-    : undefined;
+  const authToken = command.header.isAuthTokenMandatory ? getAuthToken() : undefined;
   return axios.get(
     `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`,
     {
       ...RequestHeaderHandler.getRequestHeader(authToken),
       params: !!command.obj ? command.obj : undefined,
-    }
+    },
   );
 };
 

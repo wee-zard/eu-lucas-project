@@ -14,7 +14,7 @@ const initialState: CreationDirectionType = {
 
 const creationDirectionReducer = (
   state = initialState,
-  action: UnknownAction
+  action: UnknownAction,
 ): CreationDirectionType => {
   switch (action.type) {
     case CreationDirectionConsts.CREATION_DIRECTION_FAILED:
@@ -22,7 +22,7 @@ const creationDirectionReducer = (
         ...state,
         isCreationDirectionLoading: false,
       };
-    case CreationDirectionConsts.CREATION_DIRECTION_SUCCEDED:
+    case CreationDirectionConsts.CREATION_DIRECTION_SUCCEEDED:
       return {
         ...state,
         listOfCreationDirections: action.payload as CreationDirectionDto[],

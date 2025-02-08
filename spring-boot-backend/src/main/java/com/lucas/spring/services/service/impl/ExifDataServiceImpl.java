@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.ExifDataRepository;
+import com.lucas.spring.repositories.ExifDataRepository;
 import com.lucas.spring.model.entity.ExifDataEntity;
 import com.lucas.spring.services.service.ExifDataService;
 import lombok.AllArgsConstructor;

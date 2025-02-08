@@ -1,18 +1,21 @@
 import AuthorizationModel from "@model/AuthorizationModel";
 import axios from "axios";
 import { getLocalStorageItem, setLocalStorageItem } from "./localStorageUtil";
-import { GoogleTokenEndpoints, LocalStorageKeys, RequestCommandTypes, ServersToConnectTo } from "@model/enum";
+import {
+  GoogleTokenEndpoints,
+  LocalStorageKeys,
+  RequestCommandTypes,
+  ServersToConnectTo,
+} from "@model/enum";
 import { genericDispatcher } from "@api/handler/requestHandler";
 import { NotificationSeverity, throwNotification } from "./notificationUtil";
 
-const googleOAuthClientId =
-  process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_ID ?? "";
-const googleOAuthClientSecret =
-  process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_SECRET ?? "";
+const googleOAuthClientId = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_ID ?? "";
+const googleOAuthClientSecret = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_SECRET ?? "";
 
 export const getRefreshToken = (
   code: string,
-  callback: (authModel: AuthorizationModel) => void
+  callback: (authModel: AuthorizationModel) => void,
 ) => {
   // get refresh token using authorization code
   const payload = {
@@ -31,7 +34,10 @@ export const getRefreshToken = (
     })
     .then((response) => {
       callback(response.data);
-      setLocalStorageItem((response.data as AuthorizationModel).id_token, LocalStorageKeys.GoogleOAuthToken);
+      setLocalStorageItem(
+        (response.data as AuthorizationModel).id_token,
+        LocalStorageKeys.GoogleOAuthToken,
+      );
     })
     .catch((err) => console.log("err: ", err));
 };
@@ -58,7 +64,7 @@ export const getNewAccessToken = async () => {
       endpoint: GoogleTokenEndpoints.Token,
       obj: payload,
       header: {
-        isAuthTokenNeeded: true,
+        isAuthTokenMandatory: true,
       },
       errorMessage: "Váratlan hiba történt a bejelentés elküldése során!",
     });

@@ -12,17 +12,14 @@ const initialState: CoordinateYType = {
   listOfCoordinateY: [],
 };
 
-const coordinateYReducer = (
-  state = initialState,
-  action: UnknownAction
-): CoordinateYType => {
+const coordinateYReducer = (state = initialState, action: UnknownAction): CoordinateYType => {
   switch (action.type) {
     case CoordinateYConsts.REQUESTING_COORDINATE_Y_FAILED:
       return {
         ...state,
         isCoordinateYLoading: false,
       };
-    case CoordinateYConsts.REQUESTING_COORDINATE_Y_SUCCEDED:
+    case CoordinateYConsts.REQUESTING_COORDINATE_Y_SUCCEEDED:
       return {
         ...state,
         listOfCoordinateY: action.payload as CoordinateYDto[],

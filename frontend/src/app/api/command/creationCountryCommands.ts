@@ -13,7 +13,7 @@ export const getCreationCountries = async () => {
     endpoint: BackendCreationCountryControllerEndpoints.GetCreationCountries,
     obj: {},
     header: {
-      isAuthTokenNeeded: true,
+      isAuthTokenMandatory: true,
     },
     errorMessage: "Error while executing the fetch of creation Countries!",
   });

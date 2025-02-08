@@ -1,0 +1,18 @@
+{
+  "filtering": {
+    "query-builder": {
+      "query-by-option-names": {
+        "year": "Year",
+        "country": "Country",
+        "x-coordinates": "X Coordinate",
+        "y-coordinates": "Y Coordinate",
+        "direction": "Direction",
+        "exif-data": "Exif Data",
+        "plant": "Plant",
+        "algorithm": "Algorithm",
+        "procedure-name": "Procedure Name",
+        "procedure-params": "Procedure Params"
+      }
+    }
+  }
+}

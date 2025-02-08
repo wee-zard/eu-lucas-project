@@ -1,9 +1,10 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.ProcedureRepository;
 import com.lucas.spring.model.entity.ProcedureEntity;
 import com.lucas.spring.model.entity.UserEntity;
+import com.lucas.spring.repositories.ProcedureRepository;
 import com.lucas.spring.services.service.ProcedureService;
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,17 @@ public class ProcedureServiceImpl implements ProcedureService {
     return procedureRepository.save(ProcedureEntity.builder().name(name).initUserId(user).build());
   }
 
+  @Override
+  public List<ProcedureEntity> getProcedures() {
+    return procedureRepository.findAll();
+  }
+
   /**
    * {@inheritDoc}
    */
   @Override
   public Optional<ProcedureEntity> getProcedureByName(final String name) {
-    return procedureRepository.getProcedureByName(name);
+    return procedureRepository.getNameByName(name);
   }
 
   /**

@@ -1,8 +1,8 @@
 package com.lucas.spring.model.response;
 
-import java.util.List;
-
+import com.lucas.spring.model.dto.abstraction.RootDto;
 import com.lucas.spring.model.models.PageableProperties;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,7 +12,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public class PageableResponse<T> {
+public class PageableResponse<T extends RootDto> {
   /**
    * The properties of the Pageable response.
    */

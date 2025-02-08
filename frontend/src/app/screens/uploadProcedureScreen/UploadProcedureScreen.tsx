@@ -12,10 +12,10 @@ import ProcedureLogError from "@model/error/ProcedureLogError";
 import ProcedureLogUtils from "@helper/procedureLogUtils";
 import { uploadProcedureResult } from "@api/command/procedureCommands";
 import StyledBackdrop from "@components/StyledBackdrop";
+import i18n from "@i18n/i18nHandler";
 
 const UploadProcedureScreen = () => {
-  const [submitEvent, setSubmitEvent] =
-    useState<React.ChangeEvent<HTMLInputElement>>();
+  const [submitEvent, setSubmitEvent] = useState<React.ChangeEvent<HTMLInputElement>>();
   const [listOfFiles, setListOfFiles] = useState<File[]>([]);
   const [listOfModels, setListOfModels] = useState<ProcedureProcessModel[]>([]);
 
@@ -55,28 +55,18 @@ const UploadProcedureScreen = () => {
         try {
           const procedureModel = FileUtils.ParseBufferToModel(buffer);
           const requestModel: ProcedureResultRequest = {
-            timestamp: ProcedureLogUtils.getCreatingDateOLog(
-              procedureModel.annotation.date
-            ),
-            method: ProcedureLogUtils.getMethodNameByLog(
-              procedureModel.annotation.method
-            ),
-            params: ProcedureLogUtils.getParamsByLog(
-              procedureModel.annotation.method
-            ),
-            file: ProcedureLogUtils.getFileByLog(
-              procedureModel.annotation.filename
-            ),
-            objects: ProcedureLogUtils.getObjectsByLog(
-              procedureModel.annotation.object
-            ),
+            timestamp: ProcedureLogUtils.getCreatingDateOLog(procedureModel.annotation.date),
+            method: ProcedureLogUtils.getMethodNameByLog(procedureModel.annotation.method),
+            params: ProcedureLogUtils.getParamsByLog(procedureModel.annotation.method),
+            file: ProcedureLogUtils.getFileByLog(procedureModel.annotation.filename),
+            objects: ProcedureLogUtils.getObjectsByLog(procedureModel.annotation.object),
           };
           uploadProcedureResult(requestModel).then((result) => {
             addNewErrorFile(
               result
                 ? ProcedureFileMessages.FileIsSuccessfullyUploaded
                 : ProcedureFileMessages.ErrorWhileProcessingFileAtServer,
-              file
+              file,
             );
           });
         } catch (error: any) {
@@ -94,13 +84,7 @@ const UploadProcedureScreen = () => {
   }, [listOfFiles]);
 
   const addNewErrorFile = (message: ProcedureFileMessages, file: File) => {
-    setListOfModels((prev) => [
-      ...prev,
-      {
-        file: file,
-        message: message,
-      },
-    ]);
+    setListOfModels((prev) => [...prev, { file: file, message: message }]);
   };
 
   const displayDragAndDropComponent = () => {
@@ -110,7 +94,7 @@ const UploadProcedureScreen = () => {
       return (
         <React.Fragment>
           <UploadIcon width={100} height={100} fill="gray" />
-          Drag & Drop fájlokat ide
+          {i18n.t("screens.upload-procedures.view.drag-and-drop")}
         </React.Fragment>
       );
     }
@@ -120,28 +104,20 @@ const UploadProcedureScreen = () => {
     <StyledComponentGap display={"grid"} gap={"32px"}>
       <StyledComponentGap display={"grid"}>
         <StyledBoxHolder>
-          <StyledDragAndDropHolder>
-            {displayDragAndDropComponent()}
-          </StyledDragAndDropHolder>
+          <StyledDragAndDropHolder>{displayDragAndDropComponent()}</StyledDragAndDropHolder>
           {!submitEvent ? (
-            <VisuallyHiddenInput
-              type="file"
-              onChange={setSubmitEvent}
-              accept={".xml"}
-              multiple
-            />
+            <VisuallyHiddenInput type="file" onChange={setSubmitEvent} accept={".xml"} multiple />
           ) : null}
         </StyledBoxHolder>
         <CustomStyledComponentGap gap={"8px"}>
           <Typography variant={"h6"} color={"gray"}>
-            Támogatott fájl formátumok:
+            {i18n.t("screens.upload-procedures.view.supported-format")}
           </Typography>
           <Typography variant={"h6"} fontWeight={"bold"} color={"gray"}>
-            XML
+            {i18n.t("screens.upload-procedures.view.xml")}
           </Typography>
         </CustomStyledComponentGap>
       </StyledComponentGap>
-
       <UploadFileAccordionCard listOfModels={listOfModels} />
       <UploadFileAccordionCard listOfModels={listOfModels} isErrorOnly />
       <StyledBackdrop isBackdropOpen={!!submitEvent} />

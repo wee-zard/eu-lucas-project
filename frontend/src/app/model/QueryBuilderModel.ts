@@ -87,15 +87,15 @@ export const initQueryGroupObj = (parentId: number): QueryGroup => {
   };
 };
 
-export const operatorSelectItems = Object.values(OperatorSelectItemNames);
+export const operatorSelectItems = Object.values(OperatorSelectItemNames).sort();
 
 export const operatorComparableItems = [
   ...operatorSelectItems,
   ...Object.values(OperatorComparableItemNames),
-];
+].sort();
 
 // TODO: It is not used yet. Please change the Object.values(OperatorTextfieldItems) to look the same as the above ones.
 export const operatorTextfieldItems = [
   ...operatorSelectItems,
   ...Object.values(OperatorTextfieldItems),
-];
+].sort();

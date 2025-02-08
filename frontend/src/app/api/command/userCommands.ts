@@ -13,8 +13,9 @@ export const validateEmailAddress = async () => {
     endpoint: BackendUserControllerEndpoints.ValidateEmail,
     obj: {},
     header: {
-      isAuthTokenNeeded: true,
+      isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt a bejelentkezés során! Próbáld meg újra a bejelentkezést később!",
+    errorMessage:
+      "Váratlan hiba történt a bejelentkezés során! Próbáld meg újra a bejelentkezést később!",
   });
 };

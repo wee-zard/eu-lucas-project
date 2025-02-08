@@ -11,7 +11,7 @@ import PageableProperties from "@model/PageableProperties";
 
 export const getImageByFilters = async (
   request: FilteringQueryRequest,
-  pageableProperties: PageableProperties
+  pageableProperties: PageableProperties,
 ) => {
   return commandHandler<PageableResponse<ImageDto>>({
     type: RequestCommandTypes.POST,
@@ -19,7 +19,7 @@ export const getImageByFilters = async (
     endpoint: BackendImageControllerEndpoints.PostFilterImage,
     obj: request,
     header: {
-      isAuthTokenNeeded: true,
+      isAuthTokenMandatory: true,
       pageableProperties: pageableProperties,
     },
     errorMessage: "Error while executing the image filter command!",

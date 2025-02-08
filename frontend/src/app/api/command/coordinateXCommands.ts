@@ -13,7 +13,7 @@ export const getCoordinateXList = async () => {
     endpoint: BackendCoordinateXControllerEndpoints.GetCoordinateXList,
     obj: {},
     header: {
-      isAuthTokenNeeded: true,
+      isAuthTokenMandatory: true,
     },
     errorMessage: "Error while executing the fetch of x coordinates!",
   });

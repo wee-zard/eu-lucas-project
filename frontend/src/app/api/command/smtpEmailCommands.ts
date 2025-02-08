@@ -14,7 +14,7 @@ export const sendReportEmail = async (request: SmtpEmailRequest) => {
     endpoint: BackendSmtpEmailControllerEndpoints.ReportEmail,
     obj: request,
     header: {
-      isAuthTokenNeeded: true,
+      isAuthTokenMandatory: true,
     },
     errorMessage: "Váratlan hiba történt a bejelentés elküldése során!",
   });

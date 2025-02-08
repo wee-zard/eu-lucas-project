@@ -30,6 +30,6 @@ export default class RequestCommand {
 }
 
 type RequestCommandHeader = {
-  isAuthTokenNeeded?: boolean;
+  isAuthTokenMandatory?: boolean;
   pageableProperties?: PageableProperties;
 };

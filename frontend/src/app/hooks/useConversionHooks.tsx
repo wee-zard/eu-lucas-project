@@ -1,12 +1,4 @@
 import { FilterDialogFilterOptions, FilteringFormInputKeys } from "@model/enum";
-import {
-  useCoordinateXStorageInit,
-  useCoordinateYStorageInit,
-  useCreationCountryStorageInit,
-  useCreationDirectionStorageInit,
-  useCreationYearStorageInit,
-  useExifKeyStorageInit,
-} from "./useStorageInit";
 import { FilterFormTemplate } from "@model/FilterFormTemplate";
 import {
   operatorComparableItems,
@@ -14,16 +6,22 @@ import {
   operatorTextfieldItems,
 } from "@model/QueryBuilderModel";
 import { ConversionUtils } from "@helper/conversionUtils";
+import i18n from "@i18n/i18nHandler";
+import { useSelector } from "react-redux";
+import { selectListOfCreationYears } from "@redux/selectors/creationYearSelector";
+import { selectListOfCreationCountry } from "@redux/selectors/creationCountrySelector";
+import { selectListOfCreationDirection } from "@redux/selectors/creationDirectionSelector";
+import { selectListOfCoordinateX } from "@redux/selectors/coordinateXSelector";
+import { selectListOfCoordinateY } from "@redux/selectors/coordinateYSelector";
+import { selectListOfExifKeys } from "@redux/selectors/exifKeySelector";
 
-export const useSelectedTabToFilterTemplate = (
-  filterTab?: FilterDialogFilterOptions
-) => {
-  const listOfCreationYears = useCreationYearStorageInit();
-  const listOfCreationCountries = useCreationCountryStorageInit();
-  const listOfCreationDirections = useCreationDirectionStorageInit();
-  const listOfCoordinateX = useCoordinateXStorageInit();
-  const listOfCoordinateY = useCoordinateYStorageInit();
-  const listOfExifKeys = useExifKeyStorageInit();
+export const useSelectedTabToFilterTemplate = (filterTab?: FilterDialogFilterOptions) => {
+  const listOfCreationYears = useSelector(selectListOfCreationYears);
+  const listOfCreationCountries = useSelector(selectListOfCreationCountry);
+  const listOfCreationDirections = useSelector(selectListOfCreationDirection);
+  const listOfCoordinateX = useSelector(selectListOfCoordinateX);
+  const listOfCoordinateY = useSelector(selectListOfCoordinateY);
+  const listOfExifKeys = useSelector(selectListOfExifKeys);
 
   const getFilterFormTemplate = (): FilterFormTemplate[] => {
     if (!filterTab) {
@@ -33,98 +31,122 @@ export const useSelectedTabToFilterTemplate = (
       case FilterDialogFilterOptions.Year:
         return [
           {
-            inputTitle: "Év",
-            options: listOfCreationYears
-              .map((obj) => obj.year.toString())
-              .sort(),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.year"),
+            options: listOfCreationYears.map((obj) => obj.year.toString()),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
-            inputTitle: "Feltétel",
-            options: operatorSelectItems.sort(),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
       case FilterDialogFilterOptions.Country:
         return [
           {
-            inputTitle: "Ország",
-            options: ConversionUtils.CreationCountriesToFormatString(
-              listOfCreationCountries
-            ),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.country"),
+            options: ConversionUtils.CreationCountriesToFormatString(listOfCreationCountries),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
-            inputTitle: "Feltétel",
-            options: operatorSelectItems.sort(),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
       case FilterDialogFilterOptions.XCoordinates:
         return [
           {
-            inputTitle: "X Koordináta",
-            options: listOfCoordinateX
-              .sort()
-              .map((obj) => obj.coordinateX.toString()),
+            inputTitle: i18n.t(
+              "screens.filtering.query-builder.query-by-option-names.x-coordinates",
+            ),
+            options: listOfCoordinateX.map((obj) => obj.coordinateX.toString()),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
-            inputTitle: "Feltétel",
-            options: operatorComparableItems.sort(),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorComparableItems,
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
       case FilterDialogFilterOptions.YCoordinates:
         return [
           {
-            inputTitle: "Y Koordináta",
-            options: listOfCoordinateY
-              .sort()
-              .map((obj) => obj.coordinateY.toString()),
+            inputTitle: i18n.t(
+              "screens.filtering.query-builder.query-by-option-names.y-coordinates",
+            ),
+            options: listOfCoordinateY.map((obj) => obj.coordinateY.toString()),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
-            inputTitle: "Feltétel",
-            options: operatorComparableItems.sort(),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorComparableItems,
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
       case FilterDialogFilterOptions.Direction:
         return [
           {
-            inputTitle: "Irány",
-            options: listOfCreationDirections
-              .map((obj) => obj.directionName)
-              .sort(),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.direction"),
+            options: listOfCreationDirections.map((obj) => obj.directionName),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
-            inputTitle: "Feltétel",
-            options: operatorSelectItems.sort(),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
       case FilterDialogFilterOptions.ExifData:
         return [
           {
-            inputTitle: "Exif kulcs",
-            options: listOfExifKeys.map((obj) => obj.exifKeyName).sort(),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.exif-key"),
+            options: listOfExifKeys.map((obj) => obj.exifKeyName),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
-            inputTitle: "Feltétel",
-            options: operatorTextfieldItems.sort(),
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorTextfieldItems,
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
           {
-            inputTitle: "Exif érték",
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.exif-value"),
             inputKey: FilteringFormInputKeys.TextfieldInput,
+          },
+        ];
+      case FilterDialogFilterOptions.ProcedureName:
+        return [
+          {
+            inputTitle: i18n.t(
+              "screens.filtering.query-builder.query-by-option-names.procedure-name",
+            ),
+            options: [], // TODO: ...
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case FilterDialogFilterOptions.ProcedureParams:
+        return [
+          {
+            inputTitle: i18n.t(
+              "screens.filtering.query-builder.query-by-option-names.procedure-params",
+            ),
+            options: [], // TODO: ...
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
       case FilterDialogFilterOptions.Plant:
         return [];
-      case FilterDialogFilterOptions.Algorith:
+      case FilterDialogFilterOptions.Algorithm:
         return [];
       default:
         return [];

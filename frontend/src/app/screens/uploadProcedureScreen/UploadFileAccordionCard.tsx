@@ -1,11 +1,5 @@
 import { styled } from "@mui/material/styles";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Collapse,
-  Typography,
-} from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Collapse, Typography } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ReactComponent as XmlIcon } from "@media/xml.svg";
@@ -13,6 +7,7 @@ import ProcedureProcessModel from "@model/ProcedureProcessModel";
 import { StyledComponentGap } from "@global/globalStyles";
 import { uploadProcedureCommonStyles } from "./UploadProcedureScreen";
 import { ProcedureFileMessages } from "@model/enum";
+import i18n from "@i18n/i18nHandler";
 
 type Props = {
   listOfModels: ProcedureProcessModel[];
@@ -24,7 +19,7 @@ const UploadFileAccordionCard = ({ listOfModels, isErrorOnly }: Props) => {
     message && message !== ProcedureFileMessages.FileIsSuccessfullyUploaded;
 
   const listOfFilteredModels = listOfModels.filter((model) =>
-    isErrorOnly ? isErrorPresent(model.message) : !isErrorPresent(model.message)
+    isErrorOnly ? isErrorPresent(model.message) : !isErrorPresent(model.message),
   );
 
   return (
@@ -38,25 +33,24 @@ const UploadFileAccordionCard = ({ listOfModels, isErrorOnly }: Props) => {
               id="panel1-header"
             >
               <Typography component="span">
-                {`${isErrorOnly ? "Sikertelenül" : "Sikeresen"} feltöltött fájlok`}
+                {`${
+                  isErrorOnly
+                    ? i18n.t("screens.upload-procedures.view.failed-upload")
+                    : i18n.t("screens.upload-procedures.view.successful-upload")
+                } ${i18n.t("screens.upload-procedures.view.uploaded-files")}`}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <StyledComponentGap display={"grid"}>
                 {listOfFilteredModels.map((procedureModel, index) => (
-                  <StyledFileHolder
-                    $isError={isErrorPresent(procedureModel.message)}
-                    key={index}
-                  >
+                  <StyledFileHolder $isError={isErrorPresent(procedureModel.message)} key={index}>
                     <div>
                       <XmlIcon width={100} height={100} />
                     </div>
                     <StyledRightFileHolder>
                       <div>{procedureModel.file.name}</div>
-                      <StyledMessageHolder
-                        $isError={isErrorPresent(procedureModel.message)}
-                      >
-                        {procedureModel.message}
+                      <StyledMessageHolder $isError={isErrorPresent(procedureModel.message)}>
+                        {i18n.t(procedureModel.message ?? "")}
                       </StyledMessageHolder>
                     </StyledRightFileHolder>
                   </StyledFileHolder>

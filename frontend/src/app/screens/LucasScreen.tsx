@@ -8,6 +8,7 @@ import TmpScreen from "@screens/TmpScreen";
 import FilteringScreen from "@screens/filteringScreen/FilteringScreen";
 import UploadProcedureScreen from "@screens/uploadProcedureScreen/UploadProcedureScreen";
 import ReportScreen from "@screens/ReportScreen";
+import i18n from "@i18n/i18nHandler";
 
 type Props = {
   navigation?: Navigation;
@@ -18,7 +19,7 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
   const isNavigationBarHidden = navigation.length === 0;
   const router = useToolpadRouterHook(NavigationSegments.Dashboard);
   const appTitle: Branding = {
-    title: "Lucas Image Analyzer",
+    title: i18n.t("screens.dashboard.header.title"),
     //logo: undefined, /** TODO: Put my application logo here! */
   };
 
@@ -41,19 +42,10 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
   };
 
   return (
-    <AppProvider
-      navigation={navigation}
-      router={router}
-      theme={appTheme}
-      branding={appTitle}
-    >
+    <AppProvider navigation={navigation} router={router} theme={appTheme} branding={appTitle}>
       <DashboardLayout hideNavigation={isNavigationBarHidden}>
         <PageContainer>
-          {isNavigationBarHidden ? (
-            <>{renderComponent}</>
-          ) : (
-            <>{renderComponentByRouterPath()}</>
-          )}
+          {isNavigationBarHidden ? <>{renderComponent}</> : <>{renderComponentByRouterPath()}</>}
         </PageContainer>
       </DashboardLayout>
     </AppProvider>

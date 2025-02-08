@@ -13,7 +13,7 @@ export const getCreationDirections = async () => {
     endpoint: BackendCreationDirectionControllerEndpoints.GetCreationDirections,
     obj: {},
     header: {
-      isAuthTokenNeeded: true,
+      isAuthTokenMandatory: true,
     },
     errorMessage: "Error while executing the fetch of Directions!",
   });

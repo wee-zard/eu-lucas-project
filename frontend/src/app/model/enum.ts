@@ -41,7 +41,12 @@ export enum BackendImageControllerEndpoints {
 }
 
 export enum BackendProcedureControllerEndpoints {
-  UploadProcedureLog = "/api/procedure/upload",
+  UploadProcedure = "/api/procedure/upload",
+  GetProcedures = "/api/procedure/",
+}
+
+export enum BackendProcedureLogParamControllerEndpoints {
+  GetProcedureParamsByProcedureId = "/api/procedure-param/",
 }
 
 export enum BackendSmtpEmailControllerEndpoints {
@@ -54,8 +59,8 @@ export enum GoogleTokenEndpoints {
 /**
  * Stores the backend endpoints in one place.
  */
-export type BackendControllerEndpointTypes = 
-  BackendUserControllerEndpoints
+export type BackendControllerEndpointTypes =
+  | BackendUserControllerEndpoints
   | BackendCreationYearControllerEndpoints
   | BackendCreationCountryControllerEndpoints
   | BackendCreationDirectionControllerEndpoints
@@ -64,8 +69,8 @@ export type BackendControllerEndpointTypes =
   | BackendExifKeyControllerEndpoints
   | BackendImageControllerEndpoints
   | BackendProcedureControllerEndpoints
-  | BackendSmtpEmailControllerEndpoints
-  ;
+  | BackendProcedureLogParamControllerEndpoints
+  | BackendSmtpEmailControllerEndpoints;
 
 /**
  * Stores the Lucas-image-server endpoints in one place.
@@ -83,8 +88,7 @@ export type GoogleServiceEndpointTypes = GoogleTokenEndpoints;
 export type RootEndpoints =
   | LucasImageServiceEndpointTypes
   | BackendControllerEndpointTypes
-  | GoogleServiceEndpointTypes
-  ;
+  | GoogleServiceEndpointTypes;
 
 /**
  * The list of servers where the api requests could be sent out to.
@@ -96,10 +100,21 @@ export enum ServersToConnectTo {
 }
 
 export enum LocalStorageKeys {
+  ApplicationStorage = "application-storage",
   GoogleOAuthToken = "google_oauth_token",
   GoogleRefreshToken = "google-refresh-token",
   NotificationColor = "toolpad-mode",
   FilteringDialog = "filtering-dialog",
+}
+
+export enum ApplicationStorageKeys {
+  CreationYear = "creationYear",
+  CoordinateX = "coordinateX",
+  CoordinateY = "coordinateY",
+  ExifKey = "exifKey",
+  CreationDirection = "creationDirection",
+  CreationCountry = "creationCountry",
+  Procedure = "procedure",
 }
 
 export enum ScreenUrls {
@@ -130,7 +145,9 @@ export enum FilterDialogFilterOptions {
   Direction = "DIRECTION",
   ExifData = "EXIF_DATA",
   Plant = "PLANT",
-  Algorith = "ALGORITHM",
+  Algorithm = "ALGORITHM", // TODO: Deletable later.
+  ProcedureName = "PROCEDURE_NAME",
+  ProcedureParams = "PROCEDURE_PARAMS",
 }
 
 export enum FilterDialogFilterOptionNames {
@@ -141,7 +158,9 @@ export enum FilterDialogFilterOptionNames {
   Direction = "Készítés Iránya",
   ExifData = "Exif adat",
   Plant = "Növény",
-  Algorith = "Eljárás",
+  Algorithm = "Eljárás", // TODO: Deletable later.
+  ProcedureName = "Eljárás neve",
+  ProcedureParams = "Eljárás pareméterei",
 }
 
 export enum DialogToOpens {
@@ -215,15 +234,15 @@ export enum RequestCommandTypes {
 }
 
 export enum ProcedureFileMessages {
-  ErrorWhileProcessingFileAtServer = "Váratlan hiba történt a fájl feldolgozása közben a szerver oldalon!",
-  FileIsSuccessfullyUploaded = "A fájl sikeresen feltöltésre került!",
-  FileExtensionIsNotXml = "Hiba! A fájl nem XML kiterjesztésű!",
-  XmlToObjectError = "Hiba! Nem sikerült objektummá alakítani az XML fájlt!",
-  XmlDateInvalidFormat = "Hiba! A 'date' nem megfelelő formátumú! Elvárt formátum: <date>ÉÉÉÉHHNNÓÓPP<date>",
-  ErrorExtractingProcedureMethodName = "Hiba! A 'method' nem megfelelő formátumú! Elvárt formátum: <method>$METHOD_NAME model='$LARGE' epochs='$EPOCH' param1='$PARAM1' param2='$PARAM2'</method>",
-  ErrorExtractingImageName = "Hiba! A 'filename' nem megfelelő formátumú! Elvárt formátum: <filename>$YEAR_$IMAGENAME_$POSTFIX.jpg</filename>",
-  ErrorInvasiveResultIsNotPresent = "Hiba! A 'name' nem tartalmazza a következő értékek valamelyikét:  '1db' vagy 'Homogén'!",
-  ErrorObjectNameIsInvalidFormat = "Hiba! A 'name' nem tartalmaz szóközt, amivel el lehetne választani a növény nevét a növény osztályozásától!"
+  ErrorWhileProcessingFileAtServer = "screens.upload-procedures.view.error.processing-file-at-server",
+  FileIsSuccessfullyUploaded = "screens.upload-procedures.notifications.file-uploaded",
+  FileExtensionIsNotXml = "screens.upload-procedures.view.error.file-extension",
+  XmlToObjectError = "screens.upload-procedures.view.error.xml-to-object",
+  XmlDateInvalidFormat = "screens.upload-procedures.view.error.xml-date-invalid-format",
+  ErrorExtractingProcedureMethodName = "screens.upload-procedures.view.error.procedure-method-name",
+  ErrorExtractingImageName = "screens.upload-procedures.view.error.image-name",
+  ErrorInvasiveResultIsNotPresent = "screens.upload-procedures.view.error.invasive-result-is-not-present",
+  ErrorObjectNameIsInvalidFormat = "screens.upload-procedures.view.error.object-name-is-invalid-format",
 }
 
 export enum ReportTypes {
@@ -232,8 +251,8 @@ export enum ReportTypes {
 }
 
 export enum ReportTypesNames {
-  BUG = "Hibabejelentés",
-  REQUEST_FEATURE = "Javaslat",
+  BUG = "screens.reporting.report-types.bug",
+  REQUEST_FEATURE = "screens.reporting.report-types.request-feature",
 }
 
 export enum UniqueErrorResponseTypes {
@@ -241,12 +260,12 @@ export enum UniqueErrorResponseTypes {
 }
 
 export enum GuardResultTypes {
-  PENDING = 'PENDING',
-  FAILED = 'FAILED',
-  PASSED = 'PASSED',
+  PENDING = "PENDING",
+  FAILED = "FAILED",
+  PASSED = "PASSED",
 }
 
 export enum GuardTypes {
-  NOT_LOGGED_IN_GUARD = 'NOT_LOGGED_IN_GUARD',
-  GOOGLE_ACCOUNT_GUARD = 'GOOGLE_ACCOUNT_GUARD',
+  NOT_LOGGED_IN_GUARD = "NOT_LOGGED_IN_GUARD",
+  GOOGLE_ACCOUNT_GUARD = "GOOGLE_ACCOUNT_GUARD",
 }

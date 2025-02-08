@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.PlantRepository;
+import com.lucas.spring.repositories.PlantRepository;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.entity.PlantEntity;
 import com.lucas.spring.services.service.PlantService;

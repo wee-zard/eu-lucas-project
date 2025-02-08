@@ -12,17 +12,14 @@ const initialState: CreationYearType = {
   listOfCreationYears: [],
 };
 
-const creationYearReducer = (
-  state = initialState,
-  action: UnknownAction
-): CreationYearType => {
+const creationYearReducer = (state = initialState, action: UnknownAction): CreationYearType => {
   switch (action.type) {
     case CreationYearConsts.CREATION_YEARS_FAILED:
       return {
         ...state,
         isCreationListLoading: false,
       };
-    case CreationYearConsts.CREATION_YEARS_SUCCEDED:
+    case CreationYearConsts.CREATION_YEARS_SUCCEEDED:
       return {
         ...state,
         listOfCreationYears: action.payload as CreationYearDto[],

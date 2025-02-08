@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.CreationDirectionRepository;
+import com.lucas.spring.repositories.CreationDirectionRepository;
 import com.lucas.spring.model.entity.CreationDirectionEntity;
 import com.lucas.spring.model.expection.DirectionNotFoundException;
 import com.lucas.spring.services.service.CreationDirectionService;

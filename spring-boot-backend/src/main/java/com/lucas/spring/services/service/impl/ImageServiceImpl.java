@@ -1,12 +1,11 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.ImageRepository;
+import com.lucas.spring.repositories.ImageRepository;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.enums.ImageExceptionEnums;
 import com.lucas.spring.model.expection.ImageException;
 import com.lucas.spring.model.request.ImageRequest;
 import com.lucas.spring.services.service.ImageService;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

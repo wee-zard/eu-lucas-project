@@ -9,6 +9,7 @@ platform:
   - backend
   - frontend
 creation-time: 2024-12-07T09:25:00
+sprint: 2
 ---
 Aktuális működés:
 - Jelenleg felváltva vannak angol és magyar szövegek megjelenítve az alkalmazásban. Emiatt egységesíteni kéne, hogy alapértelmezetten csak magyar, vagy csak angol szöveg jelenjen meg.

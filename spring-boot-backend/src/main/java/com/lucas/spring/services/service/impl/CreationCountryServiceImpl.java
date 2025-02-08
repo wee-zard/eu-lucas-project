@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.CreationCountryRepository;
+import com.lucas.spring.repositories.CreationCountryRepository;
 import com.lucas.spring.model.entity.CreationCountryEntity;
 import com.lucas.spring.model.expection.CountryNotFoundException;
 import com.lucas.spring.services.service.CreationCountryService;

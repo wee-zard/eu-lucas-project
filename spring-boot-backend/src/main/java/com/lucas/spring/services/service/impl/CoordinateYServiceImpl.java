@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.CoordinateYRepository;
+import com.lucas.spring.repositories.CoordinateYRepository;
 import com.lucas.spring.model.entity.CoordinateYEntity;
 import com.lucas.spring.model.expection.CoordinateYNotFoundException;
 import com.lucas.spring.services.service.CoordinateYService;

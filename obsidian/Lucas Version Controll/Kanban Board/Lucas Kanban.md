@@ -18,14 +18,9 @@ kanban-plugin: board
 
 ## 🔴Backlog
 
-- [ ] [[113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon]]
 - [ ] [[012 - FilterDialog ablakának dinamikus háttérszín adása a megjelenő Dark Light mode bekapcsolásával]]
 - [ ] [[016 - ExifData szűrés esetén az text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]]
-- [ ] [[018 - Licensz vizsgálat minden npm csomagra]]
-- [ ] [[021 - Try-catch to axios http request methods, so we could handle the thrown exceptions]]
 - [ ] [[031 - Ha a törölt user bejelentkezve maradt, akkor ne tudjon kezdeményezni semmilyen utasítást]]
-- [ ] [[032 - Minden endpoint kerüljön authentikációhoz kötve]]
-- [ ] [[034 - ErrorHandling minden esetben internal-server-errort dob vissza]]
 - [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
 - [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]]
@@ -44,41 +39,57 @@ kanban-plugin: board
 - [ ] [[090 - FilteringDialog - Amikor először építi fel az input mezőket az ablak, akkor bizonyos esetekben többször újra rendereli az egész ablakot]]
 - [ ] [[088 - 5 FilteringGroup-ot egymásba ágyazva túl kicsivé teszi a szűrési feltételek input mezőit]]
 - [ ] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]]
-- [ ] [[097 - TokenValidation - Át lehet mozgatni ezen aspect osztályba a @RequestHeader-ben érkező Authentikációs tokent]]
 - [ ] [[100 - Filtering - A localStorage-ben eltárolt adatok betöltése esetén, hibaüzenet kerül dobásra]]
-- [ ] [[103 - Using kebab-case for css properties in objects is not supported. Did you mean WebkitBoxShadow Error Component Stack]]
 - [ ] [[104 - Filtering - Kiválasztott képre való rákattintás esetén, a szűrés eredmény képek kerüljenek megjelenítésre]]
 - [ ] [[108 - Filtering - Jobb szöveg kiíratása azon esetekben, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép]]
 - [ ] [[123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével]]
 - [ ] [[124 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, miközben a képlekérdezések leáll]]
-- [ ] [[125 - Endpoint - Egyszerűsíteni az egyes Endpoint-ok neveit]]
-- [ ] [[126 - Exception - Generic Exception dobása - Exception osztályok egyesítése egy Generic osztállyá, amiből minden exception öröklődik]]
-- [ ] [[127 - Native Query ne kerüljön használatra a Repository-ban, mivel emiatt nem lesz Portable az SQL utasítás]]
-- [ ] [[128 - Integer - Helyettesíteni az int típust Integer típussal a backend oldalán]]
 - [ ] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]]
-- [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljünk el]]
-- [ ] [[133 - JpaRepository használata CrudRepository helyett]]
-- [ ] [[134 - Sebezhetőségek javítása a pom.xml-ben]]
-- [ ] [[135 - DefaultSqlScriptExecutor DB Integer display width is deprecated and will be removed in a future release. (SQL State HY000 - Error Code 1681)]]
-- [ ] [[136 - Backend Runtime Warning üzenetek javítása]]
-- [ ] [[144 - Sensitive data must be stored in the .env file outside of the project]]
+- [ ] [[151 - Bejelentés - Több sorba tördelt üzenet szövege, egy egysoros üzenetté alakul át az email elküldésekor]]
+
+
+## 🔴Code Improvement ToDo
+
 - [ ] [[145 - .Env fájl változói egy Utils fájlba kerüljenek eltárolásra]]
+- [ ] [[144 - Sensitive data must be stored in the .env file outside of the project]]
+- [ ] [[136 - Backend Runtime Warning üzenetek javítása]]
+- [ ] [[135 - DefaultSqlScriptExecutor DB Integer display width is deprecated and will be removed in a future release. (SQL State HY000 - Error Code 1681)]]
+- [ ] [[134 - Sebezhetőségek javítása a pom.xml-ben]]
+- [ ] [[133 - JpaRepository használata CrudRepository helyett]]
+- [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljünk el]]
+- [ ] [[128 - Integer - Helyettesíteni az int típust Integer típussal a backend oldalán]]
+- [ ] [[127 - Native Query ne kerüljön használatra a Repository-ban, mivel emiatt nem lesz Portable az SQL utasítás]]
+- [ ] [[126 - Exception - Generic Exception dobása - Exception osztályok egyesítése egy Generic osztállyá, amiből minden exception öröklődik]]
+- [ ] [[125 - Endpoint - Egyszerűsíteni az egyes Endpoint-ok neveit]]
+- [ ] [[103 - Using kebab-case for css properties in objects is not supported. Did you mean WebkitBoxShadow Error Component Stack]]
+- [ ] [[097 - TokenValidation - Át lehet mozgatni ezen aspect osztályba a @RequestHeader-ben érkező Authentikációs tokent]]
+- [ ] [[034 - ErrorHandling minden esetben internal-server-errort dob vissza]]
+- [ ] [[032 - Minden endpoint kerüljön authentikációhoz kötve]]
+- [ ] [[021 - Try-catch to axios http request methods, so we could handle the thrown exceptions]]
+- [ ] [[018 - Licensz vizsgálat minden npm csomagra]]
+- [ ] [[113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon]]
+- [ ] [[013 - CheckStyle hibák javítása a Backend oldalán]]
+- [ ] [[022 - ErrorLog létrehozása a production-ben dobásra került hibák visszakereshetősége céljából]]
+- [ ] [[033 - Dto megvalósítása és az adatbázis logikai rétegének elrejtése]]
+- [ ] [[096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből]]
+- [ ] [[147 - Stílus változók kerüljenek kiszervezésre egy külön variables.scss fájlba]]
+- [ ] [[148 - Spring Üzleti Alkalmazások Fejlesztése kurzus videóinek feldolgozása]]
+- [ ] [[149 - NoImplicitAny változó használata a tsconfig fájlban]]
+- [ ] [[150 - Import fájlok ABC sorrendbe való rendezése]]
+- [ ] [[151 - Backend - PageableProperties helyettesítése a beépített Pageable típussal]]
+- [ ] [[152 - ControllerEndpoint-ok áthelyezése az app api mappa alá]]
 
 
 ## 🔴ToDo
 
 - [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[011 - Kiválasztott képek letöltése és zip fájlba való elmentése]]
-- [ ] [[013 - CheckStyle hibák javítása a Backend oldalán]]
 - [ ] [[015 - Nagy méretű táblák partícionálása]]
-- [ ] [[017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz]]
 - [ ] [[019 - Aktív szűrés eredményei, a kiválasztott képek és a hozzájuk tartozó szűrési feltételek kerüljenek eltárolásra localStorage-ben]]
-- [ ] [[022 - ErrorLog létrehozása a production-ben dobásra került hibák visszakereshetősége céljából]]
 - [ ] [[024 - Manual oldal implementálása]]
 - [ ] [[025 - Settings oldal implementálása]]
 - [ ] [[027 - ManageUsers oldal implementálása]]
 - [ ] [[029 - Lucas-image-server átmozgatása a backend-re és ott implementálni a képek feldolgozását]]
-- [ ] [[033 - Dto megvalósítása és az adatbázis logikai rétegének elrejtése]]
 - [ ] [[035 - Tranzakció kezelés megvalósítása és versenyhelyzet kiküszöbölése]]
 - [ ] [[040 - Image Server implementálása]]
 - [ ] [[044 - Profilkép megjelenítése a Mat Toolbar-on]]
@@ -89,7 +100,6 @@ kanban-plugin: board
 - [ ] [[061 - Tesztek írása és futtatása]]
 - [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]]
-- [ ] [[096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből]]
 - [ ] [[098 - Verziószám hozzáadása a projekthez, és annak növelése minden demo bemutatása után]]
 - [ ] [[101 - Profile - Kijelentkezés implementálása]]
 - [ ] [[102 - localStorage kiürítése bejelentkezés & kijelentkezés során]]
@@ -99,9 +109,6 @@ kanban-plugin: board
 - [ ] [[142 - Lottifiles - Under construction animáció]]
 - [ ] [[143 - Lottifiles - 404 Not found animáció]]
 - [ ] [[146 - Az adatbázis kerüljön kiszervezésre, és globálisan elérhető legyen]]
-- [ ] [[147 - Stílus változók kerüljenek kiszervezésre egy külön variables.scss fájlba]]
-- [ ] [[148 - Spring Üzleti Alkalmazások Fejlesztése kurzus videóinek feldolgozása]]
-- [ ] [[149 - NoImplicitAny változó használata a tsconfig fájlban]]
 
 
 ## 🔴Client Requests
@@ -120,6 +127,9 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
+- [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
+- [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
+- [ ] [[017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz]]
 - [ ] [[039 - Procedures oldal létrehozása]]
 - [ ] [[077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
@@ -211,6 +221,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,true],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
+{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,false,true],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
 ```
 %%

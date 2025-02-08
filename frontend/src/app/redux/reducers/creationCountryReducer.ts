@@ -14,7 +14,7 @@ const initialState: CreationCountryType = {
 
 const creationCountryReducer = (
   state = initialState,
-  action: UnknownAction
+  action: UnknownAction,
 ): CreationCountryType => {
   switch (action.type) {
     case CreationCountryConsts.CREATION_COUNTRY_FAILED:
@@ -22,7 +22,7 @@ const creationCountryReducer = (
         ...state,
         isCreationCountryLoading: false,
       };
-    case CreationCountryConsts.CREATION_COUNTRY_SUCCEDED:
+    case CreationCountryConsts.CREATION_COUNTRY_SUCCEEDED:
       return {
         ...state,
         listOfCreationCountries: action.payload as CreationCountryDto[],

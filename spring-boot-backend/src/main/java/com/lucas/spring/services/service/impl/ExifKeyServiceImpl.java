@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.ExifKeyRepository;
+import com.lucas.spring.repositories.ExifKeyRepository;
 import com.lucas.spring.model.entity.ExifKeyEntity;
 import com.lucas.spring.model.expection.ExifKeyNotFoundException;
 import com.lucas.spring.services.service.ExifKeyService;

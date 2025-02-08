@@ -10,6 +10,7 @@ import { NotificationSeverity, throwNotification } from "@helper/notificationUti
 import { setLocalStorageItem } from "@helper/localStorageUtil";
 import StyledButton from "@components/StyledButton";
 import StyledBackdrop from "@components/StyledBackdrop";
+import i18n from "@i18n/i18nHandler";
 
 const LoginScreen = () => {
   const [isBackdropOpen, setBackdropOpen] = useState(false);
@@ -38,7 +39,11 @@ const LoginScreen = () => {
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: handleRefreshTokenFetch,
-    onError: () => throwNotification(NotificationSeverity.Error, "Hiba! Bejelentkezés sikertelen!"),
+    onError: () =>
+      throwNotification(
+        NotificationSeverity.Error,
+        i18n.t("screens.login.notifications.error-on-login"),
+      ),
   });
 
   // log out function to log the user out of google and set the profile array to null
@@ -51,7 +56,7 @@ const LoginScreen = () => {
   return (
     <StyledGoogleAuthHolder>
       <StyledButton
-        buttonText={"Jelentkezz be Google fiókkal"}
+        buttonText={i18n.t("screens.login.form.login-with-google")}
         buttonVariant={"outlined"}
         buttonIcon={<GoogleLoginIcon width={20} />}
         onClick={googleLogin}

@@ -13,7 +13,7 @@ export const getCoordinateYList = async () => {
     endpoint: BackendCoordinateYControllerEndpoints.GetCoordinateYList,
     obj: {},
     header: {
-      isAuthTokenNeeded: true,
+      isAuthTokenMandatory: true,
     },
     errorMessage: "Error while executing the fetch of y coordinates!",
   });

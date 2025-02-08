@@ -1,4 +1,5 @@
 {
   "printWidth": 100,
-  "prettier.singleAttributePerLine": false
+  "prettier.singleAttributePerLine": false,
+  "prettier.singleQuote": true
 }

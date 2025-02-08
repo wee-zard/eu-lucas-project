@@ -1,8 +1,10 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.ProcedureLogParamRepository;
+import com.lucas.spring.model.dto.ProcedureLogParamDto;
 import com.lucas.spring.model.entity.ProcedureLogParamEntity;
+import com.lucas.spring.repositories.ProcedureLogParamRepository;
 import com.lucas.spring.services.service.ProcedureLogParamService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +16,16 @@ import org.springframework.stereotype.Service;
 public class ProcedureLogParamServiceImpl implements ProcedureLogParamService {
   private final ProcedureLogParamRepository procedureLogParamRepository;
 
+  @Override
+  public List<ProcedureLogParamDto> getProcedureLogParamsByProcedureId(final Long id) {
+    return procedureLogParamRepository.findByProcedureParamName(id);
+  }
+
   /**
    * {@inheritDoc}
    */
   @Override
-  public ProcedureLogParamEntity saveProcedureLogParam(ProcedureLogParamEntity entity) {
+  public ProcedureLogParamEntity saveProcedureLogParam(final ProcedureLogParamEntity entity) {
     return procedureLogParamRepository.save(entity);
   }
 }

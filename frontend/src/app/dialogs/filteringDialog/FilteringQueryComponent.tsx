@@ -12,6 +12,14 @@ import { FilteringHelper } from "@helper/filteringHelper";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { ConversionUtils } from "@helper/conversionUtils";
 import { IdUtils } from "@helper/idUtils";
+import { useDispatch } from "react-redux";
+import { requestCreationYears } from "@redux/actions/creationYearActions";
+import { requestExifKeys } from "@redux/actions/exifKeyActions";
+import { requestCreationDirections } from "@redux/actions/creationDirectionActions";
+import { requestCreationCountries } from "@redux/actions/creationCountryActions";
+import { requestCoordinateYList } from "@redux/actions/coordinateYActions";
+import { requestCoordinateXList } from "@redux/actions/coordinateXActions";
+import { requestProcedureList } from "@redux/actions/procedureActions";
 
 type Props = {
   id: number;
@@ -19,6 +27,10 @@ type Props = {
 
 const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id }: Props) {
   console.log("[FilteringQueryComponent]: rendered");
+
+  const queryByOptions = Object.values(FilterDialogFilterOptionNames).sort();
+
+  const dispatch = useDispatch();
 
   const handleComponentChange = (changedComponent: QueryComponent) => {
     const states = FilteringHelper.getUpdatedStates<QueryComponent>(id);
@@ -54,6 +66,38 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
     FilteringHelper.sendUpdateEvent(states.filtered.parentId);
   };
 
+  const getQueryByInputValue = (selectedFilterTab?: FilterDialogFilterOptions) =>
+    ConversionUtils.FilterOptionsToFilterOptionNames(selectedFilterTab) ?? "";
+
+  const setQueryByInputValue = (item: string) => {
+    const filterOption = item as FilterDialogFilterOptionNames;
+    handleComponentSelection(ConversionUtils.FilterOptionNamesToFilterOptions(filterOption));
+    handleCallOfStorageInit(filterOption);
+  };
+
+  /**
+   * Request the list of options from the redux storage based on the selected filter option.
+   * If the storage is not filled up, then it will be request options from the server. If the
+   * storage up-to-date, then it will simply read it from there.
+   *
+   * @param item The selected filter option to query by.
+   */
+  const handleCallOfStorageInit = (item: FilterDialogFilterOptionNames) => {
+    const handler = Object.freeze({
+      [FilterDialogFilterOptionNames.Year]: () => requestCreationYears(dispatch),
+      [FilterDialogFilterOptionNames.YCoordinates]: () => requestCoordinateYList(dispatch),
+      [FilterDialogFilterOptionNames.XCoordinates]: () => requestCoordinateXList(dispatch),
+      [FilterDialogFilterOptionNames.ProcedureParams]: () => null,
+      [FilterDialogFilterOptionNames.ProcedureName]: () => requestProcedureList(dispatch),
+      [FilterDialogFilterOptionNames.Plant]: () => null,
+      [FilterDialogFilterOptionNames.ExifData]: () => requestExifKeys(dispatch),
+      [FilterDialogFilterOptionNames.Direction]: () => requestCreationDirections(dispatch),
+      [FilterDialogFilterOptionNames.Country]: () => requestCreationCountries(dispatch),
+      [FilterDialogFilterOptionNames.Algorithm]: () => null,
+    });
+    handler[item].call(() => null);
+  };
+
   /**
    * First, check if the selectedFilterTab has any value.
    * - if yes, then display the corresponding input fields with their values.
@@ -66,26 +110,9 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
         <StyledInputHolder>
           <StyledSelectComponent
             inputTitle={"Query By"}
-            // TODO: Change it back to the following: Object.values(FilterDialogFilterOptionNames)
-            options={[
-              FilterDialogFilterOptionNames.Country,
-              FilterDialogFilterOptionNames.Direction,
-              FilterDialogFilterOptionNames.XCoordinates,
-              FilterDialogFilterOptionNames.YCoordinates,
-              FilterDialogFilterOptionNames.Year,
-            ].sort()}
-            inputValue={
-              ConversionUtils.FilterOptionsToFilterOptionNames(
-                states.filtered?.selectedFilterTab,
-              ) ?? ""
-            }
-            setValue={(item) =>
-              handleComponentSelection(
-                ConversionUtils.FilterOptionNamesToFilterOptions(
-                  item as FilterDialogFilterOptionNames,
-                ),
-              )
-            }
+            options={queryByOptions}
+            inputValue={getQueryByInputValue(states.filtered?.selectedFilterTab)}
+            setValue={setQueryByInputValue}
           />
         </StyledInputHolder>
         {states.filtered?.selectedFilterTab ? (

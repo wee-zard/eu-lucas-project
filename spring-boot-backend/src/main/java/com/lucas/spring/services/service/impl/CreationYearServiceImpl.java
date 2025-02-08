@@ -1,6 +1,6 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.database.repositories.CreationYearRepository;
+import com.lucas.spring.repositories.CreationYearRepository;
 import com.lucas.spring.model.entity.CreationYearEntity;
 import com.lucas.spring.model.expection.YearNotFoundException;
 import com.lucas.spring.services.service.CreationYearService;
