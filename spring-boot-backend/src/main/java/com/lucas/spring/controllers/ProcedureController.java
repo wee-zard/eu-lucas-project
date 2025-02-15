@@ -3,14 +3,12 @@ package com.lucas.spring.controllers;
 import com.lucas.spring.controllers.abstraction.BaseController;
 import com.lucas.spring.model.dto.ProcedureDto;
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.model.models.PageableProperties;
 import com.lucas.spring.model.request.procedures.ProcedureResultRequest;
 import com.lucas.spring.model.response.BaseResponse;
-import com.lucas.spring.model.response.PageableResponse;
 import com.lucas.spring.services.facade.ProcedureFacade;
 import com.lucas.spring.services.service.ProcedureService;
+import java.util.List;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,14 +61,9 @@ public class ProcedureController extends BaseController {
    */
   @CrossOrigin
   @GetMapping("/")
-  public PageableResponse<ProcedureDto> getProcedures(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
-          @RequestHeader(PAGEABLE_PROPERTIES) PageableProperties pageableProperties
+  public List<ProcedureDto> getProcedures(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
-    return pageToPageableResponse(
-            new PageImpl<>(procedureService.getProcedures()),
-            ProcedureDto.class,
-            pageableProperties
-    );
+    return convertEntityToDto(procedureService.getProcedures(), ProcedureDto.class);
   }
 }

@@ -17,15 +17,13 @@ public interface ProcedureLogParamRepository
         extends JpaRepository<ProcedureLogParamEntity, EmbeddedProcedureLogParam> {
 
   /**
-   * Fetch the list of procedure params that are associated with the provided procedure.
+   * Fetch the list of procedure params.
    *
-   * @param id The id of the procedure to filter by.
-   * @return Returns the list of those procedure params that are associated with the procedure.
+   * @return Returns the list of procedure params.
    */
   @Query("SELECT new com.lucas.spring.model.dto.ProcedureLogParamDto("
           + "p.procedureLogParam.procedureParamName"
           + ") FROM ProcedureLogParam p "
-          + "WHERE p.procedureLogParam.procedureLog.procedure.id = :id "
           + "GROUP BY p.procedureLogParam.procedureParamName")
-  List<ProcedureLogParamDto> findByProcedureParamName(@Param("id") Long id);
+  List<ProcedureLogParamDto> findByProcedureParamName();
 }

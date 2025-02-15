@@ -1,5 +1,6 @@
 package com.lucas.spring.model.entity;
 
+import com.lucas.spring.model.entity.abstraction.BaseComparatorEntity;
 import com.lucas.spring.model.entity.embeddable.EmbeddedProcedureLogParam;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity(name = "ProcedureLogParam")
 @Table(name = "tb_procedure_log_params")
-public class ProcedureLogParamEntity {
+public class ProcedureLogParamEntity extends BaseComparatorEntity<ProcedureLogParamEntity> {
   /**
    * The primary keys of the procedure log param entity,
    * from which one of them is in a many-to-one relationship
@@ -26,4 +27,22 @@ public class ProcedureLogParamEntity {
    */
   @EmbeddedId
   private EmbeddedProcedureLogParam procedureLogParam;
+
+  @Override
+  public boolean equals(final Object o) {
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return 0;
+  }
+
+  @Override
+  public int compareTo(ProcedureLogParamEntity o) {
+    return String.CASE_INSENSITIVE_ORDER.compare(
+            procedureLogParam.getProcedureParamName(),
+            o.getProcedureLogParam().getProcedureParamName()
+    );
+  }
 }

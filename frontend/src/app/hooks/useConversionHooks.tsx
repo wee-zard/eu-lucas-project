@@ -14,6 +14,8 @@ import { selectListOfCreationDirection } from "@redux/selectors/creationDirectio
 import { selectListOfCoordinateX } from "@redux/selectors/coordinateXSelector";
 import { selectListOfCoordinateY } from "@redux/selectors/coordinateYSelector";
 import { selectListOfExifKeys } from "@redux/selectors/exifKeySelector";
+import { selectListOfProcedures } from "@redux/selectors/procedureSelector";
+import { selectListOfProcedureLogParams } from "@redux/selectors/procedureLogParamSelector";
 
 export const useSelectedTabToFilterTemplate = (filterTab?: FilterDialogFilterOptions) => {
   const listOfCreationYears = useSelector(selectListOfCreationYears);
@@ -22,6 +24,11 @@ export const useSelectedTabToFilterTemplate = (filterTab?: FilterDialogFilterOpt
   const listOfCoordinateX = useSelector(selectListOfCoordinateX);
   const listOfCoordinateY = useSelector(selectListOfCoordinateY);
   const listOfExifKeys = useSelector(selectListOfExifKeys);
+  const listOfProcedures = useSelector(selectListOfProcedures).map((item) => item.name);
+  const listOfProcedureLogParams = useSelector(selectListOfProcedureLogParams).map(
+    (item) => item.procedureParamName,
+  );
+  const probabilityList = Array.from(Array(101).keys()).map((element) => element.toString());
 
   const getFilterFormTemplate = (): FilterFormTemplate[] => {
     if (!filterTab) {
@@ -120,7 +127,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: FilterDialogFilterOpt
             inputTitle: i18n.t(
               "screens.filtering.query-builder.query-by-option-names.procedure-name",
             ),
-            options: [], // TODO: ...
+            options: listOfProcedures,
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
@@ -135,7 +142,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: FilterDialogFilterOpt
             inputTitle: i18n.t(
               "screens.filtering.query-builder.query-by-option-names.procedure-params",
             ),
-            options: [], // TODO: ...
+            options: listOfProcedureLogParams,
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
@@ -144,10 +151,36 @@ export const useSelectedTabToFilterTemplate = (filterTab?: FilterDialogFilterOpt
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
-      case FilterDialogFilterOptions.Plant:
-        return [];
-      case FilterDialogFilterOptions.Algorithm:
-        return [];
+      case FilterDialogFilterOptions.BoundingBoxIsPlantHomogenous:
+        return [
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.homogenous"),
+            options: [
+              i18n.t("screens.filtering.query-builder.query-by-option-names.it-is-homogenous"),
+              i18n.t("screens.filtering.query-builder.query-by-option-names.it-is-invasive"),
+            ],
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case FilterDialogFilterOptions.BoundingBoxPlantProbability:
+        return [
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.probability"),
+            // TODO: This should be changes to a number input textfield.
+            options: probabilityList,
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorComparableItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
       default:
         return [];
     }

@@ -100,21 +100,10 @@ export enum ServersToConnectTo {
 }
 
 export enum LocalStorageKeys {
-  ApplicationStorage = "application-storage",
   GoogleOAuthToken = "google_oauth_token",
   GoogleRefreshToken = "google-refresh-token",
   NotificationColor = "toolpad-mode",
   FilteringDialog = "filtering-dialog",
-}
-
-export enum ApplicationStorageKeys {
-  CreationYear = "creationYear",
-  CoordinateX = "coordinateX",
-  CoordinateY = "coordinateY",
-  ExifKey = "exifKey",
-  CreationDirection = "creationDirection",
-  CreationCountry = "creationCountry",
-  Procedure = "procedure",
 }
 
 export enum ScreenUrls {
@@ -145,9 +134,10 @@ export enum FilterDialogFilterOptions {
   Direction = "DIRECTION",
   ExifData = "EXIF_DATA",
   Plant = "PLANT",
-  Algorithm = "ALGORITHM", // TODO: Deletable later.
   ProcedureName = "PROCEDURE_NAME",
   ProcedureParams = "PROCEDURE_PARAMS",
+  BoundingBoxIsPlantHomogenous = "IS_HOMOGENOUS",
+  BoundingBoxPlantProbability = "PROBABILITY",
 }
 
 export enum FilterDialogFilterOptionNames {
@@ -158,9 +148,10 @@ export enum FilterDialogFilterOptionNames {
   Direction = "Készítés Iránya",
   ExifData = "Exif adat",
   Plant = "Növény",
-  Algorithm = "Eljárás", // TODO: Deletable later.
   ProcedureName = "Eljárás neve",
   ProcedureParams = "Eljárás pareméterei",
+  BoundingBoxIsPlantHomogenous = "Detektált növény homogén-e",
+  BoundingBoxPlantProbability = "Detektálás valószínűsége",
 }
 
 export enum DialogToOpens {

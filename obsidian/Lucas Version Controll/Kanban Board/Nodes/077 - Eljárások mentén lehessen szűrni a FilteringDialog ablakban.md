@@ -16,9 +16,9 @@ Aktuális működés:
 
 Elvárt működés: 
 - A hiányzó szűrési opciók:
-	- [ ] **Eljárás** mentén lehessen szűrni:
-		- [ ] *Eljárás neve* alapján
-		- [ ] *Eljárás paraméterei* alapján
-		- [ ] Operátor mentén szűrni:
-			- [ ] *Megtalálható* a képen (pl. 1.png képen a *Képelemző 40K* az *Megtalálható/Alkalmazva* legyen.)
-			- [ ] *NEM megtaláható/NEM Alkalmazva* a képen
+	- [x] **Eljárás** mentén lehessen szűrni:
+		- [x] *Eljárás neve* alapján
+		- [x] *Eljárás paraméterei* alapján
+		- [x] Operátor mentén szűrni:
+			- [x] *Megtalálható* a képen (pl. 1.png képen a *Képelemző 40K* az *Megtalálható/Alkalmazva* legyen.)
+			- [x] *NEM megtaláható/NEM Alkalmazva* a képen

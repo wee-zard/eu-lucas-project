@@ -16,9 +16,12 @@ import org.springframework.stereotype.Service;
 public class ProcedureLogParamServiceImpl implements ProcedureLogParamService {
   private final ProcedureLogParamRepository procedureLogParamRepository;
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public List<ProcedureLogParamDto> getProcedureLogParamsByProcedureId(final Long id) {
-    return procedureLogParamRepository.findByProcedureParamName(id);
+  public List<ProcedureLogParamDto> getProcedureLogParamsByProcedureId() {
+    return procedureLogParamRepository.findByProcedureParamName();
   }
 
   /**

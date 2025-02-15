@@ -27,7 +27,7 @@ public class ConversionServiceConfig implements WebMvcConfigurer {
    *     in the constructor and perform the convert method.
    */
   @Primary
-  @Bean(name = "ConversionService")
+  @Bean(name = "myConversionService")
   public ConversionService myConversionService(Set<Converter<?, ?>> converters) {
     final ConversionServiceFactoryBean factory = new ConversionServiceFactoryBean();
     factory.setConverters(converters);

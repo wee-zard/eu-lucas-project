@@ -3,16 +3,14 @@ package com.lucas.spring.controllers;
 import com.lucas.spring.controllers.abstraction.BaseController;
 import com.lucas.spring.model.dto.ProcedureLogParamDto;
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.model.models.PageableProperties;
-import com.lucas.spring.model.response.PageableResponse;
 import com.lucas.spring.services.service.ProcedureLogParamService;
+import java.util.List;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -40,14 +38,11 @@ public class ProcedureParamController extends BaseController {
    */
   @CrossOrigin
   @GetMapping("/")
-  public PageableResponse<ProcedureLogParamDto> getProcedureParamsByProcedureId(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
-          @RequestHeader(PAGEABLE_PROPERTIES) PageableProperties pageableProperties,
-          @RequestParam String procedureId
+  public List<ProcedureLogParamDto> getProcedureParamsByProcedureId(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
-    return new PageableResponse<>(
-            pageableProperties,
-            procedureLogParamService.getProcedureLogParamsByProcedureId(Long.valueOf(procedureId))
-    );
+    return convertEntityToDto(
+            procedureLogParamService.getProcedureLogParamsByProcedureId(),
+            ProcedureLogParamDto.class);
   }
 }

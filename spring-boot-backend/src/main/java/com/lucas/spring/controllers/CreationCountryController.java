@@ -3,7 +3,7 @@ package com.lucas.spring.controllers;
 import com.lucas.spring.model.entity.CreationCountryEntity;
 import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.services.service.CreationCountryService;
-import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,9 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class CreationCountryController {
   private final CreationCountryService creationCountryService;
 
+  /**
+   * Fetch the creation countries from the server.
+   *
+   * @param authenticatedUser The user who initialized the connection to the server.
+   * @return Returns the list of creation countries.
+   */
   @CrossOrigin
   @GetMapping("/get-creation-countries")
-  public ArrayList<CreationCountryEntity> getCreationDirection(
+  public List<CreationCountryEntity> getCreationDirection(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
     return creationCountryService.getCreationCountries();

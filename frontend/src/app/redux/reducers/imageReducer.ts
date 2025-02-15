@@ -3,6 +3,7 @@ import { ImageConsts } from "@redux/consts/imageConsts";
 import { MenuActions } from "@model/enum";
 import PageableProperties from "@model/PageableProperties";
 import SelectedImagesModel from "@model/SelectedImagesModel";
+import { FILTERING_PAGE_SIZE } from "@global/globalConsts";
 
 interface ImageType {
   /**
@@ -14,7 +15,7 @@ interface ImageType {
    */
   selectedImage?: SelectedImagesModel;
   /**
-   * Stores the action that can be fired from the Filter dialog. 
+   * Stores the action that can be fired from the Filter dialog.
    */
   filterMenuAction?: MenuActions;
   /**
@@ -27,13 +28,10 @@ const initialState: ImageType = {
   listOfSelectedImages: [],
   selectedImage: undefined,
   filterMenuAction: undefined,
-  filteringPageableProperties: { pageNo: 0, pageSize: 9},
+  filteringPageableProperties: { pageNo: 0, pageSize: FILTERING_PAGE_SIZE },
 };
 
-const imageReducer = (
-  state = initialState,
-  action: UnknownAction
-): ImageType => {
+const imageReducer = (state = initialState, action: UnknownAction): ImageType => {
   switch (action.type) {
     case ImageConsts.SET_LIST_OF_SELECTED_IMAGES:
       return {

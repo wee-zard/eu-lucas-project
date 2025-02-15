@@ -16,5 +16,5 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmailRequest {
-  public String emailAddress;
+  private String emailAddress;
 }

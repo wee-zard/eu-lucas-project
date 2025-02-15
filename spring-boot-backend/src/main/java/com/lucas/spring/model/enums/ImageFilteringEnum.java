@@ -14,6 +14,9 @@ public enum ImageFilteringEnum {
   NO_FILTER_COMPONENT_PROVIDED("no-filter-component-provided"),
   NO_RECURSIVE_GROUP_RELATION_PROVIDED("no-recursive-group-relationship-provided"),
   NO_RECURSIVE_GROUP_RELATION_PROVIDED_BY_GROUP_ID("no-recursive-group-relationship-provided-by-group-id"),
+  LIST_OF_QUERIES_ARE_EMPTY("list-of-queries-are-empty"),
+  PAGEABLE_PROPERTIES_ARE_NOT_PROVIDED("pageable-properties-are-not-provided"),
+  NO_COMPONENT_OR_GROUP_PROVIDED("no-component-or-group-provided"),
   UNKNOWN_OR_NO_OPERATOR_PROVIDED("unknown-or-no-operator-provided"),
   UNKNOWN_OR_NO_LOGICAL_EXPRESSION_PROVIDED("unknown-or-no-logical-expression-provided"),
   UNKNOWN_OR_NO_FILTER_TAB_PROVIDED("unknown-or-no-filter-tab-provided");

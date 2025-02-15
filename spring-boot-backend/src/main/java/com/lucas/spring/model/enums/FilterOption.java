@@ -14,9 +14,11 @@ public enum FilterOption {
   X_COORDINATE("X Koordináta", "coordinateX"),
   Y_COORDINATE("Y Koordináta", "coordinateY"),
   DIRECTION("Készítés iránya", "direction"),
-  EXIF_DATA("Exif adat", null), //TODO: ...
-  PLANT("Növények", null), //TODO: ...
-  ALGORITHM("Algoritmus", null); //TODO: ...
+  PROCEDURE_NAME("Eljárás neve", "name"),
+  PROCEDURE_PARAMS("Eljárás pareméterei", "procedureLogParam"),
+  IS_HOMOGENOUS("Homogén", "homogenous"),
+  PROBABILITY("Detektálás értéke", "probabilityOfDetection"),
+  PLANT("Növények", null); //TODO: ...
   /**
    * The name displayed in the side of the frontend.
    */

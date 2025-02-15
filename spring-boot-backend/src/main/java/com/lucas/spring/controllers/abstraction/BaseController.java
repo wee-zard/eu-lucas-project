@@ -6,7 +6,6 @@ import com.lucas.spring.model.response.PageableResponse;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.util.Streamable;
 
 /**
@@ -40,5 +39,21 @@ public abstract class BaseController {
             .map(source -> conversionService.convert(source, target))
             .toList();
     return new PageableResponse<>(pageableProperties, listOfDto);
+  }
+
+  /**
+   * Convert the requested entities into Dto.
+   *
+   * @param list The list.
+   * @param target The target dto.
+   * @param <S> Source class type.
+   * @param <T> Target class type.
+   * @return Returns the list of type target.
+   */
+  public final <S, T extends RootDto> List<T> convertEntityToDto(
+          final List<S> list,
+          final Class<T> target
+  ) {
+    return list.stream().map(source -> conversionService.convert(source, target)).toList();
   }
 }

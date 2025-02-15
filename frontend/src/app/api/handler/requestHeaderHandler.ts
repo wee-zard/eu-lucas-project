@@ -28,15 +28,14 @@ export const RequestHeaderHandler = {
    * @returns Returns a new header object that contains the auth token.
    */
 
-  addPageablePropertiesToHeader: (
-    requestHeader: any,
-    pageableProperties?: PageableProperties
-  ) => {
+  addPageablePropertiesToHeader: (requestHeader: any, pageableProperties?: PageableProperties) => {
     return pageableProperties
       ? {
           headers: {
             ...requestHeader.headers,
-            ...{"X-Pageable-Properties": `pageNo=${pageableProperties.pageNo};pageSize=${pageableProperties.pageSize}`},
+            ...{
+              "X-Pageable-Properties": `pageNo=${pageableProperties.pageNo};pageSize=${pageableProperties.pageSize}`,
+            },
           },
         }
       : requestHeader;
@@ -48,20 +47,18 @@ export const RequestHeaderHandler = {
    * @returns Returns an object that hold the token in the header
    *     for the api requests.
    */
-  getRequestHeader: (
-    authToken?: string,
-    pageableProperties?: PageableProperties
-  ) => {
+  getRequestHeader: (authToken?: string, pageableProperties?: PageableProperties) => {
     const requestHeader = {
       header: {},
     };
-    const requestHeaderWithAuthToken =
-      RequestHeaderHandler.addAuthTokenToHeader(requestHeader, authToken);
-    const requestHeaderWithPageableProperties =
-      RequestHeaderHandler.addPageablePropertiesToHeader(
-        requestHeaderWithAuthToken,
-        pageableProperties
-      );
+    const requestHeaderWithAuthToken = RequestHeaderHandler.addAuthTokenToHeader(
+      requestHeader,
+      authToken,
+    );
+    const requestHeaderWithPageableProperties = RequestHeaderHandler.addPageablePropertiesToHeader(
+      requestHeaderWithAuthToken,
+      pageableProperties,
+    );
     return requestHeaderWithPageableProperties;
   },
 };

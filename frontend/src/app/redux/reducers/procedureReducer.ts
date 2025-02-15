@@ -12,7 +12,7 @@ const initialState: ReducerStateType = {
   listOfProcedures: [],
 };
 
-const ProcedureReducer = (state = initialState, action: UnknownAction): ReducerStateType => {
+const procedureReducer = (state = initialState, action: UnknownAction): ReducerStateType => {
   switch (action.type) {
     case ProcedureConsts.REQUESTING_PROCEDURE_FAILED:
       return {
@@ -37,4 +37,4 @@ const ProcedureReducer = (state = initialState, action: UnknownAction): ReducerS
   }
 };
 
-export default ProcedureReducer;
+export default procedureReducer;

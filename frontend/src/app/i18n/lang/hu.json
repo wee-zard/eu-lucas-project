@@ -73,11 +73,15 @@
           "exif-data": "Exif adat",
           "exif-key": "Exif kulcs",
           "exif-value": "Exif érték",
+          "probability": "Találat valószínűsége",
+          "homogenous": "Homogén-e",
           "plant": "Növény",
           "algorithm": "Eljárás",
           "procedure-name": "Eljárás neve",
           "procedure-params": "Eljárás pareméterei",
-          "condition": "Feltétel"
+          "condition": "Feltétel",
+          "it-is-homogenous": "Homogén",
+          "it-is-invasive": "Invazív"
         }
       }
     }

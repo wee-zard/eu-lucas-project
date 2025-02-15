@@ -7,7 +7,8 @@ import creationDirectionReducer from "./reducers/creationDirectionReducer";
 import coordinateXReducer from "./reducers/coordinateXReducer";
 import coordinateYReducer from "./reducers/coordinateYReducer";
 import exifKeyReducer from "./reducers/exifKeyReducer";
-import ProcedureReducer from "./reducers/procedureReducer";
+import procedureReducer from "./reducers/procedureReducer";
+import procedureLogParamReducer from "./reducers/procedureLogParamReducer";
 
 const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ const store = configureStore({
     coordinateXStore: coordinateXReducer,
     coordinateYStore: coordinateYReducer,
     exifKeyStore: exifKeyReducer,
-    procedureStore: ProcedureReducer,
+    procedureStore: procedureReducer,
+    procedureLogParamStore: procedureLogParamReducer,
   },
 });
 

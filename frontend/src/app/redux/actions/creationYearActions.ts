@@ -2,9 +2,6 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { CreationYearConsts } from "@redux/consts/creationYearConsts";
 import { getCreationYears } from "@api/command/creationYearCommands";
 import CreationYearDto from "@model/dto/CreationYearDto";
-import { fetchListFromApplicationStorage, setLocalStorageItem } from "@helper/localStorageUtil";
-import { ApplicationStorageKeys, LocalStorageKeys } from "@model/enum";
-import ApplicationStorageModel from "@model/ApplicationStorageModel";
 
 export const setCreationYearRequest = () => {
   return {
@@ -25,26 +22,15 @@ export const setCreationYearSucceeded = (data: CreationYearDto[]) => {
   };
 };
 
-const initStorage = (dispatch: Dispatch, storage: ApplicationStorageModel) => {
+export const requestCreationYears = (dispatch: Dispatch) => {
+  dispatch(setCreationYearRequest());
   getCreationYears()
     .then((response) => {
       if (response) {
-        const newStorage: ApplicationStorageModel = { ...storage, creationYear: response };
-        setLocalStorageItem(JSON.stringify(newStorage), LocalStorageKeys.ApplicationStorage);
         dispatch(setCreationYearSucceeded(response));
       } else {
         dispatch(setCreationYearFailed());
       }
     })
     .catch(() => dispatch(setCreationYearFailed()));
-};
-
-export const requestCreationYears = (dispatch: Dispatch) => {
-  dispatch(setCreationYearRequest());
-  fetchListFromApplicationStorage<CreationYearDto[]>({
-    dispatch,
-    key: ApplicationStorageKeys.CreationYear,
-    initMethod: initStorage,
-    successful: setCreationYearSucceeded,
-  });
 };

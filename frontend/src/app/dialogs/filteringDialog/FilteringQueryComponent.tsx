@@ -20,6 +20,7 @@ import { requestCreationCountries } from "@redux/actions/creationCountryActions"
 import { requestCoordinateYList } from "@redux/actions/coordinateYActions";
 import { requestCoordinateXList } from "@redux/actions/coordinateXActions";
 import { requestProcedureList } from "@redux/actions/procedureActions";
+import { requestProcedureLogParams } from "@redux/actions/procedureLogParamActions";
 
 type Props = {
   id: number;
@@ -87,13 +88,14 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
       [FilterDialogFilterOptionNames.Year]: () => requestCreationYears(dispatch),
       [FilterDialogFilterOptionNames.YCoordinates]: () => requestCoordinateYList(dispatch),
       [FilterDialogFilterOptionNames.XCoordinates]: () => requestCoordinateXList(dispatch),
-      [FilterDialogFilterOptionNames.ProcedureParams]: () => null,
+      [FilterDialogFilterOptionNames.ProcedureParams]: () => requestProcedureLogParams(dispatch),
       [FilterDialogFilterOptionNames.ProcedureName]: () => requestProcedureList(dispatch),
       [FilterDialogFilterOptionNames.Plant]: () => null,
       [FilterDialogFilterOptionNames.ExifData]: () => requestExifKeys(dispatch),
       [FilterDialogFilterOptionNames.Direction]: () => requestCreationDirections(dispatch),
       [FilterDialogFilterOptionNames.Country]: () => requestCreationCountries(dispatch),
-      [FilterDialogFilterOptionNames.Algorithm]: () => null,
+      [FilterDialogFilterOptionNames.BoundingBoxIsPlantHomogenous]: () => null,
+      [FilterDialogFilterOptionNames.BoundingBoxPlantProbability]: () => null,
     });
     handler[item].call(() => null);
   };

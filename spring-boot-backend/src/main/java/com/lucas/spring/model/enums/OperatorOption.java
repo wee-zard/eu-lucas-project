@@ -17,6 +17,8 @@ public enum OperatorOption {
   LESS,
   LESS_OR_EQUAL,
   GREATER,
-  GREATER_OR_EQUAL
+  GREATER_OR_EQUAL,
+  BOOLEAN_EQUAL,
+  BOOLEAN_NOT_EQUAL
 
 }

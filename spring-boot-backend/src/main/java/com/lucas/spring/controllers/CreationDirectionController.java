@@ -3,7 +3,7 @@ package com.lucas.spring.controllers;
 import com.lucas.spring.model.entity.CreationDirectionEntity;
 import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.services.service.CreationDirectionService;
-import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,9 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class CreationDirectionController {
   private final CreationDirectionService creationDirectionService;
 
+  /**
+   * Fetch the creation directions from the server.
+   *
+   * @param authenticatedUser The user who initialized the connection to the server.
+   * @return Returns the list of creation directions.
+   */
   @CrossOrigin
   @GetMapping("/get-creation-direction")
-  public ArrayList<CreationDirectionEntity> getCreationDirection(
+  public List<CreationDirectionEntity> getCreationDirection(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
     return creationDirectionService.getCreationDirections();

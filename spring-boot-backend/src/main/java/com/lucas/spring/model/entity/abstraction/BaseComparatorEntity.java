@@ -27,13 +27,4 @@ public abstract class BaseComparatorEntity<T> implements Comparable<T> {
    */
   @Override
   public abstract int hashCode();
-
-  /**
-   * Defines the comparison between two type of objects.
-   * It must be implemented in the child.
-   *
-   * @return an int.
-   */
-  @Override
-  public abstract int compareTo(T object);
 }

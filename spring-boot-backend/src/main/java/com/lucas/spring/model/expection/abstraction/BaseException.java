@@ -10,15 +10,16 @@ public abstract class BaseException extends RuntimeException {
   /**
    * Tells that at which param the error message is thrown error.
    */
-  private String errorAtParam;
+  private final String errorAtParam;
 
   /**
    * Throws an error message.
    *
    * @param message The error message to display in the console.
    */
-  public BaseException(final String message) {
+  protected BaseException(final String message) {
     super(message);
+    this.errorAtParam = null;
   }
 
   /**
@@ -28,7 +29,7 @@ public abstract class BaseException extends RuntimeException {
    * @param message The error message to display in the console.
    * @param errorAtParam The param which initiated the exception.
    */
-  public BaseException(final String message, final String errorAtParam) {
+  protected BaseException(final String message, final String errorAtParam) {
     super(message);
     this.errorAtParam = errorAtParam;
   }

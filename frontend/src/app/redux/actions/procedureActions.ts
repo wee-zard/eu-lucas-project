@@ -1,8 +1,5 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import ProcedureDto from "@model/dto/ProcedureDto";
-import ApplicationStorageModel from "@model/ApplicationStorageModel";
-import { fetchListFromApplicationStorage, setLocalStorageItem } from "@helper/localStorageUtil";
-import { ApplicationStorageKeys, LocalStorageKeys } from "@model/enum";
 import { ProcedureConsts } from "@redux/consts/procedureConsts";
 import { getProcedureList } from "@api/command/procedureCommands";
 
@@ -25,29 +22,15 @@ export const setProcedureSucceeded = (data: ProcedureDto[]) => {
   };
 };
 
-const initStorage = (dispatch: Dispatch, storage: ApplicationStorageModel) => {
+export const requestProcedureList = (dispatch: Dispatch) => {
+  dispatch(setProcedureRequest());
   getProcedureList()
     .then((response) => {
       if (response) {
-        const newStorage: ApplicationStorageModel = { ...storage, procedure: response };
-        setLocalStorageItem(JSON.stringify(newStorage), LocalStorageKeys.ApplicationStorage);
         dispatch(setProcedureSucceeded(response));
       } else {
         dispatch(setProcedureFailed());
       }
     })
-    .catch((err) => {
-      console.error(err);
-      dispatch(setProcedureFailed());
-    });
-};
-
-export const requestProcedureList = (dispatch: Dispatch) => {
-  dispatch(setProcedureRequest());
-  fetchListFromApplicationStorage<ProcedureDto[]>({
-    dispatch,
-    key: ApplicationStorageKeys.Procedure,
-    initMethod: initStorage,
-    successful: setProcedureSucceeded,
-  });
+    .catch(() => dispatch(setProcedureFailed()));
 };

@@ -1,6 +1,11 @@
 package com.lucas.spring.model.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @Builder
@@ -9,6 +14,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExifDataModel {
-    public String exifKey;
-    public String exifValue;
+  private String exifKey;
+  private String exifValue;
 }

@@ -5,9 +5,7 @@ import com.lucas.spring.model.entity.CoordinateYEntity;
 import com.lucas.spring.model.entity.CreationCountryEntity;
 import com.lucas.spring.model.entity.CreationDirectionEntity;
 import com.lucas.spring.model.entity.CreationYearEntity;
-import com.lucas.spring.model.enums.ImageFilteringEnum;
 import com.lucas.spring.model.enums.InputFormatErrors;
-import com.lucas.spring.model.expection.ImageFilteringException;
 import com.lucas.spring.model.expection.InputFormatException;
 import com.lucas.spring.model.request.filtering.QueryComponent;
 import lombok.experimental.UtilityClass;
@@ -31,7 +29,7 @@ public class BuildEntityUtil {
                 .builder()
                 .year(Integer.parseInt(component.getSelectInput()))
                 .build();
-    } catch (NumberFormatException exception) {
+    } catch (final NumberFormatException exception) {
       throw new InputFormatException(
                 InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
                 component.toString()
@@ -64,10 +62,10 @@ public class BuildEntityUtil {
             .builder()
             .coordinateX(Integer.parseInt(component.getSelectInput()))
             .build();
-    } catch (NumberFormatException exception) {
-      // TODO: throw new exception
-      throw new ImageFilteringException(
-            ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED
+    } catch (final NumberFormatException exception) {
+      throw new InputFormatException(
+              InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
+              component.toString()
       );
     }
   }
@@ -84,10 +82,10 @@ public class BuildEntityUtil {
             .builder()
             .coordinateY(Integer.parseInt(component.getSelectInput()))
             .build();
-    } catch (NumberFormatException exception) {
-      // TODO: throw new exception
-      throw new ImageFilteringException(
-            ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED
+    } catch (final NumberFormatException exception) {
+      throw new InputFormatException(
+              InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
+              component.toString()
       );
     }
   }

@@ -119,7 +119,7 @@ const getCommand = (command: RequestCommand) => {
   return axios.get(
     `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`,
     {
-      ...RequestHeaderHandler.getRequestHeader(authToken),
+      ...RequestHeaderHandler.getRequestHeader(authToken, command.header.pageableProperties),
       params: !!command.obj ? command.obj : undefined,
     },
   );

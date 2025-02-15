@@ -49,14 +49,14 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
     final String urlDom = httpRequestService.getResultOfRequest(urlPath, null);
     final String[] splitUrlDom = urlDom.split("\n");
     return Arrays.stream(splitUrlDom)
-            .filter((domElement) -> domElement.contains("a href=") && !domElement.contains("PARENTDIR"))
-            .filter((domElement) -> domElement.contains("DIR") || domElement.contains("IMG"))
+            .filter(domElement -> domElement.contains("a href=") && !domElement.contains("PARENTDIR"))
+            .filter(domElement -> domElement.contains("DIR") || domElement.contains("IMG"))
             .toList();
   }
 
   private List<String> getSplitHrefDom(final String urlPath) {
     final List<String> filteredUrlDom = getFilteredUrlDom(urlPath);
-    return filteredUrlDom.stream().map((domElement) -> domElement.split("a href=\"")[1]).toList();
+    return filteredUrlDom.stream().map(domElement -> domElement.split("a href=\"")[1]).toList();
   }
 
   private List<String> getSplitValuesDom(final String urlPath) {
@@ -65,7 +65,7 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
     // This contains "xyz.jpg" filenames or "xyz/" as a directories name.
     // Removing the 'temp/' folders from the list.
     final List<String> splitValuesDom = splitHrefDom.stream()
-            .map((domElement) -> domElement.split("\"")[0])
+            .map(domElement -> domElement.split("\"")[0])
             .filter(domElement -> !domElement.contains("temp/"))
             .toList();
 

@@ -2,9 +2,6 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { CreationCountryConsts } from "@redux/consts/creationCountryConsts";
 import CreationCountryDto from "@model/dto/CreationCountryDto";
 import { getCreationCountries } from "@api/command/creationCountryCommands";
-import ApplicationStorageModel from "@model/ApplicationStorageModel";
-import { fetchListFromApplicationStorage, setLocalStorageItem } from "@helper/localStorageUtil";
-import { ApplicationStorageKeys, LocalStorageKeys } from "@model/enum";
 
 export const setCreationCountryRequest = () => {
   return {
@@ -25,26 +22,15 @@ export const setCreationCountrySucceeded = (data: CreationCountryDto[]) => {
   };
 };
 
-const initStorage = (dispatch: Dispatch, storage: ApplicationStorageModel) => {
+export const requestCreationCountries = (dispatch: Dispatch) => {
+  dispatch(setCreationCountryRequest());
   getCreationCountries()
     .then((response) => {
       if (response) {
-        const newStorage: ApplicationStorageModel = { ...storage, creationCountry: response };
-        setLocalStorageItem(JSON.stringify(newStorage), LocalStorageKeys.ApplicationStorage);
         dispatch(setCreationCountrySucceeded(response));
       } else {
         dispatch(setCreationCountryFailed());
       }
     })
     .catch(() => dispatch(setCreationCountryFailed()));
-};
-
-export const requestCreationCountries = (dispatch: Dispatch) => {
-  dispatch(setCreationCountryRequest());
-  fetchListFromApplicationStorage<CreationCountryDto[]>({
-    dispatch,
-    key: ApplicationStorageKeys.CreationCountry,
-    initMethod: initStorage,
-    successful: setCreationCountrySucceeded,
-  });
 };

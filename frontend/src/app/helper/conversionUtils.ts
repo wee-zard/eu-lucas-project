@@ -21,8 +21,6 @@ export const ConversionUtils = {
     switch (item) {
       case FilterDialogFilterOptionNames.Year:
         return FilterDialogFilterOptions.Year;
-      case FilterDialogFilterOptionNames.Algorithm:
-        return FilterDialogFilterOptions.Algorithm;
       case FilterDialogFilterOptionNames.Country:
         return FilterDialogFilterOptions.Country;
       case FilterDialogFilterOptionNames.Direction:
@@ -39,6 +37,10 @@ export const ConversionUtils = {
         return FilterDialogFilterOptions.ProcedureName;
       case FilterDialogFilterOptionNames.ProcedureParams:
         return FilterDialogFilterOptions.ProcedureParams;
+      case FilterDialogFilterOptionNames.BoundingBoxIsPlantHomogenous:
+        return FilterDialogFilterOptions.BoundingBoxIsPlantHomogenous;
+      case FilterDialogFilterOptionNames.BoundingBoxPlantProbability:
+        return FilterDialogFilterOptions.BoundingBoxPlantProbability;
     }
   },
 
@@ -46,8 +48,6 @@ export const ConversionUtils = {
     switch (item) {
       case FilterDialogFilterOptions.Year:
         return FilterDialogFilterOptionNames.Year;
-      case FilterDialogFilterOptions.Algorithm:
-        return FilterDialogFilterOptionNames.Algorithm;
       case FilterDialogFilterOptions.Country:
         return FilterDialogFilterOptionNames.Country;
       case FilterDialogFilterOptions.Direction:
@@ -63,6 +63,11 @@ export const ConversionUtils = {
       case FilterDialogFilterOptions.ProcedureName:
         return FilterDialogFilterOptionNames.ProcedureName;
       case FilterDialogFilterOptions.ProcedureParams:
+        return FilterDialogFilterOptionNames.ProcedureParams;
+      case FilterDialogFilterOptions.BoundingBoxIsPlantHomogenous:
+        return FilterDialogFilterOptionNames.BoundingBoxIsPlantHomogenous;
+      case FilterDialogFilterOptions.BoundingBoxPlantProbability:
+        return FilterDialogFilterOptionNames.BoundingBoxPlantProbability;
     }
     return undefined;
   },

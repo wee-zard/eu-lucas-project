@@ -1,6 +1,6 @@
-type PageableProperties = {
-  pageNo: number,
-  pageSize: number,
+export default class PageableProperties {
+  constructor(
+    public pageNo: number,
+    public pageSize: number,
+  ) {}
 }
-
-export default PageableProperties;

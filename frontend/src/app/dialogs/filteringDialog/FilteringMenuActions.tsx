@@ -4,10 +4,15 @@ import StyledButton from "@components/StyledButton";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { StyledComponentGap } from "@global/globalStyles";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterMenuAction, setSelectedImage } from "@redux/actions/imageActions";
+import {
+  setFilteringPageableProperties,
+  setFilterMenuAction,
+  setSelectedImage,
+} from "@redux/actions/imageActions";
 import { MenuActions } from "@model/enum";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { selectSelectedImage } from "@redux/selectors/imageSelector";
+import { FILTERING_PAGE_SIZE } from "@global/globalConsts";
 
 const FilteringMenuActions = () => {
   const selectedImage = useSelector(selectSelectedImage);
@@ -22,6 +27,12 @@ const FilteringMenuActions = () => {
           id: selectedImage.id,
           images: [],
           query: LocalStorageUtils.getQueryBuilderModel(),
+        }),
+      );
+      dispatch(
+        setFilteringPageableProperties({
+          pageNo: 0,
+          pageSize: FILTERING_PAGE_SIZE,
         }),
       );
     }

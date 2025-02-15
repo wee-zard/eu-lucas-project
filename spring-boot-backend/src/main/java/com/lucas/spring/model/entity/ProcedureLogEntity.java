@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,4 +59,9 @@ public class ProcedureLogEntity {
   @CreationTimestamp
   @Column(name = "created_at", nullable = false)
   private LocalDateTime createdAt;
+  /**
+   * The list of params associated with the given procedure.
+   */
+  @OneToMany(mappedBy = "procedureLogParam.procedureLog")
+  private Set<ProcedureLogParamEntity> procedureParams;
 }
