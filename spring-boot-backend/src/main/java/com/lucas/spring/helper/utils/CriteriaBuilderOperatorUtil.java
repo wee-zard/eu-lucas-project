@@ -1,4 +1,4 @@
-package com.lucas.spring.helper.helpers;
+package com.lucas.spring.helper.utils;
 
 import com.lucas.spring.model.entity.abstraction.BaseComparatorEntity;
 import com.lucas.spring.model.enums.ImageFilteringEnum;

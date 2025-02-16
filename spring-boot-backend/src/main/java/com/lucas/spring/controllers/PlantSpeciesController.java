@@ -1,9 +1,9 @@
 package com.lucas.spring.controllers;
 
 import com.lucas.spring.helper.helper.ConversionHelper;
-import com.lucas.spring.model.dto.ProcedureLogParamDto;
+import com.lucas.spring.model.dto.PlantSpeciesDto;
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.services.service.ProcedureLogParamService;
+import com.lucas.spring.services.service.PlantSpeciesService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -14,29 +14,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Stores the endpoints related to the procedure params.
+ * Stores the endpoints related to the species names of the plants.
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "api/procedure-param")
-public class ProcedureParamController {
-
-  private final ProcedureLogParamService procedureLogParamService;
+@RequestMapping(path = "api/plant-species")
+public class PlantSpeciesController {
+  private final PlantSpeciesService plantSpeciesService;
   private final ConversionHelper conversionHelper;
 
   /**
-   * Fetches the list of procedure params filtered by the procedure id.
+   * Fetches the list of plant species.
    *
    * @param authenticatedUser The user who initiated the request.
-   * @return Returns the list of procedure params stored in the server.
+   * @return Returns the list of plant species stored in the server.
    */
   @CrossOrigin
   @GetMapping("/")
-  public List<ProcedureLogParamDto> getProcedureParamsByProcedureId(
+  public List<PlantSpeciesDto> getPlantSpecies(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
     return conversionHelper.convertEntityToDto(
-            procedureLogParamService.getProcedureLogParamsByProcedureId(),
-            ProcedureLogParamDto.class);
+            plantSpeciesService.getPlantSpecies(),
+            PlantSpeciesDto.class
+    );
   }
 }

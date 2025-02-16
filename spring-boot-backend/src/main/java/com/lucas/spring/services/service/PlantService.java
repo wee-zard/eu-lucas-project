@@ -2,6 +2,7 @@ package com.lucas.spring.services.service;
 
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.entity.PlantEntity;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface PlantService {
+
+  /**
+   * Fetch the list of plants.
+   *
+   * @return Returns the list of plants.
+   */
+  List<PlantEntity> getPlants();
 
   /**
    * Creates a new {@link PlantEntity}.

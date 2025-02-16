@@ -1,0 +1,37 @@
+package com.lucas.spring.controllers;
+
+import com.lucas.spring.model.entity.PlantNameEntity;
+import com.lucas.spring.model.models.AuthenticatedUser;
+import java.util.Collections;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * Stores the endpoints related to the scientific names of the plants.
+ */
+@RestController
+@AllArgsConstructor
+@RequestMapping(path = "api/plant-scientific")
+public class PlantScientificNameController {
+
+  /**
+   * Fetches the list of plant scientific names.
+   *
+   * @param authenticatedUser The user who initiated the request.
+   * @return Returns the list of plant scientific names stored in the server.
+   */
+  @CrossOrigin
+  @GetMapping("/")
+  public List<PlantNameEntity> getPlantScientificList(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
+  ) {
+    // TODO: Implement the fetch of plants scientific names from the server here.
+    return Collections.emptyList();
+  }
+}

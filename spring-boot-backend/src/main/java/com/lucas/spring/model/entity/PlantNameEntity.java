@@ -26,6 +26,9 @@ import lombok.NoArgsConstructor;
 public class PlantNameEntity {
   public static final int PLANT_NAME_LENGTH = 200;
   @Id
-  @Column(name = "plant_scientific_name", length = PLANT_NAME_LENGTH, nullable = false, columnDefinition = "TEXT")
+  @Column(name = "plant_scientific_name",
+          length = PLANT_NAME_LENGTH,
+          nullable = false,
+          columnDefinition = "TEXT")
   private String plantScientificName;
 }

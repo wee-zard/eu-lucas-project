@@ -1,4 +1,4 @@
-package com.lucas.spring.controllers.abstraction;
+package com.lucas.spring.helper.helper;
 
 import com.lucas.spring.model.dto.abstraction.RootDto;
 import com.lucas.spring.model.models.PageableProperties;
@@ -7,16 +7,16 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.util.Streamable;
+import org.springframework.stereotype.Component;
 
 /**
- * A base controller that is defines a conversion between table entities to dto.
- * The dto is a pageable response dto.
+ * Defines conversions from type to another type.
  */
+@Component
 @AllArgsConstructor
-public abstract class BaseController {
-  protected static final String PAGEABLE_PROPERTIES = "X-Pageable-Properties";
-
-  private ConversionService conversionService;
+public class ConversionHelper {
+  private final ConversionService conversionService;
+  public static final String PAGEABLE_PROPERTIES = "X-Pageable-Properties";
 
   /**
    * Convert the requested entities into {@link PageableResponse}.

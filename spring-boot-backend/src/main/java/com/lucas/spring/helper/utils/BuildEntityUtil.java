@@ -1,4 +1,4 @@
-package com.lucas.spring.helper.helpers;
+package com.lucas.spring.helper.utils;
 
 import com.lucas.spring.model.entity.CoordinateXEntity;
 import com.lucas.spring.model.entity.CoordinateYEntity;

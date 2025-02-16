@@ -1,7 +1,7 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.helper.helpers.BuildEntityUtil;
-import com.lucas.spring.helper.helpers.CriteriaBuilderOperatorUtil;
+import com.lucas.spring.helper.utils.BuildEntityUtil;
+import com.lucas.spring.helper.utils.CriteriaBuilderOperatorUtil;
 import com.lucas.spring.model.entity.BoundingBoxEntity;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.entity.ProcedureEntity;

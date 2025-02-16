@@ -1,10 +1,11 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.repositories.PlantRepository;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.entity.PlantEntity;
+import com.lucas.spring.repositories.PlantRepository;
 import com.lucas.spring.services.service.PlantService;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,14 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class PlantServiceImpl implements PlantService {
   private final PlantRepository plantRepository;
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<PlantEntity> getPlants() {
+    return plantRepository.findAll();
+  }
 
   /**
    * {@inheritDoc}

@@ -1,9 +1,9 @@
 package com.lucas.spring.controllers;
 
 import com.lucas.spring.helper.helper.ConversionHelper;
-import com.lucas.spring.model.dto.ProcedureLogParamDto;
+import com.lucas.spring.model.dto.PlantDto;
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.services.service.ProcedureLogParamService;
+import com.lucas.spring.services.service.PlantService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -14,29 +14,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Stores the endpoints related to the procedure params.
+ * Stores the endpoints related to the plants.
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "api/procedure-param")
-public class ProcedureParamController {
-
-  private final ProcedureLogParamService procedureLogParamService;
+@RequestMapping(path = "api/plant")
+public class PlantController {
+  private final PlantService plantService;
   private final ConversionHelper conversionHelper;
 
   /**
-   * Fetches the list of procedure params filtered by the procedure id.
+   * Fetches the list of plants.
    *
    * @param authenticatedUser The user who initiated the request.
-   * @return Returns the list of procedure params stored in the server.
+   * @return Returns the list of plants stored in the server.
    */
   @CrossOrigin
   @GetMapping("/")
-  public List<ProcedureLogParamDto> getProcedureParamsByProcedureId(
+  public List<PlantDto> getPlants(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
-    return conversionHelper.convertEntityToDto(
-            procedureLogParamService.getProcedureLogParamsByProcedureId(),
-            ProcedureLogParamDto.class);
+    return conversionHelper.convertEntityToDto(plantService.getPlants(), PlantDto.class);
   }
 }
