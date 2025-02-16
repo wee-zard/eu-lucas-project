@@ -1,7 +1,7 @@
 import StyledIconButton from "@components/StyledIconButton";
 import React, { useEffect, useState } from "react";
 import StyledSelectComponent from "@components/StyledSelectComponent";
-import { FilterDialogFilterOptionNames, FilterDialogFilterOptions } from "@model/enum";
+import { FilterDialogFilters } from "@model/enum";
 import { QueryComponent } from "@model/QueryBuilderModel";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import FilteringInputField from "./FilteringInputField";
@@ -29,7 +29,7 @@ type Props = {
 const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id }: Props) {
   console.log("[FilteringQueryComponent]: rendered");
 
-  const queryByOptions = Object.values(FilterDialogFilterOptionNames).sort();
+  const queryByOptions = Object.values(FilterDialogFilters).sort();
 
   const dispatch = useDispatch();
 
@@ -51,7 +51,7 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
     const modifiedQueryComponent: QueryComponent = {
       id: states.filtered.id,
       parentId: states.filtered.parentId,
-      selectedFilterTab: selectedFilter as FilterDialogFilterOptions,
+      selectedFilterTab: selectedFilter as keyof typeof FilterDialogFilters,
     };
     const obj = FilteringHelper.handleFilterChanges(states.root, id, modifiedQueryComponent);
     LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
@@ -67,12 +67,14 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
     FilteringHelper.sendUpdateEvent(states.filtered.parentId);
   };
 
-  const getQueryByInputValue = (selectedFilterTab?: FilterDialogFilterOptions) =>
-    ConversionUtils.FilterOptionsToFilterOptionNames(selectedFilterTab) ?? "";
+  const getQueryByInputValue = (selectedFilterTab?: keyof typeof FilterDialogFilters) =>
+    ConversionUtils.EnumKeyToEnumValue(FilterDialogFilters, selectedFilterTab) ?? "";
 
   const setQueryByInputValue = (item: string) => {
-    const filterOption = item as FilterDialogFilterOptionNames;
-    handleComponentSelection(ConversionUtils.FilterOptionNamesToFilterOptions(filterOption));
+    const filterOption = item as FilterDialogFilters;
+    handleComponentSelection(
+      ConversionUtils.EnumValueToEnumKey(FilterDialogFilters, filterOption) ?? "",
+    );
     handleCallOfStorageInit(filterOption);
   };
 
@@ -83,19 +85,20 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
    *
    * @param item The selected filter option to query by.
    */
-  const handleCallOfStorageInit = (item: FilterDialogFilterOptionNames) => {
+  const handleCallOfStorageInit = (item: FilterDialogFilters) => {
     const handler = Object.freeze({
-      [FilterDialogFilterOptionNames.Year]: () => requestCreationYears(dispatch),
-      [FilterDialogFilterOptionNames.YCoordinates]: () => requestCoordinateYList(dispatch),
-      [FilterDialogFilterOptionNames.XCoordinates]: () => requestCoordinateXList(dispatch),
-      [FilterDialogFilterOptionNames.ProcedureParams]: () => requestProcedureLogParams(dispatch),
-      [FilterDialogFilterOptionNames.ProcedureName]: () => requestProcedureList(dispatch),
-      [FilterDialogFilterOptionNames.Plant]: () => null,
-      [FilterDialogFilterOptionNames.ExifData]: () => requestExifKeys(dispatch),
-      [FilterDialogFilterOptionNames.Direction]: () => requestCreationDirections(dispatch),
-      [FilterDialogFilterOptionNames.Country]: () => requestCreationCountries(dispatch),
-      [FilterDialogFilterOptionNames.BoundingBoxIsPlantHomogenous]: () => null,
-      [FilterDialogFilterOptionNames.BoundingBoxPlantProbability]: () => null,
+      [FilterDialogFilters.YEAR]: () => requestCreationYears(dispatch),
+      [FilterDialogFilters.Y_COORDINATE]: () => requestCoordinateYList(dispatch),
+      [FilterDialogFilters.X_COORDINATE]: () => requestCoordinateXList(dispatch),
+      [FilterDialogFilters.PROCEDURE_PARAMS]: () => requestProcedureLogParams(dispatch),
+      [FilterDialogFilters.PROCEDURE_NAME]: () => requestProcedureList(dispatch),
+      [FilterDialogFilters.PLANT_NAME]: () => null, // TODO: ...
+      [FilterDialogFilters.PLANT_SPECIES]: () => null, // TODO: ...
+      [FilterDialogFilters.EXIF_DATA]: () => requestExifKeys(dispatch),
+      [FilterDialogFilters.DIRECTION]: () => requestCreationDirections(dispatch),
+      [FilterDialogFilters.COUNTRY]: () => requestCreationCountries(dispatch),
+      [FilterDialogFilters.IS_HOMOGENOUS]: () => null,
+      [FilterDialogFilters.PROBABILITY]: () => null,
     });
     handler[item].call(() => null);
   };

@@ -1,7 +1,7 @@
 import CreationCountryDto from "@model/dto/CreationCountryDto";
 import {
-  FilterDialogFilterOptionNames,
-  FilterDialogFilterOptions,
+  OperatorBooleanItemNames,
+  OperatorBooleanItems,
   OperatorComparableItemNames,
   OperatorComparableItems,
   OperatorSelectItemNames,
@@ -17,59 +17,44 @@ const backendServerPath = process.env.REACT_APP_USE_BACKEND ?? "";
 const googleServerPath = process.env.REACT_APP_USE_GOOGLE_SERVER ?? "";
 
 export const ConversionUtils = {
-  FilterOptionNamesToFilterOptions: (item: FilterDialogFilterOptionNames) => {
-    switch (item) {
-      case FilterDialogFilterOptionNames.Year:
-        return FilterDialogFilterOptions.Year;
-      case FilterDialogFilterOptionNames.Country:
-        return FilterDialogFilterOptions.Country;
-      case FilterDialogFilterOptionNames.Direction:
-        return FilterDialogFilterOptions.Direction;
-      case FilterDialogFilterOptionNames.ExifData:
-        return FilterDialogFilterOptions.ExifData;
-      case FilterDialogFilterOptionNames.Plant:
-        return FilterDialogFilterOptions.Plant;
-      case FilterDialogFilterOptionNames.XCoordinates:
-        return FilterDialogFilterOptions.XCoordinates;
-      case FilterDialogFilterOptionNames.YCoordinates:
-        return FilterDialogFilterOptions.YCoordinates;
-      case FilterDialogFilterOptionNames.ProcedureName:
-        return FilterDialogFilterOptions.ProcedureName;
-      case FilterDialogFilterOptionNames.ProcedureParams:
-        return FilterDialogFilterOptions.ProcedureParams;
-      case FilterDialogFilterOptionNames.BoundingBoxIsPlantHomogenous:
-        return FilterDialogFilterOptions.BoundingBoxIsPlantHomogenous;
-      case FilterDialogFilterOptionNames.BoundingBoxPlantProbability:
-        return FilterDialogFilterOptions.BoundingBoxPlantProbability;
-    }
+  /**
+   * Converts the enum key to enum value.
+   *
+   * @param enumVariable An enum to use.
+   * @param enumKey A key of the provided enum.
+   * @returns Returns the value of the key in the enum.
+   */
+  EnumKeyToEnumValue<T extends string, TEnumValue extends string>(
+    enumVariable: { [key in T]: TEnumValue },
+    enumKey?: keyof typeof enumVariable,
+  ) {
+    return !enumKey ? undefined : enumVariable[enumKey as keyof typeof enumVariable];
   },
 
-  FilterOptionsToFilterOptionNames: (item?: FilterDialogFilterOptions) => {
-    switch (item) {
-      case FilterDialogFilterOptions.Year:
-        return FilterDialogFilterOptionNames.Year;
-      case FilterDialogFilterOptions.Country:
-        return FilterDialogFilterOptionNames.Country;
-      case FilterDialogFilterOptions.Direction:
-        return FilterDialogFilterOptionNames.Direction;
-      case FilterDialogFilterOptions.ExifData:
-        return FilterDialogFilterOptionNames.ExifData;
-      case FilterDialogFilterOptions.Plant:
-        return FilterDialogFilterOptionNames.Plant;
-      case FilterDialogFilterOptions.XCoordinates:
-        return FilterDialogFilterOptionNames.XCoordinates;
-      case FilterDialogFilterOptions.YCoordinates:
-        return FilterDialogFilterOptionNames.YCoordinates;
-      case FilterDialogFilterOptions.ProcedureName:
-        return FilterDialogFilterOptionNames.ProcedureName;
-      case FilterDialogFilterOptions.ProcedureParams:
-        return FilterDialogFilterOptionNames.ProcedureParams;
-      case FilterDialogFilterOptions.BoundingBoxIsPlantHomogenous:
-        return FilterDialogFilterOptionNames.BoundingBoxIsPlantHomogenous;
-      case FilterDialogFilterOptions.BoundingBoxPlantProbability:
-        return FilterDialogFilterOptionNames.BoundingBoxPlantProbability;
+  /**
+   * Converts the enum value to enum key.
+   *
+   * @param enumVariable An enum to use.
+   * @param enumKey A value of the provided enum.
+   * @returns Returns the value of the key in the enum.
+   */
+  EnumValueToEnumKey<T extends string, TEnumValue extends string>(
+    enumVariable: { [key in T]: TEnumValue },
+    enumValue?: string,
+  ) {
+    if (!enumValue) {
+      return;
     }
-    return undefined;
+
+    for (const key of Object.keys(enumVariable)) {
+      var stateValue = enumVariable[key as keyof typeof enumVariable];
+
+      if (stateValue === enumValue) {
+        return key;
+      }
+    }
+
+    return;
   },
 
   OperatorItemsToOperatorItemNames: (item?: QueryConditions) => {
@@ -86,6 +71,10 @@ export const ConversionUtils = {
         return OperatorComparableItemNames.Less;
       case OperatorComparableItems.LessOrEqual:
         return OperatorComparableItemNames.LessOrEqual;
+      case OperatorBooleanItems.BooleanEqual:
+        return OperatorBooleanItemNames.BooleanEqual;
+      case OperatorBooleanItems.BooleanNotEqual:
+        return OperatorBooleanItemNames.BooleanNotEqual;
       default:
         return item;
     }
@@ -105,6 +94,10 @@ export const ConversionUtils = {
         return OperatorComparableItems.Less;
       case OperatorComparableItemNames.LessOrEqual:
         return OperatorComparableItems.LessOrEqual;
+      case OperatorBooleanItemNames.BooleanEqual:
+        return OperatorBooleanItems.BooleanEqual;
+      case OperatorBooleanItemNames.BooleanNotEqual:
+        return OperatorBooleanItems.BooleanNotEqual;
       default:
         return item ?? "";
     }

@@ -17,5 +17,5 @@ Aktuális működés:
 Elvárt működés: 
 - A hiányzó szűrési opciók:
 	- **Befoglaló téglalapok** mentén lehessen szűrni
-		- [ ] *Növény találat* valószínűsége alapján szűrni
-		- [ ] *Homogén*-e a detektált felület?
+		- [x] *Növény találat* valószínűsége alapján szűrni
+		- [x] *Homogén*-e a detektált felület?

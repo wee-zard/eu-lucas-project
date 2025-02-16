@@ -17,8 +17,5 @@ Aktuális működés:
 Elvárt működés: 
 - A hiányzó szűrési opciók:
 	- [ ] **Növények** mentén lehessen szűrni:
-		- [ ] *Köznév + Tudományos név* alapján
+		- [ ] *Tudományos név* alapján
 		- [ ] *Növényfajta* alapján
-		- [ ] Operátor mentén szűrni:
-			- [ ] *Megtalálható* a képen (pl. 1.png képen a *Pitypang* az *Megtalálható* legyen.)
-			- [ ] *NEM megtaláható* a képen

@@ -24,7 +24,7 @@ kanban-plugin: board
 - [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
 - [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]]
-- [ ] [[051 - Exifdata űrlap mezőjében a Textfield helyett Autocomplete input mezőt használjunk]]
+- [ ] [[051 - Standard Input mező helyett Autocomplete input mezőt használjunk]]
 - [ ] [[054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban]]
 - [ ] [[055 - Loading ikon megjelenítése a képek lekérdezéséhez]]
 - [ ] [[062 - Lehessen képet feltölteni a csatolmányként report küldése során]]
@@ -118,7 +118,6 @@ kanban-plugin: board
 - [ ] [[042 - Google OAuth oldal befejezése]]
 - [ ] [[052 - Loading komponens megjelenítése]]
 - [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]]
-- [ ] [[115 - Növények mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[118 - Adatbázos feltöltése a képekhez tartozó EXIF adatokkal]]
 - [ ] [[119 - Settings - Legyen egy gomb, amivel frissíteni lehet az adatbázisban lévő képinformációkat]]
@@ -126,7 +125,7 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
-- [ ] [[116 - Befoglaló téglalapok mentén lehessen szűrni a FilteringDialog ablakban]]
+- [ ] [[115 - Növények mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[154 - Pagination - Utolsó lapon túl nyomva, a kiválasztott képek felülete eltűnik]]
 - [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
 - [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
@@ -139,6 +138,7 @@ kanban-plugin: board
 ## 🟢Done
 
 **Complete**
+- [ ] [[116 - Befoglaló téglalapok mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[020 - Google OAuth - új Access Token generálása a Refresh Token segítségével, a token lejárata véget]]
 - [ ] [[139 - Dokumentálás - Dokumentálni a témavezetőmnek az alkalmazás letöltését és annak beütemezését]]

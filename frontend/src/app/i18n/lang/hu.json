@@ -79,9 +79,7 @@
           "algorithm": "Eljárás",
           "procedure-name": "Eljárás neve",
           "procedure-params": "Eljárás pareméterei",
-          "condition": "Feltétel",
-          "it-is-homogenous": "Homogén",
-          "it-is-invasive": "Invazív"
+          "condition": "Feltétel"
         }
       }
     }

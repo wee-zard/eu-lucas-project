@@ -1,5 +1,7 @@
 import {
-  FilterDialogFilterOptions,
+  FilterDialogFilters,
+  OperatorBooleanItemNames,
+  OperatorBooleanItems,
   OperatorComparableItemNames,
   OperatorComparableItems,
   OperatorSelectItemNames,
@@ -31,7 +33,7 @@ export type QueryComponent = {
    */
   id: number;
   parentId: number;
-  selectedFilterTab?: FilterDialogFilterOptions;
+  selectedFilterTab?: keyof typeof FilterDialogFilters;
   groupFormId?: number;
   inputFormId?: number;
   selectInput?: string;
@@ -56,7 +58,8 @@ export type QueryMultiType = QueryBuilderModel | QueryGroup;
 export type QueryConditions =
   | OperatorSelectItems
   | OperatorTextfieldItems
-  | OperatorComparableItems;
+  | OperatorComparableItems
+  | OperatorBooleanItems;
 
 export const getNewIdToElement = () => Date.now();
 
@@ -86,6 +89,8 @@ export const initQueryGroupObj = (parentId: number): QueryGroup => {
     ],
   };
 };
+
+export const operatorBooleanItems = Object.values(OperatorBooleanItemNames).sort();
 
 export const operatorSelectItems = Object.values(OperatorSelectItemNames).sort();
 

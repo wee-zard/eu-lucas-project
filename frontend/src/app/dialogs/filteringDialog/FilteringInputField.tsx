@@ -1,7 +1,7 @@
 import React from "react";
 import { QueryComponent, QueryConditions } from "@model/QueryBuilderModel";
 import { FilterFormTemplate } from "@model/FilterFormTemplate";
-import { FilterDialogFilterOptions, FilteringFormInputKeys } from "@model/enum";
+import { FilteringFormInputKeys } from "@model/enum";
 import { useSelectedTabToFilterTemplate } from "@hooks/useConversionHooks";
 import { StyledInputHolder } from "./FilteringMenu";
 import StyledSelectComponent from "@components/StyledSelectComponent";
@@ -20,23 +20,19 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
 
   const listOfCreationCountries = useSelector(selectListOfCreationCountry);
 
-  const filterFormTemplate: FilterFormTemplate[] =
-    useSelectedTabToFilterTemplate(component?.selectedFilterTab);
+  const filterFormTemplate: FilterFormTemplate[] = useSelectedTabToFilterTemplate(
+    component?.selectedFilterTab,
+  );
 
   const handleCountrySelectionConversion = (value: string) =>
-    component.selectedFilterTab === FilterDialogFilterOptions.Country
-      ? ConversionUtils.FormatStringToCreationCountryDto(
-          value,
-          listOfCreationCountries
-        )
+    component.selectedFilterTab === "COUNTRY"
+      ? ConversionUtils.FormatStringToCreationCountryDto(value, listOfCreationCountries)
       : value;
 
   const handleCountryInputValueChange = () =>
-    component.selectedFilterTab === FilterDialogFilterOptions.Country
+    component.selectedFilterTab === "COUNTRY"
       ? ConversionUtils.CreationCountryToFormatString(
-          listOfCreationCountries.find(
-            (country) => country.countryCode === component?.selectInput
-          )
+          listOfCreationCountries.find((country) => country.countryCode === component?.selectInput),
         )
       : (component?.selectInput ?? "");
 
@@ -50,9 +46,7 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
       [FilteringFormInputKeys.OperatorInput]: () =>
         setComponent({
           ...component,
-          operatorInput: ConversionUtils.OperatorItemNamesToOperatorItems(
-            value
-          ) as QueryConditions,
+          operatorInput: ConversionUtils.OperatorItemNamesToOperatorItems(value) as QueryConditions,
         }),
       [FilteringFormInputKeys.TextfieldInput]: () =>
         setComponent({
@@ -72,9 +66,7 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
               inputTitle={template.inputTitle}
               options={template.options ?? []}
               inputValue={handleCountryInputValueChange() ?? ""}
-              setValue={(value) =>
-                handleValueChanges(FilteringFormInputKeys.SelectInput, value)
-              }
+              setValue={(value) => handleValueChanges(FilteringFormInputKeys.SelectInput, value)}
             />
           </StyledInputHolder>
         );
@@ -82,22 +74,16 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
         return (
           <StyledInputHolder
             $elementWidth={
-              template.inputKey === FilteringFormInputKeys.OperatorInput
-                ? "50%"
-                : undefined
+              template.inputKey === FilteringFormInputKeys.OperatorInput ? "50%" : undefined
             }
           >
             <StyledSelectComponent
               inputTitle={template.inputTitle}
               options={template.options ?? []}
               inputValue={
-                ConversionUtils.OperatorItemsToOperatorItemNames(
-                  component.operatorInput
-                ) ?? ""
+                ConversionUtils.OperatorItemsToOperatorItemNames(component.operatorInput) ?? ""
               }
-              setValue={(value) =>
-                handleValueChanges(FilteringFormInputKeys.OperatorInput, value)
-              }
+              setValue={(value) => handleValueChanges(FilteringFormInputKeys.OperatorInput, value)}
             />
           </StyledInputHolder>
         );
@@ -107,9 +93,7 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
             <StyledTextFieldComponent
               inputTitle={template.inputTitle}
               inputValue={component.textFieldInput ?? ""}
-              setValue={(value) =>
-                handleValueChanges(FilteringFormInputKeys.TextfieldInput, value)
-              }
+              setValue={(value) => handleValueChanges(FilteringFormInputKeys.TextfieldInput, value)}
             />
           </StyledInputHolder>
         );
@@ -119,9 +103,7 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
   return (
     <React.Fragment>
       {filterFormTemplate.map((template, index) => (
-        <React.Fragment key={index}>
-          {renderInputField(template)}
-        </React.Fragment>
+        <React.Fragment key={index}>{renderInputField(template)}</React.Fragment>
       ))}
     </React.Fragment>
   );

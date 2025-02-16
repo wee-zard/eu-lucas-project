@@ -126,32 +126,19 @@ export enum FilteringDialogTexts {
   AgreeButtonText = "Mentés",
 }
 
-export enum FilterDialogFilterOptions {
-  Year = "YEAR",
-  Country = "COUNTRY",
-  XCoordinates = "X_COORDINATE",
-  YCoordinates = "Y_COORDINATE",
-  Direction = "DIRECTION",
-  ExifData = "EXIF_DATA",
-  Plant = "PLANT",
-  ProcedureName = "PROCEDURE_NAME",
-  ProcedureParams = "PROCEDURE_PARAMS",
-  BoundingBoxIsPlantHomogenous = "IS_HOMOGENOUS",
-  BoundingBoxPlantProbability = "PROBABILITY",
-}
-
-export enum FilterDialogFilterOptionNames {
-  Year = "Év",
-  Country = "Ország",
-  XCoordinates = "X Koordináta",
-  YCoordinates = "Y Koordináta",
-  Direction = "Készítés Iránya",
-  ExifData = "Exif adat",
-  Plant = "Növény",
-  ProcedureName = "Eljárás neve",
-  ProcedureParams = "Eljárás pareméterei",
-  BoundingBoxIsPlantHomogenous = "Detektált növény homogén-e",
-  BoundingBoxPlantProbability = "Detektálás valószínűsége",
+export enum FilterDialogFilters {
+  YEAR = "Év",
+  COUNTRY = "Ország",
+  X_COORDINATE = "X Koordináta",
+  Y_COORDINATE = "Y Koordináta",
+  DIRECTION = "Készítés Iránya",
+  EXIF_DATA = "Exif adat",
+  PROCEDURE_NAME = "Eljárás neve",
+  PROCEDURE_PARAMS = "Eljárás pareméterei",
+  IS_HOMOGENOUS = "Detektált növény homogén-e",
+  PROBABILITY = "Detektálás valószínűsége",
+  PLANT_SPECIES = "Növényfajok",
+  PLANT_NAME = "Növények",
 }
 
 export enum DialogToOpens {
@@ -166,6 +153,16 @@ export enum OperatorSelectItems {
 export enum OperatorSelectItemNames {
   Equals = "==",
   DoesNotEqual = "!=",
+}
+
+export enum OperatorBooleanItems {
+  BooleanEqual = "BOOLEAN_EQUAL",
+  BooleanNotEqual = "BOOLEAN_NOT_EQUAL",
+}
+
+export enum OperatorBooleanItemNames {
+  BooleanEqual = "Igen",
+  BooleanNotEqual = "Nem",
 }
 
 export enum OperatorTextfieldItems {
