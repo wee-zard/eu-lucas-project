@@ -53,6 +53,7 @@ public class ImageController {
    * Filter images by the provided query builder, while giving back only the
    * necessary length of records from the db based on the values of the {@link PageableProperties}.
    *
+   * @param authenticatedUser The user who initialized the connection to the server.
    * @param filteringQueryRequest The request containing the filters.
    * @return Returns a {@link PageableResponse} that contains the list of images that are
    *     satisfying the query builder, and only giving back a limited number of them based on

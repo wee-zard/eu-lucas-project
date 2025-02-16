@@ -2,11 +2,7 @@ package com.lucas.spring.services.service.impl;
 
 import com.lucas.spring.helper.utils.BuildEntityUtil;
 import com.lucas.spring.helper.utils.CriteriaBuilderOperatorUtil;
-import com.lucas.spring.model.entity.BoundingBoxEntity;
-import com.lucas.spring.model.entity.ImageEntity;
-import com.lucas.spring.model.entity.ProcedureEntity;
-import com.lucas.spring.model.entity.ProcedureLogEntity;
-import com.lucas.spring.model.entity.ProcedureLogParamEntity;
+import com.lucas.spring.model.entity.*;
 import com.lucas.spring.model.enums.FilterOption;
 import com.lucas.spring.model.enums.ImageFilteringEnum;
 import com.lucas.spring.model.enums.InputFormatErrors;
@@ -168,22 +164,25 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
                         .join("procedureParams", JoinType.LEFT);
 
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
-                plplpJoin.get(FilterOption.PROCEDURE_PARAMS.getTableColumn()).get("procedureParamName"),
+                plplpJoin.get(FilterOption.PROCEDURE_PARAMS.getTableColumn())
+                        .get("procedureParamName"),
                 component.getSelectInput());
       }
       case IS_HOMOGENOUS -> {
-        final Join<ImageEntity, BoundingBoxEntity> ibJoin = root.join("listOfBoundingBoxes", JoinType.LEFT);
+        final Join<ImageEntity, PlantEntity> tableJoin =
+                root.join("listOfBoundingBoxes", JoinType.LEFT);
 
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
-                ibJoin.get(FilterOption.IS_HOMOGENOUS.getTableColumn()), null);
+                tableJoin.get(FilterOption.IS_HOMOGENOUS.getTableColumn()), null);
       }
       case PROBABILITY -> {
-        final Join<ImageEntity, BoundingBoxEntity> ibJoin = root.join("listOfBoundingBoxes", JoinType.LEFT);
+        final Join<ImageEntity, BoundingBoxEntity> tableJoin =
+                root.join("listOfBoundingBoxes", JoinType.LEFT);
         try {
           final Integer probability = Integer.parseInt(component.getSelectInput());
 
           return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
-                  ibJoin.get(FilterOption.PROBABILITY.getTableColumn()),
+                  tableJoin.get(FilterOption.PROBABILITY.getTableColumn()),
                   probability);
         } catch (final NumberFormatException error) {
           throw new InputFormatException(
@@ -191,6 +190,22 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
                   component.toString()
           );
         }
+      }
+      case PLANT_NAME -> {
+        final Join<ImageEntity, PlantEntity> tableJoin = root.join("listOfPlants", JoinType.LEFT);
+
+        return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
+                tableJoin.get(FilterOption.PLANT_NAME.getTableColumn()),
+                component.getSelectInput());
+      }
+      case PLANT_SPECIES -> {
+        final Join<ImageEntity, PlantSpeciesEntity> tableJoin =
+                root.join("listOfPlants", JoinType.LEFT)
+                        .join("plantSpeciesName", JoinType.LEFT);
+
+        return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
+                tableJoin.get(FilterOption.PLANT_SPECIES.getTableColumn()),
+                component.getSelectInput());
       }
       default -> throw new ImageFilteringException(
         ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED

@@ -16,6 +16,15 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CriteriaBuilderOperatorUtil {
 
+  /**
+   * Creates a predicate based on the provided inputs.
+   *
+   * @param cb The criteria builder.
+   * @param operatorOption The operator we want to apply to the predicate.
+   * @param path The path to the records.
+   * @param entity The entity to use.
+   * @return Returns a predicate.
+   */
   public Predicate operatorDispatcher(
           final CriteriaBuilder cb,
           final OperatorOption operatorOption,

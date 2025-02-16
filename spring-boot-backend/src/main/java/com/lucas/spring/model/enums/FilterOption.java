@@ -18,7 +18,8 @@ public enum FilterOption {
   PROCEDURE_PARAMS("Eljárás pareméterei", "procedureLogParam"),
   IS_HOMOGENOUS("Homogén", "homogenous"),
   PROBABILITY("Detektálás értéke", "probabilityOfDetection"),
-  PLANT("Növények", null); //TODO: ...
+  PLANT_SPECIES("Növényfajok", "plantScientificName"),
+  PLANT_NAME("Növények", "plantScientificName");
   /**
    * The name displayed in the side of the frontend.
    */
