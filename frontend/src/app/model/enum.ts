@@ -45,6 +45,14 @@ export enum BackendProcedureControllerEndpoints {
   GetProcedures = "/api/procedure/",
 }
 
+export enum BackendPlantControllerEndpoints {
+  GetPlants = "/api/plant/",
+}
+
+export enum BackendPlantSpeciesControllerEndpoints {
+  GetPlantSpecies = "/api/plant-species/",
+}
+
 export enum BackendProcedureLogParamControllerEndpoints {
   GetProcedureParamsByProcedureId = "/api/procedure-param/",
 }
@@ -69,6 +77,8 @@ export type BackendControllerEndpointTypes =
   | BackendExifKeyControllerEndpoints
   | BackendImageControllerEndpoints
   | BackendProcedureControllerEndpoints
+  | BackendPlantControllerEndpoints
+  | BackendPlantSpeciesControllerEndpoints
   | BackendProcedureLogParamControllerEndpoints
   | BackendSmtpEmailControllerEndpoints;
 

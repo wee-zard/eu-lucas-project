@@ -76,6 +76,7 @@
           "probability": "Találat valószínűsége",
           "homogenous": "Homogén-e",
           "plant": "Növény",
+          "plant-species": "Növényfaj",
           "algorithm": "Eljárás",
           "procedure-name": "Eljárás neve",
           "procedure-params": "Eljárás pareméterei",

@@ -21,6 +21,8 @@ import { requestCoordinateYList } from "@redux/actions/coordinateYActions";
 import { requestCoordinateXList } from "@redux/actions/coordinateXActions";
 import { requestProcedureList } from "@redux/actions/procedureActions";
 import { requestProcedureLogParams } from "@redux/actions/procedureLogParamActions";
+import { requestPlantList } from "@redux/actions/plantActions";
+import { requestPlantSpeciesList } from "@redux/actions/plantSpeciesActions";
 
 type Props = {
   id: number;
@@ -92,8 +94,8 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
       [FilterDialogFilters.X_COORDINATE]: () => requestCoordinateXList(dispatch),
       [FilterDialogFilters.PROCEDURE_PARAMS]: () => requestProcedureLogParams(dispatch),
       [FilterDialogFilters.PROCEDURE_NAME]: () => requestProcedureList(dispatch),
-      [FilterDialogFilters.PLANT_NAME]: () => null, // TODO: ...
-      [FilterDialogFilters.PLANT_SPECIES]: () => null, // TODO: ...
+      [FilterDialogFilters.PLANT_NAME]: () => requestPlantList(dispatch),
+      [FilterDialogFilters.PLANT_SPECIES]: () => requestPlantSpeciesList(dispatch),
       [FilterDialogFilters.EXIF_DATA]: () => requestExifKeys(dispatch),
       [FilterDialogFilters.DIRECTION]: () => requestCreationDirections(dispatch),
       [FilterDialogFilters.COUNTRY]: () => requestCreationCountries(dispatch),

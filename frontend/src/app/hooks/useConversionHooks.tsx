@@ -16,7 +16,9 @@ import { selectListOfCoordinateX } from "@redux/selectors/coordinateXSelector";
 import { selectListOfCoordinateY } from "@redux/selectors/coordinateYSelector";
 import { selectListOfExifKeys } from "@redux/selectors/exifKeySelector";
 import { selectListOfProcedures } from "@redux/selectors/procedureSelector";
-import { selectListOfProcedureLogParams } from "@redux/selectors/procedureLogParamSelector";
+import { selectListOfProcedureLogParamsByParam } from "@redux/selectors/procedureLogParamSelector";
+import { selectListOfPlantsByName } from "@redux/selectors/plantSelector";
+import { selectListOfPlantSpeciesByScientificName } from "@redux/selectors/plantSpeciesSelector";
 
 export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDialogFilters) => {
   const listOfCreationYears = useSelector(selectListOfCreationYears);
@@ -25,10 +27,10 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
   const listOfCoordinateX = useSelector(selectListOfCoordinateX);
   const listOfCoordinateY = useSelector(selectListOfCoordinateY);
   const listOfExifKeys = useSelector(selectListOfExifKeys);
+  const listOfPlants = useSelector(selectListOfPlantsByName);
+  const listOfPlantSpecies = useSelector(selectListOfPlantSpeciesByScientificName);
   const listOfProcedures = useSelector(selectListOfProcedures).map((item) => item.name);
-  const listOfProcedureLogParams = useSelector(selectListOfProcedureLogParams).map(
-    (item) => item.procedureParamName,
-  );
+  const listOfProcedureLogParams = useSelector(selectListOfProcedureLogParamsByParam);
   const probabilityList = Array.from(Array(101).keys()).map((element) => element.toString());
 
   const getFilterFormTemplate = (): FilterFormTemplate[] => {
@@ -162,17 +164,24 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
           inputKey: FilteringFormInputKeys.OperatorInput,
         },
       ],
-      // TODO: ...
       ["PLANT_SPECIES"]: () => [
+        {
+          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.plant-species"),
+          options: listOfPlantSpecies,
+          inputKey: FilteringFormInputKeys.SelectInput,
+        },
         {
           inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
           options: operatorSelectItems,
           inputKey: FilteringFormInputKeys.OperatorInput,
         },
       ],
-
-      // TODO: ...
       ["PLANT_NAME"]: () => [
+        {
+          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.plant"),
+          options: listOfPlants,
+          inputKey: FilteringFormInputKeys.SelectInput,
+        },
         {
           inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
           options: operatorSelectItems,

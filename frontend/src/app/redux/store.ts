@@ -9,6 +9,8 @@ import coordinateYReducer from "./reducers/coordinateYReducer";
 import exifKeyReducer from "./reducers/exifKeyReducer";
 import procedureReducer from "./reducers/procedureReducer";
 import procedureLogParamReducer from "./reducers/procedureLogParamReducer";
+import plantReducer from "./reducers/plantReducer";
+import plantSpeciesReducer from "./reducers/plantSpeciesReducer";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +24,8 @@ const store = configureStore({
     exifKeyStore: exifKeyReducer,
     procedureStore: procedureReducer,
     procedureLogParamStore: procedureLogParamReducer,
+    plantStore: plantReducer,
+    plantSpeciesReducer: plantSpeciesReducer,
   },
 });
 
