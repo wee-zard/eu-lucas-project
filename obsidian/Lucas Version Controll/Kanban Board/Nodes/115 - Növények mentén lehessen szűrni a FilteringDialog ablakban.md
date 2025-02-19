@@ -8,7 +8,7 @@ related:
 platform:
   - frontend
   - backend
-sprint: 
+sprint: 2
 creation-time: 2024-12-31T22:41:00
 ---
 Aktuális működés:

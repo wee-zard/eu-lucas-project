@@ -33,7 +33,7 @@ kanban-plugin: board
 - [ ] [[060 - Scheduler a félóránkénti report emailek kiküldésére]]
 - [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
 - [ ] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
-- [ ] [[074 - Filtering oldalon a 4 input mező a szűrési feltétel megadásakor, egy tetszőleges input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését]]
+- [ ] [[074 - Filtering oldalon egy input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését]]
 - [ ] [[086 - Középső egérgombbal rányomva a Filter oldal menüpontjára a NotFound oldalra navigál az oldal]]
 - [ ] [[087 - NotFound oldalról nem lehet egy kattintással visza navigálni a főoldalra]]
 - [ ] [[090 - FilteringDialog - Amikor először építi fel az input mezőket az ablak, akkor bizonyos esetekben többször újra rendereli az egész ablakot]]
@@ -82,7 +82,6 @@ kanban-plugin: board
 
 ## 🔴ToDo
 
-- [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[011 - Kiválasztott képek letöltése és zip fájlba való elmentése]]
 - [ ] [[015 - Nagy méretű táblák partícionálása]]
 - [ ] [[019 - Aktív szűrés eredményei, a kiválasztott képek és a hozzájuk tartozó szűrési feltételek kerüljenek eltárolásra localStorage-ben]]
@@ -113,7 +112,6 @@ kanban-plugin: board
 
 ## 🔴Client Requests
 
-- [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
 - [ ] [[023 - Sidebar-on lévő menüpontok véglegesítése]]
 - [ ] [[042 - Google OAuth oldal befejezése]]
 - [ ] [[052 - Loading komponens megjelenítése]]
@@ -125,19 +123,22 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
-- [ ] [[115 - Növények mentén lehessen szűrni a FilteringDialog ablakban]]
-- [ ] [[154 - Pagination - Utolsó lapon túl nyomva, a kiválasztott képek felülete eltűnik]]
+- [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
+- [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
 - [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
 - [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
 - [ ] [[017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz]]
 - [ ] [[039 - Procedures oldal létrehozása]]
 - [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
 - [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
+- [ ] [[156 - Docker futtatása VM-ben]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[154 - Pagination - Utolsó lapon túl nyomva, a kiválasztott képek felülete eltűnik]]
+- [ ] [[115 - Növények mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[116 - Befoglaló téglalapok mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[020 - Google OAuth - új Access Token generálása a Refresh Token segítségével, a token lejárata véget]]

@@ -1,13 +1,13 @@
 /**
  * Adds a ripple component to the provided dom component, when the
  * user clicks on the component.
- * 
+ *
  * @param event A fired onClick event, when the user clicked on a component.
  * @param id The unique id of the component which will be used to add an additional component as the ripple.
  */
 export const handleClickOnGlobalRippleEffect = (
   event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  id: string
+  id: string,
 ) => {
   const imageCard = document.getElementById(id);
   if (imageCard) {

@@ -23,7 +23,7 @@ const UploadFileAccordionCard = ({ listOfModels, isErrorOnly }: Props) => {
   );
 
   return (
-    <StyledTransitionGroup unmountOnExit>
+    <StyledTransitionGroup>
       {listOfFilteredModels.length > 0 ? (
         <StyledCollapse>
           <Accordion>

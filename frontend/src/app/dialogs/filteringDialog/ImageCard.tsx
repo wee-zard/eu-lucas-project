@@ -1,7 +1,6 @@
 import React from "react";
-import { CardContent, CardMedia, Menu } from "@mui/material";
+import { CardContent, Menu } from "@mui/material";
 import ImageDto from "@model/dto/ImageDto";
-import { getImageFromRemoteServer } from "@dialogs/filteringDialog/FilteringDialogImageDisplay";
 import styled from "@emotion/styled";
 import {
   StyledCardTemplate,
@@ -26,6 +25,7 @@ import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
 import StyledZoomMap from "@components/StyledZoomMap";
+import StyledImageMediaCard from "@cards/StyledImageMediaCard";
 
 type Props = {
   imageDto: ImageDto;
@@ -83,7 +83,7 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
               ...model,
               images:
                 model.id === imageModel.id
-                  ? imageModel.images.filter((image) => image.id !== imageDto.id)
+                  ? imageModel.images.filter((properties) => properties.image.id !== imageDto.id)
                   : model.images,
             })),
           ),
@@ -96,12 +96,8 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
 
   return (
     <StyledCardTemplate>
-      <CardMedia
-        component="img"
-        image={getImageFromRemoteServer(imageDto)}
-        alt={`Filtered image No.${imageDto.id}`}
-        sx={{ borderRadius: "8px" }}
-      />
+      <StyledImageMediaCard imageDto={imageDto} alt={"Filtered image No."} />
+      <StyledPoint />
       <StyledCardContent>
         <StyledTypography>{imageDto.imageName}</StyledTypography>
         <div>
@@ -151,6 +147,12 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
 };
 
 export default ImageCard;
+
+const StyledPoint = styled.div<{}>((_) => ({
+  height: "5px",
+  width: "5px",
+  backgroundColor: "green",
+}));
 
 const StyledCardContent = styled(CardContent)<{}>((_) => ({
   display: "flex",

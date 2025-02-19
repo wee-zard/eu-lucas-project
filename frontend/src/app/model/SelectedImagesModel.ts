@@ -10,10 +10,16 @@ export default class SelectedImagesModel {
     /**
      * The images which were selected by the user.
      */
-    public images: ImageDto[],
+    public images: ImageDtoProperties[],
     /**
      * The query that was used to filter the images.
      */
     public query?: QueryBuilderModel,
   ) {}
 }
+
+export type ImageDtoProperties = {
+  image: ImageDto;
+  height?: number;
+  width?: number;
+};

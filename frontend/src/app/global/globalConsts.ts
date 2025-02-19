@@ -1,1 +1,1 @@
-export const FILTERING_PAGE_SIZE = 9;
+export const FILTERING_PAGE_SIZE = 3;

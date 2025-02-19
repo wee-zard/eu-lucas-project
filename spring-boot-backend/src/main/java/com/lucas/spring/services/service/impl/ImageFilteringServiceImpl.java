@@ -48,27 +48,27 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
     if (request.getQueryBuilder().getListOfQueries().isEmpty()) {
       throw new ImageFilteringException(ImageFilteringEnum.LIST_OF_QUERIES_ARE_EMPTY);
     }
+
     if (pageableProperties == null) {
       throw new ImageFilteringException(ImageFilteringEnum.PAGEABLE_PROPERTIES_ARE_NOT_PROVIDED);
     }
 
     // Setting up the objects for the query builder.
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<ImageEntity> criteriaQuery = cb.createQuery(ImageEntity.class);
-    Root<ImageEntity> root = criteriaQuery.from(ImageEntity.class);
+    final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<ImageEntity> criteriaQuery = cb.createQuery(ImageEntity.class);
+    final Root<ImageEntity> root = criteriaQuery.from(ImageEntity.class);
 
     // Get the merged predicates.
     final Predicate predicate = getSubBranchOfComponent(cb, root, request.getQueryBuilder());
 
     // Add the merged predicates to the query.
     criteriaQuery.select(root).where(predicate);
-    TypedQuery<ImageEntity> query = entityManager.createQuery(criteriaQuery);
+    final TypedQuery<ImageEntity> query = entityManager.createQuery(criteriaQuery);
 
     // Wrap these values into a Pageable Request.
     query.setFirstResult(pageableProperties.getPageNo());
     query.setMaxResults(pageableProperties.getPageSize());
-    List<ImageEntity> filteredImages = query.getResultList();
-    return new PageImpl<>(filteredImages);
+    return new PageImpl<>(query.getResultList());
   }
 
   private Predicate getSubBranchOfComponent(

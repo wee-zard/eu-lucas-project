@@ -8,15 +8,16 @@ import { MenuActions } from "@model/enum";
 import FilteringQueryRequest from "@model/request/FilteringQueryRequest";
 import PageableResponse from "@model/response/PageableResponse";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { setFilterMenuAction, setSelectedImage } from "@redux/actions/imageActions";
 import { selectImageStorage } from "@redux/selectors/imageSelector";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FilteringDialogImageDisplayPagination from "@dialogs/filteringDialog/FilteringDialogImageDisplayPagination";
-import { handleClickOnGlobalRippleEffect } from "@global/globalMethods";
 import { StyledCardTemplate } from "@screens/filteringScreen/FilteringCommonStyledComponents";
+import { Divider } from "@mui/material";
+import { handleClickOnGlobalRippleEffect } from "app/scripts/rippleEffectOnClick";
+import StyledImageMediaCard from "@cards/StyledImageMediaCard";
 
 const FilteringDialogImageDisplay = () => {
   const { filterMenuAction, filteringPageableProperties, selectedImage } =
@@ -33,6 +34,7 @@ const FilteringDialogImageDisplay = () => {
       const request = new FilteringQueryRequest(queryBuilderModel);
       getImageByFilters(request, filteringPageableProperties).then((pageableResponse) => {
         if (pageableResponse) {
+          // TODO: Put this state into the redux storage.
           setResponse(pageableResponse);
         }
       });
@@ -40,18 +42,10 @@ const FilteringDialogImageDisplay = () => {
     }
   }, [filterMenuAction, filteringPageableProperties]);
 
-  const handleRenderOfEmptyBody = () => {
-    return !response ? (
-      <StyledEmptyBody>Szűrési feltétel még nem kerül megadásra!</StyledEmptyBody>
-    ) : response?.pageItems.length === 0 ? (
-      <StyledEmptyBody>A megadott szűrési feltétel üres eredményt adott vissza!</StyledEmptyBody>
-    ) : null;
-  };
-
   const handleClickOnImage = (imageEntity: ImageDto) => {
     if (selectedImage) {
       const filteredSelectedImages = selectedImage?.images.filter(
-        (image) => image.id !== imageEntity.id,
+        (properties) => properties.image.id !== imageEntity.id,
       );
       dispatch(
         setSelectedImage({
@@ -59,82 +53,65 @@ const FilteringDialogImageDisplay = () => {
           images:
             filteredSelectedImages.length !== selectedImage.images.length
               ? filteredSelectedImages
-              : [...selectedImage.images, imageEntity],
+              : [
+                  ...selectedImage.images,
+                  {
+                    image: imageEntity,
+                    width: undefined,
+                    height: undefined,
+                  },
+                ],
         }),
       );
     }
   };
 
   const isElementPresentInSelectedImages = (imageEntity: ImageDto) =>
-    (selectedImage && !!selectedImage.images.find((image) => image.id === imageEntity.id)) ?? false;
+    (selectedImage &&
+      !!selectedImage.images.find((properties) => properties.image.id === imageEntity.id)) ??
+    false;
 
   return (
     <StyledFilterImageHolder>
-      {!response || response?.pageItems.length === 0 ? (
-        handleRenderOfEmptyBody()
-      ) : (
-        <StyledComponentGap display={"grid"}>
-          <StyledCardsHolder gap={"16px"}>
-            {response?.pageItems.map((imageEntity, index) => (
-              <StyledCard
-                key={index}
-                id={IdUtils.GetFilteredImageCardDivId(index)}
-                $isCardSelected={isElementPresentInSelectedImages(imageEntity)}
-                onClick={(event) => {
-                  handleClickOnImage(imageEntity);
-                  handleClickOnGlobalRippleEffect(event, IdUtils.GetFilteredImageCardDivId(index));
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  image={getImageFromRemoteServer(imageEntity)}
-                  alt={`Filtered image No.${index}`}
-                  sx={{ borderRadius: "8px" }}
-                />
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    component="div"
-                    sx={{
-                      textShadow: "1px 1px 1px black",
-                    }}
-                  >
-                    {imageEntity.imageName}
-                  </Typography>
-                </CardContent>
-              </StyledCard>
-            ))}
-          </StyledCardsHolder>
-          <FilteringDialogImageDisplayPagination />
-        </StyledComponentGap>
-      )}
+      <StyledComponentGap display={"grid"}>
+        <StyledCardsHolder gap={"16px"}>
+          {response?.pageItems.map((imageEntity, index) => (
+            <StyledCard
+              key={index}
+              id={IdUtils.GetFilteredImageCardDivId(index)}
+              is_card_selected={+isElementPresentInSelectedImages(imageEntity)}
+              onClick={(event) => {
+                handleClickOnImage(imageEntity);
+                handleClickOnGlobalRippleEffect(event, IdUtils.GetFilteredImageCardDivId(index));
+              }}
+            >
+              <StyledImageMediaCard imageDto={imageEntity} alt={"Filtered image No."} />
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  component="div"
+                  sx={{
+                    textShadow: "1px 1px 1px black",
+                  }}
+                >
+                  {imageEntity.imageName}
+                </Typography>
+              </CardContent>
+            </StyledCard>
+          ))}
+        </StyledCardsHolder>
+        <Divider />
+        <FilteringDialogImageDisplayPagination pageableImages={response} />
+      </StyledComponentGap>
     </StyledFilterImageHolder>
   );
 };
 
 export default FilteringDialogImageDisplay;
 
-export const getImageFromRemoteServer = (obj: ImageDto) => {
-  const remoteUrl = "https://gisco-services.ec.europa.eu/lucas/photos";
-  const x =
-    obj.coordinateX < 10
-      ? `00${obj.coordinateX}`
-      : obj.coordinateX < 100
-        ? `0${obj.coordinateX}`
-        : obj.coordinateX;
-
-  const y =
-    obj.coordinateY < 10
-      ? `00${obj.coordinateY}`
-      : obj.coordinateY < 100
-        ? `0${obj.coordinateY}`
-        : obj.coordinateY;
-  return `${remoteUrl}/${obj.year}/${obj.country}/${x}/${y}/${obj.imageName}`;
-};
-
-const StyledCard = styled(StyledCardTemplate)<{ $isCardSelected: boolean }>((props) => ({
+const StyledCard = styled(StyledCardTemplate)<{ is_card_selected: number }>((props) => ({
   "&.MuiPaper-root": {
-    background: props.$isCardSelected
+    background: props.is_card_selected
       ? "linear-gradient(to right bottom, #ffffff, #ffff00aa, #00000050)"
       : "#00000020",
 
@@ -157,13 +134,6 @@ const StyledCard = styled(StyledCardTemplate)<{ $isCardSelected: boolean }>((pro
 const StyledCardsHolder = styled(StyledComponentGap)<{}>((_) => ({
   flexWrap: "wrap",
   justifyContent: "center",
-}));
-
-const StyledEmptyBody = styled.div<{}>((_) => ({
-  display: "flex",
-  justifyContent: "center",
-  fontStyle: "italic",
-  fontWeight: "bold",
 }));
 
 const StyledFilterImageHolder = styled(StyledScrollBarHolder)<{}>((_) => ({

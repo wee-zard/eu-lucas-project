@@ -25,29 +25,56 @@ public class StringToPageblePropEntityConverter
 
     // Checking if exact properties are present or not.
     if (pageablePropertiesMap.get(PAGE_NO).isEmpty()) {
+      // TODO: Throw a better exception here.
       throw new RuntimeException("pageNo is not provided in the Pageable Properties!");
     }
+
     if (pageablePropertiesMap.get(PAGE_SIZE).isEmpty()) {
+      // TODO: Throw a better exception here.
       throw new RuntimeException("pageSize is not provided in the Pageable Properties!");
     }
+
+    final Integer pageNo = pagePropertiesToInteger(pageablePropertiesMap, PAGE_NO);
+    final Integer pageSize = pagePropertiesToInteger(pageablePropertiesMap, PAGE_SIZE);
+
+    if (pageNo < 0) {
+      // TODO: Throw a better exception here.
+      throw new RuntimeException("pageNo cannot be a negative number!");
+    }
+
+    if (pageSize < 0) {
+      // TODO: Throw a better exception here.
+      throw new RuntimeException("pageSize cannot be a negative number!");
+    }
+
+    return PageableProperties
+              .builder()
+              .pageNo(pagePropertiesToInteger(pageablePropertiesMap, PAGE_NO))
+              .pageSize(pagePropertiesToInteger(pageablePropertiesMap, PAGE_SIZE))
+              .build();
+  }
+
+  private Integer pagePropertiesToInteger(
+          final Map<String, String> pageablePropertiesMap,
+          final String property
+  ) {
     try {
-      return PageableProperties
-                .builder()
-                .pageNo(Integer.parseInt(pageablePropertiesMap.get(PAGE_NO)))
-                .pageSize(Integer.parseInt(pageablePropertiesMap.get(PAGE_SIZE)))
-                .build();
-    } catch (Throwable error) {
+      return Integer.parseInt(pageablePropertiesMap.get(property));
+    } catch (final NumberFormatException error) {
+      // TODO: Throw a better exception here.
       throw new RuntimeException("Error why executing the build of PageableProperties! "
-                + error.getMessage());
+              + error.getMessage() + " " + property);
     }
   }
 
   private Map<String, String> getPageablePropertiesMap(String source) {
     if (source.isEmpty()) {
+      // TODO: Throw a better exception here.
       throw new RuntimeException("Pageable Properties are not defined!");
     }
     // Properties must contain a ";" character to separate the properties from each other.
     if (!source.contains(";")) {
+      // TODO: Throw a better exception here.
       throw new RuntimeException("Pageable Properties format is invalid!");
     }
     // Init all the pageable properties that is present in the request header.
@@ -55,6 +82,7 @@ public class StringToPageblePropEntityConverter
     final Map<String, String> pageablePropertiesMap = new HashMap<>();
     for (final String property : properties) {
       if (!property.contains("=")) {
+        // TODO: Throw a better exception here.
         throw new RuntimeException("Pageable Properties format is invalid!");
       }
       final String[] splitProperty = property.split("=");

@@ -52,7 +52,9 @@ const StyledDialogTitle = styled(DialogTitle)<{}>(() => ({
 }));
 
 const StyledDialogContentHolder = styled(StyledComponentGap)<{}>((_) => ({
-  gap: "16px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
   width: "100%",
 }));
 

@@ -5,7 +5,8 @@ type:
 priority:
   - High
 related: 
-platform: 
+platform:
+  - frontend
 sprint: 2
 creation-time: 2025-02-11T21:55:00
 ---

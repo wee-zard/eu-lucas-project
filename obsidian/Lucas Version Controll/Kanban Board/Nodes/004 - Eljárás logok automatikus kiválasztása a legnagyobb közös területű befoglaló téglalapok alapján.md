@@ -10,6 +10,7 @@ creation-time: 2024-12-07T09:23:00
 platform:
   - frontend
   - backend
+sprint: 2
 ---
 Előfeltétel:
 - A következő task befejezése: [[003 - Befoglaló téglalapok megjelenítése a képeken]]

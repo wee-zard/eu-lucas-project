@@ -14,9 +14,9 @@ const FilteringScreenBody = () => {
       ) : (
         <StyledCardsHolder>
           {listOfSelectedImages.map((selectedImageModel) =>
-            selectedImageModel.images.map((imageDto) => (
-              <React.Fragment key={`${selectedImageModel.id}-${imageDto.id}`}>
-                <ImageCard imageDto={imageDto} imageModel={selectedImageModel} />
+            selectedImageModel.images.map((imageProperties) => (
+              <React.Fragment key={`${selectedImageModel.id}-${imageProperties.image.id}`}>
+                <ImageCard imageDto={imageProperties.image} imageModel={selectedImageModel} />
               </React.Fragment>
             )),
           )}

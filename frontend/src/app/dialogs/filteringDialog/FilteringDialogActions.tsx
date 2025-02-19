@@ -14,6 +14,7 @@ import { StyledComponentGap } from "@global/globalStyles";
 import StyledButton from "@components/StyledButton";
 import { selectImageStorage } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
+import { FILTERING_PAGE_SIZE } from "@global/globalConsts";
 
 const FilteringDialogActions = () => {
   const { selectedImage, listOfSelectedImages } = useSelector(selectImageStorage);
@@ -45,7 +46,7 @@ const FilteringDialogActions = () => {
       dispatch(
         setFilteringPageableProperties({
           pageNo: 0,
-          pageSize: 9,
+          pageSize: FILTERING_PAGE_SIZE,
         }),
       );
       dispatch(setFilterMenuAction(undefined));

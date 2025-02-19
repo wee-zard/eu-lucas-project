@@ -32,21 +32,35 @@
             }
           },
           {
-            "id": "f893b66159eec4d5",
+            "id": "c16a753b21fe0691",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Kanban Board/Nodes/115 - Növények mentén lehessen szűrni a FilteringDialog ablakban.md",
+                "file": "Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "115 - Növények mentén lehessen szűrni a FilteringDialog ablakban"
+              "title": "003 - Befoglaló téglalapok megjelenítése a képeken"
+            }
+          },
+          {
+            "id": "f7494e901381b23e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -119,7 +133,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Kanban Board/Nodes/115 - Növények mentén lehessen szűrni a FilteringDialog ablakban.md",
+                "file": "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -129,7 +143,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "115 - Növények mentén lehessen szűrni a FilteringDialog ablakban visszahivatkozásai"
+              "title": "004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján visszahivatkozásai"
             }
           },
           {
@@ -189,13 +203,18 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "f893b66159eec4d5",
+  "active": "f7494e901381b23e",
   "lastOpenFiles": [
+    "Kanban Board/Nodes/074 - Filtering oldalon egy input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését.md",
+    "Kanban Board/Nodes/156 - Docker futtatása VM-ben.md",
     "Kanban Board/Lucas Kanban.md",
-    "Kanban Board/Nodes/051 - Standard Input mező helyett Autocomplete input mezőt használjunk.md",
-    "Kanban Board/Nodes/115 - Növények mentén lehessen szűrni a FilteringDialog ablakban.md",
-    "Kanban Board/Nodes/116 - Befoglaló téglalapok mentén lehessen szűrni a FilteringDialog ablakban.md",
+    "Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md",
+    "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
     "Kanban Board/Nodes/154 - Pagination - Utolsó lapon túl nyomva, a kiválasztott képek felülete eltűnik.md",
+    "Kanban Board/Nodes/155 - Képek mentése Base64String formájában szűrést követően.md",
+    "Kanban Board/Nodes/115 - Növények mentén lehessen szűrni a FilteringDialog ablakban.md",
+    "Kanban Board/Nodes/051 - Standard Input mező helyett Autocomplete input mezőt használjunk.md",
+    "Kanban Board/Nodes/116 - Befoglaló téglalapok mentén lehessen szűrni a FilteringDialog ablakban.md",
     "Kanban Board/Nodes/017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz.md",
     "Kanban Board/Nodes/152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre.md",
     "Kanban Board/Nodes/153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül.md",
@@ -212,11 +231,6 @@
     "Kanban Board/Nodes/149 - NoImplicitAny változó használata a tsconfig fájlban.md",
     "Kanban Board/Nodes/148 - Spring Üzleti Alkalmazások Fejlesztése kurzus videóinek feldolgozása.md",
     "Kanban Board/Nodes/147 - Stílus változók kerüljenek kiszervezésre egy külön variables.scss fájlba.md",
-    "Kanban Board/Nodes/145 - .Env fájl változói egy Utils fájlba kerüljenek eltárolásra.md",
-    "Kanban Board/Nodes/144 - Sensitive data must be stored in the .env file outside of the project.md",
-    "Kanban Board/Nodes/143 - Lottifiles - 404 Not found animáció.md",
-    "Kanban Board/Nodes/142 - Lottifiles - Under construction animáció.md",
-    "Kanban Board/Nodes/141 - Lottifiles - Login oldal animációval.md",
     "Kanban Board/Images/Pasted image 20241226130426.png",
     "Kanban Board/Images/Pasted image 20241226130403.png",
     "Pasted image 20241226130339.png",

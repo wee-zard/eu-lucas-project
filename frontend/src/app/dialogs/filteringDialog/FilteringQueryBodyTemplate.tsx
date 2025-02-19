@@ -36,7 +36,7 @@ const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
   return (
     <StyledQueryHolder>
       <StyledComponentGridGap>
-        <StyledTransitionGroup unmountOnExit>
+        <StyledTransitionGroup>
           <Collapse>
             <StyledCustomComponentGap>
               <StyledMinWidthComponent>WHERE</StyledMinWidthComponent>
@@ -51,7 +51,7 @@ const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
               <StyledCustomComponentGap>
                 <FilteringQueryRelation queryMultiType={queryMultiType} />
                 <StyledComponentGridGap $isWidthFull>
-                  <StyledTransitionGroup unmountOnExit>
+                  <StyledTransitionGroup>
                     {ArrayUtils.getListWithoutFirstElement<QueryMultiType | QueryComponent>(
                       getListOfElements,
                     ).map((element) => (
