@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import imageReducer from "./reducers/imageReducer";
-import dialogReducer from "./reducers/dialogReducer";
-import creationYearReducer from "./reducers/creationYearReducer";
-import creationCountryReducer from "./reducers/creationCountryReducer";
-import creationDirectionReducer from "./reducers/creationDirectionReducer";
-import coordinateXReducer from "./reducers/coordinateXReducer";
-import coordinateYReducer from "./reducers/coordinateYReducer";
-import exifKeyReducer from "./reducers/exifKeyReducer";
-import procedureReducer from "./reducers/procedureReducer";
-import procedureLogParamReducer from "./reducers/procedureLogParamReducer";
-import plantReducer from "./reducers/plantReducer";
-import plantSpeciesReducer from "./reducers/plantSpeciesReducer";
+import imageReducer from "@redux/reducers/imageReducer";
+import dialogReducer from "@redux/reducers/dialogReducer";
+import creationYearReducer from "@redux/reducers/creationYearReducer";
+import creationCountryReducer from "@redux/reducers/creationCountryReducer";
+import creationDirectionReducer from "@redux/reducers/creationDirectionReducer";
+import coordinateXReducer from "@redux/reducers/coordinateXReducer";
+import coordinateYReducer from "@redux/reducers/coordinateYReducer";
+import exifKeyReducer from "@redux/reducers/exifKeyReducer";
+import procedureReducer from "@redux/reducers/procedureReducer";
+import procedureLogParamReducer from "@redux/reducers/procedureLogParamReducer";
+import plantReducer from "@redux/reducers/plantReducer";
+import plantSpeciesReducer from "@redux/reducers/plantSpeciesReducer";
 
 const store = configureStore({
   reducer: {

@@ -2,14 +2,14 @@ version: "3"
 services:
   lucas-frontend:
     restart: unless-stopped
-    build: ./frontend/dockerfile
-    expose: 
+    build: ./frontend/build/frontend
+    expose:
       - '3000'
     ports:
       - '3000:80'
     volumes:
-      - ./frontend/:/app
-      - ./frontend/node_modules:/app/node_modules
+      - ./frontend/build/frontend:/app
+      - ./frontend/build/frontend/node_modules:/app/node_modules
     environment:
       NODE_ENV: production
     depends_on:
@@ -20,7 +20,7 @@ services:
 
   lucas-backend:
     restart: unless-stopped
-    build: ./backend/dockerfile
+    build: ./backend/build
     ports:
       - "8989:8989"
     environment:
