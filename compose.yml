@@ -2,7 +2,7 @@ version: "3"
 services:
   lucas-frontend:
     restart: unless-stopped
-    build: ./frontend
+    build: ./frontend/dockerfile
     expose: 
       - '3000'
     ports:
@@ -20,7 +20,7 @@ services:
 
   lucas-backend:
     restart: unless-stopped
-    build: ./spring-boot-backend
+    build: ./backend/dockerfile
     ports:
       - "8989:8989"
     environment:
