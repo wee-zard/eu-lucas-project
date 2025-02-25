@@ -18,6 +18,7 @@ const StyledImageMediaCard = ({ imageDto, alt }: Props) => {
 
   useEffect(() => {
     const img = document.getElementById(componentClassName);
+
     if (!img) {
       return;
     }
@@ -28,6 +29,7 @@ const StyledImageMediaCard = ({ imageDto, alt }: Props) => {
       // The original width and height of the image
       console.log("Intrinsic Width:", (img as any).naturalWidth);
       console.log("Intrinsic Height:", (img as any).naturalHeight);
+      console.log("height, width:", img.clientWidth, img.clientHeight);
 
       // TODO: Here get the ratio of the actual width / original width, and actual height / original height.
       // Use these information on the Points.
@@ -64,15 +66,4 @@ export const getImageFromRemoteServer = (obj: ImageDto) => {
         : obj.coordinateY;
 
   return `${remoteUrl}/${obj.year}/${obj.country}/${x}/${y}/${obj.imageName}`;
-
-  /*
-  console.log("url", url);
-
-  getImageDimensions(url).then((result) => {
-    console.log("getImageDimensions result", result);
-
-    if (result) {
-      callback(result as ImageProperties);
-    }
-  });*/
 };

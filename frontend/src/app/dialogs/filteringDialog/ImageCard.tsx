@@ -149,9 +149,12 @@ const ImageCard = ({ imageDto, imageModel }: Props) => {
 export default ImageCard;
 
 const StyledPoint = styled.div<{}>((_) => ({
-  height: "5px",
-  width: "5px",
+  height: "4px",
+  width: "4px",
   backgroundColor: "green",
+  position: "relative",
+  left: "-2px",
+  top: "-2px",
 }));
 
 const StyledCardContent = styled(CardContent)<{}>((_) => ({
