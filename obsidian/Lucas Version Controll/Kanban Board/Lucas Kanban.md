@@ -46,6 +46,11 @@ kanban-plugin: board
 - [ ] [[124 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, miközben a képlekérdezések leáll]]
 - [ ] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]]
 - [ ] [[151 - Bejelentés - Több sorba tördelt üzenet szövege, egy egysoros üzenetté alakul át az email elküldésekor]]
+- [ ] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]]
+- [ ] [[161 - Pagination - Pagination az egy sorban legyen a mentés gombokkal]]
+- [ ] [[162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra]]
+- [ ] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]]
+- [ ] [[165 - Filtering - A Feltétel input mező hossza kisebb lehetne]]
 
 
 ## 🔴Code Improvement ToDo
@@ -78,6 +83,8 @@ kanban-plugin: board
 - [ ] [[150 - Import fájlok ABC sorrendbe való rendezése]]
 - [ ] [[151 - Backend - PageableProperties helyettesítése a beépített Pageable típussal]]
 - [ ] [[152 - ControllerEndpoint-ok áthelyezése az app api mappa alá]]
+- [ ] [[157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán]]
+- [ ] [[160 - Szűrés - Csökkenteni a szűrés során a lekérdezések számát]]
 
 
 ## 🔴ToDo
@@ -108,11 +115,13 @@ kanban-plugin: board
 - [ ] [[142 - Lottifiles - Under construction animáció]]
 - [ ] [[143 - Lottifiles - 404 Not found animáció]]
 - [ ] [[146 - Az adatbázis kerüljön kiszervezésre, és globálisan elérhető legyen]]
+- [ ] [[158 - Jenkins pipeline írása az automatikus deploy-ok indítása céljából]]
 
 
 ## 🔴Client Requests
 
 - [ ] [[023 - Sidebar-on lévő menüpontok véglegesítése]]
+- [ ] [[039 - Procedures oldal létrehozása]]
 - [ ] [[042 - Google OAuth oldal befejezése]]
 - [ ] [[052 - Loading komponens megjelenítése]]
 - [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]]
@@ -123,20 +132,20 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
-- [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
-- [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
-- [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
+- [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz]]
-- [ ] [[039 - Procedures oldal létrehozása]]
 - [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
 - [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
-- [ ] [[156 - Docker futtatása VM-ben]]
+- [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
+- [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
+- [ ] [[156 - Docker és alkalmazás futtatása VM-ben]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[163 - Szűrési opciók sorbarendezése abc sorrendbe a kiválasztott nyelv mentén]]
 - [ ] [[154 - Pagination - Utolsó lapon túl nyomva, a kiválasztott képek felülete eltűnik]]
 - [ ] [[115 - Növények mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[116 - Befoglaló téglalapok mentén lehessen szűrni a FilteringDialog ablakban]]

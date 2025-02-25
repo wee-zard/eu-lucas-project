@@ -59,8 +59,7 @@
               "title": "004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -133,7 +132,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
+                "file": "Kanban Board/Lucas Kanban.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -143,7 +142,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján visszahivatkozásai"
+              "title": "Lucas Kanban visszahivatkozásai"
             }
           },
           {
@@ -189,7 +188,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -203,13 +203,28 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "f7494e901381b23e",
+  "active": "21dde8e84cff000a",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/074 - Filtering oldalon egy input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését.md",
-    "Kanban Board/Nodes/156 - Docker futtatása VM-ben.md",
+    "Kanban Board/Nodes/039 - Procedures oldal létrehozása.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/156 - Docker és alkalmazás futtatása VM-ben.md",
     "Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md",
+    "Kanban Board/Nodes/163 - Szűrési opciók sorbarendezése abc sorrendbe a kiválasztott nyelv mentén.md",
+    "Kanban Board/Nodes/165 - Filtering - A Feltétel input mező hossza kisebb lehetne.md",
+    "Kanban Board/Images/Pasted image 20250224232633.png",
+    "Kanban Board/Images/Pasted image 20250224231941.png",
+    "Pasted image 20250224232551.png",
+    "Kanban Board/Nodes/164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak.md",
     "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
+    "Kanban Board/Images/Pasted image 20250224231640.png",
+    "Kanban Board/Nodes/162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra.md",
+    "Kanban Board/Nodes/161 - Pagination - Pagination az egy sorban legyen a mentés gombokkal.md",
+    "Kanban Board/Images/Pasted image 20250224225430.png",
+    "Kanban Board/Nodes/160 - Szűrés - Csökkenteni a szűrés során a lekérdezések számát.md",
+    "Kanban Board/Nodes/158 - Jenkins pipeline írása az automatikus deploy-ok indítása céljából.md",
+    "Kanban Board/Nodes/159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető.md",
+    "Kanban Board/Nodes/157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán.md",
+    "Kanban Board/Nodes/074 - Filtering oldalon egy input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését.md",
     "Kanban Board/Nodes/154 - Pagination - Utolsó lapon túl nyomva, a kiválasztott képek felülete eltűnik.md",
     "Kanban Board/Nodes/155 - Képek mentése Base64String formájában szűrést követően.md",
     "Kanban Board/Nodes/115 - Növények mentén lehessen szűrni a FilteringDialog ablakban.md",
@@ -221,26 +236,11 @@
     "Kanban Board/Nodes/077 - Eljárások mentén lehessen szűrni a FilteringDialog ablakban.md",
     "Kanban Board/Nodes/152 - ControllerEndpoint-ok áthelyezése az app api mappa alá.md",
     "Kanban Board/Nodes/151 - Backend - PageableProperties helyettesítése a beépített Pageable típussal.md",
-    "Kanban Board/Nodes/120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem.md",
-    "Kanban Board/Nodes/150 - Import fájlok ABC sorrendbe való rendezése.md",
-    "Kanban Board/Nodes/151 - Bejelentés - Több sorba tördelt üzenet szövege, egy egysoros üzenetté alakul át az email elküldésekor.md",
-    "Kanban Board/Nodes/125 - Endpoint - Egyszerűsíteni az egyes Endpoint-ok neveit.md",
-    "Kanban Board/Nodes/100 - Filtering - A localStorage-ben eltárolt adatok betöltése esetén, hibaüzenet kerül dobásra.md",
-    "Kanban Board/Nodes/096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből.md",
-    "Kanban Board/Nodes/146 - Az adatbázis kerüljön kiszervezésre, és globálisan elérhető legyen.md",
-    "Kanban Board/Nodes/149 - NoImplicitAny változó használata a tsconfig fájlban.md",
-    "Kanban Board/Nodes/148 - Spring Üzleti Alkalmazások Fejlesztése kurzus videóinek feldolgozása.md",
-    "Kanban Board/Nodes/147 - Stílus változók kerüljenek kiszervezésre egy külön variables.scss fájlba.md",
     "Kanban Board/Images/Pasted image 20241226130426.png",
     "Kanban Board/Images/Pasted image 20241226130403.png",
     "Pasted image 20241226130339.png",
     "Kanban Board/Images/Pasted image 20241226124001.png",
     "Kanban Board/Images/Pasted image 20241226115235.png",
-    "Kanban Board/Images/Pasted image 20241222230213.png",
-    "Pasted image 20241222183946.png",
-    "Kanban Board/Images/Pasted image 20241222183708.png",
-    "Kanban Board/Images/original-ec8989fb0d57510c0a457662028ebd46 1.png",
-    "Kanban Board/Images/original-ec8989fb0d57510c0a457662028ebd46.png",
     "Kanban Board/Images",
     "Templates",
     "Kanban Board/Nodes",
