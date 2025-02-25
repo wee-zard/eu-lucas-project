@@ -51,6 +51,7 @@ kanban-plugin: board
 - [ ] [[162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra]]
 - [ ] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]]
 - [ ] [[165 - Filtering - A Feltétel input mező hossza kisebb lehetne]]
+- [ ] [[166 - Compose.yml - The frontend container should wait for the backend to fully load]]
 
 
 ## 🔴Code Improvement ToDo
@@ -58,7 +59,7 @@ kanban-plugin: board
 - [ ] [[145 - .Env fájl változói egy Utils fájlba kerüljenek eltárolásra]]
 - [ ] [[144 - Sensitive data must be stored in the .env file outside of the project]]
 - [ ] [[136 - Backend Runtime Warning üzenetek javítása]]
-- [ ] [[135 - DefaultSqlScriptExecutor DB Integer display width is deprecated and will be removed in a future release. (SQL State HY000 - Error Code 1681)]]
+- [ ] [[135 - DefaultSqlScriptExecutor DB Integer display width is deprecated and will be removed in a future release]]
 - [ ] [[134 - Sebezhetőségek javítása a pom.xml-ben]]
 - [ ] [[133 - JpaRepository használata CrudRepository helyett]]
 - [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljünk el]]
@@ -232,6 +233,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,false,true],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
+{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,false,false],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
 ```
 %%
