@@ -202,8 +202,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -219,8 +218,9 @@
   },
   "active": "21dde8e84cff000a",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/069 - Környezetfüggetlen nyelvtan definiálása az új QueryBuilder-hez.md",
+    "Kanban Board/Nodes/167 - DockerHub-ról levenni a projektet.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/069 - Környezetfüggetlen nyelvtan definiálása az új QueryBuilder-hez.md",
     "Kanban Board/Nodes/058 - Email kiküldésének implementálása.md",
     "Kanban Board/Nodes/121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén.md",
     "Kanban Board/Nodes/138 - Demo google fiók létrehozása és hozzáadása a projekthez, hogy a témavezetőm meg tudja tekinteni a projektet.md",
@@ -249,7 +249,6 @@
     "Kanban Board/Nodes/157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán.md",
     "Kanban Board/Nodes/074 - Filtering oldalon egy input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését.md",
     "Kanban Board/Nodes/154 - Pagination - Utolsó lapon túl nyomva, a kiválasztott képek felülete eltűnik.md",
-    "Kanban Board/Nodes/155 - Képek mentése Base64String formájában szűrést követően.md",
     "Kanban Board/Images/Pasted image 20241226130426.png",
     "Kanban Board/Images/Pasted image 20241226130403.png",
     "Pasted image 20241226130339.png",

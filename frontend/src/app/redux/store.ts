@@ -8,9 +8,9 @@ import coordinateXReducer from "@redux/reducers/coordinateXReducer";
 import coordinateYReducer from "@redux/reducers/coordinateYReducer";
 import exifKeyReducer from "@redux/reducers/exifKeyReducer";
 import procedureReducer from "@redux/reducers/procedureReducer";
-import procedureLogParamReducer from "@redux/reducers/procedureLogParamReducer";
 import plantReducer from "@redux/reducers/plantReducer";
 import plantSpeciesReducer from "@redux/reducers/plantSpeciesReducer";
+import procedureLogParamReducer from "@redux/reducers/procedureLogParamReducer";
 
 const store = configureStore({
   reducer: {

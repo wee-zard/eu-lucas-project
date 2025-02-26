@@ -10,10 +10,11 @@ RUN apk add --update nodejs npm
 WORKDIR /app
 
 # Installing dependencies
-COPY ./package.json /app
+COPY ./package.json .
 RUN npm install
 RUN npm install -g @craco/craco
 RUN npm install --save buffer
+RUN npm install --save path
 
 # Copying all the files in our project
 COPY . .
