@@ -12,10 +12,7 @@ const initialState: ReducerStateType = {
   listOfProcedureLogParams: [],
 };
 
-const procedureLogParamReducer = (
-  state = initialState,
-  action: UnknownAction,
-): ReducerStateType => {
+const logParamReducer = (state = initialState, action: UnknownAction): ReducerStateType => {
   switch (action.type) {
     case ProcedureLogParamConsts.REQUESTING_PROCEDURE_LOG_PARAM_FAILED:
       return {
@@ -40,4 +37,4 @@ const procedureLogParamReducer = (
   }
 };
 
-export default procedureLogParamReducer;
+export default logParamReducer;
