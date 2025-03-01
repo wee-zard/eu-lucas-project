@@ -10,7 +10,7 @@ RUN apk add --update nodejs npm
 WORKDIR /app
 
 # Installing dependencies
-COPY ./package.json .
+COPY ./package*.json .
 RUN npm install
 RUN npm install -g @craco/craco
 RUN npm install --save buffer
@@ -23,13 +23,17 @@ COPY . .
 RUN npm run build
 
 # Fetching the latest nginx image
-FROM nginx:stable-alpine
+FROM nginx:stable-alpine AS prod
+
+## Remove default nginx index page
+RUN rm -rf /usr/share/nginx/html/*
 
 # Copying our nginx.conf
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
-## Remove default nginx index page
-RUN rm -rf /usr/share/nginx/html/*
+# Copy the certbot ssl certifications into nginx
+COPY ./certbot/conf /etc/letsencrypt
+COPY ./certbot/www /var/www/certbot
 
 # Copying built assets from builder
 COPY --from=builder /app/build /usr/share/nginx/html
