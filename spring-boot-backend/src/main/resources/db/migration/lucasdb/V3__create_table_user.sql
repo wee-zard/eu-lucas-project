@@ -16,20 +16,20 @@ create table tb_user_root (
 	username varchar(100) null,
 	creation_time Timestamp,
 	status_id bigint not null,
-	foreign key(status_id) references tb_status(status_id)
+	CONSTRAINT tb_user_root_ibfk_1 foreign key(status_id) references tb_status(status_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table tb_user_student (
 	user_student_id bigint PRIMARY KEY,
-	foreign key(user_student_id) references tb_user_root(id)
+	CONSTRAINT tb_user_student_ibfk_1 foreign key(user_student_id) references tb_user_root(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table tb_user_professor (
 	user_professor_id bigint PRIMARY KEY,
-	foreign key(user_professor_id) references tb_user_root(id)
+	CONSTRAINT tb_user_professor_ibfk_1 foreign key(user_professor_id) references tb_user_root(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table tb_user_admin (
 	user_admin_id bigint PRIMARY KEY,
-	foreign key(user_admin_id) references tb_user_root(id)
+	CONSTRAINT tb_user_admin_ibfk_1 foreign key(user_admin_id) references tb_user_root(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
