@@ -73,12 +73,11 @@ export const genericDispatcher = async <T>(command: RequestCommand) => {
 const commandHandlerDispatcher = (command: RequestCommand) => {
   switch (command.type) {
     case RequestCommandTypes.GET:
-      return getCommand(command);
+      return axios.get(initServerUrlPath(command), initRequestHeader(command, true));
     case RequestCommandTypes.POST:
-      return postCommand(command);
+      return axios.post(initServerUrlPath(command), command.obj, initRequestHeader(command));
     case RequestCommandTypes.DELETE:
-      // TODO: Implement the delete command method here...
-      throw new RequestCommandError("Delete request method have not been implemented yet!");
+      return axios.delete(initServerUrlPath(command), initRequestHeader(command, true));
     case RequestCommandTypes.PUT:
       // TODO: Implement the put command method here...
       throw new RequestCommandError("Put request method have not been implemented yet!");
@@ -88,41 +87,41 @@ const commandHandlerDispatcher = (command: RequestCommand) => {
 };
 
 /**
- * Send out a get http request to the provided server, to the provided endpoint.
- * It is optionally carries the auth token of the currently logged-in user,
- * with their pageable properties.
+ * Init the auth token of the request if it is requested.
  *
- * @param command A request command template which will be used to construct a
- * new http request.
- * @returns Returns the response of the {@link axios} request.
+ * @param command A request command template which will be used to construct a new http request.
+ * @returns Returns the auth token if it is required to send out by the {@link RequestCommand}.
  */
-const postCommand = (command: RequestCommand) => {
-  const authToken = command.header.isAuthTokenMandatory ? getAuthToken() : undefined;
-  return axios.post(
-    `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`,
-    command.obj,
-    RequestHeaderHandler.getRequestHeader(authToken, command.header.pageableProperties),
-  );
+const initAuthToken = (command: RequestCommand) => {
+  return command.header.isAuthTokenMandatory ? getAuthToken() : undefined;
 };
 
 /**
- * Send out a get http request to the provided server, to the provided endpoint.
- * It is optionally carries the auth token of the currently logged-in user,
- * with their pageable properties.
+ * Init the server url path where the request will be sent out.
  *
- * @param command A request command template which will be used to construct a
- * new http request.
- * @returns Returns the response of the {@link axios} request.
+ * @param command A request command template which will be used to construct a new http request.
+ * @returns Returns the constructed server url path.
  */
-const getCommand = (command: RequestCommand) => {
-  const authToken = command.header.isAuthTokenMandatory ? getAuthToken() : undefined;
-  return axios.get(
-    `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`,
-    {
-      ...RequestHeaderHandler.getRequestHeader(authToken, command.header.pageableProperties),
-      params: !!command.obj ? command.obj : undefined,
-    },
-  );
+const initServerUrlPath = (command: RequestCommand) => {
+  return `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`;
+};
+
+/**
+ * Init the header of the requests. Provides the params if the command states them
+ * to be there.
+ *
+ * @param command A request command template which will be used to construct a new http request.
+ * @param isParamProvided Tells whether the request contains request params or not.
+ * @returns Returns an object that contains the header of the request.
+ */
+const initRequestHeader = (command: RequestCommand, isParamProvided: boolean = false) => {
+  return {
+    ...RequestHeaderHandler.getRequestHeader(
+      initAuthToken(command),
+      command.header.pageableProperties,
+    ),
+    param: isParamProvided ? (!!command.obj ? command.obj : undefined) : undefined,
+  };
 };
 
 export default commandHandler;

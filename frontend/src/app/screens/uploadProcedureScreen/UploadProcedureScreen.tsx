@@ -10,9 +10,12 @@ import { ProcedureFileMessages } from "@model/enum";
 import ProcedureResultRequest from "@model/request/ProcedureResultRequest";
 import ProcedureLogError from "@model/error/ProcedureLogError";
 import ProcedureLogUtils from "@helper/procedureLogUtils";
-import { uploadProcedureResult } from "@api/command/procedureCommands";
+import { deleteProceduresCommand, uploadProcedureResult } from "@api/command/procedureCommands";
 import StyledBackdrop from "@components/StyledBackdrop";
 import i18n from "@i18n/i18nHandler";
+import StyledButton from "@components/StyledButton";
+import { deletePlantNameCommand } from "@api/command/plantNameCommands";
+import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
 
 const UploadProcedureScreen = () => {
   const [submitEvent, setSubmitEvent] = useState<React.ChangeEvent<HTMLInputElement>>();
@@ -100,8 +103,24 @@ const UploadProcedureScreen = () => {
     }
   };
 
+  const handleDeleteAllProcedureAndPlantButton = async () => {
+    await deleteProceduresCommand();
+    await deletePlantNameCommand();
+    throwNotification(
+      NotificationSeverity.Success,
+      "Eljárások, eljárásokhoz tartozó logok, " +
+        "befoglaló téglalapok és növények sikeresen törlésre kerültek",
+    );
+  };
+
   return (
     <StyledComponentGap display={"grid"} gap={"32px"}>
+      <StyledButton
+        buttonText={"Feltöltött adatok törlése"}
+        buttonColor="error"
+        buttonVariant="outlined"
+        onClick={handleDeleteAllProcedureAndPlantButton}
+      />
       <StyledComponentGap display={"grid"}>
         <StyledBoxHolder>
           <StyledDragAndDropHolder>{displayDragAndDropComponent()}</StyledDragAndDropHolder>

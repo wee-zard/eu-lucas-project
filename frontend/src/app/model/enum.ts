@@ -43,6 +43,11 @@ export enum BackendImageControllerEndpoints {
 export enum BackendProcedureControllerEndpoints {
   UploadProcedure = "/api/procedure/upload",
   GetProcedures = "/api/procedure/",
+  DeleteProcedures = "/api/procedure/delete-all",
+}
+
+export enum BackendPlantNameControllerEndpoints {
+  DeletePlantNames = "/api/plant-name/delete-all",
 }
 
 export enum BackendPlantControllerEndpoints {
@@ -77,6 +82,7 @@ export type BackendControllerEndpointTypes =
   | BackendExifKeyControllerEndpoints
   | BackendImageControllerEndpoints
   | BackendProcedureControllerEndpoints
+  | BackendPlantNameControllerEndpoints
   | BackendPlantControllerEndpoints
   | BackendPlantSpeciesControllerEndpoints
   | BackendProcedureLogParamControllerEndpoints
