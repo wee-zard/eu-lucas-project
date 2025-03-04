@@ -137,16 +137,17 @@ kanban-plugin: board
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
 - [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz]]
-- [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
-- [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
 - [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
 - [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
 - [ ] [[156 - Docker és alkalmazás futtatása VM-ben]]
+- [ ] [[168 - Auto-Reloading certbot after every 60 days]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
+- [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
 
 
 ***
