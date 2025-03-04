@@ -12,18 +12,20 @@ import { NotificationSeverity, throwNotification } from "./notificationUtil";
 
 const googleOAuthClientId = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_ID ?? "";
 const googleOAuthClientSecret = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_SECRET ?? "";
+const browserHostPath = process.env.REACT_APP_USE_HOST_PATH ?? "";
 
 export const getRefreshToken = (
   code: string,
   callback: (authModel: AuthorizationModel) => void,
 ) => {
+  // TODO: Move this method to the backend, so the client secret key could be hidden in the build bundle from the users browsing the page.
   // get refresh token using authorization code
   const payload = {
     grant_type: "authorization_code",
     code: code,
     client_id: googleOAuthClientId,
     client_secret: googleOAuthClientSecret,
-    redirect_uri: "http://localhost:3000",
+    redirect_uri: browserHostPath,
   };
 
   axios
@@ -58,6 +60,7 @@ export const getNewAccessToken = async () => {
       client_secret: googleOAuthClientSecret,
     };
 
+    // TODO: Move it to the commands folder
     return await genericDispatcher<AuthorizationModel>({
       type: RequestCommandTypes.POST,
       server: ServersToConnectTo.GoogleServer,
