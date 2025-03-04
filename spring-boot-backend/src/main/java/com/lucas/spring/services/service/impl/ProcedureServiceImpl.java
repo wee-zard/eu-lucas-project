@@ -21,6 +21,14 @@ public class ProcedureServiceImpl implements ProcedureService {
    * {@inheritDoc}
    */
   @Override
+  public void deleteAll() {
+    procedureRepository.deleteAll();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public ProcedureEntity createProcedure(final String name, final UserEntity user) {
     return procedureRepository.save(ProcedureEntity.builder().name(name).initUserId(user).build());
   }

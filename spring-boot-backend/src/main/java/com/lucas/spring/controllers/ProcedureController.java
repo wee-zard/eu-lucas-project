@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,5 +61,17 @@ public class ProcedureController {
             procedureService.getProcedures(),
             ProcedureDto.class
     );
+  }
+
+  /**
+   * Remove specific procedure from the db.
+   */
+  @CrossOrigin
+  @DeleteMapping("/delete-all")
+  public BaseResponse deleteProcedure(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
+  ) {
+    procedureService.deleteAll();
+    return new BaseResponse();
   }
 }
