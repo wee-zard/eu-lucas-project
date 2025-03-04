@@ -41,7 +41,7 @@
     "useUnknownInCatchVariables": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
-    "jsx": "react-jsx" //"jsx": "react-native",
+    "jsx": "react-jsx"
   },
   "include": ["./src/**/*"]
 }
