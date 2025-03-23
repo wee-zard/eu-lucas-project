@@ -8,6 +8,7 @@ import getAuthToken from "@api/handler/requestAuthToken";
 import handleNotificationThrowOfErrorMessage from "@api/handler/errorMessageHandler";
 import { getNewAccessToken } from "@helper/authenticationUtils";
 import { setLocalStorageItem } from "@helper/localStorageUtil";
+import { RequestParamType } from "@model/types/RequestParamType";
 
 /**
  * Try to send out the request to the server. If the response is an object or null,
@@ -73,7 +74,10 @@ export const genericDispatcher = async <T>(command: RequestCommand) => {
 const commandHandlerDispatcher = (command: RequestCommand) => {
   switch (command.type) {
     case RequestCommandTypes.GET:
-      return axios.get(initServerUrlPath(command), initRequestHeader(command, true));
+      return axios.get(
+        initServerUrlPath(command, command.obj as RequestParamType[]),
+        initRequestHeader(command, true),
+      );
     case RequestCommandTypes.POST:
       return axios.post(initServerUrlPath(command), command.obj, initRequestHeader(command));
     case RequestCommandTypes.DELETE:
@@ -102,8 +106,16 @@ const initAuthToken = (command: RequestCommand) => {
  * @param command A request command template which will be used to construct a new http request.
  * @returns Returns the constructed server url path.
  */
-const initServerUrlPath = (command: RequestCommand) => {
-  return `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`;
+const initServerUrlPath = (command: RequestCommand, requestParams?: RequestParamType[]) => {
+  const endpoint = `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`;
+
+  if (requestParams && requestParams.length > 0) {
+    const requestParamPath = requestParams.map((item) => `${item.key}=${item.value}`).join("?");
+
+    return `${endpoint}?${requestParamPath}`;
+  }
+
+  return `${endpoint}`;
 };
 
 /**
