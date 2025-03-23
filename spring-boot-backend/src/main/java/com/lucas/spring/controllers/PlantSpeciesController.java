@@ -34,7 +34,7 @@ public class PlantSpeciesController {
   public List<PlantSpeciesDto> getPlantSpecies(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
-    return conversionHelper.convertEntityToDto(
+    return conversionHelper.convertEntityListToDtoList(
             plantSpeciesService.getPlantSpecies(),
             PlantSpeciesDto.class
     );

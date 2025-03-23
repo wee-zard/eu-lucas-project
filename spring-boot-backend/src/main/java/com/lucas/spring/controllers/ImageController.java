@@ -64,12 +64,12 @@ public class ImageController {
   @PostMapping("/filter-images")
   public PageableResponse<ImageDto> postQueryBuilderImage(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
-          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) PageableProperties pageableProperties,
+          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) PageableProperties properties,
           @RequestBody FilteringQueryRequest filteringQueryRequest
   ) {
     return conversionHelper.pageToPageableResponse(
-            imageFilterService.filterImages(filteringQueryRequest, pageableProperties),
+            imageFilterService.filterImages(filteringQueryRequest, properties),
             ImageDto.class,
-            pageableProperties);
+            properties);
   }
 }

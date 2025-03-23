@@ -64,4 +64,9 @@ public class ProcedureLogEntity {
    */
   @OneToMany(mappedBy = "procedureLogParam.procedureLog")
   private Set<ProcedureLogParamEntity> procedureParams;
+  /**
+   * List of bounding boxes associated with this procedure log.
+   */
+  @OneToMany(mappedBy = "procedureLog")
+  private Set<BoundingBoxEntity> boundingBoxes;
 }

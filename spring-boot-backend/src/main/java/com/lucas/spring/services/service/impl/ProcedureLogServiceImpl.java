@@ -1,11 +1,12 @@
 package com.lucas.spring.services.service.impl;
 
-import com.lucas.spring.repositories.ProcedureLogRepository;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.entity.ProcedureEntity;
 import com.lucas.spring.model.entity.ProcedureLogEntity;
 import com.lucas.spring.model.entity.UserEntity;
+import com.lucas.spring.repositories.ProcedureLogRepository;
 import com.lucas.spring.services.service.ProcedureLogService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,14 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ProcedureLogServiceImpl implements ProcedureLogService {
   private final ProcedureLogRepository procedureLogRepository;
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<ProcedureLogEntity> getProcedureLogsByImageId(final Number imageId) {
+    return procedureLogRepository.findByImageId(imageId);
+  }
 
   /**
    * {@inheritDoc}

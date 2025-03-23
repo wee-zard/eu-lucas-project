@@ -3,9 +3,13 @@ package com.lucas.spring.helper.helper;
 import com.lucas.spring.model.dto.abstraction.RootDto;
 import com.lucas.spring.model.models.PageableProperties;
 import com.lucas.spring.model.response.PageableResponse;
+
+import java.util.Collection;
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +40,7 @@ public class ConversionHelper {
   ) {
     final List<T> listOfDto = page
             .stream()
-            .map(source -> conversionService.convert(source, target))
+            .map(source -> convertSingleEntityToSingleDto(source, target))
             .toList();
     return new PageableResponse<>(pageableProperties, listOfDto);
   }
@@ -50,10 +54,45 @@ public class ConversionHelper {
    * @param <T> Target class type.
    * @return Returns the list of type target.
    */
-  public final <S, T extends RootDto> List<T> convertEntityToDto(
-          final List<S> list,
+  public final <S, T extends RootDto> List<T> convertEntityListToDtoList(
+          final Collection<S> list,
           final Class<T> target
   ) {
-    return list.stream().map(source -> conversionService.convert(source, target)).toList();
+    return list.stream().map(source -> convertSingleEntityToSingleDto(source, target)).toList();
+  }
+
+  /**
+   * Convert the requested single entity into single dto.
+   *
+   * @param source The source to convert.
+   * @param target The target dto.
+   * @param <S> Source class type.
+   * @param <T> Target class type.
+   * @return Returns the list of type target.
+   */
+  public final <S, T extends RootDto> T convertSingleEntityToSingleDto(
+          final S source,
+          final Class<T> target
+  ) {
+    return conversionService.convert(source, target);
+  }
+
+  /**
+   * Convert the requested entities into {@link PageableResponse}.
+   *
+   * @param list The list that holds the different entities that needs to be converted.
+   * @param target The type of dto which the source object must be converted into.
+   * @param pageableProperties The properties of the Page.
+   * @param <S> Source class type.
+   * @param <T> Target class type.
+   * @return Returns a {@link PageableResponse} that hold the
+   *     items and the {@link PageableProperties} in a single object.
+   */
+  public final <S, T extends  RootDto> PageableResponse<T> listToPageableResponse(
+          final List<S> list,
+          final Class<T> target,
+          final PageableProperties pageableProperties
+  ) {
+    return pageToPageableResponse(new PageImpl<>(list), target, pageableProperties);
   }
 }
