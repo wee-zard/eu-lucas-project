@@ -5,10 +5,7 @@
  * @param event A fired onClick event, when the user clicked on a component.
  * @param id The unique id of the component which will be used to add an additional component as the ripple.
  */
-export const handleClickOnGlobalRippleEffect = (
-  event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  id: string,
-) => {
+export const handleClickOnGlobalRippleEffect = (event: React.MouseEvent, id: string) => {
   const imageCard = document.getElementById(id);
   if (imageCard) {
     // Create span element
