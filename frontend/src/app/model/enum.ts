@@ -46,6 +46,10 @@ export enum BackendProcedureControllerEndpoints {
   DeleteProcedures = "/api/procedure/delete-all",
 }
 
+export enum BackendProcedureLogControllerEndpoints {
+  GetProcedureLogsByImageId = "/api/procedure-log/",
+}
+
 export enum BackendPlantNameControllerEndpoints {
   DeletePlantNames = "/api/plant-name/delete-all",
 }
@@ -86,6 +90,7 @@ export type BackendControllerEndpointTypes =
   | BackendPlantControllerEndpoints
   | BackendPlantSpeciesControllerEndpoints
   | BackendProcedureLogParamControllerEndpoints
+  | BackendProcedureLogControllerEndpoints
   | BackendSmtpEmailControllerEndpoints;
 
 /**
@@ -159,6 +164,7 @@ export enum FilterDialogFilters {
 
 export enum DialogToOpens {
   FilteringDialog = "Filtering Dialog",
+  BoundingBoxDialog = "Bounding Box Dialog",
 }
 
 export enum OperatorSelectItems {
