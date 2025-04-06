@@ -9,7 +9,7 @@ platform:
   - frontend
   - database
   - backend
-sprint: 2
+sprint: 3
 creation-time: 2025-02-19T16:07:00
 ---
 Aktuális működés:

@@ -139,13 +139,13 @@ kanban-plugin: board
 - [ ] [[017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz]]
 - [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
 - [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
-- [ ] [[156 - Docker és alkalmazás futtatása VM-ben]]
 - [ ] [[168 - Auto-Reloading certbot after every 60 days]]
 
 
 ## 🟢Done
 
 **Complete**
+- [ ] [[156 - Docker és alkalmazás futtatása VM-ben]]
 - [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
 - [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
 
@@ -235,6 +235,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,false,false],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
+{"kanban-plugin":"board","list-collapse":[true,false,false,false,false,false,true],"show-checkboxes":false,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true}
 ```
 %%

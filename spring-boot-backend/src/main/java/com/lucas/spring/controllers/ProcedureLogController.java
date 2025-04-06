@@ -41,7 +41,8 @@ public class ProcedureLogController {
   ) {
     return conversionHelper.listToPageableResponse(
             procedureLogService.getProcedureLogsByImageId(
-                    FormatParseUtil.parseStringIntoNumber(imageId)
+                    FormatParseUtil.parseStringIntoNumber(imageId),
+                    properties
             ),
             ProcedureLogDto.class,
             properties);
