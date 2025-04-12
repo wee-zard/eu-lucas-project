@@ -1,14 +1,11 @@
 import axios from "axios";
-import { RequestHeaderHandler } from "@api/handler/requestHeaderHandler";
 import RequestCommand from "@model/RequestCommand";
 import { ConversionUtils } from "@helper/conversionUtils";
-import { LocalStorageKeys, RequestCommandTypes, UniqueErrorResponseTypes } from "@model/enum";
+import { RequestCommandTypes } from "@model/enum";
 import RequestCommandError from "@model/error/RequestCommandError";
-import getAuthToken from "@api/handler/requestAuthToken";
-import handleNotificationThrowOfErrorMessage from "@api/handler/errorMessageHandler";
-import { getNewAccessToken } from "@helper/authenticationUtils";
-import { setLocalStorageItem } from "@helper/localStorageUtil";
 import { RequestParamType } from "@model/types/RequestParamType";
+import ErrorMessageHandler from "./errorMessageHandler";
+import RequestHeaderHandler from "./requestHeaderHandler";
 
 /**
  * Try to send out the request to the server. If the response is an object or null,
@@ -19,27 +16,17 @@ import { RequestParamType } from "@model/types/RequestParamType";
  * @param T The set result type of the {@link axios} response.
  * @returns Returns
  */
-const commandHandler = async <T>(command: RequestCommand) => {
-  const response = await genericDispatcher<T>(command);
-  return response === UniqueErrorResponseTypes.UNAUTHORIZED
-    ? await handleUnauthorizedError<T>(command)
-    : response;
-};
-
-const handleUnauthorizedError = async <T>(command: RequestCommand) => {
-  // Authentication failed, we need to update the access token by the refresh token
-  const accessTokenResponse = await getNewAccessToken();
-  if (accessTokenResponse && accessTokenResponse !== UniqueErrorResponseTypes.UNAUTHORIZED) {
-    // Set the new access token in the storage.
-    // TODO: This should be saved in the db as well.
-    setLocalStorageItem(accessTokenResponse.id_token, LocalStorageKeys.GoogleOAuthToken);
-
-    // Resend the request to the server by the provided command and return the final results.
-    const response = await genericDispatcher<T>(command);
-    return response === UniqueErrorResponseTypes.UNAUTHORIZED ? null : response;
-  } else {
-    return null;
-  }
+const commandHandler = <T>(command: RequestCommand): Promise<T | null> => {
+  return new Promise<T | null>((resolve) => {
+    // Send out the first request to the server.
+    genericDispatcher<T>(command)
+      .then(resolve)
+      .catch(() =>
+        ErrorMessageHandler.handleUnauthorizedError<T>(command)
+          .then(resolve)
+          .catch(() => resolve(null)),
+      );
+  });
 };
 
 /**
@@ -52,15 +39,14 @@ const handleUnauthorizedError = async <T>(command: RequestCommand) => {
  * @param T The set result type of the {@link axios} response.
  * @returns Returns
  */
-export const genericDispatcher = async <T>(command: RequestCommand) => {
-  try {
-    const response = await commandHandlerDispatcher(command);
-    //handleResponseStatus(response);
-    const resultObj: T = response.data;
-    return resultObj;
-  } catch (error) {
-    return handleNotificationThrowOfErrorMessage(error, command.errorMessage);
-  }
+export const genericDispatcher = <T>(command: RequestCommand): Promise<T> => {
+  return new Promise((resolve, reject) => {
+    commandHandlerDispatcher(command)
+      .then((response) => resolve(response.data))
+      .catch((error) =>
+        reject(ErrorMessageHandler.throwNotificationByErrorType(error, command.errorMessage)),
+      );
+  });
 };
 
 /**
@@ -76,12 +62,19 @@ const commandHandlerDispatcher = (command: RequestCommand) => {
     case RequestCommandTypes.GET:
       return axios.get(
         initServerUrlPath(command, command.obj as RequestParamType[]),
-        initRequestHeader(command, true),
+        RequestHeaderHandler.initRequestHeader(command, true),
       );
     case RequestCommandTypes.POST:
-      return axios.post(initServerUrlPath(command), command.obj, initRequestHeader(command));
+      return axios.post(
+        initServerUrlPath(command),
+        command.obj,
+        RequestHeaderHandler.initRequestHeader(command),
+      );
     case RequestCommandTypes.DELETE:
-      return axios.delete(initServerUrlPath(command), initRequestHeader(command, true));
+      return axios.delete(
+        initServerUrlPath(command),
+        RequestHeaderHandler.initRequestHeader(command, true),
+      );
     case RequestCommandTypes.PUT:
       // TODO: Implement the put command method here...
       throw new RequestCommandError("Put request method have not been implemented yet!");
@@ -90,14 +83,8 @@ const commandHandlerDispatcher = (command: RequestCommand) => {
   }
 };
 
-/**
- * Init the auth token of the request if it is requested.
- *
- * @param command A request command template which will be used to construct a new http request.
- * @returns Returns the auth token if it is required to send out by the {@link RequestCommand}.
- */
-const initAuthToken = (command: RequestCommand) => {
-  return command.header.isAuthTokenMandatory ? getAuthToken() : undefined;
+const getRequestParamPath = (requestParams: RequestParamType[]) => {
+  return requestParams.map((item) => `${item.key}=${item.value}`).join("?");
 };
 
 /**
@@ -109,31 +96,9 @@ const initAuthToken = (command: RequestCommand) => {
 const initServerUrlPath = (command: RequestCommand, requestParams?: RequestParamType[]) => {
   const endpoint = `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`;
 
-  if (requestParams && requestParams.length > 0) {
-    const requestParamPath = requestParams.map((item) => `${item.key}=${item.value}`).join("?");
-
-    return `${endpoint}?${requestParamPath}`;
-  }
-
-  return `${endpoint}`;
-};
-
-/**
- * Init the header of the requests. Provides the params if the command states them
- * to be there.
- *
- * @param command A request command template which will be used to construct a new http request.
- * @param isParamProvided Tells whether the request contains request params or not.
- * @returns Returns an object that contains the header of the request.
- */
-const initRequestHeader = (command: RequestCommand, isParamProvided: boolean = false) => {
-  return {
-    ...RequestHeaderHandler.getRequestHeader(
-      initAuthToken(command),
-      command.header.pageableProperties,
-    ),
-    param: isParamProvided ? (!!command.obj ? command.obj : undefined) : undefined,
-  };
+  return requestParams && requestParams.length > 0
+    ? `${endpoint}?${getRequestParamPath(requestParams)}`
+    : `${endpoint}`;
 };
 
 export default commandHandler;

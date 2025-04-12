@@ -1,4 +1,5 @@
 import commandHandler from "@api/handler/requestHandler";
+import i18n from "@i18n/i18nHandler";
 import {
   BackendPlantNameControllerEndpoints,
   RequestCommandTypes,
@@ -18,6 +19,6 @@ export const deletePlantNameCommand = async () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt a növények törlése során!",
+    errorMessage: i18n.t("api.commands.plant-name.deletePlantNameCommand"),
   });
 };

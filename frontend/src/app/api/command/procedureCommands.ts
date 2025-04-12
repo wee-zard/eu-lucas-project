@@ -14,7 +14,7 @@ import BaseResponse from "@model/response/BaseResponse";
  * @param request The object that holds the log of the procedure that needs to be uploaded to the server.
  * @returns Returns a {@link BaseResponse} if the request is successful.
  */
-export const uploadProcedureResult = async (request: ProcedureResultRequest) => {
+export const uploadProcedureResult = async (request: ProcedureResultRequest[]) => {
   return commandHandler<BaseResponse>({
     type: RequestCommandTypes.POST,
     server: ServersToConnectTo.Backend,

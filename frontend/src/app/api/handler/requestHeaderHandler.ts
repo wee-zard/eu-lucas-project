@@ -1,7 +1,9 @@
 import AuthorizationToken from "@model/AuthorizationToken";
 import PageableProperties from "@model/PageableProperties";
+import RequestCommand from "@model/RequestCommand";
+import getAuthToken from "./requestAuthToken";
 
-export const RequestHeaderHandler = {
+export default abstract class RequestHeaderHandler {
   /**
    * Adds the auth token to the header object if exists.
    *
@@ -9,7 +11,7 @@ export const RequestHeaderHandler = {
    * @param authToken The auth token what we want to add to the request if it is exists.
    * @returns Returns a new header object that contains the auth token.
    */
-  addAuthTokenToHeader: (requestHeader: any, authToken?: string) => {
+  private static addAuthTokenToHeader = (requestHeader: any, authToken?: string) => {
     return authToken
       ? {
           headers: {
@@ -18,7 +20,7 @@ export const RequestHeaderHandler = {
           },
         }
       : requestHeader;
-  },
+  };
 
   /**
    * Adds the auth token to the header object if exists.
@@ -28,7 +30,10 @@ export const RequestHeaderHandler = {
    * @returns Returns a new header object that contains the auth token.
    */
 
-  addPageablePropertiesToHeader: (requestHeader: any, pageableProperties?: PageableProperties) => {
+  private static addPageablePropertiesToHeader = (
+    requestHeader: any,
+    pageableProperties?: PageableProperties,
+  ) => {
     return pageableProperties
       ? {
           headers: {
@@ -39,7 +44,7 @@ export const RequestHeaderHandler = {
           },
         }
       : requestHeader;
-  },
+  };
 
   /**
    * @param authToken The auth token of the currently browsing user.
@@ -47,7 +52,10 @@ export const RequestHeaderHandler = {
    * @returns Returns an object that hold the token in the header
    *     for the api requests.
    */
-  getRequestHeader: (authToken?: string, pageableProperties?: PageableProperties) => {
+  private static getRequestHeader = (
+    authToken?: string,
+    pageableProperties?: PageableProperties,
+  ) => {
     const requestHeader = {
       header: {},
     };
@@ -60,5 +68,33 @@ export const RequestHeaderHandler = {
       pageableProperties,
     );
     return requestHeaderWithPageableProperties;
-  },
-};
+  };
+
+  /**
+   * Init the auth token of the request if it is requested.
+   *
+   * @param command A request command template which will be used to construct a new http request.
+   * @returns Returns the auth token if it is required to send out by the {@link RequestCommand}.
+   */
+  private static initAuthToken = (command: RequestCommand): string | undefined => {
+    return command.header.isAuthTokenMandatory ? getAuthToken() : undefined;
+  };
+
+  /**
+   * Init the header of the requests. Provides the params if the command states them
+   * to be there.
+   *
+   * @param command A request command template which will be used to construct a new http request.
+   * @param isParamProvided Tells whether the request contains request params or not.
+   * @returns Returns an object that contains the header of the request.
+   */
+  public static initRequestHeader = (command: RequestCommand, isParamProvided: boolean = false) => {
+    return {
+      ...RequestHeaderHandler.getRequestHeader(
+        RequestHeaderHandler.initAuthToken(command),
+        command.header.pageableProperties,
+      ),
+      param: isParamProvided ? (!!command.obj ? command.obj : undefined) : undefined,
+    };
+  };
+}
