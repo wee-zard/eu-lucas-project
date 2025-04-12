@@ -71,7 +71,7 @@ public class StringToAuthenticatedUserConverter implements Converter<String, Aut
     Optional<Boolean> emailVerified = Optional.of(Boolean.parseBoolean(
             (String) jsonObject.get("email_verified"))
     );
-    if (!emailVerified.get()) {
+    if (Boolean.FALSE.equals(emailVerified.get())) {
       throw new PermissionDeniedException();
     }
     if (jsonObject.get("email") == null) {
@@ -92,9 +92,8 @@ public class StringToAuthenticatedUserConverter implements Converter<String, Aut
    */
   @Override
   public AuthenticatedUser convert(final String source) {
-    final String tokenWithoutBearer = getTokenWithoutBearer(source);
     try {
-      return fetchJsonMessageOfApiRequest(tokenWithoutBearer);
+      return fetchJsonMessageOfApiRequest(getTokenWithoutBearer(source));
     } catch (ParseException e) {
       throw new PermissionDeniedException();
     }
