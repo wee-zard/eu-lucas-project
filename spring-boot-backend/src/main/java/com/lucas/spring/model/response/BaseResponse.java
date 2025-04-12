@@ -21,7 +21,7 @@ public class BaseResponse {
    * Init the Base Response with a default value.
    */
   public BaseResponse(final String message) {
-    this.message = BASE_RESPONSE_INIT;
+    this.message = message;
   }
 
   /**
