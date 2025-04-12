@@ -3,14 +3,15 @@ import { ProcedureFileMessages } from "./enum";
 export default class ProcedureProcessModel {
   constructor(
     /**
-     * The file what the user uploaded.
+     * The name of the file what the user uploaded.
      */
-    public file: File,
+    public filename: string,
     /**
      * Defines the error message of the file,
      * if something unexpected happen during the parse
      * of the xml file.
      */
     public message?: ProcedureFileMessages,
+    public options?: {},
   ) {}
 }

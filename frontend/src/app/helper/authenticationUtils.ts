@@ -9,6 +9,7 @@ import {
 } from "@model/enum";
 import { genericDispatcher } from "@api/handler/requestHandler";
 import { NotificationSeverity, throwNotification } from "./notificationUtil";
+import i18n from "@i18n/i18nHandler";
 
 const googleOAuthClientId = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_ID ?? "";
 const googleOAuthClientSecret = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_SECRET ?? "";
@@ -44,14 +45,18 @@ export const getRefreshToken = (
     .catch((err) => console.log("err: ", err));
 };
 
-export const getNewAccessToken = async () => {
-  // Fetch the refresh token from the local storage.
-  const refreshToken = getLocalStorageItem(LocalStorageKeys.GoogleRefreshToken);
-  if (!refreshToken) {
-    throwNotification(NotificationSeverity.Error, "Hiba! Refresh Token nem található!");
-    return null;
-  }
-  try {
+export const getNewAccessToken = (): Promise<AuthorizationModel> => {
+  return new Promise<AuthorizationModel>((resolve, reject) => {
+    // Fetch the refresh token from the local storage.
+    const refreshToken = getLocalStorageItem(LocalStorageKeys.GoogleRefreshToken);
+    if (!refreshToken) {
+      throwNotification(
+        NotificationSeverity.Error,
+        i18n.t("guards.authentication.refresh-token-is-missing"),
+      );
+      reject(null);
+    }
+
     // get new access token using refresh token
     const payload = {
       grant_type: "refresh_token",
@@ -61,7 +66,7 @@ export const getNewAccessToken = async () => {
     };
 
     // TODO: Move it to the commands folder
-    return await genericDispatcher<AuthorizationModel>({
+    genericDispatcher<AuthorizationModel>({
       type: RequestCommandTypes.POST,
       server: ServersToConnectTo.GoogleServer,
       endpoint: GoogleTokenEndpoints.Token,
@@ -69,10 +74,16 @@ export const getNewAccessToken = async () => {
       header: {
         isAuthTokenMandatory: true,
       },
+      // TODO: This error message is not the best. replace it with a better one.
       errorMessage: "Váratlan hiba történt a bejelentés elküldése során!",
-    });
-  } catch (error) {
-    throwNotification(NotificationSeverity.Error, "Hiba! Nem sikerült új Access Tokent lekérni!");
-    return null;
-  }
+    })
+      .then((result) => resolve(result))
+      .catch(() => {
+        throwNotification(
+          NotificationSeverity.Error,
+          i18n.t("guards.authentication.access-token-is-missing"),
+        );
+        reject(null);
+      });
+  });
 };

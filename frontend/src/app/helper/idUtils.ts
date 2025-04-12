@@ -20,4 +20,6 @@ export const IdUtils = {
    * call the corresponding methods that answers.
    */
   getEventListenerName: (id: number) => `QueryBuilderEventListener_${id}`,
+
+  getTimelineContentById: (id: number) => `StyledTimelineContent-${id}`,
 };

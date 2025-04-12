@@ -8,7 +8,7 @@ import {
   setFilteringPageableProperties,
   setFilterMenuAction,
   setListOfSelectedImages,
-  setSelectedImage,
+  setSelectedImageModel,
 } from "@redux/actions/imageActions";
 import { StyledComponentGap } from "@global/globalStyles";
 import StyledButton from "@components/StyledButton";
@@ -17,42 +17,44 @@ import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { FILTERING_PAGE_SIZE } from "@global/globalConsts";
 
 const FilteringDialogActions = () => {
-  const { selectedImage, listOfSelectedImages } = useSelector(selectImageStorage);
-  const isAgreeButtonDisabled = !selectedImage || selectedImage.images.length === 0;
+  const { selectedImageModel, listOfSelectedImages } = useSelector(selectImageStorage);
+  const isAgreeButtonDisabled = !selectedImageModel || selectedImageModel.images.length === 0;
   const dispatch = useDispatch();
 
   const handleDialogClose = () => dispatch(setDialogToOpen(undefined));
 
   const agreeButtonText =
-    selectedImage && selectedImage.images.length > 0
-      ? `${FilteringDialogTexts.AgreeButtonText} (${selectedImage.images.length})`
+    selectedImageModel && selectedImageModel.images.length > 0
+      ? `${FilteringDialogTexts.AgreeButtonText} (${selectedImageModel.images.length})`
       : FilteringDialogTexts.AgreeButtonText;
 
   const handleAgreeButtonClick = () => {
-    if (selectedImage) {
-      // If the selectedImage is exists in the listOfSelectedImages list, if yes, then override that object, else add a new object to the list.
-      dispatch(
-        setListOfSelectedImages(
-          listOfSelectedImages.find((image) => image.id === selectedImage.id)
-            ? listOfSelectedImages.map((image) => ({
-                id: image.id,
-                images: image.id === selectedImage.id ? selectedImage.images : image.images,
-                query: image.id === selectedImage.id ? selectedImage.query : image.query,
-              }))
-            : [...listOfSelectedImages, selectedImage],
-        ),
-      );
-      LocalStorageUtils.initQueryBuilderModelLocalStorage();
-      dispatch(
-        setFilteringPageableProperties({
-          pageNo: 0,
-          pageSize: FILTERING_PAGE_SIZE,
-        }),
-      );
-      dispatch(setFilterMenuAction(undefined));
-      dispatch(setSelectedImage(undefined));
-      handleDialogClose();
+    if (!selectedImageModel) {
+      return;
     }
+
+    // If the selectedImageModel is exists in the listOfSelectedImages list, if yes, then override that object, else add a new object to the list.
+    dispatch(
+      setListOfSelectedImages(
+        listOfSelectedImages.find((image) => image.id === selectedImageModel.id)
+          ? listOfSelectedImages.map((image) => ({
+              id: image.id,
+              images: image.id === selectedImageModel.id ? selectedImageModel.images : image.images,
+              query: image.id === selectedImageModel.id ? selectedImageModel.query : image.query,
+            }))
+          : [...listOfSelectedImages, selectedImageModel],
+      ),
+    );
+    LocalStorageUtils.initQueryBuilderModelLocalStorage();
+    dispatch(
+      setFilteringPageableProperties({
+        pageNo: 0,
+        pageSize: FILTERING_PAGE_SIZE,
+      }),
+    );
+    dispatch(setFilterMenuAction(undefined));
+    dispatch(setSelectedImageModel(undefined));
+    handleDialogClose();
   };
 
   return (
@@ -79,10 +81,10 @@ const FilteringDialogActions = () => {
 
 export default FilteringDialogActions;
 
-const StyledDialogActions = styled(DialogActions)<{}>((_) => ({
+const StyledDialogActions = styled(DialogActions)({
   padding: "0px",
-}));
+});
 
-const StyledActionsHolder = styled(StyledComponentGap)<{}>(() => ({
+const StyledActionsHolder = styled(StyledComponentGap)({
   paddingTop: "16px",
-}));
+});

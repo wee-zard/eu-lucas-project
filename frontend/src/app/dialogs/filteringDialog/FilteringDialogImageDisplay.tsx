@@ -1,4 +1,3 @@
-import { getImageByFilters } from "@api/command/imageCommand";
 import styled from "@emotion/styled";
 import { StyledComponentGap, StyledScrollBarHolder } from "@global/globalStyles";
 import { IdUtils } from "@helper/idUtils";
@@ -9,7 +8,7 @@ import FilteringQueryRequest from "@model/request/FilteringQueryRequest";
 import PageableResponse from "@model/response/PageableResponse";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { setFilterMenuAction, setSelectedImage } from "@redux/actions/imageActions";
+import { setFilterMenuAction, setSelectedImageModel } from "@redux/actions/imageActions";
 import { selectImageStorage } from "@redux/selectors/imageSelector";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,10 +16,11 @@ import FilteringDialogImageDisplayPagination from "@dialogs/filteringDialog/Filt
 import { StyledCardTemplate } from "@screens/filteringScreen/FilteringCommonStyledComponents";
 import { Divider } from "@mui/material";
 import { handleClickOnGlobalRippleEffect } from "app/scripts/rippleEffectOnClick";
-import StyledImageMediaCard from "@cards/StyledImageMediaCard";
+import StyledImageMediaCard from "@cards/imageCard/StyledImageMediaCard";
+import GenericCommandDispatcher from "@api/abstraction/genericCommandDispatcher";
 
 const FilteringDialogImageDisplay = () => {
-  const { filterMenuAction, filteringPageableProperties, selectedImage } =
+  const { filterMenuAction, filteringPageableProperties, selectedImageModel } =
     useSelector(selectImageStorage);
   const [response, setResponse] = useState<PageableResponse<ImageDto>>();
   const dispatch = useDispatch();
@@ -32,43 +32,47 @@ const FilteringDialogImageDisplay = () => {
     ) {
       const queryBuilderModel = LocalStorageUtils.getQueryBuilderModel();
       const request = new FilteringQueryRequest(queryBuilderModel);
-      getImageByFilters(request, filteringPageableProperties).then((pageableResponse) => {
-        if (pageableResponse) {
-          // TODO: Put this state into the redux storage.
-          setResponse(pageableResponse);
-        }
-      });
+      GenericCommandDispatcher.getImageCommands()
+        .getImagesByFilters(request, filteringPageableProperties)
+        .then((pageableResponse) => {
+          if (pageableResponse) {
+            // TODO: Put this state into the redux storage.
+            setResponse(pageableResponse);
+          }
+        });
       dispatch(setFilterMenuAction(undefined));
     }
   }, [filterMenuAction, filteringPageableProperties]);
 
   const handleClickOnImage = (imageEntity: ImageDto) => {
-    if (selectedImage) {
-      const filteredSelectedImages = selectedImage?.images.filter(
-        (properties) => properties.image.id !== imageEntity.id,
-      );
-      dispatch(
-        setSelectedImage({
-          ...selectedImage,
-          images:
-            filteredSelectedImages.length !== selectedImage.images.length
-              ? filteredSelectedImages
-              : [
-                  ...selectedImage.images,
-                  {
-                    image: imageEntity,
-                    width: undefined,
-                    height: undefined,
-                  },
-                ],
-        }),
-      );
+    if (!selectedImageModel) {
+      return;
     }
+
+    const filteredSelectedImages = selectedImageModel?.images.filter(
+      (properties) => properties.image.id !== imageEntity.id,
+    );
+    dispatch(
+      setSelectedImageModel({
+        ...selectedImageModel,
+        images:
+          filteredSelectedImages.length !== selectedImageModel.images.length
+            ? filteredSelectedImages
+            : [
+                ...selectedImageModel.images,
+                {
+                  image: imageEntity,
+                  width: undefined,
+                  height: undefined,
+                },
+              ],
+      }),
+    );
   };
 
   const isElementPresentInSelectedImages = (imageEntity: ImageDto) =>
-    (selectedImage &&
-      !!selectedImage.images.find((properties) => properties.image.id === imageEntity.id)) ??
+    (selectedImageModel &&
+      !!selectedImageModel.images.find((properties) => properties.image.id === imageEntity.id)) ??
     false;
 
   return (

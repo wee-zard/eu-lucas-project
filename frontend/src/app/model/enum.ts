@@ -38,6 +38,7 @@ export enum BackendExifKeyControllerEndpoints {
 
 export enum BackendImageControllerEndpoints {
   PostFilterImage = "/api/image/filter-images",
+  GetImageByImageNameAndCreationYear = "/api/image/",
 }
 
 export enum BackendProcedureControllerEndpoints {
@@ -244,15 +245,50 @@ export enum RequestCommandTypes {
 }
 
 export enum ProcedureFileMessages {
-  ErrorWhileProcessingFileAtServer = "screens.upload-procedures.view.error.processing-file-at-server",
+  ErrorWhileProcessingFileAtServer = "screens.upload-procedures.error.processing-file-at-server",
+  ErrorWhileConvertingFileToBuffer = "screens.upload-procedures.error.processing-file-to-buffer",
   FileIsSuccessfullyUploaded = "screens.upload-procedures.notifications.file-uploaded",
-  FileExtensionIsNotXml = "screens.upload-procedures.view.error.file-extension",
-  XmlToObjectError = "screens.upload-procedures.view.error.xml-to-object",
-  XmlDateInvalidFormat = "screens.upload-procedures.view.error.xml-date-invalid-format",
-  ErrorExtractingProcedureMethodName = "screens.upload-procedures.view.error.procedure-method-name",
-  ErrorExtractingImageName = "screens.upload-procedures.view.error.image-name",
-  ErrorInvasiveResultIsNotPresent = "screens.upload-procedures.view.error.invasive-result-is-not-present",
-  ErrorObjectNameIsInvalidFormat = "screens.upload-procedures.view.error.object-name-is-invalid-format",
+  FileExtensionIsNotXml = "screens.upload-procedures.error.file-extension",
+  XmlToObjectError = "screens.upload-procedures.error.xml-to-object",
+  XmlObjectIsEmpty = "screens.upload-procedures.error.xml-object-is-empty",
+
+  XmlAnnotationIsNotDefined = "screens.upload-procedures.error.xml-annotation-is-not-defined",
+  XmlDateIsNotDefined = "screens.upload-procedures.error.xml-date-is-not-defined",
+  XmlAuthorIsNotDefined = "screens.upload-procedures.error.xml-author-is-not-defined",
+  XmlMethodIsNotDefined = "screens.upload-procedures.error.xml-method-is-not-defined",
+  XmlImagesNotDefined = "screens.upload-procedures.error.xml-images-is-not-defined",
+  XmlFilenameNotDefined = "screens.upload-procedures.error.xml-filename-is-not-defined",
+  XmlObjectNotDefined = "screens.upload-procedures.error.xml-object-is-not-defined",
+  XmlNameNotDefined = "screens.upload-procedures.error.xml-name-is-not-defined",
+
+  XmlBoundingBoxNotDefined = "screens.upload-procedures.error.xml-bounding-box-is-not-defined",
+  XmlCenterXNotDefined = "screens.upload-procedures.error.xml-centerx-is-not-defined",
+  XmlCenterYNotDefined = "screens.upload-procedures.error.xml-centery-is-not-defined",
+  XmlWidthNotDefined = "screens.upload-procedures.error.xml-width-is-not-defined",
+  XmlHeightNotDefined = "screens.upload-procedures.error.xml-height-is-not-defined",
+
+  XmlDateIncorrectType = "screens.upload-procedures.error.xml-date-is-not-in-number",
+  XmlAuthorIncorrectType = "screens.upload-procedures.error.xml-author-incorrect-type-provided",
+  XmlMethodIncorrectType = "screens.upload-procedures.error.xml-method-incorrect-type-provided",
+  XmlFilenameIncorrectType = "screens.upload-procedures.error.xml-filename-incorrect-type-provided",
+  XmlConfidenceIncorrectType = "screens.upload-procedures.error.xml-confidence-incorrect-type-provided",
+  XmlNameIncorrectType = "screens.upload-procedures.error.xml-name-incorrect-type-provided",
+  XmlCenterXIncorrectType = "screens.upload-procedures.error.xml-centerx-incorrect-type-provided",
+  XmlCenterYIncorrectType = "screens.upload-procedures.error.xml-centery-incorrect-type-provided",
+  XmlWidthIncorrectType = "screens.upload-procedures.error.xml-width-incorrect-type-provided",
+  XmlHeightIncorrectType = "screens.upload-procedures.error.xml-height-incorrect-type-provided",
+
+  XmlDateNotLongEnough = "screens.upload-procedures.error.xml-date-not-long-enough",
+  XmlDateInvalidFormat = "screens.upload-procedures.error.xml-date-invalid-format",
+  ErrorExtractingParamName = "screens.upload-procedures.error.extracting-param-names",
+  ErrorExtractingImageName = "screens.upload-procedures.error.image-name",
+  ErrorExtractingImageExtension = "screens.upload-procedures.error.image-extension",
+  ErrorInvasiveResultIsNotPresent = "screens.upload-procedures.error.invasive-result-is-not-present",
+  ErrorObjectNameIsInvalidFormat = "screens.upload-procedures.error.object-name-is-invalid-format",
+  ErrorConfidenceIsNotInRange = "screens.upload-procedures.error.confidence-value-is-not-in-range",
+
+  ImageNotFoundOnServer = "screens.upload-procedures.error.image-not-found-on-server",
+  ImageNotFoundOnDiscoLucasServer = "screens.upload-procedures.error.image-not-found-on-gisco-lucas-server",
 }
 
 export enum ReportTypes {
@@ -278,4 +314,12 @@ export enum GuardResultTypes {
 export enum GuardTypes {
   NOT_LOGGED_IN_GUARD = "NOT_LOGGED_IN_GUARD",
   GOOGLE_ACCOUNT_GUARD = "GOOGLE_ACCOUNT_GUARD",
+}
+
+export enum ProcedureLogProperties {
+  Procedure = "screens.bounding-box.procedure-log-menu.procedure",
+  Params = "screens.bounding-box.procedure-log-menu.params",
+  Plants = "screens.bounding-box.procedure-log-menu.plants",
+  User = "screens.bounding-box.procedure-log-menu.user",
+  CreationDate = "screens.bounding-box.procedure-log-menu.creation-date",
 }

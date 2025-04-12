@@ -2,9 +2,36 @@
   "validators": {
     "field-is-required": "A mező kitöltése kötelező"
   },
+  "cards": {
+    "image-card": {
+      "alt": {
+        "image-media": "Szűrt kép No. {{id}} helye"
+      }
+    }
+  },
   "components": {
     "button": {
       "submit": "Elküldés"
+    }
+  },
+  "guards": {
+    "authentication": {
+      "access-token-is-missing": "Hiba! A Google Access Token nem található!",
+      "refresh-token-is-missing": "Hiba! A Google Refresh Token nem található!"
+    }
+  },
+  "api": {
+    "commands": {
+      "image": {
+        "getImagesByFilters": "Hiba történt a képek szűrése során!",
+        "postByImageNameAndCreationYear": "Hiba történt egy kép lekérése során a kép neve és a kép létrehozási éve alapján!"
+      },
+      "plant": {
+        "getPlants": "Váratlan hiba történt az növények lekérdezése során!"
+      },
+      "plant-name": {
+        "deletePlantNameCommand": "Váratlan hiba történt a növények nevének törlése során!"
+      }
     }
   },
   "screens": {
@@ -29,22 +56,55 @@
         "supported-format": "Támogatott fájl formátumok:",
         "xml": "XML",
         "drag-and-drop": "Drag & Drop fájlokat ide",
-        "successful-upload": "Sikeresen",
-        "failed-upload": "Sikertelenül",
-        "uploaded-files": "feltöltött fájlok"
+        "delete-uploaded-logs": "Feltöltött adatok törlése"
       },
       "notifications": {
-        "file-uploaded": "A fájl sikeresen feltöltésre került!"
+        "file-uploaded": "A fájl sikeresen feltöltésre került!",
+        "logs-are-deleted": "Eljárások, eljárásokhoz tartozó logok, befoglaló téglalapok és növények sikeresen törlésre kerültek"
       },
       "error": {
         "processing-file-at-server": "Váratlan hiba történt a fájl feldolgozása közben a szerver oldalon!",
+        "processing-file-to-buffer": "Váratlan hiba történt a fájlnak a Bufferré való konvertálása során!",
         "file-extension": "Hiba! A fájl nem XML kiterjesztésű!",
         "xml-to-object": "Hiba! Nem sikerült objektummá alakítani az XML fájlt!",
-        "xml-date-invalid-format": "Hiba! A 'date' nem megfelelő formátumú! Elvárt formátum: <date>ÉÉÉÉHHNNÓÓPP<date>",
-        "procedure-method-name": "Hiba! A 'method' nem megfelelő formátumú! Elvárt formátum: <method>$METHOD_NAME model='$LARGE' epochs='$EPOCH' param1='$PARAM1' param2='$PARAM2'</method>",
-        "image-name": "Hiba! A 'filename' nem megfelelő formátumú! Elvárt formátum: <filename>$YEAR_$IMAGENAME_$POSTFIX.jpg</filename>",
-        "invasive-result-is-not-present": "Hiba! A 'name' nem tartalmazza a következő értékek valamelyikét:  '1db' vagy 'Homogén'!",
-        "object-name-is-invalid-format": "Hiba! A 'name' nem tartalmaz szóközt, amivel el lehetne választani a növény nevét a növény osztályozásától!"
+        "xml-object-is-empty": "Hiba! Az objektummá alakított XML fájl üres!",
+
+        "xml-annotation-is-not-defined": "Hiba! Az 'annotation' XML elem nem került definiálásra!",
+        "xml-date-is-not-defined": "Hiba! A 'date' nem került definiálásra!",
+        "xml-author-is-not-defined": "Hiba! Az 'author' XML elem nem került definiálásra!",
+        "xml-method-is-not-defined": "Hiba! A 'method' XML elem nem került definiálásra!",
+        "xml-images-is-not-defined": "Hiba! Az 'image' XML elem nem került definiálásra!",
+        "xml-filename-is-not-defined": "Hiba! A(z) {{index}}. 'image' XML elemben a 'filename' XML elem nem került definiálásra!",
+        "xml-object-is-not-defined": "Hiba! A(z) {{index}}. 'image' XML elemben a 'object' XML elem nem került definiálásra!",
+        "xml-name-is-not-defined": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'name' XML elem nem került definiálásra!",
+        "xml-bounding-box-is-not-defined": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'bndbox' XML elem nem került definiálásra!",
+        "xml-centerx-is-not-defined": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'centerx' XML elem nem került definiálásra!",
+        "xml-centery-is-not-defined": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'centery' XML elem nem került definiálásra!",
+        "xml-width-is-not-defined": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'width' XML elem nem került definiálásra!",
+        "xml-height-is-not-defined": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'height' XML elem nem került definiálásra!",
+
+        "xml-date-is-not-in-number": "Hiba! A 'date' XML elem értékének egy 12 jegyű számnak kell lennie a következő formátumban: ÉÉÉÉHHNNÓÓPP",
+        "xml-date-not-long-enough": "Hiba! A 'date' XML elem értéke nem elegendő hosszú! Az elvárt hossz az 12 karakter!",
+        "xml-date-invalid-format": "Hiba! A 'date' XML elem típusa nem szövegként került megadásra!",
+        "xml-author-incorrect-type-provided": "Hiba! Az 'author' XML elem típusa nem szövegként került megadásra!",
+        "xml-method-incorrect-type-provided": "Hiba! A 'method' XML elem típusa nem szövegként került megadásra!",
+        "xml-filename-incorrect-type-provided": "Hiba! A(z) {{index}}. 'image' XML elemben a 'filename' XML elem típusa nem szövegként került megadásra!",
+        "xml-confidence-incorrect-type-provided": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'confidence' XML elem típusa nem számként lett megadva!",
+        "xml-name-incorrect-type-provided": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'name' XML elem típusa nem szövegként került megadásra!",
+        "xml-centerx-incorrect-type-provided": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'centerx' XML elem típusa nem számkémnt került megadásra!",
+        "xml-centery-incorrect-type-provided": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'centery' XML elem típusa nem számkémnt került megadásra!",
+        "xml-width-incorrect-type-provided": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'width' XML elem típusa nem számkémnt került megadásra!",
+        "xml-height-incorrect-type-provided": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'height' XML elem típusa nem számkémnt került megadásra!",
+
+        "extracting-param-names": "Hiba! A 'method' XML elem nem megfelelő formátumú! Elvárt formátum: <method>$METHOD_NAME param1='$PARAM1' param2='$PARAM2'</method>",
+        "image-name": "Hiba! A {{index}}. 'image' XML elemben a 'filename' XML elem nem megfelelő formátumú! Elvárt formátum: <filename>$YEAR_$IMAGENAME_$POSTFIX.jpg</filename>",
+        "image-extension": "Hiba! A {{index}}. 'image' XML elemben a 'filename' XML elemben nem került meghatározásra a kép kiterjesztése!",
+        "confidence-value-is-not-in-range": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'confidence' XML elem értéke 0 és 1 közötti érték lehet! (pl. 0.25)",
+
+        "invasive-result-is-not-present": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'name' XML elem nem tartalmazza a következő szövegek valamelyikét: {{tags}}!",
+        "object-name-is-invalid-format": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'name' XML elem nem tartalmaz szóközt, amivel el lehetne különíteni a növény nevét attól, hogy a növény homogén-e!",
+        "image-not-found-on-server": "Hiba! Az XML-ben feltűntetett képeket nem találhatóak a szerveren!",
+        "image-not-found-on-gisco-lucas-server": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben feltűntetett kép letöltése nem sikerült a gisco europe lucas adatbázisból!"
       }
     },
     "reporting": {
@@ -62,7 +122,33 @@
         "report-sent-out": "A bejelentés sikeresen el lett küldve!"
       }
     },
+    "bounding-box": {
+      "dialog-title": "Befoglaló téglalapok",
+      "tabs": {
+        "tab-1": "Logok",
+        "tab-2": "Szűrés",
+        "tab-3": "Beállítások"
+      },
+      "procedure-log-menu": {
+        "procedure": "Eljárás:",
+        "params": "Paraméterek:",
+        "plants": "Növények:",
+        "user": "Létrehozó:",
+        "creation-date": "Létrehozás ideje:"
+      },
+      "timeline-menu": {
+        "no-procedure-log-fetched": "Eljárás logok nem találhatóak az adott képhez!",
+        "load-more-log-button": "További logok betöltése",
+        "log-title": "LOG #{{logId}}"
+      },
+      "notifications": {
+        "log-not-found": "Eljárás log nem található!",
+        "cannot-select-more-logs": "Nem lehet több logot kiválasztani, mivel legfeljebb {{logCount}} log választható ki!"
+      }
+    },
     "filtering": {
+      "dialog-title": "Képek szűrése",
+      "empty-body": "Kép még nem került kiválasztásra!",
       "query-builder": {
         "query-by-option-names": {
           "year": "Év",

@@ -1,82 +1,57 @@
-import {
-  getLocalStorageItem,
-  removeLocalStorageItem,
-} from "@helper/localStorageUtil";
+import { getLocalStorageItem, removeLocalStorageItem } from "@helper/localStorageUtil";
 import { GuardResultTypes, LocalStorageKeys } from "@model/enum";
 import { googleLogout } from "@react-oauth/google";
-import {
-  NotificationSeverity,
-  throwNotification,
-} from "@helper/notificationUtil";
-import LoginAuthenticationError from "@model/error/LoginAuthenticationError";
 import { validateEmailAddress } from "@api/command/userCommands";
 import { useEffect, useState } from "react";
-
-const accessTokenIsMissing = "Hiba! A Google Access Token nem található! Kérem jelentkezzen be újra!";
-const refreshTokenIsMissing = "Hiba! A Google Refresh Token nem található! Kérem jelentkezzen be újra!";
+import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
+import i18n from "@i18n/i18nHandler";
 
 export const useGoogleAccountGuard = (isOpen: boolean) => {
   const [result, setResult] = useState(GuardResultTypes.PENDING);
 
   /**
-   * Checks if the auth token is exists in the storage.
-   * @returns Returns the auth token.
-   */
-  const isAccessTokenExists = (): string => {
-    const authToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
-    if (!authToken) {
-      throw new LoginAuthenticationError(accessTokenIsMissing);
-    } else {
-      return authToken;
-    }
-  };
-
-  /**
-   * Checks if the refresh token exists in the storage.
-   */
-  const isRefreshTokenExists = (): string => {
-    const refreshToken = getLocalStorageItem(
-      LocalStorageKeys.GoogleRefreshToken
-    );
-    // Checks if the auth token is exists in the storage.
-    if (!refreshToken) {
-      throw new LoginAuthenticationError(refreshTokenIsMissing);
-    } else {
-      return refreshToken;
-    }
-  };
-
-  /**
    * Log out the user from the app and empty out the local storage.
-   *
-   * @param isNullable
-   * @param message The message to display upon error.
    */
-  const emptyOutTheLocalStorageCell = (message: string) => {
+  const emptyOutTheLocalStorageCell = () => {
     removeLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
     removeLocalStorageItem(LocalStorageKeys.GoogleRefreshToken);
+    setResult(GuardResultTypes.FAILED);
     googleLogout();
-    throwNotification(NotificationSeverity.Error, message);
   };
 
-  const handleResultConfig = () => {
-    try {
-      isAccessTokenExists();
-      isRefreshTokenExists();
-      validateEmailAddress()
-        .then((result) => {
-          if (result) {
-            setResult(GuardResultTypes.PASSED);
-          }
-        })
-        .catch(() => setResult(GuardResultTypes.FAILED));
-    } catch (error) {
-      if (error instanceof LoginAuthenticationError) {
-        emptyOutTheLocalStorageCell(error.message);
-      }
-      setResult(GuardResultTypes.FAILED);
+  const handleResultConfig = async () => {
+    const authToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
+    const refreshToken = getLocalStorageItem(LocalStorageKeys.GoogleRefreshToken);
+
+    // Checks if the auth token is exists in the storage.
+    if (!authToken) {
+      throwNotification(
+        NotificationSeverity.Error,
+        i18n.t("guards.authentication.access-token-is-missing"),
+      );
+      emptyOutTheLocalStorageCell();
+      return;
     }
-  }
+
+    //Checks if the refresh token exists in the storage.
+    if (!refreshToken) {
+      throwNotification(
+        NotificationSeverity.Error,
+        i18n.t("guards.authentication.refresh-token-is-missing"),
+      );
+      emptyOutTheLocalStorageCell();
+      return;
+    }
+
+    const result = await validateEmailAddress();
+
+    if (!result) {
+      emptyOutTheLocalStorageCell();
+      return;
+    }
+
+    setResult(GuardResultTypes.PASSED);
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -98,10 +73,8 @@ export const useNotLoggedInGuard = (isOpen: boolean) => {
       setResult(GuardResultTypes.FAILED);
     }
     const refreshToken = getLocalStorageItem(LocalStorageKeys.GoogleRefreshToken);
-    setResult(!authToken && !refreshToken 
-      ? GuardResultTypes.PASSED 
-      : GuardResultTypes.FAILED);
-  }
+    setResult(!authToken && !refreshToken ? GuardResultTypes.PASSED : GuardResultTypes.FAILED);
+  };
 
   useEffect(() => {
     if (isOpen) {

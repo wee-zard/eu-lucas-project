@@ -8,7 +8,7 @@ import { StyledComponentGap } from "@global/globalStyles";
 import { DialogToOpens, FilteringScreenTexts } from "@model/enum";
 import { useDispatch, useSelector } from "react-redux";
 import { setDialogToOpen } from "@redux/actions/dialogActions";
-import { setListOfSelectedImages, setSelectedImage } from "@redux/actions/imageActions";
+import { setListOfSelectedImages, setSelectedImageModel } from "@redux/actions/imageActions";
 import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 
@@ -19,12 +19,13 @@ const FilteringScreenHeader = () => {
   const handleAddImage = () => {
     LocalStorageUtils.initQueryBuilderModelLocalStorage();
     dispatch(setDialogToOpen(DialogToOpens.FilteringDialog));
+    const selectedImageId =
+      listOfSelectedImages.length > 0
+        ? Math.max(...listOfSelectedImages.map((imageModel) => imageModel.id)) + 1
+        : 1;
     dispatch(
-      setSelectedImage({
-        id:
-          listOfSelectedImages.length > 0
-            ? Math.max(...listOfSelectedImages.map((selectedImage) => selectedImage.id)) + 1
-            : 1,
+      setSelectedImageModel({
+        id: selectedImageId,
         images: [],
         query: undefined,
       }),

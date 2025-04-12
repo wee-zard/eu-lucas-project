@@ -7,35 +7,37 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setFilteringPageableProperties,
   setFilterMenuAction,
-  setSelectedImage,
+  setSelectedImageModel,
 } from "@redux/actions/imageActions";
 import { MenuActions } from "@model/enum";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
-import { selectSelectedImage } from "@redux/selectors/imageSelector";
+import { selectSelectedImageModel } from "@redux/selectors/imageSelector";
 import { FILTERING_PAGE_SIZE } from "@global/globalConsts";
 
 const FilteringMenuActions = () => {
-  const selectedImage = useSelector(selectSelectedImage);
+  const selectedImageModel = useSelector(selectSelectedImageModel);
   const dispatch = useDispatch();
   const handleClearAll = () => dispatch(setFilterMenuAction(MenuActions.CLEAR_ALL));
   const handleCancel = () => dispatch(setFilterMenuAction(MenuActions.CANCEL));
   const handleApply = () => {
-    if (selectedImage) {
-      dispatch(setFilterMenuAction(MenuActions.SUBMIT));
-      dispatch(
-        setSelectedImage({
-          id: selectedImage.id,
-          images: [],
-          query: LocalStorageUtils.getQueryBuilderModel(),
-        }),
-      );
-      dispatch(
-        setFilteringPageableProperties({
-          pageNo: 0,
-          pageSize: FILTERING_PAGE_SIZE,
-        }),
-      );
+    if (!selectedImageModel) {
+      return;
     }
+
+    dispatch(setFilterMenuAction(MenuActions.SUBMIT));
+    dispatch(
+      setSelectedImageModel({
+        id: selectedImageModel.id,
+        images: [],
+        query: LocalStorageUtils.getQueryBuilderModel(),
+      }),
+    );
+    dispatch(
+      setFilteringPageableProperties({
+        pageNo: 0,
+        pageSize: FILTERING_PAGE_SIZE,
+      }),
+    );
   };
 
   return (

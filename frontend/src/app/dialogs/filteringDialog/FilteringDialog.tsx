@@ -10,9 +10,10 @@ import { StyledComponentGap, StyledFullWidthAndHeight } from "@global/globalStyl
 import FilteringMenu from "@dialogs/filteringDialog/FilteringMenu";
 import FilteringDialogImageDisplay from "@dialogs/filteringDialog/FilteringDialogImageDisplay";
 import FilteringDialogActions from "@dialogs/filteringDialog/FilteringDialogActions";
+import i18n from "@i18n/i18nHandler";
 
 const FilteringDialog = () => {
-  const dialogToOpen = useSelector((state) =>
+  const isDialogOpen = useSelector((state) =>
     selectIsDialogOpen(state as RootState, DialogToOpens.FilteringDialog),
   );
   const dispatch = useDispatch();
@@ -20,8 +21,8 @@ const FilteringDialog = () => {
   const handleDialogClose = () => dispatch(setDialogToOpen(undefined));
 
   return (
-    <StyledDialog open={dialogToOpen} onClose={handleDialogClose}>
-      <StyledDialogTitle>Képek szűrése</StyledDialogTitle>
+    <StyledDialog open={isDialogOpen} onClose={handleDialogClose}>
+      <StyledDialogTitle>{i18n.t("screens.filtering.dialog-title")}</StyledDialogTitle>
       <StyledDialogContent>
         <StyledDialogContentHolder display={"grid"}>
           <FilteringMenu />
@@ -35,7 +36,7 @@ const FilteringDialog = () => {
 
 export default FilteringDialog;
 
-const StyledDialog = styled(Dialog)<{}>((_) => ({
+export const StyledDialog = styled(Dialog)<{}>((_) => ({
   "& .MuiPaper-root": {
     ...StyledFullWidthAndHeight(),
     maxWidth: "80%",
@@ -45,20 +46,20 @@ const StyledDialog = styled(Dialog)<{}>((_) => ({
   },
 }));
 
-const StyledDialogTitle = styled(DialogTitle)<{}>(() => ({
+export const StyledDialogTitle = styled(DialogTitle)<{}>(() => ({
   display: "flex",
   justifyContent: "center",
   padding: "16px",
 }));
 
-const StyledDialogContentHolder = styled(StyledComponentGap)<{}>((_) => ({
+export const StyledDialogContentHolder = styled(StyledComponentGap)<{}>((_) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
   width: "100%",
 }));
 
-const StyledDialogContent = styled(DialogContent)<{}>((_) => ({
+export const StyledDialogContent = styled(DialogContent)<{}>((_) => ({
   padding: "0px",
   overflowY: "hidden",
   display: "flex",

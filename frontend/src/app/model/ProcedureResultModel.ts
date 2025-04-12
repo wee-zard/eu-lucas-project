@@ -6,16 +6,13 @@ export type ProcedureResultAnnotation = {
   date: number;
   author: string;
   method: string;
-  filename: string;
-  path: string;
-  size: ProcedureResultAnnotationSize;
-  object: ProcedureResultAnnotationObject[];
+  image: ProcedureResultAnnotationImage[];
 };
 
-export type ProcedureResultAnnotationSize = {
-  width: number;
-  height: number;
-  depth: number;
+export type ProcedureResultAnnotationImage = {
+  filename: string;
+  path: string;
+  object: ProcedureResultAnnotationObject[];
 };
 
 export type ProcedureResultAnnotationObject = {
@@ -25,8 +22,8 @@ export type ProcedureResultAnnotationObject = {
 };
 
 export type ProcedureResultAnnotationObjectBndBox = {
-  xmin: number;
-  ymin: number;
-  xmax: number;
-  ymax: number;
+  height: number;
+  width: number;
+  centerx: number;
+  centery: number;
 };

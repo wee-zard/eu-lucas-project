@@ -1,79 +1,49 @@
 import { styled } from "@mui/material/styles";
-import { Accordion, AccordionDetails, AccordionSummary, Collapse, Typography } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ReactComponent as XmlIcon } from "@media/xml.svg";
 import ProcedureProcessModel from "@model/ProcedureProcessModel";
-import { StyledComponentGap } from "@global/globalStyles";
 import { uploadProcedureCommonStyles } from "./UploadProcedureScreen";
 import { ProcedureFileMessages } from "@model/enum";
 import i18n from "@i18n/i18nHandler";
+import { useSelector } from "react-redux";
+import { selectListOfProcedureProcesses } from "@redux/selectors/procedureUploadSelectors";
 
-type Props = {
-  listOfModels: ProcedureProcessModel[];
-  isErrorOnly?: boolean;
-};
+const UploadFileAccordionCard = () => {
+  const listOfModels = useSelector(selectListOfProcedureProcesses);
 
-const UploadFileAccordionCard = ({ listOfModels, isErrorOnly }: Props) => {
-  const isErrorPresent = (message?: ProcedureFileMessages) =>
-    message && message !== ProcedureFileMessages.FileIsSuccessfullyUploaded;
+  const isErrorPresent = (message?: ProcedureFileMessages) => {
+    return message && message !== ProcedureFileMessages.FileIsSuccessfullyUploaded;
+  };
 
-  const listOfFilteredModels = listOfModels.filter((model) =>
-    isErrorOnly ? isErrorPresent(model.message) : !isErrorPresent(model.message),
-  );
+  const displayModelMessage = (model: ProcedureProcessModel) => {
+    const translationParams = Object.keys(model.options ?? {}) ? model.options : undefined;
+    return i18n.t(model.message ?? "", translationParams);
+  };
 
   return (
     <StyledTransitionGroup>
-      {listOfFilteredModels.length > 0 ? (
-        <StyledCollapse>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1-content"
-              id="panel1-header"
-            >
-              <Typography component="span">
-                {`${
-                  isErrorOnly
-                    ? i18n.t("screens.upload-procedures.view.failed-upload")
-                    : i18n.t("screens.upload-procedures.view.successful-upload")
-                } ${i18n.t("screens.upload-procedures.view.uploaded-files")}`}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <StyledComponentGap display={"grid"}>
-                {listOfFilteredModels.map((procedureModel, index) => (
-                  <StyledFileHolder $isError={isErrorPresent(procedureModel.message)} key={index}>
-                    <div>
-                      <XmlIcon width={100} height={100} />
-                    </div>
-                    <StyledRightFileHolder>
-                      <div>{procedureModel.file.name}</div>
-                      <StyledMessageHolder $isError={isErrorPresent(procedureModel.message)}>
-                        {i18n.t(procedureModel.message ?? "")}
-                      </StyledMessageHolder>
-                    </StyledRightFileHolder>
-                  </StyledFileHolder>
-                ))}
-              </StyledComponentGap>
-            </AccordionDetails>
-          </Accordion>
-        </StyledCollapse>
-      ) : null}
+      {listOfModels.map((model, index) => (
+        <StyledFileHolder $isError={isErrorPresent(model.message)} key={index}>
+          <div>
+            <XmlIcon width={100} height={100} />
+          </div>
+          <StyledRightFileHolder>
+            <div>{model.filename}</div>
+            <StyledMessageHolder $isError={isErrorPresent(model.message)}>
+              {displayModelMessage(model)}
+            </StyledMessageHolder>
+          </StyledRightFileHolder>
+        </StyledFileHolder>
+      ))}
     </StyledTransitionGroup>
   );
 };
 
 export default UploadFileAccordionCard;
 
-const StyledCollapse = styled(Collapse)<{}>((_) => ({
-  ...uploadProcedureCommonStyles,
-}));
-
 const StyledMessageHolder = styled("div")<{ $isError?: boolean }>((props) => ({
   color: `${props.$isError ? "red" : "green"}`,
-  textShadow: "1px 1px 1px gray",
-  fontSize: "x-large",
+  fontSize: "large",
 }));
 
 const StyledRightFileHolder = styled("div")<{}>((_) => ({
@@ -90,9 +60,10 @@ const StyledFileHolder = styled("div")<{ $isError?: boolean }>((props) => ({
   backgroundColor: `${props.$isError ? "rgba(255, 120, 120, 0.1)" : "rgba(120, 255, 136, 0.1)"}`,
   display: "flex",
   gap: 16,
+  width: "80%",
 }));
 
 const StyledTransitionGroup = styled(TransitionGroup)<{}>((_) => ({
   display: "grid",
-  gap: "32px",
+  gap: 32,
 }));
