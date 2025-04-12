@@ -29,8 +29,17 @@ public class ProcedureServiceImpl implements ProcedureService {
    * {@inheritDoc}
    */
   @Override
-  public ProcedureEntity createProcedure(final String name, final UserEntity user) {
-    return procedureRepository.save(ProcedureEntity.builder().name(name).initUserId(user).build());
+  public ProcedureEntity createProcedure(
+          final String name,
+          final UserEntity user,
+          final String author
+  ) {
+    return procedureRepository.save(
+            ProcedureEntity.builder()
+                    .name(name)
+                    .initUserId(user)
+                    .author(author)
+                    .build());
   }
 
   @Override
@@ -52,8 +61,9 @@ public class ProcedureServiceImpl implements ProcedureService {
   @Override
   public ProcedureEntity getProcedureByNameAndInitIfNotExists(
           final String name,
-          final UserEntity user
+          final UserEntity user,
+          final String author
   ) {
-    return getProcedureByName(name).orElseGet(() -> createProcedure(name, user));
+    return getProcedureByName(name).orElseGet(() -> createProcedure(name, user, author));
   }
 }

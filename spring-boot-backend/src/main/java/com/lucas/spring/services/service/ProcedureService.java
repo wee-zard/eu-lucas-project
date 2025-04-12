@@ -22,9 +22,10 @@ public interface ProcedureService {
    *
    * @param name The name of the procedure.
    * @param user The user who created the procedure.
+   * @param author The author of the given procedure.
    * @return Returns the new Procedure object.
    */
-  ProcedureEntity createProcedure(String name, UserEntity user);
+  ProcedureEntity createProcedure(String name, UserEntity user, String author);
 
   /**
    * Fetch the list of procedures.
@@ -46,7 +47,8 @@ public interface ProcedureService {
    *
    * @param name The name of the procedure.
    * @param user The user who created the procedure.
+   * @param author The author of the given procedure.
    * @return Returns the procedure associated with the provided name.
    */
-  ProcedureEntity getProcedureByNameAndInitIfNotExists(String name, UserEntity user);
+  ProcedureEntity getProcedureByNameAndInitIfNotExists(String name, UserEntity user, String author);
 }

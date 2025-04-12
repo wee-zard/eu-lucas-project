@@ -38,56 +38,62 @@ public class ProcedureFacadeImpl implements ProcedureFacade {
    */
   @Override
   public void uploadLog(final ProcedureResultRequest request, final Long userId) {
-    // Get image entity, or throw error is not present in the db.
-    final ImageEntity imageEntity = imageService.getImageByNameAndYear(
-            request.getFile().getFileName(),
-            request.getFile().getYear()
-    );
+    // In one request file, multiple image results could be present at once.
+    request.getImages().forEach(image -> {
+      // Get image entity, or throw error if not present in the db.
+      final ImageEntity imageEntity = imageService.getImageByNameAndYear(
+              image.getFile().getFileName(),
+              image.getFile().getYear()
+      );
 
-    // Get user entity.
-    final UserEntity userEntity = userService.getUserById(userId);
+      // Get user entity.
+      final UserEntity userEntity = userService.getUserById(userId);
 
-    // Sve procedure entity.
-    final ProcedureEntity procedureEntity = procedureService.getProcedureByNameAndInitIfNotExists(
-            request.getMethod(),
-            userEntity);
+      // Sve procedure entity.
+      final ProcedureEntity procedureEntity = procedureService.getProcedureByNameAndInitIfNotExists(
+              request.getMethod(),
+              userEntity,
+              request.getAuthor()
+      );
 
-    // Save the procedure log entity.
-    final ProcedureLogEntity procedureLogEntity = procedureLogService.saveProcedureLog(
-            ProcedureLogEntity.builder()
-                    .procedure(procedureEntity)
-                    .image(imageEntity)
-                    .user(userEntity)
-                    .build());
+      // Save the procedure log entity.
+      final ProcedureLogEntity procedureLogEntity = procedureLogService.saveProcedureLog(
+              ProcedureLogEntity.builder()
+                      .procedure(procedureEntity)
+                      .image(imageEntity)
+                      .user(userEntity)
+                      .author(request.getAuthor())
+                      .build());
 
-    // Save the procedure log params.
-    request.getParams().forEach((param) ->
-        procedureLogParamService.saveProcedureLogParam(
-              ProcedureLogParamEntity.builder()
-                .procedureLogParam(
-                  EmbeddedProcedureLogParam.builder()
-                    .procedureParamName(param)
-                    .procedureLog(procedureLogEntity)
-                    .build())
-                .build()));
+      // Save the procedure log params.
+      request.getParams().forEach(param ->
+              procedureLogParamService.saveProcedureLogParam(
+                      ProcedureLogParamEntity.builder()
+                              .procedureLogParam(
+                                      EmbeddedProcedureLogParam.builder()
+                                              .procedureParamName(param)
+                                              .procedureLog(procedureLogEntity)
+                                              .build())
+                              .build()));
 
-    // Save the bounding boxes.
-    request.getObjects().forEach(object ->
-        boundingBoxService.saveBoundingBox(
-          BoundingBoxEntity.builder()
-            .probabilityOfDetection(object.getConfidence())
-            .minCoordinateX(object.getBoundingBox().getXmin())
-            .minCoordinateY(object.getBoundingBox().getYmin())
-            .maxCoordinateX(object.getBoundingBox().getXmax())
-            .maxCoordinateY(object.getBoundingBox().getYmax())
-            .homogenous(object.getIsInvasive())
-            .plant(plantService.addImageEntityToPlant(
-                            plantService.getPlantByNameAndInitIfNotExists(
-                                    object.getPlantName(),
-                                    object.getIsInvasive()),
-                            imageEntity))
-            .image(imageEntity)
-            .procedureLog(procedureLogEntity)
-            .build()));
+      // Save the bounding boxes.
+      image.getObjects().forEach(object ->
+              boundingBoxService.saveBoundingBox(
+                      BoundingBoxEntity.builder()
+                              .probabilityOfDetection(object.getConfidence())
+                              .minCoordinateX(object.getBoundingBox().getXmin())
+                              .minCoordinateY(object.getBoundingBox().getYmin())
+                              .maxCoordinateX(object.getBoundingBox().getXmax())
+                              .maxCoordinateY(object.getBoundingBox().getYmax())
+                              .homogenous(object.getPlant().getIsInvasive())
+                              .plant(plantService.addImageEntityToPlant(
+                                      plantService.getPlantByNameAndInitIfNotExists(
+                                              object.getPlant().getPlantName(),
+                                              object.getPlant().getIsInvasive()),
+                                      imageEntity))
+                              .image(imageEntity)
+                              .procedureLog(procedureLogEntity)
+                              .build()));
+    });
   }
 }

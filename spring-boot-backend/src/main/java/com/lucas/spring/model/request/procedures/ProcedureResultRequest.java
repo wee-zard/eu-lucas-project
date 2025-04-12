@@ -27,17 +27,17 @@ public class ProcedureResultRequest {
   private String method;
 
   /**
+   * The author of the given xml file.
+   */
+  private String author;
+
+  /**
    * The params that have been applied on the procedure.
    */
   private List<String> params;
 
   /**
-   * Defines the details about the file that have been used with the procedure.
+   * Procedure results on the given images.
    */
-  private ProcedureResultFile file;
-
-  /**
-   * The bounding boxes that stores the found anomalies on the images.
-   */
-  private List<ProcedureResultObject> objects;
+  private List<ProcedureResultImage> images;
 }

@@ -40,9 +40,9 @@ public class ProcedureController {
   @PostMapping("/upload")
   public BaseResponse postValidateEmailAddress(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
-          @RequestBody final ProcedureResultRequest request
+          @RequestBody final List<ProcedureResultRequest> requests
   ) {
-    procedureFacade.uploadLog(request, authenticatedUser.getUserId());
+    requests.forEach(request -> procedureFacade.uploadLog(request, authenticatedUser.getUserId()));
     return new BaseResponse();
   }
 
