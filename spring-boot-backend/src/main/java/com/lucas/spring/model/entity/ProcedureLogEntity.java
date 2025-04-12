@@ -36,6 +36,11 @@ public class ProcedureLogEntity {
   @Column(name = "id")
   private Long id;
   /**
+   * The author of the procedure log.
+   */
+  @Column(name = "author", length = 200)
+  private String author;
+  /**
    * The procedure that was used on the image.
    */
   @ManyToOne

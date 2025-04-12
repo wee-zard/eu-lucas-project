@@ -41,6 +41,11 @@ public class ProcedureEntity extends BaseComparatorEntity<ProcedureEntity> {
   @Column(name = "name", unique = true, length = 200, nullable = false)
   private String name;
   /**
+   * The author of the procedure.
+   */
+  @Column(name = "author", length = 200)
+  private String author;
+  /**
    * The user who created the procedure.
    */
   @ManyToOne
