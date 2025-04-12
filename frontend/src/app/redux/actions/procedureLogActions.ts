@@ -23,3 +23,16 @@ export const setProcedureLogPageableProperties = (data: PageableProperties) => {
     payload: data,
   };
 };
+
+export const setProcedureLogIsLogButtonDisabled = (data: boolean) => {
+  return {
+    type: ProcedureLogConsts.SET_PROCEDURE_LOG_IS_LOG_BUTTON_DISABLED,
+    payload: data,
+  };
+};
+
+export const setProcedureLogStorageToDefault = () => {
+  return {
+    type: ProcedureLogConsts.SET_PROCEDURE_LOG_STORAGE_TO_DEFAULT,
+  };
+};

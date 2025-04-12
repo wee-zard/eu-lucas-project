@@ -1,4 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { thunk } from "redux-thunk";
 import imageReducer from "@redux/reducers/imageReducer";
 import dialogReducer from "@redux/reducers/dialogReducer";
 import creationYearReducer from "@redux/reducers/creationYearReducer";
@@ -12,29 +13,33 @@ import plantReducer from "@redux/reducers/plantReducer";
 import plantSpeciesReducer from "@redux/reducers/plantSpeciesReducer";
 import logParamReducer from "@redux/reducers/logParamReducer";
 import procedureLogReducer from "./reducers/procedureLogReducer";
+import procedureUploadReducer from "./reducers/procedureUploadReducer";
+
+const rootReducer = combineReducers({
+  // Processed:
+  imageStore: imageReducer,
+  procedureUploadStorage: procedureUploadReducer,
+
+  // Not processed yet:
+  dialogStore: dialogReducer,
+  creationYearStore: creationYearReducer,
+  creationCountryStore: creationCountryReducer,
+  creationDirectionStore: creationDirectionReducer,
+  coordinateXStore: coordinateXReducer,
+  coordinateYStore: coordinateYReducer,
+  exifKeyStore: exifKeyReducer,
+  procedureStore: procedureReducer,
+  procedureLogStore: procedureLogReducer,
+  procedureLogParamStore: logParamReducer,
+  plantStore: plantReducer,
+  plantSpeciesReducer: plantSpeciesReducer,
+});
 
 const store = configureStore({
-  reducer: {
-    imageStore: imageReducer,
-    dialogStore: dialogReducer,
-    creationYearStore: creationYearReducer,
-    creationCountryStore: creationCountryReducer,
-    creationDirectionStore: creationDirectionReducer,
-    coordinateXStore: coordinateXReducer,
-    coordinateYStore: coordinateYReducer,
-    exifKeyStore: exifKeyReducer,
-    procedureStore: procedureReducer,
-    procedureLogStore: procedureLogReducer,
-    procedureLogParamStore: logParamReducer,
-    plantStore: plantReducer,
-    plantSpeciesReducer: plantSpeciesReducer,
-  },
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
 
 export default store;
-// Get the type of our store variable
-export type AppStore = typeof store;
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore["getState"]>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = AppStore["dispatch"];
+export type RootState = ReturnType<typeof rootReducer>;

@@ -1,4 +1,4 @@
-import { getPlantList } from "@api/command/plantCommands";
+import GenericCommandDispatcher from "@api/abstraction/genericCommandDispatcher";
 import PlantDto from "@model/dto/PlantDto";
 import { PlantConsts } from "@redux/consts/plantConsts";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -24,7 +24,8 @@ export const setPlantSucceeded = (data: PlantDto[]) => {
 
 export const requestPlantList = (dispatch: Dispatch) => {
   dispatch(setPlantRequest());
-  getPlantList()
+  GenericCommandDispatcher.getPlantCommands()
+    .getPlants()
     .then((response) => {
       if (response) {
         dispatch(setPlantSucceeded(response));

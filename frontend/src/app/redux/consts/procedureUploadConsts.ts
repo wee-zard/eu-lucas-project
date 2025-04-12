@@ -1,0 +1,3 @@
+export enum ProcedureUploadConsts {
+  SET_PROCEDURE_PROCESS_MODELS = "SET_PROCEDURE_PROCESS_MODELS",
+}

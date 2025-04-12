@@ -1,14 +1,15 @@
-import { UnknownAction } from "redux";
 import ProcedureLogDto from "@model/dto/ProcedureLogDto";
 import { ProcedureLogConsts } from "@redux/consts/procedureLogConsts";
 import SelectedProcedureLogModel from "@model/models/SelectedProcedureLogModel";
 import PageableProperties from "@model/PageableProperties";
 import { PROCEDURE_LOG_PAGE_SIZE } from "@global/globalConsts";
+import { UnknownAction } from "@reduxjs/toolkit";
 
 interface ReducerStateType {
   listOfProcedureLogs: ProcedureLogDto[];
   selectedListOfProcedureLogs: SelectedProcedureLogModel[];
   pageableProperties: PageableProperties;
+  isLogButtonDisabled: boolean;
 }
 
 const initialState: ReducerStateType = {
@@ -18,6 +19,7 @@ const initialState: ReducerStateType = {
     pageNo: 0,
     pageSize: PROCEDURE_LOG_PAGE_SIZE,
   },
+  isLogButtonDisabled: true,
 };
 
 const procedureLogReducer = (state = initialState, action: UnknownAction): ReducerStateType => {
@@ -36,6 +38,15 @@ const procedureLogReducer = (state = initialState, action: UnknownAction): Reduc
       return {
         ...state,
         pageableProperties: action.payload as PageableProperties,
+      };
+    case ProcedureLogConsts.SET_PROCEDURE_LOG_IS_LOG_BUTTON_DISABLED:
+      return {
+        ...state,
+        isLogButtonDisabled: action.payload as boolean,
+      };
+    case ProcedureLogConsts.SET_PROCEDURE_LOG_STORAGE_TO_DEFAULT:
+      return {
+        ...initialState,
       };
     default:
       return state;

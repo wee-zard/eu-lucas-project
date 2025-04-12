@@ -2,6 +2,7 @@ import { MenuActions } from "@model/enum";
 import { ImageConsts } from "@redux/consts/imageConsts";
 import PageableProperties from "@model/PageableProperties";
 import SelectedImagesModel from "@model/SelectedImagesModel";
+import ImageDto from "@model/dto/ImageDto";
 
 export const setListOfSelectedImages = (data: SelectedImagesModel[]) => {
   return {
@@ -10,7 +11,14 @@ export const setListOfSelectedImages = (data: SelectedImagesModel[]) => {
   };
 };
 
-export const setSelectedImage = (data?: SelectedImagesModel) => {
+export const setSelectedImageModel = (data?: SelectedImagesModel) => {
+  return {
+    type: ImageConsts.SET_SELECTED_IMAGE_MODEL,
+    payload: data,
+  };
+};
+
+export const setSelectedImage = (data?: ImageDto) => {
   return {
     type: ImageConsts.SET_SELECTED_IMAGE,
     payload: data,
