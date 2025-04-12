@@ -3,7 +3,8 @@ package com.lucas.spring.services.service;
 import com.lucas.spring.model.entity.ImageEntity;
 import com.lucas.spring.model.expection.ImageException;
 import com.lucas.spring.model.request.ImageRequest;
-import java.util.Optional;
+import com.lucas.spring.model.request.procedures.ProcedureResultFile;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,4 +38,14 @@ public interface ImageService {
    * @throws ImageException Thrown, when the image is not present in the db.
    */
   ImageEntity getImageByNameAndYear(String name, Number year);
+
+  /**
+   * Fetches the list of images based on the provided files.
+   *
+   * @param files The list of image files, where the name of the image and the
+   *                    creation year is provided for the purpose of fetching the
+   *                    image urls from the db.
+   * @return Returns the images.
+   */
+  List<ImageEntity> getImagesByProcedureFiles(List<ProcedureResultFile> files);
 }

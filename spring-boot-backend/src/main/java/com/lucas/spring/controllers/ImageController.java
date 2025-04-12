@@ -7,10 +7,13 @@ import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.model.models.PageableProperties;
 import com.lucas.spring.model.request.ImageRequest;
 import com.lucas.spring.model.request.filtering.FilteringQueryRequest;
+import com.lucas.spring.model.request.procedures.ProcedureResultFileRequest;
 import com.lucas.spring.model.response.PageableResponse;
 import com.lucas.spring.services.facade.ExifFacadeService;
 import com.lucas.spring.services.facade.ImageFacadeService;
 import com.lucas.spring.services.service.ImageFilterService;
+import com.lucas.spring.services.service.ImageService;
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +35,7 @@ public class ImageController {
   private final ExifFacadeService exifFacadeService;
   private final ImageFilterService imageFilterService;
   private final ConversionHelper conversionHelper;
+  private final ImageService imageService;
 
   /**
    * An endpoint to upload image information to the db.
@@ -71,5 +75,25 @@ public class ImageController {
             imageFilterService.filterImages(filteringQueryRequest, properties),
             ImageDto.class,
             properties);
+  }
+
+  /**
+   * Retrieves an images based on the provided image names and creation years.
+   *
+   * @param authenticatedUser The user who initialized the connection to the server.
+   * @param filesRequest The list of image files, where the name of the image and the
+   *                    creation year is provided for the purpose of fetching the
+   *                    image urls from the db.
+   * @return Returns the images.
+   */
+  @CrossOrigin
+  @PostMapping("/")
+  public List<ImageDto> postImageByImageNameAndCreationYear(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
+          @RequestBody ProcedureResultFileRequest filesRequest
+  ) {
+    return conversionHelper.convertEntityListToDtoList(
+            imageService.getImagesByProcedureFiles(filesRequest.getFiles()),
+            ImageDto.class);
   }
 }
