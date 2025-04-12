@@ -1,5 +1,6 @@
 package com.lucas.spring.helper.converters;
 
+import com.lucas.spring.helper.utils.FormatParseUtil;
 import com.lucas.spring.model.models.PageableProperties;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,13 +59,7 @@ public class StringToPageblePropEntityConverter
           final Map<String, String> pageablePropertiesMap,
           final String property
   ) {
-    try {
-      return Integer.parseInt(pageablePropertiesMap.get(property));
-    } catch (final NumberFormatException error) {
-      // TODO: Throw a better exception here.
-      throw new RuntimeException("Error why executing the build of PageableProperties! "
-              + error.getMessage() + " " + property);
-    }
+    return FormatParseUtil.parseStringIntoNumber(pageablePropertiesMap.get(property));
   }
 
   private Map<String, String> getPageablePropertiesMap(String source) {

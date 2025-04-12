@@ -1,5 +1,7 @@
 package com.lucas.spring.helper.utils;
 
+import com.lucas.spring.model.enums.InputFormatErrors;
+import com.lucas.spring.model.expection.InputFormatException;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -14,11 +16,11 @@ public class FormatParseUtil {
    * @return Return the number format of the text param
    * @throws NumberFormatException thrown upon error.
    */
-  public Number parseStringIntoNumber(final String text) throws NumberFormatException {
+  public Integer parseStringIntoNumber(final String text) throws NumberFormatException {
     try {
       return Integer.parseInt(text);
     } catch (NumberFormatException exception) {
-      throw new RuntimeException("Error while parsing text to number");
+      throw new InputFormatException(InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID, text);
     }
   }
 }

@@ -2,14 +2,13 @@ package com.lucas.spring.services.service.impl;
 
 import com.lucas.spring.helper.utils.BuildEntityUtil;
 import com.lucas.spring.helper.utils.CriteriaBuilderOperatorUtil;
+import com.lucas.spring.helper.utils.FormatParseUtil;
 import com.lucas.spring.model.entity.*;
 import com.lucas.spring.model.enums.FilterOption;
 import com.lucas.spring.model.enums.ImageFilteringEnum;
-import com.lucas.spring.model.enums.InputFormatErrors;
 import com.lucas.spring.model.enums.OperatorOption;
 import com.lucas.spring.model.enums.QueryElementRelations;
 import com.lucas.spring.model.expection.ImageFilteringException;
-import com.lucas.spring.model.expection.InputFormatException;
 import com.lucas.spring.model.models.PageableProperties;
 import com.lucas.spring.model.request.filtering.FilteringQueryRequest;
 import com.lucas.spring.model.request.filtering.QueryComponent;
@@ -178,18 +177,13 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
       case PROBABILITY -> {
         final Join<ImageEntity, BoundingBoxEntity> tableJoin =
                 root.join("listOfBoundingBoxes", JoinType.LEFT);
-        try {
-          final Integer probability = Integer.parseInt(component.getSelectInput());
 
-          return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
-                  tableJoin.get(FilterOption.PROBABILITY.getTableColumn()),
-                  probability);
-        } catch (final NumberFormatException error) {
-          throw new InputFormatException(
-                  InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
-                  component.toString()
-          );
-        }
+        final Integer probability = FormatParseUtil.parseStringIntoNumber(
+                component.getSelectInput()
+        );
+        return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
+                tableJoin.get(FilterOption.PROBABILITY.getTableColumn()),
+                probability);
       }
       case PLANT_NAME -> {
         final Join<ImageEntity, PlantEntity> tableJoin = root.join("listOfPlants", JoinType.LEFT);

@@ -24,17 +24,10 @@ public class BuildEntityUtil {
    * @return a {@link CreationDirectionEntity} built object.
    */
   public CreationYearEntity buildCreationYearEntity(final QueryComponent component) {
-    try {
-      return CreationYearEntity
-                .builder()
-                .year(Integer.parseInt(component.getSelectInput()))
-                .build();
-    } catch (final NumberFormatException exception) {
-      throw new InputFormatException(
-                InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
-                component.toString()
-      );
-    }
+    return CreationYearEntity
+            .builder()
+            .year(FormatParseUtil.parseStringIntoNumber(component.getSelectInput()))
+            .build();
   }
 
   /**
@@ -57,17 +50,10 @@ public class BuildEntityUtil {
    * @return Returns a {@link CoordinateXEntity} entity.
    */
   public CoordinateXEntity buildCoordinateX(final QueryComponent component) {
-    try {
-      return CoordinateXEntity
+    return CoordinateXEntity
             .builder()
-            .coordinateX(Integer.parseInt(component.getSelectInput()))
+            .coordinateX(FormatParseUtil.parseStringIntoNumber(component.getSelectInput()))
             .build();
-    } catch (final NumberFormatException exception) {
-      throw new InputFormatException(
-              InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
-              component.toString()
-      );
-    }
   }
 
   /**
@@ -77,17 +63,10 @@ public class BuildEntityUtil {
    * @return Returns a {@link CoordinateYEntity} entity.
    */
   public CoordinateYEntity buildByCoordinateY(final QueryComponent component) {
-    try {
-      return CoordinateYEntity
+    return CoordinateYEntity
             .builder()
-            .coordinateY(Integer.parseInt(component.getSelectInput()))
+            .coordinateY(FormatParseUtil.parseStringIntoNumber(component.getSelectInput()))
             .build();
-    } catch (final NumberFormatException exception) {
-      throw new InputFormatException(
-              InputFormatErrors.CASTING_STRING_TO_NUMBER_IS_INVALID,
-              component.toString()
-      );
-    }
   }
 
   /**
