@@ -9,15 +9,16 @@ services:
     environment:
       NODE_ENV: production
     volumes:
-      - ./nginx/frontend:/app
-      - ./nginx/frontend/node_modules:/app/node_modules
-      - ./nginx/frontend/nginx/nginx.conf:/etc/nginx/nginx.conf
+      #- ./nginx/frontend:/app
+      #- ./nginx/frontend/node_modules:/app/node_modules
+      - ./nginx/build:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
       #- ./nginx/frontend/99-autoreload.sh:/docker-entrypoint.d/99-autoreload.sh # Script to autoreload Nginx when certs are renewed
-    depends_on:
-      - lucas-backend
-      #  condition: service_healthy
+    #depends_on:
+    #  - lucas-backend
+    #  #  condition: service_healthy
 
   lucas-backend:
     restart: unless-stopped
@@ -42,10 +43,8 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 50M
         reservations:
           cpus: '0.20'
-          memory: 20M
 
   lucas-mysqldb:
     image: mysql:latest
@@ -66,10 +65,8 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 50M
         reservations:
           cpus: '0.20'
-          memory: 20M
 
   lucas-certbot:
     image: certbot/certbot
