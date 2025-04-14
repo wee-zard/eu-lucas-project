@@ -42,6 +42,7 @@ const FilteringDialogImageDisplay = () => {
         });
       dispatch(setFilterMenuAction(undefined));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterMenuAction, filteringPageableProperties]);
 
   const handleClickOnImage = (imageEntity: ImageDto) => {

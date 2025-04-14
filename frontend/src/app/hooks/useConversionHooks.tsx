@@ -38,159 +38,174 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
       return [];
     }
 
-    // TODO: Fix the following error: "no-useless-computed-key"
-    const handler = Object.freeze({
-      ["YEAR"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.year"),
-          options: listOfCreationYears.map((obj) => obj.year.toString()),
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorSelectItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["COUNTRY"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.country"),
-          options: ConversionUtils.CreationCountriesToFormatString(listOfCreationCountries),
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorSelectItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["X_COORDINATE"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.x-coordinates"),
-          options: listOfCoordinateX.map((obj) => obj.coordinateX.toString()),
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorComparableItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["Y_COORDINATE"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.y-coordinates"),
-          options: listOfCoordinateY.map((obj) => obj.coordinateY.toString()),
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorComparableItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["DIRECTION"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.direction"),
-          options: listOfCreationDirections.map((obj) => obj.directionName),
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorSelectItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["EXIF_DATA"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.exif-key"),
-          options: listOfExifKeys.map((obj) => obj.exifKeyName),
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorTextfieldItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.exif-value"),
-          inputKey: FilteringFormInputKeys.TextfieldInput,
-        },
-      ],
-      ["PROCEDURE_NAME"]: () => [
-        {
-          inputTitle: i18n.t(
-            "screens.filtering.query-builder.query-by-option-names.procedure-name",
-          ),
-          options: listOfProcedures,
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorSelectItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["PROCEDURE_PARAMS"]: () => [
-        {
-          inputTitle: i18n.t(
-            "screens.filtering.query-builder.query-by-option-names.procedure-params",
-          ),
-          options: listOfProcedureLogParams,
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorSelectItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["IS_HOMOGENOUS"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.homogenous"),
-          options: operatorBooleanItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["PROBABILITY"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.probability"),
-          // TODO: This should be changes to a number input textfield.
-          options: probabilityList,
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorComparableItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["PLANT_SPECIES"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.plant-species"),
-          options: listOfPlantSpecies,
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorSelectItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-      ["PLANT_NAME"]: () => [
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.plant"),
-          options: listOfPlants,
-          inputKey: FilteringFormInputKeys.SelectInput,
-        },
-        {
-          inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-          options: operatorSelectItems,
-          inputKey: FilteringFormInputKeys.OperatorInput,
-        },
-      ],
-    });
-
-    return handler[filterTab].call(() => null);
+    switch (filterTab) {
+      case "YEAR":
+        return [
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.year"),
+            options: listOfCreationYears.map((obj) => obj.year.toString()),
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "COUNTRY":
+        return [
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.country"),
+            options: ConversionUtils.CreationCountriesToFormatString(listOfCreationCountries),
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "X_COORDINATE":
+        return [
+          {
+            inputTitle: i18n.t(
+              "screens.filtering.query-builder.query-by-option-names.x-coordinates",
+            ),
+            options: listOfCoordinateX.map((obj) => obj.coordinateX.toString()),
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorComparableItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "Y_COORDINATE":
+        return [
+          {
+            inputTitle: i18n.t(
+              "screens.filtering.query-builder.query-by-option-names.y-coordinates",
+            ),
+            options: listOfCoordinateY.map((obj) => obj.coordinateY.toString()),
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorComparableItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "DIRECTION":
+        return [
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.direction"),
+            options: listOfCreationDirections.map((obj) => obj.directionName),
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "EXIF_DATA":
+        return [
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.exif-key"),
+            options: listOfExifKeys.map((obj) => obj.exifKeyName),
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorTextfieldItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.exif-value"),
+            inputKey: FilteringFormInputKeys.TextfieldInput,
+          },
+        ];
+      case "PROCEDURE_NAME":
+        return [
+          {
+            inputTitle: i18n.t(
+              "screens.filtering.query-builder.query-by-option-names.procedure-name",
+            ),
+            options: listOfProcedures,
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "PROCEDURE_PARAMS":
+        return [
+          {
+            inputTitle: i18n.t(
+              "screens.filtering.query-builder.query-by-option-names.procedure-params",
+            ),
+            options: listOfProcedureLogParams,
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "IS_HOMOGENOUS":
+        return [
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.homogenous"),
+            options: operatorBooleanItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "PROBABILITY":
+        return [
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.probability"),
+            // TODO: This should be changes to a number input textfield.
+            options: probabilityList,
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorComparableItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "PLANT_SPECIES":
+        return [
+          {
+            inputTitle: i18n.t(
+              "screens.filtering.query-builder.query-by-option-names.plant-species",
+            ),
+            options: listOfPlantSpecies,
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+      case "PLANT_NAME":
+        return [
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.plant"),
+            options: listOfPlants,
+            inputKey: FilteringFormInputKeys.SelectInput,
+          },
+          {
+            inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
+            options: operatorSelectItems,
+            inputKey: FilteringFormInputKeys.OperatorInput,
+          },
+        ];
+    }
   };
 
   return getFilterFormTemplate();

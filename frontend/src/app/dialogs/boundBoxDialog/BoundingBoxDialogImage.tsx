@@ -14,20 +14,6 @@ export const BoundingBoxDialogImage = () => {
   const [canvas, setCanvas] = useState<HTMLCanvasElement>();
   const imageUrl = ImageUtils.initRemoteImageUrlPath(selectedImage);
 
-  useEffect(() => {
-    if (!context || !mapSprite) {
-      // If the context and the sprite are not defined, then create them
-      handleCanvasPreparations();
-      return;
-    }
-
-    // Restore the canvas
-    context.drawImage(mapSprite, 0, 0, mapSprite.naturalWidth, mapSprite.naturalHeight);
-
-    // Apply animation to the canvas
-    march();
-  }, [selectedListOfProcedureLogs, mapSprite, context, canvas, imageUrl]);
-
   const handleCanvasPreparations = (): void => {
     if (!imageUrl) {
       return;
@@ -121,6 +107,24 @@ export const BoundingBoxDialogImage = () => {
       });
     });
   };
+
+  useEffect(
+    () => {
+      if (!context || !mapSprite) {
+        // If the context and the sprite are not defined, then create them
+        handleCanvasPreparations();
+        return;
+      }
+
+      // Restore the canvas
+      context.drawImage(mapSprite, 0, 0, mapSprite.naturalWidth, mapSprite.naturalHeight);
+
+      // Apply animation to the canvas
+      march();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedListOfProcedureLogs, mapSprite, context, canvas, imageUrl],
+  );
 
   /*
   useEffect(() => {

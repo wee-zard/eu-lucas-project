@@ -145,7 +145,8 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
     const eventName = IdUtils.getEventListenerName(states.filtered.id);
     window.addEventListener(eventName, updateElement);
     return () => window.removeEventListener(eventName, updateElement);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return <React.Fragment>{element}</React.Fragment>;
 });

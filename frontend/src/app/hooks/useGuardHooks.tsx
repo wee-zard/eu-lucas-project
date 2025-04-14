@@ -59,6 +59,7 @@ export const useGoogleAccountGuard = (isOpen: boolean) => {
     } else {
       setResult(GuardResultTypes.PASSED);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   return result;
@@ -82,6 +83,7 @@ export const useNotLoggedInGuard = (isOpen: boolean) => {
     } else {
       setResult(GuardResultTypes.PASSED);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   return result;

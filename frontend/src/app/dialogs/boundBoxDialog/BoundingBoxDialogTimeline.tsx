@@ -63,9 +63,13 @@ export const BoundingBoxDialogTimeline = () => {
     dispatch(setProcedureLogListOfProcedureLogs([...listOfProcedureLogs, ...res.pageItems]));
   };
 
-  useEffect(() => {
-    fetchListOfProcedureLogs();
-  }, [listOfProcedureLogs, pageableProperties, isLogButtonDisabled, selectedImage]);
+  useEffect(
+    () => {
+      fetchListOfProcedureLogs();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [listOfProcedureLogs, pageableProperties, isLogButtonDisabled, selectedImage],
+  );
 
   const getProcedureProperties = (
     procedureLog: ProcedureLogDto,

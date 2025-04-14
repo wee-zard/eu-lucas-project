@@ -47,6 +47,7 @@ const UploadProcedureActions = () => {
 
     setListOfXmlFiles(xmlFiles);
     dispatch(setProcedureUploadProcessModels(procedureProcessFiles));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitEvent]);
 
   const processFileFromXmlFiles = async (file: File) => {
@@ -61,6 +62,11 @@ const UploadProcedureActions = () => {
 
     // Step 2.5: Add the new request to the pool.
     setProcedureResultRequest((prev) => [...prev, request]);
+  };
+
+  const addNewErrorFile = (message: ProcedureFileMessages, filename: string, options?: {}) => {
+    const procedureProcessFile: ProcedureProcessModel = { filename, message, options };
+    dispatch(setProcedureUploadProcessModels([...listOfProcedureProcesses, procedureProcessFile]));
   };
 
   useEffect(() => {
@@ -83,12 +89,8 @@ const UploadProcedureActions = () => {
       .finally(() => {
         setListOfXmlFiles(listOfXmlFiles.filter((_, index) => index !== 0));
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listOfXmlFiles]);
-
-  const addNewErrorFile = (message: ProcedureFileMessages, filename: string, options?: {}) => {
-    const procedureProcessFile: ProcedureProcessModel = { filename, message, options };
-    dispatch(setProcedureUploadProcessModels([...listOfProcedureProcesses, procedureProcessFile]));
-  };
 
   const processProcedureRequests = async () => {
     // Step 3.1: Get the images and their properties based on the requests.
@@ -123,6 +125,7 @@ const UploadProcedureActions = () => {
     }
 
     processProcedureRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [procedureResultRequest, listOfXmlFiles]);
 
   const displayDragAndDropComponent = () => {
