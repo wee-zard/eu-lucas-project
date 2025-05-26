@@ -1,9 +1,9 @@
 /**
- * Adds a ripple component to the provided dom component, when the
+ * Adds a ripple component to the provided dom component when the
  * user clicks on the component.
  *
  * @param event A fired onClick event, when the user clicked on a component.
- * @param id The unique id of the component which will be used to add an additional component as the ripple.
+ * @param id The unique id of the component which will be used to add a component as the ripple.
  */
 export const handleClickOnGlobalRippleEffect = (event: React.MouseEvent, id: string) => {
   const imageCard = document.getElementById(id);
@@ -18,7 +18,7 @@ export const handleClickOnGlobalRippleEffect = (event: React.MouseEvent, id: str
   // Add ripple class to span
   ripple.classList.add("ripple");
 
-  // Add span to the button
+  // Add a span to the button
   imageCard.appendChild(ripple);
 
   // Move the span to a default position
@@ -26,7 +26,7 @@ export const handleClickOnGlobalRippleEffect = (event: React.MouseEvent, id: str
   ripple.style.top = `0px`;
 
   // Get the position of the span.
-  var rect = ripple.getBoundingClientRect();
+  const rect = ripple.getBoundingClientRect();
 
   // Position the span element
   ripple.style.left = `${event.clientX - rect.x}px`;
