@@ -10,10 +10,24 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class FormatParseUtil {
   /**
-   * Parse the provided string into number.
+   * Parses the provided string into a number.
+   *
+   * <p><strong>Example I.:</strong>
+   *
+   * <p>Input: "23" (type "String")</p>
+   *
+   * <p>Output: 23 (type "Number")</p>
+   * </p><br>
+   *
+   * <p><strong>Example II.:</strong>
+   *
+   * <p>Input: "xml" (type "String")</p>
+   *
+   * <p>Output: {@link NumberFormatException}</p>
+   * </p><br>
    *
    * @param text The text to parse.
-   * @return Return the number format of the text param
+   * @return Returns the number format of the text param.
    * @throws NumberFormatException thrown upon error.
    */
   public Integer parseStringIntoNumber(final String text) throws NumberFormatException {
