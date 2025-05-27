@@ -14,11 +14,13 @@ import plantSpeciesReducer from "@redux/reducers/plantSpeciesReducer";
 import logParamReducer from "@redux/reducers/logParamReducer";
 import procedureLogReducer from "./reducers/procedureLogReducer";
 import procedureUploadReducer from "./reducers/procedureUploadReducer";
+import settingReducer from "./reducers/settingReducer";
 
 const rootReducer = combineReducers({
   // Processed:
   imageStore: imageReducer,
   procedureUploadStorage: procedureUploadReducer,
+  settingStore: settingReducer,
 
   // Not processed yet:
   dialogStore: dialogReducer,
@@ -43,3 +45,5 @@ const store = configureStore({
 export default store;
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof rootReducer>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;
