@@ -22,3 +22,31 @@ body {
     transform: scale(10);
   }
 }
+
+.flex-align-to-center {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.grid-align-to-center {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.flex-container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-container {
+  display: grid;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
