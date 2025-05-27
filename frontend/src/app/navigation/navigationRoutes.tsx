@@ -1,7 +1,7 @@
 import { GuardTypes, ScreenUrls } from "@model/enum";
 import RouterModel from "@model/RouterModel";
 import DefaultScreen from "@screens/DefaultScreen";
-import LoginScreen from "@screens/LoginScreen";
+import LoginScreen from "@screens/loginScreen/LoginScreen";
 import NotFoundScreen from "@screens/NotFoundScreen";
 import LucasScreen from "@screens/LucasScreen";
 import { navigation } from "@navigation/ToolpadNavigations";
