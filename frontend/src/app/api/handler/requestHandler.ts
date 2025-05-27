@@ -13,7 +13,6 @@ import RequestHeaderHandler from "./requestHeaderHandler";
  * it will resend the request, after updating the access token of the user by the refresh token.
  *
  * @param command A request command template which will be used to construct a new http request.
- * @param T The set result type of the {@link axios} response.
  * @returns Returns
  */
 const commandHandler = <T>(command: RequestCommand): Promise<T | null> => {
@@ -30,13 +29,12 @@ const commandHandler = <T>(command: RequestCommand): Promise<T | null> => {
 };
 
 /**
- * A dispatcher that based on the generic type,
+ * A dispatcher that based on the generic type
  * will return the http response data.
  *
- * Sends out a http request and returns a T type of object or list of objects.
+ * Sends out an http request and returns a T type of object or list of objects.
  *
  * @param command A request command template which will be used to construct a new http request.
- * @param T The set result type of the {@link axios} response.
  * @returns Returns
  */
 export const genericDispatcher = <T>(command: RequestCommand): Promise<T> => {
@@ -51,7 +49,7 @@ export const genericDispatcher = <T>(command: RequestCommand): Promise<T> => {
 
 /**
  * Based on the {@link RequestCommandTypes} attribute of the {@link RequestCommand},
- * the method will call the corresponding request command and send out a
+ * the method will call the corresponding request command and send out an
  * http request with the provided command template.
  *
  * @param command A request command template which will be used to construct a new http request.
@@ -61,7 +59,7 @@ const commandHandlerDispatcher = (command: RequestCommand) => {
   switch (command.type) {
     case RequestCommandTypes.GET:
       return axios.get(
-        initServerUrlPath(command, command.obj as RequestParamType[]),
+        initServerUrlPath(command),
         RequestHeaderHandler.initRequestHeader(command, true),
       );
     case RequestCommandTypes.POST:
@@ -93,10 +91,11 @@ const getRequestParamPath = (requestParams: RequestParamType[]) => {
  * @param command A request command template which will be used to construct a new http request.
  * @returns Returns the constructed server url path.
  */
-const initServerUrlPath = (command: RequestCommand, requestParams?: RequestParamType[]) => {
+const initServerUrlPath = (command: RequestCommand) => {
   const endpoint = `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`;
+  const requestParams = command.obj as RequestParamType[];
 
-  return requestParams && requestParams.length > 0
+  return command.type === RequestCommandTypes.GET
     ? `${endpoint}?${getRequestParamPath(requestParams)}`
     : `${endpoint}`;
 };

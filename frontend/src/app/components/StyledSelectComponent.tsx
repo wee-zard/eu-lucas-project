@@ -8,10 +8,12 @@ type Props = {
   isDisabled?: boolean;
   inputValue?: string;
   errorMessage?: string;
+  icon?: JSX.Element;
   setValue: (value: string) => void;
 };
 
 const StyledSelectComponent = ({
+  icon,
   inputTitle,
   options,
   inputValue,
@@ -28,10 +30,18 @@ const StyledSelectComponent = ({
     return inputValue && options.includes(inputValue, 0) ? inputValue : "";
   };
 
+  const getInputIcon = (): JSX.Element | null => {
+    return icon ? <StyledIconWrapper>{icon}</StyledIconWrapper> : null;
+  };
+
+  const getInputTitle = (): JSX.Element | null => {
+    return inputTitle ? <InputLabel>{inputTitle}</InputLabel> : null;
+  };
+
   return (
     <FormControl fullWidth required sx={{ ".MuiInputLabel-root": { top: "-5px" } }}>
       <StyledComponentGap display={"grid"}>
-        <InputLabel>{inputTitle}</InputLabel>
+        {getInputTitle()}
         <StyledSelect
           value={getInputValue()}
           label={inputTitle}
@@ -45,6 +55,7 @@ const StyledSelectComponent = ({
             </MenuItem>
           ))}
         </StyledSelect>
+        {getInputIcon()}
         {errorMessage ? <StyledErrorMessageHolder>{errorMessage}</StyledErrorMessageHolder> : null}
       </StyledComponentGap>
     </FormControl>
@@ -58,19 +69,25 @@ const ITEM_PADDING_TOP = 8;
 
 export const StyledErrorMessageHolder = styled("div")<{}>((_) => ({
   color: "red",
-  fontSize: "14px",
+  fontSize: 14,
 }));
 
+const StyledIconWrapper = styled("span")({
+  position: "absolute",
+  top: 8,
+  left: 8,
+});
+
 const BaseSelect = styled(Select)((_) => ({
-  height: "40px",
-  borderRadius: "12px",
+  height: 40,
+  borderRadius: 12,
 }));
 
 const StyledSelect = styled(({ className, ...props }: SelectProps) => (
   <BaseSelect {...props} MenuProps={{ PaperProps: { className } }} />
 ))((_) => ({
   maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-  borderRadius: "12px",
+  borderRadius: 12,
   overflow: "auto",
   overflowX: "hidden",
   ...customScrollBar(),

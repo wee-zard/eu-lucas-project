@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
-import { StyledComponentGap } from "../global/globalStyles";
+import { StyledComponentGap } from "@global/globalStyles";
 import styled from "@emotion/styled";
 
 type Props = {
@@ -9,14 +9,7 @@ type Props = {
   buttonText: string;
   buttonIcon?: JSX.Element;
   buttonVariant?: "text" | "outlined" | "contained";
-  buttonColor?:
-    | "inherit"
-    | "error"
-    | "primary"
-    | "secondary"
-    | "success"
-    | "info"
-    | "warning";
+  buttonColor?: "inherit" | "error" | "primary" | "secondary" | "success" | "info" | "warning";
   isDisabled?: boolean;
   buttonType?: "button" | "submit" | "reset" | undefined;
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -43,7 +36,7 @@ const StyledButton = ({
           type={buttonType}
         >
           <CustomComponentGap>
-            { buttonIcon ? <StyledIconHolder>{buttonIcon}</StyledIconHolder> : null }
+            {buttonIcon ? <StyledIconHolder>{buttonIcon}</StyledIconHolder> : null}
             <div>{buttonText}</div>
           </CustomComponentGap>
         </CustomButtonDesign>
@@ -60,7 +53,7 @@ const CustomComponentGap = styled(StyledComponentGap)<{}>(() => ({
 }));
 
 const StyledIconHolder = styled.div<{}>(() => ({
-  display: "flex"
+  display: "flex",
 }));
 
 const CustomButtonDesign = styled(Button)<{}>(() => ({
