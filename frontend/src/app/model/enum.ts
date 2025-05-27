@@ -124,7 +124,7 @@ export enum ServersToConnectTo {
 export enum LocalStorageKeys {
   GoogleOAuthToken = "google_oauth_token",
   GoogleRefreshToken = "google-refresh-token",
-  NotificationColor = "toolpad-mode",
+  ToolPadMode = "toolpad-mode",
   FilteringDialog = "filtering-dialog",
 }
 
