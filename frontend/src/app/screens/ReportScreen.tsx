@@ -1,23 +1,27 @@
 import { sendReportEmail } from "@api/command/smtpEmailCommands";
-import StyledBackdrop from "@components/StyledBackdrop";
 import StyledButton from "@components/StyledButton";
 import StyledSelectComponent from "@components/StyledSelectComponent";
 import StyledTextFieldComponent from "@components/StyledTextFieldComponent";
 import { StyledInputHolder } from "@dialogs/filteringDialog/FilteringMenu";
 import { StyledComponentGap } from "@global/globalStyles";
 import { ConversionUtils } from "@helper/conversionUtils";
-import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
+import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
 import { ReportTypes, ReportTypesNames } from "@model/enum";
+import { SnackEnum } from "@model/enum/SnackEnum";
 import SmtpEmailRequest, { SmtpEmailRequestError } from "@model/request/SmtpEmailRequest";
+import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { selectIsBackdropOpen } from "@redux/selectors/settingSelector";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const ReportScreen = () => {
   const titleCharacterLimit = 200;
   const messageCharacterLimit = 4000;
   const [request, setRequest] = useState(new SmtpEmailRequest());
   const [requestError, setRequestError] = useState(new SmtpEmailRequestError());
-  const [isDisabled, setDisabled] = useState(false);
+  const isBackdropOpen = useSelector(selectIsBackdropOpen);
+  const dispatch = useDispatch();
 
   const handleReportTitleChange = (title: string) => {
     if (title.length > titleCharacterLimit) {
@@ -57,34 +61,29 @@ const ReportScreen = () => {
   const getReportTypes = ConversionUtils.ReportTypesToReportTypeNames(request?.reportType) ?? "";
 
   const submitReport = () => {
-    setDisabled(true);
+    dispatch(setSettingBackdropOpen(true));
+
     const tmpError: SmtpEmailRequestError = {
       title: !!request.title ? undefined : i18n.t("validators.field-is-required"),
       reportType: !!request.reportType ? undefined : i18n.t("validators.field-is-required"),
       message: !!request.message ? undefined : i18n.t("validators.field-is-required"),
     };
     const isErrorNotFound = Object.values(tmpError).every((error) => !error);
+
     if (isErrorNotFound) {
       sendReportEmail(request)
         .then((response) => {
           if (response) {
             setRequest(new SmtpEmailRequest());
-            throwNotification(
-              NotificationSeverity.Success,
-              i18n.t("screens.reporting.notifications.report-sent-out"),
-            );
+            openSnackbar(SnackEnum.REPORT_SENT_OUT);
           }
-          setDisabled(false);
         })
-        .catch((_) =>
-          throwNotification(
-            NotificationSeverity.Error,
-            i18n.t("screens.reporting.notifications.report-cannot-be-sent-out"),
-          ),
-        );
+        .catch(() => openSnackbar(SnackEnum.REPORT_NOT_SENT_OUT))
+        .finally(() => dispatch(setSettingBackdropOpen(false)));
     } else {
-      setDisabled(false);
+      dispatch(setSettingBackdropOpen(false));
     }
+
     setRequestError(tmpError);
   };
 
@@ -130,9 +129,8 @@ const ReportScreen = () => {
         buttonText={i18n.t("components.button.submit")}
         buttonType={"submit"}
         onClick={submitReport}
-        isDisabled={isDisabled}
+        isDisabled={isBackdropOpen}
       />
-      <StyledBackdrop isBackdropOpen={isDisabled} />
     </StyledComponentGap>
   );
 };

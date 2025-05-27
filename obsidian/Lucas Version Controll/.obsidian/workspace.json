@@ -32,6 +32,20 @@
             }
           },
           {
+            "id": "41016ca2f4ebb433",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "043 - Google OAuth gomb középre igazítása és stílus hozzáadása"
+            }
+          },
+          {
             "id": "c16a753b21fe0691",
             "type": "leaf",
             "state": {
@@ -59,7 +73,8 @@
               "title": "004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -132,7 +147,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Kanban Board/Lucas Kanban.md",
+                "file": "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -142,7 +157,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Lucas Kanban visszahivatkozásai"
+              "title": "043 - Google OAuth gomb középre igazítása és stílus hozzáadása visszahivatkozásai"
             }
           },
           {
@@ -188,7 +203,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 212
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -202,12 +217,13 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "21dde8e84cff000a",
+  "active": "41016ca2f4ebb433",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md",
-    "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/169 - Backend - Képek exif adatainak lekérése a háttérben.md",
+    "Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md",
     "Kanban Board/Nodes/156 - Docker és alkalmazás futtatása VM-ben.md",
+    "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
     "Kanban Board/Nodes/168 - Auto-Reloading certbot after every 60 days.md",
     "Kanban Board/Nodes/167 - DockerHub-ról levenni a projektet.md",
     "Kanban Board/Nodes/069 - Környezetfüggetlen nyelvtan definiálása az új QueryBuilder-hez.md",
@@ -234,7 +250,6 @@
     "Kanban Board/Nodes/158 - Jenkins pipeline írása az automatikus deploy-ok indítása céljából.md",
     "Kanban Board/Nodes/159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető.md",
     "Kanban Board/Nodes/157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán.md",
-    "Kanban Board/Nodes/074 - Filtering oldalon egy input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését.md",
     "Kanban Board/Images/Pasted image 20241226130426.png",
     "Kanban Board/Images/Pasted image 20241226130403.png",
     "Pasted image 20241226130339.png",

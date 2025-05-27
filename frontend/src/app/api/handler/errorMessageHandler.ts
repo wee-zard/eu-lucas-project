@@ -1,6 +1,6 @@
 import { getNewAccessToken } from "@helper/authenticationUtils";
 import { setLocalStorageItem } from "@helper/localStorageUtil";
-import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
+import { ToastSeverity, throwNotification } from "@helper/notificationUtil";
 import { LocalStorageKeys, UniqueErrorResponseTypes } from "@model/enum";
 import LoginAuthenticationError from "@model/error/LoginAuthenticationError";
 import RequestCommandError from "@model/error/RequestCommandError";
@@ -11,7 +11,7 @@ import { genericDispatcher } from "./requestHandler";
 export default abstract class ErrorMessageHandler {
   /**
    * Handle the throw of error messages to the user in a form of popup
-   * by matching which constructor of the class builded the error object.
+   * by matching which constructor of the class built the error object.
    *
    * @param error The error object that could be any {@link Error} type of object.
    * @param axiosErrorMessage The base error message of the command.
@@ -23,15 +23,15 @@ export default abstract class ErrorMessageHandler {
         if (error.status === 401) {
           return UniqueErrorResponseTypes.UNAUTHORIZED;
         } else {
-          throwNotification(NotificationSeverity.Error, error.message);
+          throwNotification(ToastSeverity.Error, error.message);
           return null;
         }
       case LoginAuthenticationError:
       case RequestCommandError:
-        throwNotification(NotificationSeverity.Error, error.message);
+        throwNotification(ToastSeverity.Error, error.message);
         return null;
       default:
-        throwNotification(NotificationSeverity.Error, axiosErrorMessage);
+        throwNotification(ToastSeverity.Error, axiosErrorMessage);
         return null;
     }
   };
@@ -49,8 +49,8 @@ export default abstract class ErrorMessageHandler {
           genericDispatcher<T>(command)
             .then((res) => resolve(res))
             .catch(() => {
-              // Error occurred during the 2nd api request. Display error message and terminate the process.
-              throwNotification(NotificationSeverity.Error, command.errorMessage);
+              // Error occurred during the 2nd api request. Display an error message and terminate the process.
+              throwNotification(ToastSeverity.Error, command.errorMessage);
               reject();
             });
         })

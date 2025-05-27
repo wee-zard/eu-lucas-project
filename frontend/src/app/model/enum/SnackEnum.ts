@@ -1,0 +1,11 @@
+export enum SnackEnum {
+  LOGS_ARE_DELETED = "screens.upload-procedures.notifications.logs-are-deleted",
+  LOG_NOT_FOUND = "screens.bounding-box.notifications.log-not-found",
+  CANNOT_SELECT_MORE_LOGS = "screens.bounding-box.notifications.cannot-select-more-logs",
+  REFRESH_TOKEN_IS_MISSING = "guards.authentication.refresh-token-is-missing",
+  ACCESS_TOKEN_IS_MISSING = "guards.authentication.access-token-is-missing",
+  REPORT_SENT_OUT = "screens.reporting.notifications.report-sent-out",
+  REPORT_NOT_SENT_OUT = "screens.reporting.notifications.report-cannot-be-sent-out",
+  ERROR_ON_LOGIN = "screens.login.notifications.error-on-login",
+  UPLOADED_XML_FILES = "screens.upload-procedure.notification.successful-file-upload",
+}

@@ -1,26 +1,56 @@
+import i18n from "@i18n/i18nHandler";
+import { SnackEnum } from "@model/enum/SnackEnum";
+import { TranslateOptions } from "i18n-js/typings/typing";
 import { toast } from "react-toastify";
 
-export enum NotificationSeverity {
+export enum ToastSeverity {
   Success = "success",
   Info = "info",
   Warning = "warning",
   Error = "error",
 }
 
-export type NotificationObj = {
-  type: NotificationSeverity;
-  message: string;
-};
-
-export const throwNotification = (
-  type: NotificationSeverity,
-  message: string
-) => {
+export const throwNotification = (type: ToastSeverity, message: string) => {
   const handler = Object.freeze({
-    [NotificationSeverity.Success]: () => toast.success(message),
-    [NotificationSeverity.Info]: () => toast.info(message),
-    [NotificationSeverity.Warning]: () => toast.warn(message),
-    [NotificationSeverity.Error]: () => toast.error(message),
+    [ToastSeverity.Success]: () => toast.success(message),
+    [ToastSeverity.Info]: () => toast.info(message),
+    [ToastSeverity.Warning]: () => toast.warn(message),
+    [ToastSeverity.Error]: () => toast.error(message),
   });
   handler[type].call(() => null);
+};
+
+/**
+ * Throws a new snackbar message with the provided enum. The message will be displayed
+ * in the top right corner of the application, with the content of the enum. The enum holds
+ * a path to the message that is stored inside the i18n folder.
+ * The message is parsed by {@link i18n}, so it can be translated to the designated language.
+ *
+ * @param snack The message enum to display on the snackbar
+ * @param options optional variables provided to the {@link i18n} function.
+ */
+export const openSnackbar = (snack: SnackEnum, options?: TranslateOptions): void => {
+  throwNotificationBySnackEnum(snack, options);
+};
+
+const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptions) => {
+  const message = i18n.t(snack, options);
+  const throwSuccessToast = () => throwNotification(ToastSeverity.Success, message);
+  const throwErrorToast = () => throwNotification(ToastSeverity.Error, message);
+
+  const handler = Object.freeze({
+    // Successful toast messages
+    [SnackEnum.LOGS_ARE_DELETED]: () => throwSuccessToast(),
+    [SnackEnum.REPORT_SENT_OUT]: () => throwSuccessToast(),
+    [SnackEnum.UPLOADED_XML_FILES]: () => throwSuccessToast(),
+
+    // Error toast messages
+    [SnackEnum.LOG_NOT_FOUND]: () => throwErrorToast(),
+    [SnackEnum.REFRESH_TOKEN_IS_MISSING]: () => throwErrorToast(),
+    [SnackEnum.ACCESS_TOKEN_IS_MISSING]: () => throwErrorToast(),
+    [SnackEnum.CANNOT_SELECT_MORE_LOGS]: () => throwErrorToast(),
+    [SnackEnum.REPORT_NOT_SENT_OUT]: () => throwErrorToast(),
+    [SnackEnum.ERROR_ON_LOGIN]: () => throwErrorToast(),
+  });
+  handler[snack].call(() => null);
 };

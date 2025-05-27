@@ -8,8 +8,8 @@ import {
   ServersToConnectTo,
 } from "@model/enum";
 import { genericDispatcher } from "@api/handler/requestHandler";
-import { NotificationSeverity, throwNotification } from "./notificationUtil";
-import i18n from "@i18n/i18nHandler";
+import { openSnackbar } from "./notificationUtil";
+import { SnackEnum } from "@model/enum/SnackEnum";
 
 const googleOAuthClientId = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_ID ?? "";
 const googleOAuthClientSecret = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_SECRET ?? "";
@@ -50,10 +50,7 @@ export const getNewAccessToken = (): Promise<AuthorizationModel> => {
     // Fetch the refresh token from the local storage.
     const refreshToken = getLocalStorageItem(LocalStorageKeys.GoogleRefreshToken);
     if (!refreshToken) {
-      throwNotification(
-        NotificationSeverity.Error,
-        i18n.t("guards.authentication.refresh-token-is-missing"),
-      );
+      openSnackbar(SnackEnum.REFRESH_TOKEN_IS_MISSING);
       reject(null);
     }
 
@@ -77,12 +74,9 @@ export const getNewAccessToken = (): Promise<AuthorizationModel> => {
       // TODO: This error message is not the best. replace it with a better one.
       errorMessage: "Váratlan hiba történt a bejelentés elküldése során!",
     })
-      .then((result) => resolve(result))
+      .then(resolve)
       .catch(() => {
-        throwNotification(
-          NotificationSeverity.Error,
-          i18n.t("guards.authentication.access-token-is-missing"),
-        );
+        openSnackbar(SnackEnum.ACCESS_TOKEN_IS_MISSING);
         reject(null);
       });
   });

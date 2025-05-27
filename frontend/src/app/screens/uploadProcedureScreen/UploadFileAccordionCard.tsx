@@ -2,7 +2,6 @@ import { styled } from "@mui/material/styles";
 import { TransitionGroup } from "react-transition-group";
 import { ReactComponent as XmlIcon } from "@media/xml.svg";
 import ProcedureProcessModel from "@model/ProcedureProcessModel";
-import { uploadProcedureCommonStyles } from "./UploadProcedureScreen";
 import { ProcedureFileMessages } from "@model/enum";
 import i18n from "@i18n/i18nHandler";
 import { useSelector } from "react-redux";
@@ -46,14 +45,14 @@ const StyledMessageHolder = styled("div")<{ $isError?: boolean }>((props) => ({
   fontSize: "large",
 }));
 
-const StyledRightFileHolder = styled("div")<{}>((_) => ({
+const StyledRightFileHolder = styled("div")({
   display: "grid",
   alignItems: "center",
   width: "100%",
-}));
+});
 
 const StyledFileHolder = styled("div")<{ $isError?: boolean }>((props) => ({
-  ...uploadProcedureCommonStyles,
+  margin: "0 10%",
   boxShadow: `0px 2px 6px ${props.$isError ? "rgba(255, 255, 255, 0.27)" : "rgba(0, 255, 0, 0.27)"}`,
   borderLeft: `3px solid ${props.$isError ? "red" : "green"}`,
   padding: 24,
@@ -63,7 +62,7 @@ const StyledFileHolder = styled("div")<{ $isError?: boolean }>((props) => ({
   width: "80%",
 }));
 
-const StyledTransitionGroup = styled(TransitionGroup)<{}>((_) => ({
+const StyledTransitionGroup = styled(TransitionGroup)({
   display: "grid",
   gap: 32,
-}));
+});

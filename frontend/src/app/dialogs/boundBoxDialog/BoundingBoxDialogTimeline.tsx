@@ -21,16 +21,17 @@ import ProcedureLogDto from "@model/dto/ProcedureLogDto";
 import {
   emptyCharacterPlaceholder,
   PROCEDURE_LOG_PAGE_SIZE,
-  visuallyDistinctColors,
+  distinctColors,
 } from "@global/globalConsts";
 import SelectedProcedureLogModel from "@model/models/SelectedProcedureLogModel";
-import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
+import { openSnackbar } from "@helper/notificationUtil";
 import { ProcedureLogProperties } from "@model/enum";
 import i18n from "@i18n/i18nHandler";
 import StyledButton from "@components/StyledButton";
 import { handleClickOnGlobalRippleEffect } from "app/scripts/rippleEffectOnClick";
 import { IdUtils } from "@helper/idUtils";
 import { selectSelectedImage } from "@redux/selectors/imageSelector";
+import { SnackEnum } from "@model/enum/SnackEnum";
 
 export const BoundingBoxDialogTimeline = () => {
   const { listOfProcedureLogs, selectedListOfProcedureLogs, isLogButtonDisabled } =
@@ -135,20 +136,12 @@ export const BoundingBoxDialogTimeline = () => {
       const selectedProcedureLog = listOfProcedureLogs.find((log) => log.id === dotId);
 
       if (!selectedProcedureLog) {
-        throwNotification(
-          NotificationSeverity.Error,
-          i18n.t("screens.bounding-box.notifications.log-not-found"),
-        );
+        openSnackbar(SnackEnum.LOG_NOT_FOUND);
         return;
       }
 
-      if (selectedListOfProcedureLogs.length + 1 > visuallyDistinctColors.length) {
-        throwNotification(
-          NotificationSeverity.Error,
-          i18n.t("screens.bounding-box.notifications.cannot-select-more-logs", {
-            logCount: visuallyDistinctColors.length,
-          }),
-        );
+      if (selectedListOfProcedureLogs.length + 1 > distinctColors.length) {
+        openSnackbar(SnackEnum.CANNOT_SELECT_MORE_LOGS, { logCount: distinctColors.length });
         return;
       }
 
@@ -156,7 +149,7 @@ export const BoundingBoxDialogTimeline = () => {
       const usedUpColors = selectedListOfProcedureLogs.map((log) => log.strokeStyle);
 
       // Get the list of colors that have not been assigned to logs (so we could fetch an element from them).
-      const filteredColors = visuallyDistinctColors.filter(
+      const filteredColors = distinctColors.filter(
         (color) => usedUpColors.length === 0 || usedUpColors.some((log) => log !== color.value),
       );
 

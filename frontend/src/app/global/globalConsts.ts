@@ -6,7 +6,7 @@ export const PROCEDURE_LOG_PAGE_SIZE = 10;
 
 export const emptyCharacterPlaceholder = "-";
 
-export const visuallyDistinctColors: ColorPairType[] = [
+export const distinctColors: ColorPairType[] = [
   {
     name: "maroon",
     value: "#800000",

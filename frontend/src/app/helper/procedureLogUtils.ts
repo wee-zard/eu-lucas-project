@@ -1,6 +1,6 @@
 import { ProcedureFileMessages } from "@model/enum";
 import ProcedureLogError from "@model/error/ProcedureLogError";
-import {
+import ProcedureResultModel, {
   ProcedureResultAnnotation,
   ProcedureResultAnnotationImage,
   ProcedureResultAnnotationObject,
@@ -17,8 +17,35 @@ import ProcedureResultRequest, {
 import FileUtils from "./fileUtils";
 import GenericCommandDispatcher from "@api/abstraction/genericCommandDispatcher";
 import ImageUtils from "./imageUtils";
+import ProcedureProcessModel from "@model/ProcedureProcessModel";
 
 abstract class ProcedureLogUtils {
+  /**
+   * Filter the provided files by the xml and non-xml files.
+   *
+   * @param files The files to filter
+   */
+  public static filterFilesByTypes = (files: File[]) => {
+    let xmlFilesToProcess: File[] = [];
+    let processedErrorFiles: ProcedureProcessModel[] = [];
+
+    files.forEach((file) => {
+      if (file.type === "text/xml") {
+        // Filter the xml files
+        xmlFilesToProcess = [...xmlFilesToProcess, file];
+      } else {
+        // Filter the non-xml files and send out them as processed
+        const model: ProcedureProcessModel = {
+          filename: file.name,
+          message: ProcedureFileMessages.FileExtensionIsNotXml,
+        };
+        processedErrorFiles = [...processedErrorFiles, model];
+      }
+    });
+
+    return { xmlFilesToProcess, processedErrorFiles };
+  };
+
   private static getObjectParamsOfErrorMessages = (obj = {}) => {
     return Object.keys(obj).length > 0 ? obj : undefined;
   };
@@ -27,6 +54,7 @@ abstract class ProcedureLogUtils {
    * Validates whether the provided property is defined.
    * @param property The property to evaluate.
    * @param error The error message enum to display the user if the validation failed.
+   * @param obj
    * @throws {ProcedureLogError} error, if the validation failed.
    */
   private static validatesIsDefined = (
@@ -42,8 +70,9 @@ abstract class ProcedureLogUtils {
   /**
    * Validates whether the provided property is defined.
    * @param property The property to evaluate.
-   * @param typeName The name of the type, which the property must possesses.
+   * @param typeName The name of the type, which the property must possess.
    * @param error The error message enum to display the user if the validation failed.
+   * @param obj
    * @throws {ProcedureLogError} error, if the validation failed.
    */
   private static validatesIsTypeCorrect = (
@@ -57,7 +86,15 @@ abstract class ProcedureLogUtils {
     }
   };
 
-  public static parseBufferToModel = (buffer: Buffer) => {
+  /**
+   * Parse the provided buffer to a {@link ProcedureResultModel}. Checks, if the model
+   * is created, and the annotation attribute is present in the object.
+   *
+   * @param buffer The object to parse into a model
+   * @returns Returns a {@link ProcedureResultModel}
+   * @throws {ProcedureLogError} error if the object, or the annotation attribute is not present inside the object.
+   */
+  public static parseBufferToModel = (buffer: Buffer): ProcedureResultModel => {
     const procedureModel = FileUtils.parseBufferToModel(buffer);
 
     // Validating the model (checking if the model is satisfies the dtd)
@@ -78,21 +115,22 @@ abstract class ProcedureLogUtils {
     annotation: ProcedureResultAnnotation,
   ): ProcedureResultRequest => {
     return {
-      timestamp: ProcedureLogUtils.getCreationDateFromLog(annotation),
-      author: ProcedureLogUtils.getAuthorFromLog(annotation),
-      method: ProcedureLogUtils.getMethodNameByLog(annotation),
-      params: ProcedureLogUtils.getParamsByLog(annotation),
-      images: ProcedureLogUtils.getImagesByLog(annotation),
+      timestamp: this.getCreationDateFromLog(annotation),
+      author: this.getAuthorFromLog(annotation),
+      method: this.getMethodNameByLog(annotation),
+      params: this.getParamsByLog(annotation),
+      images: this.getImagesByLog(annotation),
     };
   };
 
   /**
    * Extracting the Creation date from the provided param that is the
-   * value of the date from the xml file.
-   * @param annotation The object format of the uploaded xml file.
+   * value of the date from the XML file.
+   *
+   * @param annotation The object format of the uploaded XML file.
    */
   private static getCreationDateFromLog = (annotation: ProcedureResultAnnotation): string => {
-    const property = annotation.date;
+    const property: ProcedureLogUtils = annotation.date;
 
     // Apply validators to the 'date' attribute of the model.
     this.validatesIsDefined(property, ProcedureFileMessages.XmlDateIsNotDefined);
@@ -121,7 +159,7 @@ abstract class ProcedureLogUtils {
 
   /**
    * Extracts the author from the params, while validates this datatype, is provided properly.
-   * @param annotation The object format of the uploaded xml file.
+   * @param annotation The object format of the uploaded XML file.
    * @returns Returns the author of the log file that contains the XML.
    */
   private static getAuthorFromLog = (annotation: ProcedureResultAnnotation): string => {
@@ -224,22 +262,43 @@ abstract class ProcedureLogUtils {
     // Validating the 'filename' format
     const splitFile = property.split("_");
 
-    if (splitFile.length !== 3) {
+    if (splitFile.length === 3) {
+      // Validating the extension of the 'filename'
+      const splitFileExtension = property.split(".");
+
+      // Check the extension of the profile file
+      if (splitFileExtension.length === 1) {
+        throw new ProcedureLogError(
+          ProcedureFileMessages.ErrorExtractingImageExtension,
+          indexParam,
+        );
+      }
+
+      return {
+        fileName: `${splitFile[1]}.${splitFileExtension[splitFileExtension.length - 1]}`,
+        year: Number(splitFile[0]),
+        countryCode: "HU", // TODO: This attribute holds no significant information. Remove it later.
+      };
+    } else if (splitFile.length === 2) {
+      // Validating the extension of the 'filename'
+      const splitFileExtension = property.split(".");
+
+      // Check the extension of the profile file
+      if (splitFileExtension.length === 1) {
+        throw new ProcedureLogError(
+          ProcedureFileMessages.ErrorExtractingImageExtension,
+          indexParam,
+        );
+      }
+
+      return {
+        fileName: splitFile[1],
+        year: Number(splitFile[0]),
+        countryCode: "HU", // TODO: This attribute holds no significant information. Remove it later.
+      };
+    } else {
       throw new ProcedureLogError(ProcedureFileMessages.ErrorExtractingImageName, indexParam);
     }
-
-    // Validating the extension of the 'filename'
-    const splitFileExtension = property.split(".");
-
-    if (splitFileExtension.length === 1) {
-      throw new ProcedureLogError(ProcedureFileMessages.ErrorExtractingImageExtension, indexParam);
-    }
-
-    return {
-      fileName: `${splitFile[1]}.${splitFileExtension[splitFileExtension.length - 1]}`,
-      year: Number(splitFile[0]),
-      countryCode: "HU", // TODO: This information is not hold significant information. Remove it later.
-    };
   };
 
   private static getObjectsByLog = (
@@ -254,10 +313,7 @@ abstract class ProcedureLogUtils {
 
     if (Array.isArray(property)) {
       // an array of 'objects' are provided
-      const res = property.map((obj, index) =>
-        this.getObjectPropertiesByImage(obj, imageIndex, index),
-      );
-      return res;
+      return property.map((obj, index) => this.getObjectPropertiesByImage(obj, imageIndex, index));
     } else {
       // only one 'object' was provided
       return [this.getObjectPropertiesByImage(property, imageIndex, 0)];

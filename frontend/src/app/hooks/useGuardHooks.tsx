@@ -3,8 +3,8 @@ import { GuardResultTypes, LocalStorageKeys } from "@model/enum";
 import { googleLogout } from "@react-oauth/google";
 import { validateEmailAddress } from "@api/command/userCommands";
 import { useEffect, useState } from "react";
-import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
-import i18n from "@i18n/i18nHandler";
+import { openSnackbar } from "@helper/notificationUtil";
+import { SnackEnum } from "@model/enum/SnackEnum";
 
 export const useGoogleAccountGuard = (isOpen: boolean) => {
   const [result, setResult] = useState(GuardResultTypes.PENDING);
@@ -23,22 +23,16 @@ export const useGoogleAccountGuard = (isOpen: boolean) => {
     const authToken = getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken);
     const refreshToken = getLocalStorageItem(LocalStorageKeys.GoogleRefreshToken);
 
-    // Checks if the auth token is exists in the storage.
+    // Checks if the auth token exists in the storage.
     if (!authToken) {
-      throwNotification(
-        NotificationSeverity.Error,
-        i18n.t("guards.authentication.access-token-is-missing"),
-      );
+      openSnackbar(SnackEnum.ACCESS_TOKEN_IS_MISSING);
       emptyOutTheLocalStorageCell();
       return;
     }
 
     //Checks if the refresh token exists in the storage.
     if (!refreshToken) {
-      throwNotification(
-        NotificationSeverity.Error,
-        i18n.t("guards.authentication.refresh-token-is-missing"),
-      );
+      openSnackbar(SnackEnum.REFRESH_TOKEN_IS_MISSING);
       emptyOutTheLocalStorageCell();
       return;
     }

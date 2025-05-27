@@ -24,9 +24,10 @@ export default class ImageUtils {
   };
 
   /**
-   * Download an image by the provided path, and calls a callback once the image
+   * Download an image by the provided path and calls a callback once the image
    * is fully loaded.
-   * @param path The path to the remote image.
+   *
+   * @param imageUrl The path to the remote image.
    */
   public static initImageByRemoteUrlPath = (imageUrl: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {

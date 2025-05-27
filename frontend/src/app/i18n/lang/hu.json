@@ -36,9 +36,11 @@
   },
   "screens": {
     "not-found": {
-      "page-not-found": "404 Not Found!"
+      "page-not-found-top": "A keresett oldal nem létezik.",
+      "page-not-found-bottom": "Lehet, hogy rosszul írta be a címet, vagy az oldal elköltözött."
     },
     "login": {
+      "info-button": "Csak azon felhasználók léphetnek be az alkalmazásba, akiknek érvényes gmail fiókkal rendelkeznek, illetve előre meghívásra kerültek az alkalmazásba. További látogatók számára a regisztráció nem elérhető.",
       "form": {
         "login-with-google": "Jelentkezz be Google fiókkal"
       },
@@ -60,7 +62,8 @@
       },
       "notifications": {
         "file-uploaded": "A fájl sikeresen feltöltésre került!",
-        "logs-are-deleted": "Eljárások, eljárásokhoz tartozó logok, befoglaló téglalapok és növények sikeresen törlésre kerültek"
+        "logs-are-deleted": "Eljárások, eljárásokhoz tartozó logok, befoglaló téglalapok és növények sikeresen törlésre kerültek",
+        "successful-file-upload": "XML fájl(ok) sikeresen feltöltésre kerültek a szerverre!"
       },
       "error": {
         "processing-file-at-server": "Váratlan hiba történt a fájl feldolgozása közben a szerver oldalon!",
@@ -97,7 +100,7 @@
         "xml-height-incorrect-type-provided": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'height' XML elem típusa nem számkémnt került megadásra!",
 
         "extracting-param-names": "Hiba! A 'method' XML elem nem megfelelő formátumú! Elvárt formátum: <method>$METHOD_NAME param1='$PARAM1' param2='$PARAM2'</method>",
-        "image-name": "Hiba! A {{index}}. 'image' XML elemben a 'filename' XML elem nem megfelelő formátumú! Elvárt formátum: <filename>$YEAR_$IMAGENAME_$POSTFIX.jpg</filename>",
+        "image-name": "Hiba! A {{index}}. 'image' XML elemben a 'filename' XML elem nem megfelelő formátumú! Elvárt formátum: <filename>$YEAR_$IMAGENAME_$POSTFIX.jpg</filename> vagy <filename>$YEAR_$IMAGENAME.jpg</filename>",
         "image-extension": "Hiba! A {{index}}. 'image' XML elemben a 'filename' XML elemben nem került meghatározásra a kép kiterjesztése!",
         "confidence-value-is-not-in-range": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'confidence' XML elem értéke 0 és 1 közötti érték lehet! (pl. 0.25)",
 

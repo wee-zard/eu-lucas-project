@@ -3,10 +3,8 @@ package com.lucas.spring.helper.helper;
 import com.lucas.spring.model.dto.abstraction.RootDto;
 import com.lucas.spring.model.models.PageableProperties;
 import com.lucas.spring.model.response.PageableResponse;
-
 import java.util.Collection;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.PageImpl;

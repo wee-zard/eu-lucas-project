@@ -21,7 +21,6 @@ kanban-plugin: board
 - [ ] [[012 - FilterDialog ablakának dinamikus háttérszín adása a megjelenő Dark Light mode bekapcsolásával]]
 - [ ] [[016 - ExifData szűrés esetén az text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]]
 - [ ] [[031 - Ha a törölt user bejelentkezve maradt, akkor ne tudjon kezdeményezni semmilyen utasítást]]
-- [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
 - [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]]
 - [ ] [[051 - Standard Input mező helyett Autocomplete input mezőt használjunk]]
@@ -91,6 +90,8 @@ kanban-plugin: board
 
 ## 🔴ToDo
 
+- [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
+- [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
 - [ ] [[011 - Kiválasztott képek letöltése és zip fájlba való elmentése]]
 - [ ] [[015 - Nagy méretű táblák partícionálása]]
 - [ ] [[019 - Aktív szűrés eredményei, a kiválasztott képek és a hozzájuk tartozó szűrési feltételek kerüljenek eltárolásra localStorage-ben]]
@@ -122,6 +123,7 @@ kanban-plugin: board
 
 ## 🔴Client Requests
 
+- [ ] [[168 - Auto-Reloading certbot after every 60 days]]
 - [ ] [[023 - Sidebar-on lévő menüpontok véglegesítése]]
 - [ ] [[039 - Procedures oldal létrehozása]]
 - [ ] [[042 - Google OAuth oldal befejezése]]
@@ -130,24 +132,20 @@ kanban-plugin: board
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[118 - Adatbázos feltöltése a képekhez tartozó EXIF adatokkal]]
 - [ ] [[119 - Settings - Legyen egy gomb, amivel frissíteni lehet az adatbázisban lévő képinformációkat]]
+- [ ] [[169 - Backend - Képek exif adatainak lekérése a háttérben]]
 
 
 ## 🟡In Progress
 
+- [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
 - [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz]]
-- [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
-- [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
-- [ ] [[168 - Auto-Reloading certbot after every 60 days]]
 
 
 ## 🟢Done
 
 **Complete**
-- [ ] [[156 - Docker és alkalmazás futtatása VM-ben]]
-- [ ] [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
-- [ ] [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
 
 
 ***
@@ -232,6 +230,9 @@ kanban-plugin: board
 - [ ] 2025-02-26 11:36 [[049 - Custom Scrollbar stílus nincsen használva a Filtering Dialog űrlapj input mezőiben]]
 - [ ] 2025-02-26 11:36 [[069 - Környezetfüggetlen nyelvtan definiálása az új QueryBuilder-hez]]
 - [ ] 2025-02-26 11:36 [[058 - Email kiküldésének implementálása]]
+- [ ] 2025-05-21 16:44 [[156 - Docker és alkalmazás futtatása VM-ben]]
+- [ ] 2025-05-21 16:44 [[120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem]]
+- [ ] 2025-05-21 16:44 [[121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén]]
 
 %% kanban:settings
 ```

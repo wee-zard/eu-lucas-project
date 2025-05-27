@@ -6,18 +6,15 @@ import { deleteProceduresCommand } from "@api/command/procedureCommands";
 import i18n from "@i18n/i18nHandler";
 import StyledButton from "@components/StyledButton";
 import { deletePlantNameCommand } from "@api/command/plantNameCommands";
-import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
+import { openSnackbar } from "@helper/notificationUtil";
 import UploadProcedureActions from "./UploadProcedureActions";
+import { SnackEnum } from "@model/enum/SnackEnum";
 
 const UploadProcedureScreen = () => {
   const handleDeleteAllProcedureAndPlantButton = async () => {
     await deleteProceduresCommand();
     await deletePlantNameCommand();
-
-    throwNotification(
-      NotificationSeverity.Success,
-      i18n.t("screens.upload-procedures.notifications.logs-are-deleted"),
-    );
+    openSnackbar(SnackEnum.LOGS_ARE_DELETED);
   };
 
   return (
@@ -46,10 +43,6 @@ const UploadProcedureScreen = () => {
 
 export default UploadProcedureScreen;
 
-export const uploadProcedureCommonStyles = {
-  margin: "0 10%",
-};
-
 const CustomStyledComponentGap = styled(StyledComponentGap)<{}>((_) => ({
-  ...uploadProcedureCommonStyles,
+  margin: "0 10%",
 }));

@@ -5,11 +5,10 @@ import com.lucas.spring.model.entity.CoordinateYEntity;
 import com.lucas.spring.model.entity.CreationCountryEntity;
 import com.lucas.spring.model.entity.CreationDirectionEntity;
 import com.lucas.spring.model.entity.CreationYearEntity;
-import com.lucas.spring.model.enums.InputFormatErrors;
-import com.lucas.spring.model.expection.InputFormatException;
 import com.lucas.spring.model.request.filtering.QueryComponent;
 import lombok.experimental.UtilityClass;
 
+// TODO: This should be used with the ConversionService instead.
 /**
  * Creates entity builders based on the provided {@link QueryComponent}
  * from the Query Builder for the purpose of comparing objects.
