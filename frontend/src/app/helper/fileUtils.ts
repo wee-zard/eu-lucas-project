@@ -1,14 +1,14 @@
 import ProcedureResultModel from "@model/ProcedureResultModel";
-import { Buffer } from "buffer";
-import { XMLParser } from "fast-xml-parser";
+import {Buffer} from "buffer";
+import {XMLParser} from "fast-xml-parser";
 import ProcedureLogError from "@model/error/ProcedureLogError";
-import { ProcedureFileMessages } from "@model/enum";
+import {ProcedureFileMessages} from "@model/enum";
 
 abstract class FileUtils {
   /**
    * Get the list of uploaded files from the fired event.
    *
-   * @param event The react event that have been fired upon uploading
+   * @param event The react event that has been fired upon uploading
    * the files via a type upload input field.
    */
   public static getListOfUploadedFilesFromEvent = (
@@ -19,7 +19,7 @@ abstract class FileUtils {
   };
 
   /**
-   * Converts file to buffer.
+   * Converts a file to buffer.
    *
    * @param file The file we want to convert to buffer.
    * @returns A promise that the file is converted to a {@link Buffer}, else an undefined.
@@ -36,8 +36,7 @@ abstract class FileUtils {
   public static parseBufferToModel = (buffer: Buffer): ProcedureResultModel => {
     try {
       const parser = new XMLParser();
-      const result: ProcedureResultModel = parser.parse(buffer);
-      return result;
+      return parser.parse(buffer);
     } catch (error) {
       throw new ProcedureLogError(ProcedureFileMessages.XmlToObjectError);
     }

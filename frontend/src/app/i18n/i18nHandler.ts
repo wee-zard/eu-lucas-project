@@ -4,8 +4,8 @@ import huTrans from "@i18n/lang/hu.json";
 import { LocalTranslationTypes } from "@model/types/LocalTranslationTypes";
 
 /**
- * Inits the translations root by importing the different translation
- * json files from the application.
+ * Inits the translation root by importing the different translation
+ * JSON files from the application.
  */
 export const initI18NTranslations = () => {
   const i18n = new I18n({
