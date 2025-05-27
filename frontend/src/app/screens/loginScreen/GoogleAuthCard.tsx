@@ -1,19 +1,24 @@
-import { useState } from "react";
 import { CodeResponse, useGoogleLogin } from "@react-oauth/google";
 import { LocalStorageKeys, ScreenUrls } from "@model/enum";
 import { redirectToUrl } from "@providers/RedirectionProvider";
 import { validateEmailAddress } from "@api/command/userCommands";
-import { styled } from "@mui/material";
 import { getRefreshToken } from "@helper/authenticationUtils";
 import { ReactComponent as GoogleLoginIcon } from "@media/google-login.svg";
-import { NotificationSeverity, throwNotification } from "@helper/notificationUtil";
+import { openSnackbar } from "@helper/notificationUtil";
 import { setLocalStorageItem } from "@helper/localStorageUtil";
+import InfoIcon from "@mui/icons-material/Info";
 import StyledButton from "@components/StyledButton";
-import StyledBackdrop from "@components/StyledBackdrop";
 import i18n from "@i18n/i18nHandler";
+import StyledIconButton from "@components/StyledIconButton";
+import { SnackEnum } from "@model/enum/SnackEnum";
+import { useSelector } from "react-redux";
+import { selectIsBackdropOpen } from "@redux/selectors/settingSelector";
+import { useDispatch } from "react-redux";
+import { setSettingBackdropOpen } from "@redux/actions/settingActions";
 
-const LoginScreen = () => {
-  const [isBackdropOpen, setBackdropOpen] = useState(false);
+const GoogleAuthCard = () => {
+  const isBackdropOpen = useSelector(selectIsBackdropOpen);
+  const dispatch = useDispatch();
 
   const handleEmailValidation = () => {
     validateEmailAddress()
@@ -22,14 +27,14 @@ const LoginScreen = () => {
           redirectToUrl(ScreenUrls.LucasScreenPath);
         }
       })
-      .finally(() => setBackdropOpen(false));
+      .finally(() => dispatch(setSettingBackdropOpen(false)));
   };
 
   const handleRefreshTokenFetch = (
     success: Omit<CodeResponse, "error" | "error_description" | "error_uri">,
-  ) => {
+  ): void => {
     getRefreshToken(success.code, (res) => {
-      setBackdropOpen(true);
+      dispatch(setSettingBackdropOpen(true));
       setLocalStorageItem(res.id_token, LocalStorageKeys.GoogleOAuthToken);
       setLocalStorageItem(res.refresh_token, LocalStorageKeys.GoogleRefreshToken);
       handleEmailValidation();
@@ -39,11 +44,7 @@ const LoginScreen = () => {
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: handleRefreshTokenFetch,
-    onError: () =>
-      throwNotification(
-        NotificationSeverity.Error,
-        i18n.t("screens.login.notifications.error-on-login"),
-      ),
+    onError: () => openSnackbar(SnackEnum.ERROR_ON_LOGIN),
   });
 
   // log out function to log the user out of google and set the profile array to null
@@ -54,21 +55,26 @@ const LoginScreen = () => {
   */
 
   return (
-    <StyledGoogleAuthHolder>
-      <StyledButton
-        buttonText={i18n.t("screens.login.form.login-with-google")}
-        buttonVariant={"outlined"}
-        buttonIcon={<GoogleLoginIcon width={20} />}
-        onClick={googleLogin}
-      />
-      <StyledBackdrop isBackdropOpen={isBackdropOpen} />
-    </StyledGoogleAuthHolder>
+    <>
+      <div className="flex-container">
+        <StyledButton
+          buttonText={i18n.t("screens.login.form.login-with-google")}
+          buttonVariant={"outlined"}
+          buttonIcon={<GoogleLoginIcon width={20} />}
+          onClick={googleLogin}
+          isDisabled={isBackdropOpen}
+        />
+        <StyledIconButton
+          buttonIcon={<InfoIcon />}
+          tooltip={{
+            tooltipTitle: i18n.t("screens.login.info-button"),
+            tooltipPlacement: "top",
+          }}
+          onClick={() => null}
+        />
+      </div>
+    </>
   );
 };
 
-export default LoginScreen;
-
-const StyledGoogleAuthHolder = styled("div")<{}>((_) => ({
-  display: "flex",
-  justifyContent: "center",
-}));
+export default GoogleAuthCard;
