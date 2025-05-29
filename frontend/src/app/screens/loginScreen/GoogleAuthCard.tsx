@@ -4,8 +4,8 @@ import { redirectToUrl } from "@providers/RedirectionProvider";
 import { validateEmailAddress } from "@api/command/userCommands";
 import { getRefreshToken } from "@helper/authenticationUtils";
 import { ReactComponent as GoogleLoginIcon } from "@media/google-login.svg";
-import { openSnackbar } from "@helper/notificationUtil";
-import { setLocalStorageItem } from "@helper/localStorageUtil";
+import { openSnackbar, throwNotification, ToastSeverity } from "@helper/notificationUtil";
+import { clearLocalStorage, setLocalStorageItem } from "@helper/localStorageUtil";
 import InfoIcon from "@mui/icons-material/Info";
 import StyledButton from "@components/StyledButton";
 import i18n from "@i18n/i18nHandler";
@@ -33,18 +33,27 @@ const GoogleAuthCard = () => {
   const handleRefreshTokenFetch = (
     success: Omit<CodeResponse, "error" | "error_description" | "error_uri">,
   ): void => {
-    getRefreshToken(success.code, (res) => {
-      dispatch(setSettingBackdropOpen(true));
-      setLocalStorageItem(res.id_token, LocalStorageKeys.GoogleOAuthToken);
-      setLocalStorageItem(res.refresh_token, LocalStorageKeys.GoogleRefreshToken);
-      handleEmailValidation();
-    });
+    dispatch(setSettingBackdropOpen(true));
+    getRefreshToken(success.code)
+      .then((res) => {
+        clearLocalStorage();
+        setLocalStorageItem(res.id_token, LocalStorageKeys.GoogleOAuthToken);
+        setLocalStorageItem(res.refresh_token, LocalStorageKeys.GoogleRefreshToken);
+        handleEmailValidation();
+      })
+      .catch((err) => {
+        throwNotification(ToastSeverity.Error, err.message);
+        dispatch(setSettingBackdropOpen(false));
+      });
   };
 
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: handleRefreshTokenFetch,
-    onError: () => openSnackbar(SnackEnum.ERROR_ON_LOGIN),
+    onError: () => {
+      openSnackbar(SnackEnum.ERROR_ON_LOGIN);
+      dispatch(setSettingBackdropOpen(false));
+    },
   });
 
   return (

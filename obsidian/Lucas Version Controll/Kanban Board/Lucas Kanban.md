@@ -102,7 +102,6 @@ kanban-plugin: board
 - [ ] [[029 - Lucas-image-server átmozgatása a backend-re és ott implementálni a képek feldolgozását]]
 - [ ] [[035 - Tranzakció kezelés megvalósítása és versenyhelyzet kiküszöbölése]]
 - [ ] [[040 - Image Server implementálása]]
-- [ ] [[044 - Profilkép megjelenítése a Mat Toolbar-on]]
 - [ ] [[045 - Saját logó tervezése és megjelenítése a bejelentkezés, és a Mat Toolbar-on]]
 - [ ] [[056 - Loading ikon megjelenítése a timeline komponenshez]]
 - [ ] [[059 - Report oldal és űrlap létrehozása]]
@@ -110,8 +109,6 @@ kanban-plugin: board
 - [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]]
 - [ ] [[098 - Verziószám hozzáadása a projekthez, és annak növelése minden demo bemutatása után]]
-- [ ] [[101 - Profile - Kijelentkezés implementálása]]
-- [ ] [[102 - localStorage kiürítése bejelentkezés & kijelentkezés során]]
 - [ ] [[112 - Animáció - react-native-reanimated csomag használata az alkalmazásban]]
 - [ ] [[140 - Lottiefiles - Confirmation popup használata, sikeres űrlap elküldése során]]
 - [ ] [[141 - Lottifiles - Login oldal animációval]]
@@ -144,6 +141,9 @@ kanban-plugin: board
 ## 🟢Done
 
 **Complete**
+- [ ] [[044 - Profilkép megjelenítése a Mat Toolbar-on]]
+- [ ] [[101 - Profile - Kijelentkezés implementálása]]
+- [ ] [[102 - localStorage kiürítése bejelentkezés & kijelentkezés során]]
 - [ ] [[053 - Loading ikon megjelenítése a bejelentkezési oldalhoz]]
 - [ ] [[042 - Google OAuth oldal befejezése]]
 

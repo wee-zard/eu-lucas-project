@@ -3,7 +3,9 @@ import {
   initQueryBuilderObj,
   QueryBuilderModel,
 } from "@model/QueryBuilderModel";
-import { LocalStorageKeys } from "@model/enum";
+import { LocalStorageKeys, ScreenUrls } from "@model/enum";
+import { redirectToUrl } from "@providers/RedirectionProvider";
+import { googleLogout } from "@react-oauth/google";
 
 export const getLocalStorageItem = (key: LocalStorageKeys) => {
   return localStorage.getItem(key) ?? undefined;
@@ -15,6 +17,21 @@ export const setLocalStorageItem = (item: string, key: LocalStorageKeys) => {
 
 export const removeLocalStorageItem = (key: LocalStorageKeys) => {
   localStorage.removeItem(key);
+};
+
+export const clearLocalStorage = () => {
+  const localStorageKeys = Object.keys(localStorage);
+
+  localStorageKeys.forEach((key) => {
+    if (key === LocalStorageKeys.ToolPadMode || key === LocalStorageKeys.SetItem) {
+      return;
+    }
+
+    localStorage.removeItem(key);
+  });
+
+  googleLogout();
+  redirectToUrl(ScreenUrls.LoginScreenPath);
 };
 
 export const LocalStorageUtils = {

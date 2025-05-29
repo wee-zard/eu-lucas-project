@@ -17,11 +17,10 @@ import ReportScreen from "@screens/ReportScreen";
 import i18n from "@i18n/i18nHandler";
 import { useMemo } from "react";
 import LucasSidebarFooterAccount from "./LucasSidebarFooterAccount";
-import { LocalStorageKeys, ScreenUrls } from "@model/enum";
-import { redirectToUrl } from "@providers/RedirectionProvider";
-import { googleLogout } from "@react-oauth/google";
+import { LocalStorageKeys } from "@model/enum";
 import { jwtDecode } from "jwt-decode";
 import AuthorizedUserModel from "@model/AuthorizedUserModel";
+import { clearLocalStorage } from "@helper/localStorageUtil";
 
 type Props = {
   navigation?: Navigation;
@@ -40,21 +39,7 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
   const authentication: Authentication = useMemo(() => {
     return {
       signIn: () => null,
-      signOut: () => {
-        const localStorageKeys = Object.keys(localStorage);
-        console.log(localStorageKeys);
-
-        localStorageKeys.forEach((key) => {
-          if (key === LocalStorageKeys.ToolPadMode || key === LocalStorageKeys.SetItem) {
-            return;
-          }
-
-          localStorage.removeItem(key);
-        });
-
-        googleLogout();
-        redirectToUrl(ScreenUrls.LoginScreenPath);
-      },
+      signOut: () => clearLocalStorage(),
     };
   }, []);
 
