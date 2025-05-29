@@ -18,6 +18,7 @@ kanban-plugin: board
 
 ## 🔴Backlog
 
+- [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]
 - [ ] [[012 - FilterDialog ablakának dinamikus háttérszín adása a megjelenő Dark Light mode bekapcsolásával]]
 - [ ] [[016 - ExifData szűrés esetén az text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]]
 - [ ] [[031 - Ha a törölt user bejelentkezve maradt, akkor ne tudjon kezdeményezni semmilyen utasítást]]
@@ -103,7 +104,6 @@ kanban-plugin: board
 - [ ] [[040 - Image Server implementálása]]
 - [ ] [[044 - Profilkép megjelenítése a Mat Toolbar-on]]
 - [ ] [[045 - Saját logó tervezése és megjelenítése a bejelentkezés, és a Mat Toolbar-on]]
-- [ ] [[053 - Loading ikon megjelenítése a bejelentkezési oldalhoz]]
 - [ ] [[056 - Loading ikon megjelenítése a timeline komponenshez]]
 - [ ] [[059 - Report oldal és űrlap létrehozása]]
 - [ ] [[061 - Tesztek írása és futtatása]]
@@ -126,8 +126,6 @@ kanban-plugin: board
 - [ ] [[168 - Auto-Reloading certbot after every 60 days]]
 - [ ] [[023 - Sidebar-on lévő menüpontok véglegesítése]]
 - [ ] [[039 - Procedures oldal létrehozása]]
-- [ ] [[042 - Google OAuth oldal befejezése]]
-- [ ] [[052 - Loading komponens megjelenítése]]
 - [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]]
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]]
 - [ ] [[118 - Adatbázos feltöltése a képekhez tartozó EXIF adatokkal]]
@@ -137,7 +135,7 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
-- [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]]
+- [ ] [[052 - Loading komponens megjelenítése]]
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
 - [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz]]
@@ -146,6 +144,8 @@ kanban-plugin: board
 ## 🟢Done
 
 **Complete**
+- [ ] [[053 - Loading ikon megjelenítése a bejelentkezési oldalhoz]]
+- [ ] [[042 - Google OAuth oldal befejezése]]
 
 
 ***

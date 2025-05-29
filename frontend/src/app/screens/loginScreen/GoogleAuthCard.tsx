@@ -47,13 +47,6 @@ const GoogleAuthCard = () => {
     onError: () => openSnackbar(SnackEnum.ERROR_ON_LOGIN),
   });
 
-  // log out function to log the user out of google and set the profile array to null
-  /*
-  const logOut = () => {
-    googleLogout();
-  };
-  */
-
   return (
     <>
       <div className="flex-container">

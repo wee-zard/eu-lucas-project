@@ -3,7 +3,7 @@ import RouterModel from "@model/RouterModel";
 import DefaultScreen from "@screens/DefaultScreen";
 import LoginScreen from "@screens/loginScreen/LoginScreen";
 import NotFoundScreen from "@screens/NotFoundScreen";
-import LucasScreen from "@screens/LucasScreen";
+import LucasScreen from "@screens/lucasScreen/LucasScreen";
 import { navigation } from "@navigation/ToolpadNavigations";
 
 export const navigationRoutes: RouterModel[] = [

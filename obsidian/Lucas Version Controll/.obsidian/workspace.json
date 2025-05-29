@@ -32,17 +32,101 @@
             }
           },
           {
-            "id": "41016ca2f4ebb433",
+            "id": "b92404230d7df547",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
+                "file": "Kanban Board/Nodes/141 - Lottifiles - Login oldal animációval.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "043 - Google OAuth gomb középre igazítása és stílus hozzáadása"
+              "title": "141 - Lottifiles - Login oldal animációval"
+            }
+          },
+          {
+            "id": "d05701d51d0ac099",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/102 - localStorage kiürítése bejelentkezés & kijelentkezés során.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "102 - localStorage kiürítése bejelentkezés & kijelentkezés során"
+            }
+          },
+          {
+            "id": "31366e3c093059fc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/101 - Profile - Kijelentkezés implementálása.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "101 - Profile - Kijelentkezés implementálása"
+            }
+          },
+          {
+            "id": "11f1910d3c6d36f6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/053 - Loading ikon megjelenítése a bejelentkezési oldalhoz.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "053 - Loading ikon megjelenítése a bejelentkezési oldalhoz"
+            }
+          },
+          {
+            "id": "686283a91b8b4c2e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/045 - Saját logó tervezése és megjelenítése a bejelentkezés, és a Mat Toolbar-on.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "045 - Saját logó tervezése és megjelenítése a bejelentkezés, és a Mat Toolbar-on"
+            }
+          },
+          {
+            "id": "4815609fad644d2e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/044 - Profilkép megjelenítése a Mat Toolbar-on.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "044 - Profilkép megjelenítése a Mat Toolbar-on"
+            }
+          },
+          {
+            "id": "3fc308c89237843f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/027 - ManageUsers oldal implementálása.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "027 - ManageUsers oldal implementálása"
             }
           },
           {
@@ -147,7 +231,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
+                "file": "Kanban Board/Nodes/141 - Lottifiles - Login oldal animációval.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -157,7 +241,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "043 - Google OAuth gomb középre igazítása és stílus hozzáadása visszahivatkozásai"
+              "title": "141 - Lottifiles - Login oldal animációval visszahivatkozásai"
             }
           },
           {
@@ -203,7 +287,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 212
+    "width": 302
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -217,9 +301,18 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "41016ca2f4ebb433",
+  "active": "b92404230d7df547",
   "lastOpenFiles": [
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/102 - localStorage kiürítése bejelentkezés & kijelentkezés során.md",
+    "Kanban Board/Nodes/101 - Profile - Kijelentkezés implementálása.md",
+    "Kanban Board/Nodes/053 - Loading ikon megjelenítése a bejelentkezési oldalhoz.md",
+    "Kanban Board/Nodes/045 - Saját logó tervezése és megjelenítése a bejelentkezés, és a Mat Toolbar-on.md",
+    "Kanban Board/Nodes/044 - Profilkép megjelenítése a Mat Toolbar-on.md",
+    "Kanban Board/Nodes/027 - ManageUsers oldal implementálása.md",
+    "Kanban Board/Nodes/052 - Loading komponens megjelenítése.md",
+    "Kanban Board/Nodes/042 - Google OAuth oldal befejezése.md",
+    "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
     "Kanban Board/Nodes/169 - Backend - Képek exif adatainak lekérése a háttérben.md",
     "Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md",
     "Kanban Board/Nodes/156 - Docker és alkalmazás futtatása VM-ben.md",
@@ -236,20 +329,11 @@
     "Kanban Board/Nodes/135 - DefaultSqlScriptExecutor DB Integer display width is deprecated and will be removed in a future release.md",
     "Kanban Board/Nodes/166 - Compose.yml - The frontend container should wait for the backend to fully load.md",
     "Kanban Board/Nodes/039 - Procedures oldal létrehozása.md",
-    "Kanban Board/Nodes/163 - Szűrési opciók sorbarendezése abc sorrendbe a kiválasztott nyelv mentén.md",
-    "Kanban Board/Nodes/165 - Filtering - A Feltétel input mező hossza kisebb lehetne.md",
     "Kanban Board/Images/Pasted image 20250224232633.png",
     "Kanban Board/Images/Pasted image 20250224231941.png",
     "Pasted image 20250224232551.png",
-    "Kanban Board/Nodes/164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak.md",
     "Kanban Board/Images/Pasted image 20250224231640.png",
-    "Kanban Board/Nodes/162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra.md",
-    "Kanban Board/Nodes/161 - Pagination - Pagination az egy sorban legyen a mentés gombokkal.md",
     "Kanban Board/Images/Pasted image 20250224225430.png",
-    "Kanban Board/Nodes/160 - Szűrés - Csökkenteni a szűrés során a lekérdezések számát.md",
-    "Kanban Board/Nodes/158 - Jenkins pipeline írása az automatikus deploy-ok indítása céljából.md",
-    "Kanban Board/Nodes/159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető.md",
-    "Kanban Board/Nodes/157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán.md",
     "Kanban Board/Images/Pasted image 20241226130426.png",
     "Kanban Board/Images/Pasted image 20241226130403.png",
     "Pasted image 20241226130339.png",

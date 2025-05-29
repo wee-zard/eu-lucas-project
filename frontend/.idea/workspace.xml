@@ -6,40 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="950c6dad-19a3-45b6-9673-130cf5d5a46f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/handler/errorMessageHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/handler/errorMessageHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/handler/requestHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/handler/requestHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/StyledButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/StyledButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/StyledSelectComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/StyledSelectComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/dialogs/boundBoxDialog/BoundingBoxDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dialogs/boundBoxDialog/BoundingBoxDialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/dialogs/boundBoxDialog/BoundingBoxDialogTimeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dialogs/boundBoxDialog/BoundingBoxDialogTimeline.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/global/globalConsts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/global/globalConsts.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helper/authenticationUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helper/authenticationUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helper/fetchActualUrl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helper/fetchActualUrl.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helper/fileUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helper/fileUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helper/filteringHelper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helper/filteringHelper.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helper/idUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helper/idUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helper/imageUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helper/imageUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helper/notificationUtil.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helper/notificationUtil.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helper/procedureLogUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helper/procedureLogUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/hooks/useGuardHooks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hooks/useGuardHooks.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/i18n/i18nHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/i18n/i18nHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/i18n/lang/hu.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/i18n/lang/hu.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/model/enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/model/enum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/navigation/navigationRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/navigation/navigationRoutes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/redux/store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/screens/LoginScreen.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/screens/ReportScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/screens/ReportScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/screens/uploadProcedureScreen/UploadFileAccordionCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/screens/uploadProcedureScreen/UploadFileAccordionCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/screens/uploadProcedureScreen/UploadProcedureActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/screens/uploadProcedureScreen/UploadProcedureActions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/screens/uploadProcedureScreen/UploadProcedureScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/screens/uploadProcedureScreen/UploadProcedureScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/screens/LucasScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/screens/LucasScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/.obsidian/workspace.json" beforeDir="false" afterPath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/.obsidian/workspace.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Lucas Kanban.md" beforeDir="false" afterPath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Lucas Kanban.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring-boot-backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring-boot-backend/src/main/java/com/lucas/spring/helper/helper/ConversionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-backend/src/main/java/com/lucas/spring/helper/helper/ConversionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring-boot-backend/src/main/java/com/lucas/spring/helper/utils/BuildEntityUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-backend/src/main/java/com/lucas/spring/helper/utils/BuildEntityUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring-boot-backend/src/main/java/com/lucas/spring/helper/utils/FormatParseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-backend/src/main/java/com/lucas/spring/helper/utils/FormatParseUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,24 +47,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/User/Root/Programming/eu-lucas-project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2025.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Root/Programming/eu-lucas-project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2025.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -111,6 +83,7 @@
       <workItem from="1748277777622" duration="197000" />
       <workItem from="1748278001290" duration="2913000" />
       <workItem from="1748291744016" duration="1863000" />
+      <workItem from="1748418329228" duration="347000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor to use 'const' and improve comments for clarity.&#10;&#10;Replaced 'var' with 'const' for variable declarations to enforce immutability and modern coding practices. Adjusted comments and documentation for better readability and consistency across functions.">
       <option name="closed" value="true" />

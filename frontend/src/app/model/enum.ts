@@ -125,6 +125,7 @@ export enum LocalStorageKeys {
   GoogleOAuthToken = "google_oauth_token",
   GoogleRefreshToken = "google-refresh-token",
   ToolPadMode = "toolpad-mode",
+  SetItem = "setItem",
   FilteringDialog = "filtering-dialog",
 }
 
