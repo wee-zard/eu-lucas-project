@@ -7,5 +7,5 @@ export enum SnackEnum {
   REPORT_SENT_OUT = "screens.reporting.notifications.report-sent-out",
   REPORT_NOT_SENT_OUT = "screens.reporting.notifications.report-cannot-be-sent-out",
   ERROR_ON_LOGIN = "screens.login.notifications.error-on-login",
-  UPLOADED_XML_FILES = "screens.upload-procedure.notification.successful-file-upload",
+  UPLOADED_XML_FILES = "screens.upload-procedures.notifications.successful-file-upload",
 }

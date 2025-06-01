@@ -5,6 +5,9 @@ type Props = {
   file: File;
 };
 
+/**
+ * @deprecated not used anymore
+ */
 const UploadFileCard = ({ file }: Props) => {
   const fileProgress = 50;
 

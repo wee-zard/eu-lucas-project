@@ -1,5 +1,6 @@
 package com.lucas.spring.helper.handler;
 
+import com.lucas.spring.model.expection.PermissionDeniedException;
 import com.lucas.spring.model.expection.abstraction.BaseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,23 +14,23 @@ import org.springframework.web.server.ResponseStatusException;
 public class BaseExceptionHandler {
 
   /**
+   * Throws unauthorized error exception.
+   *
+   * @param ex The exception to throw to back to the frontend.
+   */
+  @ExceptionHandler(PermissionDeniedException.class)
+  public ResponseStatusException throwPermissionDeniedException(PermissionDeniedException ex) {
+    return new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage(), ex);
+  }
+
+  /**
    * Throws bad gateway exception, if the provided exception
    * is extended from the {@link BaseException} class.
    *
    * @param ex The exception to throw to back to the frontend.
    */
-  @ExceptionHandler({BaseException.class})
-  public void throwResponseStatusException(BaseException ex) throws ResponseStatusException {
-    throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, ex.getMessage(), ex);
-  }
-
-  /**
-   * Throws internal server error.
-   *
-   * @param ex The exception to throw to back to the frontend.
-   */
-  @ExceptionHandler({RuntimeException.class})
-  public void throwInternalServerError(RuntimeException ex) throws ResponseStatusException {
-    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+  @ExceptionHandler(BaseException.class)
+  public ResponseStatusException throwResponseStatusException(BaseException ex) {
+    return new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
   }
 }

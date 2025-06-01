@@ -26,6 +26,7 @@ export const useGoogleAccountGuard = (isOpen: boolean) => {
     // Checks if the auth token exists in the storage.
     if (!authToken) {
       openSnackbar(SnackEnum.ACCESS_TOKEN_IS_MISSING);
+      setResult(GuardResultTypes.FAILED);
       emptyOutTheLocalStorageCell();
       return;
     }
@@ -33,18 +34,24 @@ export const useGoogleAccountGuard = (isOpen: boolean) => {
     //Checks if the refresh token exists in the storage.
     if (!refreshToken) {
       openSnackbar(SnackEnum.REFRESH_TOKEN_IS_MISSING);
+      setResult(GuardResultTypes.FAILED);
       emptyOutTheLocalStorageCell();
       return;
     }
 
-    const result = await validateEmailAddress();
+    try {
+      const result = await validateEmailAddress();
 
-    if (!result) {
-      emptyOutTheLocalStorageCell();
-      return;
+      if (!result) {
+        setResult(GuardResultTypes.FAILED);
+        emptyOutTheLocalStorageCell();
+        return;
+      }
+
+      setResult(GuardResultTypes.PASSED);
+    } catch (error) {
+      setResult(GuardResultTypes.FAILED);
     }
-
-    setResult(GuardResultTypes.PASSED);
   };
 
   useEffect(() => {

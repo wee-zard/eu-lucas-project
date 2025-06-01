@@ -9,15 +9,6 @@ import com.lucas.spring.model.expection.abstraction.BaseException;
  */
 public class ImageException extends BaseException {
   /**
-   * Init the thrown exception by a message only.
-   *
-   * @param message The error message.
-   */
-  public ImageException(final ImageExceptionEnums message) {
-    super(message.getMessage());
-  }
-
-  /**
    * Init the thrown exception by message and params.
    *
    * @param message The error message.
@@ -25,7 +16,7 @@ public class ImageException extends BaseException {
    */
   public ImageException(
           final ImageExceptionEnums message,
-          final String param) {
-    super(message.getMessage(), param);
+          final String... param) {
+    super(BaseException.getStringFormatOfParams(String.valueOf(message), param));
   }
 }

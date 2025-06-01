@@ -6,15 +6,28 @@ import { deleteProceduresCommand } from "@api/command/procedureCommands";
 import i18n from "@i18n/i18nHandler";
 import StyledButton from "@components/StyledButton";
 import { deletePlantNameCommand } from "@api/command/plantNameCommands";
-import { openSnackbar } from "@helper/notificationUtil";
+import { openSnackbar, throwNotification, ToastSeverity } from "@helper/notificationUtil";
 import UploadProcedureActions from "./UploadProcedureActions";
 import { SnackEnum } from "@model/enum/SnackEnum";
+import { useDispatch } from "react-redux";
+import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setProcedureUploadProcessModels } from "@redux/actions/procedureUploadActions";
 
 const UploadProcedureScreen = () => {
+  const dispatch = useDispatch();
+
   const handleDeleteAllProcedureAndPlantButton = async () => {
-    await deleteProceduresCommand();
-    await deletePlantNameCommand();
-    openSnackbar(SnackEnum.LOGS_ARE_DELETED);
+    dispatch(setSettingBackdropOpen(true));
+    try {
+      await deleteProceduresCommand();
+      await deletePlantNameCommand();
+      openSnackbar(SnackEnum.LOGS_ARE_DELETED);
+    } catch (error: any) {
+      throwNotification(ToastSeverity.Error, error?.message);
+    } finally {
+      dispatch(setSettingBackdropOpen(false));
+      dispatch(setProcedureUploadProcessModels([]));
+    }
   };
 
   return (

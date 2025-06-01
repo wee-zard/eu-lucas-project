@@ -36,8 +36,6 @@ public class UserEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
-  @Column(name = "auth_token", length = 256)
-  private String authToken;
   @Column(name = "email_address", length = 1155, nullable = false)
   private String emailAddress;
   @Column(name = "username", length = 100)

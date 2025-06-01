@@ -1,11 +1,12 @@
 import axios from "axios";
 import RequestCommand from "@model/RequestCommand";
 import { ConversionUtils } from "@helper/conversionUtils";
-import { RequestCommandTypes } from "@model/enum";
+import { RequestCommandTypes, UniqueErrorResponseTypes } from "@model/enum";
 import RequestCommandError from "@model/error/RequestCommandError";
 import { RequestParamType } from "@model/types/RequestParamType";
 import ErrorMessageHandler from "./errorMessageHandler";
 import RequestHeaderHandler from "./requestHeaderHandler";
+import { clearLocalStorage } from "@helper/localStorageUtil";
 
 /**
  * Try to send out the request to the server. If the response is an object or null,
@@ -15,16 +16,30 @@ import RequestHeaderHandler from "./requestHeaderHandler";
  * @param command A request command template which will be used to construct a new http request.
  * @returns Returns
  */
-const commandHandler = <T>(command: RequestCommand): Promise<T | null> => {
-  return new Promise<T | null>((resolve) => {
+const commandHandler = <T>(command: RequestCommand): Promise<T> => {
+  return new Promise<T>((resolve, reject) => {
     // Send out the first request to the server.
     genericDispatcher<T>(command)
       .then(resolve)
-      .catch(() =>
-        ErrorMessageHandler.handleUnauthorizedError<T>(command)
-          .then(resolve)
-          .catch(() => resolve(null)),
-      );
+      .catch((error) => {
+        const isUnauthorizedError = ErrorMessageHandler.throwNotificationByErrorType(
+          error,
+          command.errorMessage,
+        );
+
+        if (isUnauthorizedError === UniqueErrorResponseTypes.UNAUTHORIZED) {
+          ErrorMessageHandler.handleUnauthorizedError<T>(command)
+            .then(resolve)
+            .catch(() => {
+              // If you got a 2nd unauthorized request, then you are denied to use the application.
+              reject(error.response.data.detail);
+              clearLocalStorage();
+            });
+        } else {
+          console.error(error);
+          reject(error);
+        }
+      });
   });
 };
 
@@ -41,9 +56,7 @@ export const genericDispatcher = <T>(command: RequestCommand): Promise<T> => {
   return new Promise((resolve, reject) => {
     commandHandlerDispatcher(command)
       .then((response) => resolve(response.data))
-      .catch((error) =>
-        reject(ErrorMessageHandler.throwNotificationByErrorType(error, command.errorMessage)),
-      );
+      .catch(reject);
   });
 };
 
@@ -81,8 +94,10 @@ const commandHandlerDispatcher = (command: RequestCommand) => {
   }
 };
 
-const getRequestParamPath = (requestParams: RequestParamType[]) => {
-  return requestParams.map((item) => `${item.key}=${item.value}`).join("?");
+const getRequestParamPath = (requestParams: unknown) => {
+  return Array.isArray(requestParams)
+    ? requestParams.map((item: RequestParamType) => `${item.key}=${item.value}`).join("?")
+    : "";
 };
 
 /**
@@ -93,7 +108,7 @@ const getRequestParamPath = (requestParams: RequestParamType[]) => {
  */
 const initServerUrlPath = (command: RequestCommand) => {
   const endpoint = `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`;
-  const requestParams = command.obj as RequestParamType[];
+  const requestParams = command.obj;
 
   return command.type === RequestCommandTypes.GET
     ? `${endpoint}?${getRequestParamPath(requestParams)}`

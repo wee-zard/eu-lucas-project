@@ -37,7 +37,7 @@ export default abstract class ErrorMessageHandler {
   };
 
   public static handleUnauthorizedError = <T>(command: RequestCommand): Promise<T> => {
-    return new Promise<T>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       // Authentication failed, we need to update the access token by the refresh token
       getNewAccessToken()
         .then((accessTokenResponse) => {
@@ -47,14 +47,14 @@ export default abstract class ErrorMessageHandler {
 
           // Resend the request to the server by the provided command and return the final results.
           genericDispatcher<T>(command)
-            .then((res) => resolve(res))
+            .then(resolve)
             .catch(() => {
               // Error occurred during the 2nd api request. Display an error message and terminate the process.
               throwNotification(ToastSeverity.Error, command.errorMessage);
               reject();
             });
         })
-        .catch(() => reject());
+        .catch(reject);
     });
   };
 }

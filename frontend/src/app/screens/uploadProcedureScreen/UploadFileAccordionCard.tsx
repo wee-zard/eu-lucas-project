@@ -6,9 +6,11 @@ import { ProcedureFileMessages } from "@model/enum";
 import i18n from "@i18n/i18nHandler";
 import { useSelector } from "react-redux";
 import { selectListOfProcedureProcesses } from "@redux/selectors/procedureUploadSelectors";
+import { selectIsBackdropOpen } from "@redux/selectors/settingSelector";
 
 const UploadFileAccordionCard = () => {
   const listOfModels = useSelector(selectListOfProcedureProcesses);
+  const isBackdropOpen = useSelector(selectIsBackdropOpen);
 
   const isErrorPresent = (message?: ProcedureFileMessages) => {
     return message && message !== ProcedureFileMessages.FileIsSuccessfullyUploaded;
@@ -20,21 +22,25 @@ const UploadFileAccordionCard = () => {
   };
 
   return (
-    <StyledTransitionGroup>
-      {listOfModels.map((model, index) => (
-        <StyledFileHolder $isError={isErrorPresent(model.message)} key={index}>
-          <div>
-            <XmlIcon width={100} height={100} />
-          </div>
-          <StyledRightFileHolder>
-            <div>{model.filename}</div>
-            <StyledMessageHolder $isError={isErrorPresent(model.message)}>
-              {displayModelMessage(model)}
-            </StyledMessageHolder>
-          </StyledRightFileHolder>
-        </StyledFileHolder>
-      ))}
-    </StyledTransitionGroup>
+    <>
+      {!isBackdropOpen ? (
+        <StyledTransitionGroup>
+          {listOfModels.map((model, index) => (
+            <StyledFileHolder $isError={isErrorPresent(model.message)} key={index}>
+              <div>
+                <XmlIcon width={100} height={100} />
+              </div>
+              <StyledRightFileHolder>
+                <div>{model.filename}</div>
+                <StyledMessageHolder $isError={isErrorPresent(model.message)}>
+                  {displayModelMessage(model)}
+                </StyledMessageHolder>
+              </StyledRightFileHolder>
+            </StyledFileHolder>
+          ))}
+        </StyledTransitionGroup>
+      ) : null}
+    </>
   );
 };
 

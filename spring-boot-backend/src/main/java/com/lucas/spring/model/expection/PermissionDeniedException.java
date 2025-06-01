@@ -1,11 +1,16 @@
 package com.lucas.spring.model.expection;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import com.lucas.spring.model.expection.abstraction.BaseException;
 
-@ResponseStatus(value= HttpStatus.UNAUTHORIZED, reason="You do not have permission to access the resources!")
-public class PermissionDeniedException extends RuntimeException {
-    public PermissionDeniedException() {
-        super("You do not have permission to access the resources!");
-    }
+/**
+ * Custom-made Image exception that is thrown,
+ * when there is a problem with the images.
+ */
+public class PermissionDeniedException extends BaseException {
+  /**
+   * Init the thrown exception.
+   */
+  public PermissionDeniedException() {
+    super("You do not have permission to access these resources!");
+  }
 }

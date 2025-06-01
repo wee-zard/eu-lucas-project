@@ -50,7 +50,7 @@ public class ImageServiceImpl implements ImageService {
     return imageRepository.getEntityByNameAndYear(name, year)
             .orElseThrow(() -> new ImageException(
                     ImageExceptionEnums.IMAGE_NOT_FOUND,
-                    String.format("%s %s", year, name)));
+                    year.toString(), name));
   }
 
   /**

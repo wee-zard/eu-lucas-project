@@ -15,9 +15,10 @@ import ProcedureResultRequest, {
   ProcedureResultRequestPlant,
 } from "@model/request/ProcedureResultRequest";
 import FileUtils from "./fileUtils";
-import GenericCommandDispatcher from "@api/abstraction/genericCommandDispatcher";
 import ImageUtils from "./imageUtils";
 import ProcedureProcessModel from "@model/ProcedureProcessModel";
+import ImageCommands from "@api/command/imageCommand";
+import { BaseErrorResponse } from "@model/response/BaseErrorResponse";
 
 abstract class ProcedureLogUtils {
   /**
@@ -113,8 +114,10 @@ abstract class ProcedureLogUtils {
 
   public static initLogRequestModel = (
     annotation: ProcedureResultAnnotation,
+    xmlFilename: string,
   ): ProcedureResultRequest => {
     return {
+      xmlFileName: xmlFilename,
       timestamp: this.getCreationDateFromLog(annotation),
       author: this.getAuthorFromLog(annotation),
       method: this.getMethodNameByLog(annotation),
@@ -496,20 +499,45 @@ abstract class ProcedureLogUtils {
   };
 
   public static getListOfImageModelsByFiles = async (listOfFiles: ProcedureResultRequestFile[]) => {
-    const images =
-      await GenericCommandDispatcher.getImageCommands().postByImageNameAndCreationYear(listOfFiles);
+    try {
+      const images = await ImageCommands.postByImageNameAndCreationYear(listOfFiles);
 
-    console.log("images:", images, listOfFiles);
+      const imageUrlPaths = images
+        .map((imageModel) => ImageUtils.initRemoteImageUrlPath(imageModel))
+        .filter((imageUrl) => imageUrl !== undefined);
 
-    if (!images) {
-      throw new ProcedureLogError(ProcedureFileMessages.ImageNotFoundOnServer);
+      return imageUrlPaths as string[];
+    } catch (error: any) {
+      const specializedError: BaseErrorResponse = JSON.parse(error);
+      const errorImage = this.convertYearAndImageNameToFullImageName(
+        specializedError.param0,
+        specializedError.param1,
+      );
+
+      throw new ProcedureLogError(ProcedureFileMessages.ImageNotFoundOnServer, {
+        imagePath: errorImage,
+      });
     }
+  };
 
-    const imageUrlPaths = images
-      .map((imageModel) => ImageUtils.initRemoteImageUrlPath(imageModel))
-      .filter((imageUrl) => imageUrl !== undefined);
-
-    return imageUrlPaths as string[];
+  /**
+   * Based on the provided params, construct the full name of the image.
+   *
+   * Example:
+   *
+   * Input: **year** = 2012, **imageName** = 52222798E123.jpg
+   *
+   * Output: **2012_52222798E123.jpg**
+   *
+   * @param year The year when the image was taken.
+   * @param imageName The name of the image.
+   * @returns Returns the full image name provided in the xml file.
+   */
+  public static convertYearAndImageNameToFullImageName = (
+    year?: string | number,
+    imageName?: string | number,
+  ) => {
+    return [`${year}`, `${imageName}`].join("_");
   };
 
   public static getImagePathsAndProperties = async (
@@ -543,16 +571,11 @@ abstract class ProcedureLogUtils {
   ): ProcedureResultRequest[] => {
     return requestModels.map((request) => ({
       ...request,
-      images: request.images.map((image, imageIndex) => ({
+      images: request.images.map((image) => ({
         ...image,
         objects: image.objects.map((object) => ({
           ...object,
-          boundingBox: this.getBoundingBoxFromObject(
-            object,
-            imageIndex,
-            image.file,
-            imageProperties,
-          ),
+          boundingBox: this.getBoundingBoxFromObject(object, image.file, imageProperties),
           centroidBoundingBox: undefined,
         })),
       })),
@@ -561,15 +584,12 @@ abstract class ProcedureLogUtils {
 
   private static getBoundingBoxFromObject = (
     object: ProcedureResultRequestObject,
-    imageIndex: number,
     file: ProcedureResultRequestFile,
     imageProperties: ProcedureResultImageProperties[],
   ): ProcedureResultRequestBoundingBox => {
-    const indexParam = { imageIndex: imageIndex + 1 };
-
     if (!object.centroidBoundingBox) {
       // TODO: Throw a better error.
-      throw new ProcedureLogError(ProcedureFileMessages.ImageNotFoundOnServer, indexParam);
+      throw new ProcedureLogError(ProcedureFileMessages.ImageNotFoundOnServer, { imagePath: file });
     }
 
     // Get the image and it's properties based on the 'file' param.
@@ -582,7 +602,7 @@ abstract class ProcedureLogUtils {
 
     if (!selectedProperty) {
       // TODO: Throw a better error.
-      throw new ProcedureLogError(ProcedureFileMessages.ImageNotFoundOnServer, indexParam);
+      throw new ProcedureLogError(ProcedureFileMessages.ImageNotFoundOnServer, { imagePath: file });
     }
 
     const halfWidth = (selectedProperty.naturalWidth * object.centroidBoundingBox.width) / 2;

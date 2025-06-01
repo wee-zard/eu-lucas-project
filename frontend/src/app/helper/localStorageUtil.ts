@@ -11,15 +11,19 @@ export const getLocalStorageItem = (key: LocalStorageKeys) => {
   return localStorage.getItem(key) ?? undefined;
 };
 
-export const setLocalStorageItem = (item: string, key: LocalStorageKeys) => {
-  localStorage.setItem(key, item);
+export const setLocalStorageItem = (item: any, key: LocalStorageKeys) => {
+  if (typeof item === "string") {
+    localStorage.setItem(key, item);
+  } else {
+    localStorage.setItem(key, JSON.stringify(item));
+  }
 };
 
 export const removeLocalStorageItem = (key: LocalStorageKeys) => {
   localStorage.removeItem(key);
 };
 
-export const clearLocalStorage = () => {
+export const clearLocalStorage = ({ isGoogleLogoutIgnored = false } = {}) => {
   const localStorageKeys = Object.keys(localStorage);
 
   localStorageKeys.forEach((key) => {
@@ -30,7 +34,10 @@ export const clearLocalStorage = () => {
     localStorage.removeItem(key);
   });
 
-  googleLogout();
+  if (!isGoogleLogoutIgnored) {
+    googleLogout();
+  }
+
   redirectToUrl(ScreenUrls.LoginScreenPath);
 };
 

@@ -54,14 +54,14 @@ export const BoundingBoxDialogTimeline = () => {
       return;
     }
 
-    const res = await getProcedureLogByImageId(selectedImage.id, pageableProperties);
+    getProcedureLogByImageId(selectedImage.id, pageableProperties).then((res) => {
+      if (!res) {
+        return;
+      }
 
-    if (!res) {
-      return;
-    }
-
-    dispatch(setProcedureLogIsLogButtonDisabled(false));
-    dispatch(setProcedureLogListOfProcedureLogs([...listOfProcedureLogs, ...res.pageItems]));
+      dispatch(setProcedureLogIsLogButtonDisabled(false));
+      dispatch(setProcedureLogListOfProcedureLogs([...listOfProcedureLogs, ...res.pageItems]));
+    });
   };
 
   useEffect(

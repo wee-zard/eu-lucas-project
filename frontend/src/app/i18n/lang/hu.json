@@ -63,7 +63,7 @@
       "notifications": {
         "file-uploaded": "A fájl sikeresen feltöltésre került!",
         "logs-are-deleted": "Eljárások, eljárásokhoz tartozó logok, befoglaló téglalapok és növények sikeresen törlésre kerültek",
-        "successful-file-upload": "XML fájl(ok) sikeresen feltöltésre kerültek a szerverre!"
+        "successful-file-upload": "XML fájlok sikeresen feltöltésre kerültek a szerverre!"
       },
       "error": {
         "processing-file-at-server": "Váratlan hiba történt a fájl feldolgozása közben a szerver oldalon!",
@@ -72,8 +72,8 @@
         "xml-to-object": "Hiba! Nem sikerült objektummá alakítani az XML fájlt!",
         "xml-object-is-empty": "Hiba! Az objektummá alakított XML fájl üres!",
 
-        "xml-annotation-is-not-defined": "Hiba! Az 'annotation' XML elem nem került definiálásra!",
-        "xml-date-is-not-defined": "Hiba! A 'date' nem került definiálásra!",
+        "xml-annotation-is-not-defined": "Hiba! Az 'annotation' XML elem nem került definiálásra! Ezen az XML elemen belül kell al-XML elemeket definiálni: 'date', 'author', 'method', és 'image'!",
+        "xml-date-is-not-defined": "Hiba! A 'date' XML elem nem került definiálásra!",
         "xml-author-is-not-defined": "Hiba! Az 'author' XML elem nem került definiálásra!",
         "xml-method-is-not-defined": "Hiba! A 'method' XML elem nem került definiálásra!",
         "xml-images-is-not-defined": "Hiba! Az 'image' XML elem nem került definiálásra!",
@@ -86,8 +86,8 @@
         "xml-width-is-not-defined": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'width' XML elem nem került definiálásra!",
         "xml-height-is-not-defined": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben az 'bndbox' XML elemen belül a 'height' XML elem nem került definiálásra!",
 
-        "xml-date-is-not-in-number": "Hiba! A 'date' XML elem értékének egy 12 jegyű számnak kell lennie a következő formátumban: ÉÉÉÉHHNNÓÓPP",
-        "xml-date-not-long-enough": "Hiba! A 'date' XML elem értéke nem elegendő hosszú! Az elvárt hossz az 12 karakter!",
+        "xml-date-is-not-in-number": "Hiba! A 'date' XML elem értékének egy 12 jegyű számnak kell lennie a következő formátumban: ÉÉÉÉHHNNÓÓPP (É=Év, H=Hónap, N=Nap, Ó=Óra, P=Perc)",
+        "xml-date-not-long-enough": "Hiba! A 'date' XML elem értéke nem megfelelő! A 'date' XML elem értékének elvárt hossz az 12 karakter!",
         "xml-date-invalid-format": "Hiba! A 'date' XML elem típusa nem szövegként került megadásra!",
         "xml-author-incorrect-type-provided": "Hiba! Az 'author' XML elem típusa nem szövegként került megadásra!",
         "xml-method-incorrect-type-provided": "Hiba! A 'method' XML elem típusa nem szövegként került megadásra!",
@@ -106,8 +106,9 @@
 
         "invasive-result-is-not-present": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'name' XML elem nem tartalmazza a következő szövegek valamelyikét: {{tags}}!",
         "object-name-is-invalid-format": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'name' XML elem nem tartalmaz szóközt, amivel el lehetne különíteni a növény nevét attól, hogy a növény homogén-e!",
-        "image-not-found-on-server": "Hiba! Az XML-ben feltűntetett képeket nem találhatóak a szerveren!",
-        "image-not-found-on-gisco-lucas-server": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben feltűntetett kép letöltése nem sikerült a gisco europe lucas adatbázisból!"
+        "image-not-found-on-server": "Hiba! Az XML-ben feltűntetett {{imagePath}} kép nem található az adatbázisban! Ellenőrizd, hogy az elemzésre került kép nevét jól adtad-e meg.",
+        "image-not-found-on-gisco-lucas-server": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben feltűntetett kép letöltése nem sikerült a gisco europe lucas adatbázisból!",
+        "log-cannot-be-uploaded-to-server": "Váratlan hiba miatt a {{filename}} fájlt nem lehetett feltölteni az adatbázisba!"
       }
     },
     "reporting": {

@@ -124,6 +124,7 @@ export enum ServersToConnectTo {
 export enum LocalStorageKeys {
   GoogleOAuthToken = "google_oauth_token",
   GoogleRefreshToken = "google-refresh-token",
+  SessionAccount = "session-account",
   ToolPadMode = "toolpad-mode",
   SetItem = "setItem",
   FilteringDialog = "filtering-dialog",
@@ -289,7 +290,8 @@ export enum ProcedureFileMessages {
   ErrorConfidenceIsNotInRange = "screens.upload-procedures.error.confidence-value-is-not-in-range",
 
   ImageNotFoundOnServer = "screens.upload-procedures.error.image-not-found-on-server",
-  ImageNotFoundOnDiscoLucasServer = "screens.upload-procedures.error.image-not-found-on-gisco-lucas-server",
+  ImageNotFoundOnGiscoLucasServer = "screens.upload-procedures.error.image-not-found-on-gisco-lucas-server",
+  ErrorUploadingToServer = "screens.upload-procedures.error.log-cannot-be-uploaded-to-server",
 }
 
 export enum ReportTypes {

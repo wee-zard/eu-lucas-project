@@ -9,17 +9,66 @@ import ProcedureLogError from "@model/error/ProcedureLogError";
 import ProcedureLogUtils from "@helper/procedureLogUtils";
 import { useDispatch } from "react-redux";
 import { setProcedureUploadProcessModels } from "@redux/actions/procedureUploadActions";
-import { useSelector } from "react-redux";
-import { ToastSeverity, openSnackbar, throwNotification } from "@helper/notificationUtil";
+import { openSnackbar } from "@helper/notificationUtil";
 import { uploadProcedureResult } from "@api/command/procedureCommands";
 import { setSettingBackdropOpen } from "@redux/actions/settingActions";
-import { selectIsBackdropOpen } from "@redux/selectors/settingSelector";
 import ProcedureResultRequest from "@model/request/ProcedureResultRequest";
 import { SnackEnum } from "@model/enum/SnackEnum";
 
 const UploadProcedureActions = () => {
-  const isBackdropOpen = useSelector(selectIsBackdropOpen);
   const dispatch = useDispatch();
+
+  const handleProcedureLogErrors = (
+    error: unknown,
+    filename: string,
+    processedErrorFiles: ProcedureProcessModel[],
+  ): ProcedureProcessModel[] => {
+    if (!(error instanceof ProcedureLogError)) {
+      console.error("Uncaught error occurred!", error);
+      return processedErrorFiles;
+    }
+
+    const procedureProcessFile: ProcedureProcessModel = {
+      filename: filename,
+      message: error.message as ProcedureFileMessages,
+      options: error.obj,
+    };
+
+    return [...processedErrorFiles, procedureProcessFile];
+  };
+
+  const handleErrorByInvalidImageNames = (
+    error: unknown,
+    listOfRequest: ProcedureResultRequest[],
+    processedErrorFiles: ProcedureProcessModel[],
+  ): ProcedureProcessModel[] => {
+    if (!(error instanceof ProcedureLogError)) {
+      console.error("Uncaught error occurred!", error);
+      return processedErrorFiles;
+    }
+
+    const errorImagePath: string | undefined = (error.obj as any).imagePath;
+
+    // Handling Step 3.2 errors.
+    if (errorImagePath) {
+      const filesWithErrorImages = listOfRequest.filter((file) =>
+        file.images.some(
+          (image) =>
+            ProcedureLogUtils.convertYearAndImageNameToFullImageName(
+              image.file.year,
+              image.file.fileName,
+            ) === errorImagePath,
+        ),
+      );
+
+      filesWithErrorImages.forEach((request) => {
+        const filename = request.xmlFileName;
+        processedErrorFiles = [...handleProcedureLogErrors(error, filename, processedErrorFiles)];
+      });
+    }
+
+    return processedErrorFiles;
+  };
 
   /**
    * Processes the user provided xml file, and extracts the files from the event.
@@ -31,6 +80,7 @@ const UploadProcedureActions = () => {
   const handleEventProcess = (event: React.ChangeEvent<HTMLInputElement>): void => {
     // Step 1.0: Start the process.
     dispatch(setSettingBackdropOpen(true));
+    dispatch(setProcedureUploadProcessModels([]));
 
     // Step 1.1: Converting event into File list.
     const files = FileUtils.getListOfUploadedFilesFromEvent(event);
@@ -66,22 +116,12 @@ const UploadProcedureActions = () => {
         const procedureModel = ProcedureLogUtils.parseBufferToModel(buffer);
 
         // Step 2.4: Converting the parsed model to a request model.
-        const request = ProcedureLogUtils.initLogRequestModel(procedureModel.annotation);
+        const request = ProcedureLogUtils.initLogRequestModel(procedureModel.annotation, file.name);
 
         // Step 2.5: Add the new request to the pool.
         listOfRequest = [...listOfRequest, request];
       } catch (error) {
-        if (!(error instanceof ProcedureLogError)) {
-          console.error("Uncaught error occurred!", error);
-          return;
-        }
-
-        const procedureProcessFile: ProcedureProcessModel = {
-          filename: file.name,
-          message: error.message as ProcedureFileMessages,
-          options: error.obj,
-        };
-        processedErrorFiles = [...processedErrorFiles, procedureProcessFile];
+        processedErrorFiles = [...handleProcedureLogErrors(error, file.name, processedErrorFiles)];
       }
     }
 
@@ -115,8 +155,25 @@ const UploadProcedureActions = () => {
       // Step 3.5: Send the request model to the server.
       await uploadProcedureResult(res);
       openSnackbar(SnackEnum.UPLOADED_XML_FILES);
-    } catch (error: any) {
-      throwNotification(ToastSeverity.Error, error.message);
+
+      for await (const request of res) {
+        try {
+          await uploadProcedureResult(res);
+          const processedFile: ProcedureProcessModel = {
+            filename: request.xmlFileName,
+            message: ProcedureFileMessages.FileIsSuccessfullyUploaded,
+          };
+          processedErrorFiles = [...processedErrorFiles, processedFile];
+        } catch (error) {
+          throw new ProcedureLogError(ProcedureFileMessages.ErrorUploadingToServer, {
+            filename: request.xmlFileName,
+          });
+        }
+      }
+    } catch (error: unknown) {
+      processedErrorFiles = [
+        ...handleErrorByInvalidImageNames(error, listOfRequest, processedErrorFiles),
+      ];
     } finally {
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
       dispatch(setSettingBackdropOpen(false));
@@ -129,13 +186,7 @@ const UploadProcedureActions = () => {
         <UploadIcon width={100} height={100} fill="gray" />
         {i18n.t("screens.upload-procedures.view.drag-and-drop")}
       </StyledDragAndDropHolder>
-      <StyledHiddenInput
-        type="file"
-        accept=".xml"
-        multiple
-        onChange={handleEventProcess}
-        disabled={isBackdropOpen}
-      />
+      <StyledHiddenInput type="file" accept=".xml" multiple onChange={handleEventProcess} />
     </StyledBoxHolder>
   );
 };

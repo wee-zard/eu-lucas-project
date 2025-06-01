@@ -20,7 +20,7 @@ import LucasSidebarFooterAccount from "./LucasSidebarFooterAccount";
 import { LocalStorageKeys } from "@model/enum";
 import { jwtDecode } from "jwt-decode";
 import AuthorizedUserModel from "@model/AuthorizedUserModel";
-import { clearLocalStorage } from "@helper/localStorageUtil";
+import { clearLocalStorage, setLocalStorageItem } from "@helper/localStorageUtil";
 
 type Props = {
   navigation?: Navigation;
@@ -73,26 +73,44 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
    *
    * @returns Returns the session information from the auth token.
    */
-  const getUserSession = (): Session | undefined => {
+  const getUserSession = (): Session => {
+    const defaultObj: Session = {
+      user: {
+        name: "",
+        email: "",
+        image: "",
+      },
+    };
+
     const authToken = localStorage.getItem(LocalStorageKeys.GoogleOAuthToken);
 
     if (!authToken) {
-      return;
+      return defaultObj;
     }
 
     const decodedToken: AuthorizedUserModel = jwtDecode(authToken);
 
     if (!decodedToken || !decodedToken.email || !decodedToken.given_name) {
-      return;
+      const storageSessionAccount = localStorage.getItem(LocalStorageKeys.SessionAccount);
+
+      if (!storageSessionAccount) {
+        return defaultObj;
+      }
+
+      return JSON.parse(storageSessionAccount) as Session;
     }
 
-    return {
+    const sessionAccount: Session = {
       user: {
         name: decodedToken.name,
         email: decodedToken.email,
         image: decodedToken.picture,
       },
     };
+
+    setLocalStorageItem(sessionAccount, LocalStorageKeys.SessionAccount);
+
+    return sessionAccount;
   };
 
   return (

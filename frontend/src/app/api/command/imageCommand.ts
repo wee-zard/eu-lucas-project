@@ -30,7 +30,7 @@ abstract class ImageCommands {
 
   public static postByImageNameAndCreationYear = (
     files: ProcedureResultRequestFile[],
-  ): Promise<ImageDto[] | null> =>
+  ): Promise<ImageDto[]> =>
     commandHandler<ImageDto[]>({
       type: RequestCommandTypes.POST,
       server: ServersToConnectTo.Backend,
