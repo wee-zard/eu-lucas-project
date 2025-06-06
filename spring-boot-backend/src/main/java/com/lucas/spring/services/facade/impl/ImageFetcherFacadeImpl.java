@@ -10,11 +10,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +62,22 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
       // handle exception
       return new byte[0];
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String byteToBase64(final byte[] binary) {
+    return Base64.getEncoder().encodeToString(binary);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String urlToBase64(final String urlPath) {
+    return this.byteToBase64(this.getImageByUrl(urlPath));
   }
 
   /**

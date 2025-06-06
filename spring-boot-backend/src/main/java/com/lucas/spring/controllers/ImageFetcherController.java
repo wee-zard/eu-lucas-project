@@ -3,7 +3,6 @@ package com.lucas.spring.controllers;
 import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.model.response.BaseResponse;
 import com.lucas.spring.services.facade.ImageFetcherFacade;
-import java.util.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,17 +54,18 @@ public class ImageFetcherController {
   }
 
   /**
-   * Download image from specific url and converts it into binary array.
+   * Download image from specific url and converts it into a base64string.
    *
    * @param user The authenticated user who initiated the request.
-   * @return Returns the binary array version of the image.
+   * @param urls The url to download.
+   * @return Returns a base64string version of the requested url resource.
    */
   @CrossOrigin
   @PostMapping(value  = "/download-image")
   public String downloadImage(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestBody String[] url
+          @RequestBody String[] urls
   ) {
-    return Base64.getEncoder().encodeToString(imageFetcherFacade.getImageByUrl(url[0]));
+    return imageFetcherFacade.urlToBase64(urls[0]);
   }
 }
