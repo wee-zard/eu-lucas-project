@@ -41,6 +41,10 @@ export enum BackendImageControllerEndpoints {
   GetImageByImageNameAndCreationYear = "/api/image/",
 }
 
+export enum BackendImageFetcherControllerEndpoints {
+  DownloadImagesByUrls = "/api/fetcher/download-image",
+}
+
 export enum BackendProcedureControllerEndpoints {
   UploadProcedure = "/api/procedure/upload",
   GetProcedures = "/api/procedure/",
@@ -87,6 +91,7 @@ export type BackendControllerEndpointTypes =
   | BackendExifKeyControllerEndpoints
   | BackendImageControllerEndpoints
   | BackendProcedureControllerEndpoints
+  | BackendImageFetcherControllerEndpoints
   | BackendPlantNameControllerEndpoints
   | BackendPlantControllerEndpoints
   | BackendPlantSpeciesControllerEndpoints

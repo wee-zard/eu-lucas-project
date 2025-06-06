@@ -1,8 +1,8 @@
 import ProcedureResultModel from "@model/ProcedureResultModel";
-import {Buffer} from "buffer";
-import {XMLParser} from "fast-xml-parser";
+import { Buffer } from "buffer";
+import { XMLParser } from "fast-xml-parser";
 import ProcedureLogError from "@model/error/ProcedureLogError";
-import {ProcedureFileMessages} from "@model/enum";
+import { ProcedureFileMessages } from "@model/enum";
 
 abstract class FileUtils {
   /**
@@ -40,6 +40,11 @@ abstract class FileUtils {
     } catch (error) {
       throw new ProcedureLogError(ProcedureFileMessages.XmlToObjectError);
     }
+  };
+
+  public static base64ToBlob = (base64String: string): Blob => {
+    const buffer = Buffer.from(base64String, "base64");
+    return new Blob([buffer], { type: "image/jpeg" });
   };
 }
 

@@ -4,12 +4,17 @@ import com.lucas.spring.model.request.ImageRequest;
 import com.lucas.spring.services.facade.ImageFacadeService;
 import com.lucas.spring.services.facade.ImageFetcherFacade;
 import com.lucas.spring.services.service.HttpRequestService;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +35,13 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
   public void scalpLucasImageServer(final String urlPath) {
     final List<String> splitValuesDom = getSplitValuesDom(urlPath);
     System.out.printf("%s %s\n", "Processed Url:", urlPath);
-    splitValuesDom.forEach((domElement) -> {
+    splitValuesDom.forEach(domElement -> {
       final String newPath = String.format("%s%s", urlPath, domElement);
       if (domElement.contains("/")) {
         try {
           Thread.sleep(5000);
         } catch (InterruptedException e) {
+          // TODO: Throw a better exception here.
           throw new RuntimeException(e.getMessage());
         }
         scalpLucasImageServer(newPath);
@@ -45,6 +51,26 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
     });
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public byte[] getImageByUrl(final String urlPath) {
+    try (BufferedInputStream in = new BufferedInputStream(new URI(urlPath).toURL().openStream())) {
+      return in.readAllBytes();
+    } catch (IOException | URISyntaxException e) {
+      // handle exception
+      return new byte[0];
+    }
+  }
+
+  /**
+   * Fetches the dom of an application and filter it, so the directories could remain
+   * in the end of the filter.
+   *
+   * @param urlPath a url path to the server.
+   * @return Returns dom splices that contains the possible directories found on the url.
+   */
   private List<String> getFilteredUrlDom(final String urlPath) {
     final String urlDom = httpRequestService.getResultOfRequest(urlPath, null);
     final String[] splitUrlDom = urlDom.split("\n");
@@ -115,6 +141,7 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
         return directionEntry.getValue();
       }
     }
+    // TODO: Throw a better exception here.
     throw new RuntimeException(String.format("%s %s", "Direction is not defined!", imageName));
   }
 }

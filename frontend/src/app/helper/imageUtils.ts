@@ -2,6 +2,11 @@ import ImageDto from "@model/dto/ImageDto";
 
 export default class ImageUtils {
   /**
+   * The remote url of the gisco server.
+   */
+  public static remoteUrl = "https://gisco-services.ec.europa.eu/lucas/photos";
+
+  /**
    * Initializes the url path to the remote image that will be downloaded.
    *
    * @param obj The selected image object which will help to construct the url path to the remote image.
@@ -12,11 +17,10 @@ export default class ImageUtils {
       return;
     }
 
-    const remoteUrl = "https://gisco-services.ec.europa.eu/lucas/photos";
     const x = this.formatCoordinates(obj.coordinateX);
     const y = this.formatCoordinates(obj.coordinateY);
 
-    return `${remoteUrl}/${obj.year}/${obj.country}/${x}/${y}/${obj.imageName}`;
+    return `${this.remoteUrl}/${obj.year}/${obj.country}/${x}/${y}/${obj.imageName}`;
   };
 
   private static formatCoordinates = (coordinate: number) => {
@@ -35,7 +39,7 @@ export default class ImageUtils {
       let imageSprite = new Image();
       imageSprite.src = imageUrl;
       imageSprite.onload = () => resolve(imageSprite);
-      imageSprite.onerror = () => reject();
+      imageSprite.onerror = (error) => reject(error);
     });
   };
 }

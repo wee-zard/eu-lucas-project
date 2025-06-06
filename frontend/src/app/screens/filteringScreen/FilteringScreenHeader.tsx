@@ -11,9 +11,13 @@ import { setDialogToOpen } from "@redux/actions/dialogActions";
 import { setListOfSelectedImages, setSelectedImageModel } from "@redux/actions/imageActions";
 import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
+import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import ZipHelper from "@helper/zipHelper";
 
 const FilteringScreenHeader = () => {
   const listOfSelectedImages = useSelector(selectListOfSelectedImages);
+  const isAnImageSelected = listOfSelectedImages.length === 0;
+
   const dispatch = useDispatch();
   const handleClearAll = () => dispatch(setListOfSelectedImages([]));
   const handleAddImage = () => {
@@ -32,6 +36,14 @@ const FilteringScreenHeader = () => {
     );
   };
 
+  const handleDownloadOfSelectedImages = () => {
+    dispatch(setSettingBackdropOpen(true));
+
+    ZipHelper.downloadZip(listOfSelectedImages).catch((error) => console.error(error));
+
+    dispatch(setSettingBackdropOpen(false));
+  };
+
   return (
     <StyledHeaderHolder>
       <StyledButton
@@ -39,7 +51,7 @@ const FilteringScreenHeader = () => {
         buttonText={FilteringScreenTexts.ClearAllText}
         buttonColor="error"
         buttonVariant="outlined"
-        isDisabled={listOfSelectedImages.length === 0}
+        isDisabled={isAnImageSelected}
         buttonIcon={<ClearIcon />}
         onClick={handleClearAll}
       />
@@ -58,7 +70,8 @@ const FilteringScreenHeader = () => {
             tooltipPlacement: "top",
           }}
           buttonIcon={<DownloadIcon />}
-          onClick={() => null /** TODO: Implement the download of the selected images here.*/}
+          isDisabled={isAnImageSelected}
+          onClick={handleDownloadOfSelectedImages}
         />
       </StyledComponentGap>
     </StyledHeaderHolder>
