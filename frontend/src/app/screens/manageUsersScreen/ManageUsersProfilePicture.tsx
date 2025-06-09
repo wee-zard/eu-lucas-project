@@ -1,5 +1,6 @@
 import { ManageUserRowTypes } from "@model/types/ManageUserRowType";
 import { styled } from "@mui/material/styles";
+import DefaultProfilePicture from "@media/default-profile-picture.png";
 
 type Props = {
   row: ManageUserRowTypes;
@@ -7,11 +8,8 @@ type Props = {
 
 const ManageUsersProfilePicture = ({ row }: Props) => {
   const getProfilePicture = () => {
-    return row.profilePicture.length === 0 ? (
-      <></>
-    ) : (
-      <StyledImage src={row.profilePicture} alt="Profile picture of the user" />
-    );
+    const source = row.profilePicture.length !== 0 ? row.profilePicture : DefaultProfilePicture;
+    return <StyledImage src={source} alt="Profile picture of the user" />;
   };
 
   return (
