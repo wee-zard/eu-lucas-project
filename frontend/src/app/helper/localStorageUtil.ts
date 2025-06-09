@@ -3,9 +3,7 @@ import {
   initQueryBuilderObj,
   QueryBuilderModel,
 } from "@model/QueryBuilderModel";
-import { LocalStorageKeys, ScreenUrls } from "@model/enum";
-import { redirectToUrl } from "@providers/RedirectionProvider";
-import { googleLogout } from "@react-oauth/google";
+import { LocalStorageKeys } from "@model/enum";
 
 export const getLocalStorageItem = (key: LocalStorageKeys) => {
   return localStorage.getItem(key) ?? undefined;
@@ -23,7 +21,7 @@ export const removeLocalStorageItem = (key: LocalStorageKeys) => {
   localStorage.removeItem(key);
 };
 
-export const clearLocalStorage = ({ isGoogleLogoutIgnored = false } = {}) => {
+export const clearLocalStorage = () => {
   const localStorageKeys = Object.keys(localStorage);
 
   localStorageKeys.forEach((key) => {
@@ -33,12 +31,6 @@ export const clearLocalStorage = ({ isGoogleLogoutIgnored = false } = {}) => {
 
     localStorage.removeItem(key);
   });
-
-  if (!isGoogleLogoutIgnored) {
-    googleLogout();
-  }
-
-  redirectToUrl(ScreenUrls.LoginScreenPath);
 };
 
 export const LocalStorageUtils = {

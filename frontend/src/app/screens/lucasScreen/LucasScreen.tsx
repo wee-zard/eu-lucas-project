@@ -15,12 +15,14 @@ import FilteringScreen from "@screens/filteringScreen/FilteringScreen";
 import UploadProcedureScreen from "@screens/uploadProcedureScreen/UploadProcedureScreen";
 import ReportScreen from "@screens/ReportScreen";
 import i18n from "@i18n/i18nHandler";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import LucasSidebarFooterAccount from "./LucasSidebarFooterAccount";
-import { LocalStorageKeys } from "@model/enum";
-import { jwtDecode } from "jwt-decode";
-import AuthorizedUserModel from "@model/AuthorizedUserModel";
-import { clearLocalStorage, setLocalStorageItem } from "@helper/localStorageUtil";
+import { ScreenUrls } from "@model/enum";
+import { clearLocalStorage } from "@helper/localStorageUtil";
+import ManageUsersScreen from "@screens/manageUsersScreen/ManageUsersScreen";
+import { googleLogout } from "@react-oauth/google";
+import { redirectToUrl } from "@providers/RedirectionProvider";
+import SessionUtil from "@helper/SessionUtil";
 
 type Props = {
   navigation?: Navigation;
@@ -28,6 +30,7 @@ type Props = {
 };
 
 const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
+  const [userSession, setUserSession] = useState<Session>(SessionUtil.defaultSessionObj);
   const isNavigationBarHidden = navigation.length === 0;
   const router = useToolpadRouterHook(NavigationSegments.Dashboard);
   const appTitle: Branding = {
@@ -36,10 +39,18 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
     //logo: <img src="https://avatars.githubusercontent.com/u/19550456" />,
   };
 
+  useEffect(() => {
+    SessionUtil.getSession().then(setUserSession);
+  }, []);
+
   const authentication: Authentication = useMemo(() => {
     return {
       signIn: () => null,
-      signOut: () => clearLocalStorage(),
+      signOut: () => {
+        clearLocalStorage();
+        googleLogout();
+        redirectToUrl(ScreenUrls.LoginScreenPath);
+      },
     };
   }, []);
 
@@ -51,72 +62,28 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
       pathName = pathList[pathList.length - 1];
     }
 
-    switch (pathName) {
-      case NavigationSegments.Filtering:
-        return <FilteringScreen />;
-      case NavigationSegments.UploadProcedureResults:
-        return <UploadProcedureScreen />;
-      case NavigationSegments.ReportError:
-        return <ReportScreen></ReportScreen>;
-      default:
-        return <TmpScreen></TmpScreen>;
-    }
+    const handler = Object.freeze({
+      [NavigationSegments.Filtering]: () => <FilteringScreen />,
+      [NavigationSegments.UploadProcedureResults]: () => <UploadProcedureScreen />,
+      [NavigationSegments.ReportError]: () => <ReportScreen />,
+      [NavigationSegments.UserManagement]: () => <ManageUsersScreen />,
+      [NavigationSegments.Dashboard]: () => <TmpScreen />,
+      [NavigationSegments.Manual]: () => <TmpScreen />,
+      [NavigationSegments.Settings]: () => <TmpScreen />,
+      [NavigationSegments.ManageProcedures]: () => <TmpScreen />,
+    });
+
+    return handler[pathName as NavigationSegments].call(() => null) as JSX.Element;
   };
 
   const renderPageContainerContent = () => {
     return <>{isNavigationBarHidden ? renderComponent : renderComponentByRouterPath()}</>;
   };
 
-  /**
-   * Reads the auth token from the local storage, decodes it with {@link jwtDecode}, creates
-   * an {@link AuthorizedUserModel}, and constructs the session for the application.
-   *
-   * @returns Returns the session information from the auth token.
-   */
-  const getUserSession = (): Session => {
-    const defaultObj: Session = {
-      user: {
-        name: "",
-        email: "",
-        image: "",
-      },
-    };
-
-    const authToken = localStorage.getItem(LocalStorageKeys.GoogleOAuthToken);
-
-    if (!authToken) {
-      return defaultObj;
-    }
-
-    const decodedToken: AuthorizedUserModel = jwtDecode(authToken);
-
-    if (!decodedToken || !decodedToken.email || !decodedToken.given_name) {
-      const storageSessionAccount = localStorage.getItem(LocalStorageKeys.SessionAccount);
-
-      if (!storageSessionAccount) {
-        return defaultObj;
-      }
-
-      return JSON.parse(storageSessionAccount) as Session;
-    }
-
-    const sessionAccount: Session = {
-      user: {
-        name: decodedToken.name,
-        email: decodedToken.email,
-        image: decodedToken.picture,
-      },
-    };
-
-    setLocalStorageItem(sessionAccount, LocalStorageKeys.SessionAccount);
-
-    return sessionAccount;
-  };
-
   return (
     <AppProvider
       authentication={authentication}
-      session={getUserSession()}
+      session={userSession}
       navigation={navigation}
       router={router}
       theme={appTheme}

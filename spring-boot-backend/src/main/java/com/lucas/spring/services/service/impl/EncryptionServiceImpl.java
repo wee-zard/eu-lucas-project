@@ -117,4 +117,12 @@ public class EncryptionServiceImpl implements EncryptionService {
       throw new EncryptionFailedException(EncryptionFailedEnums.DECRYPTION_FAILED);
     }
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String decryptAndExtractEmail(final String hashedText) {
+    return this.decrypt(hashedText).split(" ")[0];
+  }
 }

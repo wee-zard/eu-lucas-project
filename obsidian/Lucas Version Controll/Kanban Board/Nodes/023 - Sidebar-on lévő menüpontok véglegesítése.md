@@ -28,7 +28,7 @@ Elvárt működés:
 	- [ ] Manual oldal
 	- [ ] Settings oldal
 	- [x] Report oldal
-	- [ ] Manage Users oldal
+	- [x] Manage Users oldal
 	- [ ] Procedure oldal
 		- [x] XML fájlok feltöltése
 		- [ ] Manage Procedure & ProcedureLogs oldal

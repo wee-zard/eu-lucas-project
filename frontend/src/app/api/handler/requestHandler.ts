@@ -1,12 +1,14 @@
 import axios from "axios";
 import RequestCommand from "@model/RequestCommand";
 import { ConversionUtils } from "@helper/conversionUtils";
-import { RequestCommandTypes, UniqueErrorResponseTypes } from "@model/enum";
+import { RequestCommandTypes, ScreenUrls, UniqueErrorResponseTypes } from "@model/enum";
 import RequestCommandError from "@model/error/RequestCommandError";
 import { RequestParamType } from "@model/types/RequestParamType";
 import ErrorMessageHandler from "./errorMessageHandler";
 import RequestHeaderHandler from "./requestHeaderHandler";
 import { clearLocalStorage } from "@helper/localStorageUtil";
+import { googleLogout } from "@react-oauth/google";
+import { redirectToUrl } from "@providers/RedirectionProvider";
 
 /**
  * Try to send out the request to the server. If the response is an object or null,
@@ -30,10 +32,13 @@ const commandHandler = <T>(command: RequestCommand): Promise<T> => {
         if (isUnauthorizedError === UniqueErrorResponseTypes.UNAUTHORIZED) {
           ErrorMessageHandler.handleUnauthorizedError<T>(command)
             .then(resolve)
-            .catch(() => {
+            .catch((error) => {
               // If you got a 2nd unauthorized request, then you are denied to use the application.
+              console.error(error);
               reject(error.response.data.detail);
               clearLocalStorage();
+              googleLogout();
+              redirectToUrl(ScreenUrls.LoginScreenPath);
             });
         } else {
           console.error(error);

@@ -98,7 +98,6 @@ kanban-plugin: board
 - [ ] [[019 - Aktív szűrés eredményei, a kiválasztott képek és a hozzájuk tartozó szűrési feltételek kerüljenek eltárolásra localStorage-ben]]
 - [ ] [[024 - Manual oldal implementálása]]
 - [ ] [[025 - Settings oldal implementálása]]
-- [ ] [[027 - ManageUsers oldal implementálása]]
 - [ ] [[029 - Lucas-image-server átmozgatása a backend-re és ott implementálni a képek feldolgozását]]
 - [ ] [[035 - Tranzakció kezelés megvalósítása és versenyhelyzet kiküszöbölése]]
 - [ ] [[040 - Image Server implementálása]]
@@ -106,7 +105,6 @@ kanban-plugin: board
 - [ ] [[056 - Loading ikon megjelenítése a timeline komponenshez]]
 - [ ] [[059 - Report oldal és űrlap létrehozása]]
 - [ ] [[061 - Tesztek írása és futtatása]]
-- [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]]
 - [ ] [[098 - Verziószám hozzáadása a projekthez, és annak növelése minden demo bemutatása után]]
 - [ ] [[112 - Animáció - react-native-reanimated csomag használata az alkalmazásban]]
@@ -132,6 +130,8 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
+- [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
+- [ ] [[027 - ManageUsers oldal implementálása]]
 - [ ] [[052 - Loading komponens megjelenítése]]
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
 - [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]

@@ -26,4 +26,12 @@ public interface EncryptionService {
    * @return Return the decrypted text.
    */
   String decrypt(String strToDecrypt);
+
+  /**
+   * Decrypt and extracts the email address form the hashed text.
+   *
+   * @param hashedText The hashed text to process.
+   * @return Returns the email address from the hashed text.
+   */
+  String decryptAndExtractEmail(String hashedText);
 }

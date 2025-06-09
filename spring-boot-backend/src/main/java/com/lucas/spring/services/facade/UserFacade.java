@@ -1,9 +1,8 @@
 package com.lucas.spring.services.facade;
 
 import com.lucas.spring.model.models.AuthenticatedUser;
-import org.springframework.stereotype.Service;
-
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
@@ -25,6 +24,17 @@ public interface UserFacade {
    * Adding a user's email address to the db.
    *
    * @param emailAddress the user's gmail address.
+   * @param roleId the id of the user role.
    */
-  void saveEmailAddress(String emailAddress);
+  void saveUser(String emailAddress, long roleId);
+
+  /**
+   * Updates the user's states and set the missing properties of the user.
+   *
+   * @param userId The id of the user.
+   * @param newStatusId The new id of the user's status.
+   * @param imageBase64 The profile picture url of the user.
+   * @param username The username.
+   */
+  void updateUserStatus(Long userId, Long newStatusId, String imageBase64, String username);
 }

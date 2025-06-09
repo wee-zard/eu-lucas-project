@@ -1,50 +1,55 @@
 package com.lucas.spring.services.service;
 
+import com.lucas.spring.model.entity.RoleEntity;
 import com.lucas.spring.model.entity.StatusEntity;
 import com.lucas.spring.model.entity.UserEntity;
-import java.util.ArrayList;
-
 import com.lucas.spring.model.models.AuthenticatedUser;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
- * An interface service where we store methods
- * related to the User.
+ * An interface service where we store methods related to the User.
  */
 @Service
 public interface UserService {
   /**
    * Fetch a user by id.
    *
-   * @param userId The user to fetch.
+   * @param id The user to fetch.
    * @return Gives back the entity of the user.
    */
-  UserEntity getUserById(final Long userId);
+  UserEntity getUserById(final Long id);
 
   /**
    * Fetches the list of emails from the db in a hashed format.
    *
    * @return Returns the hashed format of the email addresses of the users.
    */
-  ArrayList<AuthenticatedUser> getAllUsersEmail();
+  List<AuthenticatedUser> getAllUsersEmail();
 
   /**
-   * Save the provided email address.
+   * Fetch the list of users from the server.
    *
-   * @param emailAddress The email address we want to save in the db.
-   * @param statusEntity The status which the user will be given.
+   * @return Returns the users.
    */
-  void saveEmailAddress(String emailAddress, StatusEntity statusEntity);
+  List<UserEntity> getUsers();
 
   /**
-   * Save the provided email address.
+   * Save the user.
    *
-   * @param emailAddress The email address we want to save in the db.
-   * @param statusEntity The status which the user will be given.
-   * @param userName The name of the user.
+   * @param email The email address we want to save in the db.
+   * @param status The status which the user will be given.
+   * @param role The role of the user
    */
-  void saveEmailAddressWithUserName(
-          String emailAddress,
-          StatusEntity statusEntity,
-          String userName);
+  void saveUser(String email, StatusEntity status, RoleEntity role);
+
+  /**
+   * Activate the provided user.
+   *
+   * @param id The id of the user.
+   * @param username The full name of the user.
+   * @param imageBase64 The profile picture url path to the resource.
+   * @param status The new status of the user.
+   */
+  void activateUser(Long id, String username, String imageBase64, StatusEntity status);
 }

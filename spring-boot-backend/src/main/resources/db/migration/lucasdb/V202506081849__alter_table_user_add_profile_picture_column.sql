@@ -1,0 +1,1 @@
+alter table tb_user_root add column profile_picture TEXT;

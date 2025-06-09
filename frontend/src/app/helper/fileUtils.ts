@@ -6,6 +6,19 @@ import { ProcedureFileMessages } from "@model/enum";
 
 abstract class FileUtils {
   /**
+   * Converts a base64string to a browser url.
+   * If no base64string was provided, then a default image will be returned.
+   */
+  public static base64ToResourceUrl = (base64String?: string | null) => {
+    if (!base64String) {
+      return "";
+    }
+
+    const blob = this.base64ToBlob(base64String);
+    return URL.createObjectURL(blob);
+  };
+
+  /**
    * Get the list of uploaded files from the fired event.
    *
    * @param event The react event that has been fired upon uploading

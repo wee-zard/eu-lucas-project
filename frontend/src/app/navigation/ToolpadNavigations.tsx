@@ -1,12 +1,13 @@
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Navigation } from "@toolpad/core/AppProvider";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import FunctionsIcon from "@mui/icons-material/Functions";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
-import UploadFileIcon from '@mui/icons-material/UploadFile';
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 
 export enum NavigationSegments {
   ManageProcedures = "ManageProcedures",
@@ -16,10 +17,12 @@ export enum NavigationSegments {
   Manual = "Manual",
   Filtering = "Filtering",
   Dashboard = "Dashboard",
+  UserManagement = "UserManagement",
 }
 
 export enum NavigationTitles {
   // ===== New Menu options ===== //
+  UserManagement = "Manage Users",
   Images = "Images",
   Filtering = "Filtering",
 
@@ -53,6 +56,11 @@ export const navigation: Navigation = [
     segment: NavigationSegments.Dashboard,
     title: NavigationTitles.Dashboard,
     icon: <DashboardIcon />,
+  },
+  {
+    segment: NavigationSegments.UserManagement,
+    title: NavigationTitles.UserManagement,
+    icon: <AccountBoxIcon />,
   },
   // ==================================
   {

@@ -8,16 +8,35 @@
         "type": "tabs",
         "children": [
           {
-            "id": "95105a91721f4b90",
+            "id": "fd34b2b45c216ede",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "Új lap"
+              "title": "065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel"
+            }
+          },
+          {
+            "id": "552214d8af47300c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/027 - ManageUsers oldal implementálása.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "027 - ManageUsers oldal implementálása"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -74,7 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 233.00825119018555
+    "width": 281.00825119018555
   },
   "right": {
     "id": "dfb91359a319a8ad",
@@ -90,6 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Kanban Board/Nodes/027 - ManageUsers oldal implementálása.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Visszahivatkozások"
+              "title": "027 - ManageUsers oldal implementálása visszahivatkozásai"
             }
           },
           {
@@ -159,14 +179,16 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "95105a91721f4b90",
+  "active": "552214d8af47300c",
   "lastOpenFiles": [
+    "Kanban Board/Nodes/065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel.md",
+    "Kanban Board/Nodes/023 - Sidebar-on lévő menüpontok véglegesítése.md",
+    "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/027 - ManageUsers oldal implementálása.md",
     "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
     "Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md",
-    "Kanban Board/Nodes/027 - ManageUsers oldal implementálása.md",
     "Kanban Board/Nodes/045 - Saját logó tervezése és megjelenítése a bejelentkezés, és a Mat Toolbar-on.md",
     "Kanban Board/Nodes/053 - Loading ikon megjelenítése a bejelentkezési oldalhoz.md",
-    "Kanban Board/Lucas Kanban.md",
     "Kanban Board/Nodes/044 - Profilkép megjelenítése a Mat Toolbar-on.md",
     "Kanban Board/Nodes/101 - Profile - Kijelentkezés implementálása.md",
     "Kanban Board/Nodes/102 - localStorage kiürítése bejelentkezés & kijelentkezés során.md",
@@ -185,8 +207,6 @@
     "Kanban Board/Nodes/120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem.md",
     "Kanban Board/Nodes/015 - Nagy méretű táblák partícionálása.md",
     "Kanban Board/Nodes/019 - Aktív szűrés eredményei, a kiválasztott képek és a hozzájuk tartozó szűrési feltételek kerüljenek eltárolásra localStorage-ben.md",
-    "Kanban Board/Nodes/135 - DefaultSqlScriptExecutor DB Integer display width is deprecated and will be removed in a future release.md",
-    "Kanban Board/Nodes/166 - Compose.yml - The frontend container should wait for the backend to fully load.md",
     "Kanban Board/Images/Pasted image 20250224232633.png",
     "Kanban Board/Images/Pasted image 20250224231941.png",
     "Pasted image 20250224232551.png",

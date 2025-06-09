@@ -9,7 +9,10 @@ export enum ImageServiceEndpoints {
 
 export enum BackendUserControllerEndpoints {
   ValidateEmail = "/api/user/validate-email",
+  ActivateUser = "/api/user/activate",
   SaveEmail = "/api/user/save-email",
+  ToolpadSession = "/api/user/toolpad-session",
+  Users = "/api/user/",
 }
 
 export enum BackendCreationYearControllerEndpoints {

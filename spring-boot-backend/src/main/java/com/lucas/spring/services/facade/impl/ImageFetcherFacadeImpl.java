@@ -4,7 +4,11 @@ import com.lucas.spring.model.request.ImageRequest;
 import com.lucas.spring.services.facade.ImageFacadeService;
 import com.lucas.spring.services.facade.ImageFetcherFacade;
 import com.lucas.spring.services.service.HttpRequestService;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import javax.imageio.ImageIO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -78,6 +83,60 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
   @Override
   public String urlToBase64(final String urlPath) {
     return this.byteToBase64(this.getImageByUrl(urlPath));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public byte[] base64ToByteArray(final String base64String) {
+    return Base64.getDecoder().decode(base64String);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String scaleDownImage(final String imageUrl) {
+    if (imageUrl.isEmpty()) {
+      return null;
+    }
+
+    final byte[] imageBinaries = this.getImageByUrl(imageUrl);
+    final ByteArrayInputStream stream = new ByteArrayInputStream(imageBinaries);
+
+    try {
+      final BufferedImage originalImage = ImageIO.read(stream);
+      final BufferedImage resizedImage = this.resizeImage(originalImage);
+      final byte[] resizedImageBinaries = this.toByteArray(resizedImage);
+      return this.byteToBase64(resizedImageBinaries);
+    } catch (IOException e) {
+      return null;
+    }
+  }
+
+  private byte[] toByteArray(final BufferedImage bi)
+          throws IOException {
+
+    final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ImageIO.write(bi, "jpg", baos);
+    return baos.toByteArray();
+  }
+
+  /**
+   * Resizes the provided image to a smaller one.
+   *
+   * @param originalImage The image to resize.
+   * @return Returns the result Buffered image.
+   */
+  private BufferedImage resizeImage(final BufferedImage originalImage) {
+    final int width = 200;
+    final int height = 200;
+    final BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    final Graphics2D graphics2D = resizedImage.createGraphics();
+    graphics2D.drawImage(originalImage, 0, 0, width, height, null);
+    graphics2D.dispose();
+    return resizedImage;
   }
 
   /**

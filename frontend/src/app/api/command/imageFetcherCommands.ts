@@ -6,8 +6,8 @@ import {
 import commandHandler from "@api/handler/requestHandler";
 
 abstract class ImageFetcherCommands {
-  public static downloadImagesByUrl = (request: string): Promise<any> =>
-    commandHandler<any>({
+  public static downloadImagesByUrl = (request: string): Promise<string> =>
+    commandHandler<string>({
       type: RequestCommandTypes.POST,
       server: ServersToConnectTo.Backend,
       endpoint: BackendImageFetcherControllerEndpoints.DownloadImagesByUrls,
