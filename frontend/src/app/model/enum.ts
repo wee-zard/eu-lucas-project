@@ -7,12 +7,17 @@ export enum ImageServiceEndpoints {
   RandomImages = "/random-images",
 }
 
+export enum BackendRoleControllerEndpoints {
+  GetAllRole = "/api/role/",
+}
+
 export enum BackendUserControllerEndpoints {
   ValidateEmail = "/api/user/validate-email",
   ActivateUser = "/api/user/activate",
   SaveEmail = "/api/user/save-email",
   ToolpadSession = "/api/user/toolpad-session",
   Users = "/api/user/",
+  CreateUser = "/api/user/save-email",
 }
 
 export enum BackendCreationYearControllerEndpoints {
@@ -86,6 +91,7 @@ export enum GoogleTokenEndpoints {
  */
 export type BackendControllerEndpointTypes =
   | BackendUserControllerEndpoints
+  | BackendRoleControllerEndpoints
   | BackendCreationYearControllerEndpoints
   | BackendCreationCountryControllerEndpoints
   | BackendCreationDirectionControllerEndpoints
@@ -136,6 +142,7 @@ export enum LocalStorageKeys {
   ToolPadMode = "toolpad-mode",
   SetItem = "setItem",
   FilteringDialog = "filtering-dialog",
+  UserCreationForm = "user-creation-form",
 }
 
 export enum ScreenUrls {
