@@ -44,6 +44,16 @@ body {
   align-items: center;
 }
 
+.grid-gap {
+  display: grid;
+  gap: 8px;
+}
+
+.grid-gap24 {
+  display: grid;
+  gap: 24px;
+}
+
 .grid-container {
   display: grid;
   gap: 8px;
