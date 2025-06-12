@@ -1,6 +1,12 @@
 {
   "validators": {
-    "field-is-required": "A mező kitöltése kötelező"
+    "required": "A mező kitöltése kötelező",
+    "maxLength": "Az input nem lehet hosszabb mint {{param}} karakter!",
+    "email": "Adj meg egy valid email címet!",
+    "gmail": "Az email címben csak a felhasználó nevét szükséges megadni, a '@' illetve a domain nevét nem szükséges!"
+  },
+  "errors": {
+    "EMAIL_ADDRESS_IS_ALREADY_TAKEN": "A következő email cím már foglalt: {{param0}}"
   },
   "cards": {
     "image-card": {
@@ -173,6 +179,9 @@
           "condition": "Feltétel"
         }
       }
+    },
+    "manage-users": {
+      "create-new-user-button": "Új felhasználó létrehozása"
     }
   },
   "error": {
