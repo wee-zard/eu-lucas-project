@@ -1,5 +1,6 @@
 import i18n from "@i18n/i18nHandler";
 import { SnackEnum } from "@model/enum/SnackEnum";
+import { BaseErrorResponse } from "@model/response/BaseErrorResponse";
 import { TranslateOptions } from "i18n-js/typings/typing";
 import { toast } from "react-toastify";
 
@@ -18,6 +19,20 @@ export const throwNotification = (type: ToastSeverity, message: string) => {
     [ToastSeverity.Error]: () => toast.error(message),
   });
   handler[type].call(() => null);
+};
+
+export const baseErrorResponseToErrorMessage = (
+  baseError: BaseErrorResponse,
+  isThrowable: boolean = false,
+) => {
+  const { key, param0, param1 } = baseError;
+  const message = i18n.t(`errors.${key}`, { param0, param1 });
+
+  if (isThrowable) {
+    throwNotification(ToastSeverity.Error, message);
+  }
+
+  return message;
 };
 
 /**

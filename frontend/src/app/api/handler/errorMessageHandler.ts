@@ -1,6 +1,10 @@
 import { getNewAccessToken } from "@helper/authenticationUtils";
 import { setLocalStorageItem } from "@helper/localStorageUtil";
-import { ToastSeverity, throwNotification } from "@helper/notificationUtil";
+import {
+  ToastSeverity,
+  baseErrorResponseToErrorMessage,
+  throwNotification,
+} from "@helper/notificationUtil";
 import { LocalStorageKeys, UniqueErrorResponseTypes } from "@model/enum";
 import LoginAuthenticationError from "@model/error/LoginAuthenticationError";
 import RequestCommandError from "@model/error/RequestCommandError";
@@ -17,13 +21,15 @@ export default abstract class ErrorMessageHandler {
    * @param axiosErrorMessage The base error message of the command.
    */
   public static throwNotificationByErrorType = (error: any, axiosErrorMessage: string) => {
-    // TODO: If any error is thrown from the server, then unauthorized error is thrown. It is not good. Change it later.
     switch (error.constructor) {
       case AxiosError:
         if (error.status === 401) {
           return UniqueErrorResponseTypes.UNAUTHORIZED;
+        } else if (!!error.response?.data?.detail) {
+          baseErrorResponseToErrorMessage(JSON.parse(error.response.data.detail), true);
+          return null;
         } else {
-          throwNotification(ToastSeverity.Error, error.message);
+          throwNotification(ToastSeverity.Error, axiosErrorMessage);
           return null;
         }
       case LoginAuthenticationError:

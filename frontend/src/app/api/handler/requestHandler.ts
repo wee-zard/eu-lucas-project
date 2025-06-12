@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import RequestCommand from "@model/RequestCommand";
 import { ConversionUtils } from "@helper/conversionUtils";
 import { RequestCommandTypes, ScreenUrls, UniqueErrorResponseTypes } from "@model/enum";
@@ -41,8 +41,13 @@ const commandHandler = <T>(command: RequestCommand): Promise<T> => {
               redirectToUrl(ScreenUrls.LoginScreenPath);
             });
         } else {
-          console.error(error);
-          reject(error);
+          if (!isAxiosError(error)) {
+            reject(error);
+          } else if (!!error.response?.data?.detail) {
+            reject(error.response?.data?.detail);
+          } else {
+            reject(error);
+          }
         }
       });
   });
