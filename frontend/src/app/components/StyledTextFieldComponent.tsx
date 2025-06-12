@@ -1,7 +1,6 @@
-import React from "react";
-import { FormControl, styled, TextField } from "@mui/material";
+import React, { InputHTMLAttributes } from "react";
+import { FormControl, InputAdornment, styled, TextField } from "@mui/material";
 import { StyledErrorMessageHolder } from "./StyledSelectComponent";
-import { StyledComponentGap } from "@global/globalStyles";
 
 type Props = {
   inputTitle?: string;
@@ -10,6 +9,11 @@ type Props = {
   multilineRows?: number;
   helperText?: string;
   errorMessage?: string;
+  inputAdornment?: {
+    position: "end" | "start";
+    icon: JSX.Element;
+  };
+  htmlInputValidation?: InputHTMLAttributes<HTMLInputElement>;
   setValue: (value: string) => void;
 };
 
@@ -20,6 +24,8 @@ const StyledTextFieldComponent = ({
   multilineRows,
   helperText,
   errorMessage,
+  inputAdornment,
+  htmlInputValidation,
   setValue,
 }: Props) => {
   const handleSelectionProcess = (event: any) => {
@@ -32,7 +38,7 @@ const StyledTextFieldComponent = ({
 
   return (
     <CustomFormControl fullWidth required is_multiline_active={+isMultilineActive}>
-      <StyledComponentGap display={"grid"}>
+      <div style={{ display: "grid" }}>
         <TextField
           value={inputValue}
           label={inputTitle}
@@ -42,10 +48,23 @@ const StyledTextFieldComponent = ({
           multiline={isMultilineActive}
           rows={multilineRows}
           error={!!errorMessage}
+          slotProps={{
+            htmlInput: {
+              required: htmlInputValidation?.required,
+              maxLength: htmlInputValidation?.maxLength,
+            },
+            input: {
+              endAdornment: inputAdornment ? (
+                <InputAdornment position={inputAdornment.position}>
+                  {inputAdornment.icon}
+                </InputAdornment>
+              ) : null,
+            },
+          }}
           required
         />
         {errorMessage ? <StyledErrorMessageHolder>{errorMessage}</StyledErrorMessageHolder> : null}
-      </StyledComponentGap>
+      </div>
     </CustomFormControl>
   );
 };
