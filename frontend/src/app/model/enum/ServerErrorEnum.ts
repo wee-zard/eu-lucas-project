@@ -1,0 +1,3 @@
+export enum ServerErrorEnum {
+  EMAIL_ADDRESS_IS_ALREADY_TAKEN = "EMAIL_ADDRESS_IS_ALREADY_TAKEN",
+}
