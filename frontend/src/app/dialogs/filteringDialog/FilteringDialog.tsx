@@ -36,15 +36,17 @@ const FilteringDialog = () => {
 
 export default FilteringDialog;
 
-export const StyledDialog = styled(Dialog)<{}>((_) => ({
-  "& .MuiPaper-root": {
-    ...StyledFullWidthAndHeight(),
-    maxWidth: "80%",
-    maxHeight: "90%",
-    borderRadius: "16px",
-    padding: "24px",
-  },
-}));
+export const StyledDialog = styled(Dialog)<{ styledmaxwidth?: string; styledmaxheight?: string }>(
+  (props) => ({
+    "& .MuiPaper-root": {
+      ...StyledFullWidthAndHeight(),
+      maxWidth: props?.styledmaxwidth ?? "80%",
+      maxHeight: props?.styledmaxheight ?? "90%",
+      borderRadius: "16px",
+      padding: "24px",
+    },
+  }),
+);
 
 export const StyledDialogTitle = styled(DialogTitle)<{}>(() => ({
   display: "flex",
