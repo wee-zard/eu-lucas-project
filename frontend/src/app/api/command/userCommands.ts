@@ -8,6 +8,7 @@ import BaseResponse from "@model/response/BaseResponse";
 import UserStatusChangeRequest from "@model/request/UserStatusChangeRequest";
 import UserToolpadSessionResponse from "@model/response/UserToolpadSessionResponse";
 import UserDto from "@model/dto/UserDto";
+import { UserCreationRequest } from "@model/request/UserCreationRequest";
 
 export const validateEmailAddress = (): Promise<BaseResponse> => {
   return commandHandler<BaseResponse>({
@@ -20,6 +21,19 @@ export const validateEmailAddress = (): Promise<BaseResponse> => {
     },
     errorMessage:
       "Váratlan hiba történt az email cím ellenőrzése során! Próbáld meg újra a bejelentkezést!",
+  });
+};
+
+export const createUserCommand = (request: UserCreationRequest[]): Promise<BaseResponse> => {
+  return commandHandler<BaseResponse>({
+    type: RequestCommandTypes.POST,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendUserControllerEndpoints.CreateUser,
+    obj: request,
+    header: {
+      isAuthTokenMandatory: true,
+    },
+    errorMessage: "Váratlan hiba történt a felhasználók létrehozása során!",
   });
 };
 
