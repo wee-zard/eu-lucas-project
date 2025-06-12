@@ -5,9 +5,12 @@ import { validateEmailAddress } from "@api/command/userCommands";
 import { useEffect, useState } from "react";
 import { openSnackbar } from "@helper/notificationUtil";
 import { SnackEnum } from "@model/enum/SnackEnum";
+import { useDispatch } from "react-redux";
+import { setAuthenticatedUser } from "@redux/actions/userActions";
 
 export const useGoogleAccountGuard = (isOpen: boolean) => {
   const [result, setResult] = useState(GuardResultTypes.PENDING);
+  const dispatch = useDispatch();
 
   /**
    * Log out the user from the app and empty out the local storage.
@@ -48,6 +51,7 @@ export const useGoogleAccountGuard = (isOpen: boolean) => {
         return;
       }
 
+      dispatch(setAuthenticatedUser(result));
       setResult(GuardResultTypes.PASSED);
     } catch (error) {
       setResult(GuardResultTypes.FAILED);

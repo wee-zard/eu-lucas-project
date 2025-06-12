@@ -1,15 +1,18 @@
 import UserDto from "@model/dto/UserDto";
+import AuthenticatedUserResponse from "@model/response/AuthenticatedUserResponse";
 import { USerActionTypes } from "@redux/consts/userActionTypes";
 import { UserConsts } from "@redux/consts/userConsts";
 
 interface UserReducerStateType {
   isUserListLoading: boolean;
   listOfUsers: UserDto[];
+  authenticatedUser: AuthenticatedUserResponse | undefined;
 }
 
 const initialState: UserReducerStateType = {
   isUserListLoading: false,
   listOfUsers: [],
+  authenticatedUser: undefined,
 };
 
 const userReducer = (state = initialState, action: USerActionTypes): UserReducerStateType => {
@@ -23,6 +26,11 @@ const userReducer = (state = initialState, action: USerActionTypes): UserReducer
       return {
         ...state,
         listOfUsers: action.payload,
+      };
+    case UserConsts.SET_AUTHENTICATED_USER:
+      return {
+        ...state,
+        authenticatedUser: action.payload,
       };
     default:
       return {

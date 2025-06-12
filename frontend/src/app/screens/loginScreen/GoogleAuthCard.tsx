@@ -20,6 +20,7 @@ import { jwtDecode } from "jwt-decode";
 import AuthorizedUserModel from "@model/AuthorizedUserModel";
 import UserStatusChangeRequest from "@model/request/UserStatusChangeRequest";
 import { UserStatusEnum } from "@model/enum/UserStatusEnum";
+import { setAuthenticatedUser } from "@redux/actions/userActions";
 
 const GoogleAuthCard = () => {
   const isBackdropOpen = useSelector(selectIsBackdropOpen);
@@ -58,10 +59,14 @@ const GoogleAuthCard = () => {
 
   const handleEmailValidation = (token: AuthorizationModel) => {
     validateEmailAddress()
-      .then((isEmailValid) => {
-        if (isEmailValid) {
-          activateUser(token);
+      .then((authenticatedUser) => {
+        if (!authenticatedUser) {
+          dispatch(setSettingBackdropOpen(false));
+          return;
         }
+
+        dispatch(setAuthenticatedUser(authenticatedUser));
+        activateUser(token);
       })
       .catch(throwErrorFromCommand);
   };

@@ -9,9 +9,10 @@ import UserStatusChangeRequest from "@model/request/UserStatusChangeRequest";
 import UserToolpadSessionResponse from "@model/response/UserToolpadSessionResponse";
 import UserDto from "@model/dto/UserDto";
 import { UserCreationRequest } from "@model/request/UserCreationRequest";
+import AuthenticatedUserResponse from "@model/response/AuthenticatedUserResponse";
 
-export const validateEmailAddress = (): Promise<BaseResponse> => {
-  return commandHandler<BaseResponse>({
+export const validateEmailAddress = (): Promise<AuthenticatedUserResponse> => {
+  return commandHandler<AuthenticatedUserResponse>({
     type: RequestCommandTypes.POST,
     server: ServersToConnectTo.Backend,
     endpoint: BackendUserControllerEndpoints.ValidateEmail,

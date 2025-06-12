@@ -42,8 +42,11 @@ public class UserController {
    */
   @CrossOrigin
   @PostMapping("/validate-email")
-  public BaseResponse validate(@RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user) {
-    return new BaseResponse();
+  public AuthenticatedUser validate(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+  ) {
+    user.setEmail(null);
+    return user;
   }
 
   /**
@@ -67,8 +70,7 @@ public class UserController {
   /**
    * Change the user's status based on the provided request.
    *
-   * @param user The authenticated user who initiated someone's email
-   *     to be added to the server.
+   * @param user The authenticated user who initiated someone's email to be added to the server.
    * @param req The request that holds the user status change information.
    */
   @CrossOrigin
@@ -85,11 +87,14 @@ public class UserController {
   /**
    * Get the session of the currently browsing user.
    *
+   * @param user The authenticated user who initiated someone's email to be added to the server.
    * @return Returns the toolpad session.
    */
   @CrossOrigin
   @GetMapping("/toolpad-session")
-  public UserToolpadSession getToolpadSession(@RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user) {
+  public UserToolpadSession getToolpadSession(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+  ) {
     return conversionHelper.convertSingleEntityToSingleDto(
             userService.getUserById(user.getUserId()),
             UserToolpadSession.class
@@ -99,11 +104,12 @@ public class UserController {
   /**
    * An endpoint to fetch the users and their information from the sever.
    *
+   * @param user The authenticated user who initiated someone's email to be added to the server.
    * @return Returns a list of user dto that contains the user's data.
    */
   @CrossOrigin
   @GetMapping("/")
-  public List<UserDto> getUsers() {
+  public List<UserDto> getUsers(@RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user) {
     return conversionHelper.convertEntityListToDtoList(userService.getUsers(), UserDto.class);
   }
 }
