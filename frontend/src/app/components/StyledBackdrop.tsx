@@ -8,7 +8,10 @@ type Props = {
 const StyledBackdrop = ({ isBackdropOpen }: Props) => {
   return (
     <Backdrop
-      sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+      sx={{
+        color: "#fff",
+        zIndex: (theme) => Math.max.apply(Math, Object.values(theme.zIndex)) + 1,
+      }}
       open={isBackdropOpen}
     >
       <CircularProgress color="inherit" />
