@@ -35,7 +35,7 @@ const StyledButton = ({
         <CustomButtonDesign
           variant={buttonVariant}
           color={buttonColor}
-          onClick={onClick}
+          onClick={(event) => (!isDisabled ? onClick(event) : null)}
           disabled={isDisabled}
           type={buttonType}
           button_width={applyStyle?.buttonWidth}
