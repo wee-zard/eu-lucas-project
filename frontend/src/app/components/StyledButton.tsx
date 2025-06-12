@@ -12,6 +12,9 @@ type Props = {
   buttonColor?: "inherit" | "error" | "primary" | "secondary" | "success" | "info" | "warning";
   isDisabled?: boolean;
   buttonType?: "button" | "submit" | "reset" | undefined;
+  applyStyle?: {
+    buttonWidth?: string;
+  };
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
@@ -23,6 +26,7 @@ const StyledButton = ({
   buttonColor,
   isDisabled,
   buttonType,
+  applyStyle,
   onClick,
 }: Props) => {
   return (
@@ -34,6 +38,7 @@ const StyledButton = ({
           onClick={onClick}
           disabled={isDisabled}
           type={buttonType}
+          button_width={applyStyle?.buttonWidth}
         >
           <CustomComponentGap>
             {buttonIcon ? <StyledIconHolder>{buttonIcon}</StyledIconHolder> : null}
@@ -54,9 +59,14 @@ const CustomComponentGap = styled(StyledComponentGap)<{}>(() => ({
 
 const StyledIconHolder = styled.div<{}>(() => ({
   display: "flex",
+  svg: {
+    width: 22,
+    height: 22,
+  },
 }));
 
-const CustomButtonDesign = styled(Button)<{}>(() => ({
+const CustomButtonDesign = styled(Button)<{ button_width?: string }>((props) => ({
   borderRadius: "8px",
   height: "40px",
+  width: props.button_width ?? undefined,
 }));
