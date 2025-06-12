@@ -22,4 +22,6 @@ export const IdUtils = {
   getEventListenerName: (id: number) => `QueryBuilderEventListener_${id}`,
 
   getTimelineContentById: (id: number) => `StyledTimelineContent-${id}`,
+
+  getUserCreationFormName: (id?: number | string) => `user-creation-form-content-${id ?? "root"}`,
 };

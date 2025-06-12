@@ -9,6 +9,16 @@ export const getLocalStorageItem = (key: LocalStorageKeys) => {
   return localStorage.getItem(key) ?? undefined;
 };
 
+export const getGenericLocalStorageItem = <T>(key: LocalStorageKeys) => {
+  const entry = getLocalStorageItem(key);
+
+  if (!entry) {
+    return;
+  }
+
+  return JSON.parse(entry) as T;
+};
+
 export const setLocalStorageItem = (item: any, key: LocalStorageKeys) => {
   if (typeof item === "string") {
     localStorage.setItem(key, item);
