@@ -15,12 +15,14 @@ import logParamReducer from "@redux/reducers/logParamReducer";
 import procedureLogReducer from "./reducers/procedureLogReducer";
 import procedureUploadReducer from "./reducers/procedureUploadReducer";
 import settingReducer from "./reducers/settingReducer";
+import userReducer from "./reducers/userReducer";
 
 const rootReducer = combineReducers({
   // Processed:
   imageStore: imageReducer,
   procedureUploadStorage: procedureUploadReducer,
   settingStore: settingReducer,
+  userStore: userReducer,
 
   // Not processed yet:
   dialogStore: dialogReducer,
