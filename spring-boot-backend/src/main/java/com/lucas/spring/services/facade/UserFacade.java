@@ -1,6 +1,7 @@
 package com.lucas.spring.services.facade;
 
 import com.lucas.spring.model.models.AuthenticatedUser;
+import com.lucas.spring.model.request.EmailRequest;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,14 @@ public interface UserFacade {
    * @return Returns the authenticated use if exists.
    */
   Optional<AuthenticatedUser> isEmailExists(String emailAddress);
+
+  /**
+   * Adding a user's email address to the db.
+   *
+   * @param user the user who initiated the request.
+   * @param request the request that was sent to the server.
+   */
+  void saveUser(AuthenticatedUser user, EmailRequest[] request);
 
   /**
    * Adding a user's email address to the db.

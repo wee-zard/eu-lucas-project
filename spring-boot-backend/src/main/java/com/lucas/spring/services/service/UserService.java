@@ -38,10 +38,11 @@ public interface UserService {
    * Save the user.
    *
    * @param email The email address we want to save in the db.
+   * @param username The name of the user.
    * @param status The status which the user will be given.
    * @param role The role of the user
    */
-  void saveUser(String email, StatusEntity status, RoleEntity role);
+  void saveUser(String email, String username, StatusEntity status, RoleEntity role);
 
   /**
    * Activate the provided user.

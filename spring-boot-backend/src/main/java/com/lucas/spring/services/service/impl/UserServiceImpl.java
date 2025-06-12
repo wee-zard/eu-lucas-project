@@ -11,7 +11,6 @@ import com.lucas.spring.services.service.UserService;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,6 @@ public class UserServiceImpl implements UserService {
   private static final String SERVICE_CACHE_NAME = "CH_USER";
   private static final String SERVICE_CACHE_NAME_EMAIL = "CH_USER_EMAILS";
   private UserRepository userRepository;
-  private CacheManager cacheManager;
 
   /**
    * {@inheritDoc}
@@ -61,10 +59,11 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   @CacheEvict(cacheNames = { SERVICE_CACHE_NAME, SERVICE_CACHE_NAME_EMAIL }, allEntries = true)
-  public void saveUser(final String email, final StatusEntity status, final RoleEntity role) {
+  public void saveUser(final String email, final String username, final StatusEntity status, final RoleEntity role) {
     UserEntity userEntity = UserEntity
             .builder()
             .emailAddress(email)
+            .userName(username)
             .status(status)
             .role(role)
             .build();

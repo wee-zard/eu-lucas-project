@@ -13,4 +13,5 @@ import lombok.Getter;
 public class AuthenticatedUser {
   private String email;
   private Long userId;
+  private int roleId;
 }

@@ -10,7 +10,7 @@ import com.lucas.spring.model.response.UserToolpadSession;
 import com.lucas.spring.services.facade.ImageFetcherFacade;
 import com.lucas.spring.services.facade.UserFacade;
 import com.lucas.spring.services.service.UserService;
-import java.util.Arrays;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -51,16 +51,16 @@ public class UserController {
    *
    * @param user The authenticated user who initiated someone's email
    *     to be added to the server.
-   * @param e The email address to add to the server.
+   * @param request The email address to add to the server.
    *     It is different from the authenticator's email.
    */
   @CrossOrigin
   @PostMapping("/save-email")
   public BaseResponse postEmailAddressToDb(
       @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-      @RequestBody final EmailRequest[] e
+      @RequestBody @Valid final EmailRequest[] request
   ) {
-    Arrays.stream(e).forEach(req -> userFacade.saveUser(req.getEmailAddress(), req.getRoleId()));
+    userFacade.saveUser(user, request);
     return new BaseResponse();
   }
 
