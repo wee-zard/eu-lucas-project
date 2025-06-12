@@ -64,9 +64,9 @@ const ReportScreen = () => {
     dispatch(setSettingBackdropOpen(true));
 
     const tmpError: SmtpEmailRequestError = {
-      title: !!request.title ? undefined : i18n.t("validators.field-is-required"),
-      reportType: !!request.reportType ? undefined : i18n.t("validators.field-is-required"),
-      message: !!request.message ? undefined : i18n.t("validators.field-is-required"),
+      title: !!request.title ? undefined : i18n.t("validators.required"),
+      reportType: !!request.reportType ? undefined : i18n.t("validators.required"),
+      message: !!request.message ? undefined : i18n.t("validators.required"),
     };
     const isErrorNotFound = Object.values(tmpError).every((error) => !error);
 
