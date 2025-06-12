@@ -7,6 +7,7 @@ import { setLocalStorageItem } from "@helper/localStorageUtil";
 import { LocalStorageKeys } from "@model/enum";
 import { getRolesCommand } from "@api/command/roleCommands";
 import RoleDto from "@model/dto/RoleDto";
+import { validateEmailAddress } from "@api/command/userCommands";
 
 type Props = {
   id: string | number;
@@ -17,7 +18,11 @@ const CreateUserDialogRoleSelect = memo(function FilteringQueryBuilder({ id }: P
   const [listOfRoles, setListOfRoles] = useState<RoleDto[]>([]);
 
   useEffect(() => {
-    getRolesCommand().then(setListOfRoles);
+    getRolesCommand().then((roles) =>
+      validateEmailAddress().then((authenticatedUser) =>
+        setListOfRoles(roles.filter((role) => role.id >= authenticatedUser.roleId)),
+      ),
+    );
   }, []);
 
   const updateForm = (_: string, index: number): void => {

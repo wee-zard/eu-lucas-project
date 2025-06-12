@@ -45,8 +45,10 @@ public class UserController {
   public AuthenticatedUser validate(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
   ) {
-    user.setEmail(null);
-    return user;
+    return AuthenticatedUser.builder()
+            .userId(user.getUserId())
+            .roleId(user.getRoleId())
+            .build();
   }
 
   /**
