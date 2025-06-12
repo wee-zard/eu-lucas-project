@@ -9,7 +9,7 @@ type Props = {
   inputValue?: string;
   errorMessage?: string;
   icon?: JSX.Element;
-  setValue: (value: string) => void;
+  setValue: (value: string, index: number) => void;
 };
 
 const StyledSelectComponent = ({
@@ -23,7 +23,8 @@ const StyledSelectComponent = ({
 }: Props) => {
   const handleSelectionProcess = (event: any) => {
     const selectedOption = event.target.value ?? "";
-    setValue(selectedOption);
+    const index = options.findIndex((option) => option === selectedOption);
+    setValue(selectedOption, index);
   };
 
   const getInputValue = () => {
