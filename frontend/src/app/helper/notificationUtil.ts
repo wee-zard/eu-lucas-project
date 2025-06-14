@@ -1,6 +1,7 @@
 import i18n from "@i18n/i18nHandler";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { BaseErrorResponse } from "@model/response/BaseErrorResponse";
+import { GenericHandlerType } from "@model/types/GenericHandlerType";
 import { TranslateOptions } from "i18n-js/typings/typing";
 import { toast } from "react-toastify";
 
@@ -12,13 +13,13 @@ export enum ToastSeverity {
 }
 
 export const throwNotification = (type: ToastSeverity, message: string) => {
-  const handler = Object.freeze({
+  const handler: GenericHandlerType<ToastSeverity, () => void> = {
     [ToastSeverity.Success]: () => toast.success(message),
     [ToastSeverity.Info]: () => toast.info(message),
     [ToastSeverity.Warning]: () => toast.warn(message),
     [ToastSeverity.Error]: () => toast.error(message),
-  });
-  handler[type].call(() => null);
+  };
+  handler[type]();
 };
 
 export const baseErrorResponseToErrorMessage = (
@@ -53,7 +54,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
   const throwSuccessToast = () => throwNotification(ToastSeverity.Success, message);
   const throwErrorToast = () => throwNotification(ToastSeverity.Error, message);
 
-  const handler = Object.freeze({
+  const handler: GenericHandlerType<SnackEnum, () => void> = {
     // Successful toast messages
     [SnackEnum.LOGS_ARE_DELETED]: () => throwSuccessToast(),
     [SnackEnum.REPORT_SENT_OUT]: () => throwSuccessToast(),
@@ -66,6 +67,6 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.CANNOT_SELECT_MORE_LOGS]: () => throwErrorToast(),
     [SnackEnum.REPORT_NOT_SENT_OUT]: () => throwErrorToast(),
     [SnackEnum.ERROR_ON_LOGIN]: () => throwErrorToast(),
-  });
-  handler[snack].call(() => null);
+  };
+  handler[snack]();
 };

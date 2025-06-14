@@ -23,6 +23,7 @@ import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import StyledZoomMap from "@components/StyledZoomMap";
 import { SelectedImageAction } from "@model/types/SelectedImageActionType";
+import { GenericHandlerType } from "@model/types/GenericHandlerType";
 
 type Props = {
   imageDto: ImageDto;
@@ -65,7 +66,7 @@ const ImageCardContent = ({ imageDto, imageModel }: Props) => {
   ];
 
   const handleClickOnImageAction = (title: SelectedImageActionTooltipTitles) => {
-    const handler = Object.freeze({
+    const handler: GenericHandlerType<SelectedImageActionTooltipTitles, () => void> = {
       [SelectedImageActionTooltipTitles.Search]: () => {
         dispatch(setDialogToOpen(DialogToOpens.BoundingBoxDialog));
         dispatch(setSelectedImage(imageDto));
@@ -90,8 +91,8 @@ const ImageCardContent = ({ imageDto, imageModel }: Props) => {
           ),
         );
       },
-    });
-    handler[title].call(() => null);
+    };
+    handler[title]();
     handleClose();
   };
 
