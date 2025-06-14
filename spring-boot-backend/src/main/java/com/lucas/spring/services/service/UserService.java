@@ -45,6 +45,13 @@ public interface UserService {
   void saveUser(String email, String username, StatusEntity status, RoleEntity role);
 
   /**
+   * Save a user entity.
+   *
+   * @param user The user.
+   */
+  void saveUser(UserEntity user);
+
+  /**
    * Activate the provided user.
    *
    * @param id The id of the user.
@@ -53,4 +60,18 @@ public interface UserService {
    * @param status The new status of the user.
    */
   void activateUser(Long id, String username, String imageBase64, StatusEntity status);
+
+  /**
+   * Deletes a user completely.
+   *
+   * @param id The id of the user to delete.
+   */
+  void deleteUser(Long id);
+
+  /**
+   * Deletes a user completely.
+   *
+   * @param user the user to delete
+   */
+  void deleteUser(UserEntity user);
 }

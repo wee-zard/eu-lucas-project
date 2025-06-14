@@ -1,7 +1,8 @@
 package com.lucas.spring.model.entity.abstraction;
 
 import jakarta.persistence.Column;
-import java.util.Date;
+import jakarta.persistence.MappedSuperclass;
+import java.time.Instant;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,17 +13,18 @@ import org.hibernate.annotations.UpdateTimestamp;
  * of the entity.
  */
 @Getter
-public abstract class AuditedEntity /* BaseEntity */ {
+@MappedSuperclass
+public abstract class AuditedEntity extends BaseEntity {
   /**
    * The creation time of the entity.
    */
-  @Column
   @CreationTimestamp
-  private Date createdAt;
+  @Column(name = "created_at")
+  private Instant createdAt;
   /**
    * The update time of the entity.
    */
-  @Column
   @UpdateTimestamp
-  private Date updatedAt;
+  @Column(name = "updated_at")
+  private Instant updatedAt;
 }

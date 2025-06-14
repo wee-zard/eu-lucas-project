@@ -3,18 +3,22 @@ package com.lucas.spring.services.facade.impl;
 import com.lucas.spring.helper.validation.UserValidation;
 import com.lucas.spring.model.entity.RoleEntity;
 import com.lucas.spring.model.entity.StatusEntity;
+import com.lucas.spring.model.entity.UserEntity;
 import com.lucas.spring.model.enums.EncryptionFailedEnums;
 import com.lucas.spring.model.enums.RoleEnum;
 import com.lucas.spring.model.enums.StatusEnum;
+import com.lucas.spring.model.enums.UserExceptionEnum;
 import com.lucas.spring.model.expection.EncryptionFailedException;
+import com.lucas.spring.model.expection.UserException;
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.model.request.EmailRequest;
+import com.lucas.spring.model.request.UserCreationRequest;
 import com.lucas.spring.services.facade.UserFacade;
 import com.lucas.spring.services.service.EncryptionService;
 import com.lucas.spring.services.service.RoleService;
 import com.lucas.spring.services.service.StatusService;
 import com.lucas.spring.services.service.UserService;
 import jakarta.annotation.PostConstruct;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -59,14 +63,15 @@ public class UserFacadeImpl implements UserFacade {
             .stream()
             .filter(user ->
                     encryptionService.decryptAndExtractEmail(user.getEmail()).equals(emailAddress)
-            ).findFirst();
+            ).filter(user -> user.getStatusId() == 1 || user.getStatusId() == 3)
+            .findFirst();
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void saveUser(final AuthenticatedUser user, final EmailRequest[] request) {
+  public void saveUser(final AuthenticatedUser user, final UserCreationRequest[] request) {
     userValidation.validateUserCreationForm(user, request);
     Arrays.stream(request).forEach(req ->  this.saveUser(req.getEmailAddress(), req.getRoleId()));
   }
@@ -97,6 +102,43 @@ public class UserFacadeImpl implements UserFacade {
           final String imageBase64,
           final String username) {
     userService.activateUser(id, username, imageBase64, statusService.getStatusById(newStatusId));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void deleteUser(final Long id, final AuthenticatedUser user) {
+    if (id == null) {
+      throw new UserException(UserExceptionEnum.USER_ID_IS_NOT_SET);
+    }
+
+    if (id.equals(user.getUserId())) {
+      throw new UserException(UserExceptionEnum.USER_CANNOT_DELETE_THEMSELF, String.valueOf(id));
+    }
+
+    final UserEntity userEntity = userService.getUserById(id);
+    userEntity.setDeletedAt(Instant.now());
+    userEntity.setDeletedBy(user.getUserId());
+
+    if (userEntity.getStatus().getId().equals(StatusEnum.ACTIVATED.getStatusId())) {
+      // Soft delete the user.
+      userEntity.setStatus(statusService.getStatusById(StatusEnum.DELETED.getStatusId()));
+      userService.saveUser(userEntity);
+    } else if (userEntity.getStatus().getId().equals(StatusEnum.PENDING.getStatusId())) {
+      // Delete user permanently.
+      userService.deleteUser(userEntity);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void activateUser(Long id) {
+    final UserEntity userEntity = userService.getUserById(id);
+    userEntity.setStatus(statusService.getStatusById(StatusEnum.ACTIVATED.getStatusId()));
+    userService.saveUser(userEntity);
   }
 
   /**

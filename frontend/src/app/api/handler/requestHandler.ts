@@ -120,7 +120,7 @@ const initServerUrlPath = (command: RequestCommand) => {
   const endpoint = `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`;
   const requestParams = command.obj;
 
-  return command.type === RequestCommandTypes.GET
+  return command.type !== RequestCommandTypes.POST
     ? `${endpoint}?${getRequestParamPath(requestParams)}`
     : `${endpoint}`;
 };

@@ -23,6 +23,7 @@ import ManageUsersScreen from "@screens/manageUsersScreen/ManageUsersScreen";
 import { googleLogout } from "@react-oauth/google";
 import { redirectToUrl } from "@providers/RedirectionProvider";
 import SessionUtil from "@helper/SessionUtil";
+import { GenericHandlerType } from "@model/types/GenericHandlerType";
 
 type Props = {
   navigation?: Navigation;
@@ -62,23 +63,23 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
       pathName = pathList[pathList.length - 1];
     }
 
-    const handler = Object.freeze({
-      [NavigationSegments.Filtering]: () => <FilteringScreen />,
-      [NavigationSegments.UploadProcedureResults]: () => <UploadProcedureScreen />,
-      [NavigationSegments.ReportError]: () => <ReportScreen />,
-      [NavigationSegments.UserManagement]: () => <ManageUsersScreen />,
-      [NavigationSegments.Dashboard]: () => <TmpScreen />,
-      [NavigationSegments.Manual]: () => <TmpScreen />,
-      [NavigationSegments.Settings]: () => <TmpScreen />,
-      [NavigationSegments.ManageProcedures]: () => <TmpScreen />,
-    });
+    const handler: GenericHandlerType<NavigationSegments, JSX.Element> = {
+      [NavigationSegments.Filtering]: <FilteringScreen />,
+      [NavigationSegments.UploadProcedureResults]: <UploadProcedureScreen />,
+      [NavigationSegments.ReportError]: <ReportScreen />,
+      [NavigationSegments.UserManagement]: <ManageUsersScreen />,
+      [NavigationSegments.Dashboard]: <TmpScreen />,
+      [NavigationSegments.Manual]: <TmpScreen />,
+      [NavigationSegments.Settings]: <TmpScreen />,
+      [NavigationSegments.ManageProcedures]: <TmpScreen />,
+    };
 
-    return handler[pathName as NavigationSegments].call(() => null) as JSX.Element;
+    return handler[pathName as NavigationSegments];
   };
 
-  const renderPageContainerContent = () => {
-    return <>{isNavigationBarHidden ? renderComponent : renderComponentByRouterPath()}</>;
-  };
+  const pageContainer = (
+    <>{isNavigationBarHidden ? renderComponent : renderComponentByRouterPath()}</>
+  );
 
   return (
     <AppProvider
@@ -96,7 +97,7 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
           sidebarFooter: LucasSidebarFooterAccount,
         }}
       >
-        <PageContainer>{renderPageContainerContent()}</PageContainer>
+        <PageContainer>{pageContainer}</PageContainer>
       </DashboardLayout>
     </AppProvider>
   );

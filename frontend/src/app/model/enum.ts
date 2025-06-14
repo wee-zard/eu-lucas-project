@@ -18,6 +18,8 @@ export enum BackendUserControllerEndpoints {
   ToolpadSession = "/api/user/toolpad-session",
   Users = "/api/user/",
   CreateUser = "/api/user/save-email",
+  DeleteUser = "/api/user/",
+  ActivateDeleted = "/api/user/activate-deleted",
 }
 
 export enum BackendCreationYearControllerEndpoints {

@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailRequest {
+public class UserCreationRequest {
   @Email(message = "Adj meg egy érvényes email címet!")
   @NotNull(message = "Az email cím nem került megadásra!")
   private String emailAddress;

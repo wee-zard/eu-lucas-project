@@ -22,9 +22,11 @@ public class UserEntityToUserDtoConverter
     return UserDto.builder()
             .id(source.getId())
             .userName(source.getUserName())
-            .creationTime(source.getCreationTime())
+            .creationTime(source.getCreatedAt())
             .statusName(source.getStatus().getStatusName())
+            .statusId(source.getStatus().getId())
             .roleName(source.getRole().getRoleName())
+            .roleId(source.getRole().getId())
             .profilePicture(source.getProfilePictureBase64())
             .build();
   }

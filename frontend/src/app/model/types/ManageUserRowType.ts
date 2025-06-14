@@ -1,10 +1,5 @@
-export type ManageUserRowTypes = {
-  id: number;
-  email: string;
-  userName: string;
-  creationTime: string;
-  statusName: string;
-  roleName: string;
-  profilePicture: string;
+import UserDto from "@model/dto/UserDto";
+
+export type ManageUserRowTypes = UserDto & {
   setting: boolean;
 };

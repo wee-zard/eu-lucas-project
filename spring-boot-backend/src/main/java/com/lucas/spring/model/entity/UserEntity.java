@@ -1,10 +1,8 @@
 package com.lucas.spring.model.entity;
 
+import com.lucas.spring.model.entity.abstraction.SoftDeletableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -29,12 +27,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 @Entity(name = "User")
 @Table(name = "tb_user_root")
-public class UserEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
-  private Long id;
-
+public class UserEntity extends SoftDeletableEntity {
   /**
    * Stores the email address of the gmail account what the user is using.
    */
@@ -54,15 +47,6 @@ public class UserEntity {
    */
   @Column(name = "profile_picture", columnDefinition = "TEXT")
   private String profilePictureBase64;
-
-  /**
-   * Stores the creation times of the user. This property
-   * does not need to be provided, as it is automatically
-   * added to the records before inserting them into the db.
-   * It is set automatically by the system.
-   */
-  @CreationTimestamp
-  private Instant creationTime;
 
   /**
    * The status of the actual user.

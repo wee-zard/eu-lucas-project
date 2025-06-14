@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 import { selectListOfUsers } from "@redux/selectors/userSelector";
 import { requestListOfUsers } from "@redux/actions/userActions";
 import { useDispatch } from "react-redux";
+import { styled } from "@mui/material";
+import ManageUsersStatus from "./ManageUsersStatus";
 
 const ManageUsersDataGridTable = () => {
   const [isRequested, setRequested] = useState<boolean>(false);
@@ -43,16 +45,18 @@ const ManageUsersDataGridTable = () => {
       field: "statusName",
       headerName: "Status",
       flex: 1,
+      renderCell: (param) => <ManageUsersStatus row={param.row} />,
     },
     {
       field: "creationTime",
       headerName: "Joined time",
       flex: 1,
-      valueGetter: (value: string) => DateHelper.convertISOStringToDateTimeFormat(value),
+      valueGetter: DateHelper.convertISOStringToDateTimeFormat,
     },
     {
       field: "setting",
       headerName: "",
+      sortable: false,
       flex: 1,
       renderCell: (param) => <ManageUsersSettings row={param.row} />,
     },
@@ -70,12 +74,15 @@ const ManageUsersDataGridTable = () => {
 
   return (
     <Paper sx={{ height: 615, width: "100%" }}>
-      <DataGrid
+      <StyledDataGrid
         rows={getUserRows()}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10]}
         rowHeight={dataGridUserTableRowHeight}
+        getRowClassName={(params) =>
+          `user-status-common user-status-${(params.row as ManageUserRowTypes)?.statusId}`
+        }
         autoPageSize={false}
         disableRowSelectionOnClick
         disableColumnResize
@@ -87,3 +94,25 @@ const ManageUsersDataGridTable = () => {
 };
 
 export default ManageUsersDataGridTable;
+
+const commonStyle = {
+  border: "4px solid",
+};
+
+const StyledDataGrid = styled(DataGrid)({
+  ".user-status-common": {
+    borderRadius: 8,
+  },
+  ".user-status-1": {
+    borderLeft: `${commonStyle.border} orange`,
+  },
+  ".user-status-2": {
+    borderLeft: `${commonStyle.border} black`,
+  },
+  ".user-status-3": {
+    borderLeft: `${commonStyle.border} green`,
+  },
+  ".user-status-4": {
+    borderLeft: `${commonStyle.border} red`,
+  },
+});

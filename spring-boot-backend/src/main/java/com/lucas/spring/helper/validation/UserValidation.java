@@ -4,7 +4,7 @@ import com.lucas.spring.model.entity.UserEntity;
 import com.lucas.spring.model.enums.UserExceptionEnum;
 import com.lucas.spring.model.expection.UserException;
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.model.request.EmailRequest;
+import com.lucas.spring.model.request.UserCreationRequest;
 import com.lucas.spring.services.service.EncryptionService;
 import com.lucas.spring.services.service.UserService;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class UserValidation {
   private final UserService userService;
   private final EncryptionService encryptionService;
 
-  public void validateUserCreationForm(final AuthenticatedUser user, final EmailRequest[] req) {
+  public void validateUserCreationForm(final AuthenticatedUser user, final UserCreationRequest[] req) {
     Arrays.stream(req).forEach(request -> {
       final String email = request.getEmailAddress();
 

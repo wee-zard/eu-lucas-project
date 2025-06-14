@@ -1,7 +1,8 @@
 package com.lucas.spring.controllers;
 
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.model.request.SmtpEmailRequest;
+import com.lucas.spring.model.request.ReportEmailRequest;
+import com.lucas.spring.model.response.BaseResponse;
 import com.lucas.spring.services.service.SmtpEmailService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +30,11 @@ public class SmtpEmailController {
    */
   @CrossOrigin
   @PostMapping("/report")
-  public String postReportEmail(
+  public BaseResponse postReportEmail(
       @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
-      @RequestBody final SmtpEmailRequest emailRequest
+      @RequestBody final ReportEmailRequest emailRequest
   ) throws MessagingException {
-    return smtpEmailService.sendSimpleMail(emailRequest, authenticatedUser.getUserId());
+    smtpEmailService.buildEmail(emailRequest, authenticatedUser.getUserId());
+    return new BaseResponse();
   }
 }

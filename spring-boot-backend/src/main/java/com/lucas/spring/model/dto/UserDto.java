@@ -20,6 +20,8 @@ public class UserDto implements RootDto {
   private String userName;
   private Instant creationTime;
   private String statusName;
+  private Long statusId;
   private String roleName;
+  private int roleId;
   private String profilePicture;
 }

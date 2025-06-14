@@ -10,6 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum InputFormatErrors {
+  CASTING_STRING_TO_LONG_IS_INVALID("casting-string-to-long-is-invalid"),
   CASTING_STRING_TO_NUMBER_IS_INVALID("casting-string-to-number-is-invalid");
   private final String errorMessage;
 }

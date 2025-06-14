@@ -18,6 +18,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
    * @return Returns every hashed emails.
    */
   @Query("SELECT new com.lucas.spring.model.models.AuthenticatedUser("
-          + "u.emailAddress, u.id, u.role.id) FROM User u")
+          + "u.emailAddress, u.id, u.role.id, u.status.id) FROM User u")
   List<AuthenticatedUser> getAllUsersEmail();
 }

@@ -11,6 +11,7 @@ import lombok.Getter;
 public enum StatusEnum {
   PENDING(1),
   BLOCKED(2),
-  ACTIVATED(3);
+  ACTIVATED(3),
+  DELETED(4);
   private final long statusId;
 }

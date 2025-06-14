@@ -1,0 +1,1 @@
+insert into tb_status values(4, 'Deleted');

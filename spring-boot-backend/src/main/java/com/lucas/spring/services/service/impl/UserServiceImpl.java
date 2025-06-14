@@ -57,7 +57,6 @@ public class UserServiceImpl implements UserService {
    * {@inheritDoc}
    */
   @Override
-  @Transactional
   @CacheEvict(cacheNames = { SERVICE_CACHE_NAME, SERVICE_CACHE_NAME_EMAIL }, allEntries = true)
   public void saveUser(final String email, final String username, final StatusEntity status, final RoleEntity role) {
     UserEntity userEntity = UserEntity
@@ -74,7 +73,15 @@ public class UserServiceImpl implements UserService {
    * {@inheritDoc}
    */
   @Override
-  @Transactional
+  @CacheEvict(cacheNames = { SERVICE_CACHE_NAME, SERVICE_CACHE_NAME_EMAIL }, allEntries = true)
+  public void saveUser(final UserEntity user) {
+    userRepository.save(user);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   @CacheEvict(cacheNames = { SERVICE_CACHE_NAME, SERVICE_CACHE_NAME_EMAIL }, allEntries = true)
   public void activateUser(
           final Long id,
@@ -87,5 +94,23 @@ public class UserServiceImpl implements UserService {
     user.setProfilePictureBase64(imageBase64);
     user.setStatus(status);
     userRepository.save(user);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @CacheEvict(cacheNames = { SERVICE_CACHE_NAME, SERVICE_CACHE_NAME_EMAIL }, allEntries = true)
+  public void deleteUser(Long id) {
+    userRepository.deleteById(id);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @CacheEvict(cacheNames = { SERVICE_CACHE_NAME, SERVICE_CACHE_NAME_EMAIL }, allEntries = true)
+  public void deleteUser(UserEntity user) {
+    userRepository.delete(user);
   }
 }

@@ -3,13 +3,15 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import { StyledComponentGap } from "@global/globalStyles";
 import styled from "@emotion/styled";
+import { ButtonVariantType } from "@model/types/ButtonVariantType";
+import { ButtonColorType } from "@model/types/ButtonColorType";
 
 type Props = {
   tooltipTitle?: string;
   buttonText: string;
   buttonIcon?: JSX.Element;
-  buttonVariant?: "text" | "outlined" | "contained";
-  buttonColor?: "inherit" | "error" | "primary" | "secondary" | "success" | "info" | "warning";
+  buttonVariant?: ButtonVariantType;
+  buttonColor?: ButtonColorType;
   isDisabled?: boolean;
   buttonType?: "button" | "submit" | "reset" | undefined;
   applyStyle?: {

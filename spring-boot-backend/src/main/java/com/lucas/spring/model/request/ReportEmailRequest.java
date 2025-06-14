@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SmtpEmailRequest {
+public class ReportEmailRequest {
   /**
    * The title of the message.
    */
