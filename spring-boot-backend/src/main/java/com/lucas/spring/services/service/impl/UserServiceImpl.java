@@ -8,7 +8,6 @@ import com.lucas.spring.model.expection.UserException;
 import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.repositories.UserRepository;
 import com.lucas.spring.services.service.UserService;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
