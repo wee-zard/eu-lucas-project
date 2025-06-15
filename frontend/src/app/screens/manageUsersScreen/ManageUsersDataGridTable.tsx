@@ -62,7 +62,7 @@ const ManageUsersDataGridTable = () => {
     },
   ];
 
-  const paginationModel = { page: 0, pageSize: 5 };
+  const paginationModel = { page: 0, pageSize: 7 };
 
   const getUserRows = (): ManageUserRowTypes[] => {
     return listOfUsers.map((user) => ({
@@ -73,12 +73,11 @@ const ManageUsersDataGridTable = () => {
   };
 
   return (
-    <Paper sx={{ height: 615, width: "100%" }}>
+    <Paper sx={{ height: 640, width: "100%" }}>
       <StyledDataGrid
         rows={getUserRows()}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10]}
         rowHeight={dataGridUserTableRowHeight}
         getRowClassName={(params) =>
           `user-status-common user-status-${(params.row as ManageUserRowTypes)?.statusId}`

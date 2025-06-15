@@ -25,7 +25,7 @@ const ManageUsersProfilePicture = ({ row }: Props) => {
 
 export default ManageUsersProfilePicture;
 
-export const dataGridUserTableRowHeight = 100;
+export const dataGridUserTableRowHeight = 75;
 
 const dataGridTableRowImageHeight = dataGridUserTableRowHeight * 0.75;
 
