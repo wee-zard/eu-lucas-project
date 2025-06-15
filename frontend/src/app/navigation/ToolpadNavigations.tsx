@@ -1,10 +1,10 @@
 import { Navigation } from "@toolpad/core/AppProvider";
-import DashboardIcon from "@mui/icons-material/Dashboard";
+//import DashboardIcon from "@mui/icons-material/Dashboard";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import SettingsIcon from "@mui/icons-material/Settings";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import FunctionsIcon from "@mui/icons-material/Functions";
-import TableRowsIcon from "@mui/icons-material/TableRows";
+//import SettingsIcon from "@mui/icons-material/Settings";
+//import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+//import FunctionsIcon from "@mui/icons-material/Functions";
+//import TableRowsIcon from "@mui/icons-material/TableRows";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -52,11 +52,13 @@ export const navigation: Navigation = [
     kind: NavigationKind.Header,
     title: NavigationTitles.MainItems,
   },
+  /*
   {
     segment: NavigationSegments.Dashboard,
     title: NavigationTitles.Dashboard,
     icon: <DashboardIcon />,
   },
+  */
   {
     segment: NavigationSegments.UserManagement,
     title: NavigationTitles.UserManagement,
@@ -84,6 +86,10 @@ export const navigation: Navigation = [
     title: NavigationTitles.Procedures,
   },
   {
+    segment: NavigationSegments.UploadProcedureResults,
+    title: NavigationTitles.UploadProcedureResults,
+    icon: <UploadFileIcon />,
+    /*
     segment: NavigationTitles.Procedures,
     title: NavigationTitles.Procedures,
     icon: <TableRowsIcon />,
@@ -101,6 +107,7 @@ export const navigation: Navigation = [
         icon: <UploadFileIcon />,
       },
     ],
+    */
   },
   // ==================================
   {
@@ -116,6 +123,7 @@ export const navigation: Navigation = [
     title: NavigationTitles.ReportError,
     icon: <ReportProblemIcon />,
   },
+  /*
   {
     // Page where the users could read articles about how to use the application.
     segment: NavigationSegments.Manual,
@@ -128,4 +136,5 @@ export const navigation: Navigation = [
     title: NavigationTitles.Settings,
     icon: <SettingsIcon />,
   },
+  */
 ];
