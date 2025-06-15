@@ -18,26 +18,29 @@ export default abstract class ErrorMessageHandler {
    * by matching which constructor of the class built the error object.
    *
    * @param error The error object that could be any {@link Error} type of object.
-   * @param axiosErrorMessage The base error message of the command.
+   * @param command A request command template which will be used to construct a new http request.
    */
-  public static throwNotificationByErrorType = (error: any, axiosErrorMessage: string) => {
+  public static throwNotificationByErrorType = (error: any, command: RequestCommand) => {
     switch (error.constructor) {
       case AxiosError:
         if (error.status === 401) {
           return UniqueErrorResponseTypes.UNAUTHORIZED;
         } else if (!!error.response?.data?.detail) {
-          baseErrorResponseToErrorMessage(JSON.parse(error.response.data.detail), true);
+          baseErrorResponseToErrorMessage(
+            JSON.parse(error.response.data.detail),
+            command.isToastHidden,
+          );
           return null;
         } else {
-          throwNotification(ToastSeverity.Error, axiosErrorMessage);
+          throwNotification(ToastSeverity.Error, command.errorMessage, command.isToastHidden);
           return null;
         }
       case LoginAuthenticationError:
       case RequestCommandError:
-        throwNotification(ToastSeverity.Error, error.message);
+        throwNotification(ToastSeverity.Error, error.message, command.isToastHidden);
         return null;
       default:
-        throwNotification(ToastSeverity.Error, axiosErrorMessage);
+        throwNotification(ToastSeverity.Error, command.errorMessage, command.isToastHidden);
         return null;
     }
   };

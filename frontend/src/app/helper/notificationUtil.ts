@@ -12,7 +12,22 @@ export enum ToastSeverity {
   Error = "error",
 }
 
-export const throwNotification = (type: ToastSeverity, message: string) => {
+/**
+ * Throws a toast message with a default message.
+ *
+ * @param type The type of the severity.
+ * @param message The message.
+ * @param isNotThrowable Tells whether the message should be NOT thrown.
+ */
+export const throwNotification = (
+  type: ToastSeverity,
+  message: string,
+  isNotThrowable?: boolean,
+) => {
+  if (isNotThrowable) {
+    return;
+  }
+
   const handler: GenericHandlerType<ToastSeverity, () => void> = {
     [ToastSeverity.Success]: () => toast.success(message),
     [ToastSeverity.Info]: () => toast.info(message),
@@ -24,14 +39,11 @@ export const throwNotification = (type: ToastSeverity, message: string) => {
 
 export const baseErrorResponseToErrorMessage = (
   baseError: BaseErrorResponse,
-  isThrowable: boolean = false,
+  isNotThrowable: boolean = false,
 ) => {
   const { key, param0, param1 } = baseError;
   const message = i18n.t(`errors.${key}`, { param0, param1 });
-
-  if (isThrowable) {
-    throwNotification(ToastSeverity.Error, message);
-  }
+  throwNotification(ToastSeverity.Error, message, isNotThrowable);
 
   return message;
 };

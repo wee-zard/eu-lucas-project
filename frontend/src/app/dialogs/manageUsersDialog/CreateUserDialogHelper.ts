@@ -67,7 +67,7 @@ export const validateCreateUserDialogForm = (): Promise<boolean> => {
                   ? {
                       ...entry,
                       id: getRandomIdentification(),
-                      error: baseErrorResponseToErrorMessage(baseError, false),
+                      error: baseErrorResponseToErrorMessage(baseError, true),
                     }
                   : entry,
               ),

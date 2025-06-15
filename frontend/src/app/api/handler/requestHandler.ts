@@ -24,12 +24,9 @@ const commandHandler = <T>(command: RequestCommand): Promise<T> => {
     genericDispatcher<T>(command)
       .then(resolve)
       .catch((error) => {
-        const isUnauthorizedError = ErrorMessageHandler.throwNotificationByErrorType(
-          error,
-          command.errorMessage,
-        );
+        const isUnauthorized = ErrorMessageHandler.throwNotificationByErrorType(error, command);
 
-        if (isUnauthorizedError === UniqueErrorResponseTypes.UNAUTHORIZED) {
+        if (isUnauthorized === UniqueErrorResponseTypes.UNAUTHORIZED) {
           ErrorMessageHandler.handleUnauthorizedError<T>(command)
             .then(resolve)
             .catch((error) => {

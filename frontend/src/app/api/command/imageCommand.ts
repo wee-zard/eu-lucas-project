@@ -42,6 +42,7 @@ abstract class ImageCommands {
         isAuthTokenMandatory: true,
       },
       errorMessage: i18n.t("api.commands.image.postByImageNameAndCreationYear"),
+      isToastHidden: true,
     });
 }
 

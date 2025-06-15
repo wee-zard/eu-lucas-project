@@ -9,7 +9,7 @@ import ProcedureLogError from "@model/error/ProcedureLogError";
 import ProcedureLogUtils from "@helper/procedureLogUtils";
 import { useDispatch } from "react-redux";
 import { setProcedureUploadProcessModels } from "@redux/actions/procedureUploadActions";
-import { openSnackbar } from "@helper/notificationUtil";
+import { openSnackbar, throwNotification, ToastSeverity } from "@helper/notificationUtil";
 import { uploadProcedureResult } from "@api/command/procedureCommands";
 import { setSettingBackdropOpen } from "@redux/actions/settingActions";
 import ProcedureResultRequest from "@model/request/ProcedureResultRequest";
@@ -49,25 +49,34 @@ const UploadProcedureActions = () => {
 
     const errorImagePath: string | undefined = (error.obj as any).imagePath;
 
-    // Handling Step 3.2 errors.
-    if (errorImagePath) {
-      const filesWithErrorImages = listOfRequest.filter((file) =>
-        file.images.some(
-          (image) =>
-            ProcedureLogUtils.convertYearAndImageNameToFullImageName(
-              image.file.year,
-              image.file.fileName,
-            ) === errorImagePath,
-        ),
-      );
-
-      filesWithErrorImages.forEach((request) => {
-        const filename = request.xmlFileName;
-        processedErrorFiles = [...handleProcedureLogErrors(error, filename, processedErrorFiles)];
-      });
+    if (!errorImagePath) {
+      return processedErrorFiles;
     }
 
+    // Handling Step 3.2 errors.
+    const filesWithErrorImages = listOfRequest.filter((file) =>
+      file.images.some(
+        (image) =>
+          ProcedureLogUtils.convertYearAndImageNameToFullImageName(
+            image.file.year,
+            image.file.fileName,
+          ) === errorImagePath,
+      ),
+    );
+
+    filesWithErrorImages.forEach((request) => {
+      const filename = request.xmlFileName;
+      processedErrorFiles = [...handleProcedureLogErrors(error, filename, processedErrorFiles)];
+    });
+
     return processedErrorFiles;
+  };
+
+  const getUploadErrorNotification = (maxNumberOfFiles: number, processedFiles: number) => {
+    throwNotification(
+      ToastSeverity.Error,
+      `Hiba! A feltöltött ${maxNumberOfFiles}db fájlból ${processedFiles}db hibás! A fájlfeltöltéshez minden fájlnak hibamentesnek kell lenni!`,
+    );
   };
 
   /**
@@ -91,6 +100,7 @@ const UploadProcedureActions = () => {
 
     // Step 1.4.: If there is no file to process, then terminate the process and stop the backdrop.
     if (xmlFilesToProcess.length === 0) {
+      getUploadErrorNotification(files.length, processedErrorFiles.length);
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
       dispatch(setSettingBackdropOpen(false));
       return;
@@ -127,15 +137,21 @@ const UploadProcedureActions = () => {
 
     // Step 2.6.: Checks if there is any request to process
     if (listOfRequest.length === 0) {
+      getUploadErrorNotification(processedErrorFiles.length, processedErrorFiles.length);
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
       dispatch(setSettingBackdropOpen(false));
       return;
     }
 
-    processProcedureRequests(listOfRequest, processedErrorFiles);
+    processProcedureRequests(
+      listOfRequest.length + processedErrorFiles.length,
+      listOfRequest,
+      processedErrorFiles,
+    );
   };
 
   const processProcedureRequests = async (
+    uploadedFileNo: number,
     listOfRequest: ProcedureResultRequest[],
     processedErrorFiles: ProcedureProcessModel[],
   ) => {
@@ -152,28 +168,35 @@ const UploadProcedureActions = () => {
       // Step 3.4: Finalize the request build
       const res = ProcedureLogUtils.finalizeResultRequests(listOfRequest, imageProperties);
 
-      // Step 3.5: Send the request model to the server.
-      await uploadProcedureResult(res);
-      openSnackbar(SnackEnum.UPLOADED_XML_FILES);
+      // Step 3.4.1: Check whether is there any file that is invalid. If yes, then terminate the process.
 
-      for await (const request of res) {
-        try {
-          await uploadProcedureResult(res);
-          const processedFile: ProcedureProcessModel = {
-            filename: request.xmlFileName,
-            message: ProcedureFileMessages.FileIsSuccessfullyUploaded,
-          };
-          processedErrorFiles = [...processedErrorFiles, processedFile];
-        } catch (error) {
-          throw new ProcedureLogError(ProcedureFileMessages.ErrorUploadingToServer, {
-            filename: request.xmlFileName,
-          });
+      if (processedErrorFiles.length > 0) {
+        getUploadErrorNotification(uploadedFileNo, processedErrorFiles.length);
+      } else {
+        // File upload is restricted to happen only, if there is NO error inside the error files.
+        for await (const request of res) {
+          try {
+            // Step 3.5: Send the request model to the server.
+            await uploadProcedureResult(res);
+            openSnackbar(SnackEnum.UPLOADED_XML_FILES);
+
+            const processedFile: ProcedureProcessModel = {
+              filename: request.xmlFileName,
+              message: ProcedureFileMessages.FileIsSuccessfullyUploaded,
+            };
+            processedErrorFiles = [...processedErrorFiles, processedFile];
+          } catch (error) {
+            throw new ProcedureLogError(ProcedureFileMessages.ErrorUploadingToServer, {
+              filename: request.xmlFileName,
+            });
+          }
         }
       }
     } catch (error: unknown) {
       processedErrorFiles = [
         ...handleErrorByInvalidImageNames(error, listOfRequest, processedErrorFiles),
       ];
+      getUploadErrorNotification(uploadedFileNo, processedErrorFiles.length);
     } finally {
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
       dispatch(setSettingBackdropOpen(false));
