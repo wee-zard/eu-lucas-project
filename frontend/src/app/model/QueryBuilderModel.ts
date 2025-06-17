@@ -34,8 +34,6 @@ export type QueryComponent = {
   id: number;
   parentId: number;
   selectedFilterTab?: keyof typeof FilterDialogFilters;
-  groupFormId?: number;
-  inputFormId?: number;
   selectInput?: string;
   operatorInput?: QueryConditions;
   textFieldInput?: string;
