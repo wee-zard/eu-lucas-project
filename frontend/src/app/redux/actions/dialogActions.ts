@@ -7,3 +7,10 @@ export const setDialogToOpen = (data?: DialogToOpens) => {
     payload: data,
   };
 };
+
+export const setFolderCreationDialogOpen = (data: boolean) => {
+  return {
+    type: DialogConsts.SET_FOLDER_CREATION_DIALOG_OPEN,
+    payload: data,
+  };
+};

@@ -23,9 +23,9 @@ const rootReducer = combineReducers({
   procedureUploadStorage: procedureUploadReducer,
   settingStore: settingReducer,
   userStore: userReducer,
+  dialogStore: dialogReducer,
 
   // Not processed yet:
-  dialogStore: dialogReducer,
   creationYearStore: creationYearReducer,
   creationCountryStore: creationCountryReducer,
   creationDirectionStore: creationDirectionReducer,
