@@ -174,21 +174,25 @@ const UploadProcedureActions = () => {
         getUploadErrorNotification(uploadedFileNo, processedErrorFiles.length);
       } else {
         // File upload is restricted to happen only, if there is NO error inside the error files.
-        for await (const request of res) {
-          try {
-            // Step 3.5: Send the request model to the server.
-            await uploadProcedureResult(res);
-            openSnackbar(SnackEnum.UPLOADED_XML_FILES);
+        try {
+          // Step 3.5: Send the request model to the server.
+          await uploadProcedureResult(res);
+          openSnackbar(SnackEnum.UPLOADED_XML_FILES);
 
+          for (const request of res) {
             const processedFile: ProcedureProcessModel = {
               filename: request.xmlFileName,
               message: ProcedureFileMessages.FileIsSuccessfullyUploaded,
             };
             processedErrorFiles = [...processedErrorFiles, processedFile];
-          } catch (error) {
-            throw new ProcedureLogError(ProcedureFileMessages.ErrorUploadingToServer, {
+          }
+        } catch (error) {
+          for (const request of res) {
+            const processedFile: ProcedureProcessModel = {
               filename: request.xmlFileName,
-            });
+              message: ProcedureFileMessages.ErrorUploadingToServer,
+            };
+            processedErrorFiles = [...processedErrorFiles, processedFile];
           }
         }
       }
