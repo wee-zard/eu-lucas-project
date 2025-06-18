@@ -1,5 +1,5 @@
 import StyledButton from "@components/StyledButton";
-import { StyledDialog } from "@dialogs/filteringDialog/FilteringDialog";
+import { StyledDialog, StyledDialogTitle } from "@dialogs/filteringDialog/FilteringDialog";
 import { ButtonColorType } from "@model/types/ButtonColorType";
 import { ButtonVariantType } from "@model/types/ButtonVariantType";
 import { DialogContent, styled } from "@mui/material";
@@ -8,6 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 type Props = {
   content: JSX.Element;
   isOpen: boolean;
+  dialogTitle?: string;
   cancelButton?: {
     text?: string;
     variant?: ButtonVariantType;
@@ -29,6 +30,7 @@ type Props = {
 const TemplateDialog = ({
   content,
   isOpen,
+  dialogTitle,
   cancelButton = {},
   submitButton = {},
   height,
@@ -44,6 +46,7 @@ const TemplateDialog = ({
       open={isOpen}
       onClose={onClose}
     >
+      {dialogTitle ? <StyledDialogTitle>{dialogTitle}</StyledDialogTitle> : null}
       <StyledDialogContent>{content}</StyledDialogContent>
       <DialogActions>
         <StyledButton
