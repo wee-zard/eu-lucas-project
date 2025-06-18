@@ -5,15 +5,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.time.Instant;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * Storing the most important information
@@ -61,4 +61,17 @@ public class UserEntity extends SoftDeletableEntity {
   @ManyToOne
   @JoinColumn(name = "role_id", nullable = false)
   private RoleEntity role;
+
+  /**
+   * List of folders what the user is owning.
+   */
+  @OneToMany(mappedBy = "owner")
+  private Set<FolderEntity> ownFolders;
+
+  /**
+   * The folders that has been shared with the user.
+   * These folders are not owned by the user.
+   */
+  @OneToMany(mappedBy = "sharedWith")
+  private Set<ShareFolderEntity> sharedFolders;
 }
