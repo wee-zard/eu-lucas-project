@@ -4,7 +4,7 @@ import com.lucas.spring.model.entity.UserEntity;
 import com.lucas.spring.model.enums.EmailExceptionEnum;
 import com.lucas.spring.model.expection.EmailException;
 import com.lucas.spring.model.request.ReportEmailRequest;
-import com.lucas.spring.model.request.UserCreationRequest;
+import com.lucas.spring.model.request.user.UserCreationRequest;
 import com.lucas.spring.services.service.SmtpEmailService;
 import com.lucas.spring.services.service.UserService;
 import jakarta.mail.MessagingException;

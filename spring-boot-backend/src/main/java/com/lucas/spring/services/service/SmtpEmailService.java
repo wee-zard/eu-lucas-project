@@ -1,7 +1,7 @@
 package com.lucas.spring.services.service;
 
 import com.lucas.spring.model.request.ReportEmailRequest;
-import com.lucas.spring.model.request.UserCreationRequest;
+import com.lucas.spring.model.request.user.UserCreationRequest;
 import org.springframework.stereotype.Service;
 
 /**

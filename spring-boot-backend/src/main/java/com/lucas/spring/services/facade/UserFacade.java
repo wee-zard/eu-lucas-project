@@ -1,7 +1,7 @@
 package com.lucas.spring.services.facade;
 
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.model.request.UserCreationRequest;
+import com.lucas.spring.model.request.user.UserCreationRequest;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 

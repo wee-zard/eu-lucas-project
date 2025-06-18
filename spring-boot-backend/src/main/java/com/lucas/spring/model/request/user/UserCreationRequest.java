@@ -1,4 +1,4 @@
-package com.lucas.spring.model.request;
+package com.lucas.spring.model.request.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
