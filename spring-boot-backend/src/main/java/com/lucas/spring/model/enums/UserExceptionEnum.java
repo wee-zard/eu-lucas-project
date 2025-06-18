@@ -1,10 +1,11 @@
 package com.lucas.spring.model.enums;
 
+import com.lucas.spring.model.expection.UserException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Defines the error keys for the {@link com.lucas.spring.model.expection.UserException}.
+ * Defines the error keys for the {@link UserException}.
  */
 @Getter
 @AllArgsConstructor
