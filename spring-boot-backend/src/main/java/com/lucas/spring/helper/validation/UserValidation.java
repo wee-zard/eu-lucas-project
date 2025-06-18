@@ -4,7 +4,7 @@ import com.lucas.spring.model.entity.UserEntity;
 import com.lucas.spring.model.enums.UserExceptionEnum;
 import com.lucas.spring.model.expection.UserException;
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.model.request.UserCreationRequest;
+import com.lucas.spring.model.request.user.UserCreationRequest;
 import com.lucas.spring.services.service.EncryptionService;
 import com.lucas.spring.services.service.UserService;
 import java.util.Arrays;

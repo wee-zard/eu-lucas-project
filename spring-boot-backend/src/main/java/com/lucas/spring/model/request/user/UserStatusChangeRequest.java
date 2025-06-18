@@ -1,4 +1,4 @@
-package com.lucas.spring.model.request;
+package com.lucas.spring.model.request.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
