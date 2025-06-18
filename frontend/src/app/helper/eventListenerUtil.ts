@@ -7,7 +7,8 @@ export default abstract class EventListenerUtil {
    *
    * @param idKey An enum key.
    * @param id The specific and unique name for the event.
-   * @returns Returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+   * @returns Returns true if either event's cancelable attribute value is false
+   * or its preventDefault() method was not invoked, and false otherwise.
    */
   public static dispatchEvent = (idKey: EventListenerIdEnum, id?: number | string) => {
     return window.dispatchEvent(new Event(this.getEventIdNameFromEventListenerIdEnum(idKey, id)));
