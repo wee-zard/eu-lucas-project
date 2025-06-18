@@ -27,12 +27,6 @@ const CreateUserDialog = ({ isOpen, onClose }: Props) => {
     removeLocalStorageItem(LocalStorageKeys.UserCreationForm);
   }, [isOpen]);
 
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-  }, [isOpen]);
-
   return (
     <StyledCreateUserDialog
       fullWidth
