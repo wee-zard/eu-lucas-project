@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import java.time.Instant;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,6 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
  * Storing and referring to the creation time and update time
  * of the entity.
  */
+@Setter
 @Getter
 @MappedSuperclass
 public abstract class AuditedEntity extends BaseEntity {
