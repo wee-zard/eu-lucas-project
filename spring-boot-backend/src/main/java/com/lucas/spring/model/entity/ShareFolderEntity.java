@@ -4,6 +4,7 @@ import com.lucas.spring.model.entity.embeddable.EmbeddedSharedFolderKey;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -34,12 +35,12 @@ public class ShareFolderEntity {
   @EmbeddedId
   private EmbeddedSharedFolderKey id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @MapsId("folderId")
   @JoinColumn(name = "folder_id")
   private FolderEntity sharedFolder;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @MapsId("sharedWithUserId")
   @JoinColumn(name = "shared_with_user_id")
   private UserEntity sharedWith;

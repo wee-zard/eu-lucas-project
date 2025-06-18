@@ -85,6 +85,10 @@ export enum BackendSmtpEmailControllerEndpoints {
   ReportEmail = "/api/email/report",
 }
 
+export enum BackendFolderControllerEndpoints {
+  CreateFolder = "/api/folder/create",
+}
+
 export enum GoogleTokenEndpoints {
   Token = "/token",
 }
@@ -108,6 +112,7 @@ export type BackendControllerEndpointTypes =
   | BackendPlantSpeciesControllerEndpoints
   | BackendProcedureLogParamControllerEndpoints
   | BackendProcedureLogControllerEndpoints
+  | BackendFolderControllerEndpoints
   | BackendSmtpEmailControllerEndpoints;
 
 /**
@@ -145,6 +150,7 @@ export enum LocalStorageKeys {
   SetItem = "setItem",
   FilteringDialog = "filtering-dialog",
   UserCreationForm = "user-creation-form",
+  FolderCreationForm = "folder-creation-form",
 }
 
 export enum ScreenUrls {
@@ -158,7 +164,9 @@ export enum FilteringScreenTexts {
   ClearAllTooltip = "Kijelölések megszüntetése",
   ClearAllText = "Clear All",
   AddImageTooltip = "Új kép kiválasztása",
-  AddImageText = "Add new",
+  AddImageText = "Képek kiválasztása",
+  AddImagesToFolder = "Képek mentése",
+  AddImagesToFolderTooltip = "Add hozzá az általad kiválasztott képeket egy már létező mappához (amit korábban létrehoztál), vagy egy teljesen új mappához.",
   DownloadTooltip = "Kijelölt képek letöltése",
 }
 

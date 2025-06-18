@@ -3,6 +3,7 @@ package com.lucas.spring.model.entity;
 import com.lucas.spring.model.entity.abstraction.SoftDeletableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -27,7 +28,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity(name = "User")
 @Table(name = "tb_user_root")
-public class UserEntity extends SoftDeletableEntity {
+public class UserEntity extends SoftDeletableEntity implements Comparable<UserEntity> {
+
+  /**
+   * Creates a new user entity by the provided id.
+   *
+   * @param id The id of the user.
+   */
+  public UserEntity(final Long id) {
+    this.setId(id);
+  }
+
   /**
    * Stores the email address of the gmail account what the user is using.
    */
@@ -51,27 +62,32 @@ public class UserEntity extends SoftDeletableEntity {
   /**
    * The status of the actual user.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "status_id", nullable = false)
   private StatusEntity status;
 
   /**
    * Describes the role of the user.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "role_id", nullable = false)
   private RoleEntity role;
 
   /**
    * List of folders what the user is owning.
    */
-  @OneToMany(mappedBy = "owner")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
   private Set<FolderEntity> ownFolders;
 
   /**
    * The folders that has been shared with the user.
    * These folders are not owned by the user.
    */
-  @OneToMany(mappedBy = "sharedWith")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "sharedWith")
   private Set<ShareFolderEntity> sharedFolders;
+
+  @Override
+  public int compareTo(UserEntity o) {
+    return Long.compare(this.getId(), o.getId());
+  }
 }

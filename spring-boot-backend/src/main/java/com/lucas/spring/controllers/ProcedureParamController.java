@@ -35,7 +35,7 @@ public class ProcedureParamController {
   public List<ProcedureLogParamDto> getProcedureParamsByProcedureId(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
-    return conversionHelper.convertEntityListToDtoList(
+    return conversionHelper.convertList(
             procedureLogParamService.getProcedureLogParamsByProcedureId(),
             ProcedureLogParamDto.class);
   }

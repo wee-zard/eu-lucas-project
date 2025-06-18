@@ -12,7 +12,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public class PageableResponse<T extends RootDto> {
+public class PageableResponse<T> {
   /**
    * The properties of the Pageable response.
    */

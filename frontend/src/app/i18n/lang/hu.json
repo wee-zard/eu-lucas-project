@@ -6,7 +6,9 @@
     "gmail": "Az email címben csak a felhasználó nevét szükséges megadni, a '@' illetve a domain nevét nem szükséges!"
   },
   "errors": {
-    "EMAIL_ADDRESS_IS_ALREADY_TAKEN": "A következő email cím már foglalt: {{param0}}"
+    "EMAIL_ADDRESS_IS_ALREADY_TAKEN": "A következő email cím már foglalt: [{{param0}}]",
+    "FOLDER_TITLE_EXISTS": "A megadott [{{param0}}] mappa már létezik a fiókod alatt! Új mappa létrehozásához adj meg egy egyedi mappa nevet!",
+    "FOLDER_NOT_FOUND": "A megadott [{{param0}}] mappa nem létezik!"
   },
   "cards": {
     "image-card": {
@@ -114,7 +116,7 @@
         "object-name-is-invalid-format": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben, a(z) {{objectIndex}}. 'object' XML elemben a 'name' XML elem nem tartalmaz szóközt, amivel el lehetne különíteni a növény nevét attól, hogy a növény homogén-e!",
         "image-not-found-on-server": "Hiba! Az XML-ben feltűntetett {{imagePath}} kép nem található az adatbázisban! Ellenőrizd, hogy az elemzésre került kép nevét jól adtad-e meg.",
         "image-not-found-on-gisco-lucas-server": "Hiba! A(z) {{imageIndex}}. 'image' XML elemben feltűntetett kép letöltése nem sikerült a gisco europe lucas adatbázisból!",
-        "log-cannot-be-uploaded-to-server": "Váratlan hiba miatt a {{filename}} fájlt nem lehetett feltölteni az adatbázisba!"
+        "log-cannot-be-uploaded-to-server": "Váratlan hiba miatt az xml fájlokat nem lehetett feltölteni a szerverre!"
       }
     },
     "reporting": {

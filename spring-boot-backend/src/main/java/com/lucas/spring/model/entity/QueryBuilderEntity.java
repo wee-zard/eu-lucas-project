@@ -1,15 +1,8 @@
 package com.lucas.spring.model.entity;
 
 import com.lucas.spring.model.entity.abstraction.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.ConstraintMode;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,12 +22,21 @@ import lombok.Setter;
 @Table(name = "tb_query_builder")
 public class QueryBuilderEntity extends BaseEntity {
 
-  @ManyToOne
+  /**
+   * Creates a new entity with just an id.
+   *
+   * @param id The id of the entity.
+   */
+  public QueryBuilderEntity(final Long id) {
+    setId(id);
+  }
+
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "parent_id")
   private QueryBuilderEntity parent;
 
   // Reference: https://stackoverflow.com/questions/64211311/hibernate-onetomany-self-join-adds-unique-constraint
-  @OneToMany
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(
           name = "parent_id",
           referencedColumnName = "id",
@@ -48,24 +50,32 @@ public class QueryBuilderEntity extends BaseEntity {
    * false = "OR"
    * true = "AND"
    */
-  @Column(name = "element_relationship", nullable = false)
+  @Column(name = "element_relationship", length = 1)
   private Boolean relationship;
 
   /**
    * Determines the type of the Query.
    *
    * <p>Possible values:
-   * <strong>"QUERY_BUILDER (NULL)"</strong>
-   * <strong>"QUERY_GROUP(0)"</strong>
-   * <strong>"QUERY_COMPONENT(1)"</strong></p>
+   * <strong>"QUERY_BUILDER (true)"</strong>
+   * <strong>"QUERY_GROUP(false)"</strong>
+   * <strong>"QUERY_COMPONENT(null)"</strong></p>
    */
-  @Column(name = "type", nullable = false)
+  @Column(name = "type", length = 1)
   private Boolean type;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "queryBuilderEntity")
+  /**
+   * Tells what query elements and filters have been applied
+   * to the given query by the user.
+   */
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "queryBuilderEntity", cascade = CascadeType.ALL)
   private Set<QueryElementEntity> elements;
 
-  // TODO:
-  // @OneToMany(fetch = FetchType.LAZY, mappedBy = ???)
-  // private Set<FolderContentEntity???> folderContents;
+  /**
+   * Describes what images and folders are associated with this query builder.
+   * Meaning, that one Query Builder might be fetched by multiple images and
+   * stored inside similarly in multiple folders.
+   */
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "queryBuilder", cascade = CascadeType.ALL)
+  private FolderContentEntity folderContent;
 }

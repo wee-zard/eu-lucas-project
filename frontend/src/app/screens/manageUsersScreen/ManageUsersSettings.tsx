@@ -23,18 +23,10 @@ import TemplateDialog from "@dialogs/template/TemplateDialog";
 import { UserStatusEnum } from "@model/enum/UserStatusEnum";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
 import { UserRoleEnum } from "@model/enum/UserRoleEnum";
+import { MenuItemType } from "@model/types/MenuItemType";
 
 type Props = {
   row: ManageUserRowTypes;
-};
-
-type MenuItemProps = {
-  icon: JSX.Element;
-  menuTitle: string;
-  isDisabled?: boolean;
-  color?: string;
-  isDisplayed?: boolean;
-  onClick: (obj: any) => void;
 };
 
 const ManageUsersSettings = ({ row }: Props) => {
@@ -92,7 +84,7 @@ const ManageUsersSettings = ({ row }: Props) => {
     [UserStatusEnum.BLOCKED]: <></>,
   };
 
-  const menuItemOptions: MenuItemProps[] = [
+  const menuItemOptions: MenuItemType[] = [
     {
       icon: <EditOutlinedIcon />,
       menuTitle: "Jogosultság módosítása (TODO)",

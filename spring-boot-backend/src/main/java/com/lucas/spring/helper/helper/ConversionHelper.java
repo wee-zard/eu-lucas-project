@@ -1,6 +1,5 @@
 package com.lucas.spring.helper.helper;
 
-import com.lucas.spring.model.dto.abstraction.RootDto;
 import com.lucas.spring.model.models.PageableProperties;
 import com.lucas.spring.model.response.PageableResponse;
 import java.util.Collection;
@@ -31,14 +30,14 @@ public class ConversionHelper {
    * @return Returns a {@link PageableResponse} that hold the
    *     items and the {@link PageableProperties} in a single object.
    */
-  public final <S, T extends RootDto> PageableResponse<T> pageToPageableResponse(
+  public final <S, T> PageableResponse<T> pageToPageableResponse(
           final Streamable<S> page,
           final Class<T> target,
           final PageableProperties pageableProperties
   ) {
     final List<T> listOfDto = page
             .stream()
-            .map(source -> convertSingleEntityToSingleDto(source, target))
+            .map(source -> convert(source, target))
             .toList();
     return new PageableResponse<>(pageableProperties, listOfDto);
   }
@@ -52,11 +51,11 @@ public class ConversionHelper {
    * @param <T> Target class type.
    * @return Returns the list of type target.
    */
-  public final <S, T extends RootDto> List<T> convertEntityListToDtoList(
+  public final <S, T> List<T> convertList(
           final Collection<S> list,
           final Class<T> target
   ) {
-    return list.stream().map(source -> convertSingleEntityToSingleDto(source, target)).toList();
+    return list.stream().map(source -> convert(source, target)).toList();
   }
 
   /**
@@ -68,7 +67,7 @@ public class ConversionHelper {
    * @param <T> Target class type.
    * @return Returns the list of type target.
    */
-  public final <S, T extends RootDto> T convertSingleEntityToSingleDto(
+  public final <S, T> T convert(
           final S source,
           final Class<T> target
   ) {
@@ -86,7 +85,7 @@ public class ConversionHelper {
    * @return Returns a {@link PageableResponse} that hold the
    *     items and the {@link PageableProperties} in a single object.
    */
-  public final <S, T extends  RootDto> PageableResponse<T> listToPageableResponse(
+  public final <S, T> PageableResponse<T> listToPageableResponse(
           final List<S> list,
           final Class<T> target,
           final PageableProperties pageableProperties

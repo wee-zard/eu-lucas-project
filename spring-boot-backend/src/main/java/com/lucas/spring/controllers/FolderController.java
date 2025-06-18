@@ -3,7 +3,7 @@ package com.lucas.spring.controllers;
 import com.lucas.spring.model.models.AuthenticatedUser;
 import com.lucas.spring.model.request.folder.FolderCreationRequest;
 import com.lucas.spring.model.response.BaseResponse;
-import com.lucas.spring.services.service.FolderService;
+import com.lucas.spring.services.facade.FolderFacade;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping(path = "api/folder")
 public class FolderController {
-  private final FolderService folderService;
+  private final FolderFacade folderFacade;
 
   /**
    * Creates a new folder where the user could store their images.
@@ -38,7 +38,7 @@ public class FolderController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestBody @Valid final FolderCreationRequest request
   ) {
-    this.folderService.save(request, user);
+    this.folderFacade.save(request, user);
     return new BaseResponse();
   }
 }

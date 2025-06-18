@@ -3,6 +3,7 @@ package com.lucas.spring.model.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,6 +32,15 @@ import lombok.Setter;
 @Table(name = "tb_image")
 public class ImageEntity {
   /**
+   * Constructs an entity with only an id in it.
+   *
+   * @param id The id of the entity.
+   */
+  public ImageEntity(Long id) {
+    setId(id);
+  }
+
+  /**
    * The unique identification of the images.
    */
   @Id
@@ -45,47 +55,54 @@ public class ImageEntity {
   /**
    * The direction where the image was taken.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "direction_name")
   private CreationDirectionEntity direction;
   /**
    * The country where the image was taken.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "country_code")
   private CreationCountryEntity country;
   /**
    * The year when the image was taken.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "year")
   private CreationYearEntity year;
   /**
    * The X coordinate of the image from where it was taken.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "coordinate_x")
   private CoordinateXEntity coordinateX;
   /**
    * The Y coordinate of the image from where it was taken.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "coordinate_y")
   private CoordinateYEntity coordinateY;
   /**
    * List of plants that have been found in the image
    * by a specific image analyzer.
    */
-  @ManyToMany(mappedBy = "listOfImages", cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.LAZY, mappedBy = "listOfImages", cascade = CascadeType.ALL)
   private Set<PlantEntity> listOfPlants;
   /**
    * List of procedure logs.
    */
-  @OneToMany(mappedBy = "image")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
   private Set<ProcedureLogEntity> listOfProcedureLogs;
   /**
    * List of bounding boxes of the image.
    */
-  @OneToMany(mappedBy = "image")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
   private Set<BoundingBoxEntity> listOfBoundingBoxes;
+
+  /**
+   * Tells in which folders are present the given image.
+   * An image can be present in several folders.
+   */
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+  private Set<FolderContentEntity> imageContents;
 }

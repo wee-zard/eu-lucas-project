@@ -29,15 +29,15 @@ public class QueryElementEntity extends BaseEntity {
   @JoinColumn(name = "query_builder_id")
   private QueryBuilderEntity queryBuilderEntity;
 
-  @Column(name = "filter_tab")
-  private Number filterTab;
+  @Column(name = "filter_tab", length = 2, nullable = false)
+  private byte filterTab;
 
   @Column(name = "operator", length = 2, nullable = false)
-  private Number operator;
+  private byte operator;
 
-  @Column(name = "select_input", length = 2, nullable = false)
+  @Column(name = "select_input", length = 255, nullable = true)
   private String selectInput;
 
-  @Column(name = "text_field")
+  @Column(name = "text_field", length = 255, nullable = true)
   private String textFieldInput;
 }

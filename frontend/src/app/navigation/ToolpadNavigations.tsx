@@ -8,6 +8,8 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import PermMedia from "@mui/icons-material/PermMedia";
+import PhotoFilterIcon from "@mui/icons-material/PhotoFilter";
 
 export enum NavigationSegments {
   ManageProcedures = "ManageProcedures",
@@ -16,28 +18,30 @@ export enum NavigationSegments {
   Settings = "Settings",
   Manual = "Manual",
   Filtering = "Filtering",
+  ImageFolders = "ImageFolders",
   Dashboard = "Dashboard",
   UserManagement = "UserManagement",
 }
 
 export enum NavigationTitles {
   // ===== New Menu options ===== //
-  UserManagement = "Manage Users",
-  Images = "Images",
-  Filtering = "Filtering",
+  UserManagement = "Felhasználók kezelése",
+  Images = "Képek",
+  Filtering = "Képek szűrése",
+  ImageFolders = "Lementett képek mappái",
 
-  Procedures = "Procedures",
-  ManageProcedures = "Manage Procedures",
-  UploadProcedureResults = "Upload Procedure Results",
+  Procedures = "Eljárások",
+  ManageProcedures = "Eljárások kezeléses",
+  UploadProcedureResults = "Eljárás log feltöltése",
 
-  Others = "Others",
-  ReportError = "Report Errors",
-  Settings = "Settings",
+  Others = "Egyéb",
+  ReportError = "Hibabejelentés",
+  Settings = "Beállítások",
   Manual = "Manual",
 
   // ===== Old Menu options ===== //
   Dashboard = "Dashboard",
-  MainItems = "Main items",
+  MainItems = "Fő elemek",
 }
 
 export enum NavigationKind {
@@ -73,10 +77,23 @@ export const navigation: Navigation = [
     title: NavigationTitles.Images,
   },
   {
-    segment: NavigationSegments.Filtering,
-    title: NavigationTitles.Filtering,
-    icon: <FilterListIcon />,
+    segment: NavigationTitles.Filtering,
+    title: NavigationTitles.Images,
+    icon: <PhotoFilterIcon />,
+    children: [
+      {
+        segment: NavigationSegments.Filtering,
+        title: NavigationTitles.Filtering,
+        icon: <FilterListIcon />,
+      },
+      {
+        segment: NavigationSegments.ImageFolders,
+        title: NavigationTitles.ImageFolders,
+        icon: <PermMedia />,
+      },
+    ],
   },
+
   // ==================================
   {
     kind: NavigationKind.Divider,

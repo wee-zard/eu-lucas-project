@@ -92,7 +92,7 @@ public class ImageController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
           @RequestBody ProcedureResultFileRequest filesRequest
   ) {
-    return conversionHelper.convertEntityListToDtoList(
+    return conversionHelper.convertList(
             imageService.getImagesByProcedureFiles(filesRequest.getFiles()),
             ImageDto.class);
   }

@@ -101,7 +101,7 @@ public class UserController {
   public UserToolpadSession getToolpadSession(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
   ) {
-    return conversionHelper.convertSingleEntityToSingleDto(
+    return conversionHelper.convert(
             userService.getUserById(user.getUserId()),
             UserToolpadSession.class
     );
@@ -116,7 +116,7 @@ public class UserController {
   @CrossOrigin
   @GetMapping("/")
   public List<UserDto> getUsers(@RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user) {
-    return conversionHelper.convertEntityListToDtoList(userService.getUsers(), UserDto.class);
+    return conversionHelper.convertList(userService.getUsers(), UserDto.class);
   }
 
   /**

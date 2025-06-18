@@ -5,10 +5,8 @@ import com.lucas.spring.model.entity.UserEntity;
 import com.lucas.spring.model.enums.FolderExceptionEnum;
 import com.lucas.spring.model.expection.FolderException;
 import com.lucas.spring.model.models.AuthenticatedUser;
-import com.lucas.spring.model.request.folder.FolderCreationRequest;
 import com.lucas.spring.repositories.FolderRepository;
 import com.lucas.spring.services.service.FolderService;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,25 +23,26 @@ public class FolderServiceImpl implements FolderService {
    * {@inheritDoc}
    */
   @Override
-  public void save(final FolderEntity folderEntity) {
-    this.folderRepository.save(folderEntity);
+  public FolderEntity save(final FolderEntity folderEntity) {
+    return this.folderRepository.save(folderEntity);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  @Transactional
-  public void save(final FolderCreationRequest request, final AuthenticatedUser user) {
-    final UserEntity userEntity = new UserEntity();
-    userEntity.setId(user.getUserId());
+  public FolderEntity save(final String title, final String description, final AuthenticatedUser user) {
+    if (this.isFolderExistsByUser(title, user)) {
+      throw new FolderException(FolderExceptionEnum.FOLDER_TITLE_EXISTS, title);
+    }
+
     final FolderEntity folderEntity = FolderEntity.builder()
-            .title(request.getTitle())
-            .description(request.getDescription())
-            .owner(userEntity)
+            .title(title)
+            .description(description)
+            .owner(new UserEntity(user.getUserId()))
             .build();
-    // TODO: The images and the queries are not saved
-    this.save(folderEntity);
+
+    return this.save(folderEntity);
   }
 
   /**
@@ -62,6 +61,17 @@ public class FolderServiceImpl implements FolderService {
   public FolderEntity getFolderById(final Long folderId) throws RuntimeException {
     return this.folderRepository
             .findById(folderId)
-            .orElseThrow(() -> new FolderException(FolderExceptionEnum.NOT_FOUND));
+            .orElseThrow(() -> new FolderException(
+                    FolderExceptionEnum.FOLDER_NOT_FOUND,
+                    String.valueOf(folderId)));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isFolderExistsByUser(final String title, final AuthenticatedUser user) {
+    final UserEntity userEntity = new UserEntity(user.getUserId());
+    return this.folderRepository.existsFolderEntityByTitleAndOwner(title, userEntity);
   }
 }

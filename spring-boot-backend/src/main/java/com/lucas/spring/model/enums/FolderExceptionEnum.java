@@ -10,6 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum FolderExceptionEnum {
-  NOT_FOUND("A mappa nem létezik!");
+  FOLDER_TITLE_EXISTS("A mappanév már használatban van! Kérlek adj meg egy másik nevet!"),
+  FOLDER_NOT_FOUND("A mappa nem létezik!");
   private final String message;
 }

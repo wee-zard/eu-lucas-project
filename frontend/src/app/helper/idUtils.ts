@@ -1,3 +1,5 @@
+import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
+
 /**
  * Stores the unique identification of HTML components while storing them
  * together in one util part.
@@ -23,5 +25,5 @@ export const IdUtils = {
 
   getTimelineContentById: (id: number) => `StyledTimelineContent-${id}`,
 
-  getUserCreationFormName: (id?: number | string) => `user-creation-form-content-${id ?? "root"}`,
+  getFormName: (key: EventListenerIdEnum, id?: number | string) => `${key}${id ? `-${id}` : ""}`,
 };

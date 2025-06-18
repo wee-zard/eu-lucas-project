@@ -13,6 +13,7 @@ import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { setSettingBackdropOpen } from "@redux/actions/settingActions";
 import ZipHelper from "@helper/zipHelper";
+import FilteringAddToFolderMenu from "./FilteringAddToFolderMenu";
 
 const FilteringScreenHeader = () => {
   const listOfSelectedImages = useSelector(selectListOfSelectedImages);
@@ -36,6 +37,7 @@ const FilteringScreenHeader = () => {
     );
   };
 
+  // TODO: Ezen funkcionalitás kerüljön áthelyezésre a mappákba.
   const handleDownloadOfSelectedImages = () => {
     dispatch(setSettingBackdropOpen(true));
 
@@ -56,6 +58,10 @@ const FilteringScreenHeader = () => {
         onClick={handleClearAll}
       />
       <StyledComponentGap>
+        {true === true
+          ? null
+          : //<FilteringAddToFolderMenu isDisabled={isAnImageSelected} />
+            null}
         <StyledButton
           tooltipTitle={FilteringScreenTexts.AddImageTooltip}
           buttonText={FilteringScreenTexts.AddImageText}

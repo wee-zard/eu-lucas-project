@@ -31,7 +31,7 @@ public class RoleController {
   @CrossOrigin
   @GetMapping("/")
   public List<RoleDto> getRoles(@RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user) {
-    return conversionHelper.convertEntityListToDtoList(
+    return conversionHelper.convertList(
             roleService.getAll(),
             RoleDto.class
     );

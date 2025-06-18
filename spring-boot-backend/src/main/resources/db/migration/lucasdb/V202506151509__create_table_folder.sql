@@ -20,15 +20,15 @@ create table tb_share_folder (
 );
 
 create table tb_query_builder (
-    id bigint PRIMARY KEY,
+    id bigint AUTO_INCREMENT PRIMARY KEY,
     parent_id bigint NULL,
     element_relationship TINYINT(1),
-    type TINYINT(1) NOT NULL,
+    type TINYINT(1),
     CONSTRAINT tb_query_builder_fk_1 foreign key(parent_id) references tb_query_builder(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table tb_query_element (
-    id bigint PRIMARY KEY,
+    id bigint AUTO_INCREMENT PRIMARY KEY,
     query_builder_id bigint,
     filter_tab int(2) NOT NULL,
     operator int(2) NOT NULL,

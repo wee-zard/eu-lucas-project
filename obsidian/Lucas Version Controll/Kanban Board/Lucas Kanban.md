@@ -130,9 +130,6 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
-- [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
-- [ ] [[027 - ManageUsers oldal implementálása]]
-- [ ] [[052 - Loading komponens megjelenítése]]
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]]
 - [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]
 - [ ] [[017 - Magyar és angol fordítások hozzáadása az alkalmazáshoz]]
@@ -141,6 +138,9 @@ kanban-plugin: board
 ## 🟢Done
 
 **Complete**
+- [ ] [[052 - Loading komponens megjelenítése]]
+- [ ] [[027 - ManageUsers oldal implementálása]]
+- [ ] [[065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel]]
 - [ ] [[044 - Profilkép megjelenítése a Mat Toolbar-on]]
 - [ ] [[101 - Profile - Kijelentkezés implementálása]]
 - [ ] [[102 - localStorage kiürítése bejelentkezés & kijelentkezés során]]

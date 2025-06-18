@@ -13,8 +13,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class QueryComponent extends QueryRoot {
   private FilterOption selectedFilterTab;
-  private Number groupFormId;
-  private Number inputFormId;
   private String selectInput;
   private OperatorOption operatorInput;
   private String textFieldInput;

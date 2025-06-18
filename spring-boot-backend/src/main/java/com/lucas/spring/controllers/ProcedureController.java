@@ -57,7 +57,7 @@ public class ProcedureController {
   public List<ProcedureDto> getProcedures(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
   ) {
-    return conversionHelper.convertEntityListToDtoList(
+    return conversionHelper.convertList(
             procedureService.getProcedures(),
             ProcedureDto.class
     );

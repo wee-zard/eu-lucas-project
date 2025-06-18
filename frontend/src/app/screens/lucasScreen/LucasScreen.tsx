@@ -68,6 +68,7 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
       [NavigationSegments.UploadProcedureResults]: <UploadProcedureScreen />,
       [NavigationSegments.ReportError]: <ReportScreen />,
       [NavigationSegments.UserManagement]: <ManageUsersScreen />,
+      [NavigationSegments.ImageFolders]: <TmpScreen />,
       [NavigationSegments.Dashboard]: <TmpScreen />,
       [NavigationSegments.Manual]: <TmpScreen />,
       [NavigationSegments.Settings]: <TmpScreen />,

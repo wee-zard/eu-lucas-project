@@ -1,6 +1,6 @@
 package com.lucas.spring.model.request.folder;
 
-import com.lucas.spring.model.request.filtering.FilteringQueryRequest;
+import com.lucas.spring.model.request.filtering.QueryMultiType;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,11 +18,11 @@ public class QueriedImages {
   /**
    * The list of image ids that has been queried by the Query Builder.
    */
-  private List<Number> imageIds;
+  private List<Long> imageIds;
 
   /**
    * The query that has been constructed and created by the user
    * to filter the images from the server.
    */
-  private FilteringQueryRequest query;
+  private QueryMultiType query;
 }
