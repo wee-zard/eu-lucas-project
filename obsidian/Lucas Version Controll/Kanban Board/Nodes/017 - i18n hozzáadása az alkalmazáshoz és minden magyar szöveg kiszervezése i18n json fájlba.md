@@ -4,7 +4,8 @@ type:
   - 🟦Todo
 priority:
   - Low
-related: 
+related:
+  - "[[194 - Nyelv választó gomb input mező a bejelentkezés oldalra]]"
 platform:
   - backend
   - frontend

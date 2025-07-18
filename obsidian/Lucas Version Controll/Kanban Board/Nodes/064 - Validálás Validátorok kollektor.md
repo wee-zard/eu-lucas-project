@@ -8,7 +8,7 @@ priority:
 related:
   - "[[063 - Validátorok hozzárendelése a Report üzenetekhez]]"
   - "[[050 - Filtering Dialog input mezői nem kerülnek validálásra]]"
-  - "[[016 - ExifData szűrés esetén az text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]]"
+  - "[[016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]]"
 platform:
   - backend
   - frontend

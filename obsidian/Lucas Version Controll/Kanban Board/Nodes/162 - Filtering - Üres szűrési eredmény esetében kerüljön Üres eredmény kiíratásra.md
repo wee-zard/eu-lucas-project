@@ -15,3 +15,4 @@ Aktuális működés:
 
 Elvárt működés: 
 - A küldés gomb megnyomását követően NEM lehet látni egy olyan szöveget, ami a felhasználót jelzi, hogy "A szűrési feltétel(ek) üres eredményt adtak vissza". Ezzel jelezzük a felhasználó felé, hogy adjon meg egy jobb szűrést.
+- Esetleg loading icon is kerüljön megjelenítésre a háttérben, és ezzel is jelezzük a felhasználónak, hogy várjon a rekordok lekérésére.

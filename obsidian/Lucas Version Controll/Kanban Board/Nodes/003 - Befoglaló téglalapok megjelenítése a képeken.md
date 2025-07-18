@@ -5,9 +5,9 @@ type:
 priority:
   - High
 related:
-  - "[[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján]]"
+  - "[[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]]"
 creation-time: 2024-12-07T09:23:00
-sprint: 2
+sprint: 4
 ---
 Elvárt működés: 
 - Szeretném, hogyha az egyes képeken megjelenítésre kerülnének a befoglaló téglalapok. Amennyiben a felhasználó kijelölt egy képek, akkor kerüljön feldobásra egy olyan opció, hogy *befoglaló téglalapok megjelenítése*. Egy mini ablak jelenjen meg a kép mellett.

@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "9b288f2d417121dd",
+        "id": "b8701576d684fd0a",
         "type": "tabs",
         "children": [
           {
-            "id": "1b9f44215a660b8b",
+            "id": "7213bd70899264c2",
             "type": "leaf",
             "state": {
               "type": "kanban",
@@ -18,9 +18,19 @@
                   "kanban-plugin": "board",
                   "list-collapse": [
                     true,
+                    true,
+                    false,
+                    true,
+                    true,
+                    false,
+                    true,
+                    true,
+                    true,
                     false,
                     false,
                     false,
+                    false,
+                    true,
                     false,
                     false,
                     true
@@ -29,6 +39,20 @@
               },
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
+            }
+          },
+          {
+            "id": "40e8aa75c6db0109",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/013 - CheckStyle hibák javítása a Backend oldalán.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "013 - CheckStyle hibák javítása a Backend oldalán"
             }
           }
         ]
@@ -63,7 +87,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "nyelv",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -88,7 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 281.00825119018555
+    "width": 200
   },
   "right": {
     "id": "dfb91359a319a8ad",
@@ -160,7 +184,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 302
+    "width": 224
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -174,34 +198,35 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "1b9f44215a660b8b",
+  "active": "7213bd70899264c2",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/069 - Környezetfüggetlen nyelvtan definiálása az új QueryBuilder-hez.md",
+    "Kanban Board/Nodes/013 - CheckStyle hibák javítása a Backend oldalán.md",
     "Kanban Board/Lucas Kanban.md",
-    "Kanban Board/Nodes/027 - ManageUsers oldal implementálása.md",
-    "Kanban Board/Nodes/065 - User táblát kiegészíteni a user teljes nevével és a profilképére mutató linkkel.md",
-    "Kanban Board/Nodes/023 - Sidebar-on lévő menüpontok véglegesítése.md",
-    "Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md",
-    "Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md",
-    "Kanban Board/Nodes/045 - Saját logó tervezése és megjelenítése a bejelentkezés, és a Mat Toolbar-on.md",
-    "Kanban Board/Nodes/053 - Loading ikon megjelenítése a bejelentkezési oldalhoz.md",
-    "Kanban Board/Nodes/044 - Profilkép megjelenítése a Mat Toolbar-on.md",
-    "Kanban Board/Nodes/101 - Profile - Kijelentkezés implementálása.md",
-    "Kanban Board/Nodes/102 - localStorage kiürítése bejelentkezés & kijelentkezés során.md",
-    "Kanban Board/Nodes/141 - Lottifiles - Login oldal animációval.md",
-    "Kanban Board/Nodes/052 - Loading komponens megjelenítése.md",
-    "Kanban Board/Nodes/042 - Google OAuth oldal befejezése.md",
-    "Kanban Board/Nodes/043 - Google OAuth gomb középre igazítása és stílus hozzáadása.md",
-    "Kanban Board/Nodes/169 - Backend - Képek exif adatainak lekérése a háttérben.md",
-    "Kanban Board/Nodes/156 - Docker és alkalmazás futtatása VM-ben.md",
-    "Kanban Board/Nodes/168 - Auto-Reloading certbot after every 60 days.md",
+    "Kanban Board/Nodes/113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon.md",
+    "Kanban Board/Nodes/196 - Call cacheable methods via an injected dependency instead of directly via 'this'..md",
+    "Kanban Board/Nodes/187 - Legyen egy űrlap, amin keresztül fel lehet tölteni eljárás eredményeket.md",
     "Kanban Board/Nodes/167 - DockerHub-ról levenni a projektet.md",
-    "Kanban Board/Nodes/058 - Email kiküldésének implementálása.md",
-    "Kanban Board/Nodes/121 - Megkérdezni a témavezetőmet, hogy a fájlok milyen néven és milyen könyvtárakban vannak elmentve a gépén.md",
-    "Kanban Board/Nodes/138 - Demo google fiók létrehozása és hozzáadása a projekthez, hogy a témavezetőm meg tudja tekinteni a projektet.md",
-    "Kanban Board/Nodes/120 - A 2012_52222798N_V.jpg kép az egyértelműen meghatározható az adatbázisból vagy sem.md",
-    "Kanban Board/Nodes/015 - Nagy méretű táblák partícionálása.md",
-    "Kanban Board/Nodes/019 - Aktív szűrés eredményei, a kiválasztott képek és a hozzájuk tartozó szűrési feltételek kerüljenek eltárolásra localStorage-ben.md",
+    "Kanban Board/Nodes/063 - Validátorok hozzárendelése a Report üzenetekhez.md",
+    "Kanban Board/Nodes/194 - Nyelv választó gomb input mező a bejelentkezés oldalra.md",
+    "Kanban Board/Nodes/017 - i18n hozzáadása az alkalmazáshoz és minden magyar szöveg kiszervezése i18n json fájlba.md",
+    "Kanban Board/Nodes/034 - ErrorHandling minden esetben internal-server-errort dob vissza.md",
+    "Kanban Board/Nodes/195 - Bármelyik bal oldalt megjelenő menüpontra rákattintva a középső egérgombbal a NotFound oldalra navigál a böngésző.md",
+    "Pasted image 20250712085053.png",
+    "Kanban Board/Nodes/126 - Exception - Generic Exception dobása - Exception osztályok egyesítése egy Generic osztállyá, amiből minden exception öröklődik.md",
+    "Kanban Board/Nodes/097 - TokenValidation - Át lehet mozgatni ezen aspect osztályba a @RequestHeader-ben érkező Authentikációs tokent.md",
+    "Kanban Board/Nodes/096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből.md",
+    "Kanban Board/Nodes/157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán.md",
+    "Kanban Board/Nodes/179 - Mappák létrehozása.md",
+    "Kanban Board/Nodes/087 - NotFound oldalról nem lehet egy kattintással vissza navigálni a főoldalra.md",
+    "Kanban Board/Nodes/039 - Procedures oldal létrehozása.md",
+    "Kanban Board/Nodes/185 - Feltöltött eljárás logokat lehessen törölni.md",
+    "Kanban Board/Nodes/193 - Fizetni egy MySQL adatbázis instance-t, és feltölteni oda az adatbázist.md",
+    "Kanban Board/Nodes/192 - A befoglaló téglalapok mellett több minden jelenjen meg a képeken.md",
+    "Kanban Board/Nodes/191 - A Logok kiválasztása után, a befoglaló téglalapok maradjanak a képen a dialogós ablak bezárása után.md",
+    "Kanban Board/Nodes/190 - A kép neve kerüljön megjelenítésre a képen.md",
+    "Kanban Board/Nodes/189 - A szín a logok mellett lévő körökben azon szín legyen, mint a befoglaló téglalap színe a képen.md",
+    "Kanban Board/Nodes/188 - A befoglaló téglalap fölő véve az egeret, egy tooltip popup jelenjen meg a növény adataival.md",
+    "Kanban Board/Nodes/186 - Legyen egy szöveg, ami explicit taglalja, hogy milyen formában engedett az xml feltöltés.md",
     "Kanban Board/Images/Pasted image 20250224232633.png",
     "Kanban Board/Images/Pasted image 20250224231941.png",
     "Pasted image 20250224232551.png",
@@ -211,7 +236,6 @@
     "Kanban Board/Images/Pasted image 20241226130403.png",
     "Pasted image 20241226130339.png",
     "Kanban Board/Images/Pasted image 20241226124001.png",
-    "Kanban Board/Images/Pasted image 20241226115235.png",
     "Kanban Board/Images",
     "Templates",
     "Kanban Board/Nodes",
