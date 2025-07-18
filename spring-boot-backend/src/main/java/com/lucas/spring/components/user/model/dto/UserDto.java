@@ -1,0 +1,27 @@
+package com.lucas.spring.components.user.model.dto;
+
+import com.lucas.spring.commons.model.dto.RootDto;
+import com.lucas.spring.components.user.model.entity.UserEntity;
+import java.time.Instant;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
+
+/**
+ * A dto made out of {@link UserEntity} entities.
+ */
+@ToString
+@Builder
+@Getter
+@AllArgsConstructor
+public class UserDto implements RootDto {
+  private Long id;
+  private String userName;
+  private Instant creationTime;
+  private String statusName;
+  private Long statusId;
+  private String roleName;
+  private int roleId;
+  private String profilePicture;
+}

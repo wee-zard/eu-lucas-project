@@ -1,0 +1,18 @@
+package com.lucas.spring.components.image.enums;
+
+/**
+ * Holds the error messages that could occur while filtering the images
+ * by the provided form components.
+ */
+public enum ImageFilteringEnum {
+  NO_PREDICATE_GENERATED_BY_FILTERS,
+  NO_FILTER_COMPONENT_PROVIDED,
+  NO_RECURSIVE_GROUP_RELATION_PROVIDED,
+  NO_RECURSIVE_GROUP_RELATION_PROVIDED_BY_GROUP_ID,
+  LIST_OF_QUERIES_ARE_EMPTY,
+  PAGEABLE_PROPERTIES_ARE_NOT_PROVIDED,
+  NO_COMPONENT_OR_GROUP_PROVIDED,
+  UNKNOWN_OR_NO_OPERATOR_PROVIDED,
+  UNKNOWN_OR_NO_LOGICAL_EXPRESSION_PROVIDED,
+  UNKNOWN_OR_NO_FILTER_TAB_PROVIDED,
+}
