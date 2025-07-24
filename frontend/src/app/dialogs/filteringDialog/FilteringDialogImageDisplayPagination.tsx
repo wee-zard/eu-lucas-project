@@ -56,7 +56,7 @@ const FilteringDialogImageDisplayPagination = ({ pageableImages }: Props) => {
       <div>{currentPageNo}</div>
       <StyledIconButton
         buttonIcon={<ChevronRightIcon />}
-        isDisabled={!pageableImages || pageableImages.pageItems.length < 9}
+        isDisabled={!pageableImages || pageableImages.content.length < 9}
         onClick={handleRightPaginationClick}
       />
     </StyledPaginationHolder>

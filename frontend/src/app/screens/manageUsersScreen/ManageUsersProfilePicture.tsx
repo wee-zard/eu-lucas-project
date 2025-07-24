@@ -1,9 +1,10 @@
-import { ManageUserRowTypes } from "@model/types/ManageUserRowType";
 import { styled } from "@mui/material/styles";
 import DefaultProfilePicture from "@media/default-profile-picture.png";
+import { GenericRowType } from "@model/types/GenericRowType";
+import UserDto from "@model/dto/UserDto";
 
 type Props = {
-  row: ManageUserRowTypes;
+  row: GenericRowType<UserDto>;
 };
 
 const ManageUsersProfilePicture = ({ row }: Props) => {

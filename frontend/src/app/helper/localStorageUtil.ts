@@ -4,12 +4,13 @@ import {
   QueryBuilderModel,
 } from "@model/QueryBuilderModel";
 import { LocalStorageKeys } from "@model/enum";
+import { LocalStorageType } from "@model/types/LocalStorageType";
 
-export const getLocalStorageItem = (key: LocalStorageKeys) => {
+export const getLocalStorageItem = (key: LocalStorageType) => {
   return localStorage.getItem(key) ?? undefined;
 };
 
-export const getGenericLocalStorageItem = <T>(key: LocalStorageKeys) => {
+export const getGenericLocalStorageItem = <T>(key: LocalStorageType) => {
   const entry = getLocalStorageItem(key);
 
   if (!entry) {
@@ -19,7 +20,7 @@ export const getGenericLocalStorageItem = <T>(key: LocalStorageKeys) => {
   return JSON.parse(entry) as T;
 };
 
-export const setLocalStorageItem = (item: any, key: LocalStorageKeys) => {
+export const setLocalStorageItem = (item: any, key: LocalStorageType) => {
   if (typeof item === "string") {
     localStorage.setItem(key, item);
   } else {
@@ -27,7 +28,7 @@ export const setLocalStorageItem = (item: any, key: LocalStorageKeys) => {
   }
 };
 
-export const removeLocalStorageItem = (key: LocalStorageKeys) => {
+export const removeLocalStorageItem = (key: LocalStorageType) => {
   localStorage.removeItem(key);
 };
 

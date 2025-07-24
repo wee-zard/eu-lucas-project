@@ -1,5 +1,4 @@
 import StyledIconButton from "@components/StyledIconButton";
-import { ManageUserRowTypes } from "@model/types/ManageUserRowType";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -24,9 +23,11 @@ import { UserStatusEnum } from "@model/enum/UserStatusEnum";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
 import { UserRoleEnum } from "@model/enum/UserRoleEnum";
 import { MenuItemType } from "@model/types/MenuItemType";
+import { GenericRowType } from "@model/types/GenericRowType";
+import UserDto from "@model/dto/UserDto";
 
 type Props = {
-  row: ManageUserRowTypes;
+  row: GenericRowType<UserDto>;
 };
 
 const ManageUsersSettings = ({ row }: Props) => {

@@ -80,7 +80,7 @@ const FilteringDialogImageDisplay = () => {
     <StyledFilterImageHolder>
       <StyledComponentGap display={"grid"}>
         <StyledCardsHolder gap={"16px"}>
-          {response?.pageItems.map((imageEntity, index) => (
+          {response?.content.map((imageEntity, index) => (
             <StyledCard
               key={index}
               id={IdUtils.GetFilteredImageCardDivId(index)}

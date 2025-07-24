@@ -11,6 +11,7 @@ import FilteringMenu from "@dialogs/filteringDialog/FilteringMenu";
 import FilteringDialogImageDisplay from "@dialogs/filteringDialog/FilteringDialogImageDisplay";
 import FilteringDialogActions from "@dialogs/filteringDialog/FilteringDialogActions";
 import i18n from "@i18n/i18nHandler";
+import FilteringImageSelectionActions from "./FilteringImageSelectionActions";
 
 const FilteringDialog = () => {
   const isDialogOpen = useSelector((state) =>
@@ -25,7 +26,10 @@ const FilteringDialog = () => {
       <StyledDialogTitle>{i18n.t("screens.filtering.dialog-title")}</StyledDialogTitle>
       <StyledDialogContent>
         <StyledDialogContentHolder display={"grid"}>
-          <FilteringMenu />
+          <div className="flex-gap">
+            <FilteringMenu />
+            <FilteringImageSelectionActions />
+          </div>
           <FilteringDialogImageDisplay />
         </StyledDialogContentHolder>
       </StyledDialogContent>

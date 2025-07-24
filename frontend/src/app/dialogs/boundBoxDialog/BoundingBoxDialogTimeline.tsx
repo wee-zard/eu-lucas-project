@@ -60,7 +60,7 @@ export const BoundingBoxDialogTimeline = () => {
       }
 
       dispatch(setProcedureLogIsLogButtonDisabled(false));
-      dispatch(setProcedureLogListOfProcedureLogs([...listOfProcedureLogs, ...res.pageItems]));
+      dispatch(setProcedureLogListOfProcedureLogs([...listOfProcedureLogs, ...res.content]));
     });
   };
 

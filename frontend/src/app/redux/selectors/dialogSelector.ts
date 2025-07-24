@@ -8,3 +8,6 @@ export const selectIsDialogOpen = (state: RootState, dialogToOpen: DialogToOpens
 
 export const selectIsFolderCreationDialogOpen = (state: RootState) =>
   state.dialogStore.isAddFolderDialogOpen;
+
+export const selectIsImageToFolderAdditionDialogOpen = (state: RootState) =>
+  state.dialogStore.isImageToFolderAdditionDialogOpen;

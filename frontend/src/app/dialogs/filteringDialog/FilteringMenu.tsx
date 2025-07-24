@@ -12,6 +12,7 @@ import FilteringMenuActions from "./FilteringMenuActions";
 import { initFirstQueryParent, initQueryBuilderObj } from "@model/QueryBuilderModel";
 import FilteringQueryBuilder from "./FilteringQueryBuilder";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
+import { GenericHandlerType } from "@model/types/GenericHandlerType";
 
 const FilteringMenu = () => {
   console.log("[FilteringMenu]: RENDERED");
@@ -36,21 +37,26 @@ const FilteringMenu = () => {
   }, [element]);
 
   useEffect(() => {
-    switch (filterMenuAction) {
-      case MenuActions.CANCEL:
+    if (!filterMenuAction) {
+      return;
+    }
+
+    const handle: GenericHandlerType<MenuActions, () => void> = {
+      [MenuActions.CANCEL]: () => {
         dispatch(setFilterMenuAction());
         handleClose();
-        break;
-      case MenuActions.SUBMIT:
-        handleClose();
-        break;
-      case MenuActions.CLEAR_ALL:
+      },
+      [MenuActions.SUBMIT]: () => handleClose(),
+      [MenuActions.CLEAR_ALL]: () => {
         const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
         LocalStorageUtils.setQueryBuilderModelLocalStorage(defaultBuilder);
         setElement(undefined);
         dispatch(setFilterMenuAction());
-        break;
-    }
+      },
+      [MenuActions.PAGINATION_CHANGE]: () => null,
+    };
+
+    handle[filterMenuAction]();
   }, [dispatch, filterMenuAction]);
 
   return (

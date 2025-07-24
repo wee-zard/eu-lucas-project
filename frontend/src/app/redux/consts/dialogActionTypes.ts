@@ -9,5 +9,12 @@ interface setFolderCreationDialogOpen {
   type: DialogConsts.SET_FOLDER_CREATION_DIALOG_OPEN;
   payload: boolean;
 }
+interface setImageToFolderAdditionDialogOpen {
+  type: DialogConsts.IMAGE_TO_FOLDER_ADDITION_DIALOG_OPEN;
+  payload: boolean;
+}
 
-export type DialogActionTypes = setDialogToOpen | setFolderCreationDialogOpen;
+export type DialogActionTypes =
+  | setDialogToOpen
+  | setFolderCreationDialogOpen
+  | setImageToFolderAdditionDialogOpen;

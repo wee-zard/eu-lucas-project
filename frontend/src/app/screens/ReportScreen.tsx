@@ -5,93 +5,77 @@ import StyledTextFieldComponent from "@components/StyledTextFieldComponent";
 import { StyledInputHolder } from "@dialogs/filteringDialog/FilteringMenu";
 import { StyledComponentGap } from "@global/globalStyles";
 import { ConversionUtils } from "@helper/conversionUtils";
+import { FormGroupHelper } from "@helper/formGroupHelper";
 import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
-import { ReportTypes, ReportTypesNames } from "@model/enum";
+import { FormEnums, ReportTypesNames } from "@model/enum";
 import { SnackEnum } from "@model/enum/SnackEnum";
-import SmtpEmailRequest, { SmtpEmailRequestError } from "@model/request/SmtpEmailRequest";
+import { ReportFormGroup, ReportFormGroupModel } from "@model/forms/ReportFormGroup";
 import { setSettingBackdropOpen } from "@redux/actions/settingActions";
-import { selectIsBackdropOpen } from "@redux/selectors/settingSelector";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const ReportScreen = () => {
-  const titleCharacterLimit = 200;
-  const messageCharacterLimit = 4000;
-  const [request, setRequest] = useState(new SmtpEmailRequest());
-  const [requestError, setRequestError] = useState(new SmtpEmailRequestError());
-  const isBackdropOpen = useSelector(selectIsBackdropOpen);
+  const helper = new FormGroupHelper<ReportFormGroup>(FormEnums.ReportCreationForm);
+  const [formGroup, setFormGroup] = useState(helper.construct());
+  const getReportTypeOptions = useMemo(
+    () => Object.values(ReportTypesNames).map((option) => i18n.t(option)),
+    [],
+  );
   const dispatch = useDispatch();
 
-  const handleReportTitleChange = (title: string) => {
-    if (title.length > titleCharacterLimit) {
-      // TODO: Should error be thrown to the user about reached character title limit?
-      return;
+  const getSelectedReportTypeOption = () => {
+    if (!formGroup.reportType.data) {
+      return "";
     }
 
-    setRequest({ ...request, title });
-    setRequestError({ ...requestError, title: undefined });
-  };
+    const enumValue = ConversionUtils.EnumKeyToEnumValue(
+      ReportTypesNames,
+      formGroup.reportType.data,
+    );
 
-  const handleReportMessageChange = (message: string) => {
-    if (message.length > messageCharacterLimit) {
-      // TODO: Should error be thrown to the user about reached character title limit?
-      return;
+    if (!enumValue) {
+      return "";
     }
 
-    setRequest({ ...request, message });
-    setRequestError({ ...requestError, message: undefined });
+    return i18n.t(enumValue);
   };
 
-  const handleReportTypeSelection = (reportType: ReportTypes) => {
-    setRequest({ ...request, reportType });
-    setRequestError({ ...requestError, reportType: undefined });
+  /**
+   * When the form input entires are changes then they will
+   * call this method that will actualize the form based on the updated form entry's value.
+   *
+   * @param value The new value from the input.
+   * @param enumKey The name of the form input property that has been changed.
+   */
+  const handleFormUpdate = (value: string, enumKey: keyof ReportFormGroup): void => {
+    setFormGroup(helper.save(formGroup, value, enumKey));
   };
 
-  const getReportTypesNames = (value: unknown) => {
-    const getType = reportTypes.find((type) => i18n.t(type) === value);
-
-    if (!getType) {
-      return;
-    }
-
-    handleReportTypeSelection(ConversionUtils.ReportTypesNamesToReportTypes(getType));
-  };
-
-  const getReportTypes = ConversionUtils.ReportTypesToReportTypeNames(request?.reportType) ?? "";
-
-  const submitReport = () => {
+  const handleSubmit = (): void => {
     dispatch(setSettingBackdropOpen(true));
 
-    const tmpError: SmtpEmailRequestError = {
-      title: !!request.title ? undefined : i18n.t("validators.required"),
-      reportType: !!request.reportType ? undefined : i18n.t("validators.required"),
-      message: !!request.message ? undefined : i18n.t("validators.required"),
-    };
-    const isErrorNotFound = Object.values(tmpError).every((error) => !error);
+    const errorCandidateFormGroup = helper.validate(formGroup);
 
-    if (isErrorNotFound) {
-      sendReportEmail(request)
-        .then((response) => {
-          if (response) {
-            setRequest(new SmtpEmailRequest());
-            openSnackbar(SnackEnum.REPORT_SENT_OUT);
-          }
-        })
-        .catch(() => openSnackbar(SnackEnum.REPORT_NOT_SENT_OUT))
-        .finally(() => dispatch(setSettingBackdropOpen(false)));
-    } else {
+    if (errorCandidateFormGroup) {
+      setFormGroup(errorCandidateFormGroup);
       dispatch(setSettingBackdropOpen(false));
+      return;
     }
 
-    setRequestError(tmpError);
+    const res = helper.convert<ReportFormGroupModel>(formGroup);
+    dispatch(setSettingBackdropOpen(false));
+
+    sendReportEmail(res)
+      .then((response) => {
+        if (response) {
+          setFormGroup(helper.construct());
+          openSnackbar(SnackEnum.REPORT_SENT_OUT);
+        }
+      })
+      .catch(() => openSnackbar(SnackEnum.REPORT_NOT_SENT_OUT))
+      .finally(() => dispatch(setSettingBackdropOpen(false)));
   };
-
-  const reportTypes = Object.values(ReportTypesNames);
-
-  const getReportTypeOptions = Object.values(ReportTypesNames).map((option) => i18n.t(option));
-
-  const getReportTypeInputValue = getReportTypes ? i18n.t(getReportTypes) : "";
 
   return (
     <StyledComponentGap display={"grid"} gap={"32px"}>
@@ -99,27 +83,31 @@ const ReportScreen = () => {
         <StyledSelectComponent
           inputTitle={i18n.t("screens.reporting.form.report-type")}
           options={getReportTypeOptions}
-          inputValue={getReportTypeInputValue}
-          setValue={getReportTypesNames}
-          errorMessage={requestError.reportType}
+          inputValue={getSelectedReportTypeOption()}
+          setValue={(_, index) =>
+            handleFormUpdate(Object.keys(ReportTypesNames)[index], "reportType")
+          }
+          errorMessage={formGroup.reportType.error}
         />
       </StyledInputHolder>
       <StyledInputHolder>
         <StyledTextFieldComponent
           inputTitle={i18n.t("screens.reporting.form.report-title")}
-          inputValue={request?.title ?? ""}
-          setValue={handleReportTitleChange}
-          errorMessage={requestError.title}
-          helperText={`${request?.title?.length ?? 0}/${titleCharacterLimit}`}
+          inputValue={formGroup.title.data ?? ""}
+          setValue={(value) => handleFormUpdate(value, "title")}
+          errorMessage={formGroup.title.error}
+          htmlInputValidation={formGroup.title.validators}
+          helperText={`${formGroup.title.data?.length ?? 0}/${formGroup.title.validators.maxLength}`}
         />
       </StyledInputHolder>
       <StyledInputHolder>
         <StyledTextFieldComponent
           inputTitle={i18n.t("screens.reporting.form.report-content")}
-          inputValue={request?.message ?? ""}
-          setValue={handleReportMessageChange}
-          errorMessage={requestError.message}
-          helperText={`${request?.message?.length ?? 0}/${messageCharacterLimit}`}
+          inputValue={formGroup.message.data ?? ""}
+          setValue={(value) => handleFormUpdate(value, "message")}
+          errorMessage={formGroup.message.error}
+          helperText={`${formGroup.message.data?.length ?? 0}/${formGroup.message.validators.maxLength}`}
+          htmlInputValidation={formGroup.message.validators}
           isMultilineActive
           multilineRows={8}
         />
@@ -128,8 +116,7 @@ const ReportScreen = () => {
         buttonVariant={"outlined"}
         buttonText={i18n.t("components.button.submit")}
         buttonType={"submit"}
-        onClick={submitReport}
-        isDisabled={isBackdropOpen}
+        onClick={handleSubmit}
       />
     </StyledComponentGap>
   );

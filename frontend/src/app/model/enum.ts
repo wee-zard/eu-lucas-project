@@ -87,6 +87,7 @@ export enum BackendSmtpEmailControllerEndpoints {
 
 export enum BackendFolderControllerEndpoints {
   CreateFolder = "/api/folder/create",
+  GetFolders = "/api/folder/",
 }
 
 export enum GoogleTokenEndpoints {
@@ -150,6 +151,13 @@ export enum LocalStorageKeys {
   SetItem = "setItem",
   FilteringDialog = "filtering-dialog",
   UserCreationForm = "user-creation-form",
+  FolderCreationForm = "folder-creation-form",
+  FolderListDataGrid = "/folder-list",
+  ReportCreationForm = "report-creation-form",
+}
+
+export enum FormEnums {
+  ReportCreationForm = "report-creation-form",
   FolderCreationForm = "folder-creation-form",
 }
 

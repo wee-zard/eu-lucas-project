@@ -14,3 +14,10 @@ export const setFolderCreationDialogOpen = (data: boolean) => {
     payload: data,
   };
 };
+
+export const setImageToFolderAdditionDialogOpen = (data: boolean) => {
+  return {
+    type: DialogConsts.IMAGE_TO_FOLDER_ADDITION_DIALOG_OPEN,
+    payload: data,
+  };
+};

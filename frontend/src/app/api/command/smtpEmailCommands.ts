@@ -4,10 +4,10 @@ import {
   RequestCommandTypes,
   ServersToConnectTo,
 } from "@model/enum";
-import SmtpEmailRequest from "@model/request/SmtpEmailRequest";
+import { ReportFormGroupModel } from "@model/forms/ReportFormGroup";
 import BaseResponse from "@model/response/BaseResponse";
 
-export const sendReportEmail = async (request: SmtpEmailRequest) => {
+export const sendReportEmail = async (request: ReportFormGroupModel) => {
   return commandHandler<BaseResponse>({
     type: RequestCommandTypes.POST,
     server: ServersToConnectTo.Backend,

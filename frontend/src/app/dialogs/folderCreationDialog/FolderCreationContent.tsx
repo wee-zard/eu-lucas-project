@@ -1,69 +1,43 @@
 import { StyledScrollBarHolder } from "@global/globalStyles";
-import FolderCreationDialogHelper from "./FolderCreationDialogHelper";
 import StyledTextFieldComponent from "@components/StyledTextFieldComponent";
 import { styled } from "@mui/material/styles";
-import { FolderCreationFormGroup } from "@model/forms/FolderCreationFormGroup";
 import { useEventListenerRender } from "@hooks/useEventListenerRender";
+import { FormGroupHelper } from "@helper/formGroupHelper";
+import { FolderCreationFormGroup } from "@model/forms/FolderCreationFormGroup";
 
-const FolderCreationContent = () => {
-  /**
-   * Updates the title of the {@link InputFormControlEntry}'s data property by the param.
-   *
-   * @param value The value what the user provided on the form.
-   */
-  const updateTitle = (value: string): void => {
-    const group = FolderCreationDialogHelper.getStorageItem();
-    const newGroup: FolderCreationFormGroup = {
-      ...group,
-      title: {
-        ...group.title,
-        data: value,
-      },
-    };
+type Props = {
+  helper: FormGroupHelper<FolderCreationFormGroup>;
+  isEmptyFolderCreated?: boolean;
+};
 
-    FolderCreationDialogHelper.save(newGroup);
-    FolderCreationDialogHelper.refresh();
-  };
-
-  /**
-   * Updates the description of the {@link InputFormControlEntry}'s data property by the param.
-   *
-   * @param value The value what the user provided on the form.
-   */
-  const updateDescription = (value: string): void => {
-    const group = FolderCreationDialogHelper.getStorageItem();
-    const newGroup: FolderCreationFormGroup = {
-      ...group,
-      description: {
-        ...group.description,
-        data: value,
-      },
-    };
-
-    FolderCreationDialogHelper.save(newGroup);
-    FolderCreationDialogHelper.refresh();
-  };
-
+const FolderCreationContent = ({ helper, isEmptyFolderCreated }: Props) => {
   const renderComponent = () => {
-    const formGroup = FolderCreationDialogHelper.getStorageItem();
+    const formGroup = helper.get();
+
     return (
-      <StyledInputHolder>
+      <StyledInputHolder className="grid-container">
         <div className="grid-container">
-          <p>
-            Hozz létre egy új mappát és mentsd el ezen mappában az általad szűrt képeket. A képek
-            mellé, a képekhez tartozó szűrés is eltárolásra kerül.
-          </p>
-          <p>
-            A mappáknak lehet egy külön leírást adni, amivel megmondhatod, hogy milyen képeket
-            tervezel el tárolni a mappákban.
-          </p>
+          {isEmptyFolderCreated ? (
+            <p>
+              Hozz létre egy új mappát és mentsd el az általad kiválasztott képeket a különböző
+              szűrési feltételek alapján. A képek mellé a képekhez tartozó szűrés is, illetve a
+              legutoljára kiválasztott befoglaló téglalapok is eltárolásra kerülnek.
+            </p>
+          ) : (
+            <p>
+              Hozz létre egy új üres mappát, amiben a későbbiekben eltárolhatod az általad
+              kiválasztott képeket a különböző szűrési feltételek alapján. A képek mellé a képekhez
+              tartozó szűrés is, illetve a legutoljára kiválasztott befoglaló téglalapok is
+              eltárolásra kerülnek.
+            </p>
+          )}
         </div>
         <div className="grid-gap24">
           <div className="flex-container">
             <StyledTextFieldComponent
               inputTitle={"Mappa neve"}
               inputValue={formGroup.title.data ?? ""}
-              setValue={updateTitle}
+              setValue={(value) => helper.save(formGroup, value, "title")}
               htmlInputValidation={{ ...formGroup.title.validators }}
               helperText={`Max karakterek száma: ${formGroup?.title.data?.length ?? 0}/${formGroup?.title.validators.maxLength}`}
               errorMessage={formGroup.title.error}
@@ -71,7 +45,7 @@ const FolderCreationContent = () => {
             <StyledTextFieldComponent
               inputTitle={"Mappa leírása"}
               inputValue={formGroup.description.data ?? ""}
-              setValue={updateDescription}
+              setValue={(value) => helper.save(formGroup, value, "description")}
               htmlInputValidation={{ ...formGroup.description.validators }}
               helperText={`Max karakterek száma: ${formGroup?.description.data?.length ?? 0}/${formGroup?.description.validators.maxLength}`}
               errorMessage={formGroup.description.error}
@@ -82,7 +56,7 @@ const FolderCreationContent = () => {
     );
   };
 
-  return useEventListenerRender(FolderCreationDialogHelper.IdKey, renderComponent);
+  return useEventListenerRender(helper.getRefreshKey(), renderComponent);
 };
 
 export default FolderCreationContent;

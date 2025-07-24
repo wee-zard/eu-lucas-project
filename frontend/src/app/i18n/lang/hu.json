@@ -7,8 +7,26 @@
   },
   "errors": {
     "EMAIL_ADDRESS_IS_ALREADY_TAKEN": "A következő email cím már foglalt: [{{param0}}]",
-    "FOLDER_TITLE_EXISTS": "A megadott [{{param0}}] mappa már létezik a fiókod alatt! Új mappa létrehozásához adj meg egy egyedi mappa nevet!",
-    "FOLDER_NOT_FOUND": "A megadott [{{param0}}] mappa nem létezik!"
+    "FOLDER_TITLE_EXISTS": "A megadott [{{param0}}] mappa már található a fiókod alatt! Új mappa létrehozásához adj meg egy egyedi mappa nevet!",
+    "FOLDER_NOT_FOUND": "A megadott [{{param0}}] mappa nem található!",
+    "CREATION_YEAR_NOT_FOUND": "A [{{param0}}] létrehozás éve nem található!",
+    "STATUS_NOT_FOUND": "A {{param0}} státusz nem található!",
+    "EXIF_KEY_NOT_FOUNT": "A {{param0}} exif kulcs nem található!",
+    "ENCRYPTION_STRING_IS_EMPTY": "A titkosítandó input az üres!",
+    "ENCRYPTION_FAILED": "Váratlan hiba történt a titkosítás során!",
+    "DECRYPTION_FAILED": "Váratlan hiba történt a dekódolás során!",
+    "EMAIL_USER_CREATION": "Váratlan hiba történt a(z) {{param0}} címre kiküldött email során!",
+    "EMAIL_REPORTING": "Váratlan hiba történt a Report email kiküldése során!",
+    "DIRECTION_NOT_FOUND": "A(z) {{param0}} irány nem található!",
+    "COUNTRY_NOT_FOUND": "A(z) {{param0}} kóddal rendelkező ország nem található!",
+    "COORDINATE_Y_NOT_FOUND": "A(z) {{param0}} y koordinate nem található!",
+    "COORDINATE_X_NOT_FOUND": "A(z) {{param0}} x koordinate nem található!",
+    "USER_ID_IS_NOT_SET": "A felhasználó azonosítója nem került megadásra!",
+    "USER_CANNOT_DELETE_ITSELF": "A felhasználó önmagát nem törölhető!",
+    "USER_EMAIL_POSTFIX_IS_NOT_GMAIL": "A(z) {{param0}} nem egy érvényes gmail cím!",
+    "USER_UNAUTHORIZED_ROLE_SET_TO_USER": "Nincs jogosultságod egy ilyen szerepkörű felhasználót létrehozni!",
+    "USER_EMAIL_ADDRESS_IS_ALREADY_TAKEN": "A(z) {{param0}} email cím már használatban van!",
+    "USER_NOT_FOUND": "A felhasználó nem található!"
   },
   "cards": {
     "image-card": {
@@ -134,6 +152,21 @@
         "report-sent-out": "A bejelentés sikeresen el lett küldve!"
       }
     },
+    "folders": {
+      "creation-dialog": {
+        "dialog-title": {
+          "empty-folder": "Új mappa létrehozása",
+          "folder": "Kiválasztott képek mentése új mappába"
+        },
+        "buttons": {
+          "cancel": "Mégsem",
+          "submit": "Létrehozás"
+        }
+      },
+      "notifications": {
+        "folder-is-created": "Mappa sikeresen létrehozásra került!"
+      }
+    },
     "bounding-box": {
       "dialog-title": "Befoglaló téglalapok",
       "tabs": {
@@ -161,6 +194,16 @@
     "filtering": {
       "dialog-title": "Képek szűrése",
       "empty-body": "Kép még nem került kiválasztásra!",
+      "selection-actions": {
+        "select-all-button-title": "Összes kép kiválasztása",
+        "select-all-button-tooltip": "A szűrés során visszaadott összes kép kiválasztása",
+        "select-on-page-button-title": "Oldal összes képének kiválasztása",
+        "select-on-page-button-tooltip": "Azon 9 specifikus kép kiválasztása, amik a szűrést után megjelenítésre kerültek az oldalon"
+      },
+      "folder-menu-items": {
+        "add-to-existing-folder": "Hozzáadás egy már létező mappához",
+        "add-to-empty-folder": "Hozzáadás egy új mappához"
+      },
       "query-builder": {
         "query-by-option-names": {
           "year": "Év",

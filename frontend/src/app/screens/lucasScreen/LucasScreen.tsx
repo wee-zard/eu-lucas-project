@@ -24,6 +24,7 @@ import { googleLogout } from "@react-oauth/google";
 import { redirectToUrl } from "@providers/RedirectionProvider";
 import SessionUtil from "@helper/SessionUtil";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
+import ManageFoldersScreen from "@screens/manageFoldersScreen/ManageFoldersScreen";
 
 type Props = {
   navigation?: Navigation;
@@ -68,7 +69,7 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
       [NavigationSegments.UploadProcedureResults]: <UploadProcedureScreen />,
       [NavigationSegments.ReportError]: <ReportScreen />,
       [NavigationSegments.UserManagement]: <ManageUsersScreen />,
-      [NavigationSegments.ImageFolders]: <TmpScreen />,
+      [NavigationSegments.ImageFolders]: <ManageFoldersScreen />,
       [NavigationSegments.Dashboard]: <TmpScreen />,
       [NavigationSegments.Manual]: <TmpScreen />,
       [NavigationSegments.Settings]: <TmpScreen />,

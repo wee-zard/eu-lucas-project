@@ -71,6 +71,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.LOGS_ARE_DELETED]: () => throwSuccessToast(),
     [SnackEnum.REPORT_SENT_OUT]: () => throwSuccessToast(),
     [SnackEnum.UPLOADED_XML_FILES]: () => throwSuccessToast(),
+    [SnackEnum.FOLDER_IS_CREATED]: () => throwSuccessToast(),
 
     // Error toast messages
     [SnackEnum.LOG_NOT_FOUND]: () => throwErrorToast(),

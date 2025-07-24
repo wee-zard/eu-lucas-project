@@ -2,17 +2,19 @@ import { DialogToOpens } from "../../model/enum";
 import { DialogConsts } from "../consts/dialogConsts";
 import { DialogActionTypes } from "@redux/consts/dialogActionTypes";
 
-interface Dialogtype {
+interface DialogType {
   dialogToOpen?: DialogToOpens;
   isAddFolderDialogOpen: boolean;
+  isImageToFolderAdditionDialogOpen: boolean;
 }
 
-const initialState: Dialogtype = {
+const initialState: DialogType = {
   dialogToOpen: undefined,
   isAddFolderDialogOpen: false,
+  isImageToFolderAdditionDialogOpen: false,
 };
 
-const dialogReducer = (state = initialState, action: DialogActionTypes): Dialogtype => {
+const dialogReducer = (state = initialState, action: DialogActionTypes): DialogType => {
   switch (action.type) {
     case DialogConsts.SET_DIALOG_TO_OPEN:
       return {
@@ -23,6 +25,11 @@ const dialogReducer = (state = initialState, action: DialogActionTypes): Dialogt
       return {
         ...state,
         isAddFolderDialogOpen: action.payload,
+      };
+    case DialogConsts.IMAGE_TO_FOLDER_ADDITION_DIALOG_OPEN:
+      return {
+        ...state,
+        isImageToFolderAdditionDialogOpen: action.payload,
       };
     default:
       return {

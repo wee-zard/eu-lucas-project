@@ -1,12 +1,13 @@
+import UserDto from "@model/dto/UserDto";
 import { UserStatusEnum } from "@model/enum/UserStatusEnum";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
-import { ManageUserRowTypes } from "@model/types/ManageUserRowType";
+import { GenericRowType } from "@model/types/GenericRowType";
 import { styled } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 
 type Props = {
-  row: ManageUserRowTypes;
+  row: GenericRowType<UserDto>;
 };
 
 const ManageUsersStatus = ({ row }: Props) => {

@@ -58,10 +58,7 @@ const FilteringScreenHeader = () => {
         onClick={handleClearAll}
       />
       <StyledComponentGap>
-        {true === true
-          ? null
-          : //<FilteringAddToFolderMenu isDisabled={isAnImageSelected} />
-            null}
+        <FilteringAddToFolderMenu isDisabled={isAnImageSelected} />
         <StyledButton
           tooltipTitle={FilteringScreenTexts.AddImageTooltip}
           buttonText={FilteringScreenTexts.AddImageText}
