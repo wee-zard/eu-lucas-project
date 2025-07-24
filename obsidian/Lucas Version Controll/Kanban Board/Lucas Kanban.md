@@ -111,9 +111,9 @@ kanban-plugin: board
 
 - [ ] [[151 - Bejelentés - Több sorba tördelt üzenet szövege, egy egysoros üzenetté alakul át az email elküldésekor]]
 - [ ] [[060 - Scheduler a félóránkénti report emailek kiküldésére]]
-- [ ] [[063 - Validátorok hozzárendelése a Report üzenetekhez]]
 - [ ] [[062 - Lehessen képet feltölteni a csatolmányként report küldése során]]
-- [ ] [[170 - Report - Hiba bejelentése után hiba került dobásra]]
+- [x] [[063 - Validátorok hozzárendelése a Report üzenetekhez]] #🟢Done
+- [x] [[170 - Report - Hiba bejelentése után hiba került dobásra]] #🟢Done
 
 
 ## 🔴Settings Page Backlog
@@ -134,11 +134,12 @@ kanban-plugin: board
 
 ## 🔴Filtering Page Backlog
 
+- [ ] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]] #mission #🟣Testing
 - [ ] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #mission #Filtering-Page #🟡InProgress
+- [ ] [[172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz]] #mission #Filtering-Page #🔴ToDo
 - [ ] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #mission #Filtering-Page
 - [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
 - [ ] [[175 - Kiválasztott képek csoportosítása a szűrési feltétel alapján]] #mission #Filtering-Page
-- [ ] [[172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz]] #mission #Filtering-Page
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page
 - [ ] [[118 - Adatbázis feltöltése a képekhez tartozó EXIF adatokkal]] #mission #Filtering-Page
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]] #mission #Filtering-Page
@@ -163,6 +164,7 @@ kanban-plugin: board
 - [ ] [[019 - Aktív szűrés eredményei, a kiválasztott képek és a hozzájuk tartozó szűrési feltételek kerüljenek eltárolásra localStorage-ben]] #Filtering-Page
 - [ ] [[169 - Backend - Képek exif adatainak lekérése a háttérben]] #Filtering-Page
 - [ ] [[165 - Filtering - A Feltétel input mező hossza kisebb lehetne]] #Filtering-Page
+- [ ] [[200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről]] #Filtering-Page
 
 
 ## 🔴Bounding Box Page Backlog
@@ -183,10 +185,15 @@ kanban-plugin: board
 
 ## 🔴Folder Page Backlog
 
-- [ ] X - Pagination frissítése ez alapján: https://ardijorganxhi.medium.com/implement-pagination-at-your-spring-boot-application-a540270b5f60 #🟡InProgress
-- [ ] [[179 - Mappák létrehozása]] #mission #Folder-Page #🟡InProgress
+- [ ] [[199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba]] #🔴ToDo  #Folder-Page
+- [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #🔴ToDo #Folder-Page
+- [ ] [[197 - Lehessen mappákat törölni]] #🔴ToDo
 - [ ] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #mission #Folder-Page
 - [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #mission #Folder-Page
+- [ ] X - Lehessen a mappákban lévő képek száma alapján is rendezni a DataGrid táblázatban lévő rekordokat
+- [ ] X - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett
+- [x] X - Pagination frissítése ez alapján: https://ardijorganxhi.medium.com/implement-pagination-at-your-spring-boot-application-a540270b5f60 #🟢Done #Folder-Page
+- [x] [[179 - Mappák létrehozása]]  #Folder-Page #🟢Done
 
 
 ## 🔴Deployment Backlog
@@ -204,11 +211,6 @@ kanban-plugin: board
 
 - [ ] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]] #mission #🟡InProgress
 - [ ] X - Képek tömörítése olyan mértékben, hogy azok letárolásra kerülhessenek a VM-re, hogy aztán onnan kiolvashatóak legyenek azon számdékból, hogy a képek betöltése szignifikánsabban gyorsabb legyen
-
-
-## 🟣Testing
-
-- [ ] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]] #mission
 
 
 ## 🟢Done
@@ -315,6 +317,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,true,false,true,true,false,true,true,true,false,false,false,false,true,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
+{"kanban-plugin":"board","list-collapse":[true,true,false,true,true,false,true,true,true,false,false,false,false,true,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
 ```
 %%

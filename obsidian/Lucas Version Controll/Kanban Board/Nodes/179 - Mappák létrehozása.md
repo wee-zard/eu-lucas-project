@@ -20,9 +20,6 @@ Elvárt működés:
 	- Leírása
 - Képeket lehessen hozzáadni ezen mappákhoz
 - Amennyiben van már egy létező mappa, akkor ennek tartalmához lehessen hozzáadni további képeket.
-- A mappákban lévő képeket lehessen törölni
-	- Lehessen egyesével törölni
-	- Legyen Bulk Delete is (egyszerre több kép kiválasztása, és utána a törlés gombra rányomva, a kiválasztott elemek törlésre kerülnek). Ezen esetben, a sorok bal oldalán lehetne egy checkbox. A törlés gomb lehetne egy column header cellájában.
 ---
 - Képek szűrése
 - Legyen lehetőség arra, hogy a felhasználó által már kiválasztott képeket elmentsük az adatbázisban "Mappákban", és ezen "Mappák" a bal oldalt megjelenő navbar-on megjelenítésre kerülnének? Amennyiben a felhasználó el akarja menteni az általa kiválasztott képeket, és magukat a szűrési feltételeket, akkor legyen rá lehetősége.
