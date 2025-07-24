@@ -29,7 +29,6 @@ export default abstract class RequestHeaderHandler {
    * @param authToken The properties to the PageableResponse want to add to the request if it is exists.
    * @returns Returns a new header object that contains the auth token.
    */
-
   private static addPageablePropertiesToHeader = (
     requestHeader: any,
     pageableProperties?: PageableProperties,
@@ -39,11 +38,17 @@ export default abstract class RequestHeaderHandler {
           headers: {
             ...requestHeader.headers,
             ...{
-              "X-Pageable-Properties": `pageNo=${pageableProperties.pageNo};pageSize=${pageableProperties.pageSize}`,
+              "X-Pageable-Properties": this.getPageablePropertiesQueryParam(pageableProperties),
             },
           },
         }
       : requestHeader;
+  };
+
+  private static getPageablePropertiesQueryParam = (pageableProperties: PageableProperties) => {
+    return Object.keys(pageableProperties)
+      .map((key, index) => `${key}=${Object.values(pageableProperties)[index]}`)
+      .join(";");
   };
 
   /**
