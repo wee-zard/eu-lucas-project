@@ -6,6 +6,7 @@ import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.commons.utils.PageablePropertiesUtil;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import lombok.NonNull;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,8 @@ public class StringToPageableConverter implements Converter<String, Pageable> {
 
   private static final String PAGE_SIZE = "pageSize";
   private static final String PAGE_NO = "pageNo";
+  private static final String PAGE_FIELD = "field";
+  private static final String PAGE_SORT = "sort";
 
   /**
    * {@inheritDoc}
@@ -38,6 +41,8 @@ public class StringToPageableConverter implements Converter<String, Pageable> {
 
     final Integer pageNo = pagePropertiesToInteger(pageablePropertiesMap, PAGE_NO);
     final Integer pageSize = pagePropertiesToInteger(pageablePropertiesMap, PAGE_SIZE);
+    final String field = pagePropertiesToString(pageablePropertiesMap, PAGE_FIELD);
+    final String sort = pagePropertiesToString(pageablePropertiesMap, PAGE_SORT);
 
     if (pageNo < 0) {
       throw new ConversionException(ConversionExceptionEnum.PAGE_NO_CANNOT_BE_NEGATIVE);
@@ -47,7 +52,7 @@ public class StringToPageableConverter implements Converter<String, Pageable> {
       throw new ConversionException(ConversionExceptionEnum.PAGE_SIZE_CANNOT_BE_NEGATIVE);
     }
 
-    return PageablePropertiesUtil.create(pageNo, pageSize);
+    return PageablePropertiesUtil.create(pageNo, pageSize, field, sort);
   }
 
   /**
@@ -61,6 +66,20 @@ public class StringToPageableConverter implements Converter<String, Pageable> {
           final Map<String, String> pageablePropertiesMap,
           final String property) {
     return FormatParseUtil.parseStringIntoNumber(pageablePropertiesMap.get(property));
+  }
+
+  /**
+   * Fetches an entry from the map and convert it into a string.
+   *
+   * @param pageablePropertiesMap The map that hold the pageable property key-value pairs.
+   * @param property The property key to fetch from the map.
+   * @return Returns the value of the key in integer format.
+   */
+  private String pagePropertiesToString(
+          final Map<String, String> pageablePropertiesMap,
+          final String property) {
+    final Optional<String> nullable = Optional.ofNullable(pageablePropertiesMap.get(property));
+    return nullable.orElse(null);
   }
 
   /**

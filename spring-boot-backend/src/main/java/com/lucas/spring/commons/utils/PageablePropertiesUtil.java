@@ -34,10 +34,12 @@ public class PageablePropertiesUtil {
   public Pageable create(
           final Integer page,
           final Integer size,
-          final Sort.Direction direction,
+          final String direction,
           final String sortField
   ) {
-    return PageRequest.of(page, size, direction, sortField);
+    return sortField == null || direction == null
+            ? PageablePropertiesUtil.create(page, size)
+            : PageRequest.of(page, size, Sort.Direction.fromString(sortField), direction);
   }
 }
 
