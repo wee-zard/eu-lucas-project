@@ -30,6 +30,5 @@ import static org.springframework.test.context.jdbc.SqlConfig.TransactionMode.IS
         classes = Application.class)
 @TestPropertySource(
         locations = "classpath:application-test.properties")
-//@AutoConfigureMockMvc
 public @interface ControllerConfigurationWrapper {
 }

@@ -4,6 +4,7 @@ import com.lucas.spring.commons.enums.AuthorizationExceptionEnum;
 import com.lucas.spring.commons.exception.AuthorizationException;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.services.HttpRequestService;
+import com.lucas.spring.commons.utils.JsonUtil;
 import com.lucas.spring.components.user.facade.UserFacade;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -62,7 +63,7 @@ public class StringToAuthenticatedUserConverter implements Converter<String, Aut
     // FIXME: Error is not handled in this method.
     final String googleAuthValidator = "https://oauth2.googleapis.com/tokeninfo?id_token=";
     final String jsonText = httpRequestService.getResultOfRequest(googleAuthValidator, authToken);
-    return validateRequestMessage(httpRequestService.parseRequestResult(jsonText));
+    return validateRequestMessage(JsonUtil.parseJsonStringtoJsonObject(jsonText));
   }
 
   private AuthenticatedUser validateRequestMessage(JSONObject jsonObject) {

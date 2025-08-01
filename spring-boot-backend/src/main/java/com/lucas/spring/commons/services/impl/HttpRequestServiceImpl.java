@@ -2,9 +2,6 @@ package com.lucas.spring.commons.services.impl;
 
 import com.lucas.spring.commons.services.HttpRequestService;
 import java.io.IOException;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.DefaultResponseErrorHandler;
@@ -30,14 +27,5 @@ public class HttpRequestServiceImpl implements HttpRequestService {
             obj == null ? String.format("%s", url) : String.format("%s%s", url, obj),
             String.class
     );
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public JSONObject parseRequestResult(final String jsonText) throws ParseException {
-    JSONParser parser = new JSONParser();
-    return (JSONObject) parser.parse(jsonText);
   }
 }

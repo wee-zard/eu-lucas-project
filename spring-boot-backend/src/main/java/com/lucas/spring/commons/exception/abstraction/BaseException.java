@@ -1,17 +1,20 @@
 package com.lucas.spring.commons.exception.abstraction;
 
+import com.lucas.spring.commons.utils.JsonUtil;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.Getter;
-import org.json.simple.JSONObject;
 
 /**
  * The root class of all Exceptions that is thrown from the app.
  */
 @Getter
 public abstract class BaseException extends RuntimeException {
+  private static final String ERROR_MESSAGE_KEY_PROPERTY_NAME = "key";
+  private static final String ERROR_MESSAGE_PARAM_PROPERTY_NAME = "param";
+
   /**
    * Throws an error message.
    *
@@ -32,6 +35,14 @@ public abstract class BaseException extends RuntimeException {
     super(getStringFormatOfParams(message, errorAtParam));
   }
 
+  public static String getErrorKey() {
+    return ERROR_MESSAGE_KEY_PROPERTY_NAME;
+  }
+
+  public static <T> String getErrorMessageParamById(final T id) {
+    return String.format("%s%s", ERROR_MESSAGE_PARAM_PROPERTY_NAME, id);
+  }
+
   /**
    * Returns a JSON string that holds the error message key, and the params.
    *
@@ -40,15 +51,24 @@ public abstract class BaseException extends RuntimeException {
    * @return Returns a JSON string format.
    */
   private static String getStringFormatOfParams(final Object message, final Object... params) {
-    final List<String> listOfParams = Arrays.stream(params).map(String::valueOf).toList();
+    final List<String> listOfParams = Arrays.stream(params)
+            .map(BaseException::extractPrimitiveValueFromObjectAndConvertToText)
+            .toList();
+
     final Map<String, String> map = new HashMap<>();
-    map.put("key", String.valueOf(message));
+    listOfParams.forEach(param -> map.put(getErrorMessageParamById(map.size()), param));
+    map.put(getErrorKey(), extractPrimitiveValueFromObjectAndConvertToText(message));
 
-    for (int i = 0; i < listOfParams.size(); i++) {
-      map.put(String.format("param%s", i), listOfParams.get(i));
-    }
+    return JsonUtil.parseMapToString(map);
+  }
 
-    JSONObject object = new JSONObject(map);
-    return object.toJSONString();
+  /**
+   * Converts the provided object to text.
+   *
+   * @param object The object to convert.
+   * @return The string format version of the provided object.
+   */
+  private static String extractPrimitiveValueFromObjectAndConvertToText(final Object object) {
+    return object instanceof Enum ? String.valueOf(object) : ((Object[]) object)[0].toString();
   }
 }

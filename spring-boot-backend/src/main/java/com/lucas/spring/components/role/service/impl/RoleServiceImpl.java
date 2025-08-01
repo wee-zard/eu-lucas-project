@@ -24,7 +24,11 @@ public class RoleServiceImpl implements RoleService {
    * {@inheritDoc}
    */
   @Override
-  public RoleEntity getById(final Long id) throws RuntimeException {
+  public RoleEntity getById(final Long id) {
+    if (id == null) {
+      throw new RoleException(RoleExceptionEnum.NOT_FOUND, "null");
+    }
+
     return this.roleRepository.findById(id)
             .orElseThrow(() -> new RoleException(RoleExceptionEnum.NOT_FOUND, String.valueOf(id)));
   }
