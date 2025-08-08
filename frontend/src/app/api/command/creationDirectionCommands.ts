@@ -15,6 +15,5 @@ export const getCreationDirections = async () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Error while executing the fetch of Directions!",
   });
 };

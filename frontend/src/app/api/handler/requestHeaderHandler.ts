@@ -1,7 +1,8 @@
 import AuthorizationToken from "@model/AuthorizationToken";
 import PageableProperties from "@model/PageableProperties";
 import RequestCommand from "@model/RequestCommand";
-import getAuthToken from "./requestAuthToken";
+import { getLocalStorageItem } from "@helper/localStorageUtil";
+import { LocalStorageKeys } from "@model/enum";
 
 export default abstract class RequestHeaderHandler {
   /**
@@ -82,7 +83,9 @@ export default abstract class RequestHeaderHandler {
    * @returns Returns the auth token if it is required to send out by the {@link RequestCommand}.
    */
   private static initAuthToken = (command: RequestCommand): string | undefined => {
-    return command.header.isAuthTokenMandatory ? getAuthToken() : undefined;
+    return command.header.isAuthTokenMandatory
+      ? (getLocalStorageItem(LocalStorageKeys.GoogleOAuthToken) ?? undefined)
+      : undefined;
   };
 
   /**

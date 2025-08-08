@@ -1,5 +1,4 @@
 import commandHandler from "@api/handler/requestHandler";
-import i18n from "@i18n/i18nHandler";
 import PlantDto from "@model/dto/PlantDto";
 import {
   BackendPlantControllerEndpoints,
@@ -22,6 +21,6 @@ export default abstract class PlantCommand {
       header: {
         isAuthTokenMandatory: true,
       },
-      errorMessage: i18n.t("api.commands.plant.getPlants"),
+      // TODO: errorMessage: i18n.t("api.commands.plant.getPlants"),
     });
 }

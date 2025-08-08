@@ -7,7 +7,7 @@ import { setLocalStorageItem } from "@helper/localStorageUtil";
 import { LocalStorageKeys } from "@model/enum";
 import { getRolesCommand } from "@api/command/roleCommands";
 import RoleDto from "@model/dto/RoleDto";
-import { validateEmailAddress } from "@api/command/userCommands";
+import { validateEmailAddress } from "@api/command/authenticationCommands";
 
 type Props = {
   id: string | number;

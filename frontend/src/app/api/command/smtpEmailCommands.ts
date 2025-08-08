@@ -16,6 +16,5 @@ export const sendReportEmail = async (request: ReportFormGroupModel) => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt a bejelentés elküldése során!",
   });
 };

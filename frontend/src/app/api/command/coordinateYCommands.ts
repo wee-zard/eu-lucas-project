@@ -15,6 +15,5 @@ export const getCoordinateYList = async () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Error while executing the fetch of y coordinates!",
   });
 };

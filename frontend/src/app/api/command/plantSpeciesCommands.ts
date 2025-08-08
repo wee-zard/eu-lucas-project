@@ -20,6 +20,5 @@ export const getPlantSpeciesList = async () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt az növényfajok lekérdezése során!",
   });
 };

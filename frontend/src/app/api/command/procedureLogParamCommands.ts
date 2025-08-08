@@ -20,6 +20,5 @@ export const getProcedureLogParams = async () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt az eljárás paramétereinek lekérdezése során!",
   });
 };

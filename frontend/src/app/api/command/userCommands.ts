@@ -9,22 +9,7 @@ import UserStatusChangeRequest from "@model/request/UserStatusChangeRequest";
 import UserToolpadSessionResponse from "@model/response/UserToolpadSessionResponse";
 import UserDto from "@model/dto/UserDto";
 import { UserCreationRequest } from "@model/request/UserCreationRequest";
-import AuthenticatedUserResponse from "@model/response/AuthenticatedUserResponse";
 import { RequestParamType } from "@model/types/RequestParamType";
-
-export const validateEmailAddress = (): Promise<AuthenticatedUserResponse> => {
-  return commandHandler<AuthenticatedUserResponse>({
-    type: RequestCommandTypes.POST,
-    server: ServersToConnectTo.Backend,
-    endpoint: BackendUserControllerEndpoints.ValidateEmail,
-    obj: {},
-    header: {
-      isAuthTokenMandatory: true,
-    },
-    errorMessage:
-      "Váratlan hiba történt az email cím ellenőrzése során! Próbáld meg újra a bejelentkezést!",
-  });
-};
 
 export const createUserCommand = (request: UserCreationRequest[]): Promise<BaseResponse> => {
   return commandHandler<BaseResponse>({
@@ -35,7 +20,6 @@ export const createUserCommand = (request: UserCreationRequest[]): Promise<BaseR
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt a felhasználók létrehozása során!",
   });
 };
 
@@ -48,7 +32,6 @@ export const activateUserCommand = (request: UserStatusChangeRequest) => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt a felhasználó aktiválása során!",
   });
 };
 
@@ -61,7 +44,6 @@ export const getToolpadSessionCommand = () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Felhasználóhoz tartozó session nem elérhető a szerveren!",
   });
 };
 
@@ -74,7 +56,6 @@ export const getUsersCommand = () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Felhasználók lekérése nem sikerült egy váratlan hiba miat!",
   });
 };
 
@@ -92,7 +73,6 @@ export const deleteUserById = (userId: number) => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Felhasználó törlése nem sikerült egy váratlan hiba miatt!",
   });
 };
 
@@ -105,6 +85,5 @@ export const reactivateDeletedUserByIdCommand = (userId: number) => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Felhasználó aktiválása nem sikerült egy váratlan hiba miatt!",
   });
 };

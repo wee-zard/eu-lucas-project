@@ -6,6 +6,7 @@
     "gmail": "Az email címben csak a felhasználó nevét szükséges megadni, a '@' illetve a domain nevét nem szükséges!"
   },
   "errors": {
+    "INTERNAL_SERVER_ERROR": "Belső szerverhiba!",
     "EMAIL_ADDRESS_IS_ALREADY_TAKEN": "A következő email cím már foglalt: [{{param0}}]",
     "FOLDER_TITLE_EXISTS": "A megadott [{{param0}}] mappa már található a fiókod alatt! Új mappa létrehozásához adj meg egy egyedi mappa nevet!",
     "FOLDER_NOT_FOUND": "A megadott [{{param0}}] mappa nem található!",

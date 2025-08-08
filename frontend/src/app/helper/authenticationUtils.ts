@@ -1,15 +1,11 @@
 import AuthorizationModel from "@model/AuthorizationModel";
 import axios from "axios";
 import { getLocalStorageItem, setLocalStorageItem } from "./localStorageUtil";
-import {
-  GoogleTokenEndpoints,
-  LocalStorageKeys,
-  RequestCommandTypes,
-  ServersToConnectTo,
-} from "@model/enum";
-import { genericDispatcher } from "@api/handler/requestHandler";
+import { LocalStorageKeys } from "@model/enum";
 import { openSnackbar } from "./notificationUtil";
 import { SnackEnum } from "@model/enum/SnackEnum";
+import NewAccessTokenPayloadRequest from "@model/request/NewAccessTokenPayloadRequest";
+import { getNewAccessTokenCommand } from "@api/command/authenticationCommands";
 
 const googleOAuthClientId = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_ID ?? "";
 const googleOAuthClientSecret = process.env.REACT_APP_USE_GOOGLE_OAUTH_CLIENT_SECRET ?? "";
@@ -54,29 +50,15 @@ export const getNewAccessToken = (): Promise<AuthorizationModel> => {
     }
 
     // get new access token using refresh token
-    const payload = {
+    const payload: NewAccessTokenPayloadRequest = {
       grant_type: "refresh_token",
       refresh_token: refreshToken,
       client_id: googleOAuthClientId,
       client_secret: googleOAuthClientSecret,
     };
 
-    // TODO: Move it to the commands folder
-    genericDispatcher<AuthorizationModel>({
-      type: RequestCommandTypes.POST,
-      server: ServersToConnectTo.GoogleServer,
-      endpoint: GoogleTokenEndpoints.Token,
-      obj: payload,
-      header: {
-        isAuthTokenMandatory: true,
-      },
-      // TODO: This error message is not the best. replace it with a better one.
-      errorMessage: "Váratlan hiba történt a bejelentés elküldése során!",
-    })
+    getNewAccessTokenCommand(payload)
       .then(resolve)
-      .catch(() => {
-        openSnackbar(SnackEnum.ACCESS_TOKEN_IS_MISSING);
-        reject(null);
-      });
+      .catch(() => reject(null));
   });
 };

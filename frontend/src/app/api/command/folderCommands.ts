@@ -1,5 +1,6 @@
 import commandHandler from "@api/handler/requestHandler";
 import FolderDto from "@model/dto/FolderDto";
+import FolderDtoSlice from "@model/dto/FolderDtoSlice";
 import {
   BackendFolderControllerEndpoints,
   RequestCommandTypes,
@@ -19,7 +20,6 @@ export const createNewFolderCommand = (request: FolderCreationRequest): Promise<
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt az új mappa létrehozása során!",
   });
 };
 
@@ -35,6 +35,17 @@ export const getFoldersCommand = (
       isAuthTokenMandatory: true,
       pageableProperties: pageableProperties,
     },
-    errorMessage: "Váratlan hiba történt a felhasználó mappáinak lekérése során!",
+  });
+};
+
+export const getOwnedAndSharedFoldersCommand = (): Promise<FolderDtoSlice[]> => {
+  return commandHandler<FolderDtoSlice[]>({
+    type: RequestCommandTypes.GET,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendFolderControllerEndpoints.GetFoldersByUserIdSortedByUpdatedAt,
+    obj: {},
+    header: {
+      isAuthTokenMandatory: true,
+    },
   });
 };

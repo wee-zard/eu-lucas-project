@@ -1,7 +1,7 @@
 import { CodeResponse, useGoogleLogin } from "@react-oauth/google";
 import { LocalStorageKeys, ScreenUrls } from "@model/enum";
 import { redirectToUrl } from "@providers/RedirectionProvider";
-import { activateUserCommand, validateEmailAddress } from "@api/command/userCommands";
+import { activateUserCommand } from "@api/command/userCommands";
 import { getRefreshToken } from "@helper/authenticationUtils";
 import { ReactComponent as GoogleLoginIcon } from "@media/google-login.svg";
 import { openSnackbar, throwNotification, ToastSeverity } from "@helper/notificationUtil";
@@ -21,6 +21,7 @@ import AuthorizedUserModel from "@model/AuthorizedUserModel";
 import UserStatusChangeRequest from "@model/request/UserStatusChangeRequest";
 import { UserStatusEnum } from "@model/enum/UserStatusEnum";
 import { setAuthenticatedUser } from "@redux/actions/userActions";
+import { validateEmailAddress } from "@api/command/authenticationCommands";
 
 const GoogleAuthCard = () => {
   const isBackdropOpen = useSelector(selectIsBackdropOpen);

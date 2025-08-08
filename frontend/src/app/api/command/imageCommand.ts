@@ -9,7 +9,6 @@ import ImageDto from "@model/dto/ImageDto";
 import FilteringQueryRequest from "@model/request/FilteringQueryRequest";
 import PageableProperties from "@model/PageableProperties";
 import { ProcedureResultRequestFile } from "@model/request/ProcedureResultRequest";
-import i18n from "@i18n/i18nHandler";
 
 abstract class ImageCommands {
   public static getImagesByFilters = (
@@ -25,7 +24,6 @@ abstract class ImageCommands {
         isAuthTokenMandatory: true,
         pageableProperties: pageableProperties,
       },
-      errorMessage: i18n.t("api.commands.image.getImagesByFilters"),
     });
 
   public static postByImageNameAndCreationYear = (
@@ -41,7 +39,7 @@ abstract class ImageCommands {
       header: {
         isAuthTokenMandatory: true,
       },
-      errorMessage: i18n.t("api.commands.image.postByImageNameAndCreationYear"),
+      // TODO: errorMessage: i18n.t("api.commands.image.postByImageNameAndCreationYear"),
       isToastHidden: true,
     });
 }

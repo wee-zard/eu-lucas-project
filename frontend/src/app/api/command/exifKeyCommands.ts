@@ -15,6 +15,5 @@ export const getExifKeyList = async () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Error while executing the fetch of exif keys command!",
   });
 };

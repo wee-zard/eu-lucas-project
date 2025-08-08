@@ -23,7 +23,6 @@ export const uploadProcedureResult = async (request: ProcedureResultRequest[]) =
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt az eljárások eredményének feltöltése során!",
   });
 };
 
@@ -41,7 +40,6 @@ export const getProcedureList = async () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt az eljárások lekérdezése során!",
   });
 };
 
@@ -57,6 +55,5 @@ export const deleteProceduresCommand = async () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt az eljárások törlése során!",
   });
 };

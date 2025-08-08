@@ -7,12 +7,15 @@ export enum ImageServiceEndpoints {
   RandomImages = "/random-images",
 }
 
+export enum BackendAuthenticationEndpoints {
+  Validate = "/api/authorization/",
+}
+
 export enum BackendRoleControllerEndpoints {
   GetAllRole = "/api/role/",
 }
 
 export enum BackendUserControllerEndpoints {
-  ValidateEmail = "/api/user/validate-email",
   ActivateUser = "/api/user/activate",
   SaveEmail = "/api/user/save-email",
   ToolpadSession = "/api/user/toolpad-session",
@@ -98,6 +101,7 @@ export enum GoogleTokenEndpoints {
  */
 export type BackendControllerEndpointTypes =
   | BackendUserControllerEndpoints
+  | BackendAuthenticationEndpoints
   | BackendRoleControllerEndpoints
   | BackendCreationYearControllerEndpoints
   | BackendCreationCountryControllerEndpoints
@@ -273,10 +277,10 @@ export enum SelectedImageActionTooltipTitles {
 }
 
 export enum RequestCommandTypes {
-  GET,
-  POST,
-  DELETE,
-  PUT,
+  GET = "GET",
+  POST = "POST",
+  DELETE = "DELETE",
+  PUT = "PUT",
 }
 
 export enum ProcedureFileMessages {

@@ -15,7 +15,6 @@ abstract class ImageFetcherCommands {
       header: {
         isAuthTokenMandatory: true,
       },
-      errorMessage: "Nem sikerült letölteni a képet a szerverről.",
     });
 }
 

@@ -1,12 +1,12 @@
 import { getLocalStorageItem, removeLocalStorageItem } from "@helper/localStorageUtil";
 import { GuardResultTypes, LocalStorageKeys } from "@model/enum";
 import { googleLogout } from "@react-oauth/google";
-import { validateEmailAddress } from "@api/command/userCommands";
 import { useEffect, useState } from "react";
 import { openSnackbar } from "@helper/notificationUtil";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { useDispatch } from "react-redux";
 import { setAuthenticatedUser } from "@redux/actions/userActions";
+import { validateEmailAddress } from "@api/command/authenticationCommands";
 
 export const useGoogleAccountGuard = (isOpen: boolean) => {
   const [result, setResult] = useState(GuardResultTypes.PENDING);
@@ -55,6 +55,7 @@ export const useGoogleAccountGuard = (isOpen: boolean) => {
       setResult(GuardResultTypes.PASSED);
     } catch (error) {
       setResult(GuardResultTypes.FAILED);
+      emptyOutTheLocalStorageCell();
     }
   };
 

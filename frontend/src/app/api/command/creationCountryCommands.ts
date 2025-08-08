@@ -15,6 +15,5 @@ export const getCreationCountries = async () => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Error while executing the fetch of creation Countries!",
   });
 };

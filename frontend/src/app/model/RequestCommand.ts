@@ -22,11 +22,6 @@ export default class RequestCommand {
      */
     public header: RequestCommandHeader,
     /**
-     * The default error message that should be displayed
-     * when something unexpected happen during the http request.
-     */
-    public errorMessage: string,
-    /**
      * If true, then the possible error messages will not be
      * thrown by the toast as they will be hidden.
      */

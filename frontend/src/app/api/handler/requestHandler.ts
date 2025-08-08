@@ -1,17 +1,25 @@
-import axios, { isAxiosError } from "axios";
+import axios, { AxiosResponse } from "axios";
 import RequestCommand from "@model/RequestCommand";
 import { ConversionUtils } from "@helper/conversionUtils";
-import { RequestCommandTypes, ScreenUrls, UniqueErrorResponseTypes } from "@model/enum";
-import RequestCommandError from "@model/error/RequestCommandError";
+import { LocalStorageKeys, RequestCommandTypes, ScreenUrls } from "@model/enum";
 import { RequestParamType } from "@model/types/RequestParamType";
-import ErrorMessageHandler from "./errorMessageHandler";
 import RequestHeaderHandler from "./requestHeaderHandler";
-import { clearLocalStorage } from "@helper/localStorageUtil";
+import { clearLocalStorage, setLocalStorageItem } from "@helper/localStorageUtil";
 import { googleLogout } from "@react-oauth/google";
 import { redirectToUrl } from "@providers/RedirectionProvider";
+import { GenericHandlerType } from "@model/types/GenericHandlerType";
+import {
+  baseErrorResponseToErrorMessage,
+  throwNotification,
+  ToastSeverity,
+} from "@helper/notificationUtil";
+import { getNewAccessToken } from "@helper/authenticationUtils";
+import i18n from "@i18n/i18nHandler";
+
+const serverErrorMessage = i18n.t("errors.INTERNAL_SERVER_ERROR");
 
 /**
- * Try to send out the request to the server. If the response is an object or null,
+ * Try to send out the request to a server described in the command. If the response is an object or null,
  * that it will return to the sender. If the response is an 'Unauthorized' message, then
  * it will resend the request, after updating the access token of the user by the refresh token.
  *
@@ -24,30 +32,57 @@ const commandHandler = <T>(command: RequestCommand): Promise<T> => {
     genericDispatcher<T>(command)
       .then(resolve)
       .catch((error) => {
-        const isUnauthorized = ErrorMessageHandler.throwNotificationByErrorType(error, command);
-
-        if (isUnauthorized === UniqueErrorResponseTypes.UNAUTHORIZED) {
-          ErrorMessageHandler.handleUnauthorizedError<T>(command)
+        if (error?.status !== 401) {
+          const errorMessage = error?.response?.data?.detail;
+          throwErrorNotification(command, error);
+          reject(errorMessage ?? serverErrorMessage);
+        } else {
+          handleUnauthorizedError<T>(command)
             .then(resolve)
-            .catch((error) => {
+            .catch((error2) => {
+              // Error occurred during the 2nd api request. Display an error message and terminate the process.
+              throwErrorNotification(command, error2);
+              reject(error2?.response?.data?.detail ?? serverErrorMessage);
+
               // If you got a 2nd unauthorized request, then you are denied to use the application.
-              console.error(error);
-              reject(error.response.data.detail);
               clearLocalStorage();
               googleLogout();
               redirectToUrl(ScreenUrls.LoginScreenPath);
             });
-        } else {
-          if (!isAxiosError(error)) {
-            reject(error);
-          } else if (!!error.response?.data?.detail) {
-            reject(error.response?.data?.detail);
-          } else {
-            reject(error);
-          }
         }
       });
   });
+};
+
+/**
+ * Unauthorized error status has been sent back from the server and because of that,
+ * this method request a new access token based on the refresh token.
+ *
+ * @param command A request command template which will be used to construct a new http request.
+ * @returns
+ */
+const handleUnauthorizedError = <T>(command: RequestCommand): Promise<T> => {
+  return new Promise((resolve, reject) => {
+    // Authentication failed, we need to update the access token by the refresh token
+    getNewAccessToken()
+      .then((accessTokenResponse) => {
+        // Set the new access token in the storage.
+        setLocalStorageItem(accessTokenResponse.id_token, LocalStorageKeys.GoogleOAuthToken);
+
+        // Resend the request to the server by the provided command and return the final results.
+        genericDispatcher<T>(command).then(resolve).catch(reject);
+      })
+      // New access token cannot be fetched or an unknown error occurred while fetching a new one.
+      .catch(reject);
+  });
+};
+
+const throwErrorNotification = (command: RequestCommand, error: any) => {
+  const errorMessage = error?.response?.data?.detail;
+
+  errorMessage
+    ? baseErrorResponseToErrorMessage(JSON.parse(errorMessage), command.isToastHidden)
+    : throwNotification(ToastSeverity.Error, serverErrorMessage, command.isToastHidden);
 };
 
 /**
@@ -59,9 +94,9 @@ const commandHandler = <T>(command: RequestCommand): Promise<T> => {
  * @param command A request command template which will be used to construct a new http request.
  * @returns Returns
  */
-export const genericDispatcher = <T>(command: RequestCommand): Promise<T> => {
+const genericDispatcher = <T>(command: RequestCommand): Promise<T> => {
   return new Promise((resolve, reject) => {
-    commandHandlerDispatcher(command)
+    axiosRequestHandler[command.type](command)
       .then((response) => resolve(response.data))
       .catch(reject);
   });
@@ -72,33 +107,28 @@ export const genericDispatcher = <T>(command: RequestCommand): Promise<T> => {
  * the method will call the corresponding request command and send out an
  * http request with the provided command template.
  *
- * @param command A request command template which will be used to construct a new http request.
  * @returns Returns the response of the {@link axios} request.
  */
-const commandHandlerDispatcher = (command: RequestCommand) => {
-  switch (command.type) {
-    case RequestCommandTypes.GET:
-      return axios.get(
-        initServerUrlPath(command),
-        RequestHeaderHandler.initRequestHeader(command, true),
-      );
-    case RequestCommandTypes.POST:
-      return axios.post(
-        initServerUrlPath(command),
-        command.obj,
-        RequestHeaderHandler.initRequestHeader(command),
-      );
-    case RequestCommandTypes.DELETE:
-      return axios.delete(
-        initServerUrlPath(command),
-        RequestHeaderHandler.initRequestHeader(command, true),
-      );
-    case RequestCommandTypes.PUT:
-      // TODO: Implement the put command method here...
-      throw new RequestCommandError("Put request method have not been implemented yet!");
-    default:
-      throw new RequestCommandError("Request method type is not provided!");
-  }
+const axiosRequestHandler: GenericHandlerType<
+  RequestCommandTypes,
+  (command: RequestCommand) => Promise<AxiosResponse<any, any>>
+> = {
+  [RequestCommandTypes.GET]: (command: RequestCommand) =>
+    axios.get(initServerUrlPath(command), RequestHeaderHandler.initRequestHeader(command, true)),
+  [RequestCommandTypes.POST]: (command: RequestCommand) =>
+    axios.post(
+      initServerUrlPath(command),
+      command.obj,
+      RequestHeaderHandler.initRequestHeader(command),
+    ),
+  [RequestCommandTypes.DELETE]: (command: RequestCommand) =>
+    axios.delete(initServerUrlPath(command), RequestHeaderHandler.initRequestHeader(command, true)),
+  [RequestCommandTypes.PUT]: (command: RequestCommand) =>
+    axios.put(
+      initServerUrlPath(command),
+      command.obj,
+      RequestHeaderHandler.initRequestHeader(command),
+    ),
 };
 
 const getRequestParamPath = (requestParams: unknown) => {
@@ -117,7 +147,7 @@ const initServerUrlPath = (command: RequestCommand) => {
   const endpoint = `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`;
   const requestParams = command.obj;
 
-  return command.type !== RequestCommandTypes.POST
+  return ![RequestCommandTypes.POST, RequestCommandTypes.PUT].includes(command.type)
     ? `${endpoint}?${getRequestParamPath(requestParams)}`
     : `${endpoint}`;
 };

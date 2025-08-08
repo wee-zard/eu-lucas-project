@@ -15,6 +15,5 @@ export const getRolesCommand = (): Promise<RoleDto[]> => {
     header: {
       isAuthTokenMandatory: true,
     },
-    errorMessage: "Váratlan hiba történt a felhasználói szerepkörök lekérése során!",
   });
 };

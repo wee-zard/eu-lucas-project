@@ -36,6 +36,5 @@ export const getProcedureLogByImageId = async (
       isAuthTokenMandatory: true,
       pageableProperties: pageableProperties,
     },
-    errorMessage: "Váratlan hiba történt az eljárás logok lekérése során!",
   });
 };
