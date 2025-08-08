@@ -1,6 +1,7 @@
 package com.lucas.spring.components.folder.service;
 
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
 import com.lucas.spring.components.folder.model.entity.FolderEntity;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -44,6 +45,15 @@ public interface FolderService {
    * @return Returns all the folders of the user.
    */
   Page<FolderEntity> getFoldersByUserId(Long userId, Pageable pageable);
+
+  /**
+   * Fetches all the user's folders folder names and their ids sorted by the
+   * 'updatedAt' property of the entity.
+   *
+   * @param userId The id of the user whose folder we want to fetch.
+   * @return Returns the list of all folders under the user sorted by the 'updatedAt' property.
+   */
+  List<FolderDtoSlice> getAllSortedFoldersByUserId(Long userId);
 
   /**
    * Get a specific folder by their id.

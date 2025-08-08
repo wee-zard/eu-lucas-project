@@ -3,6 +3,7 @@ package com.lucas.spring.components.folder.service.impl;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.components.folder.enums.FolderExceptionEnum;
 import com.lucas.spring.components.folder.exception.FolderException;
+import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
 import com.lucas.spring.components.folder.model.entity.FolderEntity;
 import com.lucas.spring.components.folder.repository.FolderRepository;
 import com.lucas.spring.components.folder.service.FolderService;
@@ -10,7 +11,6 @@ import com.lucas.spring.components.user.model.entity.UserEntity;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +66,14 @@ public class FolderServiceImpl implements FolderService {
   @Override
   public Page<FolderEntity> getFoldersByUserId(final Long userId, final Pageable pageable) {
     return this.folderRepository.findAllByOwnerId(userId, pageable);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<FolderDtoSlice> getAllSortedFoldersByUserId(final Long userId) {
+    return this.folderRepository.listOwnedAndSharedWithFoldersOfUserWithEditableAccess(userId);
   }
 
   /**

@@ -6,9 +6,11 @@ import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
 import com.lucas.spring.components.folder.facade.FolderFacade;
 import com.lucas.spring.components.folder.model.dto.FolderDto;
+import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
 import com.lucas.spring.components.folder.model.request.FolderCreationRequest;
 import com.lucas.spring.components.folder.service.FolderService;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -64,7 +66,22 @@ public class FolderController {
           @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable
   ) {
     return conversionHelper.convertPage(
-            folderService.getFoldersByUserId(1L, pageable),
+            folderService.getFoldersByUserId(user.getUserId(), pageable),
             FolderDto.class);
+  }
+
+  /**
+   * Fetches the list of folders what the user owns and shared with him,
+   * while sorted by the 'updatedAt' properties of the folders.
+   *
+   * @param user The authenticated user who initiated the request.
+   * @return Returns the list of folders of the currently logged-in user.
+   */
+  @CrossOrigin
+  @GetMapping("/list-all")
+  public List<FolderDtoSlice> getFoldersByUserIdSortedByUpdatedAt(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+  ) {
+    return folderService.getAllSortedFoldersByUserId(user.getUserId());
   }
 }
