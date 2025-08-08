@@ -39,23 +39,6 @@ public class UserController {
   private final ConversionHelper conversionHelper;
 
   /**
-   * An endpoint to validate the provided email address to check,
-   * if it is present in the server or not.
-   *
-   * @param user The authenticated user who initiated someone's email to be added to the server.
-   */
-  @CrossOrigin
-  @PostMapping("/validate-email")
-  public AuthenticatedUser validate(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
-  ) {
-    return AuthenticatedUser.builder()
-            .userId(user.getUserId())
-            .roleId(user.getRoleId())
-            .build();
-  }
-
-  /**
    * An endpoint to upload email addresses to the db by another users.
    *
    * @param user The authenticated user who initiated someone's email
