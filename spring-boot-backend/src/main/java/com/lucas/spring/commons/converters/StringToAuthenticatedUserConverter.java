@@ -5,11 +5,12 @@ import com.lucas.spring.commons.exception.AuthorizationException;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.services.HttpRequestService;
 import com.lucas.spring.commons.utils.JsonUtil;
+import com.lucas.spring.commons.utils.TokenUtil;
 import com.lucas.spring.components.user.facade.UserFacade;
+import java.util.Map;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -22,72 +23,31 @@ import org.springframework.stereotype.Component;
 public class StringToAuthenticatedUserConverter implements Converter<String, AuthenticatedUser> {
   private final UserFacade userFacade;
   private final HttpRequestService httpRequestService;
+  private static final String GOOGLE_OAUTH_VALIDATOR_URL = "https://oauth2.googleapis.com/tokeninfo?id_token=";
 
   /**
-   * Validated the provided token, and returns the middle
-   * section of the token that contains the object sent from the frontend.
+   * Validates the provided auth token, extracts the payload of the token,
+   * based on the payload creates an {@link AuthenticatedUser} instance.
    *
-   * @param token The GoogleOAuth token.
-   * @return Returns the token without the bearer section.
-   */
-  private String getTokenWithoutBearer(final String token) throws AuthorizationException {
-    if (token == null) {
-      throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
-    }
-    String[] splitAuthToken = token.split(" ");
-    if (splitAuthToken.length != 2) {
-      throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
-    }
-    /*
-    System.out.printf("LOG: hello %s%n", authToken);
-    var parts = authToken.split("\\.");
-    for (int i=0; i< parts.length-1; i++) {
-        var dec = Base64.getDecoder().decode(parts[i]);
-        System.out.printf("LOG: token: %s%n", new String(dec));
-    }
-    */
-    return splitAuthToken[1];
-  }
-
-  /**
-   * Send the token to the Google OAuth token to validate the token. If the token
-   * is valid, then return the Json parsed version of the request message, or else
-   * throw an error.
-   *
-   * @param authToken the auth token that is stored in the header section of the http request.
+   * @param authToken The GoogleOAuth token.
+   * @return Returns an {@link AuthenticatedUser} instance if the token is valid, and the email
+   *     stored inside the db properly.
    * @throws ParseException Throws an exception if the provided token is invalid.
    */
-  private AuthenticatedUser fetchJsonMessageOfApiRequest(
-          String authToken
-  ) throws ParseException {
-    // FIXME: Error is not handled in this method.
-    final String googleAuthValidator = "https://oauth2.googleapis.com/tokeninfo?id_token=";
-    final String jsonText = httpRequestService.getResultOfRequest(googleAuthValidator, authToken);
-    return validateRequestMessage(JsonUtil.parseJsonStringtoJsonObject(jsonText));
-  }
-
-  private AuthenticatedUser validateRequestMessage(JSONObject jsonObject) {
-    if (jsonObject.get("error") != null) {
-      // The provided token not a Google OAuth2 token.
-      throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
-    }
-    Optional<Boolean> emailVerified = Optional.of(Boolean.parseBoolean(
-            (String) jsonObject.get("email_verified"))
+  private AuthenticatedUser fetchAuthUserByAuthToken(final String authToken) throws ParseException {
+    final Map<String, String> payloadMap = JsonUtil.parseJsonStringToMap(
+            httpRequestService.getResultOfRequest(GOOGLE_OAUTH_VALIDATOR_URL, authToken)
     );
-    if (Boolean.FALSE.equals(emailVerified.get())) {
-      throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
-    }
-    if (jsonObject.get("email") == null) {
+
+    TokenUtil.validateTokenPayload(payloadMap);
+
+    final Optional<AuthenticatedUser> authUser = userFacade.isEmailExists(payloadMap.get("email"));
+
+    if (authUser.isEmpty()) {
       throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
     }
 
-    final Optional<AuthenticatedUser> authenticatedUser = userFacade.isEmailExists(
-            (String) jsonObject.get("email")
-    );
-    if (authenticatedUser.isEmpty()) {
-      throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
-    }
-    return authenticatedUser.get();
+    return authUser.get();
   }
 
   /**
@@ -96,7 +56,7 @@ public class StringToAuthenticatedUserConverter implements Converter<String, Aut
   @Override
   public AuthenticatedUser convert(final @NonNull String source) {
     try {
-      return fetchJsonMessageOfApiRequest(getTokenWithoutBearer(source));
+      return fetchAuthUserByAuthToken(TokenUtil.getTokenWithoutBearer(source));
     } catch (ParseException e) {
       throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
     }

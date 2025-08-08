@@ -1,6 +1,7 @@
 package com.lucas.spring.commons.exception.abstraction;
 
 import com.lucas.spring.commons.utils.JsonUtil;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -16,22 +17,13 @@ public abstract class BaseException extends RuntimeException {
   private static final String ERROR_MESSAGE_PARAM_PROPERTY_NAME = "param";
 
   /**
-   * Throws an error message.
-   *
-   * @param message The error message to display in the console.
-   */
-  protected BaseException(final Object message) {
-    super(getStringFormatOfParams(message));
-  }
-
-  /**
    * Throws an error message, with an additional parameter where
    * the error occurred.
    *
    * @param message The error message to display in the console.
    * @param errorAtParam The param which initiated the exception.
    */
-  protected BaseException(final Object message, final Object errorAtParam) {
+  protected BaseException(final Object message, final Object... errorAtParam) {
     super(getStringFormatOfParams(message, errorAtParam));
   }
 
@@ -51,9 +43,11 @@ public abstract class BaseException extends RuntimeException {
    * @return Returns a JSON string format.
    */
   private static String getStringFormatOfParams(final Object message, final Object... params) {
-    final List<String> listOfParams = Arrays.stream(params)
-            .map(BaseException::extractPrimitiveValueFromObjectAndConvertToText)
-            .toList();
+    final List<String> listOfParams = params.length > 0
+            ? Arrays.stream(params)
+              .map(BaseException::extractPrimitiveValueFromObjectAndConvertToText)
+              .toList()
+            : new ArrayList<>();
 
     final Map<String, String> map = new HashMap<>();
     listOfParams.forEach(param -> map.put(getErrorMessageParamById(map.size()), param));

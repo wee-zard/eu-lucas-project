@@ -19,7 +19,7 @@ public class BaseExceptionHandler {
    * @param ex The exception to throw to back to the frontend.
    */
   @ExceptionHandler(AuthorizationException.class)
-  public ResponseStatusException throwPermissionDeniedException(AuthorizationException ex) {
+  public ResponseStatusException throwPermissionDeniedException(final AuthorizationException ex) {
     return new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage(), ex);
   }
 
@@ -30,7 +30,7 @@ public class BaseExceptionHandler {
    * @param ex The exception to throw to back to the frontend.
    */
   @ExceptionHandler(BaseException.class)
-  public ResponseStatusException throwResponseStatusException(BaseException ex) {
+  public ResponseStatusException throwResponseStatusException(final BaseException ex) {
     return new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
   }
 }

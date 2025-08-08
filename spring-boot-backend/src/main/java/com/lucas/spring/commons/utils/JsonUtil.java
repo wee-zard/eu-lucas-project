@@ -36,6 +36,16 @@ public class JsonUtil {
   }
 
   /**
+   * Converts the provided json byte array to map.
+   *
+   * @param jsonText An object in json string format.
+   * @return Returns a map.
+   */
+  public Map<String, String> parseJsonStringToMap(final byte[] jsonText) throws ParseException {
+    return parseJsonStringToMap(new String(jsonText));
+  }
+
+  /**
    * Converts the provided json string to map.
    *
    * @param jsonText An object in json string format.
