@@ -134,9 +134,7 @@ kanban-plugin: board
 
 ## 🔴Filtering Page Backlog
 
-- [ ] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]] #mission #🟣Testing
-- [ ] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #mission #Filtering-Page #🟡InProgress
-- [ ] [[172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz]] #mission #Filtering-Page #🔴ToDo
+- [ ] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #Filtering-Page #🟡InProgress
 - [ ] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #mission #Filtering-Page
 - [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
 - [ ] [[175 - Kiválasztott képek csoportosítása a szűrési feltétel alapján]] #mission #Filtering-Page
@@ -165,12 +163,13 @@ kanban-plugin: board
 - [ ] [[169 - Backend - Képek exif adatainak lekérése a háttérben]] #Filtering-Page
 - [ ] [[165 - Filtering - A Feltétel input mező hossza kisebb lehetne]] #Filtering-Page
 - [ ] [[200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről]] #Filtering-Page
+- [x] [[172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz]] #Filtering-Page #🟢Done
+- [x] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]] #🟢Done    #Filtering-Page
 
 
 ## 🔴Bounding Box Page Backlog
 
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]] #mission #BoundingBox-Page
-- [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]] #deprecated #BoundingBox-Page
 - [ ] [[173 - Logok sorbarendezése a létrehozásuk ideje alapján, és a legfrissebb legyen a legelső]] #mission #BoundingBox-Page
 - [ ] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #mission #BoundingBox-Page
 - [ ] [[182 - Eljárás logok szűrésének a megvalósítása]] #mission #BoundingBox-Page
@@ -181,17 +180,18 @@ kanban-plugin: board
 - [ ] [[190 - A kép neve kerüljön megjelenítésre a képen]] #mission #BoundingBox-Page
 - [ ] [[191 - A Logok kiválasztása után, a befoglaló téglalapok maradjanak a képen a dialogós ablak bezárása után]] #mission #BoundingBox-Page
 - [ ] [[192 - A befoglaló téglalapok mellett több minden jelenjen meg a képeken]] #mission #BoundingBox-Page
+- [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]] #deprecated #BoundingBox-Page
 
 
 ## 🔴Folder Page Backlog
 
 - [ ] [[199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba]] #🔴ToDo  #Folder-Page
 - [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #🔴ToDo #Folder-Page
-- [ ] [[197 - Lehessen mappákat törölni]] #🔴ToDo
-- [ ] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #mission #Folder-Page
-- [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #mission #Folder-Page
+- [ ] [[197 - Lehessen mappákat törölni]] #🔴ToDo #Folder-Page
+- [ ] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #🔴ToDo  #Folder-Page
+- [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🔴ToDo  #Folder-Page
+- [ ] [[201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett]] #🔴ToDo #Folder-Page
 - [ ] X - Lehessen a mappákban lévő képek száma alapján is rendezni a DataGrid táblázatban lévő rekordokat
-- [ ] X - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett
 - [x] X - Pagination frissítése ez alapján: https://ardijorganxhi.medium.com/implement-pagination-at-your-spring-boot-application-a540270b5f60 #🟢Done #Folder-Page
 - [x] [[179 - Mappák létrehozása]]  #Folder-Page #🟢Done
 
@@ -209,8 +209,10 @@ kanban-plugin: board
 
 ## 🟡In Progress
 
-- [ ] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]] #mission #🟡InProgress
+- [ ] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]] #mission #🔴ToDo
 - [ ] X - Képek tömörítése olyan mértékben, hogy azok letárolásra kerülhessenek a VM-re, hogy aztán onnan kiolvashatóak legyenek azon számdékból, hogy a képek betöltése szignifikánsabban gyorsabb legyen
+- [x] X - Amennyiben 400-as hibát dob a szerver, akkor előforul, hogy az email cím verifikálása végtelen sokszor kerül kiküldésre a szerverre. Amennyiben megállapítottuk, hogy 400 Bad Request, akkor NE küldjünk ki több request-et. #🟢Done
+- [x] X - Amennyiben Unauthorized erro kerül dobásra a token beolvasása során, akkor nem 401-es státusz kerül visszaküldésre a frontendre, hanem 400 #🟢Done
 
 
 ## 🟢Done

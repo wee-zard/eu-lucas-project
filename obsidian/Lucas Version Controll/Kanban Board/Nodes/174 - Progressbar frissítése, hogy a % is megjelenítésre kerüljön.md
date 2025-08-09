@@ -1,7 +1,7 @@
 ---
 id: 174
 type:
-  - 🟦Todo
+  - 🟨Client
 priority:
   - High
 related: 

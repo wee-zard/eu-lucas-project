@@ -79,17 +79,16 @@ const ImageCardContent = ({ imageDto, imageModel }: Props) => {
         LocalStorageUtils.setQueryBuilderModelLocalStorage(imageModel.query);
       },
       [SelectedImageActionTooltipTitles.Delete]: () => {
-        dispatch(
-          setListOfSelectedImages(
-            listOfSelectedImages.map((model) => ({
-              ...model,
-              images:
-                model.id === imageModel.id
-                  ? imageModel.images.filter((properties) => properties.image.id !== imageDto.id)
-                  : model.images,
-            })),
-          ),
-        );
+        const updateListOfSelectedImages = listOfSelectedImages
+          .map((model) => ({
+            ...model,
+            images:
+              model.id === imageModel.id
+                ? imageModel.images.filter((properties) => properties.image.id !== imageDto.id)
+                : model.images,
+          }))
+          .filter((item) => item.images.length > 0);
+        dispatch(setListOfSelectedImages(updateListOfSelectedImages));
       },
     };
     handler[title]();
@@ -112,7 +111,7 @@ const ImageCardContent = ({ imageDto, imageModel }: Props) => {
           <StyledImageActionsHolder>
             {imageActionsObj.map((imageActionObj, index) => (
               <StyledZoomMap
-                key={index}
+                key={imageActionObj.tooltipTitle}
                 index={index}
                 children={
                   <StyledIconButtonHolder>

@@ -41,17 +41,31 @@
             }
           },
           {
-            "id": "279550be97718f9d",
+            "id": "92ebb67c1a6d807a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Kanban Board/Nodes/179 - Mappák létrehozása.md",
+                "file": "Kanban Board/Nodes/159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "179 - Mappák létrehozása"
+              "title": "159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető"
+            }
+          },
+          {
+            "id": "c7790a87e9559064",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz"
             }
           }
         ]
@@ -199,10 +213,14 @@
   },
   "active": "7213bd70899264c2",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről.md",
-    "Pasted image 20250724184703.png",
+    "Kanban Board/Nodes/159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető.md",
     "Kanban Board/Lucas Kanban.md",
     "Kanban Board/Nodes/172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz.md",
+    "Kanban Board/Nodes/174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön.md",
+    "Kanban Board/Nodes/201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett.md",
+    "Kanban Board/Nodes/178 - Letöltött mappák neve legyen egyedi, előre specifikált.md",
+    "Kanban Board/Nodes/200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről.md",
+    "Pasted image 20250724184703.png",
     "Kanban Board/Nodes/179 - Mappák létrehozása.md",
     "Kanban Board/Nodes/199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba.md",
     "Kanban Board/Nodes/198 - Bulk delete, egyszerre több mappát is lehessen törölni.md",
@@ -223,9 +241,6 @@
     "Kanban Board/Nodes/096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből.md",
     "Kanban Board/Nodes/157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán.md",
     "Kanban Board/Nodes/087 - NotFound oldalról nem lehet egy kattintással vissza navigálni a főoldalra.md",
-    "Kanban Board/Nodes/039 - Procedures oldal létrehozása.md",
-    "Kanban Board/Nodes/185 - Feltöltött eljárás logokat lehessen törölni.md",
-    "Kanban Board/Nodes/193 - Fizetni egy MySQL adatbázis instance-t, és feltölteni oda az adatbázist.md",
     "Kanban Board/Images/Pasted image 20250224232633.png",
     "Kanban Board/Images/Pasted image 20250224231941.png",
     "Pasted image 20250224232551.png",
