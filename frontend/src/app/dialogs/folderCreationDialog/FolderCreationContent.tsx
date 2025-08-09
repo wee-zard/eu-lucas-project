@@ -12,8 +12,14 @@ type Props = {
 };
 
 const FolderCreationContent = ({ helper, isEmptyFolderCreated }: Props) => {
-  const handleMaxCharacterHelper = (length: number, maxLength: number) => {
-    return i18n.t("screens.components.helper-text-max-characters", { length, maxLength });
+  const handleMaxCharacterHelper = (
+    formGroup: FolderCreationFormGroup,
+    element: keyof FolderCreationFormGroup,
+  ) => {
+    return i18n.t("components.helper-text.max-characters", {
+      length: formGroup[element].data?.length ?? 0,
+      maxLength: formGroup[element].validators?.maxLength ?? 0,
+    });
   };
 
   const renderComponent = () => {
@@ -33,10 +39,7 @@ const FolderCreationContent = ({ helper, isEmptyFolderCreated }: Props) => {
               inputValue={formGroup.title.data ?? ""}
               setValue={(value) => helper.save(value, "title")}
               htmlInputValidation={{ ...formGroup.title.validators }}
-              helperText={handleMaxCharacterHelper(
-                formGroup?.title.data?.length ?? 0,
-                formGroup?.title.validators.maxLength ?? 0,
-              )}
+              helperText={handleMaxCharacterHelper(formGroup, "title")}
               errorMessage={formGroup.title.error}
             />
             <StyledTextFieldComponent
@@ -44,10 +47,7 @@ const FolderCreationContent = ({ helper, isEmptyFolderCreated }: Props) => {
               inputValue={formGroup.description.data ?? ""}
               setValue={(value) => helper.save(value, "description")}
               htmlInputValidation={{ ...formGroup.description.validators }}
-              helperText={handleMaxCharacterHelper(
-                formGroup?.description.data?.length ?? 0,
-                formGroup?.description.validators.maxLength ?? 0,
-              )}
+              helperText={handleMaxCharacterHelper(formGroup, "description")}
               errorMessage={formGroup.description.error}
             />
           </div>

@@ -188,6 +188,16 @@
           "read-write": "Írási- és olvasási"
         }
       },
+      "manage-folders": {
+        "config": {
+          "name": "Név",
+          "description": "Leírás",
+          "folder-size": "Képek száma",
+          "created-at": "Létrehozás ideje",
+          "last-updated-at": "Utolsó módosítás ideje",
+          "shared-folder": "{{username}} felhasználó által megosztott mappa"
+        }
+      },
       "notifications": {
         "folder-is-created": "Mappa sikeresen létrehozásra került!",
         "images-added-to-folder": "A kiválasztott képek sikeresen hozzáadása kerültek a [{{name}}] mappához!",

@@ -22,7 +22,7 @@ Elvárt működés:
 	- Kép1
 		- Lekérdezés legyen ott
 		- Befoglaló téglalapok: A, B, C
-	- Ké2
+	- Kép2
 		- Lekérdezés (WHERE YEAR = 2012)
 		- Befoglaló téglalapok: A, B, C
 - Fonts, hogy a befoglaló téglalapok mellett lehet módosítani a téglalapok színét, a téglalapokhoz tartozó címkék nevét, betűméretét, illetve a megjelenítendő képnek a nevét egy fekete dobozban fehér betűkkel.

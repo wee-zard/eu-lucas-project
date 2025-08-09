@@ -53,7 +53,6 @@ function StyledPaginatedDataGridTable<T>({
         isAuthTokenMandatory: true,
         pageableProperties: helper.getPageableFromLocalStorage(),
       },
-      errorMessage: "Unexpected error!",
     })
       .then((res) => setPageable(res))
       .finally(() => dispatch(setSettingBackdropOpen(false)));

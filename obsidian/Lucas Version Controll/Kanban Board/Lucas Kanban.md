@@ -185,15 +185,18 @@ kanban-plugin: board
 
 ## 🔴Folder Page Backlog
 
-- [ ] [[199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba]] #🔴ToDo  #Folder-Page
+- [ ] [[204 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page
+- [ ] [[202 - Mappák neveit és leírását lehessen módosítani]] #🔴ToDo  #Folder-Page
+- [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🔴ToDo  #Folder-Page
 - [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #🔴ToDo #Folder-Page
 - [ ] [[197 - Lehessen mappákat törölni]] #🔴ToDo #Folder-Page
 - [ ] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #🔴ToDo  #Folder-Page
-- [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🔴ToDo  #Folder-Page
 - [ ] [[201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett]] #🔴ToDo #Folder-Page
-- [ ] X - Lehessen a mappákban lévő képek száma alapján is rendezni a DataGrid táblázatban lévő rekordokat
+- [ ] [[205 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #🔴ToDo #Folder-Page
 - [x] X - Pagination frissítése ez alapján: https://ardijorganxhi.medium.com/implement-pagination-at-your-spring-boot-application-a540270b5f60 #🟢Done #Folder-Page
 - [x] [[179 - Mappák létrehozása]]  #Folder-Page #🟢Done
+- [x] [[199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba]] #Folder-Page #duplicated #🟢Done
+- [x] [[203 - Lehessen a mappákban lévő képek száma alapján is rendezni a DataGrid táblázatot]] #Folder-Page #🟢Done
 
 
 ## 🔴Deployment Backlog

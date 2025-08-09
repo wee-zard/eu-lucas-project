@@ -1,6 +1,7 @@
 package com.lucas.spring.components.folder.service.impl;
 
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.utils.PageablePropertiesUtil;
 import com.lucas.spring.components.folder.enums.FolderExceptionEnum;
 import com.lucas.spring.components.folder.exception.FolderException;
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
@@ -64,8 +65,8 @@ public class FolderServiceImpl implements FolderService {
    * {@inheritDoc}
    */
   @Override
-  public Page<FolderEntity> getFoldersByUserId(final Long userId, final Pageable pageable) {
-    return this.folderRepository.findAllByOwnerId(userId, pageable);
+  public Page<FolderDtoSlice> getFoldersByUserId(final Long userId, final Pageable pageable) {
+    return this.folderRepository.listOwnedAndSharedWithFoldersOfUserWithEditableAccess(userId, pageable);
   }
 
   /**
@@ -73,7 +74,8 @@ public class FolderServiceImpl implements FolderService {
    */
   @Override
   public List<FolderDtoSlice> getAllSortedFoldersByUserId(final Long userId) {
-    return this.folderRepository.listOwnedAndSharedWithFoldersOfUserWithEditableAccess(userId);
+    final Pageable pageable = PageablePropertiesUtil.create(0, Integer.MAX_VALUE, "updatedAt", "desc");
+    return this.folderRepository.listOwnedAndSharedWithFoldersOfUserWithEditableAccess(userId, pageable).stream().toList();
   }
 
   /**

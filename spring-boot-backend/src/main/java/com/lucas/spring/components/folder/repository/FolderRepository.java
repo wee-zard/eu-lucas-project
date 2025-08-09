@@ -26,13 +26,22 @@ public interface FolderRepository extends JpaRepository<FolderEntity, Long> {
    */
   @Query("""
       select new com.lucas.spring.components.folder.model.dto.FolderDtoSlice(
-        tf.id, tf.title, tf.owner.userName, tsf.isEditable, tf.updatedAt
-      ) from Folder as tf left join ShareFolder tsf on tf.id = tsf.id.folderId
+        tf.id,
+        tf.title,
+        tf.description,
+        tf.owner.userName,
+        (
+          select count(*) from FolderContent fc
+          where fc.id.folderId = tf.id
+        ) as folderContentSize,
+        tsf.isEditable,
+        tf.createdAt,
+        tf.updatedAt
+      ) from Folder tf left join ShareFolder tsf on tf.id = tsf.id.folderId
       where tf.owner.id = :userId
       or tsf.id.sharedWithUserId = :userId
-      order by tf.updatedAt DESC
       """)
-  List<FolderDtoSlice> listOwnedAndSharedWithFoldersOfUserWithEditableAccess(Long userId);
+  Page<FolderDtoSlice> listOwnedAndSharedWithFoldersOfUserWithEditableAccess(Long userId, Pageable pageable);
 
   /**
    * Checks whether the provided title is stored under the user.

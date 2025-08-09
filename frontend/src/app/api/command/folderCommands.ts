@@ -1,5 +1,4 @@
 import commandHandler from "@api/handler/requestHandler";
-import FolderDto from "@model/dto/FolderDto";
 import FolderDtoSlice from "@model/dto/FolderDtoSlice";
 import {
   BackendFolderControllerEndpoints,
@@ -25,8 +24,8 @@ export const createNewFolderCommand = (request: FolderCreationRequest): Promise<
 
 export const getFoldersCommand = (
   pageableProperties: PageableProperties,
-): Promise<PageableResponse<FolderDto>> => {
-  return commandHandler<PageableResponse<FolderDto>>({
+): Promise<PageableResponse<FolderDtoSlice>> => {
+  return commandHandler<PageableResponse<FolderDtoSlice>>({
     type: RequestCommandTypes.GET,
     server: ServersToConnectTo.Backend,
     endpoint: BackendFolderControllerEndpoints.GetFolders,

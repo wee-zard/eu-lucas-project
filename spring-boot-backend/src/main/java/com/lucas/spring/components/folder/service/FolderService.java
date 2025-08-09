@@ -44,7 +44,7 @@ public interface FolderService {
    * @param pageable The pageable properties.
    * @return Returns all the folders of the user.
    */
-  Page<FolderEntity> getFoldersByUserId(Long userId, Pageable pageable);
+  Page<FolderDtoSlice> getFoldersByUserId(Long userId, Pageable pageable);
 
   /**
    * Fetches all the user's folders folder names and their ids sorted by the

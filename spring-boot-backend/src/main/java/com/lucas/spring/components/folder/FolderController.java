@@ -61,13 +61,13 @@ public class FolderController {
    */
   @CrossOrigin
   @GetMapping("/")
-  public PageableResponse<FolderDto> getFoldersByUserId(
+  public PageableResponse<FolderDtoSlice> getFoldersByUserId(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable
   ) {
     return conversionHelper.convertPage(
             folderService.getFoldersByUserId(user.getUserId(), pageable),
-            FolderDto.class);
+            FolderDtoSlice.class);
   }
 
   /**
