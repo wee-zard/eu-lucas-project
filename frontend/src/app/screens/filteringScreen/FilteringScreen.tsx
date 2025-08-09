@@ -4,6 +4,7 @@ import FilteringScreenHeader from "@screens/filteringScreen/FilteringScreenHeade
 import FilteringDialog from "@dialogs/filteringDialog/FilteringDialog";
 import BoundingBoxDialog from "@dialogs/boundBoxDialog/BoundingBoxDialog";
 import FolderCreationDialog from "@dialogs/folderCreationDialog/FolderCreationDialog";
+import ImageToFolderAdditionDialog from "@dialogs/imageToFolderAdditionDialog/ImageToFolderAdditionDialog";
 
 const FilteringScreen = () => {
   return (
@@ -13,6 +14,7 @@ const FilteringScreen = () => {
       <FilteringDialog />
       <BoundingBoxDialog />
       <FolderCreationDialog />
+      <ImageToFolderAdditionDialog />
     </StyledComponentGap>
   );
 };

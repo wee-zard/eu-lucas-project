@@ -50,7 +50,8 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
   };
 
   /**
-   * Saves a form group property with a new value.
+   * Saves multiple form group properties and their new values at the same time,
+   * and once the save is finished, refreshes the page, and returns the updated form group.
    *
    * @param formGroup The form group to update.
    * @param newValue The new value for one of the property of the form group.
@@ -58,12 +59,43 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
    * @param propertyId A unique id to find the corresponding {@link InputFormControlEntry} from the form group.
    * @returns Returns the updates form group.
    */
-  public save = (
-    formGroup: T,
+  public saveAll = (
+    element: {
+      newValue: string;
+      propertyToUpdate: keyof T;
+      propertyId?: number | string;
+    }[],
+  ): T => {
+    element.forEach((item) =>
+      this.handleSave(item.newValue, item.propertyToUpdate, item.propertyId),
+    );
+
+    this.refresh();
+    return this.get();
+  };
+
+  /**
+   * Saves a form group property with a new value. Once the save is finished,
+   * refreshes the page.
+   *
+   * @param newValue The new value for one of the property of the form group.
+   * @param propertyToUpdate One of the property of the form group.
+   * @param propertyId A unique id to find the corresponding {@link InputFormControlEntry} from the form group.
+   * @returns Returns the updates form group.
+   */
+  public save = (newValue: string, propertyToUpdate: keyof T, propertyId?: number | string): T => {
+    const updatedFormGroup = this.handleSave(newValue, propertyToUpdate, propertyId);
+    this.refresh();
+    return updatedFormGroup;
+  };
+
+  private handleSave = (
     newValue: string,
     propertyToUpdate: keyof T,
     propertyId?: number | string,
-  ): T => {
+  ) => {
+    let formGroup = this.get();
+
     if (Array.isArray(formGroup[propertyToUpdate])) {
       formGroup = {
         ...formGroup,
@@ -81,7 +113,6 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
     }
 
     this.saveInLocalStorage(formGroup);
-    this.refresh();
     return formGroup;
   };
 
@@ -90,8 +121,8 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
    * If the form is valid, then the method will return undefined, else it will return
    * the T typed form group that will contain error messages.
    */
-  public validate = (formGroup: T): T | undefined => {
-    const errorCandidateFormGroup = validateFormControlGroup<T>(formGroup);
+  public validate = (): T | undefined => {
+    const errorCandidateFormGroup = validateFormControlGroup<T>(this.get());
 
     if (isFormValid(errorCandidateFormGroup)) {
       return;
@@ -107,7 +138,9 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
    * @param formGroup
    * @returns
    */
-  public convert = <K>(formGroup: any): K => {
+  public convert = <K>(): K => {
+    const formGroup = this.get();
+
     const formGroupKeys = Object.keys(formGroup);
     return formGroupKeys
       .map((key) => ({

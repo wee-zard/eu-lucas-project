@@ -32,20 +32,23 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
   const listOfSelectedImages = useSelector(selectListOfSelectedImages);
   const dispatch = useDispatch();
 
+  const handleDialogClose = () => {
+    dispatch(setFolderCreationDialogOpen(false));
+  };
+
   useEffect(() => {
     helper.remove();
   }, [helper, isOpen]);
 
   const handleOnSubmit = async () => {
     dispatch(setSettingBackdropOpen(true));
-    const group = helper.get();
 
-    if (helper.validate(group)) {
+    if (helper.validate()) {
       dispatch(setSettingBackdropOpen(false));
       return;
     }
 
-    const groupModel = helper.convert<FolderCreationFormGroupModel>(group);
+    const groupModel = helper.convert<FolderCreationFormGroupModel>();
 
     const queriedImages: FolderCreationQueriedImage[] = !isEmptyFolderCreated
       ? []
@@ -67,7 +70,7 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
         helper.refresh(EventListenerIdEnum.PAGINATED_TABLE);
       }
 
-      dispatch(setFolderCreationDialogOpen(false));
+      handleDialogClose();
     } catch (error) {
       helper.refresh(); // TODO: Does this needed here?
     } finally {
@@ -96,7 +99,7 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
       }}
       height={"65%"}
       width={"65%"}
-      onClose={() => dispatch(setFolderCreationDialogOpen(false))}
+      onClose={() => handleDialogClose()}
       onSubmit={handleOnSubmit}
     />
   );

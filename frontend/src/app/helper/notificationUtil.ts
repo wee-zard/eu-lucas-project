@@ -72,6 +72,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.REPORT_SENT_OUT]: () => throwSuccessToast(),
     [SnackEnum.UPLOADED_XML_FILES]: () => throwSuccessToast(),
     [SnackEnum.FOLDER_IS_CREATED]: () => throwSuccessToast(),
+    [SnackEnum.IMAGES_TO_FOLDER]: () => throwSuccessToast(),
 
     // Error toast messages
     [SnackEnum.LOG_NOT_FOUND]: () => throwErrorToast(),
@@ -80,6 +81,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.CANNOT_SELECT_MORE_LOGS]: () => throwErrorToast(),
     [SnackEnum.REPORT_NOT_SENT_OUT]: () => throwErrorToast(),
     [SnackEnum.ERROR_ON_LOGIN]: () => throwErrorToast(),
+    [SnackEnum.NO_IMAGE_TO_ADD_TO_FOLDER]: () => throwErrorToast(),
   };
   handler[snack]();
 };

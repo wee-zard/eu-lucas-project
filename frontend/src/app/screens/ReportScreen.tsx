@@ -49,13 +49,13 @@ const ReportScreen = () => {
    * @param enumKey The name of the form input property that has been changed.
    */
   const handleFormUpdate = (value: string, enumKey: keyof ReportFormGroup): void => {
-    setFormGroup(helper.save(formGroup, value, enumKey));
+    setFormGroup(helper.save(value, enumKey));
   };
 
   const handleSubmit = (): void => {
     dispatch(setSettingBackdropOpen(true));
 
-    const errorCandidateFormGroup = helper.validate(formGroup);
+    const errorCandidateFormGroup = helper.validate();
 
     if (errorCandidateFormGroup) {
       setFormGroup(errorCandidateFormGroup);
@@ -63,7 +63,7 @@ const ReportScreen = () => {
       return;
     }
 
-    const res = helper.convert<ReportFormGroupModel>(formGroup);
+    const res = helper.convert<ReportFormGroupModel>();
     dispatch(setSettingBackdropOpen(false));
 
     sendReportEmail(res)

@@ -91,6 +91,7 @@ export enum BackendSmtpEmailControllerEndpoints {
 export enum BackendFolderControllerEndpoints {
   CreateFolder = "/api/folder/create",
   GetFolders = "/api/folder/",
+  GetFoldersByUserIdSortedByUpdatedAt = "/api/folder/list-all",
 }
 
 export enum GoogleTokenEndpoints {
@@ -163,6 +164,7 @@ export enum LocalStorageKeys {
 export enum FormEnums {
   ReportCreationForm = "report-creation-form",
   FolderCreationForm = "folder-creation-form",
+  ImageToFolderAdditionForm = "image-to-folder-addition-form",
 }
 
 export enum ScreenUrls {

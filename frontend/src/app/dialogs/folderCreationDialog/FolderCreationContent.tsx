@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import { useEventListenerRender } from "@hooks/useEventListenerRender";
 import { FormGroupHelper } from "@helper/formGroupHelper";
 import { FolderCreationFormGroup } from "@model/forms/FolderCreationFormGroup";
+import i18n from "@i18n/i18nHandler";
 
 type Props = {
   helper: FormGroupHelper<FolderCreationFormGroup>;
@@ -11,43 +12,42 @@ type Props = {
 };
 
 const FolderCreationContent = ({ helper, isEmptyFolderCreated }: Props) => {
+  const handleMaxCharacterHelper = (length: number, maxLength: number) => {
+    return i18n.t("screens.components.helper-text-max-characters", { length, maxLength });
+  };
+
   const renderComponent = () => {
     const formGroup = helper.get();
 
     return (
       <StyledInputHolder className="grid-container">
         <div className="grid-container">
-          {isEmptyFolderCreated ? (
-            <p>
-              Hozz létre egy új mappát és mentsd el az általad kiválasztott képeket a különböző
-              szűrési feltételek alapján. A képek mellé a képekhez tartozó szűrés is, illetve a
-              legutoljára kiválasztott befoglaló téglalapok is eltárolásra kerülnek.
-            </p>
-          ) : (
-            <p>
-              Hozz létre egy új üres mappát, amiben a későbbiekben eltárolhatod az általad
-              kiválasztott képeket a különböző szűrési feltételek alapján. A képek mellé a képekhez
-              tartozó szűrés is, illetve a legutoljára kiválasztott befoglaló téglalapok is
-              eltárolásra kerülnek.
-            </p>
-          )}
+          <p>
+            {i18n.t(`screens.folders.creation-dialog.content.type${isEmptyFolderCreated ? 1 : 2}`)}
+          </p>
         </div>
         <div className="grid-gap24">
           <div className="flex-container">
             <StyledTextFieldComponent
-              inputTitle={"Mappa neve"}
+              inputTitle={i18n.t("components.input-title.type1")}
               inputValue={formGroup.title.data ?? ""}
-              setValue={(value) => helper.save(formGroup, value, "title")}
+              setValue={(value) => helper.save(value, "title")}
               htmlInputValidation={{ ...formGroup.title.validators }}
-              helperText={`Max karakterek száma: ${formGroup?.title.data?.length ?? 0}/${formGroup?.title.validators.maxLength}`}
+              helperText={handleMaxCharacterHelper(
+                formGroup?.title.data?.length ?? 0,
+                formGroup?.title.validators.maxLength ?? 0,
+              )}
               errorMessage={formGroup.title.error}
             />
             <StyledTextFieldComponent
-              inputTitle={"Mappa leírása"}
+              inputTitle={i18n.t("components.input-title.type2")}
               inputValue={formGroup.description.data ?? ""}
-              setValue={(value) => helper.save(formGroup, value, "description")}
+              setValue={(value) => helper.save(value, "description")}
               htmlInputValidation={{ ...formGroup.description.validators }}
-              helperText={`Max karakterek száma: ${formGroup?.description.data?.length ?? 0}/${formGroup?.description.validators.maxLength}`}
+              helperText={handleMaxCharacterHelper(
+                formGroup?.description.data?.length ?? 0,
+                formGroup?.description.validators.maxLength ?? 0,
+              )}
               errorMessage={formGroup.description.error}
             />
           </div>

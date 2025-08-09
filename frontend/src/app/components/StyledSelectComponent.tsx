@@ -1,4 +1,11 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectProps } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  SelectProps,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { customScrollBar, StyledComponentGap } from "@global/globalStyles";
 
@@ -9,6 +16,10 @@ type Props = {
   inputValue?: string;
   errorMessage?: string;
   icon?: JSX.Element;
+  styles?: {
+    height?: number;
+  };
+  renderOption?: (option: string) => JSX.Element;
   setValue: (value: string, index: number) => void;
 };
 
@@ -19,9 +30,11 @@ const StyledSelectComponent = ({
   inputValue,
   isDisabled,
   errorMessage,
+  styles = {},
+  renderOption,
   setValue,
 }: Props) => {
-  const handleSelectionProcess = (event: any) => {
+  const handleSelectionProcess = (event: SelectChangeEvent) => {
     const selectedOption = event.target.value ?? "";
     const index = options.findIndex((option) => option === selectedOption);
     setValue(selectedOption, index);
@@ -39,6 +52,10 @@ const StyledSelectComponent = ({
     return inputTitle ? <InputLabel>{inputTitle}</InputLabel> : null;
   };
 
+  const getSelectOption = (option: string): JSX.Element => {
+    return !renderOption ? <>{option}</> : renderOption(option);
+  };
+
   return (
     <FormControl fullWidth required sx={{ ".MuiInputLabel-root": { top: "-5px" } }}>
       <StyledComponentGap display={"grid"}>
@@ -46,13 +63,14 @@ const StyledSelectComponent = ({
         <StyledSelect
           value={getInputValue()}
           label={inputTitle}
-          onChange={handleSelectionProcess}
+          onChange={(event: any) => handleSelectionProcess(event)}
           disabled={isDisabled}
           error={!!errorMessage}
+          $height={styles?.height}
         >
           {options.map((option, index) => (
             <MenuItem value={option} key={index}>
-              {option}
+              {getSelectOption(option)}
             </MenuItem>
           ))}
         </StyledSelect>
@@ -79,14 +97,14 @@ const StyledIconWrapper = styled("span")({
   left: 8,
 });
 
-const BaseSelect = styled(Select)((_) => ({
-  height: 40,
+const BaseSelect = styled(Select)<{ $height?: number }>((props) => ({
+  height: props.$height ?? 40,
   borderRadius: 12,
 }));
 
 const StyledSelect = styled(({ className, ...props }: SelectProps) => (
   <BaseSelect {...props} MenuProps={{ PaperProps: { className } }} />
-))((_) => ({
+))<{ $height?: number }>((_) => ({
   maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
   borderRadius: 12,
   overflow: "auto",

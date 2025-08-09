@@ -19,6 +19,7 @@ import lombok.ToString;
 public class FolderDtoSlice {
   private Long id;
   private String title;
+  private String ownerName;
   private Boolean isEditable;
   private Instant updatedAt;
 }

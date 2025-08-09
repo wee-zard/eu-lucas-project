@@ -26,7 +26,7 @@ public interface FolderRepository extends JpaRepository<FolderEntity, Long> {
    */
   @Query("""
       select new com.lucas.spring.components.folder.model.dto.FolderDtoSlice(
-        tf.id, tf.title, tsf.isEditable, tf.updatedAt
+        tf.id, tf.title, tf.owner.userName, tsf.isEditable, tf.updatedAt
       ) from Folder as tf left join ShareFolder tsf on tf.id = tsf.id.folderId
       where tf.owner.id = :userId
       or tsf.id.sharedWithUserId = :userId

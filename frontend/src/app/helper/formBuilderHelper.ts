@@ -7,6 +7,7 @@ import { InputValidatorEnum } from "@model/enum/InputValidatorEnum";
 import { ReportFormGroup } from "@model/forms/ReportFormGroup";
 import { FormEnums } from "@model/enum";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
+import { ImageToFolderAdditionFormGroup } from "@model/forms/ImageToFolderAdditionFormGroup";
 
 export abstract class UserCreationFormBuilder {
   public static buildEntry = (data?: string): InputFormControlEntry => {
@@ -20,6 +21,13 @@ export abstract class UserCreationFormBuilder {
     };
   };
 }
+
+const buildImageToFolderAdditionFormGroup = (
+  group?: FolderCreationFormGroup,
+): ImageToFolderAdditionFormGroup => ({
+  folder_id: getFormControlEntry(InputFormControlEntryEnum.SELECT_FIELD, group?.title.data, {}),
+  folder_name: getFormControlEntry(InputFormControlEntryEnum.SELECT_FIELD, group?.title.data, {}),
+});
 
 const buildFolderCreationFormGroup = (
   group?: FolderCreationFormGroup,
@@ -42,9 +50,10 @@ const buildReportFormGroup = (): ReportFormGroup => ({
 });
 
 export const buildGenericFormGroup = <T>(formEnum: FormEnums): T => {
-  const handler: GenericHandlerType<FormEnums, T> = {
-    [FormEnums.ReportCreationForm]: buildReportFormGroup() as T,
-    [FormEnums.FolderCreationForm]: buildFolderCreationFormGroup() as T,
+  const handler: GenericHandlerType<FormEnums, any> = {
+    [FormEnums.ReportCreationForm]: buildReportFormGroup(),
+    [FormEnums.FolderCreationForm]: buildFolderCreationFormGroup(),
+    [FormEnums.ImageToFolderAdditionForm]: buildImageToFolderAdditionFormGroup(),
   };
 
   return handler[formEnum] as T;
