@@ -192,10 +192,14 @@
         "config": {
           "name": "Név",
           "description": "Leírás",
+          "permission": "Jogosultság",
           "folder-size": "Képek száma",
           "created-at": "Létrehozás ideje",
           "last-updated-at": "Utolsó módosítás ideje",
-          "shared-folder": "{{username}} felhasználó által megosztott mappa"
+          "shared-folder": "{{username}} felhasználó által megosztott mappa",
+          "owner-permission-tooltip": "Ezen mappának te vagy a tulajdonosa, így a mappához mind Írási- és Olvasási jogos is van.",
+          "read-only-permission-tooltip": "Ezen mappa {{username}} felhasználó által lett megosztva veled csak Olvasási jogosultsággal.",
+          "read-write-permission-tooltip": "Ezen mappa {{username}} felhasználó által lett megosztva veled Írási- és Olvasási jogosultságokkal."
         }
       },
       "notifications": {

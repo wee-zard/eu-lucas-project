@@ -3,9 +3,19 @@ import { GenericRowType } from "@model/types/GenericRowType";
 import { GridColDef } from "@mui/x-data-grid/models/colDef";
 import { GridRenderCellParams } from "@mui/x-data-grid/models/params/gridCellParams";
 import ManageUsersProfilePicture from "../ManageUsersProfilePicture";
-import ManageUsersStatus from "../ManageUsersStatus";
 import DateHelper from "@helper/dateHelper";
 import ManageUsersSettings from "../ManageUsersSettings";
+import StyledStackChip from "@components/StyledStackChip";
+import { GenericHandlerType } from "@model/types/GenericHandlerType";
+import { UserStatusEnum } from "@model/enum/UserStatusEnum";
+import ChipColorType from "@model/types/ChipColorType";
+
+const userStatusHandler: GenericHandlerType<UserStatusEnum, ChipColorType> = {
+  [UserStatusEnum.PENDING]: "warning",
+  [UserStatusEnum.BLOCKED]: "error",
+  [UserStatusEnum.ACTIVATED]: "success",
+  [UserStatusEnum.DELETED]: "error",
+};
 
 export const manageUsersDataGridColDef: GridColDef[] = [
   {
@@ -27,7 +37,7 @@ export const manageUsersDataGridColDef: GridColDef[] = [
     headerName: "Status",
     flex: 1,
     renderCell: (param: GridRenderCellParams<GenericRowType<UserDto>>) => (
-      <ManageUsersStatus row={param.row} />
+      <StyledStackChip label={param.row.statusName} color={userStatusHandler[param.row.statusId]} />
     ),
   },
   {

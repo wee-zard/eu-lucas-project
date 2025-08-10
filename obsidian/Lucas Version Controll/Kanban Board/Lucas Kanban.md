@@ -185,14 +185,19 @@ kanban-plugin: board
 
 ## 🔴Folder Page Backlog
 
-- [ ] [[204 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page
-- [ ] [[202 - Mappák neveit és leírását lehessen módosítani]] #🔴ToDo  #Folder-Page
+- [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🟡InProgress  #Folder-Page
+- [ ] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #🟡InProgress   #Folder-Page
+- [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page
+- [ ] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #🔴ToDo  #Folder-Page
+- [ ] [[205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #🔴ToDo #Folder-Page
+- [ ] [[206 - ManageFolders - Settings 4 - Képek importálása egy mappába]] #Folder-Page
+- [ ] [[207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása]] #Folder-Page
+- [ ] [[209 - ManageFolders - Settings 7 - Mappa zárolása]] #Folder-Page
+- [ ] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🔴ToDo #Folder-Page
+- [ ] [[197 - ManageFolders - Settings 9 - Lehessen mappákat törölni]] #🔴ToDo #Folder-Page
 - [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🔴ToDo  #Folder-Page
 - [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #🔴ToDo #Folder-Page
-- [ ] [[197 - Lehessen mappákat törölni]] #🔴ToDo #Folder-Page
-- [ ] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #🔴ToDo  #Folder-Page
 - [ ] [[201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett]] #🔴ToDo #Folder-Page
-- [ ] [[205 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #🔴ToDo #Folder-Page
 - [x] X - Pagination frissítése ez alapján: https://ardijorganxhi.medium.com/implement-pagination-at-your-spring-boot-application-a540270b5f60 #🟢Done #Folder-Page
 - [x] [[179 - Mappák létrehozása]]  #Folder-Page #🟢Done
 - [x] [[199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba]] #Folder-Page #duplicated #🟢Done
@@ -214,6 +219,7 @@ kanban-plugin: board
 
 - [ ] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]] #mission #🔴ToDo
 - [ ] X - Képek tömörítése olyan mértékben, hogy azok letárolásra kerülhessenek a VM-re, hogy aztán onnan kiolvashatóak legyenek azon számdékból, hogy a képek betöltése szignifikánsabban gyorsabb legyen
+- [ ] Uncaught error 500 Internal Server Error
 - [x] X - Amennyiben 400-as hibát dob a szerver, akkor előforul, hogy az email cím verifikálása végtelen sokszor kerül kiküldésre a szerverre. Amennyiben megállapítottuk, hogy 400 Bad Request, akkor NE küldjünk ki több request-et. #🟢Done
 - [x] X - Amennyiben Unauthorized erro kerül dobásra a token beolvasása során, akkor nem 401-es státusz kerül visszaküldésre a frontendre, hanem 400 #🟢Done
 
