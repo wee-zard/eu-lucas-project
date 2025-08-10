@@ -185,13 +185,12 @@ kanban-plugin: board
 
 ## 🔴Folder Page Backlog
 
-- [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🟡InProgress  #Folder-Page
-- [ ] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #🟡InProgress   #Folder-Page
 - [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page
 - [ ] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #🔴ToDo  #Folder-Page
 - [ ] [[205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #🔴ToDo #Folder-Page
 - [ ] [[206 - ManageFolders - Settings 4 - Képek importálása egy mappába]] #Folder-Page
 - [ ] [[207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása]] #Folder-Page
+- [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🔴ToDo   #Folder-Page
 - [ ] [[209 - ManageFolders - Settings 7 - Mappa zárolása]] #Folder-Page
 - [ ] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🔴ToDo #Folder-Page
 - [ ] [[197 - ManageFolders - Settings 9 - Lehessen mappákat törölni]] #🔴ToDo #Folder-Page
@@ -202,6 +201,7 @@ kanban-plugin: board
 - [x] [[179 - Mappák létrehozása]]  #Folder-Page #🟢Done
 - [x] [[199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba]] #Folder-Page #duplicated #🟢Done
 - [x] [[203 - Lehessen a mappákban lévő képek száma alapján is rendezni a DataGrid táblázatot]] #Folder-Page #🟢Done
+- [x] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #🟢Done  #Folder-Page
 
 
 ## 🔴Deployment Backlog

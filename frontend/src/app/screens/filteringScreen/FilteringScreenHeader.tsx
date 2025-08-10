@@ -12,7 +12,7 @@ import { setListOfSelectedImages, setSelectedImageModel } from "@redux/actions/i
 import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { setSettingBackdropOpen } from "@redux/actions/settingActions";
-import ZipHelper from "@helper/zipHelper";
+import ZipHelper from "@screens/manageFoldersScreen/helper/zipHelper";
 import FilteringAddToFolderMenu from "./FilteringAddToFolderMenu";
 
 const FilteringScreenHeader = () => {
@@ -37,13 +37,10 @@ const FilteringScreenHeader = () => {
     );
   };
 
-  // TODO: Ezen funkcionalitás kerüljön áthelyezésre a mappákba.
   const handleDownloadOfSelectedImages = () => {
     dispatch(setSettingBackdropOpen(true));
-
-    ZipHelper.downloadZip(listOfSelectedImages).catch((error) => console.error(error));
-
-    dispatch(setSettingBackdropOpen(false));
+    const zipHelper = new ZipHelper(listOfSelectedImages);
+    zipHelper.downloadZip().finally(() => dispatch(setSettingBackdropOpen(false)));
   };
 
   return (

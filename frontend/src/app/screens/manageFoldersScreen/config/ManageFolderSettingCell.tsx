@@ -1,6 +1,7 @@
 import StyledMenuComponent from "@components/StyledMenuComponent";
 import FolderDtoSlice from "@model/dto/FolderDtoSlice";
 import { MenuItemType } from "@model/types/MenuItemType";
+import { useDispatch } from "react-redux";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -11,6 +12,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
+import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import ZipHelper from "@screens/manageFoldersScreen/helper/zipHelper";
 
 type Props = {
   row: FolderDtoSlice;
@@ -19,6 +22,7 @@ type Props = {
 const ManageFolderSettingCell = ({ row }: Props) => {
   const IS_FOLDER_OWNER = row.isEditable === null;
   const IS_FOLDER_NOT_READ_ONLY = row.isEditable !== false;
+  const dispatch = useDispatch();
 
   const menuItemOptions: MenuItemType[] = [
     {
@@ -65,8 +69,11 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       icon: <DownloadIcon />,
       menuTitle: "Mappa letöltése",
       isDisplayed: IS_FOLDER_NOT_READ_ONLY,
+      isDisabled: row.folderContentSize === 0,
       onClick: (): void => {
-        // TODO: ...
+        dispatch(setSettingBackdropOpen(true));
+        const zipHelper = new ZipHelper([]); // TODO: Pass the folder's images here.
+        zipHelper.downloadZip().finally(() => dispatch(setSettingBackdropOpen(false)));
       },
     },
     {
