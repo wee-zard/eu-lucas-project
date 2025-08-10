@@ -39,6 +39,20 @@
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
             }
+          },
+          {
+            "id": "fe14a676b2703bdf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/178 - Letöltött mappák neve legyen egyedi, előre specifikált.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "178 - Letöltött mappák neve legyen egyedi, előre specifikált"
+            }
           }
         ]
       }
@@ -185,33 +199,33 @@
   },
   "active": "7213bd70899264c2",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/205 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval.md",
+    "Kanban Board/Nodes/178 - Letöltött mappák neve legyen egyedi, előre specifikált.md",
     "Kanban Board/Lucas Kanban.md",
-    "Kanban Board/Nodes/204 - Mappák tartalmának megjelenítése.md",
+    "Kanban Board/Nodes/197 - ManageFolders - Settings 9 - Lehessen mappákat törölni.md",
+    "Kanban Board/Nodes/210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése.md",
+    "Kanban Board/Nodes/209 - ManageFolders - Settings 7 - Mappa zárolása.md",
+    "Kanban Board/Nodes/208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken.md",
+    "Kanban Board/Nodes/207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása.md",
+    "Kanban Board/Nodes/206 - ManageFolders - Settings 4 - Képek importálása egy mappába.md",
+    "Kanban Board/Nodes/202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása.md",
+    "Kanban Board/Nodes/204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése.md",
+    "Kanban Board/Nodes/205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval.md",
     "Kanban Board/Nodes/180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban.md",
     "Kanban Board/Nodes/199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba.md",
     "Kanban Board/Nodes/203 - Lehessen a mappákban lévő képek száma alapján is rendezni a DataGrid táblázatot.md",
-    "Kanban Board/Nodes/202 - Mappák neveit és leírását lehessen módosítani.md",
     "Kanban Board/Nodes/042 - Google OAuth oldal befejezése.md",
     "Kanban Board/Nodes/159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető.md",
     "Kanban Board/Nodes/172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz.md",
     "Kanban Board/Nodes/174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön.md",
     "Kanban Board/Nodes/201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett.md",
-    "Kanban Board/Nodes/178 - Letöltött mappák neve legyen egyedi, előre specifikált.md",
     "Kanban Board/Nodes/200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről.md",
     "Pasted image 20250724184703.png",
     "Kanban Board/Nodes/179 - Mappák létrehozása.md",
     "Kanban Board/Nodes/198 - Bulk delete, egyszerre több mappát is lehessen törölni.md",
-    "Kanban Board/Nodes/197 - Lehessen mappákat törölni.md",
     "Kanban Board/Nodes/013 - CheckStyle hibák javítása a Backend oldalán.md",
     "Kanban Board/Nodes/113 - Exception - Minden Exception dobásánál az osztály a BaseException-ből származzon.md",
     "Kanban Board/Nodes/196 - Call cacheable methods via an injected dependency instead of directly via 'this'..md",
     "Kanban Board/Nodes/187 - Legyen egy űrlap, amin keresztül fel lehet tölteni eljárás eredményeket.md",
-    "Kanban Board/Nodes/167 - DockerHub-ról levenni a projektet.md",
-    "Kanban Board/Nodes/063 - Validátorok hozzárendelése a Report üzenetekhez.md",
-    "Kanban Board/Nodes/194 - Nyelv választó gomb input mező a bejelentkezés oldalra.md",
-    "Kanban Board/Nodes/017 - i18n hozzáadása az alkalmazáshoz és minden magyar szöveg kiszervezése i18n json fájlba.md",
-    "Kanban Board/Nodes/034 - ErrorHandling minden esetben internal-server-errort dob vissza.md",
     "Pasted image 20250712085053.png",
     "Kanban Board/Images/Pasted image 20250224232633.png",
     "Kanban Board/Images/Pasted image 20250224231941.png",

@@ -33,7 +33,7 @@ type Props = {
 const ManageUsersSettings = ({ row }: Props) => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
+  const [_, setAnchorEl2] = useState<null | HTMLElement>(null);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();

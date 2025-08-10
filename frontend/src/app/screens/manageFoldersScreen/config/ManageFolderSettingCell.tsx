@@ -1,7 +1,6 @@
 import StyledMenuComponent from "@components/StyledMenuComponent";
 import FolderDtoSlice from "@model/dto/FolderDtoSlice";
 import { MenuItemType } from "@model/types/MenuItemType";
-import { useDispatch } from "react-redux";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -20,7 +19,6 @@ type Props = {
 const ManageFolderSettingCell = ({ row }: Props) => {
   const IS_FOLDER_OWNER = row.isEditable === null;
   const IS_FOLDER_NOT_READ_ONLY = row.isEditable !== false;
-  const dispatch = useDispatch();
 
   const menuItemOptions: MenuItemType[] = [
     {

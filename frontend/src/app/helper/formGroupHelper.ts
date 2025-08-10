@@ -63,12 +63,9 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
     element: {
       newValue: string;
       propertyToUpdate: keyof T;
-      propertyId?: number | string;
     }[],
   ): T => {
-    element.forEach((item) =>
-      this.handleSave(item.newValue, item.propertyToUpdate, item.propertyId),
-    );
+    element.forEach((item) => this.handleSave(item.newValue, item.propertyToUpdate));
 
     this.refresh();
     return this.get();
@@ -83,17 +80,13 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
    * @param propertyId A unique id to find the corresponding {@link InputFormControlEntry} from the form group.
    * @returns Returns the updates form group.
    */
-  public save = (newValue: string, propertyToUpdate: keyof T, propertyId?: number | string): T => {
-    const updatedFormGroup = this.handleSave(newValue, propertyToUpdate, propertyId);
+  public save = (newValue: string, propertyToUpdate: keyof T): T => {
+    const updatedFormGroup = this.handleSave(newValue, propertyToUpdate);
     this.refresh();
     return updatedFormGroup;
   };
 
-  private handleSave = (
-    newValue: string,
-    propertyToUpdate: keyof T,
-    propertyId?: number | string,
-  ) => {
+  private handleSave = (newValue: string, propertyToUpdate: keyof T) => {
     let formGroup = this.get();
 
     if (Array.isArray(formGroup[propertyToUpdate])) {
