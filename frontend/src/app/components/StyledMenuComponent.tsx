@@ -3,10 +3,11 @@ import StyledButton from "./StyledButton";
 import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import StyledIconButton from "./StyledIconButton";
 
 type Props = {
   options: MenuItemType[];
-  buttonText: string;
+  buttonText?: string;
   tooltipTitle?: string;
   buttonIcon?: JSX.Element;
   isDisabled?: boolean;
@@ -34,8 +35,8 @@ const StyledMenuComponent = ({
     option.onClick(event);
   };
 
-  return (
-    <div className="flex-container">
+  const renderButton = (): JSX.Element => {
+    return buttonText ? (
       <StyledButton
         tooltipTitle={tooltipTitle}
         buttonText={buttonText}
@@ -44,6 +45,19 @@ const StyledMenuComponent = ({
         isDisabled={isDisabled}
         onClick={handleClick}
       />
+    ) : (
+      <StyledIconButton
+        tooltip={{ tooltipTitle }}
+        isDisabled={isDisabled}
+        buttonIcon={buttonIcon}
+        onClick={handleClick}
+      />
+    );
+  };
+
+  return (
+    <div className="flex-container">
+      {renderButton()}
 
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         {options.map((option) =>

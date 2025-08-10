@@ -101,4 +101,14 @@ export default StyledPaginatedDataGridTable;
 const StyledDataGrid = styled(DataGrid)({
   borderRadius: 8,
   border: 0,
+
+  "&.MuiDataGrid-root": {
+    "& .MuiDataGrid-cell:focus-within": {
+      outline: "none !important",
+    },
+
+    "& .MuiDataGrid-columnHeader:focus-within": {
+      outline: "none !important",
+    },
+  },
 });

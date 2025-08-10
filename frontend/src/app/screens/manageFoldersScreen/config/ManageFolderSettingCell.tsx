@@ -108,12 +108,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
 
   return (
     <>
-      <StyledMenuComponent
-        options={menuItemOptions}
-        buttonIcon={<MoreVertIcon />}
-        buttonText={""}
-        isDisabled={true}
-      />
+      <StyledMenuComponent options={menuItemOptions} buttonIcon={<MoreVertIcon />} />
     </>
   );
 };
