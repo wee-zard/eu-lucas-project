@@ -30,9 +30,10 @@ public interface FolderRepository extends JpaRepository<FolderEntity, Long> {
         tf.description,
         tf.owner.userName,
         (
-          select count(*) from FolderContent fc
-          where fc.folder.id = tf.id
-        ) as folderContentSize,
+          select count(distinct fc.image.id) as folderContentSize
+            from FolderContent fc
+            where fc.folder.id = tf.id
+        ),
         tsf.isEditable,
         tf.createdAt,
         tf.updatedAt
