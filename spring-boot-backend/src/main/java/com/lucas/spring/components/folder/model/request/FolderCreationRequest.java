@@ -25,14 +25,6 @@ public class FolderCreationRequest {
   private String description;
 
   /**
-   * Tells what folder to use to add the images into.
-   * If this is not provided, then a new folder will be created,
-   * else the provided folder will be used to save the images.
-   */
-  @Nullable
-  private Integer folderId;
-
-  /**
    * The list of images that needs to be saved inside a folder.
    */
   private List<QueriedImages> queriedImages;

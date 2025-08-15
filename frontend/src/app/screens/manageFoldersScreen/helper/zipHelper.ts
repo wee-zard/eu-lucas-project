@@ -10,7 +10,7 @@ class ZipHelper {
   private static readonly FOLDER_PREFIX_TITLE = "lucas";
 
   constructor(
-    private models: SelectedImagesModel[],
+    private model: SelectedImagesModel,
     private folder?: FolderDtoSlice,
     private zip = new JSZip(),
   ) {}
@@ -31,37 +31,34 @@ class ZipHelper {
   };
 
   /**
-   * Converts the provided selected image models to remote url links that will be
+   * Converts the provided selected image model to remote url links that will be
    * used to fetch the images one by one with the fetch request.
    *
-   * @returns Returns the list of remote image urls that might contains undefined values in a 2d matrix.
+   * @returns Returns the list of remote image urls that might contains undefined values in a 1d matrix.
    */
-  private getRemoteUrlsOfImages = (): (string | undefined)[][] => {
-    return this.models.map((model) =>
-      model.images.map((image) => ImageUtils.initRemoteImageUrlPath(image.image)),
+  private getRemoteUrlsOfImages = (): (string | undefined)[] => {
+    return this.model.queryImages.map((queriedImageProperty) =>
+      ImageUtils.initRemoteImageUrlPath(queriedImageProperty.image),
     );
   };
 
   /**
    * Get the remote urls of the images while filtering them. After the filtering, undefined
-   * and not real url values will be not present in the list, and the 2d matrix of the list will
-   * be converted into a 1d array.
+   * and not real url values will be not present in the list.
    *
    * @returns Returns a 1d list that contains the url links of the images that must be downloaded.
    */
   private getFilteredRemoteUrlOfImages = (): string[] => {
     const remoteImageUrls = this.getRemoteUrlsOfImages();
-
-    // Step 1.2.: Filter out the undefined elements.
     let filteredRemoteImageUrls: string[] = [];
-    remoteImageUrls.forEach((image1) =>
-      image1.forEach((image2) => {
-        if (!image2 || filteredRemoteImageUrls.includes(image2)) {
-          return;
-        }
-        filteredRemoteImageUrls = [...filteredRemoteImageUrls, image2];
-      }),
-    );
+
+    remoteImageUrls.forEach((url) => {
+      if (!url || filteredRemoteImageUrls.includes(url)) {
+        return;
+      }
+
+      filteredRemoteImageUrls = [...filteredRemoteImageUrls, url];
+    });
 
     return filteredRemoteImageUrls;
   };

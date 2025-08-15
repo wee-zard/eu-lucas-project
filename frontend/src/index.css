@@ -42,6 +42,11 @@ body {
   gap: 8px;
 }
 
+.flex-gap16 {
+  display: flex;
+  gap: 16px;
+}
+
 .flex-container {
   display: flex;
   gap: 8px;

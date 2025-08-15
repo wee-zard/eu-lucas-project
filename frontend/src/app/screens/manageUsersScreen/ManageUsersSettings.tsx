@@ -33,7 +33,6 @@ type Props = {
 const ManageUsersSettings = ({ row }: Props) => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [_, setAnchorEl2] = useState<null | HTMLElement>(null);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
@@ -88,12 +87,11 @@ const ManageUsersSettings = ({ row }: Props) => {
   const menuItemOptions: MenuItemType[] = [
     {
       icon: <EditOutlinedIcon />,
-      menuTitle: "Jogosultság módosítása (TODO)",
+      menuTitle: "Jogosultság módosítása",
       isDisabled: true,
       isDisplayed: true,
-      onClick: (event: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
+      onClick: (): void => {
         // TODO: Implement the sub-menu so the users could change each others role.
-        setAnchorEl2(event.currentTarget);
         handleClose();
       },
     },

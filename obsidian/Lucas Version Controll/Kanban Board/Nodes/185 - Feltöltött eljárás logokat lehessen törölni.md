@@ -1,7 +1,7 @@
 ---
 id: 185
 type:
-  - 🟦Todo
+  - 🟨Client
 priority:
   - Low
 related: 

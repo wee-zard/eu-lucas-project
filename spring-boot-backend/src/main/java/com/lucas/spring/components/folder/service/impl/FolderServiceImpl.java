@@ -66,7 +66,7 @@ public class FolderServiceImpl implements FolderService {
    */
   @Override
   public Page<FolderDtoSlice> getFoldersByUserId(final Long userId, final Pageable pageable) {
-    return this.folderRepository.listOwnedAndSharedWithFoldersOfUserWithEditableAccess(userId, pageable);
+    return this.folderRepository.listOwnedAndSharedWithFoldersOfUser(userId, pageable);
   }
 
   /**
@@ -75,7 +75,7 @@ public class FolderServiceImpl implements FolderService {
   @Override
   public List<FolderDtoSlice> getAllSortedFoldersByUserId(final Long userId) {
     final Pageable pageable = PageablePropertiesUtil.create(0, Integer.MAX_VALUE, "updatedAt", "desc");
-    return this.folderRepository.listOwnedAndSharedWithFoldersOfUserWithEditableAccess(userId, pageable).stream().toList();
+    return this.folderRepository.listOwnedAndSharedWithFoldersOfUser(userId, pageable).stream().toList();
   }
 
   /**
@@ -94,7 +94,6 @@ public class FolderServiceImpl implements FolderService {
    */
   @Override
   public boolean isFolderExistsByUser(final String title, final AuthenticatedUser user) {
-    final UserEntity userEntity = new UserEntity(user.getUserId());
-    return this.folderRepository.existsFolderEntityByTitleAndOwner(title, userEntity);
+    return this.folderRepository.existsFolderEntityByTitleAndOwnerId(title, user.getUserId());
   }
 }

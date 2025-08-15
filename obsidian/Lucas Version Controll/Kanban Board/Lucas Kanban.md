@@ -29,6 +29,7 @@ kanban-plugin: board
 
 ## 🔴Code Improvement ToDo
 
+- [ ] [[211 - Object.equals(A, B) használata a sima equals() helyett, mert NullPointerException dobódhat]] #🔴ToDo
 - [ ] [[145 - .Env fájl változói egy Utils fájlba kerüljenek eltárolásra]]
 - [ ] [[144 - Sensitive data must be stored in the .env file outside of the project]]
 - [ ] [[136 - Backend Runtime Warning üzenetek javítása]]
@@ -124,18 +125,18 @@ kanban-plugin: board
 
 ## 🔴Log Upload Backlog
 
-- [ ] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]] #LogUpload-Page
-- [ ] [[186 - Legyen egy szöveg, ami explicit taglalja, hogy milyen formában engedett az xml feltöltés]] #mission #LogUpload-Page
-- [ ] [[185 - Feltöltött eljárás logokat lehessen törölni]] #mission #LogUpload-Page
-- [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljünk el]] #LogUpload-Page
+- [ ] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]] #LogUpload-Page #🔴ToDo
+- [ ] [[186 - Legyen egy szöveg, ami explicit taglalja, hogy milyen formában engedett az xml feltöltés]] #🔴ToDo  #LogUpload-Page
+- [ ] [[185 - Feltöltött eljárás logokat lehessen törölni]] #LogUpload-Page #🔴ToDo
+- [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljük el]] #LogUpload-Page
 - [ ] [[039 - Procedures oldal létrehozása]] #LogUpload-Page
 - [ ] [[187 - Legyen egy űrlap, amin keresztül fel lehet tölteni eljárás eredményeket]] #LogUpload-Page
 
 
 ## 🔴Filtering Page Backlog
 
-- [ ] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #Filtering-Page #🟡InProgress
-- [ ] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #mission #Filtering-Page
+- [ ] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #Filtering-Page #🔴ToDo
+- [ ] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #Filtering-Page #🔴ToDo
 - [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
 - [ ] [[175 - Kiválasztott képek csoportosítása a szűrési feltétel alapján]] #mission #Filtering-Page
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page
@@ -143,9 +144,6 @@ kanban-plugin: board
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]] #mission #Filtering-Page
 - [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]] #mission #Filtering-Page
 - [ ] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]] #mission #Filtering-Page
-- [ ] [[162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra]] #mission #Filtering-Page
-- [ ] [[161 - Pagination - Pagination az egy sorban legyen a mentés gombokkal]] #mission #Filtering-Page
-- [ ] [[108 - Filtering - Jobb szöveg kiíratása, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép]] #mission #Filtering-Page
 - [ ] [[104 - Filtering - Kiválasztott képre való rákattintás esetén, a szűrés eredmény képek kerüljenek megjelenítésre]] #mission #Filtering-Page
 - [ ] [[100 - Filtering - A localStorage-ben eltárolt adatok betöltése esetén, hibaüzenet kerül dobásra]] #mission #Filtering-Page
 - [ ] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]] #Filtering-Page
@@ -165,22 +163,25 @@ kanban-plugin: board
 - [ ] [[200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről]] #Filtering-Page
 - [x] [[172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz]] #Filtering-Page #🟢Done
 - [x] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]] #🟢Done    #Filtering-Page
+- [x] [[161 - Pagination - Pagination az egy sorban legyen a mentés gombokkal]] #Filtering-Page #🟢Done
+- [x] [[108 - Filtering - Jobb szöveg kiíratása, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép]] #Filtering-Page #🟢Done
+- [x] [[162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra]] #Filtering-Page #🟢Done
 
 
 ## 🔴Bounding Box Page Backlog
 
-- [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]] #mission #BoundingBox-Page
-- [ ] [[173 - Logok sorbarendezése a létrehozásuk ideje alapján, és a legfrissebb legyen a legelső]] #mission #BoundingBox-Page
-- [ ] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #mission #BoundingBox-Page
-- [ ] [[182 - Eljárás logok szűrésének a megvalósítása]] #mission #BoundingBox-Page
+- [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]] #🟡InProgress  #BoundingBox-Page
+- [ ] [[173 - Logok sorbarendezése a létrehozásuk ideje alapján, és a legfrissebb legyen a legelső]] #🔴ToDo  #BoundingBox-Page
+- [ ] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #🔴ToDo  #BoundingBox-Page
+- [ ] [[182 - Eljárás logok szűrésének a megvalósítása]] #🔴ToDo  #BoundingBox-Page
 - [ ] [[183 - Három log kiválasztása esetén, egy szín kétszer szerepel a befoglaló téglalapoknál]] #mission #BoundingBox-Page
 - [ ] [[184 - Lehessen dinamikusan módosítani a befoglaló téglalapokhoz tartozó keretek színét]] #BoundingBox-Page
-- [ ] [[188 - A befoglaló téglalap fölő véve az egeret, egy tooltip popup jelenjen meg a növény adataival]] #mission #BoundingBox-Page
+- [ ] [[188 - A befoglaló téglalap fölé véve az egeret, egy tooltip popup jelenjen meg a növény adataival]] #mission #BoundingBox-Page
 - [ ] [[189 - A szín a logok mellett lévő körökben azon szín legyen, mint a befoglaló téglalap színe a képen]] #mission #BoundingBox-Page
 - [ ] [[190 - A kép neve kerüljön megjelenítésre a képen]] #mission #BoundingBox-Page
 - [ ] [[191 - A Logok kiválasztása után, a befoglaló téglalapok maradjanak a képen a dialogós ablak bezárása után]] #mission #BoundingBox-Page
 - [ ] [[192 - A befoglaló téglalapok mellett több minden jelenjen meg a képeken]] #mission #BoundingBox-Page
-- [ ] [[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]] #deprecated #BoundingBox-Page
+- [ ] [[004 - @deprecated Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]] #deprecated #BoundingBox-Page
 
 
 ## 🔴Folder Page Backlog

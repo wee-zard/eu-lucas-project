@@ -1,5 +1,7 @@
 package com.lucas.spring.components.folder.service;
 
+import com.lucas.spring.components.folder.model.model.FolderContentCreationModel;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,11 +11,9 @@ import org.springframework.stereotype.Service;
 public interface FolderContentService {
 
   /**
-   * Saves the provided entity.
+   * Save all the provided models in the folder content.
    *
-   * @param folderId The id of the folder.
-   * @param imageId The id of the image to add to the folder.
-   * @param queryId The id of the query that fetched the images.
+   * @param models The models to save.
    */
-  void save(Long folderId, Long imageId, Long queryId);
+  void saveAll(List<FolderContentCreationModel> models);
 }

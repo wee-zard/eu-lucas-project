@@ -1,5 +1,6 @@
 package com.lucas.spring.components.image.model.entity;
 
+import com.lucas.spring.commons.model.entity.BaseEntity;
 import com.lucas.spring.components.coordinate.x.model.entity.CoordinateXthEntity;
 import com.lucas.spring.components.coordinate.y.model.entity.CoordinateYthEntity;
 import com.lucas.spring.components.country.model.entity.CreationCountryEntity;
@@ -39,7 +40,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "Image")
 @Table(name = "tb_image")
-public class ImageEntity {
+public class ImageEntity extends BaseEntity {
   /**
    * Constructs an entity with only an id in it.
    *
@@ -49,13 +50,6 @@ public class ImageEntity {
     setId(id);
   }
 
-  /**
-   * The unique identification of the images.
-   */
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
-  private Long id;
   /**
    * The name of the image.
    */

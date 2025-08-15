@@ -1,0 +1,3 @@
+export enum FilteringConsts {
+  SET_FILTERING_DIALOG_OPEN = "SET_FILTERING_DIALOG_OPEN",
+}

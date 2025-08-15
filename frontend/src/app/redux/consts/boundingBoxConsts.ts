@@ -1,0 +1,3 @@
+export enum BoundingBoxConsts {
+  SET_BOUNDING_BOX_DIALOG_OPEN = "SET_BOUNDING_BOX_DIALOG_OPEN",
+}

@@ -63,6 +63,8 @@ public abstract class BaseException extends RuntimeException {
    * @return The string format version of the provided object.
    */
   private static String extractPrimitiveValueFromObjectAndConvertToText(final Object object) {
-    return object instanceof Enum ? String.valueOf(object) : ((Object[]) object)[0].toString();
+    return object instanceof Enum || object instanceof String || object instanceof Number
+            ? String.valueOf(object)
+            : ((Object[]) object)[0].toString();
   }
 }

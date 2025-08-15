@@ -19,7 +19,7 @@ public class QueryComponentToCoordinaryYthEntityConverter
    */
   @Override
   public CoordinateYthEntity convert(final @NonNull QueryComponent source) {
-    final Integer value = FormatParseUtil.parseStringIntoNumber(source.getSelectInput());
+    final Integer value = FormatParseUtil.parseToInteger(source.getSelectInput());
     return CoordinateYthEntity.builder().coordinateY(value).build();
   }
 }

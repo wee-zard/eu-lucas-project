@@ -5,7 +5,7 @@ type:
 priority:
   - High
 related:
-  - "[[004 - Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]]"
+  - "[[004 - @deprecated Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]]"
 creation-time: 2024-12-07T09:23:00
 sprint: 4
 ---

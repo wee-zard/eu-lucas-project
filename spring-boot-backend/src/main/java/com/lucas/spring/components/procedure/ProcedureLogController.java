@@ -39,7 +39,7 @@ public class ProcedureLogController {
           @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable,
           @RequestParam String imageId
   ) {
-    final int formattedImageId = FormatParseUtil.parseStringIntoNumber(imageId);
+    final int formattedImageId = FormatParseUtil.parseToInteger(imageId);
     return conversionHelper.convertPage(
             procedureLogService.getProcedureLogsByImageId(formattedImageId, pageable),
             ProcedureLogDto.class);

@@ -22,6 +22,7 @@ type Props = {
 const ManageFolderSettingCell = ({ row }: Props) => {
   const IS_FOLDER_OWNER = row.isEditable === null;
   const IS_FOLDER_NOT_READ_ONLY = row.isEditable !== false;
+  const IS_NOT_EMPTY_FOLDER = row.folderContentSize === 0;
   const dispatch = useDispatch();
 
   const menuItemOptions: MenuItemType[] = [
@@ -69,10 +70,10 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       icon: <DownloadIcon />,
       menuTitle: "Mappa letöltése",
       isDisplayed: IS_FOLDER_NOT_READ_ONLY,
-      isDisabled: row.folderContentSize === 0,
+      isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
         dispatch(setSettingBackdropOpen(true));
-        const zipHelper = new ZipHelper([]); // TODO: Pass the folder's images here.
+        const zipHelper = new ZipHelper({ queryImages: [] }); // TODO: Pass the folder's images here.
         zipHelper.downloadZip().finally(() => dispatch(setSettingBackdropOpen(false)));
       },
     },
@@ -80,7 +81,8 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       icon: <LockIcon />,
       color: "orange",
       menuTitle: "Zárolás",
-      isDisplayed: IS_FOLDER_NOT_READ_ONLY,
+      isDisplayed: IS_FOLDER_OWNER,
+      isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
         // TODO: ...
       },
@@ -90,7 +92,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       color: "red",
       menuTitle: "Mappa tartalmának kiürítése",
       isDisplayed: IS_FOLDER_OWNER,
-      isDisabled: row.folderContentSize === 0,
+      isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
         // TODO: ...
       },

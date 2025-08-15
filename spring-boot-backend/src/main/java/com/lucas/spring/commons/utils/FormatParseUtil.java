@@ -29,7 +29,7 @@ public class FormatParseUtil {
    * @param text The text to parse.
    * @return Returns the number format of the text param.
    */
-  public Integer parseStringIntoNumber(final String text) {
+  public Integer parseToInteger(final String text) {
     try {
       return Integer.parseInt(text);
     } catch (NumberFormatException exception) {
@@ -56,16 +56,46 @@ public class FormatParseUtil {
    * <p>Output: {@link NumberFormatException}</p>
    * </p><br>
    *
-   * @param text The text to parse.
+   * @param data The text to parse.
    * @return Returns the long number format of the text param.
    */
-  public Long parseStringToLong(final String text) {
+  public Long parseToLong(final String data) {
     try {
-      return Long.parseLong(text);
+      return Long.parseLong(data);
     } catch (NumberFormatException exception) {
       throw new InputFormatException(
               InputFormatExceptionEnum.CASTING_STRING_TO_LONG_IS_INVALID,
-              text);
+              data);
+    }
+  }
+
+  /**
+   * Parses the provided number into a long number.
+   *
+   * <p><strong>Example I.:</strong>
+   *
+   * <p>Input: 23 (type "Integer")</p>
+   *
+   * <p>Output: 23L (type "Long")</p>
+   * </p><br>
+   *
+   * <p><strong>Example II.:</strong>
+   *
+   * <p>Input: "xml" (type "String")</p>
+   *
+   * <p>Output: {@link NumberFormatException}</p>
+   * </p><br>
+   *
+   * @param data The number to parse.
+   * @return Returns the long number format of the provided input.
+   */
+  public Long parseToLong(final Integer data) {
+    try {
+      return Long.valueOf(data);
+    } catch (NumberFormatException exception) {
+      throw new InputFormatException(
+              InputFormatExceptionEnum.CASTING_INTEGER_TO_LONG_IS_INVALID,
+              data);
     }
   }
 }

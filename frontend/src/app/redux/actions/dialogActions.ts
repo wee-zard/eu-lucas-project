@@ -1,21 +1,10 @@
-import { DialogToOpens } from "../../model/enum";
+import DialogActionSetterType from "@redux/types/dialogActionSetterType";
 import { DialogConsts } from "../consts/dialogConsts";
+import DialogReducerStateType from "@redux/types/dialogReducerStateType";
 
-export const setDialogToOpen = (data?: DialogToOpens) => {
-  return {
-    type: DialogConsts.SET_DIALOG_TO_OPEN,
-    payload: data,
-  };
-};
-
-export const setFolderCreationDialogOpen = (data: boolean) => {
-  return {
-    type: DialogConsts.SET_FOLDER_CREATION_DIALOG_OPEN,
-    payload: data,
-  };
-};
-
-export const setImageToFolderAdditionDialogOpen = (data: boolean) => {
+export const setImageToFolderAdditionDialogOpen = (
+  data: DialogReducerStateType["isImageToFolderAdditionDialogOpen"],
+): DialogActionSetterType["isImageToFolderAdditionDialogOpen"] => {
   return {
     type: DialogConsts.IMAGE_TO_FOLDER_ADDITION_DIALOG_OPEN,
     payload: data,

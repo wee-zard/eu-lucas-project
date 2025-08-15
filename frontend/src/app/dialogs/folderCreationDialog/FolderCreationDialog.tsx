@@ -1,12 +1,10 @@
 import TemplateDialog from "@dialogs/template/TemplateDialog";
-import { setFolderCreationDialogOpen } from "@redux/actions/dialogActions";
-import { selectIsFolderCreationDialogOpen } from "@redux/selectors/dialogSelector";
 import { useSelector, useDispatch } from "react-redux";
 import FolderCreationContent from "./FolderCreationContent";
 import { useEffect } from "react";
 import { FormEnums } from "@model/enum";
 import { setSettingBackdropOpen } from "@redux/actions/settingActions";
-import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
+import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
 import { SnackEnum } from "@model/enum/SnackEnum";
@@ -19,6 +17,10 @@ import {
 import { createNewFolderCommand } from "@api/command/folderCommands";
 import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
 import { useFormGroupHelper } from "@hooks/useFormGroup";
+import { selectIsFolderCreationDialogOpen } from "@redux/selectors/folderCreationSelector";
+import { setFolderCreationDialogToOpen } from "@redux/actions/folderCreationActions";
+import { setSelectedImagesModel } from "@redux/actions/imageActions";
+import { defaultSelectedImagesModel } from "@screens/filteringScreen/helper/FilteringHelper";
 
 type Props = {
   isEmptyFolderCreated?: boolean;
@@ -29,11 +31,13 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
   const eventListenerIdKey = EventListenerIdEnum.FOLDER_CREATION_DIALOG;
   const helper = useFormGroupHelper<FolderCreationFormGroup>(cacheKey, eventListenerIdKey);
   const isOpen = useSelector(selectIsFolderCreationDialogOpen);
-  const listOfSelectedImages = useSelector(selectListOfSelectedImages);
+  const selectedImagesModel = useSelector(selectSelectedImagesModel);
   const dispatch = useDispatch();
 
+  console.log("[FolderCreationDialog]: is rendered");
+
   const handleDialogClose = () => {
-    dispatch(setFolderCreationDialogOpen(false));
+    dispatch(setFolderCreationDialogToOpen(false));
   };
 
   useEffect(() => {
@@ -48,17 +52,15 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
       return;
     }
 
-    const groupModel = helper.convert<FolderCreationFormGroupModel>();
-
-    const queriedImages: FolderCreationQueriedImage[] = !isEmptyFolderCreated
+    const queriedImages: FolderCreationQueriedImage[] = isEmptyFolderCreated
       ? []
-      : listOfSelectedImages.map((model) => ({
-          imageIds: model.images.map((imageDtoProperties) => imageDtoProperties.image.id),
-          query: model.query ?? null,
+      : selectedImagesModel.queryImages.map((model) => ({
+          imageId: model.image.id,
+          boundingBoxIds: [],
         }));
 
     const request: FolderCreationRequest = {
-      ...groupModel,
+      ...helper.convert<FolderCreationFormGroupModel>(),
       queriedImages: queriedImages,
     };
 
@@ -68,6 +70,9 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
 
       if (isEmptyFolderCreated) {
         helper.refresh(EventListenerIdEnum.PAGINATED_TABLE);
+      } else {
+        // Clear out the selected images model as it is saved inside the folder.
+        dispatch(setSelectedImagesModel(defaultSelectedImagesModel));
       }
 
       handleDialogClose();

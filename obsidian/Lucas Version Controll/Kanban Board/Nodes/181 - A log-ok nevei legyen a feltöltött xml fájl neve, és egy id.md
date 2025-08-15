@@ -2,6 +2,7 @@
 id: 181
 type:
   - 🟥Bug
+  - 🟨Client
 priority:
   - Low
 related: 

@@ -131,7 +131,7 @@ public class UserController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestParam String id
   ) {
-    userFacade.deleteUser(FormatParseUtil.parseStringToLong(id), user);
+    userFacade.deleteUser(FormatParseUtil.parseToLong(id), user);
     return new BaseResponse();
   }
 }

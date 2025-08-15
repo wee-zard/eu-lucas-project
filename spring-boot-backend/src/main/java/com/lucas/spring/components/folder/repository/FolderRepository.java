@@ -2,7 +2,6 @@ package com.lucas.spring.components.folder.repository;
 
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
 import com.lucas.spring.components.folder.model.entity.FolderEntity;
-import com.lucas.spring.components.user.model.entity.UserEntity;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +31,7 @@ public interface FolderRepository extends JpaRepository<FolderEntity, Long> {
         tf.owner.userName,
         (
           select count(*) from FolderContent fc
-          where fc.id.folderId = tf.id
+          where fc.folder.id = tf.id
         ) as folderContentSize,
         tsf.isEditable,
         tf.createdAt,
@@ -41,16 +40,16 @@ public interface FolderRepository extends JpaRepository<FolderEntity, Long> {
       where tf.owner.id = :userId
       or tsf.id.sharedWithUserId = :userId
       """)
-  Page<FolderDtoSlice> listOwnedAndSharedWithFoldersOfUserWithEditableAccess(Long userId, Pageable pageable);
+  Page<FolderDtoSlice> listOwnedAndSharedWithFoldersOfUser(Long userId, Pageable pageable);
 
   /**
    * Checks whether the provided title is stored under the user.
    *
    * @param title The title of the folder to check.
-   * @param user The user to check.
+   * @param ownerId The id of the user to check.
    * @return Returns true if the provided title, under the user exists, else false.
    */
-  boolean existsFolderEntityByTitleAndOwner(String title, UserEntity user);
+  boolean existsFolderEntityByTitleAndOwnerId(String title, Long ownerId);
 
   /**
    * Finds the list of folders which are owned by the given user.

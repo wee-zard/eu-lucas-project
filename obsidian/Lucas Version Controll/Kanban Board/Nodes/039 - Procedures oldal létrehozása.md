@@ -1,10 +1,10 @@
 ---
 id: 39
 type:
-  - 🟨Client
+  - 🟦Todo
 priority:
-  - High
-related: []
+  - Medium
+related: 
 platform:
   - frontend
 sprint: 

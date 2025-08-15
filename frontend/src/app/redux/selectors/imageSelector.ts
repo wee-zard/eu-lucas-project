@@ -1,15 +1,17 @@
 import { RootState } from "@redux/store";
 
-export const selectListOfSelectedImages = (state: RootState) =>
-  state.imageStore.listOfSelectedImages;
+export const selectSelectedImagesModel = (state: RootState) => state.imageStore.selectedImagesModel;
 
-export const selectSelectedImageModel = (state: RootState) => state.imageStore.selectedImageModel;
+export const selectQueriedImageModel = (state: RootState) => state.imageStore.queriedImageModel;
 
 export const selectSelectedImage = (state: RootState) => state.imageStore.selectedImage;
 
 export const selectFilterMenuActions = (state: RootState) => state.imageStore.filterMenuAction;
 
-export const selectFilteringPageableProperties = (State: RootState) =>
-  State.imageStore.filteringPageableProperties;
+export const selectFilteringPageableProperties = (state: RootState) =>
+  state.imageStore.filterPageable;
+
+export const selectFilteringPageableResponse = (state: RootState) =>
+  state.imageStore.filteringResponse;
 
 export const selectImageStorage = (state: RootState) => state.imageStore;

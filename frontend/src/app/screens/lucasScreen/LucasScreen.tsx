@@ -38,7 +38,6 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
   const appTitle: Branding = {
     title: i18n.t("screens.dashboard.header.title"),
     //TODO: The application logo will go here.
-    //logo: <img src="https://avatars.githubusercontent.com/u/19550456" />,
   };
 
   useEffect(() => {

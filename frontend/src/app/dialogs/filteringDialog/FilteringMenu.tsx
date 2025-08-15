@@ -1,63 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Divider, Menu, Typography } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import StyledIconButton from "@components/StyledIconButton";
 import styled from "@emotion/styled";
-import { useDispatch, useSelector } from "react-redux";
-import { selectFilterMenuActions } from "@redux/selectors/imageSelector";
-import { MenuActions } from "@model/enum";
-import { setFilterMenuAction } from "@redux/actions/imageActions";
 import { customScrollBar } from "@global/globalStyles";
 import FilteringMenuActions from "./FilteringMenuActions";
-import { initFirstQueryParent, initQueryBuilderObj } from "@model/QueryBuilderModel";
-import FilteringQueryBuilder from "./FilteringQueryBuilder";
-import { LocalStorageUtils } from "@helper/localStorageUtil";
-import { GenericHandlerType } from "@model/types/GenericHandlerType";
+import i18n from "@i18n/i18nHandler";
+import FilteringMenuContent from "./FilteringMenuContent";
 
 const FilteringMenu = () => {
   console.log("[FilteringMenu]: RENDERED");
 
-  const filterMenuAction = useSelector(selectFilterMenuActions);
-  const [element, setElement] = useState<JSX.Element>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const dispatch = useDispatch();
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-  const renderComponent = () => (
-    <FilteringQueryBuilder id={LocalStorageUtils.getQueryBuilderModel().id} />
-  );
+  };
 
-  useEffect(() => {
-    if (!element) {
-      setElement(renderComponent());
-    }
-  }, [element]);
-
-  useEffect(() => {
-    if (!filterMenuAction) {
-      return;
-    }
-
-    const handle: GenericHandlerType<MenuActions, () => void> = {
-      [MenuActions.CANCEL]: () => {
-        dispatch(setFilterMenuAction());
-        handleClose();
-      },
-      [MenuActions.SUBMIT]: () => handleClose(),
-      [MenuActions.CLEAR_ALL]: () => {
-        const defaultBuilder = initQueryBuilderObj(initFirstQueryParent);
-        LocalStorageUtils.setQueryBuilderModelLocalStorage(defaultBuilder);
-        setElement(undefined);
-        dispatch(setFilterMenuAction());
-      },
-      [MenuActions.PAGINATION_CHANGE]: () => null,
-    };
-
-    handle[filterMenuAction]();
-  }, [dispatch, filterMenuAction]);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div>
@@ -73,12 +36,14 @@ const FilteringMenu = () => {
               justifyContent: "center",
             }}
           >
-            Szűrés feltételek megadása
+            {i18n.t("screens.filtering.providing-filters")}
           </Typography>
         </StyledMenuHeaderHolder>
         <Divider />
         <StyledMenuContentHolder>
-          <StyledMenuInnerContentHolder>{element}</StyledMenuInnerContentHolder>
+          <StyledMenuInnerContentHolder>
+            <FilteringMenuContent handleClose={handleClose} />
+          </StyledMenuInnerContentHolder>
         </StyledMenuContentHolder>
         <Divider />
         <FilteringMenuActions />
@@ -89,24 +54,24 @@ const FilteringMenu = () => {
 
 export default FilteringMenu;
 
-const StyledMenuContentHolder = styled.div<{}>((_) => ({
+const StyledMenuContentHolder = styled.div({
   display: "grid",
   gap: "8px",
   height: "80%",
   overflow: "auto",
   ...customScrollBar(),
-}));
+});
 
-const StyledMenuInnerContentHolder = styled.div<{}>((_) => ({
+const StyledMenuInnerContentHolder = styled.div((_) => ({
   padding: "16px",
 }));
 
-const StyledMenuHeaderHolder = styled.div<{}>((_) => ({
+const StyledMenuHeaderHolder = styled.div({
   padding: "16px",
   height: "10%",
-}));
+});
 
-const StyledMenu = styled(Menu)<{}>((_) => ({
+const StyledMenu = styled(Menu)({
   "& .MuiPaper-root": {
     padding: "0 16px 0 16px",
     width: "80%",
@@ -115,7 +80,7 @@ const StyledMenu = styled(Menu)<{}>((_) => ({
   "& .MuiList-root": {
     height: "-webkit-fill-available",
   },
-}));
+});
 
 export const StyledInputHolder = styled.div<{ $elementWidth?: string }>((props) => ({
   width: props.$elementWidth ?? "100%",

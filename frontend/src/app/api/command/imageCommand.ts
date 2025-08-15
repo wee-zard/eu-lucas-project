@@ -10,22 +10,22 @@ import FilteringQueryRequest from "@model/request/FilteringQueryRequest";
 import PageableProperties from "@model/PageableProperties";
 import { ProcedureResultRequestFile } from "@model/request/ProcedureResultRequest";
 
-abstract class ImageCommands {
-  public static getImagesByFilters = (
-    request: FilteringQueryRequest,
-    pageableProperties: PageableProperties,
-  ): Promise<PageableResponse<ImageDto> | null> =>
-    commandHandler<PageableResponse<ImageDto>>({
-      type: RequestCommandTypes.POST,
-      server: ServersToConnectTo.Backend,
-      endpoint: BackendImageControllerEndpoints.PostFilterImage,
-      obj: request,
-      header: {
-        isAuthTokenMandatory: true,
-        pageableProperties: pageableProperties,
-      },
-    });
+export const getImagesByFilters = (
+  request: FilteringQueryRequest,
+  pageableProperties: PageableProperties,
+): Promise<PageableResponse<ImageDto> | null> =>
+  commandHandler<PageableResponse<ImageDto>>({
+    type: RequestCommandTypes.POST,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendImageControllerEndpoints.PostFilterImage,
+    obj: request,
+    header: {
+      isAuthTokenMandatory: true,
+      pageableProperties: pageableProperties,
+    },
+  });
 
+abstract class ImageCommands {
   public static postByImageNameAndCreationYear = (
     files: ProcedureResultRequestFile[],
   ): Promise<ImageDto[]> =>

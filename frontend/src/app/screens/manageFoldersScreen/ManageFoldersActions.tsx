@@ -1,13 +1,13 @@
 import StyledButton from "@components/StyledButton";
 import i18n from "@i18n/i18nHandler";
-import { setFolderCreationDialogOpen } from "@redux/actions/dialogActions";
+import { setFolderCreationDialogToOpen } from "@redux/actions/folderCreationActions";
 import { useDispatch } from "react-redux";
 
 const ManageFoldersActions = () => {
   const dispatch = useDispatch();
 
   const handleClickOnNewFolderButton = () => {
-    dispatch(setFolderCreationDialogOpen(true));
+    dispatch(setFolderCreationDialogToOpen(true));
   };
 
   return (

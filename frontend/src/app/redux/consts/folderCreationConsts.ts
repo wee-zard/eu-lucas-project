@@ -1,0 +1,3 @@
+export enum FolderCreationConsts {
+  SET_FOLDER_CREATION_DIALOG_OPEN = "SET_FOLDER_CREATION_DIALOG_OPEN",
+}

@@ -5,9 +5,9 @@ import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
 import com.lucas.spring.components.folder.facade.FolderFacade;
-import com.lucas.spring.components.folder.model.dto.FolderDto;
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
 import com.lucas.spring.components.folder.model.request.FolderCreationRequest;
+import com.lucas.spring.components.folder.model.request.FolderImageAdditionRequest;
 import com.lucas.spring.components.folder.service.FolderService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -47,6 +47,23 @@ public class FolderController {
   public BaseResponse createFolder(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestBody @Valid final FolderCreationRequest request
+  ) {
+    this.folderFacade.save(request, user);
+    return new BaseResponse();
+  }
+
+  /**
+   * Add images to an existing folder.
+   *
+   * @param user The authenticated user who initiated the request.
+   * @param request The request which can be used to create the new folder.
+   *                Additionally, it contains the images and the queries.
+   */
+  @CrossOrigin
+  @PostMapping("/add")
+  public BaseResponse addToFolder(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestBody @Valid final FolderImageAdditionRequest request
   ) {
     this.folderFacade.save(request, user);
     return new BaseResponse();

@@ -33,6 +33,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.hibernate.query.sqm.internal.QuerySqmImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -74,7 +75,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
     // Add the merged predicates to the query.
     criteriaQuery.select(root).where(predicate);
     final TypedQuery<ImageEntity> query = entityManager.createQuery(criteriaQuery);
-    final int maxResult = entityManager.createQuery(criteriaQuery).getMaxResults();
+    final int maxResult = Math.toIntExact(((QuerySqmImpl<ImageEntity>) query).getResultCount());
 
     // Wrap these values into a Pageable Request.
     query.setFirstResult((int) pageable.getOffset());
@@ -191,7 +192,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
         final Join<ImageEntity, BoundingBoxEntity> tableJoin =
                 root.join("listOfBoundingBoxes", JoinType.LEFT);
 
-        final Integer probability = FormatParseUtil.parseStringIntoNumber(
+        final Integer probability = FormatParseUtil.parseToInteger(
                 component.getSelectInput()
         );
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,

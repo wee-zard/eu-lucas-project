@@ -1,19 +1,23 @@
 package com.lucas.spring.components.folder.facade.impl;
 
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.folder.enums.FolderExceptionEnum;
-import com.lucas.spring.components.folder.enums.QueryBuilderExceptionEnum;
 import com.lucas.spring.components.folder.exception.FolderException;
-import com.lucas.spring.components.folder.exception.QueryBuilderException;
 import com.lucas.spring.components.folder.facade.FolderFacade;
 import com.lucas.spring.components.folder.model.entity.FolderEntity;
-import com.lucas.spring.components.folder.model.entity.QueryBuilderEntity;
 import com.lucas.spring.components.folder.model.entity.ShareFolderEntity;
+import com.lucas.spring.components.folder.model.model.FolderContentCreationModel;
 import com.lucas.spring.components.folder.model.request.FolderCreationRequest;
-import com.lucas.spring.components.folder.service.*;
-import com.lucas.spring.components.image.model.request.QueryMultiType;
+import com.lucas.spring.components.folder.model.request.FolderImageAdditionRequest;
+import com.lucas.spring.components.folder.model.request.QueriedImages;
+import com.lucas.spring.components.folder.service.FolderContentService;
+import com.lucas.spring.components.folder.service.FolderService;
+import com.lucas.spring.components.folder.service.ShareFolderService;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,8 +30,6 @@ import org.springframework.stereotype.Service;
 public class FolderFacadeImpl implements FolderFacade {
   private final FolderService folderService;
   private final ShareFolderService shareFolderService;
-  private final QueryBuilderService queryBuilderService;
-  private final QueryElementService queryElementService;
   private final FolderContentService folderContentService;
 
   /**
@@ -36,18 +38,21 @@ public class FolderFacadeImpl implements FolderFacade {
   @Override
   @Transactional
   public void save(final FolderCreationRequest request, final AuthenticatedUser user) {
-    final FolderEntity folder = getFolder(request, user);
+    this.saveImages(
+            request.getQueriedImages(),
+            folderService.save(request.getTitle(), request.getDescription(), user).getId()
+    );
+  }
 
-    request.getQueriedImages().forEach(obj -> {
-      final QueryBuilderEntity queryBuilderEntity = this.saveQueryMultiType(obj.getQuery(), null);
-
-      if (queryBuilderEntity == null) {
-        throw new QueryBuilderException(QueryBuilderExceptionEnum.QUERY_BUILDER_IS_NULL);
-      }
-
-      obj.getImageIds().forEach(imageId ->
-              this.folderContentService.save(folder.getId(), imageId, queryBuilderEntity.getId()));
-    });
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional
+  public void save(final FolderImageAdditionRequest request, final AuthenticatedUser user) {
+    final Long folderId = FormatParseUtil.parseToLong(request.getFolderId());
+    final FolderEntity folder = getFolder(folderId, user);
+    this.saveImages(request.getQueriedImages(), folder.getId());
   }
 
   /**
@@ -66,46 +71,54 @@ public class FolderFacadeImpl implements FolderFacade {
     return sharedFolder.isPresent() && sharedFolder.get().getIsEditable();
   }
 
-  private FolderEntity getFolder(
-          final FolderCreationRequest request,
-          final AuthenticatedUser user
-  ) {
-    if (request.getFolderId() == null) {
-      return folderService.save(request.getTitle(), request.getDescription(), user);
-    } else {
-      final FolderEntity folder = folderService.getFolderById(Long.valueOf(request.getFolderId()));
+  /**
+   * Based on the provided queried images and the folder id, save the images
+   * into the folder.
+   *
+   * @param queriedImages The images to save. It can be an empty list.
+   * @param folderId The id of the folder in which we want to save the images.
+   */
+  private void saveImages(final List<QueriedImages> queriedImages, final Long folderId) {
+    final List<FolderContentCreationModel> models = new ArrayList<>();
 
-      if (this.isFolderEditable(folder, user)) {
-        throw new FolderException(FolderExceptionEnum.FOLDER_NO_WRITE_RIGHTS, folder.getId());
+    queriedImages.forEach(queriedImage -> {
+      if (queriedImage.getBoundingBoxIds().isEmpty()) {
+        models.add(this.createContentCreationModel(queriedImage.getImageId(), folderId, null));
+      } else {
+        queriedImage.getBoundingBoxIds().forEach(boundingBoxId ->
+                models.add(this.createContentCreationModel(queriedImage.getImageId(), folderId, boundingBoxId))
+        );
       }
+    });
 
-      folder.setUpdatedAt(Instant.now());
-      folderService.save(folder);
-      return folder;
-    }
+    this.folderContentService.saveAll(models);
   }
 
-  private QueryBuilderEntity saveQueryMultiType(
-          final QueryMultiType query,
-          final Long parentQueryId
-  ) {
-    if (query.getListOfQueries() != null && !query.getListOfQueries().isEmpty()) {
-      final QueryBuilderEntity entity = queryBuilderService.save(query, parentQueryId);
-
-      query.getListOfQueries().forEach(
-              queryMultiType ->
-                      this.saveQueryMultiType(queryMultiType, entity.getId()));
-
-      return entity;
-    } else if (query.getListOfComponents() != null && !query.getListOfComponents().isEmpty()) {
-      final QueryBuilderEntity entity = queryBuilderService.save(query, parentQueryId);
-
-      query.getListOfComponents().forEach(component ->
-              this.queryElementService.save(component, entity.getId()));
-
-      return entity;
+  private FolderEntity getFolder(final Long folderId, final AuthenticatedUser user) {
+    if (folderId == null) {
+      throw new FolderException(FolderExceptionEnum.FOLDER_ID_IS_NOT_PROVIDED);
     }
 
-    return null;
+    final FolderEntity folder = folderService.getFolderById(folderId);
+
+    if (!this.isFolderEditable(folder, user)) {
+      throw new FolderException(FolderExceptionEnum.FOLDER_NO_WRITE_RIGHTS, folder.getId());
+    }
+
+    folder.setUpdatedAt(Instant.now());
+    folderService.save(folder);
+    return folder;
+  }
+
+  private FolderContentCreationModel createContentCreationModel(
+          final Long imageId,
+          final Long folderId,
+          final Long boundingBoxId
+  ) {
+    return FolderContentCreationModel.builder()
+            .imageId(imageId)
+            .folderId(folderId)
+            .boundingBoxId(boundingBoxId)
+            .build();
   }
 }

@@ -1,90 +1,83 @@
 import { DialogActions } from "@mui/material";
 import { useSelector } from "react-redux";
-import { FilteringDialogTexts } from "@model/enum";
 import { useDispatch } from "react-redux";
-import { setDialogToOpen } from "@redux/actions/dialogActions";
 import styled from "@emotion/styled";
-import {
-  setFilteringPageableProperties,
-  setFilterMenuAction,
-  setListOfSelectedImages,
-  setSelectedImageModel,
-} from "@redux/actions/imageActions";
+import { setSelectedImagesModel } from "@redux/actions/imageActions";
 import { StyledComponentGap } from "@global/globalStyles";
 import StyledButton from "@components/StyledButton";
 import { selectImageStorage } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
-import { FILTERING_PAGE_SIZE } from "@global/globalConsts";
+import SelectedImagesModel from "@model/SelectedImagesModel";
+import i18n from "@i18n/i18nHandler";
 
-const FilteringDialogActions = () => {
-  const { selectedImageModel, listOfSelectedImages } = useSelector(selectImageStorage);
-  const isAgreeButtonDisabled = !selectedImageModel || selectedImageModel.images.length === 0;
+type Props = {
+  handleDialogClose: () => void;
+};
+
+const FilteringDialogActions = ({ handleDialogClose }: Props) => {
+  const { selectedImagesModel, queriedImageModel } = useSelector(selectImageStorage);
+  const queriedImageLength = Number(queriedImageModel?.images.length);
+  const isAgreeButtonDisabled = queriedImageLength === 0;
   const dispatch = useDispatch();
 
-  const handleDialogClose = () => dispatch(setDialogToOpen(undefined));
-
-  const agreeButtonText =
-    selectedImageModel && selectedImageModel.images.length > 0
-      ? `${FilteringDialogTexts.AgreeButtonText} (${selectedImageModel.images.length})`
-      : FilteringDialogTexts.AgreeButtonText;
+  const agreeButtonText = `${i18n.t("components.button.save")}${
+    queriedImageLength > 0 ? ` (${queriedImageModel?.images.length})` : ""
+  }`;
 
   const handleAgreeButtonClick = () => {
-    if (!selectedImageModel) {
+    if (!queriedImageModel) {
       return;
     }
 
-    // If the selectedImageModel is exists in the listOfSelectedImages list, if yes, then override that object, else add a new object to the list.
-    dispatch(
-      setListOfSelectedImages(
-        listOfSelectedImages.find((image) => image.id === selectedImageModel.id)
-          ? listOfSelectedImages.map((image) => ({
-              id: image.id,
-              images: image.id === selectedImageModel.id ? selectedImageModel.images : image.images,
-              query: image.id === selectedImageModel.id ? selectedImageModel.query : image.query,
-            }))
-          : [...listOfSelectedImages, selectedImageModel],
-      ),
-    );
+    const newSelectedImagesModel: SelectedImagesModel = {
+      ...selectedImagesModel,
+      queryImages:
+        selectedImagesModel.queryImages.length === 0
+          ? queriedImageModel.images
+          : [
+              ...selectedImagesModel.queryImages,
+              ...queriedImageModel.images.filter(
+                (imageProperties) =>
+                  !selectedImagesModel.queryImages.find(
+                    (model) => model.image.id === imageProperties.image.id,
+                  ),
+              ),
+            ],
+    };
+
+    dispatch(setSelectedImagesModel(newSelectedImagesModel));
     LocalStorageUtils.initQueryBuilderModelLocalStorage();
-    dispatch(
-      setFilteringPageableProperties({
-        pageNo: 0,
-        pageSize: FILTERING_PAGE_SIZE,
-      }),
-    );
-    dispatch(setFilterMenuAction(undefined));
-    dispatch(setSelectedImageModel(undefined));
     handleDialogClose();
   };
 
   return (
     <StyledDialogActions>
-      <StyledActionsHolder>
+      <StyledActionWrapper>
         <StyledButton
-          buttonText={FilteringDialogTexts.DisagreeButtonText}
-          buttonColor="primary"
+          buttonText={i18n.t("components.button.cancel")}
+          buttonColor="error"
           buttonVariant="outlined"
           onClick={handleDialogClose}
         />
         <StyledButton
           buttonText={agreeButtonText}
           isDisabled={isAgreeButtonDisabled}
-          buttonColor="primary"
+          buttonColor="success"
           buttonVariant="outlined"
           buttonType={"submit"}
           onClick={handleAgreeButtonClick}
         />
-      </StyledActionsHolder>
+      </StyledActionWrapper>
     </StyledDialogActions>
   );
 };
 
 export default FilteringDialogActions;
 
-const StyledDialogActions = styled(DialogActions)({
-  padding: "0px",
+const StyledActionWrapper = styled(StyledComponentGap)({
+  paddingTop: 8,
 });
 
-const StyledActionsHolder = styled(StyledComponentGap)({
-  paddingTop: "16px",
+const StyledDialogActions = styled(DialogActions)({
+  padding: "0px",
 });

@@ -5,6 +5,7 @@ package com.lucas.spring.commons.enums;
  * cannot be cast to another type.
  */
 public enum InputFormatExceptionEnum {
+  CASTING_INTEGER_TO_LONG_IS_INVALID,
   CASTING_STRING_TO_LONG_IS_INVALID,
   CASTING_STRING_TO_NUMBER_IS_INVALID,
 }

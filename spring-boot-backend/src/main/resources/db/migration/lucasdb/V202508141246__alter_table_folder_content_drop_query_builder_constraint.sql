@@ -1,0 +1,1 @@
+alter table tb_folder_content drop constraint tb_folder_content_fk_3;

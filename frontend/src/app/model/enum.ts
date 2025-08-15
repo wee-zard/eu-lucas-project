@@ -90,6 +90,7 @@ export enum BackendSmtpEmailControllerEndpoints {
 
 export enum BackendFolderControllerEndpoints {
   CreateFolder = "/api/folder/create",
+  ImageToFolderAddition = "/api/folder/add",
   GetFolders = "/api/folder/",
   GetFoldersByUserIdSortedByUpdatedAt = "/api/folder/list-all",
 }
@@ -184,11 +185,6 @@ export enum FilteringScreenTexts {
   DownloadTooltip = "Kijelölt képek letöltése",
 }
 
-export enum FilteringDialogTexts {
-  DisagreeButtonText = "Mégsem",
-  AgreeButtonText = "Mentés",
-}
-
 export enum FilterDialogFilters {
   YEAR = "Év",
   COUNTRY = "Ország",
@@ -202,11 +198,6 @@ export enum FilterDialogFilters {
   PROBABILITY = "Detektálás valószínűsége",
   PLANT_SPECIES = "Növényfajok",
   PLANT_NAME = "Növények",
-}
-
-export enum DialogToOpens {
-  FilteringDialog = "Filtering Dialog",
-  BoundingBoxDialog = "Bounding Box Dialog",
 }
 
 export enum OperatorSelectItems {
@@ -274,7 +265,6 @@ export enum QueryTypes {
 
 export enum SelectedImageActionTooltipTitles {
   Delete = "Kép eltávolítása a kiválasztott képek közül",
-  Edit = "Szűrési feltételek módosítása",
   Search = "Befoglaló téglalapok megjelenítése",
 }
 

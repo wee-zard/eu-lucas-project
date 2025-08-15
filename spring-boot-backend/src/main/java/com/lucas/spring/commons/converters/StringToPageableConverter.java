@@ -65,7 +65,7 @@ public class StringToPageableConverter implements Converter<String, Pageable> {
   private Integer pagePropertiesToInteger(
           final Map<String, String> pageablePropertiesMap,
           final String property) {
-    return FormatParseUtil.parseStringIntoNumber(pageablePropertiesMap.get(property));
+    return FormatParseUtil.parseToInteger(pageablePropertiesMap.get(property));
   }
 
   /**

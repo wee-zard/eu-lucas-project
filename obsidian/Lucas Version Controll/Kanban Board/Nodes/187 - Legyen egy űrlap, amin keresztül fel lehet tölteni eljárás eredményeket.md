@@ -1,7 +1,7 @@
 ---
 id: 187
 type:
-  - 🟦Todo
+  - 🟪Epic
 priority:
   - Low
 related: 

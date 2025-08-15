@@ -1,4 +1,9 @@
 {
+  "cards": {
+    "imageAndPagination": {
+      "labelRowsPerPage": "Rows per page:"
+    }
+  },
   "filtering": {
     "query-builder": {
       "query-by-option-names": {

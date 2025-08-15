@@ -2,10 +2,8 @@ import StyledMenuComponent from "@components/StyledMenuComponent";
 import i18n from "@i18n/i18nHandler";
 import { FilteringScreenTexts } from "@model/enum";
 import { MenuItemType } from "@model/types/MenuItemType";
-import {
-  setFolderCreationDialogOpen,
-  setImageToFolderAdditionDialogOpen,
-} from "@redux/actions/dialogActions";
+import { setImageToFolderAdditionDialogOpen } from "@redux/actions/dialogActions";
+import { setFolderCreationDialogToOpen } from "@redux/actions/folderCreationActions";
 import { useDispatch } from "react-redux";
 
 type Props = {
@@ -29,7 +27,7 @@ const FilteringAddToFolderMenu = ({ isDisabled }: Props) => {
       menuTitle: i18n.t("screens.filtering.folder-menu-items.add-to-empty-folder"),
       isDisplayed: true,
       onClick: (): void => {
-        dispatch(setFolderCreationDialogOpen(true));
+        dispatch(setFolderCreationDialogToOpen(true));
       },
     },
   ];

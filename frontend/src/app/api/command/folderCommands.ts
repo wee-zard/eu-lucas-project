@@ -5,7 +5,10 @@ import {
   RequestCommandTypes,
   ServersToConnectTo,
 } from "@model/enum";
-import { FolderCreationRequest } from "@model/forms/FolderCreationFormGroup";
+import {
+  FolderCreationRequest,
+  FolderImageAdditionRequest,
+} from "@model/forms/FolderCreationFormGroup";
 import PageableProperties from "@model/PageableProperties";
 import BaseResponse from "@model/response/BaseResponse";
 import PageableResponse from "@model/response/PageableResponse";
@@ -15,6 +18,20 @@ export const createNewFolderCommand = (request: FolderCreationRequest): Promise<
     type: RequestCommandTypes.POST,
     server: ServersToConnectTo.Backend,
     endpoint: BackendFolderControllerEndpoints.CreateFolder,
+    obj: request,
+    header: {
+      isAuthTokenMandatory: true,
+    },
+  });
+};
+
+export const imageToFolderCommand = (
+  request: FolderImageAdditionRequest,
+): Promise<BaseResponse> => {
+  return commandHandler<BaseResponse>({
+    type: RequestCommandTypes.POST,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendFolderControllerEndpoints.ImageToFolderAddition,
     obj: request,
     header: {
       isAuthTokenMandatory: true,

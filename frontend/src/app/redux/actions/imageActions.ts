@@ -1,40 +1,57 @@
-import { MenuActions } from "@model/enum";
 import { ImageConsts } from "@redux/consts/imageConsts";
-import PageableProperties from "@model/PageableProperties";
-import SelectedImagesModel from "@model/SelectedImagesModel";
-import ImageDto from "@model/dto/ImageDto";
+import ImageActionSetterType from "@redux/types/imageActionSetterType";
+import ImageReducerStateType from "@redux/types/imageReducerStateType";
 
-export const setListOfSelectedImages = (data: SelectedImagesModel[]) => {
+export const setSelectedImagesModel = (
+  data: ImageReducerStateType["selectedImagesModel"],
+): ImageActionSetterType["selectedImagesModel"] => {
   return {
-    type: ImageConsts.SET_LIST_OF_SELECTED_IMAGES,
+    type: ImageConsts.SET_SELECTED_IMAGES_MODEL,
     payload: data,
   };
 };
 
-export const setSelectedImageModel = (data?: SelectedImagesModel) => {
+export const setQueriedImageModel = (
+  data: ImageReducerStateType["queriedImageModel"],
+): ImageActionSetterType["queriedImageModel"] => {
   return {
-    type: ImageConsts.SET_SELECTED_IMAGE_MODEL,
+    type: ImageConsts.SET_QUERIED_IMAGE_MODEL,
     payload: data,
   };
 };
 
-export const setSelectedImage = (data?: ImageDto) => {
+export const setSelectedImage = (
+  data: ImageReducerStateType["selectedImage"],
+): ImageActionSetterType["selectedImage"] => {
   return {
     type: ImageConsts.SET_SELECTED_IMAGE,
     payload: data,
   };
 };
 
-export const setFilterMenuAction = (data?: MenuActions) => {
+export const setFilterMenuAction = (
+  data: ImageReducerStateType["filterMenuAction"],
+): ImageActionSetterType["filterMenuAction"] => {
   return {
     type: ImageConsts.SET_FILTER_MENU_ACTION,
     payload: data,
   };
 };
 
-export const setFilteringPageableProperties = (data: PageableProperties) => {
+export const setFilteringPageableProperties = (
+  data: ImageReducerStateType["filterPageable"],
+): ImageActionSetterType["filterPageable"] => {
   return {
     type: ImageConsts.SET_FILTERING_PAGEABLE_PROPERTIES,
+    payload: data,
+  };
+};
+
+export const setFilteringResponse = (
+  data: ImageReducerStateType["filteringResponse"],
+): ImageActionSetterType["filteringResponse"] => {
+  return {
+    type: ImageConsts.SET_FILTERING_PAGEABLE_RESPONSE,
     payload: data,
   };
 };

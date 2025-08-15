@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setDialogToOpen } from "@redux/actions/dialogActions";
 import {
   StyledDialog,
   StyledDialogContent,
@@ -7,21 +6,18 @@ import {
 } from "@dialogs/filteringDialog/FilteringDialog";
 import i18n from "@i18n/i18nHandler";
 import BoundingBoxDialogContent from "./BoundingBoxDialogContent";
-import { selectIsDialogOpen } from "@redux/selectors/dialogSelector";
-import { RootState } from "@redux/store";
-import { DialogToOpens } from "@model/enum";
 import { setProcedureLogStorageToDefault } from "@redux/actions/procedureLogActions";
 import { setSelectedImage } from "@redux/actions/imageActions";
+import { setBoundingBoxDialogToOpen } from "@redux/actions/boundingBoxActions";
+import { selectIsBoundingBoxDialogOpen } from "@redux/selectors/boundingBoxSelector";
 
 const BoundingBoxDialog = () => {
-  const isDialogOpen = useSelector((state) =>
-    selectIsDialogOpen(state as RootState, DialogToOpens.BoundingBoxDialog),
-  );
+  const isDialogOpen = useSelector(selectIsBoundingBoxDialogOpen);
   const dispatch = useDispatch();
 
   const handleDialogClose = () => {
-    dispatch(setDialogToOpen());
-    dispatch(setSelectedImage());
+    dispatch(setBoundingBoxDialogToOpen(false));
+    dispatch(setSelectedImage(undefined));
     dispatch(setProcedureLogStorageToDefault());
   };
 

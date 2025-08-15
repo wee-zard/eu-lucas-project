@@ -19,7 +19,7 @@ public class QueryComponentToCreationYearConverter
    */
   @Override
   public CreationYearEntity convert(final @NonNull QueryComponent source) {
-    final Integer value = FormatParseUtil.parseStringIntoNumber(source.getSelectInput());
+    final Integer value = FormatParseUtil.parseToInteger(source.getSelectInput());
     return CreationYearEntity.builder().year(value).build();
   }
 }

@@ -1,15 +1,17 @@
 package com.lucas.spring.components.procedure.model.entity;
 
+import com.lucas.spring.commons.model.entity.BaseEntity;
+import com.lucas.spring.components.folder.model.entity.FolderContentEntity;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
 import com.lucas.spring.components.plant.model.entity.PlantEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,11 +29,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity(name = "BoundingBox")
 @Table(name = "tb_bounding_box")
-public class BoundingBoxEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
-  private Long id;
+public class BoundingBoxEntity extends BaseEntity {
+  /**
+   * Constructs an entity with only an id in it.
+   *
+   * @param id The id of the entity.
+   */
+  public BoundingBoxEntity(Long id) {
+    setId(id);
+  }
 
   @Column(name = "probability_of_detection", length = 3)
   private Integer probabilityOfDetection;
@@ -51,15 +57,21 @@ public class BoundingBoxEntity {
   @Column(name = "is_homogenous", nullable = false, length = 1)
   private Boolean homogenous;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "plant_scientific_name")
   private PlantEntity plant;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "image_to_analyse")
   private ImageEntity image;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "procedure_log_id")
   private ProcedureLogEntity procedureLog;
+
+  /**
+   * Tells in which folders are present the given bounding box.
+   */
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "boundingBox")
+  private Set<FolderContentEntity> folderContents;
 }

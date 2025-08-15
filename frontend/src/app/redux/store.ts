@@ -12,18 +12,26 @@ import procedureReducer from "@redux/reducers/procedureReducer";
 import plantReducer from "@redux/reducers/plantReducer";
 import plantSpeciesReducer from "@redux/reducers/plantSpeciesReducer";
 import logParamReducer from "@redux/reducers/logParamReducer";
-import procedureLogReducer from "./reducers/procedureLogReducer";
-import procedureUploadReducer from "./reducers/procedureUploadReducer";
-import settingReducer from "./reducers/settingReducer";
-import userReducer from "./reducers/userReducer";
+import procedureLogReducer from "@redux/reducers/procedureLogReducer";
+import procedureUploadReducer from "@redux/reducers/procedureUploadReducer";
+import settingReducer from "@redux/reducers/settingReducer";
+import userReducer from "@redux/reducers/userReducer";
+import filteringReducer from "@redux/reducers/filteringReducer";
+import boundingBoxReducer from "@redux/reducers/boundingBoxReducer";
+import folderCreationReducer from "./reducers/folderCreationReducer";
 
 const rootReducer = combineReducers({
-  // Processed:
+  // Reducer Action type and Action setter type processed:
   imageStore: imageReducer,
+  dialogStore: dialogReducer,
+  filteringStore: filteringReducer,
+  boundingBoxStore: boundingBoxReducer,
+  folderCreationStore: folderCreationReducer,
+
+  // Processed:
   procedureUploadStorage: procedureUploadReducer,
   settingStore: settingReducer,
   userStore: userReducer,
-  dialogStore: dialogReducer,
 
   // Not processed yet:
   creationYearStore: creationYearReducer,

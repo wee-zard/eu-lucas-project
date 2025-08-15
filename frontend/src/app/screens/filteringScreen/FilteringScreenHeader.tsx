@@ -5,41 +5,44 @@ import AddIcon from "@mui/icons-material/Add";
 import StyledButton from "@components/StyledButton";
 import StyledIconButton from "@components/StyledIconButton";
 import { StyledComponentGap } from "@global/globalStyles";
-import { DialogToOpens, FilteringScreenTexts } from "@model/enum";
+import { FilteringScreenTexts } from "@model/enum";
 import { useDispatch, useSelector } from "react-redux";
-import { setDialogToOpen } from "@redux/actions/dialogActions";
-import { setListOfSelectedImages, setSelectedImageModel } from "@redux/actions/imageActions";
-import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
+import { setQueriedImageModel, setSelectedImagesModel } from "@redux/actions/imageActions";
+import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { setSettingBackdropOpen } from "@redux/actions/settingActions";
 import ZipHelper from "@screens/manageFoldersScreen/helper/zipHelper";
 import FilteringAddToFolderMenu from "./FilteringAddToFolderMenu";
+import { defaultQueriedImageModel, defaultSelectedImagesModel } from "./helper/FilteringHelper";
+import { setFilteringDialogToOpen } from "@redux/actions/filteringActions";
 
 const FilteringScreenHeader = () => {
-  const listOfSelectedImages = useSelector(selectListOfSelectedImages);
-  const isAnImageSelected = listOfSelectedImages.length === 0;
-
+  const selectedImagesModel = useSelector(selectSelectedImagesModel);
+  const isSelectedImagesModelEmpty = selectedImagesModel.queryImages.length === 0;
   const dispatch = useDispatch();
-  const handleClearAll = () => dispatch(setListOfSelectedImages([]));
+
+  console.log("[selectedImagesModel]:", selectedImagesModel);
+
+  /**
+   * Clears all of the selected images model from the redux.
+   */
+  const handleClearAll = (): void => {
+    dispatch(setSelectedImagesModel(defaultSelectedImagesModel));
+  };
+
+  /**
+   * Creates a new empty query images model and add it to the selected images model.
+   * The user will use this model to add their images into.
+   */
   const handleAddImage = () => {
     LocalStorageUtils.initQueryBuilderModelLocalStorage();
-    dispatch(setDialogToOpen(DialogToOpens.FilteringDialog));
-    const selectedImageId =
-      listOfSelectedImages.length > 0
-        ? Math.max(...listOfSelectedImages.map((imageModel) => imageModel.id)) + 1
-        : 1;
-    dispatch(
-      setSelectedImageModel({
-        id: selectedImageId,
-        images: [],
-        query: undefined,
-      }),
-    );
+    dispatch(setFilteringDialogToOpen(true));
+    dispatch(setQueriedImageModel(defaultQueriedImageModel()));
   };
 
   const handleDownloadOfSelectedImages = () => {
     dispatch(setSettingBackdropOpen(true));
-    const zipHelper = new ZipHelper(listOfSelectedImages);
+    const zipHelper = new ZipHelper(selectedImagesModel);
     zipHelper.downloadZip().finally(() => dispatch(setSettingBackdropOpen(false)));
   };
 
@@ -50,12 +53,12 @@ const FilteringScreenHeader = () => {
         buttonText={FilteringScreenTexts.ClearAllText}
         buttonColor="error"
         buttonVariant="outlined"
-        isDisabled={isAnImageSelected}
+        isDisabled={isSelectedImagesModelEmpty}
         buttonIcon={<ClearIcon />}
         onClick={handleClearAll}
       />
       <StyledComponentGap>
-        <FilteringAddToFolderMenu isDisabled={isAnImageSelected} />
+        <FilteringAddToFolderMenu isDisabled={isSelectedImagesModelEmpty} />
         <StyledButton
           tooltipTitle={FilteringScreenTexts.AddImageTooltip}
           buttonText={FilteringScreenTexts.AddImageText}
@@ -70,7 +73,7 @@ const FilteringScreenHeader = () => {
             tooltipPlacement: "top",
           }}
           buttonIcon={<DownloadIcon />}
-          isDisabled={isAnImageSelected}
+          isDisabled={isSelectedImagesModelEmpty}
           onClick={handleDownloadOfSelectedImages}
         />
       </StyledComponentGap>
@@ -80,7 +83,7 @@ const FilteringScreenHeader = () => {
 
 export default FilteringScreenHeader;
 
-const StyledHeaderHolder = styled.div<{}>((_) => ({
+const StyledHeaderHolder = styled.div({
   display: "flex",
   justifyContent: "space-between",
-}));
+});

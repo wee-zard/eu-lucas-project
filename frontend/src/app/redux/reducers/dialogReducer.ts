@@ -1,31 +1,13 @@
-import { DialogToOpens } from "../../model/enum";
-import { DialogConsts } from "../consts/dialogConsts";
-import { DialogActionTypes } from "@redux/consts/dialogActionTypes";
+import DialogReducerStateType from "@redux/types/dialogReducerStateType";
+import { DialogConsts } from "@redux/consts/dialogConsts";
+import DialogActionTypes from "@redux/types/dialogActionTypes";
 
-interface DialogType {
-  dialogToOpen?: DialogToOpens;
-  isAddFolderDialogOpen: boolean;
-  isImageToFolderAdditionDialogOpen: boolean;
-}
-
-const initialState: DialogType = {
-  dialogToOpen: undefined,
-  isAddFolderDialogOpen: false,
+const initialState: DialogReducerStateType = {
   isImageToFolderAdditionDialogOpen: false,
 };
 
-const dialogReducer = (state = initialState, action: DialogActionTypes): DialogType => {
+const dialogReducer = (state = initialState, action: DialogActionTypes): DialogReducerStateType => {
   switch (action.type) {
-    case DialogConsts.SET_DIALOG_TO_OPEN:
-      return {
-        ...state,
-        dialogToOpen: action.payload,
-      };
-    case DialogConsts.SET_FOLDER_CREATION_DIALOG_OPEN:
-      return {
-        ...state,
-        isAddFolderDialogOpen: action.payload,
-      };
     case DialogConsts.IMAGE_TO_FOLDER_ADDITION_DIALOG_OPEN:
       return {
         ...state,

@@ -5,15 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { FormEnums } from "@model/enum";
 import { setSettingBackdropOpen } from "@redux/actions/settingActions";
-import { selectListOfSelectedImages } from "@redux/selectors/imageSelector";
+import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
 import { SnackEnum } from "@model/enum/SnackEnum";
-import {
-  FolderCreationQueriedImage,
-  FolderCreationRequest,
-} from "@model/forms/FolderCreationFormGroup";
-import { createNewFolderCommand } from "@api/command/folderCommands";
+import { FolderImageAdditionRequest } from "@model/forms/FolderCreationFormGroup";
+import { imageToFolderCommand } from "@api/command/folderCommands";
 import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
 import { useFormGroupHelper } from "@hooks/useFormGroup";
 import {
@@ -21,14 +18,18 @@ import {
   ImageToFolderAdditionFormGroupModel,
 } from "@model/forms/ImageToFolderAdditionFormGroup";
 import ImageToFolderAdditionContent from "./ImageToFolderAdditionContent";
+import { setSelectedImagesModel } from "@redux/actions/imageActions";
+import { defaultSelectedImagesModel } from "@screens/filteringScreen/helper/FilteringHelper";
 
 const ImageToFolderAdditionDialog = () => {
   const cacheKey = FormEnums.ImageToFolderAdditionForm;
   const eventListenerIdKey = EventListenerIdEnum.IMAGES_TO_FOLDER_ADDITION_DIALOG;
   const helper = useFormGroupHelper<ImageToFolderAdditionFormGroup>(cacheKey, eventListenerIdKey);
   const isOpen = useSelector(selectIsImageToFolderAdditionDialogOpen);
-  const listOfSelectedImages = useSelector(selectListOfSelectedImages);
+  const selectedImagesModel = useSelector(selectSelectedImagesModel);
   const dispatch = useDispatch();
+
+  console.log("[ImageToFolderAdditionDialog]: is rendered");
 
   const handleDialogClose = () => {
     dispatch(setImageToFolderAdditionDialogOpen(false));
@@ -37,12 +38,12 @@ const ImageToFolderAdditionDialog = () => {
   useEffect(() => {
     helper.remove();
 
-    if (isOpen && listOfSelectedImages.length === 0) {
+    if (isOpen && selectedImagesModel.queryImages.length === 0) {
       openSnackbar(SnackEnum.NO_IMAGE_TO_ADD_TO_FOLDER);
       handleDialogClose();
       return;
     }
-  }, [helper, isOpen, listOfSelectedImages]);
+  }, [helper, isOpen, selectedImagesModel]);
 
   const handleOnSubmit = async () => {
     dispatch(setSettingBackdropOpen(true));
@@ -54,21 +55,19 @@ const ImageToFolderAdditionDialog = () => {
 
     const groupModel = helper.convert<ImageToFolderAdditionFormGroupModel>();
 
-    const queriedImages: FolderCreationQueriedImage[] = listOfSelectedImages.map((model) => ({
-      imageIds: model.images.map((imageDtoProperties) => imageDtoProperties.image.id),
-      query: model.query ?? null,
-    }));
-
-    const request: FolderCreationRequest = {
-      title: "",
-      description: "",
+    const request: FolderImageAdditionRequest = {
       folderId: Number(groupModel.folder_id),
-      queriedImages: queriedImages,
+      queriedImages: selectedImagesModel.queryImages.map((model) => ({
+        imageId: model.image.id,
+        boundingBoxIds: [],
+      })),
     };
 
     try {
-      await createNewFolderCommand(request);
+      await imageToFolderCommand(request);
       openSnackbar(SnackEnum.IMAGES_TO_FOLDER, { name: groupModel.folder_name });
+      // Clear out the selected images model as it is saved inside the folder.
+      dispatch(setSelectedImagesModel(defaultSelectedImagesModel));
       handleDialogClose();
     } catch (error) {
       console.log(error);
