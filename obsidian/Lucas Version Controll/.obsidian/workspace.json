@@ -185,8 +185,9 @@
   },
   "active": "7213bd70899264c2",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/211 - Object.equals(A, B) használata a sima equals() helyett, mert NullPointerException dobódhat.md",
+    "Kanban Board/Nodes/212 - Using better encryption, so we do not need to decrypt the email of users.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/211 - Object.equals(A, B) használata a sima equals() helyett, mert NullPointerException dobódhat.md",
     "Kanban Board/Nodes/211 - Amennyiben hibás egy fájl, akkor egy Alert message kerüljön megjelenítésre.md",
     "Kanban Board/Nodes/108 - Filtering - Jobb szöveg kiíratása, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép.md",
     "Kanban Board/Nodes/162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra.md",
@@ -210,7 +211,6 @@
     "Kanban Board/Nodes/205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval.md",
     "Kanban Board/Nodes/180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban.md",
     "Kanban Board/Nodes/199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba.md",
-    "Kanban Board/Nodes/203 - Lehessen a mappákban lévő képek száma alapján is rendezni a DataGrid táblázatot.md",
     "Pasted image 20250724184703.png",
     "Pasted image 20250712085053.png",
     "Kanban Board/Images/Pasted image 20250224232633.png",

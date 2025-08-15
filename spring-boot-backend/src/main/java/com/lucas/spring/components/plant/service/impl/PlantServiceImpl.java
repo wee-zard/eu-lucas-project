@@ -6,6 +6,7 @@ import com.lucas.spring.components.plant.repository.PlantRepository;
 import com.lucas.spring.components.plant.service.PlantService;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -70,7 +71,7 @@ public class PlantServiceImpl implements PlantService {
     // Is image already added to the plant?
     final boolean isImageNotAddedToPlant = plantEntity.getListOfImages()
             .stream()
-            .filter(image -> image.getId().equals(imageEntity.getId()))
+            .filter(image -> Objects.equals(image.getId(), imageEntity.getId()))
             .findFirst()
             .isEmpty();
 

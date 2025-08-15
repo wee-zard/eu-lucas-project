@@ -18,6 +18,7 @@ import jakarta.transaction.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -60,7 +61,7 @@ public class FolderFacadeImpl implements FolderFacade {
    */
   @Override
   public boolean isFolderEditable(final FolderEntity folder, final AuthenticatedUser user) {
-    if (folder.getOwner().getId().equals(user.getUserId())) {
+    if (Objects.equals(folder.getOwner().getId(), user.getUserId())) {
       // In this case, the user own the folder.
       return true;
     }

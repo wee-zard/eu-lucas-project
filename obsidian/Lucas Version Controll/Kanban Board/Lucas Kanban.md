@@ -29,7 +29,7 @@ kanban-plugin: board
 
 ## 🔴Code Improvement ToDo
 
-- [ ] [[211 - Object.equals(A, B) használata a sima equals() helyett, mert NullPointerException dobódhat]] #🔴ToDo
+- [ ] [[212 - Using better encryption, so we do not need to decrypt the email of users]] #🔴ToDo
 - [ ] [[145 - .Env fájl változói egy Utils fájlba kerüljenek eltárolásra]]
 - [ ] [[144 - Sensitive data must be stored in the .env file outside of the project]]
 - [ ] [[136 - Backend Runtime Warning üzenetek javítása]]
@@ -58,6 +58,7 @@ kanban-plugin: board
 - [x] [[151 - Backend - PageableProperties helyettesítése a beépített Pageable típussal]] #🟢Done
 - [x] [[032 - Minden endpoint kerüljön authentikációhoz kötve]] #🟢Done
 - [x] [[013 - CheckStyle hibák javítása a Backend oldalán]] #🟢Done
+- [x] [[211 - Object.equals(A, B) használata a sima equals() helyett, mert NullPointerException dobódhat]] #🟢Done
 
 
 ## 🔴ToDo

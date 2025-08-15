@@ -6,6 +6,7 @@ import com.lucas.spring.components.country.model.entity.CreationCountryEntity;
 import com.lucas.spring.components.country.repository.CreationCountryRepository;
 import com.lucas.spring.components.country.service.CreationCountryService;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
@@ -39,7 +40,7 @@ public class CreationCountryServiceImpl implements CreationCountryService {
   public CreationCountryEntity getCreationCountry(final String countryCode) {
     Optional<CreationCountryEntity> selectedCountry = getCreationCountries()
             .stream()
-            .filter(country -> country.getCountryCode().equals(countryCode))
+            .filter(country -> Objects.equals(country.getCountryCode(), countryCode))
             .findFirst();
     if (selectedCountry.isPresent()) {
       return selectedCountry.get();
@@ -69,7 +70,7 @@ public class CreationCountryServiceImpl implements CreationCountryService {
   public void isCreationDirectionIncludedInTheDb(String countryCode, String countryName) {
     final Optional<CreationCountryEntity> selectedCreationCountryEntity = getCreationCountries()
           .stream()
-          .filter(entity -> entity.getCountryCode().equals(countryCode))
+          .filter(entity -> Objects.equals(entity.getCountryCode(), countryCode))
           .findAny();
 
     if (selectedCreationCountryEntity.isEmpty()) {

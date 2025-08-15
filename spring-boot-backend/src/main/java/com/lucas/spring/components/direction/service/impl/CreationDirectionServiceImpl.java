@@ -6,6 +6,7 @@ import com.lucas.spring.components.direction.model.entity.CreationDirectionEntit
 import com.lucas.spring.components.direction.repository.CreationDirectionRepository;
 import com.lucas.spring.components.direction.service.CreationDirectionService;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
@@ -38,7 +39,7 @@ public class CreationDirectionServiceImpl implements CreationDirectionService {
   public CreationDirectionEntity getCreationDirection(final String directionToFetch) {
     final Optional<CreationDirectionEntity> selectedDirection = getCreationDirections()
         .stream()
-        .filter(direction -> direction.getDirectionName().equals(directionToFetch))
+        .filter(direction -> Objects.equals(direction.getDirectionName(), directionToFetch))
         .findFirst();
 
     if (selectedDirection.isEmpty()) {
@@ -68,7 +69,7 @@ public class CreationDirectionServiceImpl implements CreationDirectionService {
   public void isCreationDirectionIncludedInTheDd(final String creationDirection) {
     final Optional<CreationDirectionEntity> entity = getCreationDirections()
         .stream()
-        .filter(item -> item.getDirectionName().equals(creationDirection))
+        .filter(item -> Objects.equals(item.getDirectionName(), creationDirection))
         .findAny();
 
     if (entity.isEmpty()) {

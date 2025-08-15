@@ -6,6 +6,7 @@ import com.lucas.spring.components.exif.model.entity.ExifKeyEntity;
 import com.lucas.spring.components.exif.repository.ExifKeyRepository;
 import com.lucas.spring.components.exif.service.ExifKeyService;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
@@ -38,7 +39,7 @@ public class ExifKeyServiceImpl implements ExifKeyService {
   public ExifKeyEntity getExifKey(final String exifKey) {
     final Optional<ExifKeyEntity> selectedExifKey = getExifKeys()
             .stream()
-            .filter(exifKeyEntity -> exifKeyEntity.getExifKeyName().equals(exifKey))
+            .filter(exifKeyEntity -> Objects.equals(exifKeyEntity.getExifKeyName(), exifKey))
             .findFirst();
 
     if (selectedExifKey.isEmpty()) {
@@ -64,7 +65,7 @@ public class ExifKeyServiceImpl implements ExifKeyService {
   @Override
   public void isExifKeyIncludedInTheDb(final String exifKey) {
     final Optional<ExifKeyEntity> selectedExifKey = getExifKeys().stream()
-            .filter(dbExifKey -> dbExifKey.getExifKeyName().equals(exifKey))
+            .filter(dbExifKey -> Objects.equals(dbExifKey.getExifKeyName(), exifKey))
             .findAny();
 
     if (selectedExifKey.isEmpty()) {

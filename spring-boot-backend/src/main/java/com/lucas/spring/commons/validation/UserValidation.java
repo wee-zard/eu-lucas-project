@@ -9,6 +9,7 @@ import com.lucas.spring.components.user.model.request.UserCreationRequest;
 import com.lucas.spring.components.user.service.UserService;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -62,6 +63,8 @@ public class UserValidation {
             .toList();
 
     return hashedEmails.stream()
-            .noneMatch(hashed -> encryptionService.decryptAndExtractEmail(hashed).equals(email));
+            .noneMatch(hashed -> Objects.equals(
+                    encryptionService.decryptAndExtractEmail(hashed),
+                    email));
   }
 }

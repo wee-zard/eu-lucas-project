@@ -21,6 +21,7 @@ import jakarta.annotation.PostConstruct;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -62,8 +63,12 @@ public class UserFacadeImpl implements UserFacade {
     return userService.getAllUsersEmail()
             .stream()
             .filter(user ->
-                    encryptionService.decryptAndExtractEmail(user.getEmail()).equals(emailAddress)
-            ).filter(user -> user.getStatusId() == 1 || user.getStatusId() == 3)
+                    Objects.equals(
+                            encryptionService.decryptAndExtractEmail(user.getEmail()),
+                            emailAddress)
+            ).filter(user ->
+                    user.getStatusId() == StatusEnum.PENDING.getStatusId()
+                            || user.getStatusId() == StatusEnum.ACTIVATED.getStatusId())
             .findFirst();
   }
 
@@ -113,7 +118,7 @@ public class UserFacadeImpl implements UserFacade {
       throw new UserException(UserExceptionEnum.USER_ID_IS_NOT_SET);
     }
 
-    if (id.equals(user.getUserId())) {
+    if (Objects.equals(id, user.getUserId())) {
       throw new UserException(UserExceptionEnum.USER_CANNOT_DELETE_ITSELF, String.valueOf(id));
     }
 
@@ -121,11 +126,11 @@ public class UserFacadeImpl implements UserFacade {
     userEntity.setDeletedAt(Instant.now());
     userEntity.setDeletedBy(user.getUserId());
 
-    if (userEntity.getStatus().getId().equals(StatusEnum.ACTIVATED.getStatusId())) {
+    if (Objects.equals(userEntity.getStatus().getId(), StatusEnum.ACTIVATED.getStatusId())) {
       // Soft delete the user.
       userEntity.setStatus(statusService.getStatusById(StatusEnum.DELETED.getStatusId()));
       userService.saveUser(userEntity);
-    } else if (userEntity.getStatus().getId().equals(StatusEnum.PENDING.getStatusId())) {
+    } else if (Objects.equals(userEntity.getStatus().getId(), StatusEnum.PENDING.getStatusId())) {
       // Delete user permanently.
       userService.deleteUser(userEntity);
     }

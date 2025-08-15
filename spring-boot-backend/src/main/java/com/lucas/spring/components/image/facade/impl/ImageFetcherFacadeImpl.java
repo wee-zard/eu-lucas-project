@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -173,7 +174,7 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
     final String hungaryImageFolder = "HU/";
     if (splitValuesDom.contains(hungaryImageFolder)) {
       return splitValuesDom.stream()
-              .filter(domElement -> domElement.equals(hungaryImageFolder))
+              .filter(domElement -> Objects.equals(domElement, hungaryImageFolder))
               .toList();
     } else {
       return splitValuesDom;

@@ -7,6 +7,7 @@ import com.lucas.spring.components.image.exception.ImageFilteringException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
+import java.util.Objects;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -33,7 +34,7 @@ public class CriteriaBuilderOperatorUtil {
   ) {
     switch (operatorOption) {
       case BOOLEAN_EQUAL, BOOLEAN_NOT_EQUAL -> {
-        return cb.equal(path, operatorOption.equals(OperatorOption.BOOLEAN_EQUAL));
+        return cb.equal(path, Objects.equals(operatorOption, OperatorOption.BOOLEAN_EQUAL));
       }
       case EQUALS -> {
         return cb.equal(path, entity);
