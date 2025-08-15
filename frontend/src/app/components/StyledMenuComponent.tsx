@@ -4,6 +4,7 @@ import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import StyledIconButton from "./StyledIconButton";
+import { styled } from "@mui/material";
 
 type Props = {
   options: MenuItemType[];
@@ -67,10 +68,10 @@ const StyledMenuComponent = ({
               onClick={(event) => handleMenuItemClick(event, option)}
               disabled={option.isDisabled}
             >
-              <div className="flex-container">
+              <StyledOptionWrapper className="flex-container" color_value={option.color}>
                 {option.icon}
                 <div>{option.menuTitle}</div>
-              </div>
+              </StyledOptionWrapper>
             </MenuItem>
           ) : null,
         )}
@@ -80,3 +81,7 @@ const StyledMenuComponent = ({
 };
 
 export default StyledMenuComponent;
+
+const StyledOptionWrapper = styled("div")<{ color_value?: string }>((props) => ({
+  color: props.color_value,
+}));
