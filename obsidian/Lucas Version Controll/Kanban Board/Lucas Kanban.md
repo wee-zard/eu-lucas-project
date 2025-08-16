@@ -172,9 +172,8 @@ kanban-plugin: board
 
 ## 🔴Bounding Box Page Backlog
 
+- [ ] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #🟣Testing    #BoundingBox-Page
 - [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]] #🟡InProgress  #BoundingBox-Page
-- [ ] [[173 - Logok sorbarendezése a létrehozásuk ideje alapján, és a legfrissebb legyen a legelső]] #🔴ToDo  #BoundingBox-Page
-- [ ] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #🔴ToDo  #BoundingBox-Page
 - [ ] [[182 - Eljárás logok szűrésének a megvalósítása]] #🔴ToDo  #BoundingBox-Page
 - [ ] [[183 - Három log kiválasztása esetén, egy szín kétszer szerepel a befoglaló téglalapoknál]] #mission #BoundingBox-Page
 - [ ] [[184 - Lehessen dinamikusan módosítani a befoglaló téglalapokhoz tartozó keretek színét]] #BoundingBox-Page
@@ -184,6 +183,7 @@ kanban-plugin: board
 - [ ] [[191 - A Logok kiválasztása után, a befoglaló téglalapok maradjanak a képen a dialogós ablak bezárása után]] #mission #BoundingBox-Page
 - [ ] [[192 - A befoglaló téglalapok mellett több minden jelenjen meg a képeken]] #mission #BoundingBox-Page
 - [ ] [[004 - @deprecated Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]] #deprecated #BoundingBox-Page
+- [x] [[173 - Logok sorbarendezése a létrehozásuk ideje alapján, és a legfrissebb legyen a legelső]] #🟢Done   #BoundingBox-Page
 
 
 ## 🔴Folder Page Backlog

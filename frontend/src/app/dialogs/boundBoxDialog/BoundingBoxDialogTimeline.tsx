@@ -32,14 +32,14 @@ import { handleClickOnGlobalRippleEffect } from "app/scripts/rippleEffectOnClick
 import { IdUtils } from "@helper/idUtils";
 import { selectSelectedImage } from "@redux/selectors/imageSelector";
 import { SnackEnum } from "@model/enum/SnackEnum";
+import { defaultBoundingBoxPageableProperties } from "./helper/BoundingBoxDialogHelper";
 
 export const BoundingBoxDialogTimeline = () => {
   const { listOfProcedureLogs, selectedListOfProcedureLogs, isLogButtonDisabled } =
     useSelector(selectProcedureLogStorage);
-  const [pageableProperties, setPageableProperties] = useState<PageableProperties>({
-    pageNo: 0,
-    pageSize: PROCEDURE_LOG_PAGE_SIZE,
-  });
+  const [pageableProperties, setPageableProperties] = useState<PageableProperties>(
+    defaultBoundingBoxPageableProperties,
+  );
   const selectedImage = useSelector(selectSelectedImage);
   const IS_LOG_BUTTON_HIDDEN =
     listOfProcedureLogs.length >= (pageableProperties.pageNo + 1) * pageableProperties.pageSize;
@@ -110,7 +110,12 @@ export const BoundingBoxDialogTimeline = () => {
           handleClickOnGlobalRippleEffect(event, IdUtils.getTimelineContentById(log.id));
         }}
       >
-        <div>{i18n.t("screens.bounding-box.timeline-menu.log-title", { logId: log.id })}</div>
+        <div>
+          {i18n.t("screens.bounding-box.timelineMenu.logTitle", {
+            filename: log.filename,
+            logId: log.id,
+          })}
+        </div>
         <br />
         <StyledComponentGap display="grid" gap="8px">
           {ListOfProcedureLogProperties.map((property) => (
@@ -203,7 +208,7 @@ export const BoundingBoxDialogTimeline = () => {
             {IS_LOG_BUTTON_HIDDEN ? (
               <StyledCenterComponent>
                 <StyledButton
-                  buttonText={i18n.t("screens.bounding-box.timeline-menu.load-more-log-button")}
+                  buttonText={i18n.t("screens.bounding-box.timelineMenu.loadMoreLogButton")}
                   buttonColor="primary"
                   buttonVariant="outlined"
                   onClick={handleClickOnMoreLogFetch}
@@ -214,7 +219,7 @@ export const BoundingBoxDialogTimeline = () => {
           </StyledComponentGap>
         ) : (
           <StyledCenterComponent>
-            {i18n.t("screens.bounding-box.timeline-menu.no-procedure-log-fetched")}
+            {i18n.t("screens.bounding-box.timelineMenu.noProcedureLogFetched")}
           </StyledCenterComponent>
         )}
       </StyledTimeline>

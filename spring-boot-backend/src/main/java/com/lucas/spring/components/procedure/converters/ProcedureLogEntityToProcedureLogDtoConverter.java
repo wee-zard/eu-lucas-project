@@ -48,6 +48,7 @@ public class ProcedureLogEntityToProcedureLogDtoConverter
             .procedure(source.getProcedure().getName())
             .params(params)
             .boundingBoxes(boxes)
+            .filename(source.getFilename())
             .build();
   }
 }

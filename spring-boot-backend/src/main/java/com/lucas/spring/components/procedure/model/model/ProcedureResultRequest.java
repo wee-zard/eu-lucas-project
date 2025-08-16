@@ -22,6 +22,11 @@ public class ProcedureResultRequest {
   private String timestamp;
 
   /**
+   * The initial name of the xml file that was uploaded.
+   */
+  private String filename;
+
+  /**
    * The name of the unique procedure that have been used on the image.
    */
   private String method;

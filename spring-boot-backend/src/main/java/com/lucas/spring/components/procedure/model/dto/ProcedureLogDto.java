@@ -22,5 +22,6 @@ public class ProcedureLogDto implements RootDto {
   private List<String> params;
   private List<BoundingBoxDto> boundingBoxes;
   private String procedure;
+  private String filename;
   private String user;
 }

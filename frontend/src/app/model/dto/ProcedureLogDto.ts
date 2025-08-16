@@ -7,6 +7,7 @@ export default class ProcedureLogDto {
     public params: string[],
     public boundingBoxes: BoundingBoxDto[],
     public procedure: string,
+    public filename: string,
     public user: string,
   ) {}
 }

@@ -258,10 +258,10 @@
         "user": "Létrehozó:",
         "creation-date": "Létrehozás ideje:"
       },
-      "timeline-menu": {
-        "no-procedure-log-fetched": "Eljárás logok nem találhatóak az adott képhez!",
-        "load-more-log-button": "További logok betöltése",
-        "log-title": "LOG #{{logId}}"
+      "timelineMenu": {
+        "noProcedureLogFetched": "Eljárás logok nem találhatóak az adott képhez!",
+        "loadMoreLogButton": "További logok betöltése",
+        "logTitle": "{{filename}} #{{logId}}"
       },
       "notifications": {
         "log-not-found": "Eljárás log nem található!",

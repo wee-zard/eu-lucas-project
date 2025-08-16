@@ -65,7 +65,7 @@ const UploadProcedureActions = () => {
     );
 
     filesWithErrorImages.forEach((request) => {
-      const filename = request.xmlFileName;
+      const filename = request.filename;
       processedErrorFiles = [...handleProcedureLogErrors(error, filename, processedErrorFiles)];
     });
 
@@ -181,7 +181,7 @@ const UploadProcedureActions = () => {
 
           for (const request of res) {
             const processedFile: ProcedureProcessModel = {
-              filename: request.xmlFileName,
+              filename: request.filename,
               message: ProcedureFileMessages.FileIsSuccessfullyUploaded,
             };
             processedErrorFiles = [...processedErrorFiles, processedFile];
@@ -189,7 +189,7 @@ const UploadProcedureActions = () => {
         } catch (error) {
           for (const request of res) {
             const processedFile: ProcedureProcessModel = {
-              filename: request.xmlFileName,
+              filename: request.filename,
               message: ProcedureFileMessages.ErrorUploadingToServer,
             };
             processedErrorFiles = [...processedErrorFiles, processedFile];

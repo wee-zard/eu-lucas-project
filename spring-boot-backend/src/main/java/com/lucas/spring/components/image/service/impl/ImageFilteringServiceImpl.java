@@ -1,6 +1,7 @@
 package com.lucas.spring.components.image.service.impl;
 
 import com.lucas.spring.commons.helper.ConversionHelper;
+import com.lucas.spring.commons.utils.CriteriaBuilderHelper;
 import com.lucas.spring.commons.utils.CriteriaBuilderOperatorUtil;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.coordinate.x.model.entity.CoordinateXthEntity;
@@ -24,7 +25,6 @@ import com.lucas.spring.components.procedure.model.entity.ProcedureLogEntity;
 import com.lucas.spring.components.procedure.model.entity.ProcedureLogParamEntity;
 import com.lucas.spring.components.year.model.entity.CreationYearEntity;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
@@ -33,10 +33,8 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.hibernate.query.sqm.internal.QuerySqmImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -66,22 +64,16 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
 
     // Setting up the objects for the query builder.
     final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    final CriteriaQuery<ImageEntity> criteriaQuery = cb.createQuery(ImageEntity.class);
-    final Root<ImageEntity> root = criteriaQuery.from(ImageEntity.class);
+    final CriteriaQuery<ImageEntity> cq = cb.createQuery(ImageEntity.class);
+    final Root<ImageEntity> root = cq.from(ImageEntity.class);
 
     // Get the merged predicates.
     final Predicate predicate = getSubBranchOfComponent(cb, root, request.getQueryBuilder());
 
     // Add the merged predicates to the query.
-    criteriaQuery.select(root).where(predicate);
-    final TypedQuery<ImageEntity> query = entityManager.createQuery(criteriaQuery);
-    final int maxResult = Math.toIntExact(((QuerySqmImpl<ImageEntity>) query).getResultCount());
+    cq.select(root).where(predicate);
 
-    // Wrap these values into a Pageable Request.
-    query.setFirstResult((int) pageable.getOffset());
-    query.setMaxResults(pageable.getPageSize());
-
-    return PageableExecutionUtils.getPage(query.getResultList(), pageable, () -> maxResult);
+    return CriteriaBuilderHelper.getPagedResult(cq, cb, root, pageable, entityManager);
   }
 
   private Predicate getSubBranchOfComponent(

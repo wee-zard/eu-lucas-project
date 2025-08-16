@@ -16,6 +16,7 @@ import com.lucas.spring.components.procedure.service.ProcedureLogService;
 import com.lucas.spring.components.procedure.service.ProcedureService;
 import com.lucas.spring.components.user.model.entity.UserEntity;
 import com.lucas.spring.components.user.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,7 @@ public class ProcedureFacadeImpl implements ProcedureFacade {
    * {@inheritDoc}
    */
   @Override
+  @Transactional
   public void uploadLog(final ProcedureResultRequest request, final Long userId) {
     // In one request file, multiple image results could be present at once.
     request.getImages().forEach(image -> {
@@ -63,6 +65,7 @@ public class ProcedureFacadeImpl implements ProcedureFacade {
                       .image(imageEntity)
                       .user(userEntity)
                       .author(request.getAuthor())
+                      .filename(request.getFilename())
                       .build());
 
       // Save the procedure log params.

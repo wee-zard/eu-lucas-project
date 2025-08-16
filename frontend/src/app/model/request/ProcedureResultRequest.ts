@@ -2,7 +2,7 @@ import { ProcedureResultAnnotationObjectBndBox } from "@model/ProcedureResultMod
 
 export default class ProcedureResultRequest {
   constructor(
-    public xmlFileName: string,
+    public filename: string,
     public timestamp: string,
     public author: string,
     public method: string,

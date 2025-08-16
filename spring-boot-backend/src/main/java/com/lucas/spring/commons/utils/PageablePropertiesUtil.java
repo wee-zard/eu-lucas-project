@@ -41,6 +41,26 @@ public class PageablePropertiesUtil {
             ? PageablePropertiesUtil.create(page, size)
             : PageRequest.of(page, size, Sort.Direction.fromString(sortField), direction);
   }
+
+  /**
+   * Get the sort direction from the {@link Pageable}.
+   *
+   * @param pageable The pageable to examine.
+   * @return Returns the {@link Sort.Direction}.
+   */
+  public Sort.Direction getSortDirection(Pageable pageable) {
+    return pageable.getSort().get().toList().get(0).getDirection();
+  }
+
+  /**
+   * Get the sort column from the {@link Pageable}.
+   *
+   * @param pageable The pageable to examine.
+   * @return Returns the sort column.
+   */
+  public String getSortColumn(Pageable pageable) {
+    return pageable.getSort().get().toList().get(0).getProperty();
+  }
 }
 
 

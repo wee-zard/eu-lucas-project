@@ -2,8 +2,8 @@ import ProcedureLogDto from "@model/dto/ProcedureLogDto";
 import { ProcedureLogConsts } from "@redux/consts/procedureLogConsts";
 import SelectedProcedureLogModel from "@model/models/SelectedProcedureLogModel";
 import PageableProperties from "@model/PageableProperties";
-import { PROCEDURE_LOG_PAGE_SIZE } from "@global/globalConsts";
 import { UnknownAction } from "@reduxjs/toolkit";
+import { defaultBoundingBoxPageableProperties } from "@dialogs/boundBoxDialog/helper/BoundingBoxDialogHelper";
 
 interface ReducerStateType {
   listOfProcedureLogs: ProcedureLogDto[];
@@ -15,10 +15,7 @@ interface ReducerStateType {
 const initialState: ReducerStateType = {
   listOfProcedureLogs: [],
   selectedListOfProcedureLogs: [],
-  pageableProperties: {
-    pageNo: 0,
-    pageSize: PROCEDURE_LOG_PAGE_SIZE,
-  },
+  pageableProperties: defaultBoundingBoxPageableProperties,
   isLogButtonDisabled: true,
 };
 

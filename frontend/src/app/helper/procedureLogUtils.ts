@@ -117,7 +117,7 @@ abstract class ProcedureLogUtils {
     xmlFilename: string,
   ): ProcedureResultRequest => {
     return {
-      xmlFileName: xmlFilename,
+      filename: xmlFilename,
       timestamp: this.getCreationDateFromLog(annotation),
       author: this.getAuthorFromLog(annotation),
       method: this.getMethodNameByLog(annotation),
