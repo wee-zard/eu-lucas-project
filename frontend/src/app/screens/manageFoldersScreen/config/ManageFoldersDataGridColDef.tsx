@@ -16,7 +16,7 @@ type RenderCellParamType = GridRenderCellParams<GenericRowType<FolderDtoSlice>>;
 const manageFoldersDataGridColDef: GridColDef[] = [
   {
     field: "title",
-    headerName: i18n.t("screens.folders.manage-folders.config.name"),
+    headerName: i18n.t("screens.folders.manageFolders.config.name"),
     sortable: true,
     flex: 1.2,
     renderCell: (param: RenderCellParamType) => (
@@ -25,14 +25,14 @@ const manageFoldersDataGridColDef: GridColDef[] = [
   },
   {
     field: "isEditable",
-    headerName: i18n.t("screens.folders.manage-folders.config.permission"),
+    headerName: i18n.t("screens.folders.manageFolders.config.permission"),
     flex: 0.6,
     sortable: false,
     renderCell: (param: RenderCellParamType) => <FolderPermissionCell row={param.row} />,
   },
   {
     field: "description",
-    headerName: i18n.t("screens.folders.manage-folders.config.description"),
+    headerName: i18n.t("screens.folders.manageFolders.config.description"),
     sortable: true,
     flex: 1.2,
     renderCell: (param: RenderCellParamType) => (
@@ -43,13 +43,13 @@ const manageFoldersDataGridColDef: GridColDef[] = [
   },
   {
     field: "folderContentSize",
-    headerName: i18n.t("screens.folders.manage-folders.config.folder-size"),
+    headerName: i18n.t("screens.folders.manageFolders.config.folder-size"),
     flex: 0.6,
     renderCell: (param: RenderCellParamType) => <>{param.row.folderContentSize ?? EMPTY_CONTENT}</>,
   },
   {
     field: "createdAt",
-    headerName: i18n.t("screens.folders.manage-folders.config.created-at"),
+    headerName: i18n.t("screens.folders.manageFolders.config.created-at"),
     flex: 0.85,
     sortable: true,
     renderCell: (param: RenderCellParamType) => (
@@ -58,7 +58,7 @@ const manageFoldersDataGridColDef: GridColDef[] = [
   },
   {
     field: "updatedAt",
-    headerName: i18n.t("screens.folders.manage-folders.config.last-updated-at"),
+    headerName: i18n.t("screens.folders.manageFolders.config.last-updated-at"),
     flex: 0.85,
     sortable: true,
     renderCell: (param: RenderCellParamType) => (

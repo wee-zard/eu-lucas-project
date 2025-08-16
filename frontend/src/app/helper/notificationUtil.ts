@@ -73,6 +73,8 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.UPLOADED_XML_FILES]: () => throwSuccessToast(),
     [SnackEnum.FOLDER_IS_CREATED]: () => throwSuccessToast(),
     [SnackEnum.IMAGES_TO_FOLDER]: () => throwSuccessToast(),
+    [SnackEnum.FOLDER_IS_DELETED]: () => throwSuccessToast(),
+    [SnackEnum.FOLDER_IS_CLEARED]: () => throwSuccessToast(),
 
     // Error toast messages
     [SnackEnum.LOG_NOT_FOUND]: () => throwErrorToast(),

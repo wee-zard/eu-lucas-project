@@ -29,6 +29,7 @@ kanban-plugin: board
 
 ## 🔴Code Improvement ToDo
 
+- [ ] [[213 - RequestParamType kerül használatra GET és DELETE request-nél, ami nem hatékony]] #🔴ToDo
 - [ ] [[212 - Using better encryption, so we do not need to decrypt the email of users]] #🔴ToDo
 - [ ] [[145 - .Env fájl változói egy Utils fájlba kerüljenek eltárolásra]]
 - [ ] [[144 - Sensitive data must be stored in the .env file outside of the project]]
@@ -194,16 +195,16 @@ kanban-plugin: board
 - [ ] [[207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása]] #Folder-Page
 - [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🔴ToDo   #Folder-Page
 - [ ] [[209 - ManageFolders - Settings 7 - Mappa zárolása]] #Folder-Page
-- [ ] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🔴ToDo #Folder-Page
-- [ ] [[197 - ManageFolders - Settings 9 - Lehessen mappákat törölni]] #🔴ToDo #Folder-Page
+- [ ] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🟣Testing   #Folder-Page
 - [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🔴ToDo  #Folder-Page
-- [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #🔴ToDo #Folder-Page
 - [ ] [[201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett]] #🔴ToDo #Folder-Page
+- [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #Folder-Page
 - [x] X - Pagination frissítése ez alapján: https://ardijorganxhi.medium.com/implement-pagination-at-your-spring-boot-application-a540270b5f60 #🟢Done #Folder-Page
 - [x] [[179 - Mappák létrehozása]]  #Folder-Page #🟢Done
 - [x] [[199 - Képekhez tartozó befoglaló téglalapok is kerüljenek lementésre a mappákba]] #Folder-Page #duplicated #🟢Done
 - [x] [[203 - Lehessen a mappákban lévő képek száma alapján is rendezni a DataGrid táblázatot]] #Folder-Page #🟢Done
 - [x] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #🟢Done  #Folder-Page
+- [x] [[197 - ManageFolders - Settings 9 - Lehessen mappákat törölni]] #🟢Done  #Folder-Page
 
 
 ## 🔴Deployment Backlog
@@ -220,8 +221,9 @@ kanban-plugin: board
 ## 🟡In Progress
 
 - [ ] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]] #mission #🔴ToDo
+- [ ] Uncaught error 500 Internal Server Error on the frontend side. application is crashing #🔴ToDo
+- [ ] Amennyiben exception, nullpointer exception kerül dobásra, akkor a backend nem ugrik bele az ErrorHandling-be #🔴ToDo
 - [ ] X - Képek tömörítése olyan mértékben, hogy azok letárolásra kerülhessenek a VM-re, hogy aztán onnan kiolvashatóak legyenek azon számdékból, hogy a képek betöltése szignifikánsabban gyorsabb legyen
-- [ ] Uncaught error 500 Internal Server Error
 - [x] X - Amennyiben 400-as hibát dob a szerver, akkor előforul, hogy az email cím verifikálása végtelen sokszor kerül kiküldésre a szerverre. Amennyiben megállapítottuk, hogy 400 Bad Request, akkor NE küldjünk ki több request-et. #🟢Done
 - [x] X - Amennyiben Unauthorized erro kerül dobásra a token beolvasása során, akkor nem 401-es státusz kerül visszaküldésre a frontendre, hanem 400 #🟢Done
 

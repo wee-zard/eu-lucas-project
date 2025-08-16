@@ -2,6 +2,8 @@ package com.lucas.spring.components.folder.service.impl;
 
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.utils.PageablePropertiesUtil;
+import com.lucas.spring.components.authorization.enums.AuthorizationExceptionEnum;
+import com.lucas.spring.components.authorization.exception.AuthorizationException;
 import com.lucas.spring.components.folder.enums.FolderExceptionEnum;
 import com.lucas.spring.components.folder.exception.FolderException;
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
@@ -10,6 +12,7 @@ import com.lucas.spring.components.folder.repository.FolderRepository;
 import com.lucas.spring.components.folder.service.FolderService;
 import com.lucas.spring.components.user.model.entity.UserEntity;
 import java.util.List;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,14 +24,14 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class FolderServiceImpl implements FolderService {
-  private final FolderRepository folderRepository;
+  private final FolderRepository repository;
 
   /**
    * {@inheritDoc}
    */
   @Override
   public FolderEntity save(final FolderEntity folderEntity) {
-    return this.folderRepository.save(folderEntity);
+    return this.repository.save(folderEntity);
   }
 
   /**
@@ -58,7 +61,7 @@ public class FolderServiceImpl implements FolderService {
    */
   @Override
   public List<FolderEntity> getFoldersByUserId(final Long userId) {
-    return this.folderRepository.findAllByOwnerId(userId);
+    return this.repository.findAllByOwnerId(userId);
   }
 
   /**
@@ -66,7 +69,7 @@ public class FolderServiceImpl implements FolderService {
    */
   @Override
   public Page<FolderDtoSlice> getFoldersByUserId(final Long userId, final Pageable pageable) {
-    return this.folderRepository.listOwnedAndSharedWithFoldersOfUser(userId, pageable);
+    return this.repository.listOwnedAndSharedWithFoldersOfUser(userId, pageable);
   }
 
   /**
@@ -75,7 +78,7 @@ public class FolderServiceImpl implements FolderService {
   @Override
   public List<FolderDtoSlice> getAllSortedFoldersByUserId(final Long userId) {
     final Pageable pageable = PageablePropertiesUtil.create(0, Integer.MAX_VALUE, "updatedAt", "desc");
-    return this.folderRepository.listOwnedAndSharedWithFoldersOfUser(userId, pageable).stream().toList();
+    return this.repository.listOwnedAndSharedWithFoldersOfUser(userId, pageable).stream().toList();
   }
 
   /**
@@ -83,10 +86,8 @@ public class FolderServiceImpl implements FolderService {
    */
   @Override
   public FolderEntity getFolderById(final Long folderId) {
-    return this.folderRepository.findById(folderId)
-            .orElseThrow(() -> new FolderException(
-                    FolderExceptionEnum.FOLDER_NOT_FOUND,
-                    String.valueOf(folderId)));
+    return this.repository.findById(folderId).orElseThrow(() -> new FolderException(
+            FolderExceptionEnum.FOLDER_NOT_FOUND, folderId));
   }
 
   /**
@@ -94,6 +95,30 @@ public class FolderServiceImpl implements FolderService {
    */
   @Override
   public boolean isFolderExistsByUser(final String title, final AuthenticatedUser user) {
-    return this.folderRepository.existsFolderEntityByTitleAndOwnerId(title, user.getUserId());
+    return this.repository.existsFolderEntityByTitleAndOwnerId(title, user.getUserId());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void delete(final FolderEntity folder, final AuthenticatedUser user) {
+    this.repository.delete(folder);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isUserOwnerOfFolder(final FolderEntity folder, final AuthenticatedUser user) {
+    if (folder == null) {
+      throw new FolderException(FolderExceptionEnum.FOLDER_NOT_FOUND);
+    }
+
+    if (user == null) {
+      throw new AuthorizationException(AuthorizationExceptionEnum.USER_NOT_FOUND);
+    }
+
+    return Objects.equals(folder.getOwner().getId(), user.getUserId());
   }
 }

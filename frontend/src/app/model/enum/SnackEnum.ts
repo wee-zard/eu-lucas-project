@@ -11,4 +11,6 @@ export enum SnackEnum {
   FOLDER_IS_CREATED = "screens.folders.notifications.folder-is-created",
   IMAGES_TO_FOLDER = "screens.folders.notifications.images-added-to-folder",
   NO_IMAGE_TO_ADD_TO_FOLDER = "screens.folders.notifications.no-image-to-add-to-folder",
+  FOLDER_IS_DELETED = "notifications.success.folderIsDeleted",
+  FOLDER_IS_CLEARED = "notifications.success.folderIsCleared",
 }

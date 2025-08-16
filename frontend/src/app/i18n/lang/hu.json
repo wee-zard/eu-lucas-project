@@ -41,10 +41,16 @@
     }
   },
   "components": {
+    "dialog": {
+      "confirmationTitle": "Megerősítés",
+      "confirmationContent": "Biztos vagy benne?"
+    },
     "button": {
       "submit": "Elküldés",
       "save": "Mentés",
-      "cancel": "Mégsem"
+      "cancel": "Mégsem",
+      "yes": "Igen",
+      "no": "Nem"
     },
     "input-title": {
       "type1": "Mappa neve",
@@ -80,6 +86,12 @@
       "plant-name": {
         "deletePlantNameCommand": "Váratlan hiba történt a növények nevének törlése során!"
       }
+    }
+  },
+  "notifications": {
+    "success": {
+      "folderIsDeleted": "A mappa sikeresen törlésre került!",
+      "folderIsCleared": "A mappa sikeresen kiürítésre került!"
     }
   },
   "screens": {
@@ -201,7 +213,7 @@
           "read-write": "Írási- és olvasási"
         }
       },
-      "manage-folders": {
+      "manageFolders": {
         "config": {
           "name": "Név",
           "description": "Leírás",
@@ -213,6 +225,17 @@
           "owner-permission-tooltip": "Ezen mappának te vagy a tulajdonosa, így a mappához mind Írási- és Olvasási jogos is van.",
           "read-only-permission-tooltip": "Ezen mappa {{username}} felhasználó által lett megosztva veled csak Olvasási jogosultsággal.",
           "read-write-permission-tooltip": "Ezen mappa {{username}} felhasználó által lett megosztva veled Írási- és Olvasási jogosultságokkal."
+        },
+        "setting": {
+          "open": "Megnyitás",
+          "update": "Adatok módosítása",
+          "share": "Megosztás- és Jogosultságok kezelése",
+          "import": "Képek importálása",
+          "copy": "Másolat létrehozása",
+          "download": "Mappa letöltése",
+          "lock": "Zárolás",
+          "clear": "Mappa tartalmának kiürítése",
+          "delete": "Törlés"
         }
       },
       "notifications": {

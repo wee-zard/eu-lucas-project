@@ -1,6 +1,6 @@
-package com.lucas.spring.commons.exception;
+package com.lucas.spring.components.authorization.exception;
 
-import com.lucas.spring.commons.enums.AuthorizationExceptionEnum;
+import com.lucas.spring.components.authorization.enums.AuthorizationExceptionEnum;
 import com.lucas.spring.commons.exception.abstraction.BaseException;
 
 /**

@@ -39,4 +39,19 @@ public interface FolderFacade {
    * @return Returns true if the user has rights to edit the folder, else false.
    */
   boolean isFolderEditable(FolderEntity folder, AuthenticatedUser user);
+
+  /**
+   * Clears the content of the provided folder.
+   *
+   * @param folderId The id of the folder.
+   */
+  void clearFolderContent(Long folderId, AuthenticatedUser user);
+
+  /**
+   * Deletes a provided folder by their id.
+   *
+   * @param folderId The id of the folder.
+   * @param user The user who initiated the request.
+   */
+  void delete(Long folderId, AuthenticatedUser user);
 }

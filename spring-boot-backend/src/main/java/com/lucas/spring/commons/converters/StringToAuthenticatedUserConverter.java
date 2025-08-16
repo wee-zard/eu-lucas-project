@@ -1,7 +1,7 @@
 package com.lucas.spring.commons.converters;
 
-import com.lucas.spring.commons.enums.AuthorizationExceptionEnum;
-import com.lucas.spring.commons.exception.AuthorizationException;
+import com.lucas.spring.components.authorization.enums.AuthorizationExceptionEnum;
+import com.lucas.spring.components.authorization.exception.AuthorizationException;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.services.HttpRequestService;
 import com.lucas.spring.commons.utils.JsonUtil;

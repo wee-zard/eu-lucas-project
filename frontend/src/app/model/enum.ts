@@ -93,6 +93,8 @@ export enum BackendFolderControllerEndpoints {
   ImageToFolderAddition = "/api/folder/add",
   GetFolders = "/api/folder/",
   GetFoldersByUserIdSortedByUpdatedAt = "/api/folder/list-all",
+  DeleteFolder = "/api/folder/",
+  ClearFolder = "/api/folder/clear",
 }
 
 export enum GoogleTokenEndpoints {

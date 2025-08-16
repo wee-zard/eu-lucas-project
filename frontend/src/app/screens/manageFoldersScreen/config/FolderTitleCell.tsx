@@ -25,7 +25,7 @@ const FolderTitleCell = ({ row, emptyContent }: Props) => {
    */
   const renderTitleTooltipText = () => {
     const titleName = row.title ?? emptyContent;
-    const sharedFolderMessage = i18n.t("screens.folders.manage-folders.config.shared-folder", {
+    const sharedFolderMessage = i18n.t("screens.folders.manageFolders.config.shared-folder", {
       username: row.ownerName,
     });
 

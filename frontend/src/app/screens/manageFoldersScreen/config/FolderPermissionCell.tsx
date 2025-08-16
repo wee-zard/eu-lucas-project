@@ -25,17 +25,14 @@ const FolderPermissionCell = ({ row }: Props) => {
       ? {
           color: "success",
           label: i18n.t("screens.folders.image-to-folder-addition-dialog.permissions.owner"),
-          tooltip: i18n.t(
-            "screens.folders.manage-folders.config.owner-permission-tooltip",
-            options,
-          ),
+          tooltip: i18n.t("screens.folders.manageFolders.config.owner-permission-tooltip", options),
         }
       : row.isEditable
         ? {
             color: "warning",
             label: i18n.t("screens.folders.image-to-folder-addition-dialog.permissions.read-write"),
             tooltip: i18n.t(
-              "screens.folders.manage-folders.config.read-write-permission-tooltip",
+              "screens.folders.manageFolders.config.read-write-permission-tooltip",
               options,
             ),
           }
@@ -43,7 +40,7 @@ const FolderPermissionCell = ({ row }: Props) => {
             color: "error",
             label: i18n.t("screens.folders.image-to-folder-addition-dialog.permissions.read-only"),
             tooltip: i18n.t(
-              "screens.folders.manage-folders.config.read-only-permission-tooltip",
+              "screens.folders.manageFolders.config.read-only-permission-tooltip",
               options,
             ),
           };

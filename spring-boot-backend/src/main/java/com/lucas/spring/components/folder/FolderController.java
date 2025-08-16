@@ -4,6 +4,7 @@ import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
+import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.folder.facade.FolderFacade;
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
 import com.lucas.spring.components.folder.model.request.FolderCreationRequest;
@@ -15,11 +16,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -100,5 +103,43 @@ public class FolderController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
   ) {
     return folderService.getAllSortedFoldersByUserId(user.getUserId());
+  }
+
+  /**
+   * Completely deletes a specific folder and it's content provided by the param.
+   * After the deletion, the folder and it's content will be no longer be available
+   * for the users.
+   *
+   * @param user The authenticated user who initiated the request.
+   * @return Returns a {@link BaseResponse} about the success of the request.
+   */
+  @CrossOrigin
+  @DeleteMapping("/")
+  public BaseResponse deleteFolder(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestParam String folderId
+  ) {
+    final Long parsedFolderId = FormatParseUtil.parseToLong(folderId);
+    this.folderFacade.delete(parsedFolderId, user);
+    return new BaseResponse();
+  }
+
+  /**
+   * Completely deletes a specific folder and it's content provided by the param.
+   * After the deletion, the folder and it's content will be no longer be available
+   * for the users.
+   *
+   * @param user The authenticated user who initiated the request.
+   * @return Returns a {@link BaseResponse} about the success of the request.
+   */
+  @CrossOrigin
+  @DeleteMapping("/clear")
+  public BaseResponse clearFolderContent(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestParam String folderId
+  ) {
+    final Long parsedFolderId = FormatParseUtil.parseToLong(folderId);
+    this.folderFacade.clearFolderContent(parsedFolderId, user);
+    return new BaseResponse();
   }
 }

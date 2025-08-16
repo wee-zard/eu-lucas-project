@@ -30,7 +30,7 @@ public class FolderContentServiceImpl implements FolderContentService {
     }
 
     final List<FolderContentCreationModel> folderContent =
-            this.repository.findFolderContentByFolderId(models.get(0).getFolderId());
+            this.repository.findFolderContentCreationModelByFolderId(models.get(0).getFolderId());
 
     final List<FolderContentEntity> filteredModels = models.stream()
             .filter(model -> !this.isExists(model, folderContent))
@@ -44,6 +44,23 @@ public class FolderContentServiceImpl implements FolderContentService {
             .toList();
 
     this.repository.saveAll(filteredModels);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<FolderContentEntity> findAllByFolderId(final Long folderId) {
+    return this.repository.findFolderContentEntityByFolderId(folderId);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void clearFolder(final Long folderId) {
+    final List<FolderContentEntity> contents = this.findAllByFolderId(folderId);
+    this.repository.deleteAll(contents);
   }
 
   private boolean isExists(

@@ -2,6 +2,8 @@ package com.lucas.spring.components.folder.facade.impl;
 
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.utils.FormatParseUtil;
+import com.lucas.spring.components.authorization.enums.AuthorizationExceptionEnum;
+import com.lucas.spring.components.authorization.exception.AuthorizationException;
 import com.lucas.spring.components.folder.enums.FolderExceptionEnum;
 import com.lucas.spring.components.folder.exception.FolderException;
 import com.lucas.spring.components.folder.facade.FolderFacade;
@@ -61,8 +63,7 @@ public class FolderFacadeImpl implements FolderFacade {
    */
   @Override
   public boolean isFolderEditable(final FolderEntity folder, final AuthenticatedUser user) {
-    if (Objects.equals(folder.getOwner().getId(), user.getUserId())) {
-      // In this case, the user own the folder.
+    if (this.folderService.isUserOwnerOfFolder(folder, user)) {
       return true;
     }
 
@@ -70,6 +71,24 @@ public class FolderFacadeImpl implements FolderFacade {
             shareFolderService.getSharedFolderByIdByUser(folder.getId(), user.getUserId());
 
     return sharedFolder.isPresent() && sharedFolder.get().getIsEditable();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void clearFolderContent(final Long folderId, AuthenticatedUser user) {
+    this.isFolderOwnedByUserElseException(folderId, user);
+    this.folderContentService.clearFolder(folderId);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void delete(final Long folderId, final AuthenticatedUser user) {
+    final FolderEntity folder = this.isFolderOwnedByUserElseException(folderId, user);
+    this.folderService.delete(folder, user);
   }
 
   /**
@@ -121,5 +140,26 @@ public class FolderFacadeImpl implements FolderFacade {
             .folderId(folderId)
             .boundingBoxId(boundingBoxId)
             .build();
+  }
+
+  /**
+   * Checks whether the provided user has an owner rights on the given folder.
+   *
+   * @param folderId The id of the folder to check.
+   * @param user The user who initiated the request.
+   * @return Returns a {@link FolderEntity} if the user has access to the folder,
+   *     else throws a {@link AuthorizationException} exception.
+   */
+  private FolderEntity isFolderOwnedByUserElseException(
+          final Long folderId,
+          final AuthenticatedUser user
+  ) {
+    final FolderEntity folder = this.folderService.getFolderById(folderId);
+
+    if (!this.folderService.isUserOwnerOfFolder(folder, user)) {
+      throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
+    }
+
+    return folder;
   }
 }

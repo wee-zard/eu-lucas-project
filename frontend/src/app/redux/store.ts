@@ -19,6 +19,7 @@ import userReducer from "@redux/reducers/userReducer";
 import filteringReducer from "@redux/reducers/filteringReducer";
 import boundingBoxReducer from "@redux/reducers/boundingBoxReducer";
 import folderCreationReducer from "./reducers/folderCreationReducer";
+import folderReducer from "./reducers/folderReducer";
 
 const rootReducer = combineReducers({
   // Reducer Action type and Action setter type processed:
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   filteringStore: filteringReducer,
   boundingBoxStore: boundingBoxReducer,
   folderCreationStore: folderCreationReducer,
+  folderStore: folderReducer,
 
   // Processed:
   procedureUploadStorage: procedureUploadReducer,

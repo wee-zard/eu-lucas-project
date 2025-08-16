@@ -35,5 +35,13 @@ public interface FolderContentRepository extends JpaRepository<FolderContentEnti
           ) from FolderContent fc
           where fc.folder.id = :folderId
           """)
-  List<FolderContentCreationModel> findFolderContentByFolderId(Long folderId);
+  List<FolderContentCreationModel> findFolderContentCreationModelByFolderId(Long folderId);
+
+  /**
+   * Finds all the content inside the provided folder.
+   *
+   * @param folderId The id of the folder.
+   * @return Returns the list of folder content.
+   */
+  List<FolderContentEntity> findFolderContentEntityByFolderId(Long folderId);
 }

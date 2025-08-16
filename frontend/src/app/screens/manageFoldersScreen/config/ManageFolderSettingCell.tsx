@@ -12,8 +12,9 @@ import LockIcon from "@mui/icons-material/Lock";
 import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
-import ZipHelper from "@screens/manageFoldersScreen/helper/zipHelper";
+import i18n from "@i18n/i18nHandler";
+import { FolderSettingCellEnum } from "@model/enum/FolderSettingCellEnum";
+import { setFolderSettingCellOption } from "@redux/actions/folderActions";
 
 type Props = {
   row: FolderDtoSlice;
@@ -28,91 +29,103 @@ const ManageFolderSettingCell = ({ row }: Props) => {
   const menuItemOptions: MenuItemType[] = [
     {
       icon: <OpenInBrowserIcon />,
-      menuTitle: "Megnyitása",
+      menuTitle: i18n.t(FolderSettingCellEnum.OPEN),
       isDisplayed: true,
       onClick: (): void => {
-        // TODO: ...
+        dispatch(
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.OPEN, folderId: row.id }),
+        );
       },
     },
     {
       icon: <EditOutlinedIcon />,
-      menuTitle: "Adatok módosítás",
+      menuTitle: i18n.t(FolderSettingCellEnum.UPDATE),
       isDisplayed: IS_FOLDER_OWNER,
       onClick: (): void => {
-        // TODO: ...
+        dispatch(
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.UPDATE, folderId: row.id }),
+        );
       },
     },
     {
       icon: <ShareIcon />,
-      menuTitle: "Megosztás- és Jogosultságok kezelés",
+      menuTitle: i18n.t(FolderSettingCellEnum.SHARE),
       isDisplayed: IS_FOLDER_OWNER,
       onClick: (): void => {
-        // TODO: ...
+        dispatch(
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.SHARE, folderId: row.id }),
+        );
       },
     },
     {
       icon: <ImportExportIcon />,
-      menuTitle: "Képek importálása",
+      menuTitle: i18n.t(FolderSettingCellEnum.IMPORT),
       isDisplayed: IS_FOLDER_NOT_READ_ONLY,
       onClick: (): void => {
-        // TODO: ...
+        dispatch(
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.IMPORT, folderId: row.id }),
+        );
       },
     },
     {
       icon: <FolderCopyIcon />,
-      menuTitle: "Másolat létrehozása",
+      menuTitle: i18n.t(FolderSettingCellEnum.COPY),
       isDisplayed: IS_FOLDER_NOT_READ_ONLY,
       onClick: (): void => {
-        // TODO: ...
+        dispatch(
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.COPY, folderId: row.id }),
+        );
       },
     },
     {
       icon: <DownloadIcon />,
-      menuTitle: "Mappa letöltése",
+      menuTitle: i18n.t(FolderSettingCellEnum.DOWNLOAD),
       isDisplayed: IS_FOLDER_NOT_READ_ONLY,
       isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
-        dispatch(setSettingBackdropOpen(true));
-        const zipHelper = new ZipHelper({ queryImages: [] }); // TODO: Pass the folder's images here.
-        zipHelper.downloadZip().finally(() => dispatch(setSettingBackdropOpen(false)));
+        dispatch(
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.DOWNLOAD, folderId: row.id }),
+        );
       },
     },
     {
       icon: <LockIcon />,
       color: "orange",
-      menuTitle: "Zárolás",
+      menuTitle: i18n.t(FolderSettingCellEnum.LOCK),
       isDisplayed: IS_FOLDER_OWNER,
       isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
-        // TODO: ...
+        dispatch(
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.LOCK, folderId: row.id }),
+        );
       },
     },
     {
       icon: <ClearIcon />,
       color: "red",
-      menuTitle: "Mappa tartalmának kiürítése",
+      menuTitle: i18n.t(FolderSettingCellEnum.CLEAR),
       isDisplayed: IS_FOLDER_OWNER,
       isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
-        // TODO: ...
+        dispatch(
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.CLEAR, folderId: row.id }),
+        );
       },
     },
     {
       icon: <DeleteForeverOutlinedIcon />,
       color: "red",
-      menuTitle: "Törlése",
+      menuTitle: i18n.t(FolderSettingCellEnum.DELETE),
       isDisplayed: IS_FOLDER_OWNER,
       onClick: (): void => {
-        // TODO: ...
+        dispatch(
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.DELETE, folderId: row.id }),
+        );
       },
     },
   ];
 
-  return (
-    <>
-      <StyledMenuComponent options={menuItemOptions} buttonIcon={<MoreVertIcon />} />
-    </>
-  );
+  return <StyledMenuComponent options={menuItemOptions} buttonIcon={<MoreVertIcon />} />;
 };
 
 export default ManageFolderSettingCell;

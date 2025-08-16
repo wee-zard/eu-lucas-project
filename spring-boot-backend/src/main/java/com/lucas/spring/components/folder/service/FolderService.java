@@ -71,4 +71,21 @@ public interface FolderService {
    * @return Returns true if the folder under the user does not exist, else false.
    */
   boolean isFolderExistsByUser(String title, AuthenticatedUser user);
+
+  /**
+   * Deletes a provided folder by their id.
+   *
+   * @param folder The folder entity to delete.
+   * @param user The user who initiated the request.
+   */
+  void delete(FolderEntity folder, AuthenticatedUser user);
+
+  /**
+   * Checks whether the user is the owner of the given folder.
+   *
+   * @param folder The folder to check.
+   * @param user The user to check.
+   * @return Returns true if the folder is the provided user's own.
+   */
+  boolean isUserOwnerOfFolder(FolderEntity folder, AuthenticatedUser user);
 }
