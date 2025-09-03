@@ -14,8 +14,8 @@ import ProcedureResultRequest, {
   ProcedureResultRequestObject,
   ProcedureResultRequestPlant,
 } from "@model/request/ProcedureResultRequest";
-import FileUtils from "./fileUtils";
-import ImageUtils from "./imageUtils";
+import FileUtils from "@helper/fileUtils";
+import ImageUtils from "@helper/imageUtils";
 import ProcedureProcessModel from "@model/ProcedureProcessModel";
 import ImageCommands from "@api/command/imageCommand";
 import { BaseErrorResponse } from "@model/response/BaseErrorResponse";

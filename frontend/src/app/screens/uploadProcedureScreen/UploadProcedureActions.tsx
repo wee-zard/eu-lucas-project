@@ -6,7 +6,7 @@ import { ProcedureFileMessages } from "@model/enum";
 import { ReactComponent as UploadIcon } from "@media/upload-to-cloud.svg";
 import i18n from "@i18n/i18nHandler";
 import ProcedureLogError from "@model/error/ProcedureLogError";
-import ProcedureLogUtils from "@helper/procedureLogUtils";
+import ProcedureLogUtils from "@screens/uploadProcedureScreen/helper/procedureLogUtils";
 import { useDispatch } from "react-redux";
 import { setProcedureUploadProcessModels } from "@redux/actions/procedureUploadActions";
 import { openSnackbar, throwNotification, ToastSeverity } from "@helper/notificationUtil";
