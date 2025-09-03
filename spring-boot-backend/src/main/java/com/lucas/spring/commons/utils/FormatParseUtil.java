@@ -39,6 +39,16 @@ public class FormatParseUtil {
     }
   }
 
+  public Integer parseToInteger(final Long data) {
+    try {
+      return Integer.parseInt(String.valueOf(data));
+    } catch (NumberFormatException exception) {
+      throw new InputFormatException(
+              InputFormatExceptionEnum.CASTING_LONG_TO_NUMBER_IS_INVALID,
+              data);
+    }
+  }
+
   /**
    * Parses the provided string into a long number.
    *

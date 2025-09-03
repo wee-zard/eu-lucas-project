@@ -11,7 +11,7 @@ import { setQueriedImageModel, setSelectedImagesModel } from "@redux/actions/ima
 import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { setSettingBackdropOpen } from "@redux/actions/settingActions";
-import ZipHelper from "@screens/manageFoldersScreen/helper/zipHelper";
+import ZipHelper from "@helper/zipHelper";
 import FilteringAddToFolderMenu from "./FilteringAddToFolderMenu";
 import { defaultQueriedImageModel, defaultSelectedImagesModel } from "./helper/FilteringHelper";
 import { setFilteringDialogToOpen } from "@redux/actions/filteringActions";

@@ -4,8 +4,8 @@ import AppBackdropCard from "./AppBackdropCard";
 
 /**
  * A React component that is processing logic behind the scene.
- * The main purpose of this component is to run once. Even if the subcomponents are
- * called due to selectors or change of use states, only the subcomponents will be rerendered,
+ * The main purpose of this component is to run once. Even if the sub components are
+ * called due to selectors or change of use states, only the sub components will be rerendered,
  * and not the main part or any other part of the application.
  */
 const AppBackgroundProcessCard = () => {

@@ -1,7 +1,7 @@
 import { Navigation } from "@toolpad/core/AppProvider";
 //import DashboardIcon from "@mui/icons-material/Dashboard";
 import FilterListIcon from "@mui/icons-material/FilterList";
-//import SettingsIcon from "@mui/icons-material/Settings";
+import SettingsIcon from "@mui/icons-material/Settings";
 //import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 //import FunctionsIcon from "@mui/icons-material/Functions";
 //import TableRowsIcon from "@mui/icons-material/TableRows";
@@ -36,7 +36,7 @@ export enum NavigationTitles {
 
   Others = "Egyéb",
   ReportError = "Hibabejelentés",
-  Settings = "Beállítások",
+  Settings = "Renderbeállítások",
   Manual = "Manual",
 
   // ===== Old Menu options ===== //
@@ -140,18 +140,18 @@ export const navigation: Navigation = [
     title: NavigationTitles.ReportError,
     icon: <ReportProblemIcon />,
   },
+  {
+    // Page where the users could set important properties of the application.
+    segment: NavigationSegments.Settings,
+    title: NavigationTitles.Settings,
+    icon: <SettingsIcon />,
+  },
   /*
   {
     // Page where the users could read articles about how to use the application.
     segment: NavigationSegments.Manual,
     title: NavigationTitles.Manual,
     icon: <LibraryBooksIcon />,
-  },
-  {
-    // Page where the users could set important properties of the application.
-    segment: NavigationSegments.Settings,
-    title: NavigationTitles.Settings,
-    icon: <SettingsIcon />,
   },
   */
 ];

@@ -8,6 +8,7 @@ import { ReportFormGroup } from "@model/forms/ReportFormGroup";
 import { FormEnums } from "@model/enum";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
 import { ImageToFolderAdditionFormGroup } from "@model/forms/ImageToFolderAdditionFormGroup";
+import { SettingsFormGroup } from "@model/forms/SettingsFormControlGroup";
 
 export abstract class UserCreationFormBuilder {
   public static buildEntry = (data?: string): InputFormControlEntry => {
@@ -49,11 +50,18 @@ const buildReportFormGroup = (): ReportFormGroup => ({
   reportType: getFormControlEntry(InputFormControlEntryEnum.SELECT_FIELD),
 });
 
+const buildSettingsFormGroup = (): SettingsFormGroup => ({
+  localImageServer: getFormControlEntry(InputFormControlEntryEnum.CHECKBOX_FIELD, "false", {
+    [InputValidatorEnum.REQUIRED]: false,
+  }),
+});
+
 export const buildGenericFormGroup = <T>(formEnum: FormEnums): T => {
   const handler: GenericHandlerType<FormEnums, any> = {
     [FormEnums.ReportCreationForm]: buildReportFormGroup(),
     [FormEnums.FolderCreationForm]: buildFolderCreationFormGroup(),
     [FormEnums.ImageToFolderAdditionForm]: buildImageToFolderAdditionFormGroup(),
+    [FormEnums.SettingsForm]: buildSettingsFormGroup(),
   };
 
   return handler[formEnum] as T;

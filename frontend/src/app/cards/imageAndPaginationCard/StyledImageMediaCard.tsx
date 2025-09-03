@@ -1,20 +1,26 @@
-import ImageUtils from "@helper/imageUtils";
+import ImageCanvas from "@cards/imageCanvas/ImageCanvas";
 import ImageDto from "@model/dto/ImageDto";
-import CardMedia from "@mui/material/CardMedia";
+import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
+import { useSelector } from "react-redux";
 
 type Props = {
   imageDto: ImageDto;
-  alt: string;
 };
 
-// TODO: This component could be a react memo component
-const StyledImageMediaCard = ({ imageDto, alt }: Props) => {
+const StyledImageMediaCard = ({ imageDto }: Props) => {
+  const selectedImagesModel = useSelector(selectSelectedImagesModel);
+
+  // TODO: Now the application will fetch the bounding boxes from the host's machine, and not from the server.
+  const boundingBoxesOfImage =
+    selectedImagesModel.queryImages.find((queryImage) => queryImage.image.id === imageDto.id)
+      ?.boundingBoxes ?? [];
+
   return (
-    <CardMedia
-      component="img"
-      image={ImageUtils.initRemoteImageUrlPath(imageDto)}
-      alt={`${alt}${imageDto.id}`}
-      sx={{ borderRadius: "8px" }}
+    <ImageCanvas
+      imageProperty={{
+        image: imageDto,
+        boundingBoxes: boundingBoxesOfImage,
+      }}
     />
   );
 };

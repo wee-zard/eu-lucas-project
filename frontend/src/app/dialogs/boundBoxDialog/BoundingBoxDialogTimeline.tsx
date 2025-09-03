@@ -33,28 +33,25 @@ import { IdUtils } from "@helper/idUtils";
 import { selectSelectedImage } from "@redux/selectors/imageSelector";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { defaultBoundingBoxPageableProperties } from "./helper/BoundingBoxDialogHelper";
+import DateHelper from "@helper/dateHelper";
 
 export const BoundingBoxDialogTimeline = () => {
   const { listOfProcedureLogs, selectedListOfProcedureLogs, isLogButtonDisabled } =
     useSelector(selectProcedureLogStorage);
-  const [pageableProperties, setPageableProperties] = useState<PageableProperties>(
+  const [pageable, setPageable] = useState<PageableProperties>(
     defaultBoundingBoxPageableProperties,
   );
   const selectedImage = useSelector(selectSelectedImage);
   const IS_LOG_BUTTON_HIDDEN =
-    listOfProcedureLogs.length >= (pageableProperties.pageNo + 1) * pageableProperties.pageSize;
+    listOfProcedureLogs.length >= (pageable.pageNo + 1) * pageable.pageSize;
   const dispatch = useDispatch();
 
-  const transformISODateToDate = (isoDate: string) => {
-    return isoDate.replace("T", " ");
-  };
-
-  const fetchListOfProcedureLogs = async () => {
+  const fetchListOfProcedureLogs = () => {
     if (!isLogButtonDisabled || !selectedImage) {
       return;
     }
 
-    getProcedureLogByImageId(selectedImage.id, pageableProperties).then((res) => {
+    getProcedureLogByImageId(selectedImage.id, pageable).then((res) => {
       if (!res) {
         return;
       }
@@ -69,7 +66,7 @@ export const BoundingBoxDialogTimeline = () => {
       fetchListOfProcedureLogs();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [listOfProcedureLogs, pageableProperties, isLogButtonDisabled, selectedImage],
+    [listOfProcedureLogs, pageable, isLogButtonDisabled, selectedImage],
   );
 
   const getProcedureProperties = (
@@ -92,8 +89,10 @@ export const BoundingBoxDialogTimeline = () => {
           )
           .join(", "),
       [ProcedureLogProperties.Params]: () => procedureLog.params.join(", "),
-      [ProcedureLogProperties.CreationDate]: () => transformISODateToDate(procedureLog.createdAt),
+      [ProcedureLogProperties.CreationDate]: () =>
+        DateHelper.transformISODateToDate(procedureLog.createdAt),
       [ProcedureLogProperties.User]: () => procedureLog.user,
+      [ProcedureLogProperties.Box]: () => `${procedureLog.boundingBoxes.length}`,
     });
     return handler[procedureLogProperties].call(() => null) ?? emptyCharacterPlaceholder;
   };
@@ -121,7 +120,7 @@ export const BoundingBoxDialogTimeline = () => {
           {ListOfProcedureLogProperties.map((property) => (
             <StyledProcedurePropertyHolder key={`${log.id}-${property}`}>
               <StyledProcedurePropertyTitleHolder>
-                {i18n.t(property)}
+                {i18n.t(property)}:
               </StyledProcedurePropertyTitleHolder>
               <StyledProcedurePropertyValueHolder>
                 {getProcedureProperties(log, property)}
@@ -151,7 +150,7 @@ export const BoundingBoxDialogTimeline = () => {
       }
 
       // Get the list of colors that have been already assigned to logs.
-      const usedUpColors = selectedListOfProcedureLogs.map((log) => log.strokeStyle);
+      const usedUpColors = selectedListOfProcedureLogs.map((log) => log.properties.strokeStyle);
 
       // Get the list of colors that have not been assigned to logs (so we could fetch an element from them).
       const filteredColors = distinctColors.filter(
@@ -160,7 +159,14 @@ export const BoundingBoxDialogTimeline = () => {
 
       const selectedProcedureLogModel: SelectedProcedureLogModel = {
         log: selectedProcedureLog,
-        strokeStyle: filteredColors[0].value,
+        properties: {
+          /**
+           * TODO: What would happen if we want to store more properties here?
+           * In that case, we would override all of those previous changes and only this
+           * "strokeStyle" would remain that is not a good practice.
+           */
+          strokeStyle: filteredColors[0].value,
+        },
       };
 
       const selectedLogs = [...selectedListOfProcedureLogs, selectedProcedureLogModel];
@@ -193,9 +199,9 @@ export const BoundingBoxDialogTimeline = () => {
 
   const handleClickOnMoreLogFetch = () => {
     dispatch(setProcedureLogIsLogButtonDisabled(true));
-    setPageableProperties({
-      ...pageableProperties,
-      pageNo: pageableProperties.pageNo + PROCEDURE_LOG_PAGE_SIZE,
+    setPageable({
+      ...pageable,
+      pageNo: pageable.pageNo + PROCEDURE_LOG_PAGE_SIZE,
     });
   };
 

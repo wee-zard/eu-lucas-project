@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "@emotion/styled";
-import { StyledComponentGap, StyledFullWidthAndHeight } from "@global/globalStyles";
+import { StyledComponentGap } from "@global/globalStyles";
 import FilteringMenu from "@dialogs/filteringDialog/FilteringMenu";
 import FilteringImageAndPaginationCard from "@dialogs/filteringDialog/FilteringImageAndPaginationCard";
 import i18n from "@i18n/i18nHandler";
@@ -51,17 +51,20 @@ const FilteringDialog = () => {
 
 export default FilteringDialog;
 
-export const StyledDialog = styled(Dialog)<{ styledmaxwidth?: string; styledmaxheight?: string }>(
-  (props) => ({
-    "& .MuiPaper-root": {
-      ...StyledFullWidthAndHeight(),
-      maxWidth: props?.styledmaxwidth ?? "80%",
-      maxHeight: props?.styledmaxheight ?? "90%",
-      borderRadius: "16px",
-      padding: "24px",
-    },
-  }),
-);
+export const StyledDialog = styled(Dialog)<{
+  $isHeightDynamic?: boolean;
+  styledmaxwidth?: string;
+  styledmaxheight?: string;
+}>((props) => ({
+  "& .MuiPaper-root": {
+    width: "100%",
+    height: props.$isHeightDynamic ? undefined : "100%",
+    maxWidth: props?.styledmaxwidth ?? "80%",
+    maxHeight: props.$isHeightDynamic ? undefined : (props?.styledmaxheight ?? "90%"),
+    borderRadius: "16px",
+    padding: "24px",
+  },
+}));
 
 export const StyledDialogTitle = styled(DialogTitle)({
   display: "flex",

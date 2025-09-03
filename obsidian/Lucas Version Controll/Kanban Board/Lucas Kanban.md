@@ -18,6 +18,8 @@ kanban-plugin: board
 
 ## 🔴Backlog
 
+- [ ] Uncaught error 500 Internal Server Error on the frontend side. application is crashing #🔴ToDo
+- [ ] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]]  #🔴ToDo
 - [ ] [[064 - Validálás Validátorok kollektor]]
 - [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
 - [ ] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
@@ -29,8 +31,10 @@ kanban-plugin: board
 
 ## 🔴Code Improvement ToDo
 
-- [ ] [[213 - RequestParamType kerül használatra GET és DELETE request-nél, ami nem hatékony]] #🔴ToDo
-- [ ] [[212 - Using better encryption, so we do not need to decrypt the email of users]] #🔴ToDo
+- [ ] [[213 - RequestParamType kerül használatra GET és DELETE request-nél, ami nem hatékony]]
+- [ ] [[157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán]]
+- [ ] [[212 - Using better encryption, so we do not need to decrypt the email of users]]
+- [ ] [[152 - ControllerEndpoint-ok áthelyezése az app api mappa alá]]
 - [ ] [[145 - .Env fájl változói egy Utils fájlba kerüljenek eltárolásra]]
 - [ ] [[144 - Sensitive data must be stored in the .env file outside of the project]]
 - [ ] [[136 - Backend Runtime Warning üzenetek javítása]]
@@ -45,13 +49,10 @@ kanban-plugin: board
 - [ ] [[021 - Try-catch to axios http request methods, so we could handle the thrown exceptions]]
 - [ ] [[018 - Licensz vizsgálat minden npm csomagra]]
 - [ ] [[022 - ErrorLog létrehozása a production-ben dobásra került hibák visszakereshetősége céljából]]
-- [ ] [[096 - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből]]
 - [ ] [[147 - Stílus változók kerüljenek kiszervezésre egy külön variables.scss fájlba]]
 - [ ] [[148 - Spring Üzleti Alkalmazások Fejlesztése kurzus videóinek feldolgozása]]
 - [ ] [[149 - NoImplicitAny változó használata a tsconfig fájlban]]
 - [ ] [[150 - Import fájlok ABC sorrendbe való rendezése]]
-- [ ] [[152 - ControllerEndpoint-ok áthelyezése az app api mappa alá]]
-- [ ] [[157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán]]
 - [ ] [[196 - Call cacheable methods via an injected dependency instead of directly via 'this'.]]
 - [x] [[034 - ErrorHandling minden esetben internal-server-errort dob vissza]] #🟢Done
 - [x] [[133 - JpaRepository használata CrudRepository helyett]] #🟢Done
@@ -60,11 +61,11 @@ kanban-plugin: board
 - [x] [[032 - Minden endpoint kerüljön authentikációhoz kötve]] #🟢Done
 - [x] [[013 - CheckStyle hibák javítása a Backend oldalán]] #🟢Done
 - [x] [[211 - Object.equals(A, B) használata a sima equals() helyett, mert NullPointerException dobódhat]] #🟢Done
+- [x] [[096 - @deprecated - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből]] #deprecated
 
 
 ## 🔴ToDo
 
-- [ ] [[168 - Auto-Reloading certbot after every 60 days]] #Deployment
 - [ ] [[023 - Sidebar-on lévő menüpontok véglegesítése]]
 - [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
 - [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
@@ -93,15 +94,15 @@ kanban-plugin: board
 
 ## 🔴Login Page Backlog
 
-- [ ] [[031 - Ha a törölt user bejelentkezve maradt, akkor ne tudjon kezdeményezni semmilyen utasítást]] #Login-Page
-- [ ] [[141 - Lottifiles - Login oldal animációval]] #Login-Page
-- [ ] [[194 - Nyelv választó gomb input mező a bejelentkezés oldalra]] #Login-Page
 - [ ] X - Bejelentkezéskor legyen Session Management, és ne kelljen állandóan validálni a felhasználó auth token-jét (segítségével csökkenteni lehet a kliens és szerver közötti üzenetváltás idejét azáltal, mivel minden http kérésben validáljuk a felhasználó token-jét. Ha a token validáció kihagyjásra kerül, akkor gyorsabbak lesznek a kérések is.) #Login-Page
+- [ ] [[017 - i18n hozzáadása az alkalmazáshoz és minden magyar szöveg kiszervezése i18n json fájlba]] #Login-Page
+- [ ] [[194 - Nyelv választó gomb input mező a bejelentkezés oldalra]] #Login-Page
+- [ ] [[141 - Lottifiles - Login oldal animációval]] #Login-Page
 - [ ] X - Bejelentkezés gombra nyomva egy dialógus jelenjen meg arról, hogy "Bejelentkezéshez szükséges egy érvényes gmail fiók. Bejelentkezés után eltároljuk a gmail-ben feltüntetett nevet, profilképet és az email címet. A bejelentkezés véglegesítésekor hozzájárulsz, hogy ezen adatok elmentésre kerüljenek. Biztos vagy benne?" #Login-Page
 - [ ] X - Az oldal logója kerüljön megjelenítésre a login oldalon #Login-Page
 - [ ] X - Lehessen hozzáférést kérni az alkalmazáshoz egy űrlap kitöltésén keresztül (mint ami a Report oldalon van). Ezen kérelem kerüljön elküldésre az egyik admin-nak email formájában. A kérésben legyen tárgy is, hogy miért akar hozzáférést kapni az adott felhasználó az alkalmazáshoz. #Login-Page
-- [ ] [[017 - i18n hozzáadása az alkalmazáshoz és minden magyar szöveg kiszervezése i18n json fájlba]] #Login-Page
-- [ ] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]] #Login-Page
+- [ ] [[031 - Ha a törölt user bejelentkezve maradt, akkor ne tudjon kezdeményezni semmilyen utasítást]] #Login-Page
+- [x] [[043 - Google OAuth gomb középre igazítása és stílus hozzáadása]] #Login-Page #🟢Done
 
 
 ## 🔴Manual Page Backlog
@@ -121,8 +122,11 @@ kanban-plugin: board
 
 ## 🔴Settings Page Backlog
 
-- [ ] [[119 - Settings - Legyen egy gomb, amivel frissíteni lehet az adatbázisban lévő képinformációkat]]
-- [ ] [[025 - Settings oldal implementálása]]
+- [ ] [[119 - Settings - Legyen egy gomb, amivel frissíteni lehet az adatbázisban lévő képinformációkat]] #Setting-Page
+- [ ] [[025 - Settings oldal - Fordítás nyelvének beállítása]] #Setting-Page
+- [ ] [[216 - Settings - Local Image Server - Port dinamikus változtathatása]]
+- [x] [[214 - Lokálisan tárolt képek használata checkbox]] #🟢Done   #Setting-Page
+- [x] [[217 - Settings - Local Image Server - Amennyiben bekapcsolásra került, akkor minden kép innen kerüljön lekérésre]] #🟢Done  #Setting-Page
 
 
 ## 🔴Log Upload Backlog
@@ -137,22 +141,20 @@ kanban-plugin: board
 
 ## 🔴Filtering Page Backlog
 
+- [ ] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]] #Filtering-Page #🟣Testing #🔴ToDo
+- [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]] #mission #Filtering-Page #🔴ToDo
 - [ ] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #Filtering-Page #🔴ToDo
 - [ ] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #Filtering-Page #🔴ToDo
 - [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
-- [ ] [[175 - Kiválasztott képek csoportosítása a szűrési feltétel alapján]] #mission #Filtering-Page
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page
 - [ ] [[118 - Adatbázis feltöltése a képekhez tartozó EXIF adatokkal]] #mission #Filtering-Page
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]] #mission #Filtering-Page
-- [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]] #mission #Filtering-Page
 - [ ] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]] #mission #Filtering-Page
 - [ ] [[104 - Filtering - Kiválasztott képre való rákattintás esetén, a szűrés eredmény képek kerüljenek megjelenítésre]] #mission #Filtering-Page
 - [ ] [[100 - Filtering - A localStorage-ben eltárolt adatok betöltése esetén, hibaüzenet kerül dobásra]] #mission #Filtering-Page
-- [ ] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]] #Filtering-Page
 - [ ] [[088 - 5 FilteringGroup-ot egymásba ágyazva túl kicsivé teszi a szűrési feltételek input mezőit]] #Filtering-Page
 - [ ] [[090 - FilteringDialog - Amikor először építi fel az input mezőket az ablak, akkor bizonyos esetekben többször újra rendereli az egész ablakot]] #Filtering-Page
 - [ ] [[074 - Filtering oldalon egy input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését]] #Filtering-Page
-- [ ] [[055 - Loading ikon megjelenítése a képek lekérdezéséhez]] #Filtering-Page
 - [ ] [[054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban]] #Filtering-Page
 - [ ] [[051 - Standard Input mező helyett Autocomplete input mezőt használjunk]] #Filtering-Page
 - [ ] [[016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]] #Filtering-Page
@@ -163,17 +165,19 @@ kanban-plugin: board
 - [ ] [[169 - Backend - Képek exif adatainak lekérése a háttérben]] #Filtering-Page
 - [ ] [[165 - Filtering - A Feltétel input mező hossza kisebb lehetne]] #Filtering-Page
 - [ ] [[200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről]] #Filtering-Page
+- [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]]
 - [x] [[172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz]] #Filtering-Page #🟢Done
 - [x] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]] #🟢Done    #Filtering-Page
 - [x] [[161 - Pagination - Pagination az egy sorban legyen a mentés gombokkal]] #Filtering-Page #🟢Done
 - [x] [[108 - Filtering - Jobb szöveg kiíratása, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép]] #Filtering-Page #🟢Done
 - [x] [[162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra]] #Filtering-Page #🟢Done
+- [x] [[175 - @deprecated Kiválasztott képek csoportosítása a szűrési feltétel alapján]] #mission #Filtering-Page #🟢Done
+- [x] [[055 - @deprecated Loading ikon megjelenítése a képek lekérdezéséhez]] #Filtering-Page #🟢Done
 
 
 ## 🔴Bounding Box Page Backlog
 
-- [ ] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #🟣Testing    #BoundingBox-Page
-- [ ] [[003 - Befoglaló téglalapok megjelenítése a képeken]] #🟡InProgress  #BoundingBox-Page
+- [ ] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #🟣Testing    #BoundingBox-Page #🔴ToDo
 - [ ] [[182 - Eljárás logok szűrésének a megvalósítása]] #🔴ToDo  #BoundingBox-Page
 - [ ] [[183 - Három log kiválasztása esetén, egy szín kétszer szerepel a befoglaló téglalapoknál]] #mission #BoundingBox-Page
 - [ ] [[184 - Lehessen dinamikusan módosítani a befoglaló téglalapokhoz tartozó keretek színét]] #BoundingBox-Page
@@ -184,19 +188,20 @@ kanban-plugin: board
 - [ ] [[192 - A befoglaló téglalapok mellett több minden jelenjen meg a képeken]] #mission #BoundingBox-Page
 - [ ] [[004 - @deprecated Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]] #deprecated #BoundingBox-Page
 - [x] [[173 - Logok sorbarendezése a létrehozásuk ideje alapján, és a legfrissebb legyen a legelső]] #🟢Done   #BoundingBox-Page
+- [x] [[003 - Befoglaló téglalapok megjelenítése a képeken]] #🟢Done  #BoundingBox-Page
 
 
 ## 🔴Folder Page Backlog
 
-- [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page
+- [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo   #Folder-Page
 - [ ] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #🔴ToDo  #Folder-Page
-- [ ] [[205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #🔴ToDo #Folder-Page
+- [ ] [[205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #Folder-Page
 - [ ] [[206 - ManageFolders - Settings 4 - Képek importálása egy mappába]] #Folder-Page
 - [ ] [[207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása]] #Folder-Page
 - [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🔴ToDo   #Folder-Page
 - [ ] [[209 - ManageFolders - Settings 7 - Mappa zárolása]] #Folder-Page
 - [ ] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🟣Testing   #Folder-Page
-- [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🔴ToDo  #Folder-Page
+- [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🟣Testing   #Folder-Page
 - [ ] [[201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett]] #🔴ToDo #Folder-Page
 - [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #Folder-Page
 - [x] X - Pagination frissítése ez alapján: https://ardijorganxhi.medium.com/implement-pagination-at-your-spring-boot-application-a540270b5f60 #🟢Done #Folder-Page
@@ -209,20 +214,21 @@ kanban-plugin: board
 
 ## 🔴Deployment Backlog
 
-- [ ] [[166 - Compose.yml - The frontend container should wait for the backend to fully load]]
-- [ ] [[193 - Fizetni egy MySQL adatbázis instance-t, és feltölteni oda az adatbázist]] #mission #Deployment
-- [ ] 194 - Lemondani a domaint (amennyiben docker kerül használatra lokálban) #mission #Deployment
+- [ ] 194 - Lemondani a domaint (amennyiben docker kerül használatra lokálban) #🟡InProgress #🔴ToDo  #Deployment
+- [ ] [[215 - Backend deploy során beállítani, hogy a resource mappában lévő fájlok ne legyenek publikusan elérhetőek]] #🔴ToDo #Deployment
+- [ ] [[168 - Auto-Reloading certbot after every 60 days]] #Deployment #🔴ToDo
+- [ ] X - Deploy - Alkalmazás kitelepítése egy új VM-re #🔴ToDo #Deployment
+- [ ] [[166 - Compose.yml - The frontend container should wait for the backend to fully load]] #Deployment
 - [ ] 195 - projekt beütemezéséhez egy szkriptet írni, amivel egyszerűen lehetne futtatni a projektet #mission #Deployment
 - [ ] 196 - A képeket fel lehessen csatolni a backend docker containerhez #mission #Deployment
-- [ ] 197 - A frontend és backend kiszervezése DockerHub-ra #mission #Deployment
 - [ ] 198 - A VM migrálása egy Rackhost VM-re #Deployment
+- [x] [[193 - Fizetni egy MySQL adatbázis instance-t, és feltölteni oda az adatbázist]] #mission #Deployment #🟢Done
+- [x] 197 - @deprecated - A frontend és backend kiszervezése DockerHub-ra #mission #Deployment #🟢Done
 
 
 ## 🟡In Progress
 
-- [ ] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]] #mission #🔴ToDo
-- [ ] Uncaught error 500 Internal Server Error on the frontend side. application is crashing #🔴ToDo
-- [ ] Amennyiben exception, nullpointer exception kerül dobásra, akkor a backend nem ugrik bele az ErrorHandling-be #🔴ToDo
+- [ ] Amennyiben exception, nullpointer exception kerül dobásra, akkor a backend nem ugrik bele az ErrorHandling-be
 - [ ] X - Képek tömörítése olyan mértékben, hogy azok letárolásra kerülhessenek a VM-re, hogy aztán onnan kiolvashatóak legyenek azon számdékból, hogy a képek betöltése szignifikánsabban gyorsabb legyen
 - [x] X - Amennyiben 400-as hibát dob a szerver, akkor előforul, hogy az email cím verifikálása végtelen sokszor kerül kiküldésre a szerverre. Amennyiben megállapítottuk, hogy 400 Bad Request, akkor NE küldjünk ki több request-et. #🟢Done
 - [x] X - Amennyiben Unauthorized erro kerül dobásra a token beolvasása során, akkor nem 401-es státusz kerül visszaküldésre a frontendre, hanem 400 #🟢Done
@@ -332,6 +338,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,true,false,true,true,false,true,true,true,false,false,false,false,true,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
+{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,true,false,false,false,false,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
 ```
 %%

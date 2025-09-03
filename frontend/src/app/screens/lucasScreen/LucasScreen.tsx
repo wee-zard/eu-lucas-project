@@ -25,6 +25,7 @@ import { redirectToUrl } from "@providers/RedirectionProvider";
 import SessionUtil from "@helper/SessionUtil";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
 import ManageFoldersScreen from "@screens/manageFoldersScreen/ManageFoldersScreen";
+import SettingsScreen from "@screens/settingsScreen/SettingsScreen";
 
 type Props = {
   navigation?: Navigation;
@@ -71,7 +72,7 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
       [NavigationSegments.ImageFolders]: <ManageFoldersScreen />,
       [NavigationSegments.Dashboard]: <TmpScreen />,
       [NavigationSegments.Manual]: <TmpScreen />,
-      [NavigationSegments.Settings]: <TmpScreen />,
+      [NavigationSegments.Settings]: <SettingsScreen />,
       [NavigationSegments.ManageProcedures]: <TmpScreen />,
     };
 

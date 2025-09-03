@@ -4,23 +4,13 @@ import com.lucas.spring.commons.services.HttpRequestService;
 import com.lucas.spring.components.image.facade.ImageFacadeService;
 import com.lucas.spring.components.image.facade.ImageFetcherFacade;
 import com.lucas.spring.components.image.model.request.ImageRequest;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-import javax.imageio.ImageIO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -54,89 +44,6 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
         processImageIntoObj(newPath);
       }
     });
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public byte[] getImageByUrl(final String urlPath) {
-    try (BufferedInputStream in = new BufferedInputStream(new URI(urlPath).toURL().openStream())) {
-      return in.readAllBytes();
-    } catch (IOException | URISyntaxException e) {
-      // handle exception
-      return new byte[0];
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public String byteToBase64(final byte[] binary) {
-    return Base64.getEncoder().encodeToString(binary);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public String urlToBase64(final String urlPath) {
-    return this.byteToBase64(this.getImageByUrl(urlPath));
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public byte[] base64ToByteArray(final String base64String) {
-    return Base64.getDecoder().decode(base64String);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public String scaleDownImage(final String imageUrl) {
-    if (imageUrl.isEmpty()) {
-      return null;
-    }
-
-    final byte[] imageBinaries = this.getImageByUrl(imageUrl);
-    final ByteArrayInputStream stream = new ByteArrayInputStream(imageBinaries);
-
-    try {
-      final BufferedImage originalImage = ImageIO.read(stream);
-      final BufferedImage resizedImage = this.resizeImage(originalImage);
-      final byte[] resizedImageBinaries = this.toByteArray(resizedImage);
-      return this.byteToBase64(resizedImageBinaries);
-    } catch (IOException e) {
-      return null;
-    }
-  }
-
-  private byte[] toByteArray(final BufferedImage bi)
-          throws IOException {
-
-    final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ImageIO.write(bi, "jpg", baos);
-    return baos.toByteArray();
-  }
-
-  /**
-   * Resizes the provided image to a smaller one.
-   *
-   * @param originalImage The image to resize.
-   * @return Returns the result Buffered image.
-   */
-  private BufferedImage resizeImage(final BufferedImage originalImage) {
-    final int width = 200;
-    final int height = 200;
-    final BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-    final Graphics2D graphics2D = resizedImage.createGraphics();
-    graphics2D.drawImage(originalImage, 0, 0, width, height, null);
-    graphics2D.dispose();
-    return resizedImage;
   }
 
   /**

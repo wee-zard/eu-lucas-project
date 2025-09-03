@@ -1,13 +1,16 @@
 import { BoundingBoxDialogImage } from "./BoundingBoxDialogImage";
 import styled from "@emotion/styled";
 import BoundingBoxDialogTabs from "./BoundingBoxDialogTabs";
+import { StyledDialogContent } from "@dialogs/filteringDialog/FilteringDialog";
 
 const BoundingBoxDialogContent = () => {
   return (
-    <StyledBoundingBoxDialogHolder>
-      <BoundingBoxDialogImage />
-      <BoundingBoxDialogTabs />
-    </StyledBoundingBoxDialogHolder>
+    <StyledDialogContent>
+      <StyledBoundingBoxDialogHolder>
+        <BoundingBoxDialogImage />
+        <BoundingBoxDialogTabs />
+      </StyledBoundingBoxDialogHolder>
+    </StyledDialogContent>
   );
 };
 

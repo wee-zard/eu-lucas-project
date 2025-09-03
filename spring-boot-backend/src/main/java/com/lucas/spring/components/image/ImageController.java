@@ -84,7 +84,7 @@ public class ImageController {
   /**
    * Retrieves an images based on the provided image names and creation years.
    *
-   * @param authenticatedUser The user who initialized the connection to the server.
+   * @param user The user who initialized the connection to the server.
    * @param filesRequest The list of image files, where the name of the image and the
    *                    creation year is provided for the purpose of fetching the
    *                    image urls from the db.
@@ -93,7 +93,7 @@ public class ImageController {
   @CrossOrigin
   @PostMapping("/")
   public List<ImageDto> postImageByImageNameAndCreationYear(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestBody ProcedureResultFileRequest filesRequest
   ) {
     return conversionHelper.convertList(

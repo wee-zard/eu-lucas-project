@@ -2,6 +2,7 @@ import StyledButton from "@components/StyledButton";
 import { StyledDialog, StyledDialogTitle } from "@dialogs/filteringDialog/FilteringDialog";
 import { ButtonColorType } from "@model/types/ButtonColorType";
 import { ButtonVariantType } from "@model/types/ButtonVariantType";
+import { DialogConfigStyleType } from "@model/types/ConfirmationDialogConfigType";
 import { DialogContent, styled } from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
 
@@ -23,6 +24,7 @@ type Props = {
   };
   height: string;
   width: string;
+  styles?: DialogConfigStyleType;
   onClose: () => void;
   onSubmit: () => void;
 };
@@ -35,12 +37,14 @@ const TemplateDialog = ({
   submitButton = {},
   height,
   width,
+  styles,
   onClose,
   onSubmit,
 }: Props) => {
   return (
     <StyledDialog
       fullWidth
+      $isHeightDynamic={styles?.isHeightDynamic}
       styledmaxheight={height ?? "85%"}
       styledmaxwidth={width ?? "32%"}
       open={isOpen}

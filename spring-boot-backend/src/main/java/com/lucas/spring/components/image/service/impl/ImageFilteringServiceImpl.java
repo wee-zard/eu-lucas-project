@@ -1,7 +1,7 @@
 package com.lucas.spring.components.image.service.impl;
 
 import com.lucas.spring.commons.helper.ConversionHelper;
-import com.lucas.spring.commons.utils.CriteriaBuilderHelper;
+import com.lucas.spring.commons.utils.CriteriaBuilderUtil;
 import com.lucas.spring.commons.utils.CriteriaBuilderOperatorUtil;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.coordinate.x.model.entity.CoordinateXthEntity;
@@ -73,7 +73,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
     // Add the merged predicates to the query.
     cq.select(root).where(predicate);
 
-    return CriteriaBuilderHelper.getPagedResult(cq, cb, root, pageable, entityManager);
+    return CriteriaBuilderUtil.getPagedResult(cq, cb, root, pageable, entityManager);
   }
 
   private Predicate getSubBranchOfComponent(

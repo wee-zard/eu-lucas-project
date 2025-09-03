@@ -1,6 +1,6 @@
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import ImageDto from "@model/dto/ImageDto";
-import { MenuActions } from "@model/enum";
+import { FormEnums, MenuActions } from "@model/enum";
 import FilteringQueryRequest from "@model/request/FilteringQueryRequest";
 import { setFilterMenuAction, setQueriedImageModel } from "@redux/actions/imageActions";
 import { selectImageStorage } from "@redux/selectors/imageSelector";
@@ -13,6 +13,14 @@ import ImageAndPaginationCardRoot from "@cards/imageAndPaginationCard/ImageAndPa
 import PageableProperties from "@model/PageableProperties";
 import { defaultFilteringPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
 import PageableResponse from "@model/response/PageableResponse";
+import { useFormGroupHelper } from "@hooks/useFormGroup";
+import { SettingsFormGroup } from "@model/forms/SettingsFormControlGroup";
+import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
+import { fetchImagesFromLocalServerCommand } from "@api/command/imageFetcherCommands";
+import LocalImageRequest from "@model/request/LocalImageRequest";
+import { openSnackbar } from "@helper/notificationUtil";
+import { SnackEnum } from "@model/enum/SnackEnum";
+import ImageUtils from "@helper/imageUtils";
 
 const contentTextObj = {
   emptyContentText: i18n.t("screens.filtering.empty-body"),
@@ -24,9 +32,19 @@ const FilteringImageAndPaginationCard = () => {
   const [menuAction, setMenuAction] = useState<MenuActions>();
   const [pageableResponse, setPageableResponse] = useState<PageableResponse<ImageDto>>();
   const { queriedImageModel, filterMenuAction } = useSelector(selectImageStorage);
+  const helper = useFormGroupHelper<SettingsFormGroup>(
+    FormEnums.SettingsForm,
+    EventListenerIdEnum.SETTINGS_SCREEN,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
+    handleFetchOfImages();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuAction, pageable, filterMenuAction]);
+
+  const handleFetchOfImages = async () => {
     if (menuAction !== MenuActions.PAGINATION_CHANGE && filterMenuAction !== MenuActions.SUBMIT) {
       return;
     }
@@ -35,20 +53,66 @@ const FilteringImageAndPaginationCard = () => {
     const queryBuilderModel = LocalStorageUtils.getQueryBuilderModel();
     const request = new FilteringQueryRequest(queryBuilderModel);
 
-    getImagesByFilters(request, pageable)
-      .then((response) => {
-        if (response) {
-          setPageableResponse(response);
-        }
-      })
-      .finally(() => {
-        setMenuAction(undefined);
-        dispatch(setFilterMenuAction(undefined));
-        dispatch(setSettingBackdropOpen(false));
-      });
+    try {
+      let response = await getImagesByFilters(request, pageable);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [menuAction, pageable, filterMenuAction]);
+      if (!response) {
+        return;
+      }
+
+      // Is there even one image that was fetched by the filters and the pagination?
+      if (response.content.length === 0) {
+        setPageableResponse(response);
+        return;
+      }
+
+      // Is the local server is requested to be used?
+      const isLocalImageServerTurnedOn: boolean = JSON.parse(helper.get().localImageServer.data);
+
+      if (!isLocalImageServerTurnedOn) {
+        setPageableResponse(response);
+        return;
+      }
+
+      const localImageRequest: LocalImageRequest = { images: response.content };
+      const localImages = await fetchImagesFromLocalServerCommand(localImageRequest);
+      const errorImageModels = localImages.images.filter((image) => image.isError);
+
+      if (errorImageModels) {
+        // Warning about images that was not found on the server!
+        errorImageModels.forEach((errorImageModel) => {
+          openSnackbar(SnackEnum.IMAGE_SERVER_IS_TURNED_ON_BUT_NOT_FOUND, {
+            imagePath: errorImageModel.base64String,
+          });
+          console.warn(
+            "[WARNING]:",
+            i18n.t("screens.settings.imageServerIsTurnedOnButNotFound", {
+              imagePath: errorImageModel.base64String,
+            }),
+          );
+        });
+      }
+
+      // Update the response content, so it could contain the base64 strings.
+      const res: ImageDto[] = response.content.map((imageDto) => ({
+        ...imageDto,
+        base64Src: ImageUtils.appendBase64PrefixToImageSrc(
+          localImages.images.find((localImage) => localImage.imageId === imageDto.id),
+        ),
+      }));
+
+      setPageableResponse({
+        ...response,
+        content: res,
+      });
+    } catch (err) {
+      // Nothing interesting is here.
+    } finally {
+      setMenuAction(undefined);
+      dispatch(setFilterMenuAction(undefined));
+      dispatch(setSettingBackdropOpen(false));
+    }
+  };
 
   /**
    * Triggered when the user clicks on either of the images fetched from the server.

@@ -1,6 +1,7 @@
 import ImageDto from "@model/dto/ImageDto";
 import { QueryBuilderModel } from "@model/QueryBuilderModel";
 import FolderDtoSlice from "./dto/FolderDtoSlice";
+import SelectedProcedureLogModel from "./models/SelectedProcedureLogModel";
 
 export default class SelectedImagesModel {
   constructor(
@@ -35,5 +36,11 @@ export type QueriedImagePropertyType = {
   /**
    * The bound boxes applied to the images by the user.
    */
-  boundingBoxes: any[]; // TODO: Add a proper type here
+  boundingBoxes: SelectedProcedureLogModel[];
+  /**
+   * When bounding boxes has been added to a specific image,
+   * then with this attribute we can tell, whether the bounding boxes
+   * should be displayed on the image or be hidden.
+   */
+  isBoundingBoxesHidden?: boolean;
 };

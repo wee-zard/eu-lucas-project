@@ -1,6 +1,6 @@
 {
   "name": "lucas-frontend",
-  "version": "0.3.0",
+  "version": "0.4.0.localImageServer&BoundingBoxes",
   "private": true,
   "dependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.25.9",

@@ -14,7 +14,7 @@ abstract class FileUtils {
       return "";
     }
 
-    const blob = this.base64ToBlob(base64String);
+    const blob = this.base64ToBlob(base64String, ".jpg");
     return URL.createObjectURL(blob);
   };
 
@@ -55,9 +55,29 @@ abstract class FileUtils {
     }
   };
 
-  public static base64ToBlob = (base64String: string): Blob => {
+  private static getMimeTypeFromFileExtension = (filename: string) => {
+    const filenameChunks = filename.split(".");
+    const extension = filenameChunks[filenameChunks.length - 1];
+
+    switch (extension) {
+      case "jpeg":
+      case "jpg":
+      case "jfif":
+      case "pjpeg":
+      case "pjp":
+        return "image/jpeg";
+      case "png":
+        return "image/png";
+      case "yml":
+        return "application/x-yaml";
+      default:
+        return "text/plain";
+    }
+  };
+
+  public static base64ToBlob = (base64String: string, filename: string): Blob => {
     const buffer = Buffer.from(base64String, "base64");
-    return new Blob([buffer], { type: "image/jpeg" });
+    return new Blob([buffer], { type: this.getMimeTypeFromFileExtension(filename) });
   };
 }
 

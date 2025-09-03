@@ -13,7 +13,7 @@ import { ProcedureResultRequestFile } from "@model/request/ProcedureResultReques
 export const getImagesByFilters = (
   request: FilteringQueryRequest,
   pageableProperties: PageableProperties,
-): Promise<PageableResponse<ImageDto> | null> =>
+): Promise<PageableResponse<ImageDto>> =>
   commandHandler<PageableResponse<ImageDto>>({
     type: RequestCommandTypes.POST,
     server: ServersToConnectTo.Backend,

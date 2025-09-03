@@ -65,6 +65,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
   const message = i18n.t(snack, options);
   const throwSuccessToast = () => throwNotification(ToastSeverity.Success, message);
   const throwErrorToast = () => throwNotification(ToastSeverity.Error, message);
+  const throwWarningToast = () => throwNotification(ToastSeverity.Warning, message);
 
   const handler: GenericHandlerType<SnackEnum, () => void> = {
     // Successful toast messages
@@ -75,6 +76,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.IMAGES_TO_FOLDER]: () => throwSuccessToast(),
     [SnackEnum.FOLDER_IS_DELETED]: () => throwSuccessToast(),
     [SnackEnum.FOLDER_IS_CLEARED]: () => throwSuccessToast(),
+    [SnackEnum.IMAGE_SERVER_IS_TURNED_ON]: () => throwSuccessToast(),
 
     // Error toast messages
     [SnackEnum.LOG_NOT_FOUND]: () => throwErrorToast(),
@@ -84,6 +86,9 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.REPORT_NOT_SENT_OUT]: () => throwErrorToast(),
     [SnackEnum.ERROR_ON_LOGIN]: () => throwErrorToast(),
     [SnackEnum.NO_IMAGE_TO_ADD_TO_FOLDER]: () => throwErrorToast(),
+
+    // Warning toast messages
+    [SnackEnum.IMAGE_SERVER_IS_TURNED_ON_BUT_NOT_FOUND]: () => throwWarningToast(),
   };
   handler[snack]();
 };

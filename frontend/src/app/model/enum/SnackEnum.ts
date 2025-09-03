@@ -13,4 +13,6 @@ export enum SnackEnum {
   NO_IMAGE_TO_ADD_TO_FOLDER = "screens.folders.notifications.no-image-to-add-to-folder",
   FOLDER_IS_DELETED = "notifications.success.folderIsDeleted",
   FOLDER_IS_CLEARED = "notifications.success.folderIsCleared",
+  IMAGE_SERVER_IS_TURNED_ON = "screens.settings.imageServerIsTurnedOn",
+  IMAGE_SERVER_IS_TURNED_ON_BUT_NOT_FOUND = "screens.settings.imageServerIsTurnedOnButNotFound",
 }

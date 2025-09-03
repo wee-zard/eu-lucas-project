@@ -56,6 +56,9 @@ export enum BackendImageControllerEndpoints {
 
 export enum BackendImageFetcherControllerEndpoints {
   DownloadImagesByUrls = "/api/fetcher/download-image",
+  DownloadLocalImageServerResources = "/api/fetcher/image-server",
+  GetRandomImages = "/api/fetcher/random",
+  FetchImagesFromLocalServer = "/api/image/",
 }
 
 export enum BackendProcedureControllerEndpoints {
@@ -162,12 +165,15 @@ export enum LocalStorageKeys {
   FolderCreationForm = "folder-creation-form",
   FolderListDataGrid = "/folder-list",
   ReportCreationForm = "report-creation-form",
+  Settings = "settings",
 }
 
 export enum FormEnums {
   ReportCreationForm = "report-creation-form",
+  //UserCreationForm = "user-creation-form",
   FolderCreationForm = "folder-creation-form",
   ImageToFolderAdditionForm = "image-to-folder-addition-form",
+  SettingsForm = "settings-form",
 }
 
 export enum ScreenUrls {
@@ -351,9 +357,10 @@ export enum GuardTypes {
 }
 
 export enum ProcedureLogProperties {
-  Procedure = "screens.bounding-box.procedure-log-menu.procedure",
-  Params = "screens.bounding-box.procedure-log-menu.params",
-  Plants = "screens.bounding-box.procedure-log-menu.plants",
-  User = "screens.bounding-box.procedure-log-menu.user",
-  CreationDate = "screens.bounding-box.procedure-log-menu.creation-date",
+  Procedure = "screens.bounding-box.procedureLogMenu.procedure",
+  Params = "screens.bounding-box.procedureLogMenu.params",
+  Plants = "screens.bounding-box.procedureLogMenu.plants",
+  User = "screens.bounding-box.procedureLogMenu.user",
+  Box = "screens.bounding-box.procedureLogMenu.box",
+  CreationDate = "screens.bounding-box.procedureLogMenu.creationDate",
 }

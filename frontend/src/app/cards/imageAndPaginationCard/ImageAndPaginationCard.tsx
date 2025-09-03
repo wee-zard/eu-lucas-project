@@ -3,13 +3,11 @@ import { IdUtils } from "@helper/idUtils";
 import ImageDto from "@model/dto/ImageDto";
 import { StyledCardTemplate } from "@screens/filteringScreen/FilteringCommonStyledComponents";
 import { handleClickOnGlobalRippleEffect } from "app/scripts/rippleEffectOnClick";
-import StyledImageMediaCard from "@cards/imageAndPaginationCard/StyledImageMediaCard";
 import PageableResponse from "@model/response/PageableResponse";
-import i18n from "@i18n/i18nHandler";
-import ImageAndPaginationCardContent from "./ImageAndPaginationCardContent";
 import { SelectedImageAction } from "@model/types/SelectedImageActionType";
 import { useState } from "react";
 import { StyledComponentGap } from "@global/globalStyles";
+import ImageCardInnerElements from "./ImageCardInnerElements";
 
 type Props = {
   content: {
@@ -32,22 +30,6 @@ const ImageAndPaginationCard = ({
   handleClickOnRippleImage,
 }: Props) => {
   const [selectedImageIds, setSelectedImageIds] = useState<number[]>([]);
-
-  const renderImageCardInnerElements = (imageDto: ImageDto): JSX.Element => {
-    return (
-      <>
-        <StyledImageMediaCard
-          imageDto={imageDto}
-          alt={i18n.t("cards.image-card.alt.image-media", { id: imageDto.id })}
-        />
-        <ImageAndPaginationCardContent
-          imageDto={imageDto}
-          imageActions={imageActions}
-          isMenuDisabled={isMenuDisabled}
-        />
-      </>
-    );
-  };
 
   const isImagePresentInSelectedImages = (imageDto: ImageDto): boolean =>
     selectedImageIds.includes(imageDto.id);
@@ -83,6 +65,16 @@ const ImageAndPaginationCard = ({
     );
   };
 
+  const renderImageCardInnerElements = (imageDto: ImageDto): JSX.Element => {
+    return (
+      <ImageCardInnerElements
+        imageDto={imageDto}
+        imageActions={imageActions}
+        isMenuDisabled={isMenuDisabled}
+      />
+    );
+  };
+
   const renderContent = (): JSX.Element => {
     return (
       <div>
@@ -95,23 +87,15 @@ const ImageAndPaginationCard = ({
     );
   };
 
-  // TODO: Maybe a generic message should be better here.
-  const renderNullResultContent = (): JSX.Element => {
-    return <div>{content.nullResultContentText}</div>;
-  };
-
-  // TODO: Maybe a generic message should be better here.
-  const renderEmptyContent = (): JSX.Element => {
-    return <div>{content.emptyContentText}</div>;
-  };
-
   return (
     <>
       {Number(pageableResponse?.content.length) > 0 ? (
         renderContent()
       ) : (
         <StyledImagePlaceholder>
-          {!pageableResponse ? renderEmptyContent() : renderNullResultContent()}
+          <div>
+            {!pageableResponse ? content?.emptyContentText : content?.nullResultContentText}
+          </div>
         </StyledImagePlaceholder>
       )}
     </>

@@ -82,6 +82,21 @@ const getSelectFormControlEntry = (
   };
 };
 
+const getCheckboxFormControlEntry = (
+  data: string = "",
+  option: InputFormControlValidator = {},
+): InputFormControlEntry => {
+  return {
+    id: getRandomIdentification(),
+    data: data,
+    error: undefined,
+    validators: {
+      ...option,
+      [InputValidatorEnum.REQUIRED]: option[InputValidatorEnum.REQUIRED] ?? true,
+    },
+  };
+};
+
 /**
  * Handlers the creation of the {@link InputFormControlEntry} from the provided key.
  *
@@ -99,6 +114,7 @@ const getFormControlEntry = (
     [InputFormControlEntryEnum.EMAIL_FIELD]: getEmailFormControlEntry(data, option),
     [InputFormControlEntryEnum.TEXT_FIELD]: getTextFormControlEntry(data, option),
     [InputFormControlEntryEnum.SELECT_FIELD]: getSelectFormControlEntry(data, option),
+    [InputFormControlEntryEnum.CHECKBOX_FIELD]: getCheckboxFormControlEntry(data, option),
   };
   return handler[key];
 };

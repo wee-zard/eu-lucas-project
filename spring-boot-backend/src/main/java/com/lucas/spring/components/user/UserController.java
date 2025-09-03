@@ -4,7 +4,7 @@ import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.utils.FormatParseUtil;
-import com.lucas.spring.components.image.facade.ImageFetcherFacade;
+import com.lucas.spring.commons.utils.ImageManipulationUtil;
 import com.lucas.spring.components.user.facade.UserFacade;
 import com.lucas.spring.components.user.model.dto.UserDto;
 import com.lucas.spring.components.user.model.request.UserActivateDeletedRequest;
@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
   private final UserFacade userFacade;
   private final UserService userService;
-  private final ImageFetcherFacade imageFetcherFacade;
   private final ConversionHelper conversionHelper;
 
   /**
@@ -68,7 +67,7 @@ public class UserController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestBody final UserStatusChangeRequest req
   ) {
-    final String imageBase64 = imageFetcherFacade.scaleDownImage(req.getImageUrl());
+    final String imageBase64 = ImageManipulationUtil.scaleDownImage(req.getImageUrl());
     userFacade.updateUserStatus(user.getUserId(), req.getStatus(), imageBase64, req.getUsername());
     return new BaseResponse();
   }

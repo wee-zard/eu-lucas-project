@@ -6,7 +6,7 @@ priority:
   - High
 related:
   - "[[024 - Manual oldal implementálása]]"
-  - "[[025 - Settings oldal implementálása]]"
+  - "[[025 - Settings oldal - Fordítás nyelvének beállítása]]"
   - "[[026 - Report oldal implementálása]]"
   - "[[027 - ManageUsers oldal implementálása]]"
   - "[[039 - Procedures oldal létrehozása]]"

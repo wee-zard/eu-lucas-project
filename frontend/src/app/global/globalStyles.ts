@@ -8,11 +8,6 @@ export const StyledComponentGap = styled.div<{
   gap: props.gap ?? "16px",
 }));
 
-export const StyledFullWidthAndHeight = () => ({
-  width: "100%",
-  height: "100%",
-});
-
 export const windowBorders = () => {
   return {
     /** FIXME: Make this color to be visible and cool on light & dark mode */

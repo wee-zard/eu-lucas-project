@@ -11,10 +11,15 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
     /**
      * Based on the provided local storage cache key, retrieves the corresponding form group.
      */
-    public cacheKey: FormEnums,
-    public refreshKey?: EventListenerIdEnum,
+    public readonly cacheKey: FormEnums,
+    public readonly refreshKey?: EventListenerIdEnum,
   ) {}
 
+  /**
+   * Fetch the unique cache key of the helper. This key is a key of the localStorage.
+   *
+   * @returns Returns the cacheKey of the helper.
+   */
   public getCacheKey = () => {
     return this.cacheKey;
   };
@@ -77,16 +82,54 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
    *
    * @param newValue The new value for one of the property of the form group.
    * @param propertyToUpdate One of the property of the form group.
-   * @param propertyId A unique id to find the corresponding {@link InputFormControlEntry} from the form group.
+   * @param eventListenerId
+   * @param errorValue The value of the error of the corresponding form group entry.
    * @returns Returns the updates form group.
    */
-  public save = (newValue: string, propertyToUpdate: keyof T): T => {
-    const updatedFormGroup = this.handleSave(newValue, propertyToUpdate);
-    this.refresh();
+  public save = (
+    newValue: string,
+    propertyToUpdate: keyof T,
+    eventListenerId?: number | string,
+    errorValue?: string,
+  ): T => {
+    const updatedFormGroup = this.handleSave(newValue, propertyToUpdate, errorValue);
+    this.refresh(undefined, eventListenerId);
     return updatedFormGroup;
   };
 
-  private handleSave = (newValue: string, propertyToUpdate: keyof T) => {
+  /**
+   * Saves a new error message. Once the save is finished, refreshes the page.
+   *
+   * @param propertyToUpdate One of the property of the form group.
+   * @param eventListenerId
+   * @param errorValue The value of the error of the corresponding form group entry.
+   * @returns Returns the updates form group.
+   */
+  public saveError = (
+    propertyToUpdate: keyof T,
+    eventListenerId?: number | string,
+    errorValue?: string,
+  ): T => {
+    const currentValueOfProperty = (this.get()[propertyToUpdate] as any).data;
+    const updatedFormGroup = this.handleSave(
+      `${currentValueOfProperty}`,
+      propertyToUpdate,
+      errorValue,
+    );
+    this.refresh(undefined, eventListenerId);
+    return updatedFormGroup;
+  };
+
+  /**
+   * Saves a form group property with a new value. Once the save is finished,
+   * refreshes the page.
+   *
+   * @param newValue The new value for one of the property of the form group.
+   * @param propertyToUpdate One of the property of the form group.
+   * @param errorValue The value of the error of the corresponding form group entry.
+   * @returns Returns the updates form group.
+   */
+  private handleSave = (newValue: string, propertyToUpdate: keyof T, errorValue?: string) => {
     let formGroup = this.get();
 
     if (Array.isArray(formGroup[propertyToUpdate])) {
@@ -100,7 +143,7 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
         [propertyToUpdate]: {
           ...formGroup[propertyToUpdate],
           data: newValue,
-          error: undefined,
+          error: errorValue,
         },
       };
     }
@@ -149,12 +192,12 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
    *
    * @param overrideRefreshKey Overrides the default refreshKey with this value.
    */
-  public refresh = (overrideRefreshKey?: EventListenerIdEnum): void => {
+  public refresh = (overrideRefreshKey?: EventListenerIdEnum, id?: string | number): void => {
     if (!this.refreshKey) {
       return;
     }
 
-    EventListenerUtil.dispatchEvent(overrideRefreshKey ?? this.refreshKey);
+    EventListenerUtil.dispatchEvent(overrideRefreshKey ?? this.refreshKey, id);
   };
 
   /**

@@ -5,6 +5,7 @@ import com.lucas.spring.components.image.model.entity.ImageEntity;
 import com.lucas.spring.components.image.model.request.ImageRequest;
 import com.lucas.spring.components.procedure.model.model.ProcedureResultFile;
 import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 /**
@@ -48,4 +49,11 @@ public interface ImageService {
    * @return Returns the images.
    */
   List<ImageEntity> getImagesByProcedureFiles(List<ProcedureResultFile> files);
+
+  /**
+   * Retrieves random images from the server.
+   *
+   * @return Returns a list of random images from the server.
+   */
+  Page<ImageEntity> getRandomImages();
 }

@@ -43,14 +43,15 @@
   "components": {
     "dialog": {
       "confirmationTitle": "Megerősítés",
-      "confirmationContent": "Biztos vagy benne?"
+      "confirmationContent": "Biztos vagy benne? A művelet nem visszavonható!"
     },
     "button": {
       "submit": "Elküldés",
       "save": "Mentés",
       "cancel": "Mégsem",
       "yes": "Igen",
-      "no": "Nem"
+      "no": "Nem",
+      "download": "Letöltés"
     },
     "input-title": {
       "type1": "Mappa neve",
@@ -244,6 +245,17 @@
         "no-image-to-add-to-folder": "Képek nem kerültek még kiválasztva!"
       }
     },
+    "settings": {
+      "imageServerCheckbox": "Lokálisan tárolt képek haszálata",
+      "imageServerCheckboxTooltip": "Amennyiben a [https://gisco-services.ec.europa.eu/lucas] szerveren lévő képek helyett, a lokálisan tárolt képeket tervezed használni az alkalmazás futása során, akkor használd ezen opciót. Ennek segítségével a képek gyorsabban kerülhetnek megjelenítésre/betöltésre az alkalmazásba.",
+      "imageServerTitle": "Lokális szerver nem fut",
+      "imageServerContent0": "Az alkalmazás megpróbálta a lokálisan tárolt képek egyikét beolvasni, de hiba került dobásra! Feltételezzük, hogy a szerver nem fut az ön oldalán.",
+      "imageServerContent1": "Amennyiben a lokálisan tárolt képeket szeretnéd használni az alkalmazás futtatása során, ahhoz előtte kattints a [Letöltés] gombra, hogy letöltésre kerülhessen a képek beolvasását segítő szerver.",
+      "imageServerContent2": "A szerver a 6792-es porton keresztül fog hallgatózni, így amennyiben ezen port foglalt a lokális gépen, kérjük szabadítsd fel a szerver használatához.",
+      "imageServerNotRun": "Hiba! A lokális szerver nem fut, emiatt ezen opció nem került aktiválásra!",
+      "imageServerIsTurnedOn": "A kapcsolat a lokális szerverrel létrejött, egy random kép sikeresen beolvasásra került! Amennyiben ezen opció aktív, minden kép a lokális szerverről fog beolvasásra kerülni az alkalmazás futása során!",
+      "imageServerIsTurnedOnButNotFound": "A következő útvonalon lévő képet nem lehetett beolvasni: [{{imagePath}}]. Emiatt a kép a távoli gisco szerverről kerül lekérésre."
+    },
     "bounding-box": {
       "dialog-title": "Befoglaló téglalapok",
       "tabs": {
@@ -251,12 +263,13 @@
         "tab-2": "Szűrés",
         "tab-3": "Beállítások"
       },
-      "procedure-log-menu": {
-        "procedure": "Eljárás:",
-        "params": "Paraméterek:",
-        "plants": "Növények:",
-        "user": "Létrehozó:",
-        "creation-date": "Létrehozás ideje:"
+      "procedureLogMenu": {
+        "procedure": "Eljárás",
+        "params": "Paraméterek",
+        "plants": "Növények",
+        "user": "Létrehozó",
+        "box": "Befoglaló téglalapok",
+        "creationDate": "Létrehozás ideje"
       },
       "timelineMenu": {
         "noProcedureLogFetched": "Eljárás logok nem találhatóak az adott képhez!",

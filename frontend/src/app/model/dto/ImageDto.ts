@@ -6,6 +6,8 @@ export default class ImageDto {
     public country: string,
     public year: number,
     public coordinateX: number,
-    public coordinateY: number
+    public coordinateY: number,
+    // Not part of the response
+    public base64Src?: string,
   ) {}
 }

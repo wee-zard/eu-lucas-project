@@ -1,11 +1,19 @@
 package com.lucas.spring.components.image;
 
+import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.model.model.ResourceModel;
 import com.lucas.spring.commons.model.response.BaseResponse;
+import com.lucas.spring.commons.model.response.PageableResponse;
+import com.lucas.spring.commons.utils.ResourceUtil;
 import com.lucas.spring.components.image.facade.ImageFetcherFacade;
+import com.lucas.spring.components.image.model.dto.ImageDto;
+import com.lucas.spring.components.image.service.ImageService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,17 +28,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/fetcher")
 public class ImageFetcherController {
-  @Value("${lucasRemoteImageServerPath}")
-  private String lucasRemoteImageServerPath;
+  @Value("${lucasRemoteImageServerPath}") private String lucasRemoteImageServerPath;
   private final ImageFetcherFacade imageFetcherFacade;
+  private final ConversionHelper conversionHelper;
+  private final ImageService imageService;
 
   /**
    * Init constructor.
    *
    * @param imageFetcherFacade Image Fetcher Facade Service.
    */
-  public ImageFetcherController(final ImageFetcherFacade imageFetcherFacade) {
+  public ImageFetcherController(
+          final ImageFetcherFacade imageFetcherFacade,
+          final ConversionHelper conversionHelper,
+          final ImageService imageService
+  ) {
     this.imageFetcherFacade = imageFetcherFacade;
+    this.conversionHelper = conversionHelper;
+    this.imageService = imageService;
   }
 
   /**
@@ -66,6 +81,34 @@ public class ImageFetcherController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestBody String[] urls
   ) {
-    return imageFetcherFacade.urlToBase64(urls[0]);
+    return ResourceUtil.urlToBase64(urls[0]);
+  }
+
+  /**
+   * Retrieves random images from the server.
+   *
+   * @param user The user who initialized the connection to the server.
+   * @return Returns a list of random images from the server.
+   */
+  @CrossOrigin
+  @GetMapping("/random")
+  public PageableResponse<ImageDto> getRandomImages(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+  ) {
+    return conversionHelper.convertPage(imageService.getRandomImages(), ImageDto.class);
+  }
+
+  /**
+   * Retrieves the local image server files from the resources directory.
+   *
+   * @param user The user who initialized the connection to the server.
+   * @return Returns a list of filenames and base64strings of the retrieved files.
+   */
+  @CrossOrigin
+  @GetMapping("/image-server")
+  public List<ResourceModel> getLocalImageServer(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+  ) {
+    return ResourceUtil.getResourceModels("localImageServer");
   }
 }

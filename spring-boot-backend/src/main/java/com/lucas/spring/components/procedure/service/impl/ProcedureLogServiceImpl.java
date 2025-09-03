@@ -1,6 +1,6 @@
 package com.lucas.spring.components.procedure.service.impl;
 
-import com.lucas.spring.commons.utils.CriteriaBuilderHelper;
+import com.lucas.spring.commons.utils.CriteriaBuilderUtil;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
 import com.lucas.spring.components.procedure.model.entity.ProcedureEntity;
 import com.lucas.spring.components.procedure.model.entity.ProcedureLogEntity;
@@ -41,7 +41,7 @@ public class ProcedureLogServiceImpl implements ProcedureLogService {
     // Query by the image id.
     qc.select(root).where(cb.equal(root.get("image").get("id"), imageId));
 
-    return CriteriaBuilderHelper.getPagedResult(qc, cb, root, pageable, entityManager);
+    return CriteriaBuilderUtil.getPagedResult(qc, cb, root, pageable, entityManager);
   }
 
   /**
