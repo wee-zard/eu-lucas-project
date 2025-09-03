@@ -1,23 +1,20 @@
 package com.lucas.spring.components.procedure.model.entity;
 
+import com.lucas.spring.commons.model.entity.BaseEntity;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
 import com.lucas.spring.components.user.model.entity.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * An entity storing the column information of the
@@ -29,15 +26,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 @Entity(name = "ProcedureLog")
 @Table(name = "tb_procedure_log")
-public class ProcedureLogEntity {
-
-  /**
-   * The unique identifier of the log.
-   */
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
-  private Long id;
+public class ProcedureLogEntity extends BaseEntity {
 
   /**
    * The author of the procedure log.
@@ -75,9 +64,8 @@ public class ProcedureLogEntity {
   /**
    * The creation time of the log.
    */
-  @CreationTimestamp
   @Column(name = "created_at", nullable = false)
-  private LocalDateTime createdAt;
+  private Instant createdAt;
 
   /**
    * The list of params associated with the given procedure.

@@ -131,12 +131,12 @@ kanban-plugin: board
 
 ## 🔴Log Upload Backlog
 
-- [ ] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]] #LogUpload-Page #🔴ToDo
 - [ ] [[186 - Legyen egy szöveg, ami explicit taglalja, hogy milyen formában engedett az xml feltöltés]] #🔴ToDo  #LogUpload-Page
 - [ ] [[185 - Feltöltött eljárás logokat lehessen törölni]] #LogUpload-Page #🔴ToDo
 - [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljük el]] #LogUpload-Page
 - [ ] [[039 - Procedures oldal létrehozása]] #LogUpload-Page
 - [ ] [[187 - Legyen egy űrlap, amin keresztül fel lehet tölteni eljárás eredményeket]] #LogUpload-Page
+- [x] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]] #LogUpload-Page  #🟢Done
 
 
 ## 🔴Filtering Page Backlog

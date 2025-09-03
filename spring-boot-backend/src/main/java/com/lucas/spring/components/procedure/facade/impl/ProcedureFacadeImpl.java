@@ -1,5 +1,6 @@
 package com.lucas.spring.components.procedure.facade.impl;
 
+import com.lucas.spring.commons.utils.DateTimeUtil;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
 import com.lucas.spring.components.image.service.ImageService;
 import com.lucas.spring.components.plant.service.PlantService;
@@ -66,6 +67,7 @@ public class ProcedureFacadeImpl implements ProcedureFacade {
                       .user(userEntity)
                       .author(request.getAuthor())
                       .filename(request.getFilename())
+                      .createdAt(DateTimeUtil.toInstant(request.getTimestamp()))
                       .build());
 
       // Save the procedure log params.
