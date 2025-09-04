@@ -141,10 +141,8 @@ kanban-plugin: board
 
 ## 🔴Filtering Page Backlog
 
-- [ ] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]] #Filtering-Page #🟣Testing #🔴ToDo
 - [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]] #mission #Filtering-Page #🔴ToDo
 - [ ] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #Filtering-Page #🔴ToDo
-- [ ] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #Filtering-Page #🔴ToDo
 - [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page
 - [ ] [[118 - Adatbázis feltöltése a képekhez tartozó EXIF adatokkal]] #mission #Filtering-Page
@@ -173,11 +171,12 @@ kanban-plugin: board
 - [x] [[162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra]] #Filtering-Page #🟢Done
 - [x] [[175 - @deprecated Kiválasztott képek csoportosítása a szűrési feltétel alapján]] #mission #Filtering-Page #🟢Done
 - [x] [[055 - @deprecated Loading ikon megjelenítése a képek lekérdezéséhez]] #Filtering-Page #🟢Done
+- [x] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]] #Filtering-Page #🟢Done
+- [x] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #Filtering-Page #🟢Done
 
 
 ## 🔴Bounding Box Page Backlog
 
-- [ ] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #🟣Testing    #BoundingBox-Page #🔴ToDo
 - [ ] [[182 - Eljárás logok szűrésének a megvalósítása]] #🔴ToDo  #BoundingBox-Page
 - [ ] [[183 - Három log kiválasztása esetén, egy szín kétszer szerepel a befoglaló téglalapoknál]] #mission #BoundingBox-Page
 - [ ] [[184 - Lehessen dinamikusan módosítani a befoglaló téglalapokhoz tartozó keretek színét]] #BoundingBox-Page
@@ -189,6 +188,7 @@ kanban-plugin: board
 - [ ] [[004 - @deprecated Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]] #deprecated #BoundingBox-Page
 - [x] [[173 - Logok sorbarendezése a létrehozásuk ideje alapján, és a legfrissebb legyen a legelső]] #🟢Done   #BoundingBox-Page
 - [x] [[003 - Befoglaló téglalapok megjelenítése a képeken]] #🟢Done  #BoundingBox-Page
+- [x] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #🟢Done  #BoundingBox-Page
 
 
 ## 🔴Folder Page Backlog
@@ -200,8 +200,8 @@ kanban-plugin: board
 - [ ] [[207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása]] #Folder-Page
 - [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🔴ToDo   #Folder-Page
 - [ ] [[209 - ManageFolders - Settings 7 - Mappa zárolása]] #Folder-Page
-- [ ] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🟣Testing   #Folder-Page
-- [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🟣Testing   #Folder-Page
+- [ ] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🟣Testing   #Folder-Page #🔴ToDo
+- [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🟣Testing   #Folder-Page #🔴ToDo
 - [ ] [[201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett]] #🔴ToDo #Folder-Page
 - [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #Folder-Page
 - [x] X - Pagination frissítése ez alapján: https://ardijorganxhi.medium.com/implement-pagination-at-your-spring-boot-application-a540270b5f60 #🟢Done #Folder-Page
@@ -221,7 +221,7 @@ kanban-plugin: board
 - [ ] [[166 - Compose.yml - The frontend container should wait for the backend to fully load]] #Deployment
 - [ ] 195 - projekt beütemezéséhez egy szkriptet írni, amivel egyszerűen lehetne futtatni a projektet #mission #Deployment
 - [ ] 196 - A képeket fel lehessen csatolni a backend docker containerhez #mission #Deployment
-- [ ] 198 - A VM migrálása egy Rackhost VM-re #Deployment
+- [ ] 198 - A VM migrálása egy Rackhost VM-re #Deployment #🔴ToDo
 - [x] [[193 - Fizetni egy MySQL adatbázis instance-t, és feltölteni oda az adatbázist]] #mission #Deployment #🟢Done
 - [x] 197 - @deprecated - A frontend és backend kiszervezése DockerHub-ra #mission #Deployment #🟢Done
 

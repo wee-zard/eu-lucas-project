@@ -3,12 +3,12 @@ id: 50
 type:
   - 🟥Bug
 priority:
-  - Low
-related: 
+  - High
+related:
 platform:
   - frontend
   - backend
-sprint: 
+sprint:
 creation-time: 2024-12-07T21:13:00
 ---
 Aktuális működés:

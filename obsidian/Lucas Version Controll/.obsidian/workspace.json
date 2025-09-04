@@ -200,8 +200,9 @@
   },
   "active": "7213bd70899264c2",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja.md",
+    "Kanban Board/Nodes/050 - Filtering Dialog input mezői nem kerülnek validálásra.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja.md",
     "Kanban Board/Nodes/193 - @deprecated - Fizetni egy MySQL adatbázis instance-t, és feltölteni oda az adatbázist.md",
     "Kanban Board/Nodes/218 - Filtering - Alert dobása a dialógus ablak első megnyitásával.md",
     "Kanban Board/Nodes/187 - Legyen egy űrlap, amin keresztül fel lehet tölteni eljárás eredményeket.md",
@@ -225,7 +226,6 @@
     "Kanban Board/Nodes/213 - RequestParamType kerül használatra GET és DELETE request-nél, ami nem hatékony.md",
     "Kanban Board/Nodes/212 - Using better encryption, so we do not need to decrypt the email of users.md",
     "Kanban Board/Nodes/211 - Object.equals(A, B) használata a sima equals() helyett, mert NullPointerException dobódhat.md",
-    "Kanban Board/Nodes/211 - Amennyiben hibás egy fájl, akkor egy Alert message kerüljön megjelenítésre.md",
     "Kanban Board/Images/Pasted image 20250724184703.png",
     "Kanban Board/Images/Pasted image 20250712085053.png",
     "Kanban Board/Images/Pasted image 20250224232633.png",

@@ -199,12 +199,14 @@ export enum FilterDialogFilters {
   X_COORDINATE = "X Koordináta",
   Y_COORDINATE = "Y Koordináta",
   DIRECTION = "Készítés Iránya",
-  EXIF_DATA = "Exif adat",
+  // TODO: Allow filtering by EXIF_DATA
+  //EXIF_DATA = "Exif adat",
   PROCEDURE_NAME = "Eljárás neve",
   PROCEDURE_PARAMS = "Eljárás pareméterei",
   IS_HOMOGENOUS = "Detektált növény homogén-e",
   PROBABILITY = "Detektálás valószínűsége",
-  PLANT_SPECIES = "Növényfajok",
+  // TODO: Allow filtering by plant species.
+  //PLANT_SPECIES = "Növényfajok",
   PLANT_NAME = "Növények",
 }
 

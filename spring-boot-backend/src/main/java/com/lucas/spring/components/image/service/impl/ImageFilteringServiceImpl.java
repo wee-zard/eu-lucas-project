@@ -6,6 +6,7 @@ import com.lucas.spring.commons.utils.CriteriaBuilderOperatorUtil;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.coordinate.x.model.entity.CoordinateXthEntity;
 import com.lucas.spring.components.coordinate.y.model.entity.CoordinateYthEntity;
+import com.lucas.spring.components.country.model.entity.CreationCountryEntity;
 import com.lucas.spring.components.direction.model.entity.CreationDirectionEntity;
 import com.lucas.spring.components.folder.enums.QueryElementRelations;
 import com.lucas.spring.components.image.enums.FilterOption;
@@ -137,7 +138,7 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
       case COUNTRY -> {
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
                 root.get(FilterOption.COUNTRY.getTableColumn()),
-                conversionHelper.convert(component, CreationDirectionEntity.class));
+                conversionHelper.convert(component, CreationCountryEntity.class));
       }
       case X_COORDINATE -> {
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,

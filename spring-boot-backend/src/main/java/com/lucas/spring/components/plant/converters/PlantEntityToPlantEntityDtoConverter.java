@@ -17,7 +17,9 @@ public class PlantEntityToPlantEntityDtoConverter implements Converter<PlantEnti
   public PlantDto convert(final PlantEntity source) {
     return PlantDto.builder()
             .isPlantInvasive(source.getIsPlantInvasive())
-            .plantSpeciesName(source.getPlantSpeciesName().getPlantScientificName())
+            .plantSpeciesName(source.getPlantSpeciesName() != null
+                    ? source.getPlantSpeciesName().getPlantScientificName()
+                    : null)
             .plantScientificName(source.getPlantScientificName())
             .build();
   }

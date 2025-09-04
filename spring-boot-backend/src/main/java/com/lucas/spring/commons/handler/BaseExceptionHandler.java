@@ -1,7 +1,7 @@
 package com.lucas.spring.commons.handler;
 
-import com.lucas.spring.components.authorization.exception.AuthorizationException;
 import com.lucas.spring.commons.exception.abstraction.BaseException;
+import com.lucas.spring.components.authorization.exception.AuthorizationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

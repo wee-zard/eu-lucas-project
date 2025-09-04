@@ -4,7 +4,8 @@ import {
   operatorBooleanItems,
   operatorComparableItems,
   operatorSelectItems,
-  operatorTextfieldItems,
+  // TODO: Allow filtering by EXIF_DATA
+  //operatorTextfieldItems,
 } from "@model/QueryBuilderModel";
 import { ConversionUtils } from "@helper/conversionUtils";
 import i18n from "@i18n/i18nHandler";
@@ -14,11 +15,13 @@ import { selectListOfCreationCountry } from "@redux/selectors/creationCountrySel
 import { selectListOfCreationDirection } from "@redux/selectors/creationDirectionSelector";
 import { selectListOfCoordinateX } from "@redux/selectors/coordinateXSelector";
 import { selectListOfCoordinateY } from "@redux/selectors/coordinateYSelector";
-import { selectListOfExifKeys } from "@redux/selectors/exifKeySelector";
+// TODO: Allow filtering by EXIF_DATA
+//import { selectListOfExifKeys } from "@redux/selectors/exifKeySelector";
 import { selectListOfProcedures } from "@redux/selectors/procedureSelector";
 import { selectListOfProcedureLogParamsByParam } from "@redux/selectors/procedureLogParamSelector";
 import { selectListOfPlantsByName } from "@redux/selectors/plantSelector";
-import { selectListOfPlantSpeciesByScientificName } from "@redux/selectors/plantSpeciesSelector";
+// TODO: Allow filtering by plant species.
+//import { selectListOfPlantSpeciesByScientificName } from "@redux/selectors/plantSpeciesSelector";
 
 export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDialogFilters) => {
   const listOfCreationYears = useSelector(selectListOfCreationYears);
@@ -26,9 +29,11 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
   const listOfCreationDirections = useSelector(selectListOfCreationDirection);
   const listOfCoordinateX = useSelector(selectListOfCoordinateX);
   const listOfCoordinateY = useSelector(selectListOfCoordinateY);
-  const listOfExifKeys = useSelector(selectListOfExifKeys);
+  // TODO: Allow filtering by EXIF_DATA
+  //const listOfExifKeys = useSelector(selectListOfExifKeys);
   const listOfPlants = useSelector(selectListOfPlantsByName);
-  const listOfPlantSpecies = useSelector(selectListOfPlantSpeciesByScientificName);
+  // TODO: Allow filtering by plant species.
+  //const listOfPlantSpecies = useSelector(selectListOfPlantSpeciesByScientificName);
   const listOfProcedures = useSelector(selectListOfProcedures).map((item) => item.name);
   const listOfProcedureLogParams = useSelector(selectListOfProcedureLogParamsByParam);
   const probabilityList = Array.from(Array(101).keys()).map((element) => element.toString());
@@ -108,6 +113,8 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
+      /*
+      TODO: Allow filtering by the exif data.
       case "EXIF_DATA":
         return [
           {
@@ -125,6 +132,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
             inputKey: FilteringFormInputKeys.TextfieldInput,
           },
         ];
+        */
       case "PROCEDURE_NAME":
         return [
           {
@@ -177,6 +185,8 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
+      /*
+      // TODO: Allow filtering by plant species.
       case "PLANT_SPECIES":
         return [
           {
@@ -192,6 +202,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
+        */
       case "PLANT_NAME":
         return [
           {
