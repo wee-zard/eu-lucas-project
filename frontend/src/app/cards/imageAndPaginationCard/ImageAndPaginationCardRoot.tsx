@@ -7,10 +7,14 @@ import { MenuActions } from "@model/enum";
 import StyledTablePagination from "@components/StyledTablePagination";
 import { styled } from "@mui/material/styles";
 import { StyledScrollBarHolder } from "@global/globalStyles";
+import EventListenerType from "@model/types/EventListenerType";
+import { useEffect, useState } from "react";
+import { handlePageableImageResponseSrcModification } from "@dialogs/filteringDialog/helper/FilteringHelper";
 
 const rowsPerPageOptions = [3, 6, 9, 12, 15];
 
 type Props = {
+  event?: EventListenerType;
   content: {
     emptyContentText: string;
     nullResultContentText: string;
@@ -25,6 +29,7 @@ type Props = {
 };
 
 const ImageAndPaginationCardRoot = ({
+  event,
   content,
   pageableResponse,
   imageActions = [],
@@ -34,6 +39,25 @@ const ImageAndPaginationCardRoot = ({
   setPageable,
   handleClickOnRippleImage,
 }: Props) => {
+  const [response, setResponse] = useState<PageableResponse<ImageDto>>();
+
+  useEffect(() => {
+    setResponse(undefined);
+
+    if (!pageableResponse?.content) {
+      return;
+    }
+
+    handlePageableImageResponseSrcModification(pageableResponse.content)
+      .then((imageDtoList) =>
+        setResponse({
+          ...pageableResponse,
+          content: imageDtoList,
+        }),
+      )
+      .catch(() => setResponse(undefined));
+  }, [pageableResponse]);
+
   const handleChangeOfPageable = (pageable: PageableProperties) => {
     setPageable(pageable);
     setMenuAction(MenuActions.PAGINATION_CHANGE);
@@ -42,16 +66,17 @@ const ImageAndPaginationCardRoot = ({
   return (
     <StyledCardAndPaginationWrapper>
       <StyledTablePagination
-        pageNo={pageableResponse?.page ?? 0}
-        pageSize={pageableResponse?.size ?? 0}
-        totalElements={pageableResponse?.totalElements ?? -1}
-        isDisabled={!pageableResponse}
+        pageNo={response?.page ?? 0}
+        pageSize={response?.size ?? 0}
+        totalElements={response?.totalElements ?? -1}
+        isDisabled={!response}
         rowsPerPageOptions={rowsPerPageOptions}
         setPageable={handleChangeOfPageable}
       />
       <ImageAndPaginationCard
+        event={event}
         content={content}
-        pageableResponse={pageableResponse}
+        pageableResponse={response}
         imageActions={imageActions}
         isRippleDisabled={isRippleDisabled}
         isMenuDisabled={isMenuDisabled}

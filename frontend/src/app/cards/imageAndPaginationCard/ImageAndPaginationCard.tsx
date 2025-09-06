@@ -5,11 +5,14 @@ import { StyledCardTemplate } from "@screens/filteringScreen/FilteringCommonStyl
 import { handleClickOnGlobalRippleEffect } from "app/scripts/rippleEffectOnClick";
 import PageableResponse from "@model/response/PageableResponse";
 import { SelectedImageAction } from "@model/types/SelectedImageActionType";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyledComponentGap } from "@global/globalStyles";
 import ImageCardInnerElements from "./ImageCardInnerElements";
+import EventListenerType from "@model/types/EventListenerType";
+import EventListenerUtil from "@helper/eventListenerUtil";
 
 type Props = {
+  event?: EventListenerType;
   content: {
     emptyContentText: string;
     nullResultContentText: string;
@@ -22,6 +25,7 @@ type Props = {
 };
 
 const ImageAndPaginationCard = ({
+  event,
   content,
   pageableResponse,
   imageActions,
@@ -31,15 +35,43 @@ const ImageAndPaginationCard = ({
 }: Props) => {
   const [selectedImageIds, setSelectedImageIds] = useState<number[]>([]);
 
+  useEffect(() => {
+    if (!event) {
+      return;
+    }
+
+    EventListenerUtil.create({
+      ...event,
+      method: handleImageSelection,
+    });
+
+    return () =>
+      EventListenerUtil.removeEventListener({
+        ...event,
+        method: handleImageSelection,
+      });
+  }, [event]);
+
   const isImagePresentInSelectedImages = (imageDto: ImageDto): boolean =>
     selectedImageIds.includes(imageDto.id);
 
-  const handleSelectedImagesChange = (imageDto: ImageDto) => {
-    setSelectedImageIds(
-      isImagePresentInSelectedImages(imageDto)
-        ? selectedImageIds.filter((id) => id !== imageDto.id)
-        : [...selectedImageIds, imageDto.id],
-    );
+  const handleImageSelection = (param: ImageDto[] | CustomEvent) => {
+    let res = [...selectedImageIds];
+    let listOfImages: ImageDto[] = [];
+
+    if (param instanceof CustomEvent) {
+      listOfImages = [...param.detail];
+    } else {
+      listOfImages = [...param];
+    }
+
+    listOfImages.forEach((imageDto) => {
+      res = isImagePresentInSelectedImages(imageDto)
+        ? res.filter((id) => id !== imageDto.id)
+        : [...res, imageDto.id];
+    });
+
+    setSelectedImageIds(res);
   };
 
   const renderImageCardContent = (imageDto: ImageDto): JSX.Element => {
@@ -51,8 +83,8 @@ const ImageAndPaginationCard = ({
         id={filteredImageCardDivId}
         is_card_selected={+isImagePresentInSelectedImages(imageDto)}
         onClick={(event) => {
-          handleSelectedImagesChange(imageDto);
-          handleClickOnRippleImage(imageDto);
+          handleImageSelection([imageDto]);
+          handleClickOnRippleImage({ ...imageDto, base64Src: undefined });
           handleClickOnGlobalRippleEffect(event, filteredImageCardDivId);
         }}
       >

@@ -16,7 +16,7 @@ import { SnackEnum } from "@model/enum/SnackEnum";
 import { SettingsFormGroup } from "@model/forms/SettingsFormControlGroup";
 import { ConfirmationDialogConfigType } from "@model/types/ConfirmationDialogConfigType";
 import { styled } from "@mui/material";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setSettingBackdropConfig } from "@redux/actions/settingActions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -68,7 +68,7 @@ const SettingLocalImageServer = ({ helper }: Props) => {
    * are there or not.
    */
   const handleConnectionToLocalImageServer = async () => {
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
 
     try {
       const randomPageableImageDto = await getRandomImagesCommand();
@@ -99,7 +99,7 @@ const SettingLocalImageServer = ({ helper }: Props) => {
       // Reset the checkbox due to an error from the server.
       handleLocalImageServerChange(false);
     } finally {
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
     }
   };
 
@@ -108,16 +108,15 @@ const SettingLocalImageServer = ({ helper }: Props) => {
    * and compress them into a zip, so the user could view them.
    */
   const handleDownloadOfLocalImageServerResources = async () => {
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
     setDialogOpen(false);
 
     try {
       const resources = await getLocalImageServerResourcesCommand();
-      await new ZipHelper().downloadBase64Strings(resources);
+      await new ZipHelper(dispatch).downloadBase64Strings(resources);
     } finally {
       // Every time the download is finished (even when error is occurred), reset the checkbox.
       handleLocalImageServerChange(false);
-      dispatch(setSettingBackdropOpen(false));
     }
   };
 

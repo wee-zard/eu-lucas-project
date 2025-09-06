@@ -40,6 +40,14 @@
       "labelRowsPerPage": "Sorok oldalanként:"
     }
   },
+  "helpers": {
+    "zip": {
+      "addImagesToZip": "Erőforrások hozzáadása a zip-hez",
+      "downloadZip": "Zip-be feltöltött erőforrások letöltése",
+      "errorWhileDownloadingZip": "Váratlan hiba történt a zip letöltése során!",
+      "zipDownloaded": "Zip sikeresen letöltésre került!"
+    }
+  },
   "components": {
     "dialog": {
       "confirmationTitle": "Megerősítés",
@@ -115,6 +123,16 @@
       }
     },
     "upload-procedures": {
+      "stage": {
+        "convertingEventIntoFileList": "Feltöltött fájlok beolvasása",
+        "filterOutNonXmlFiles": "Nem-XML fájlok kiszűrése",
+        "processXmlFile": "{{filename}} XML fájl feldolgozása",
+        "getFilenameAndCreationYear": "XML fájlokban található képek neveinek és létrehozási évének kinyerése",
+        "getImageProperties": "Az elemzésre került képekhez tartozó adatok lekérése a szerverről",
+        "getImagePathAndWidthAndHeight": "Az elemzésre került képek magasságának és szélességének lekérése",
+        "createProcedureLogRequest": "HTTP kérés létrehozása az XML fájlok feltöltése céljából",
+        "uploadLogsToServer": "Fájlok feltöltése a szerverre"
+      },
       "view": {
         "supported-format": "Támogatott fájl formátumok:",
         "xml": "XML",
@@ -127,6 +145,7 @@
         "successful-file-upload": "XML fájlok sikeresen feltöltésre kerültek a szerverre!"
       },
       "error": {
+        "uploadedErrorNotification": "A fájlfeltöltés megszakításra került! A feltöltött {{maxNumberOfFiles}} fájlból {{processedFiles}} fájl hibás! A sikeres fájlfeltöltéshez minden fájlnak hibamentesnek kell lenni!",
         "processing-file-at-server": "Váratlan hiba történt a fájl feldolgozása közben a szerver oldalon!",
         "processing-file-to-buffer": "Váratlan hiba történt a fájlnak a Bufferré való konvertálása során!",
         "file-extension": "Hiba! A fájl nem XML kiterjesztésű!",
@@ -291,11 +310,11 @@
       "clear-all-filter": "Minden szűrés törlése",
       "filter-not-set-yet": "Szűrési feltétel még nem került megadásra!",
       "filtering-no-content": "A szűrés üres eredménnyel tért vissza!",
-      "selection-actions": {
-        "select-all-button-title": "Összes kép kiválasztása",
-        "select-all-button-tooltip": "A szűrés során visszaadott összes kép kiválasztása",
-        "select-on-page-button-title": "Oldal összes képének kiválasztása",
-        "select-on-page-button-tooltip": "Azon 9 specifikus kép kiválasztása, amik a szűrést után megjelenítésre kerültek az oldalon"
+      "selectionActions": {
+        "selectAllButtonTitle": "Összes",
+        "selectAllButtonTooltip": "A szűrés során visszaadott összes kép kiválasztása",
+        "selectOnPageButtonTitle": "9",
+        "selectOnPageButtonTooltip": "A szűrés során visszaadott képek közül azon 9 kép kiválasztása, amik megjelenítésre kerültek"
       },
       "folder-menu-items": {
         "add-to-existing-folder": "Hozzáadás egy már létező mappához",

@@ -1,5 +1,6 @@
 import EventListenerUtil from "@helper/eventListenerUtil";
 import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
+import EventListenerType from "@model/types/EventListenerType";
 import { useEffect, useState } from "react";
 
 export const useEventListenerRender = (
@@ -15,9 +16,14 @@ export const useEventListenerRender = (
       return;
     }
 
-    const eventName = EventListenerUtil.getEventIdNameFromEventListenerIdEnum(key, id);
-    window.addEventListener(eventName, updateElement);
-    return () => window.removeEventListener(eventName, updateElement);
+    const event: EventListenerType = {
+      key: key,
+      id: id,
+      method: updateElement,
+    };
+
+    EventListenerUtil.create(event);
+    return () => EventListenerUtil.removeEventListener(event);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,9 +44,14 @@ export const useEventListenerFetcher = (
 
     updateElement();
 
-    const eventName = EventListenerUtil.getEventIdNameFromEventListenerIdEnum(key, id);
-    window.addEventListener(eventName, updateElement);
-    return () => window.removeEventListener(eventName, updateElement);
+    const event: EventListenerType = {
+      key: key,
+      id: id,
+      method: updateElement,
+    };
+
+    EventListenerUtil.create(event);
+    return () => EventListenerUtil.removeEventListener(event);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };

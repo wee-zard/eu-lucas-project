@@ -9,11 +9,13 @@ import ProcedureLogError from "@model/error/ProcedureLogError";
 import ProcedureLogUtils from "@screens/uploadProcedureScreen/helper/procedureLogUtils";
 import { useDispatch } from "react-redux";
 import { setProcedureUploadProcessModels } from "@redux/actions/procedureUploadActions";
-import { openSnackbar, throwNotification, ToastSeverity } from "@helper/notificationUtil";
+import { openSnackbar } from "@helper/notificationUtil";
 import { uploadProcedureResult } from "@api/command/procedureCommands";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setSettingBackdropConfig } from "@redux/actions/settingActions";
 import ProcedureResultRequest from "@model/request/ProcedureResultRequest";
 import { SnackEnum } from "@model/enum/SnackEnum";
+import { UploadProcedureLogStageEnum } from "@model/enum/UploadProcedureLogStageEnum";
+import { TranslateOptions } from "i18n-js";
 
 const UploadProcedureActions = () => {
   const dispatch = useDispatch();
@@ -73,10 +75,18 @@ const UploadProcedureActions = () => {
   };
 
   const getUploadErrorNotification = (maxNumberOfFiles: number, processedFiles: number) => {
-    throwNotification(
-      ToastSeverity.Error,
-      `Hiba! A feltöltött ${maxNumberOfFiles}db fájlból ${processedFiles}db hibás! A fájlfeltöltéshez minden fájlnak hibamentesnek kell lenni!`,
-    );
+    openSnackbar(SnackEnum.UPLOADED_ERROR_NOTIFICATION, { maxNumberOfFiles, processedFiles });
+  };
+
+  const handleBackdropConfigChange = (
+    key: UploadProcedureLogStageEnum,
+    option?: TranslateOptions,
+  ): void => {
+    const maxNumberOfSteps = Object.entries(UploadProcedureLogStageEnum);
+    const currentStep = maxNumberOfSteps.findIndex((entry) => entry[1] === key) + 1;
+    const progress = (currentStep * 100.0) / maxNumberOfSteps.length;
+    const loadingText = i18n.t(key, option);
+    dispatch(setSettingBackdropConfig({ isBackdropOpen: true, progress, loadingText }));
   };
 
   /**
@@ -88,21 +98,23 @@ const UploadProcedureActions = () => {
    */
   const handleEventProcess = (event: React.ChangeEvent<HTMLInputElement>): void => {
     // Step 1.0: Start the process.
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
     dispatch(setProcedureUploadProcessModels([]));
 
     // Step 1.1: Converting event into File list.
+    handleBackdropConfigChange(UploadProcedureLogStageEnum.EVENT_TO_FILES);
     const files = FileUtils.getListOfUploadedFilesFromEvent(event);
 
     // Step 1.2: Filtering the xml files from the uploaded files.
     // Step 1.3: Filtering the non-xml files and display an error message to them.
+    handleBackdropConfigChange(UploadProcedureLogStageEnum.FILTER_OUT_NON_XML_FILES);
     const { xmlFilesToProcess, processedErrorFiles } = ProcedureLogUtils.filterFilesByTypes(files);
 
     // Step 1.4.: If there is no file to process, then terminate the process and stop the backdrop.
     if (xmlFilesToProcess.length === 0) {
       getUploadErrorNotification(files.length, processedErrorFiles.length);
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
       return;
     }
 
@@ -119,6 +131,10 @@ const UploadProcedureActions = () => {
     // Step 2.1: Extract one file from the valid list of xml files to process it
     for await (const file of xmlFilesToProcess) {
       try {
+        handleBackdropConfigChange(UploadProcedureLogStageEnum.PROCESS_XML_FILE, {
+          filename: file.name,
+        });
+
         // Step 2.2: Convert file to Buffer.
         const buffer = await FileUtils.fileToBuffer(file);
 
@@ -139,7 +155,7 @@ const UploadProcedureActions = () => {
     if (listOfRequest.length === 0) {
       getUploadErrorNotification(processedErrorFiles.length, processedErrorFiles.length);
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
       return;
     }
 
@@ -156,26 +172,30 @@ const UploadProcedureActions = () => {
     processedErrorFiles: ProcedureProcessModel[],
   ) => {
     // Step 3.1: Get the images and their properties based on the requests.
+    handleBackdropConfigChange(UploadProcedureLogStageEnum.GET_FILENAME_AND_YEARS);
     const requestFiles = ProcedureLogUtils.getFilenameAndCreationYears(listOfRequest);
 
     try {
       // Step 3.2: Get the list of image paths.
+      handleBackdropConfigChange(UploadProcedureLogStageEnum.GET_IMAGE_PROPERTIES);
       const imagePaths = await ProcedureLogUtils.getListOfImageModelsByFiles(requestFiles);
 
       // Step 3.3: Set the bounding boxes for the requestModel.
+      handleBackdropConfigChange(UploadProcedureLogStageEnum.GET_IMAGE_WIDTH_AND_HEIGHT);
       const imageProperties = await ProcedureLogUtils.getImagePathsAndProperties(imagePaths);
 
       // Step 3.4: Finalize the request build
+      handleBackdropConfigChange(UploadProcedureLogStageEnum.CREATE_PROCEDURE_LOG_REQUEST);
       const res = ProcedureLogUtils.finalizeResultRequests(listOfRequest, imageProperties);
 
       // Step 3.4.1: Check whether is there any file that is invalid. If yes, then terminate the process.
-
       if (processedErrorFiles.length > 0) {
         getUploadErrorNotification(uploadedFileNo, processedErrorFiles.length);
       } else {
         // File upload is restricted to happen only, if there is NO error inside the error files.
         try {
           // Step 3.5: Send the request model to the server.
+          handleBackdropConfigChange(UploadProcedureLogStageEnum.UPLOAD_LOGS_TO_SERVER);
           await uploadProcedureResult(res);
           openSnackbar(SnackEnum.UPLOADED_XML_FILES);
 
@@ -203,7 +223,7 @@ const UploadProcedureActions = () => {
       getUploadErrorNotification(uploadedFileNo, processedErrorFiles.length);
     } finally {
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
     }
   };
 

@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setQueriedImageModel, setSelectedImagesModel } from "@redux/actions/imageActions";
 import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
 import ZipHelper from "@helper/zipHelper";
 import FilteringAddToFolderMenu from "./FilteringAddToFolderMenu";
 import { defaultQueriedImageModel, defaultSelectedImagesModel } from "./helper/FilteringHelper";
@@ -20,8 +19,6 @@ const FilteringScreenHeader = () => {
   const selectedImagesModel = useSelector(selectSelectedImagesModel);
   const isSelectedImagesModelEmpty = selectedImagesModel.queryImages.length === 0;
   const dispatch = useDispatch();
-
-  console.log("[selectedImagesModel]:", selectedImagesModel);
 
   /**
    * Clears all of the selected images model from the redux.
@@ -41,9 +38,7 @@ const FilteringScreenHeader = () => {
   };
 
   const handleDownloadOfSelectedImages = () => {
-    dispatch(setSettingBackdropOpen(true));
-    const zipHelper = new ZipHelper(selectedImagesModel);
-    zipHelper.downloadZip().finally(() => dispatch(setSettingBackdropOpen(false)));
+    new ZipHelper(dispatch, selectedImagesModel).downloadZip();
   };
 
   return (

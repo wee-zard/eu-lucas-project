@@ -11,14 +11,13 @@ import PageableProperties from "@model/PageableProperties";
 import { ProcedureResultRequestFile } from "@model/request/ProcedureResultRequest";
 
 export const getImagesByFilters = (
-  request: FilteringQueryRequest,
   pageableProperties: PageableProperties,
 ): Promise<PageableResponse<ImageDto>> =>
   commandHandler<PageableResponse<ImageDto>>({
     type: RequestCommandTypes.POST,
     server: ServersToConnectTo.Backend,
     endpoint: BackendImageControllerEndpoints.PostFilterImage,
-    obj: request,
+    obj: new FilteringQueryRequest(),
     header: {
       isAuthTokenMandatory: true,
       pageableProperties: pageableProperties,

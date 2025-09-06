@@ -37,10 +37,10 @@ const FilteringDialog = () => {
       <StyledDialogTitle>{i18n.t("screens.filtering.dialog-title")}</StyledDialogTitle>
       <StyledDialogContent>
         <StyledDialogContentHolder display={"grid"}>
-          <div className="flex-gap">
+          <StyledHeaderActionWrapper className="flex-gap">
             <FilteringMenu />
             <FilteringImageSelectionActions />
-          </div>
+          </StyledHeaderActionWrapper>
           <FilteringImageAndPaginationCard />
         </StyledDialogContentHolder>
       </StyledDialogContent>
@@ -70,6 +70,10 @@ export const StyledDialogTitle = styled(DialogTitle)({
   display: "flex",
   justifyContent: "center",
   padding: "16px",
+});
+
+export const StyledHeaderActionWrapper = styled("div")({
+  justifyContent: "space-between",
 });
 
 export const StyledDialogContentHolder = styled(StyledComponentGap)({

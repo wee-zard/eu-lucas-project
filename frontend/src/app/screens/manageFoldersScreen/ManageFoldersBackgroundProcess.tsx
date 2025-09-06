@@ -1,6 +1,6 @@
 import { FolderSettingCellEnum } from "@model/enum/FolderSettingCellEnum";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setSettingBackdropConfig } from "@redux/actions/settingActions";
 import { selectSelectedFolderSettingCellOption } from "@redux/selectors/folderSelector";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -41,14 +41,13 @@ const ManageFoldersBackgroundProcess = () => {
       [FolderSettingCellEnum.IMPORT]: (_: number) => null,
       [FolderSettingCellEnum.COPY]: (_: number) => null,
       [FolderSettingCellEnum.DOWNLOAD]: (_: number) => {
-        dispatch(setSettingBackdropOpen(true));
+        dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
 
         // TODO: Fetch the list of images here with a command (bounding boxes should be included)
 
-        const zipHelper = new ZipHelper({
+        new ZipHelper(dispatch, {
           queryImages: [] /** TODO: Pass the folder's images here.  */,
-        });
-        zipHelper.downloadZip().finally(() => dispatch(setSettingBackdropOpen(false)));
+        }).downloadZip();
       },
 
       // TODO: Confirmation dialog should be pop up before calling the actual api command.
@@ -64,13 +63,13 @@ const ManageFoldersBackgroundProcess = () => {
        */
       [FolderSettingCellEnum.CLEAR]: (folderId: number) => {
         handleConfirmationDialogBranching(() => {
-          dispatch(setSettingBackdropOpen(true));
+          dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
           clearFolderCommand(folderId)
             .then(() => openSnackbar(SnackEnum.FOLDER_IS_CLEARED))
             .finally(() => {
               // Reset the paginated table on the Manage Folders page.
               EventListenerUtil.dispatchEvent(EventListenerIdEnum.PAGINATED_TABLE);
-              dispatch(setSettingBackdropOpen(false));
+              dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
               handleConfirmationDialogReset();
             });
         });
@@ -85,13 +84,13 @@ const ManageFoldersBackgroundProcess = () => {
        */
       [FolderSettingCellEnum.DELETE]: (folderId: number) => {
         handleConfirmationDialogBranching(() => {
-          dispatch(setSettingBackdropOpen(true));
+          dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
           deleteFolderCommand(folderId)
             .then(() => openSnackbar(SnackEnum.FOLDER_IS_DELETED))
             .finally(() => {
               // Reset the paginated table on the Manage Folders page.
               EventListenerUtil.dispatchEvent(EventListenerIdEnum.PAGINATED_TABLE);
-              dispatch(setSettingBackdropOpen(false));
+              dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
               handleConfirmationDialogReset();
             });
         });

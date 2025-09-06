@@ -19,7 +19,7 @@ kanban-plugin: board
 ## 🔴Backlog
 
 - [ ] Uncaught error 500 Internal Server Error on the frontend side. application is crashing #🔴ToDo
-- [ ] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]]  #🔴ToDo
+- [ ] X - Loading indikátor hozzáadása a data grid táblákhoz, kis szürke háttérrel
 - [ ] [[064 - Validálás Validátorok kollektor]]
 - [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
 - [ ] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
@@ -27,6 +27,7 @@ kanban-plugin: board
 - [ ] [[124 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, miközben a képlekérdezések leáll]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
 - [x] [[167 - DockerHub-ról levenni a projektet]] #🟣Testing
+- [x] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]]  #🟢Done
 
 
 ## 🔴Code Improvement ToDo
@@ -142,7 +143,6 @@ kanban-plugin: board
 ## 🔴Filtering Page Backlog
 
 - [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]] #mission #Filtering-Page #🔴ToDo
-- [ ] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #Filtering-Page #🔴ToDo
 - [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page
 - [ ] [[118 - Adatbázis feltöltése a képekhez tartozó EXIF adatokkal]] #mission #Filtering-Page
@@ -173,6 +173,7 @@ kanban-plugin: board
 - [x] [[055 - @deprecated Loading ikon megjelenítése a képek lekérdezéséhez]] #Filtering-Page #🟢Done
 - [x] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]] #Filtering-Page #🟢Done
 - [x] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #Filtering-Page #🟢Done
+- [x] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #Filtering-Page  #🟢Done
 
 
 ## 🔴Bounding Box Page Backlog
@@ -193,7 +194,7 @@ kanban-plugin: board
 
 ## 🔴Folder Page Backlog
 
-- [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo   #Folder-Page
+- [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page
 - [ ] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #🔴ToDo  #Folder-Page
 - [ ] [[205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #Folder-Page
 - [ ] [[206 - ManageFolders - Settings 4 - Képek importálása egy mappába]] #Folder-Page

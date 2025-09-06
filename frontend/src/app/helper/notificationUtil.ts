@@ -77,6 +77,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.FOLDER_IS_DELETED]: () => throwSuccessToast(),
     [SnackEnum.FOLDER_IS_CLEARED]: () => throwSuccessToast(),
     [SnackEnum.IMAGE_SERVER_IS_TURNED_ON]: () => throwSuccessToast(),
+    [SnackEnum.ZIP_DOWNLOADED]: () => throwSuccessToast(),
 
     // Error toast messages
     [SnackEnum.LOG_NOT_FOUND]: () => throwErrorToast(),
@@ -86,6 +87,8 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.REPORT_NOT_SENT_OUT]: () => throwErrorToast(),
     [SnackEnum.ERROR_ON_LOGIN]: () => throwErrorToast(),
     [SnackEnum.NO_IMAGE_TO_ADD_TO_FOLDER]: () => throwErrorToast(),
+    [SnackEnum.ERROR_WHILE_DOWNLOADING_ZIP]: () => throwErrorToast(),
+    [SnackEnum.UPLOADED_ERROR_NOTIFICATION]: () => throwErrorToast(),
 
     // Warning toast messages
     [SnackEnum.IMAGE_SERVER_IS_TURNED_ON_BUT_NOT_FOUND]: () => throwWarningToast(),

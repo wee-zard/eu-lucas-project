@@ -61,6 +61,7 @@ const CustomComponentGap = styled(StyledComponentGap)<{}>(() => ({
 
 const StyledIconHolder = styled.div<{}>(() => ({
   display: "flex",
+  alignItems: "center",
   svg: {
     width: 22,
     height: 22,

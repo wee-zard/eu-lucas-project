@@ -11,7 +11,7 @@ const app = express();
 app.use(configureCorsMiddleware());
 
 // Add bodyParser
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 
 // Add routes
 app.use('/api', configureRoutesMiddleware());

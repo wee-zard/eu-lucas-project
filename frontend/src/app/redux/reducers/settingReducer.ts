@@ -1,12 +1,17 @@
+import { BackdropConfigType } from "@model/types/BackdropConfigType";
 import { SettingActionTypes } from "@redux/consts/settingActionTypes";
 import { SettingConsts } from "@redux/consts/settingConsts";
 
 interface SettingReducerStateType {
   isBackdropOpen: boolean;
+  backdropConfig: BackdropConfigType;
 }
 
 const initialState: SettingReducerStateType = {
   isBackdropOpen: false,
+  backdropConfig: {
+    isBackdropOpen: false,
+  },
 };
 
 const settingReducer = (
@@ -18,6 +23,11 @@ const settingReducer = (
       return {
         ...state,
         isBackdropOpen: action.payload,
+      };
+    case SettingConsts.SET_BACKDROP_CONFIG:
+      return {
+        ...state,
+        backdropConfig: action.payload,
       };
     default:
       return {

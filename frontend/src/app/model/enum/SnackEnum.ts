@@ -15,4 +15,7 @@ export enum SnackEnum {
   FOLDER_IS_CLEARED = "notifications.success.folderIsCleared",
   IMAGE_SERVER_IS_TURNED_ON = "screens.settings.imageServerIsTurnedOn",
   IMAGE_SERVER_IS_TURNED_ON_BUT_NOT_FOUND = "screens.settings.imageServerIsTurnedOnButNotFound",
+  ERROR_WHILE_DOWNLOADING_ZIP = "helpers.zip.errorWhileDownloadingZip",
+  ZIP_DOWNLOADED = "helpers.zip.zipDownloaded",
+  UPLOADED_ERROR_NOTIFICATION = "screens.upload-procedure.error.uploadedErrorNotification",
 }

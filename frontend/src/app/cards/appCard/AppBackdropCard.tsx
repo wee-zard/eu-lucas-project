@@ -1,5 +1,5 @@
-import StyledBackdrop from "@components/StyledBackdrop";
-import { selectIsBackdropOpen } from "@redux/selectors/settingSelector";
+import StyledBackdrop from "@components/progressbar/StyledBackdrop";
+import { selectBackdropConfig, selectIsBackdropOpen } from "@redux/selectors/settingSelector";
 import { useSelector } from "react-redux";
 
 /**
@@ -9,8 +9,9 @@ import { useSelector } from "react-redux";
  */
 const AppBackdropCard = () => {
   const isBackdropOpen = useSelector(selectIsBackdropOpen);
+  const config = useSelector(selectBackdropConfig);
 
-  return <StyledBackdrop isBackdropOpen={isBackdropOpen} />;
+  return <StyledBackdrop isBackdropOpen={isBackdropOpen} config={config} />;
 };
 
 export default AppBackdropCard;
