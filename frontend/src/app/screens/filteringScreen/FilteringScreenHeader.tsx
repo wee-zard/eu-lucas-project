@@ -14,7 +14,7 @@ import { defaultQueriedImageModel, defaultSelectedImagesModel } from "./helper/F
 import { setFilteringDialogToOpen } from "@redux/actions/filteringActions";
 import StyledMenuComponent from "@components/StyledMenuComponent";
 import { MenuItemType } from "@model/types/MenuItemType";
-import { useImageToFolderAdditionConfig } from "./helper/MenuItemConfig";
+import { useImageToFolderAdditionConfig } from "./config/MenuItemConfig";
 import i18n from "@i18n/i18nHandler";
 
 const FilteringScreenHeader = () => {
