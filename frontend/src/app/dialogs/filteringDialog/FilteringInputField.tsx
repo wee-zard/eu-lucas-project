@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { QueryComponent, QueryConditions } from "@model/QueryBuilderModel";
 import { FilterFormTemplate } from "@model/FilterFormTemplate";
 import { FilteringFormInputKeys } from "@model/enum";
@@ -9,6 +9,9 @@ import StyledTextFieldComponent from "@components/StyledTextFieldComponent";
 import { ConversionUtils } from "@helper/conversionUtils";
 import { useSelector } from "react-redux";
 import { selectListOfCreationCountry } from "@redux/selectors/creationCountrySelector";
+import { GenericHandlerType } from "@model/types/GenericHandlerType";
+import { FilteringHelper } from "@helper/filteringHelper";
+import { LocalStorageUtils } from "@helper/localStorageUtil";
 
 type Props = {
   component: QueryComponent;
@@ -18,43 +21,98 @@ type Props = {
 const FilteringInputField = ({ component, setComponent }: Props) => {
   console.log("[FilteringInputField]:", component);
 
+  const [queryComponent, setQueryComponent] = useState<QueryComponent>(component);
   const listOfCreationCountries = useSelector(selectListOfCreationCountry);
-
-  const filterFormTemplate: FilterFormTemplate[] = useSelectedTabToFilterTemplate(
-    component?.selectedFilterTab,
+  const filterFormTemplate = useSelectedTabToFilterTemplate(component?.selectedFilterTab);
+  const handler: GenericHandlerType<
+    FilteringFormInputKeys,
+    (qc: QueryComponent) => QueryComponent
+  > = useMemo(
+    () => ({
+      [FilteringFormInputKeys.OperatorInput]: (qc: QueryComponent) => ({
+        ...qc,
+        errors: {
+          ...qc.errors,
+          operatorInput: "",
+        },
+      }),
+      [FilteringFormInputKeys.SelectInput]: (qc: QueryComponent) => ({
+        ...qc,
+        errors: {
+          ...qc.errors,
+          selectInput: "",
+        },
+      }),
+      [FilteringFormInputKeys.TextfieldInput]: (qc: QueryComponent) => ({
+        ...qc,
+        errors: {
+          ...qc.errors,
+          textFieldInput: "",
+        },
+      }),
+    }),
+    [],
   );
 
+  useEffect(() => {
+    let qc = component;
+
+    if (Object.keys(qc.errors ?? {}).length !== 1) {
+      setQueryComponent(qc);
+      return;
+    }
+
+    filterFormTemplate.forEach((template) => (qc = handler[template.inputKey](qc)));
+
+    setQueryComponent(qc);
+    const states = FilteringHelper.getUpdatedStates<QueryComponent>(qc.id);
+    const obj = FilteringHelper.handleFilterChanges(states.root, qc.id, qc);
+    LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
+    FilteringHelper.sendUpdateEvent(states.filtered.id);
+  }, [component, filterFormTemplate, handler]);
+
   const handleCountrySelectionConversion = (value: string) =>
-    component.selectedFilterTab === "COUNTRY"
+    queryComponent.selectedFilterTab === "COUNTRY"
       ? ConversionUtils.FormatStringToCreationCountryDto(value, listOfCreationCountries)
       : value;
 
   const handleCountryInputValueChange = () =>
-    component.selectedFilterTab === "COUNTRY"
+    queryComponent.selectedFilterTab === "COUNTRY"
       ? ConversionUtils.CreationCountryToFormatString(
-          listOfCreationCountries.find((country) => country.countryCode === component?.selectInput),
+          listOfCreationCountries.find(
+            (country) => country.countryCode === queryComponent?.selectInput,
+          ),
         )
-      : (component?.selectInput ?? "");
+      : (queryComponent?.selectInput ?? "");
 
   const handleValueChanges = (key: FilteringFormInputKeys, value: string) => {
-    const handler = Object.freeze({
-      [FilteringFormInputKeys.SelectInput]: () =>
-        setComponent({
-          ...component,
-          selectInput: handleCountrySelectionConversion(value),
-        }),
-      [FilteringFormInputKeys.OperatorInput]: () =>
-        setComponent({
-          ...component,
-          operatorInput: ConversionUtils.OperatorItemNamesToOperatorItems(value) as QueryConditions,
-        }),
-      [FilteringFormInputKeys.TextfieldInput]: () =>
-        setComponent({
-          ...component,
-          textFieldInput: value,
-        }),
-    });
-    handler[key].call(() => null);
+    const handler: GenericHandlerType<FilteringFormInputKeys, QueryComponent> = {
+      [FilteringFormInputKeys.SelectInput]: {
+        ...queryComponent,
+        selectInput: handleCountrySelectionConversion(value),
+        errors: {
+          ...queryComponent?.errors,
+          selectInput: "",
+        },
+      },
+      [FilteringFormInputKeys.OperatorInput]: {
+        ...queryComponent,
+        operatorInput: ConversionUtils.OperatorItemNamesToOperatorItems(value) as QueryConditions,
+        errors: {
+          ...queryComponent?.errors,
+          operatorInput: "",
+        },
+      },
+      [FilteringFormInputKeys.TextfieldInput]: {
+        ...queryComponent,
+        textFieldInput: value,
+        errors: {
+          ...queryComponent?.errors,
+          textFieldInput: "",
+        },
+      },
+    };
+    setComponent(handler[key]);
   };
 
   const renderInputField = (template: FilterFormTemplate) => {
@@ -67,6 +125,7 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
               options={template.options ?? []}
               inputValue={handleCountryInputValueChange() ?? ""}
               setValue={(value) => handleValueChanges(FilteringFormInputKeys.SelectInput, value)}
+              errorMessage={queryComponent.errors?.selectInput}
             />
           </StyledInputHolder>
         );
@@ -81,9 +140,10 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
               inputTitle={template.inputTitle}
               options={template.options ?? []}
               inputValue={
-                ConversionUtils.OperatorItemsToOperatorItemNames(component.operatorInput) ?? ""
+                ConversionUtils.OperatorItemsToOperatorItemNames(queryComponent.operatorInput) ?? ""
               }
               setValue={(value) => handleValueChanges(FilteringFormInputKeys.OperatorInput, value)}
+              errorMessage={queryComponent.errors?.operatorInput}
             />
           </StyledInputHolder>
         );
@@ -92,8 +152,9 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
           <StyledInputHolder>
             <StyledTextFieldComponent
               inputTitle={template.inputTitle}
-              inputValue={component.textFieldInput ?? ""}
+              inputValue={queryComponent.textFieldInput ?? ""}
               setValue={(value) => handleValueChanges(FilteringFormInputKeys.TextfieldInput, value)}
+              errorMessage={queryComponent.errors?.textFieldInput}
             />
           </StyledInputHolder>
         );

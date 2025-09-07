@@ -37,6 +37,12 @@ export type QueryComponent = {
   selectInput?: string;
   operatorInput?: QueryConditions;
   textFieldInput?: string;
+  errors?: {
+    selectedFilterTab?: string;
+    selectInput?: string;
+    operatorInput?: string;
+    textFieldInput?: string;
+  };
 };
 
 /**
@@ -83,6 +89,9 @@ export const initQueryGroupObj = (parentId: number): QueryGroup => {
       {
         id: id + 1,
         parentId: id,
+        errors: {
+          selectedFilterTab: "",
+        },
       },
     ],
   };

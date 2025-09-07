@@ -1,13 +1,14 @@
-import {LocalStorageUtils} from "@helper/localStorageUtil";
-import {QueryTypes} from "@model/enum";
+import { LocalStorageUtils } from "@helper/localStorageUtil";
+import { QueryTypes } from "@model/enum";
 import {
   QueryBuilderModel,
   QueryComponent,
   QueryElementRelations,
   QueryGroup,
-  QueryMultiType
+  QueryMultiType,
 } from "@model/QueryBuilderModel";
-import {IdUtils} from "./idUtils";
+import { IdUtils } from "./idUtils";
+import i18n from "@i18n/i18nHandler";
 
 export type StateUpdateProps<T> = {
   root: QueryBuilderModel;
@@ -203,5 +204,100 @@ export const FilteringHelper = {
       root: queryBuilderModel,
       filtered: builder,
     };
+  },
+
+  isFormInvalid(): boolean {
+    const queryBuilder = LocalStorageUtils.getQueryBuilderModel();
+    return this.isQueryBuilderValid(queryBuilder.listOfQueries)
+      .flat(Infinity)
+      .some((value) => value === true);
+  },
+
+  isQueryBuilderValid(queryMultiTypes: QueryMultiType[]): any[] {
+    return queryMultiTypes.map((model) => {
+      if (model.queryType === QueryTypes.QUERY_BUILDER) {
+        // Call the same method.
+        return this.isQueryBuilderValid((model as QueryBuilderModel).listOfQueries);
+      } else if (model.queryType === QueryTypes.QUERY_GROUP) {
+        return (model as QueryGroup).listOfComponents.map((qc: QueryComponent) => {
+          let isQcModified = false;
+
+          // Check whether the operator input field has not been filled out.
+          if (
+            (qc.errors?.operatorInput === "" ||
+              qc.errors?.operatorInput === i18n.t("validators.required")) &&
+            (!qc.operatorInput || qc.operatorInput.length === 0)
+          ) {
+            isQcModified = true;
+            qc = {
+              ...qc,
+              errors: {
+                ...qc?.errors,
+                operatorInput: i18n.t("validators.required"),
+              },
+            };
+          }
+
+          // Check whether the select input field has not been filled out.
+          if (
+            (qc.errors?.selectInput === "" ||
+              qc.errors?.selectInput === i18n.t("validators.required")) &&
+            (!qc.selectInput || qc.selectInput.length === 0)
+          ) {
+            isQcModified = true;
+            qc = {
+              ...qc,
+              errors: {
+                ...qc?.errors,
+                selectInput: i18n.t("validators.required"),
+              },
+            };
+          }
+
+          // Check whether the text field input field has not been filled out.
+          if (
+            (qc.errors?.textFieldInput === "" ||
+              qc.errors?.textFieldInput === i18n.t("validators.required")) &&
+            (!qc.textFieldInput || qc.textFieldInput.length === 0)
+          ) {
+            isQcModified = true;
+            qc = {
+              ...qc,
+              errors: {
+                ...qc?.errors,
+                textFieldInput: i18n.t("validators.required"),
+              },
+            };
+          }
+
+          // Check whether the selectedFilterTab input field has not been filled out.
+          if (
+            (qc.errors?.selectedFilterTab === "" ||
+              qc.errors?.selectedFilterTab === i18n.t("validators.required")) &&
+            (!qc.selectedFilterTab || qc.selectedFilterTab.length === 0)
+          ) {
+            isQcModified = true;
+            qc = {
+              ...qc,
+              errors: {
+                ...qc?.errors,
+                selectedFilterTab: i18n.t("validators.required"),
+              },
+            };
+          }
+
+          if (isQcModified) {
+            const states = FilteringHelper.getUpdatedStates<QueryComponent>(qc.id);
+            const obj = FilteringHelper.handleFilterChanges(states.root, qc.id, qc);
+            LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
+            FilteringHelper.sendUpdateEvent(states.filtered.id);
+          }
+
+          return isQcModified;
+        });
+      } else {
+        return false;
+      }
+    });
   },
 };

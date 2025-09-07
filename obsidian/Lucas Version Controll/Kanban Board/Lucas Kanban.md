@@ -142,7 +142,8 @@ kanban-plugin: board
 
 ## 🔴Filtering Page Backlog
 
-- [ ] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]] #mission #Filtering-Page #🔴ToDo
+- [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]] #🔴ToDo
+- [ ] X - 3 "FilteringHelper" fájl van a projektben, ami nem előnyös, mert nem tudni, hogy ezek mit csinálnak #Filtering-Page
 - [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page
 - [ ] [[118 - Adatbázis feltöltése a képekhez tartozó EXIF adatokkal]] #mission #Filtering-Page
@@ -163,7 +164,6 @@ kanban-plugin: board
 - [ ] [[169 - Backend - Képek exif adatainak lekérése a háttérben]] #Filtering-Page
 - [ ] [[165 - Filtering - A Feltétel input mező hossza kisebb lehetne]] #Filtering-Page
 - [ ] [[200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről]] #Filtering-Page
-- [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]]
 - [x] [[172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz]] #Filtering-Page #🟢Done
 - [x] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]] #🟢Done    #Filtering-Page
 - [x] [[161 - Pagination - Pagination az egy sorban legyen a mentés gombokkal]] #Filtering-Page #🟢Done
@@ -174,6 +174,7 @@ kanban-plugin: board
 - [x] [[094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről]] #Filtering-Page #🟢Done
 - [x] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #Filtering-Page #🟢Done
 - [x] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #Filtering-Page  #🟢Done
+- [x] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]] #Filtering-Page  #🟢Done
 
 
 ## 🔴Bounding Box Page Backlog
@@ -194,12 +195,12 @@ kanban-plugin: board
 
 ## 🔴Folder Page Backlog
 
-- [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page
-- [ ] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #🔴ToDo  #Folder-Page
+- [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page #🟡InProgress
+- [ ] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #🔴ToDo  #Folder-Page #🟡InProgress
 - [ ] [[205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #Folder-Page
 - [ ] [[206 - ManageFolders - Settings 4 - Képek importálása egy mappába]] #Folder-Page
 - [ ] [[207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása]] #Folder-Page
-- [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🔴ToDo   #Folder-Page
+- [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🔴ToDo   #Folder-Page #🟡InProgress
 - [ ] [[209 - ManageFolders - Settings 7 - Mappa zárolása]] #Folder-Page
 - [ ] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🟣Testing   #Folder-Page #🔴ToDo
 - [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🟣Testing   #Folder-Page #🔴ToDo
@@ -339,6 +340,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,true,false,false,false,false,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
+{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,true,true,false,false,false,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
 ```
 %%

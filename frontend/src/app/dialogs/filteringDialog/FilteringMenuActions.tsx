@@ -15,6 +15,7 @@ import { defaultFilteringPaginationModel } from "@screens/filteringScreen/helper
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { useSelector } from "react-redux";
 import { selectQueriedImageModel } from "@redux/selectors/imageSelector";
+import { FilteringHelper } from "@helper/filteringHelper";
 
 const FilteringMenuActions = () => {
   const queriedImageModel = useSelector(selectQueriedImageModel);
@@ -31,6 +32,10 @@ const FilteringMenuActions = () => {
 
   const handleApply = (): void => {
     if (!queriedImageModel) {
+      return;
+    }
+
+    if (FilteringHelper.isFormInvalid()) {
       return;
     }
 
@@ -55,8 +60,24 @@ const FilteringMenuActions = () => {
         onClick={handleClearAll}
       />
       <StyledComponentGap>
-        <StyledButton buttonText="Cancel" buttonVariant="outlined" onClick={handleCancel} />
-        <StyledButton buttonText="Apply" buttonVariant="outlined" onClick={handleApply} />
+        <StyledButton
+          buttonText={i18n.t("components.button.cancel")}
+          buttonVariant="outlined"
+          buttonColor={"error"}
+          applyStyle={{
+            buttonWidth: "110px",
+          }}
+          onClick={handleCancel}
+        />
+        <StyledButton
+          buttonText={i18n.t("components.button.save")}
+          buttonVariant="outlined"
+          buttonColor={"success"}
+          applyStyle={{
+            buttonWidth: "110px",
+          }}
+          onClick={handleApply}
+        />
       </StyledComponentGap>
     </StyledMenuActionsHolder>
   );

@@ -57,6 +57,9 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
       id: states.filtered.id,
       parentId: states.filtered.parentId,
       selectedFilterTab: selectedFilter as keyof typeof FilterDialogFilters,
+      errors: {
+        selectedFilterTab: "",
+      },
     };
     const obj = FilteringHelper.handleFilterChanges(states.root, id, modifiedQueryComponent);
     LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
@@ -127,11 +130,12 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
             options={queryByOptions}
             inputValue={getQueryByInputValue(states.filtered?.selectedFilterTab)}
             setValue={setQueryByInputValue}
+            errorMessage={states.filtered?.errors?.selectedFilterTab}
           />
         </StyledInputHolder>
-        {states.filtered?.selectedFilterTab ? (
+        {states.filtered?.selectedFilterTab && (
           <FilteringInputField component={states.filtered} setComponent={handleComponentChange} />
-        ) : null}
+        )}
         <StyledIconButton
           buttonIcon={<DeleteForeverOutlinedIcon />}
           tooltip={{
