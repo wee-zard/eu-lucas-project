@@ -195,8 +195,8 @@ kanban-plugin: board
 
 ## 🔴Folder Page Backlog
 
-- [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page #🟡InProgress
-- [ ] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #🔴ToDo  #Folder-Page #🟡InProgress
+- [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page
+- [ ] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #🔴ToDo  #Folder-Page
 - [ ] [[205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #Folder-Page
 - [ ] [[206 - ManageFolders - Settings 4 - Képek importálása egy mappába]] #Folder-Page
 - [ ] [[207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása]] #Folder-Page

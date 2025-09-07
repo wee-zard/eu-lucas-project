@@ -183,16 +183,6 @@ export enum ScreenUrls {
   NotFoundScreenPath = "*",
 }
 
-export enum FilteringScreenTexts {
-  ClearAllTooltip = "Kijelölések megszüntetése",
-  ClearAllText = "Clear All",
-  AddImageTooltip = "Új kép kiválasztása",
-  AddImageText = "Képek kiválasztása",
-  AddImagesToFolder = "Képek mentése",
-  AddImagesToFolderTooltip = "Add hozzá az általad kiválasztott képeket egy már létező mappához (amit korábban létrehoztál), vagy egy teljesen új mappához.",
-  DownloadTooltip = "Kijelölt képek letöltése",
-}
-
 export enum FilterDialogFilters {
   YEAR = "Év",
   COUNTRY = "Ország",
