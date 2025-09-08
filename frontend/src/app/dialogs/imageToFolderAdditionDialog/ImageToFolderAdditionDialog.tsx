@@ -4,7 +4,7 @@ import { selectIsImageToFolderAdditionDialogOpen } from "@redux/selectors/dialog
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { FormEnums } from "@model/enum";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
@@ -46,10 +46,10 @@ const ImageToFolderAdditionDialog = () => {
   }, [helper, isOpen, selectedImagesModel]);
 
   const handleOnSubmit = async () => {
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setBackgroundBackdropOpen(true));
 
     if (helper.validate()) {
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setBackgroundBackdropOpen(false));
       return;
     }
 
@@ -72,7 +72,7 @@ const ImageToFolderAdditionDialog = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setBackgroundBackdropOpen(false));
     }
   };
 

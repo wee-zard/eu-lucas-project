@@ -11,7 +11,7 @@ import {
 } from "@redux/selectors/imageSelector";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import i18n from "@i18n/i18nHandler";
 import ImageAndPaginationCardRoot from "@cards/imageAndPaginationCard/ImageAndPaginationCardRoot";
 import PageableProperties from "@model/PageableProperties";
@@ -49,14 +49,14 @@ const FilteringImageAndPaginationCard = () => {
     }
 
     try {
-      dispatch(setSettingBackdropOpen(true));
+      dispatch(setBackgroundBackdropOpen(true));
       handlePageableChange(await getImagesByFilters(pageable));
     } catch (err) {
       // Nothing interesting is here.
     } finally {
       setMenuAction(undefined);
       dispatch(setFilterMenuAction(undefined));
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setBackgroundBackdropOpen(false));
     }
   };
 

@@ -1,5 +1,5 @@
 import StyledBackdrop from "@components/progressbar/StyledBackdrop";
-import { selectBackdropConfig, selectIsBackdropOpen } from "@redux/selectors/settingSelector";
+import { selectBackdropConfig, selectIsBackdropOpen } from "@redux/selectors/backgroundSelector";
 import { useSelector } from "react-redux";
 
 /**

@@ -3,21 +3,55 @@ import { useEffect, useState } from "react";
 import ImageUtils from "@helper/imageUtils";
 import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 import getRandomIdentification from "@helper/randomGeneratorHelper";
+import { getImageCanvasId, ImageCanvasLoadingStates } from "./helper/imageCanvasHelper";
+import { downloadImagesByUrlCommand } from "@api/command/imageFetcherCommands";
 
 type Props = {
   imageProperty: QueriedImagePropertyType;
   randomUniqueId?: string;
+  isHidden?: boolean;
+  isSrcBase64Only?: boolean;
 };
 
-const ImageCanvas = ({ imageProperty, randomUniqueId = getRandomIdentification() }: Props) => {
+const ImageCanvas = ({
+  imageProperty,
+  randomUniqueId = getRandomIdentification(),
+  isHidden,
+  isSrcBase64Only,
+}: Props) => {
   const [mapSprite, setMapSprite] = useState<HTMLImageElement>();
   const [context, setContext] = useState<CanvasRenderingContext2D>();
   const [canvas, setCanvas] = useState<HTMLCanvasElement>();
-  const imageUrl = ImageUtils.initRemoteImageUrlPath(imageProperty.image);
+  const [isLoaded, setLoaded] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>();
+  const imageCanvasId = getImageCanvasId(imageProperty, randomUniqueId);
+  const label = isLoaded ? ImageCanvasLoadingStates.LOADED : ImageCanvasLoadingStates.NOT_LOADED;
 
-  const getCanvasId = (): string => {
-    return `Canvas-${randomUniqueId}-${imageProperty.image.id}`;
-  };
+  useEffect(() => {
+    if (imageProperty.image.base64Src) {
+      setImageUrl(ImageUtils.initRemoteImageUrlPath(imageProperty.image));
+      return;
+    }
+
+    if (isSrcBase64Only) {
+      const url = ImageUtils.initRemoteImageUrlPath(imageProperty.image, true);
+
+      if (!url) {
+        return;
+      }
+
+      downloadImagesByUrlCommand(url).then((res) =>
+        setImageUrl(
+          ImageUtils.appendBase64PrefixToImageSrc({
+            imageId: imageProperty.image.id,
+            base64String: res,
+          }),
+        ),
+      );
+    } else {
+      setImageUrl(ImageUtils.initRemoteImageUrlPath(imageProperty.image));
+    }
+  }, []);
 
   /**
    * Initializes the canvas, and sets some basic properties of the canvas
@@ -28,7 +62,7 @@ const ImageCanvas = ({ imageProperty, randomUniqueId = getRandomIdentification()
       return;
     }
 
-    let cv: any = document.getElementById(getCanvasId());
+    let cv: any = document.getElementById(imageCanvasId);
 
     if (!cv) {
       return;
@@ -98,6 +132,9 @@ const ImageCanvas = ({ imageProperty, randomUniqueId = getRandomIdentification()
       });
     });
 
+    // The image has been successfully displayed on the canvas.
+    setLoaded(true);
+
     canvas.addEventListener("mousemove", (event: MouseEvent) => {
       // Check whether point is inside the bounding box.
 
@@ -127,6 +164,10 @@ const ImageCanvas = ({ imageProperty, randomUniqueId = getRandomIdentification()
 
   useEffect(
     () => {
+      if (!imageUrl) {
+        return;
+      }
+
       if (!context || !mapSprite) {
         // If the context and the sprite are not defined, then create them
         initCanvas();
@@ -135,6 +176,11 @@ const ImageCanvas = ({ imageProperty, randomUniqueId = getRandomIdentification()
 
       // Restore the canvas
       context.drawImage(mapSprite, 0, 0, mapSprite.naturalWidth, mapSprite.naturalHeight);
+
+      // If it was requested that the bounding boxes be hidden, then do not render them on the image.
+      if (imageProperty.image.areBoundingBoxesHidden) {
+        return;
+      }
 
       // Apply animation to the canvas
       applyBoundingBoxes();
@@ -145,7 +191,7 @@ const ImageCanvas = ({ imageProperty, randomUniqueId = getRandomIdentification()
 
   /*
   useEffect(() => {
-    let cv: any = document.getElementById(getCanvasId());
+    let cv: any = document.getElementById(imageCanvasId);
 
     if (!cv) {
       return;
@@ -186,12 +232,14 @@ const ImageCanvas = ({ imageProperty, randomUniqueId = getRandomIdentification()
   }, []);
   */
 
-  return <StyledCanvas id={getCanvasId()} />;
+  // TODO: Az 'aria-label' attribútumban fogjuk átadni, hogy a kép betöltésre került-e a canvas-re
+  return <StyledCanvas $hidden={isHidden} id={imageCanvasId} aria-label={label} />;
 };
 
 export default ImageCanvas;
 
-const StyledCanvas = styled.canvas({
+const StyledCanvas = styled.canvas<{ $hidden?: boolean }>((props) => ({
+  display: props.$hidden ? "none" : "inherit",
   width: "100%",
   borderRadius: "6px",
-});
+}));

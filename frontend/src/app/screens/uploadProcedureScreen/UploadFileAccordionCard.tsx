@@ -6,7 +6,7 @@ import { ProcedureFileMessages } from "@model/enum";
 import i18n from "@i18n/i18nHandler";
 import { useSelector } from "react-redux";
 import { selectListOfProcedureProcesses } from "@redux/selectors/procedureUploadSelectors";
-import { selectIsBackdropOpen } from "@redux/selectors/settingSelector";
+import { selectIsBackdropOpen } from "@redux/selectors/backgroundSelector";
 
 const UploadFileAccordionCard = () => {
   const listOfModels = useSelector(selectListOfProcedureProcesses);

@@ -11,7 +11,7 @@ import i18n from "@i18n/i18nHandler";
 import { FormEnums, ReportTypesNames } from "@model/enum";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { ReportFormGroup, ReportFormGroupModel } from "@model/forms/ReportFormGroup";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -53,18 +53,18 @@ const ReportScreen = () => {
   };
 
   const handleSubmit = (): void => {
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setBackgroundBackdropOpen(true));
 
     const errorCandidateFormGroup = helper.validate();
 
     if (errorCandidateFormGroup) {
       setFormGroup(errorCandidateFormGroup);
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setBackgroundBackdropOpen(false));
       return;
     }
 
     const res = helper.convert<ReportFormGroupModel>();
-    dispatch(setSettingBackdropOpen(false));
+    dispatch(setBackgroundBackdropOpen(false));
 
     sendReportEmail(res)
       .then((response) => {
@@ -74,7 +74,7 @@ const ReportScreen = () => {
         }
       })
       .catch(() => openSnackbar(SnackEnum.REPORT_NOT_SENT_OUT))
-      .finally(() => dispatch(setSettingBackdropOpen(false)));
+      .finally(() => dispatch(setBackgroundBackdropOpen(false)));
   };
 
   return (

@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { setProcedureUploadProcessModels } from "@redux/actions/procedureUploadActions";
 import { openSnackbar } from "@helper/notificationUtil";
 import { uploadProcedureResult } from "@api/command/procedureCommands";
-import { setSettingBackdropConfig } from "@redux/actions/settingActions";
+import { setBackgroundBackdropConfig } from "@redux/actions/backgroundActions";
 import ProcedureResultRequest from "@model/request/ProcedureResultRequest";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { UploadProcedureLogStageEnum } from "@model/enum/UploadProcedureLogStageEnum";
@@ -86,7 +86,7 @@ const UploadProcedureActions = () => {
     const currentStep = maxNumberOfSteps.findIndex((entry) => entry[1] === key) + 1;
     const progress = (currentStep * 100.0) / maxNumberOfSteps.length;
     const loadingText = i18n.t(key, option);
-    dispatch(setSettingBackdropConfig({ isBackdropOpen: true, progress, loadingText }));
+    dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true, progress, loadingText }));
   };
 
   /**
@@ -98,7 +98,7 @@ const UploadProcedureActions = () => {
    */
   const handleEventProcess = (event: React.ChangeEvent<HTMLInputElement>): void => {
     // Step 1.0: Start the process.
-    dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
+    dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
     dispatch(setProcedureUploadProcessModels([]));
 
     // Step 1.1: Converting event into File list.
@@ -114,7 +114,7 @@ const UploadProcedureActions = () => {
     if (xmlFilesToProcess.length === 0) {
       getUploadErrorNotification(files.length, processedErrorFiles.length);
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
-      dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
+      dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
       return;
     }
 
@@ -155,7 +155,7 @@ const UploadProcedureActions = () => {
     if (listOfRequest.length === 0) {
       getUploadErrorNotification(processedErrorFiles.length, processedErrorFiles.length);
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
-      dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
+      dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
       return;
     }
 
@@ -223,7 +223,7 @@ const UploadProcedureActions = () => {
       getUploadErrorNotification(uploadedFileNo, processedErrorFiles.length);
     } finally {
       dispatch(setProcedureUploadProcessModels(processedErrorFiles));
-      dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
+      dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
     }
   };
 

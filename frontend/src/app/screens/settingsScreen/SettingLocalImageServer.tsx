@@ -16,7 +16,7 @@ import { SnackEnum } from "@model/enum/SnackEnum";
 import { SettingsFormGroup } from "@model/forms/SettingsFormControlGroup";
 import { ConfirmationDialogConfigType } from "@model/types/ConfirmationDialogConfigType";
 import { styled } from "@mui/material";
-import { setSettingBackdropConfig } from "@redux/actions/settingActions";
+import { setBackgroundBackdropConfig } from "@redux/actions/backgroundActions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -68,7 +68,7 @@ const SettingLocalImageServer = ({ helper }: Props) => {
    * are there or not.
    */
   const handleConnectionToLocalImageServer = async () => {
-    dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
+    dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
 
     try {
       const randomPageableImageDto = await getRandomImagesCommand();
@@ -99,7 +99,7 @@ const SettingLocalImageServer = ({ helper }: Props) => {
       // Reset the checkbox due to an error from the server.
       handleLocalImageServerChange(false);
     } finally {
-      dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
+      dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
     }
   };
 
@@ -108,7 +108,7 @@ const SettingLocalImageServer = ({ helper }: Props) => {
    * and compress them into a zip, so the user could view them.
    */
   const handleDownloadOfLocalImageServerResources = async () => {
-    dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
+    dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
     setDialogOpen(false);
 
     try {

@@ -264,8 +264,9 @@ export enum QueryTypes {
 }
 
 export enum SelectedImageActionTooltipTitles {
-  Delete = "Kép eltávolítása a kiválasztott képek közül",
-  Search = "Befoglaló téglalapok megjelenítése",
+  Delete = "screens.filtering.selectedImageTooltips.delete",
+  Search = "screens.filtering.selectedImageTooltips.search",
+  Hide = "screens.filtering.selectedImageTooltips.hide",
 }
 
 export enum RequestCommandTypes {

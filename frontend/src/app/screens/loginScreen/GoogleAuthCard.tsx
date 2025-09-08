@@ -12,9 +12,9 @@ import i18n from "@i18n/i18nHandler";
 import StyledIconButton from "@components/StyledIconButton";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { useSelector } from "react-redux";
-import { selectIsBackdropOpen } from "@redux/selectors/settingSelector";
+import { selectIsBackdropOpen } from "@redux/selectors/backgroundSelector";
 import { useDispatch } from "react-redux";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import AuthorizationModel from "@model/AuthorizationModel";
 import { jwtDecode } from "jwt-decode";
 import AuthorizedUserModel from "@model/AuthorizedUserModel";
@@ -30,7 +30,7 @@ const GoogleAuthCard = () => {
   const throwErrorFromCommand = (err: any) => {
     console.error(err);
     throwNotification(ToastSeverity.Error, err.message);
-    dispatch(setSettingBackdropOpen(false));
+    dispatch(setBackgroundBackdropOpen(false));
   };
 
   const activateUser = async (token: AuthorizationModel) => {
@@ -38,7 +38,7 @@ const GoogleAuthCard = () => {
 
     if (!decodedToken || !decodedToken.email || !decodedToken.name) {
       // TODO: Error message here.
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setBackgroundBackdropOpen(false));
       return;
     }
 
@@ -55,14 +55,14 @@ const GoogleAuthCard = () => {
         redirectToUrl(ScreenUrls.LucasScreenPath);
       })
       .catch(throwErrorFromCommand)
-      .finally(() => dispatch(setSettingBackdropOpen(false)));
+      .finally(() => dispatch(setBackgroundBackdropOpen(false)));
   };
 
   const handleEmailValidation = (token: AuthorizationModel) => {
     validateEmailAddress()
       .then((authenticatedUser) => {
         if (!authenticatedUser) {
-          dispatch(setSettingBackdropOpen(false));
+          dispatch(setBackgroundBackdropOpen(false));
           return;
         }
 
@@ -75,7 +75,7 @@ const GoogleAuthCard = () => {
   const handleRefreshTokenFetch = (
     success: Omit<CodeResponse, "error" | "error_description" | "error_uri">,
   ): void => {
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setBackgroundBackdropOpen(true));
     clearLocalStorage();
     getRefreshToken(success.code).then(handleEmailValidation).catch(throwErrorFromCommand);
   };
@@ -85,7 +85,7 @@ const GoogleAuthCard = () => {
     onSuccess: handleRefreshTokenFetch,
     onError: () => {
       openSnackbar(SnackEnum.ERROR_ON_LOGIN);
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setBackgroundBackdropOpen(false));
     },
   });
 

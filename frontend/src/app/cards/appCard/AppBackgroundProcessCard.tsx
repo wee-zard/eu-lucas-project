@@ -1,6 +1,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AppBackdropCard from "./AppBackdropCard";
+import AppBackgroundCanvasCard from "./AppBackgroundCanvasCard";
 
 /**
  * A React component that is processing logic behind the scene.
@@ -12,6 +13,7 @@ const AppBackgroundProcessCard = () => {
   return (
     <>
       <AppBackdropCard />
+      <AppBackgroundCanvasCard />
       <ToastContainer
         position="bottom-right"
         autoClose={8000}

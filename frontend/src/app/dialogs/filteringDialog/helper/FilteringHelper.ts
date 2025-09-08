@@ -1,15 +1,12 @@
 import { fetchImagesFromLocalServerCommand } from "@api/command/imageFetcherCommands";
-import { FormGroupHelper } from "@helper/formGroupHelper";
 import ImageUtils from "@helper/imageUtils";
 import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
 import ImageDto from "@model/dto/ImageDto";
-import { FormEnums } from "@model/enum";
-import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
 import { SnackEnum } from "@model/enum/SnackEnum";
-import { SettingsFormGroup } from "@model/forms/SettingsFormControlGroup";
 import LocalImageRequest from "@model/request/LocalImageRequest";
 import { QueriedImageType } from "@model/SelectedImagesModel";
+import { isSettingLocalImageServerTurnedOn } from "@screens/settingsScreen/helper/SettingsHelper";
 
 /**
  * Gets a new object that holds the user selected images.
@@ -52,19 +49,7 @@ export const handlePageableImageResponseSrcModification = (
   return new Promise(async (resolve, reject) => {
     try {
       // Is there even one image that was fetched by the filters and the pagination?
-      if (responseContent.length === 0) {
-        resolve(responseContent);
-        return;
-      }
-
-      // Is the local server is requested to be used?
-      const helper = new FormGroupHelper<SettingsFormGroup>(
-        FormEnums.SettingsForm,
-        EventListenerIdEnum.SETTINGS_SCREEN,
-      );
-      const isLocalImageServerTurnedOn: boolean = JSON.parse(helper.get().localImageServer.data);
-
-      if (!isLocalImageServerTurnedOn) {
+      if (responseContent.length === 0 || !isSettingLocalImageServerTurnedOn()) {
         resolve(responseContent);
         return;
       }

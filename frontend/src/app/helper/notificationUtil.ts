@@ -92,6 +92,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
 
     // Warning toast messages
     [SnackEnum.IMAGE_SERVER_IS_TURNED_ON_BUT_NOT_FOUND]: () => throwWarningToast(),
+    [SnackEnum.ZIP_IMAGE_SERVER_ERROR]: () => throwWarningToast(),
   };
   handler[snack]();
 };

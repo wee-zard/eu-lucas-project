@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import FolderCreationContent from "./FolderCreationContent";
 import { useEffect } from "react";
 import { FormEnums } from "@model/enum";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
@@ -45,10 +45,10 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
   }, [helper, isOpen]);
 
   const handleOnSubmit = async () => {
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setBackgroundBackdropOpen(true));
 
     if (helper.validate()) {
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setBackgroundBackdropOpen(false));
       return;
     }
 
@@ -79,7 +79,7 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
     } catch (error) {
       helper.refresh(); // TODO: Does this needed here?
     } finally {
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setBackgroundBackdropOpen(false));
     }
   };
 

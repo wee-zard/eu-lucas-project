@@ -10,14 +10,14 @@ import { openSnackbar, throwNotification, ToastSeverity } from "@helper/notifica
 import UploadProcedureActions from "./UploadProcedureActions";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { useDispatch } from "react-redux";
-import { setSettingBackdropConfig } from "@redux/actions/settingActions";
+import { setBackgroundBackdropConfig } from "@redux/actions/backgroundActions";
 import { setProcedureUploadProcessModels } from "@redux/actions/procedureUploadActions";
 
 const UploadProcedureScreen = () => {
   const dispatch = useDispatch();
 
   const handleDeleteAllProcedureAndPlantButton = async () => {
-    dispatch(setSettingBackdropConfig({ isBackdropOpen: true }));
+    dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
     try {
       await deleteProceduresCommand();
       await deletePlantNameCommand();
@@ -25,7 +25,7 @@ const UploadProcedureScreen = () => {
     } catch (error: any) {
       throwNotification(ToastSeverity.Error, error?.message);
     } finally {
-      dispatch(setSettingBackdropConfig({ isBackdropOpen: false }));
+      dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
       dispatch(setProcedureUploadProcessModels([]));
     }
   };

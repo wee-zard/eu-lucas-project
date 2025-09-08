@@ -24,9 +24,7 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({ id }: Prop
           <StyledEmptyGroupHolder
           /** TODO: Add a default error message here. */
           // TODO: Can this component be reused in the Query Builder Model Group as well?
-          >
-            EMPTY QUERY GROUP FIELD!!!!!!!!!!!!!!!!!!
-          </StyledEmptyGroupHolder>
+          ></StyledEmptyGroupHolder>
         )}
       </StyledQueryComponentHolder>
     );

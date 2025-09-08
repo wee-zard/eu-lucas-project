@@ -18,4 +18,5 @@ export enum SnackEnum {
   ERROR_WHILE_DOWNLOADING_ZIP = "helpers.zip.errorWhileDownloadingZip",
   ZIP_DOWNLOADED = "helpers.zip.zipDownloaded",
   UPLOADED_ERROR_NOTIFICATION = "screens.upload-procedure.error.uploadedErrorNotification",
+  ZIP_IMAGE_SERVER_ERROR = "helpers.zip.ImageServerError",
 }

@@ -14,7 +14,7 @@ import PageableResponse from "@model/response/PageableResponse";
 import { getImagesByFilters } from "@api/command/imageCommand";
 import PageableProperties from "@model/PageableProperties";
 import { MAXIMUM_SAFE_VALUE_OF_INTEGER } from "app/consts/integerConsts";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 
 const FilteringImageSelectionActions = () => {
   const { filteringResponse, queriedImageModel } = useSelector(selectImageStorage);
@@ -32,7 +32,7 @@ const FilteringImageSelectionActions = () => {
 
   const handleImageSelectionFromAll = async () => {
     try {
-      dispatch(setSettingBackdropOpen(true));
+      dispatch(setBackgroundBackdropOpen(true));
       const pageable: PageableProperties = {
         pageNo: 0,
         pageSize: MAXIMUM_SAFE_VALUE_OF_INTEGER,
@@ -42,7 +42,7 @@ const FilteringImageSelectionActions = () => {
     } catch (error) {
       // Nothing interesting is here.
     } finally {
-      dispatch(setSettingBackdropOpen(false));
+      dispatch(setBackgroundBackdropOpen(false));
     }
   };
 

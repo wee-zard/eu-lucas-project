@@ -13,7 +13,7 @@ import { GenericRowType } from "@model/types/GenericRowType";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -43,7 +43,7 @@ function StyledPaginatedDataGridTable<T>({
    * Fetch the rows for the data grid table.
    */
   const fetchRows = () => {
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setBackgroundBackdropOpen(true));
     commandHandler<PageableResponse<T>>({
       type: RequestCommandTypes.GET,
       server: ServersToConnectTo.Backend,
@@ -55,7 +55,7 @@ function StyledPaginatedDataGridTable<T>({
       },
     })
       .then((res) => setPageable(res))
-      .finally(() => dispatch(setSettingBackdropOpen(false)));
+      .finally(() => dispatch(setBackgroundBackdropOpen(false)));
   };
 
   /**

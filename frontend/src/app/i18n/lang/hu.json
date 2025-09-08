@@ -44,6 +44,7 @@
     "zip": {
       "addImagesToZip": "Erőforrások hozzáadása a zip-hez",
       "downloadZip": "Zip-be feltöltött erőforrások letöltése",
+      "ImageServerError": "A képek letöltése megszakításra került! A letöltés előtt kérjük kapcsolba be a 'Rendszerbeállítások' oldalon a 'Lokálisan tárolt képek haszálata' opciót!",
       "errorWhileDownloadingZip": "Váratlan hiba történt a zip letöltése során!",
       "zipDownloaded": "Zip sikeresen letöltésre került!"
     }
@@ -306,6 +307,11 @@
         "clearAll": "Kiválasztásra került képek kijelölésének megszüntetése",
         "addImage": "Új kép kiválasztása",
         "downloadImages": "Kijelölt képek letöltése"
+      },
+      "selectedImageTooltips": {
+        "delete": "Kép eltávolítása a kiválasztott képek közül",
+        "search": "Befoglaló téglalapok megjelenítése",
+        "hide": "Befoglaló téglalapok elrejtésének befolyásolása"
       },
       "alert": {
         "images-not-saved-in-folder": "A kiválasztott képek még nem kerültek lementésre egy mappába, így a kiválasztásaid elvesztésre kerülhetnek! Ebből kifolyólag használd a ['Képek mentése'] menüpont egyik opcióját!"

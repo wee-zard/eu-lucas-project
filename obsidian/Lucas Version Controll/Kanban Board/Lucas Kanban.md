@@ -200,9 +200,8 @@ kanban-plugin: board
 - [ ] [[205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #Folder-Page
 - [ ] [[206 - ManageFolders - Settings 4 - Képek importálása egy mappába]] #Folder-Page
 - [ ] [[207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása]] #Folder-Page
-- [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🔴ToDo   #Folder-Page #🟡InProgress
+- [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🔴ToDo   #Folder-Page #🟣Testing
 - [ ] [[209 - ManageFolders - Settings 7 - Mappa zárolása]] #Folder-Page
-- [ ] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🟣Testing   #Folder-Page #🔴ToDo
 - [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🟣Testing   #Folder-Page #🔴ToDo
 - [ ] [[201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett]] #🔴ToDo #Folder-Page
 - [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #Folder-Page
@@ -212,6 +211,7 @@ kanban-plugin: board
 - [x] [[203 - Lehessen a mappákban lévő képek száma alapján is rendezni a DataGrid táblázatot]] #Folder-Page #🟢Done
 - [x] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #🟢Done  #Folder-Page
 - [x] [[197 - ManageFolders - Settings 9 - Lehessen mappákat törölni]] #🟢Done  #Folder-Page
+- [x] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🟢Done #Folder-Page
 
 
 ## 🔴Deployment Backlog

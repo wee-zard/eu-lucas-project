@@ -17,7 +17,7 @@ import {
 import { throwNotification, ToastSeverity } from "@helper/notificationUtil";
 import { useDispatch } from "react-redux";
 import { setListOfUsers } from "@redux/actions/userActions";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import TemplateDialog from "@dialogs/template/TemplateDialog";
 import { UserStatusEnum } from "@model/enum/UserStatusEnum";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
@@ -120,24 +120,24 @@ const ManageUsersSettings = ({ row }: Props) => {
    * Handle the deletion of the selected user.
    */
   const handleUserDeletion = (): void => {
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setBackgroundBackdropOpen(true));
     const isPending = row.statusId === UserStatusEnum.PENDING;
     const message = `Felhasználó sikeresen ${isPending ? "törlésre" : "deaktiválásra"} került!`;
 
     // delete the user
     deleteUserById(row.id)
       .then(() => updateUserListOnManageUsers(message))
-      .catch(() => dispatch(setSettingBackdropOpen(false)));
+      .catch(() => dispatch(setBackgroundBackdropOpen(false)));
   };
 
   const handleUserReactivation = (): void => {
-    dispatch(setSettingBackdropOpen(true));
+    dispatch(setBackgroundBackdropOpen(true));
     const message = "Felhasználó sikeresen aktiválásra került!";
 
     // reactivate user.
     reactivateDeletedUserByIdCommand(row.id)
       .then(() => updateUserListOnManageUsers(message))
-      .catch(() => dispatch(setSettingBackdropOpen(false)));
+      .catch(() => dispatch(setBackgroundBackdropOpen(false)));
   };
 
   const updateUserListOnManageUsers = (message: string) => {
@@ -147,9 +147,9 @@ const ManageUsersSettings = ({ row }: Props) => {
         // close the menu
         closeDialog();
         dispatch(setListOfUsers(users));
-        dispatch(setSettingBackdropOpen(false));
+        dispatch(setBackgroundBackdropOpen(false));
       })
-      .catch(() => dispatch(setSettingBackdropOpen(false)));
+      .catch(() => dispatch(setBackgroundBackdropOpen(false)));
   };
 
   const closeDialog = () => {

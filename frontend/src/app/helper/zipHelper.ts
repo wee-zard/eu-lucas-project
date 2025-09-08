@@ -2,7 +2,6 @@ import SelectedImagesModel, { QueriedImagePropertyType } from "@model/SelectedIm
 import JSZip from "jszip";
 import { saveAs } from "file-saver-es";
 import ImageUtils from "@helper/imageUtils";
-import { downloadImagesByUrlCommand } from "@api/command/imageFetcherCommands";
 import FileUtils from "@helper/fileUtils";
 import FolderDtoSlice from "@model/dto/FolderDtoSlice";
 import ResourceModel from "@model/types/ResourceModel";
@@ -16,7 +15,14 @@ import { SnackEnum } from "@model/enum/SnackEnum";
 import { openSnackbar } from "./notificationUtil";
 import { Dispatch } from "redux";
 import { BackdropConfigType } from "@model/types/BackdropConfigType";
-import { setSettingBackdropConfig } from "@redux/actions/settingActions";
+import {
+  setBackgroundBackdropConfig,
+  setBackgroundCanvasImageProperties,
+} from "@redux/actions/backgroundActions";
+import {
+  getImageCanvasDataUrl,
+  UNIQUE_ID_OF_BACKGROUND_CANVAS_CARD,
+} from "@cards/imageCanvas/helper/imageCanvasHelper";
 
 type ZipObjType<T> = {
   imageProperty: QueriedImagePropertyType;
@@ -52,6 +58,8 @@ class ZipHelper {
   private downloadedResourcesInKb: number = 0;
 
   private maximumNumberOfFilesToProcess: number = 0;
+
+  private numberOfProcessedFiles: number = 0;
 
   private readonly finishedHandler: GenericHandlerType<ZipStageEnum, () => boolean> = {
     [ZipStageEnum.ADDING_RESOURCES_TO_ZIP]: () => false,
@@ -102,20 +110,8 @@ class ZipHelper {
    * @returns Returns true if the process has been finished, else false.
    * True means, that the zip is downloaded or error was thrown.
    */
-  public getIsFinished(): boolean {
+  private getIsFinished(): boolean {
     return this.finishedHandler[this.stage]();
-  }
-
-  public getNumberOfProcessedFiles(): number {
-    return this.index;
-  }
-
-  public getMaximumNumberOfFiles(): number {
-    return this.maximumNumberOfFilesToProcess;
-  }
-
-  public getStageText(): string {
-    return this.stageTextHandler[this.stage];
   }
 
   /**
@@ -126,26 +122,36 @@ class ZipHelper {
   };
 
   private handleBackdropChange(config: BackdropConfigType) {
-    this.dispatch(setSettingBackdropConfig(config));
+    this.dispatch(setBackgroundBackdropConfig(config));
   }
 
+  /**
+   * Inspects the zip and awaits the different stages of the zip,
+   * meaning that this method is running in a interval method, that will check
+   * after a prefixed amount of them whether the zip has been finished or not.
+   * Based on the result of the zip, displays a corresponding toast message,
+   * and close down the whole zip by removing the backdrop.
+   */
   private handleZipProcessInspector(): void {
     const interval = setInterval(() => {
+      const numberOfProcessedFiles = this.numberOfProcessedFiles;
+      const maximumNumberOfFiles = this.maximumNumberOfFilesToProcess;
+
       this.handleBackdropChange({
         isBackdropOpen: true,
         loadingText: this.getBackdropText(
-          this.getNumberOfProcessedFiles(),
-          this.getMaximumNumberOfFiles(),
-          this.getStageText(),
+          numberOfProcessedFiles,
+          maximumNumberOfFiles,
+          this.stageTextHandler[this.stage],
         ),
-        progress: (this.getNumberOfProcessedFiles() * 100.0) / this.getMaximumNumberOfFiles(),
+        progress: (numberOfProcessedFiles * 100.0) / maximumNumberOfFiles,
       });
 
       if (this.getIsFinished()) {
         this.handleBackdropChange({ isBackdropOpen: false });
         clearInterval(interval);
       }
-    }, 200);
+    }, 100);
   }
 
   /**
@@ -174,14 +180,6 @@ class ZipHelper {
         }
 
         this.slicedImages = await handlePageableImageResponseSrcModification(slicedImages);
-
-        // Increase the downloaded resource number
-        this.downloadedResourcesInKb += this.slicedImages
-          .map((imageDto) => imageDto.base64Src)
-          .filter((base64Src) => base64Src !== undefined)
-          .map((base64Src) => Math.ceil(base64Src.length / 1024))
-          .reduce((previous, current) => previous + current);
-
         await this.addImagesToTheZip();
 
         if (this.downloadedResourcesInKb >= this.MAXIMUM_RESOURCE_SIZE_IN_KB) {
@@ -281,6 +279,7 @@ class ZipHelper {
    *
    * @returns Returns a 1d list that contains the url links of the images that must be downloaded.
    */
+  /*
   private getFilteredRemoteUrlOfImages = (): ZipObjType<string>[] => {
     const remoteImageUrls: ZipObjType<string | undefined>[] = this.getRemoteUrlsOfImages();
     let filteredRemoteImageUrls: ZipObjType<string>[] = [];
@@ -300,30 +299,74 @@ class ZipHelper {
 
     return filteredRemoteImageUrls;
   };
+  */
+
+  private updateDownloadedResourcesInKb = (dataUrl: string): void => {
+    // Increase the downloaded resource number
+    this.downloadedResourcesInKb += Math.ceil(dataUrl.length / 1024);
+  };
+
+  private getImageCanvasDataUrl = async (url: ZipObjType<string | undefined>) => {
+    // Give back a data url that contains the bounding boxes alongside the image.
+    this.dispatch(setBackgroundCanvasImageProperties(url.imageProperty));
+    const dataUrl = await getImageCanvasDataUrl(
+      url.imageProperty,
+      UNIQUE_ID_OF_BACKGROUND_CANVAS_CARD,
+    );
+    this.dispatch(setBackgroundCanvasImageProperties(undefined));
+    return dataUrl;
+  };
 
   /**
    * Based on the selected images, add those images to the zip file.
    */
   private addImagesToTheZip = (): Promise<void> => {
     return new Promise(async (resolve, reject) => {
-      const filteredRemoteImageUrls: ZipObjType<string>[] = this.getFilteredRemoteUrlOfImages();
+      const remoteImageUrls: ZipObjType<string | undefined>[] = this.getRemoteUrlsOfImages();
 
       // Step 1.3.: Adding images to the zip (pending state)
-      for await (const url of filteredRemoteImageUrls) {
+      for await (let url of remoteImageUrls) {
         try {
-          if (ImageUtils.isImageUrlStartsWithBase64JpgPrefix(url.srcUrl)) {
+          if (url.srcUrl && ImageUtils.isImageUrlStartsWithBase64JpgPrefix(url.srcUrl)) {
+            const dataUrl = await this.getImageCanvasDataUrl({
+              ...url,
+              imageProperty: {
+                ...url.imageProperty,
+                image: {
+                  ...url.imageProperty.image,
+                  base64Src: url.srcUrl,
+                },
+              },
+            });
+
+            // Increase the downloaded resource number
+            this.updateDownloadedResourcesInKb(dataUrl);
+
             const remoteUrl = ImageUtils.initRemoteImageUrlPath(url.imageProperty.image, true);
             const uniqueFileName =
               remoteUrl?.replace(`${ImageUtils.remoteUrl}/`, "").replaceAll("/", "-") ??
               `tmp${url.imageProperty.image.id}.jpg`;
-            this.addBase64StringToZip(ImageUtils.removeBase64Prefix(url.srcUrl), uniqueFileName);
+            this.addBase64StringToZip(ImageUtils.removeBase64Prefix(dataUrl), uniqueFileName);
           } else {
-            const base64String = await downloadImagesByUrlCommand(url.srcUrl);
-            const uniqueFileName = url.srcUrl
+            const remoteUrl = ImageUtils.initRemoteImageUrlPath(url.imageProperty.image, true);
+
+            if (!remoteUrl) {
+              return;
+            }
+
+            const dataUrl = await this.getImageCanvasDataUrl(url);
+
+            // Increase the downloaded resource number
+            this.updateDownloadedResourcesInKb(dataUrl);
+
+            const uniqueFileName = remoteUrl
               .replace(`${ImageUtils.remoteUrl}/`, "")
               .replaceAll("/", "-");
-            this.addBase64StringToZip(base64String, uniqueFileName);
+            this.addBase64StringToZip(dataUrl, uniqueFileName);
           }
+
+          // Increasing the number of processed files counter.
+          this.numberOfProcessedFiles++;
         } catch (error) {
           console.error("addImagesToTheZip", error);
           reject(error);

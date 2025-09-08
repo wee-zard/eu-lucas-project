@@ -6,7 +6,7 @@ import { LocalStorageKeys } from "@model/enum";
 import { removeLocalStorageItem, setLocalStorageItem } from "@helper/localStorageUtil";
 import { useDispatch } from "react-redux";
 import StyledButton from "@components/StyledButton";
-import { setSettingBackdropOpen } from "@redux/actions/settingActions";
+import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import { validateCreateUserDialogForm } from "./CreateUserDialogHelper";
 import { BaseFormControlGroup } from "@model/forms/BaseFormControlGroup";
 import EventListenerUtil from "@helper/eventListenerUtil";
@@ -49,7 +49,7 @@ const CreateUserDialog = ({ isOpen, onClose }: Props) => {
           buttonVariant="outlined"
           buttonColor="success"
           onClick={() => {
-            dispatch(setSettingBackdropOpen(true));
+            dispatch(setBackgroundBackdropOpen(true));
             validateCreateUserDialogForm()
               .then(() => {
                 throwNotification(
@@ -64,7 +64,7 @@ const CreateUserDialog = ({ isOpen, onClose }: Props) => {
                 setLocalStorageItem(modifiedGroup, LocalStorageKeys.UserCreationForm);
                 EventListenerUtil.dispatchEvent(EventListenerIdEnum.CREATE_USER_DIALOG);
               })
-              .finally(() => dispatch(setSettingBackdropOpen(false)));
+              .finally(() => dispatch(setBackgroundBackdropOpen(false)));
           }}
         />
       </DialogActions>

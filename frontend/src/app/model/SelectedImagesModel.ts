@@ -37,10 +37,4 @@ export type QueriedImagePropertyType = {
    * The bound boxes applied to the images by the user.
    */
   boundingBoxes: SelectedProcedureLogModel[];
-  /**
-   * When bounding boxes has been added to a specific image,
-   * then with this attribute we can tell, whether the bounding boxes
-   * should be displayed on the image or be hidden.
-   */
-  isBoundingBoxesHidden?: boolean;
 };

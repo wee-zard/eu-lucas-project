@@ -24,9 +24,7 @@ const FilteringQueryBuilder = React.memo(function FilteringQueryBuilder({ id }: 
             ) : null}
           </div>
         ) : (
-          <StyledEmptyQueryBuilderHolder>
-            EMPTY QUERY BUILDER MODEL FIELD
-          </StyledEmptyQueryBuilderHolder>
+          <StyledEmptyQueryBuilderHolder></StyledEmptyQueryBuilderHolder>
         )}
         <FilteringQueryBuilderActions id={id} states={states} />
       </React.Fragment>

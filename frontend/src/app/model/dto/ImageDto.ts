@@ -7,7 +7,8 @@ export default class ImageDto {
     public year: number,
     public coordinateX: number,
     public coordinateY: number,
-    // Not part of the response
+    // === From here, not part of the response ===
     public base64Src?: string,
+    public areBoundingBoxesHidden?: boolean,
   ) {}
 }

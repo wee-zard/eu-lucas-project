@@ -1,5 +1,5 @@
 import ImageDto from "@model/dto/ImageDto";
-import { MenuActions, SelectedImageActionTooltipTitles } from "@model/enum";
+import { MenuActions } from "@model/enum";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import i18n from "@i18n/i18nHandler";
@@ -9,11 +9,7 @@ import { defaultFilteringPaginationModel } from "@screens/filteringScreen/helper
 import PageableResponse from "@model/response/PageableResponse";
 import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import { SelectedImageAction } from "@model/types/SelectedImageActionType";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import ImageSearchOutlinedIcon from "@mui/icons-material/ImageSearchOutlined";
-import { useDispatch } from "react-redux";
-import { setBoundingBoxDialogToOpen } from "@redux/actions/boundingBoxActions";
-import { setSelectedImage, setSelectedImagesModel } from "@redux/actions/imageActions";
+import { useImageActionTooltip } from "../config/useImageActionTooltip";
 
 const contentTextObj = {
   emptyContentText: i18n.t("screens.filtering.empty-body"),
@@ -26,32 +22,7 @@ const FilteringScreenImageAndPaginationCard = () => {
   const [pageableResponse, setPageableResponse] = useState<PageableResponse<ImageDto>>();
   const selectedImagesModel = useSelector(selectSelectedImagesModel);
   const images = selectedImagesModel.queryImages.map((queryImage) => queryImage.image).flat();
-  const dispatch = useDispatch();
-
-  const imageActionsObj: SelectedImageAction[] = [
-    {
-      icon: <DeleteForeverOutlinedIcon color={"error"} />,
-      tooltipTitle: SelectedImageActionTooltipTitles.Delete,
-      onClick: (imageDto: ImageDto) => {
-        dispatch(
-          setSelectedImagesModel({
-            ...selectedImagesModel,
-            queryImages: selectedImagesModel.queryImages.filter(
-              (imagePropertyModel) => imagePropertyModel.image.id !== imageDto.id,
-            ),
-          }),
-        );
-      },
-    },
-    {
-      icon: <ImageSearchOutlinedIcon />,
-      tooltipTitle: SelectedImageActionTooltipTitles.Search,
-      onClick: (imageDto: ImageDto) => {
-        dispatch(setBoundingBoxDialogToOpen(true));
-        dispatch(setSelectedImage(imageDto));
-      },
-    },
-  ];
+  const imageActionsObj: SelectedImageAction[] = useImageActionTooltip();
 
   useEffect(() => {
     setPageableResponse({

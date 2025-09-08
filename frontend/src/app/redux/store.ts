@@ -14,7 +14,7 @@ import plantSpeciesReducer from "@redux/reducers/plantSpeciesReducer";
 import logParamReducer from "@redux/reducers/logParamReducer";
 import procedureLogReducer from "@redux/reducers/procedureLogReducer";
 import procedureUploadReducer from "@redux/reducers/procedureUploadReducer";
-import settingReducer from "@redux/reducers/settingReducer";
+import backgroundReducer from "@redux/reducers/backgroundReducer";
 import userReducer from "@redux/reducers/userReducer";
 import filteringReducer from "@redux/reducers/filteringReducer";
 import boundingBoxReducer from "@redux/reducers/boundingBoxReducer";
@@ -31,10 +31,10 @@ const rootReducer = combineReducers({
   folderCreationStore: folderCreationReducer,
   folderStore: folderReducer,
   confirmationDialogStore: confirmationDialogReducer,
+  backgroundStore: backgroundReducer,
 
   // Processed:
   procedureUploadStorage: procedureUploadReducer,
-  settingStore: settingReducer,
   userStore: userReducer,
 
   // Not processed yet:
