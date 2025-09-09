@@ -10,6 +10,7 @@ import { setSelectedImage, setSelectedImagesModel } from "@redux/actions/imageAc
 import ImageDto from "@model/dto/ImageDto";
 import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import SelectedImagesModel from "@model/SelectedImagesModel";
+import { setProcedureLogSelectedProcedureLogs } from "@redux/actions/procedureLogActions";
 
 export const useImageActionTooltip = () => {
   const selectedImagesModel = useSelector(selectSelectedImagesModel);
@@ -56,6 +57,10 @@ export const useImageActionTooltip = () => {
       onClick: (imageDto: ImageDto) => {
         dispatch(setBoundingBoxDialogToOpen(true));
         dispatch(setSelectedImage(imageDto));
+        const entry = selectedImagesModel.queryImages.find(
+          (property) => property.image.id === imageDto.id,
+        );
+        dispatch(setProcedureLogSelectedProcedureLogs(entry?.boundingBoxes ?? []));
       },
     },
   ];

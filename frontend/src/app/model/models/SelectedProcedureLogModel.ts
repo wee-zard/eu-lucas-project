@@ -1,13 +1,9 @@
 import ProcedureLogDto from "@model/dto/ProcedureLogDto";
+import SelectedProcedureLogProperties from "./SelectedProcedureLogProperties";
 
 type SelectedProcedureLogModel = {
   log: ProcedureLogDto;
   properties: SelectedProcedureLogProperties;
-};
-
-type SelectedProcedureLogProperties = {
-  strokeStyle: string;
-  lineWidth?: number;
 };
 
 export default SelectedProcedureLogModel;

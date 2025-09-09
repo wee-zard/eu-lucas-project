@@ -59,7 +59,10 @@ const ImageToFolderAdditionDialog = () => {
       folderId: Number(groupModel.folder_id),
       queriedImages: selectedImagesModel.queryImages.map((model) => ({
         imageId: model.image.id,
-        boundingBoxIds: [],
+        logs: model.boundingBoxes.map((boxes) => ({
+          logId: boxes.log.id,
+          properties: boxes.properties,
+        })),
       })),
     };
 

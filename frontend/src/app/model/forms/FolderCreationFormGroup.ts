@@ -1,3 +1,4 @@
+import SelectedProcedureLogRequestModel from "@model/models/SelectedProcedureLogRequestModel";
 import { InputFormControlEntry } from "@model/types/InputFormControlEntry";
 
 type GenericReportFormGroupType<T> = Record<"title" | "description", T>;
@@ -14,7 +15,7 @@ export type FolderCreationQueriedImage = {
   /**
    * The bounding boxes that has been applied on the image.
    */
-  boundingBoxIds: number[];
+  logs: SelectedProcedureLogRequestModel[];
 };
 
 export type FolderCreationRequest = {

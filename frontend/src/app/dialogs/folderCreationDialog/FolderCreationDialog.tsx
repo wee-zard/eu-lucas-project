@@ -56,7 +56,10 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
       ? []
       : selectedImagesModel.queryImages.map((model) => ({
           imageId: model.image.id,
-          boundingBoxIds: [],
+          logs: model.boundingBoxes.map((boxes) => ({
+            logId: boxes.log.id,
+            properties: boxes.properties,
+          })),
         }));
 
     const request: FolderCreationRequest = {
