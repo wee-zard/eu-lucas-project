@@ -32,9 +32,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       menuTitle: i18n.t(FolderSettingCellEnum.OPEN),
       isDisplayed: true,
       onClick: (): void => {
-        dispatch(
-          setFolderSettingCellOption({ option: FolderSettingCellEnum.OPEN, folderId: row.id }),
-        );
+        dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.OPEN, folder: row }));
       },
     },
     {
@@ -42,9 +40,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       menuTitle: i18n.t(FolderSettingCellEnum.UPDATE),
       isDisplayed: IS_FOLDER_OWNER,
       onClick: (): void => {
-        dispatch(
-          setFolderSettingCellOption({ option: FolderSettingCellEnum.UPDATE, folderId: row.id }),
-        );
+        dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.UPDATE, folder: row }));
       },
     },
     {
@@ -52,9 +48,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       menuTitle: i18n.t(FolderSettingCellEnum.SHARE),
       isDisplayed: IS_FOLDER_OWNER,
       onClick: (): void => {
-        dispatch(
-          setFolderSettingCellOption({ option: FolderSettingCellEnum.SHARE, folderId: row.id }),
-        );
+        dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.SHARE, folder: row }));
       },
     },
     {
@@ -62,9 +56,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       menuTitle: i18n.t(FolderSettingCellEnum.IMPORT),
       isDisplayed: IS_FOLDER_NOT_READ_ONLY,
       onClick: (): void => {
-        dispatch(
-          setFolderSettingCellOption({ option: FolderSettingCellEnum.IMPORT, folderId: row.id }),
-        );
+        dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.IMPORT, folder: row }));
       },
     },
     {
@@ -72,9 +64,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       menuTitle: i18n.t(FolderSettingCellEnum.COPY),
       isDisplayed: IS_FOLDER_NOT_READ_ONLY,
       onClick: (): void => {
-        dispatch(
-          setFolderSettingCellOption({ option: FolderSettingCellEnum.COPY, folderId: row.id }),
-        );
+        dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.COPY, folder: row }));
       },
     },
     {
@@ -84,7 +74,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
         dispatch(
-          setFolderSettingCellOption({ option: FolderSettingCellEnum.DOWNLOAD, folderId: row.id }),
+          setFolderSettingCellOption({ option: FolderSettingCellEnum.DOWNLOAD, folder: row }),
         );
       },
     },
@@ -95,9 +85,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       isDisplayed: IS_FOLDER_OWNER,
       isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
-        dispatch(
-          setFolderSettingCellOption({ option: FolderSettingCellEnum.LOCK, folderId: row.id }),
-        );
+        dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.LOCK, folder: row }));
       },
     },
     {
@@ -107,9 +95,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       isDisplayed: IS_FOLDER_OWNER,
       isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
-        dispatch(
-          setFolderSettingCellOption({ option: FolderSettingCellEnum.CLEAR, folderId: row.id }),
-        );
+        dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.CLEAR, folder: row }));
       },
     },
     {
@@ -118,9 +104,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       menuTitle: i18n.t(FolderSettingCellEnum.DELETE),
       isDisplayed: IS_FOLDER_OWNER,
       onClick: (): void => {
-        dispatch(
-          setFolderSettingCellOption({ option: FolderSettingCellEnum.DELETE, folderId: row.id }),
-        );
+        dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.DELETE, folder: row }));
       },
     },
   ];

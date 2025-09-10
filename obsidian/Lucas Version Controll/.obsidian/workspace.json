@@ -86,7 +86,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#🔴ToDo",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -201,7 +201,7 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "7213bd70899264c2",
+  "active": "981b7d1df804e240",
   "lastOpenFiles": [
     "Kanban Board/Nodes/208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken.md",
     "Kanban Board/Lucas Kanban.md",

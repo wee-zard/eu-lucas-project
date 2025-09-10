@@ -18,6 +18,12 @@ export type FolderCreationQueriedImage = {
   logs: SelectedProcedureLogRequestModel[];
 };
 
+export type FolderUpdateRequest = {
+  title: string;
+  description: string;
+  folderId: number;
+};
+
 export type FolderCreationRequest = {
   title: string;
   description: string;

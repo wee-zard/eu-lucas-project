@@ -1,48 +1,38 @@
 import TemplateDialog from "@dialogs/template/TemplateDialog";
 import { useSelector, useDispatch } from "react-redux";
 import FolderCreationContent from "./FolderCreationContent";
-import { useEffect } from "react";
-import { FormEnums } from "@model/enum";
 import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
 import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import {
-  FolderCreationFormGroup,
   FolderCreationFormGroupModel,
   FolderCreationQueriedImage,
   FolderCreationRequest,
+  FolderUpdateRequest,
 } from "@model/forms/FolderCreationFormGroup";
-import { createNewFolderCommand } from "@api/command/folderCommands";
+import { createNewFolderCommand, updateFolderCommand } from "@api/command/folderCommands";
 import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
-import { useFormGroupHelper } from "@hooks/useFormGroup";
-import { selectIsFolderCreationDialogOpen } from "@redux/selectors/folderCreationSelector";
+import { getGenericFormGroupHelper } from "@hooks/useFormGroup";
+import { selectFolderCreationDialogStorage } from "@redux/selectors/folderCreationSelector";
 import { setFolderCreationDialogToOpen } from "@redux/actions/folderCreationActions";
 import { setSelectedImagesModel } from "@redux/actions/imageActions";
 import { defaultSelectedImagesModel } from "@screens/filteringScreen/helper/FilteringHelper";
+import { FormGroupHelperEnum } from "@model/enum/FormGroupHelperEnum";
 
-type Props = {
-  isEmptyFolderCreated?: boolean;
-};
-
-const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
-  const cacheKey = FormEnums.FolderCreationForm;
-  const eventListenerIdKey = EventListenerIdEnum.FOLDER_CREATION_DIALOG;
-  const helper = useFormGroupHelper<FolderCreationFormGroup>(cacheKey, eventListenerIdKey);
-  const isOpen = useSelector(selectIsFolderCreationDialogOpen);
+const FolderCreationDialog = () => {
+  const helper = getGenericFormGroupHelper(FormGroupHelperEnum.FOLDER_CREATION_FORM_GROUP);
   const selectedImagesModel = useSelector(selectSelectedImagesModel);
+  const { isOpen, selectedFolderId, isEmptyFolderCreated } = useSelector(
+    selectFolderCreationDialogStorage,
+  );
   const dispatch = useDispatch();
-
-  console.log("[FolderCreationDialog]: is rendered");
 
   const handleDialogClose = () => {
     dispatch(setFolderCreationDialogToOpen(false));
-  };
-
-  useEffect(() => {
     helper.remove();
-  }, [helper, isOpen]);
+  };
 
   const handleOnSubmit = async () => {
     dispatch(setBackgroundBackdropOpen(true));
@@ -52,6 +42,22 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
       return;
     }
 
+    try {
+      if (!selectedFolderId) {
+        await handleNonEditModeSubmit();
+      } else {
+        await handleEditModeSubmit(selectedFolderId);
+      }
+
+      handleDialogClose();
+    } catch (error) {
+      helper.refresh(); // TODO: Does this needed here?
+    } finally {
+      dispatch(setBackgroundBackdropOpen(false));
+    }
+  };
+
+  const handleNonEditModeSubmit = async () => {
     const queriedImages: FolderCreationQueriedImage[] = isEmptyFolderCreated
       ? []
       : selectedImagesModel.queryImages.map((model) => ({
@@ -70,42 +76,53 @@ const FolderCreationDialog = ({ isEmptyFolderCreated = false }: Props) => {
       queriedImages: queriedImages,
     };
 
-    try {
-      await createNewFolderCommand(request);
-      openSnackbar(SnackEnum.FOLDER_IS_CREATED);
+    await createNewFolderCommand(request);
+    openSnackbar(SnackEnum.FOLDER_IS_CREATED);
 
-      if (isEmptyFolderCreated) {
-        helper.refresh(EventListenerIdEnum.PAGINATED_TABLE);
-      } else {
-        // Clear out the selected images model as it is saved inside the folder.
-        dispatch(setSelectedImagesModel(defaultSelectedImagesModel));
-      }
-
-      handleDialogClose();
-    } catch (error) {
-      helper.refresh(); // TODO: Does this needed here?
-    } finally {
-      dispatch(setBackgroundBackdropOpen(false));
+    if (isEmptyFolderCreated) {
+      helper.refresh(EventListenerIdEnum.PAGINATED_TABLE);
+    } else {
+      // Clear out the selected images model as it is saved inside the folder.
+      dispatch(setSelectedImagesModel(defaultSelectedImagesModel));
     }
+  };
+
+  const handleEditModeSubmit = async (folderId: number) => {
+    const request: FolderUpdateRequest = {
+      ...helper.convert<FolderCreationFormGroupModel>(),
+      folderId,
+    };
+
+    await updateFolderCommand(request);
+    openSnackbar(SnackEnum.FOLDER_IS_UPDATED);
+    helper.refresh(EventListenerIdEnum.PAGINATED_TABLE);
   };
 
   return (
     <TemplateDialog
       content={
-        <FolderCreationContent helper={helper} isEmptyFolderCreated={isEmptyFolderCreated} />
+        <FolderCreationContent
+          helper={helper}
+          isEmptyFolderCreated={isEmptyFolderCreated}
+          selectedFolderId={selectedFolderId}
+        />
       }
       isOpen={isOpen}
       dialogTitle={
-        isEmptyFolderCreated
-          ? i18n.t("screens.folders.creation-dialog.dialog-title.empty-folder")
-          : i18n.t("screens.folders.creation-dialog.dialog-title.folder")
+        selectedFolderId
+          ? i18n.t("screens.folders.creation-dialog.dialog-title.edit")
+          : isEmptyFolderCreated
+            ? i18n.t("screens.folders.creation-dialog.dialog-title.empty-folder")
+            : i18n.t("screens.folders.creation-dialog.dialog-title.folder")
       }
       cancelButton={{
-        text: i18n.t("screens.folders.creation-dialog.buttons.cancel"),
+        text: i18n.t("components.button.cancel"),
         width: "120px",
       }}
       submitButton={{
-        text: i18n.t("screens.folders.creation-dialog.buttons.submit"),
+        text: selectedFolderId
+          ? i18n.t("components.button.modify")
+          : i18n.t("components.button.create"),
         width: "120px",
       }}
       height={"65%"}

@@ -3,8 +3,8 @@ import FilteringScreenBody from "@screens/filteringScreen/body/FilteringScreenBo
 import FilteringScreenHeader from "@screens/filteringScreen/FilteringScreenHeader";
 import FilteringDialog from "@dialogs/filteringDialog/FilteringDialog";
 import BoundingBoxDialog from "@dialogs/boundBoxDialog/BoundingBoxDialog";
-import FolderCreationDialog from "@dialogs/folderCreationDialog/FolderCreationDialog";
-import ImageToFolderAdditionDialog from "@dialogs/imageToFolderAdditionDialog/ImageToFolderAdditionDialog";
+import FolderCreationDialog from "@screens/manageFoldersScreen/dialog/folderCreation/FolderCreationDialog";
+import ImageToFolderAdditionDialog from "@screens/manageFoldersScreen/dialog/imageToFolderAddition/ImageToFolderAdditionDialog";
 
 const FilteringScreen = () => {
   return (

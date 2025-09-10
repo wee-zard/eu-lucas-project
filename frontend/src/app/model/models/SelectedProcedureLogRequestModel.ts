@@ -1,8 +1,8 @@
-import SelectedProcedureLogProperties from "./SelectedProcedureLogProperties";
+import { RequestParamType } from "@model/types/RequestParamType";
 
 type SelectedProcedureLogRequestModel = {
   logId: number;
-  properties: SelectedProcedureLogProperties;
+  properties: RequestParamType[];
 };
 
 export default SelectedProcedureLogRequestModel;

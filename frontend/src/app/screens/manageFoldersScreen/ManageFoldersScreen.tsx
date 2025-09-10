@@ -1,4 +1,4 @@
-import FolderCreationDialog from "@dialogs/folderCreationDialog/FolderCreationDialog";
+import FolderCreationDialog from "@screens/manageFoldersScreen/dialog/folderCreation/FolderCreationDialog";
 import ManageFoldersActions from "./ManageFoldersActions";
 import ManageFoldersDataGridTable from "./ManageFoldersDataGridTable";
 import ManageFoldersBackgroundProcess from "./ManageFoldersBackgroundProcess";
@@ -9,7 +9,7 @@ const ManageFoldersScreen = () => {
       <ManageFoldersActions />
       <ManageFoldersDataGridTable />
       <ManageFoldersBackgroundProcess />
-      <FolderCreationDialog isEmptyFolderCreated />
+      <FolderCreationDialog />
     </div>
   );
 };

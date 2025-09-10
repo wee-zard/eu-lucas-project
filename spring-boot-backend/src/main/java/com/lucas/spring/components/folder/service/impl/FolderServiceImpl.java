@@ -1,6 +1,7 @@
 package com.lucas.spring.components.folder.service.impl;
 
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.commons.utils.PageablePropertiesUtil;
 import com.lucas.spring.components.authorization.enums.AuthorizationExceptionEnum;
 import com.lucas.spring.components.authorization.exception.AuthorizationException;
@@ -8,9 +9,11 @@ import com.lucas.spring.components.folder.enums.FolderExceptionEnum;
 import com.lucas.spring.components.folder.exception.FolderException;
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
 import com.lucas.spring.components.folder.model.entity.FolderEntity;
+import com.lucas.spring.components.folder.model.model.FolderFormWithFolderIdModel;
 import com.lucas.spring.components.folder.repository.FolderRepository;
 import com.lucas.spring.components.folder.service.FolderService;
 import com.lucas.spring.components.user.model.entity.UserEntity;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
@@ -25,6 +28,21 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class FolderServiceImpl implements FolderService {
   private final FolderRepository repository;
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void update(final FolderFormWithFolderIdModel request) {
+    final FolderEntity entity =
+            this.getFolderById(FormatParseUtil.parseToLong(request.getFolderId()));
+
+    entity.setTitle(request.getTitle());
+    entity.setDescription(request.getDescription());
+    entity.setUpdatedAt(Instant.now());
+
+    this.repository.save(entity);
+  }
 
   /**
    * {@inheritDoc}

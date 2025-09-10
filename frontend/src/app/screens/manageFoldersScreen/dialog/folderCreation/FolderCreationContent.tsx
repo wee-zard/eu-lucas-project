@@ -9,9 +9,12 @@ import i18n from "@i18n/i18nHandler";
 type Props = {
   helper: FormGroupHelper<FolderCreationFormGroup>;
   isEmptyFolderCreated?: boolean;
+  selectedFolderId?: number;
 };
 
-const FolderCreationContent = ({ helper, isEmptyFolderCreated }: Props) => {
+const FolderCreationContent = ({ helper, isEmptyFolderCreated, selectedFolderId }: Props) => {
+  const translatePrefix = "screens.folders.creation-dialog.content.type";
+
   const handleMaxCharacterHelper = (
     formGroup: FolderCreationFormGroup,
     element: keyof FolderCreationFormGroup,
@@ -26,13 +29,13 @@ const FolderCreationContent = ({ helper, isEmptyFolderCreated }: Props) => {
     const formGroup = helper.get();
 
     return (
-      <StyledInputHolder className="grid-container">
-        <div className="grid-container">
+      <StyledInputHolder>
+        <StyledContentMessageWrapper className="grid-container">
           <p>
-            {i18n.t(`screens.folders.creation-dialog.content.type${isEmptyFolderCreated ? 1 : 2}`)}
+            {i18n.t(`${translatePrefix}${selectedFolderId ? 3 : isEmptyFolderCreated ? 1 : 2}`)}
           </p>
-        </div>
-        <div className="grid-gap24">
+        </StyledContentMessageWrapper>
+        <StyledFormWrapper className="grid-gap24">
           <div className="flex-container">
             <StyledTextFieldComponent
               inputTitle={i18n.t("components.input-title.type1")}
@@ -51,7 +54,7 @@ const FolderCreationContent = ({ helper, isEmptyFolderCreated }: Props) => {
               errorMessage={formGroup.description.error}
             />
           </div>
-        </div>
+        </StyledFormWrapper>
       </StyledInputHolder>
     );
   };
@@ -65,5 +68,17 @@ const StyledInputHolder = styled(StyledScrollBarHolder)({
   margin: 3,
   padding: 12,
   width: "100%",
+  height: "90%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
   alignItems: "flex-start",
+});
+
+const StyledContentMessageWrapper = styled("div")({
+  height: "100%",
+});
+
+const StyledFormWrapper = styled("div")({
+  width: "100%",
 });

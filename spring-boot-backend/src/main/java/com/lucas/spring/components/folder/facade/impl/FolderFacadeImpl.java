@@ -9,7 +9,6 @@ import com.lucas.spring.components.folder.exception.FolderException;
 import com.lucas.spring.components.folder.facade.FolderContentDataFacade;
 import com.lucas.spring.components.folder.facade.FolderFacade;
 import com.lucas.spring.components.folder.model.entity.FolderContentEntity;
-import com.lucas.spring.components.folder.model.entity.FolderContentKeyEntity;
 import com.lucas.spring.components.folder.model.entity.FolderEntity;
 import com.lucas.spring.components.folder.model.entity.ShareFolderEntity;
 import com.lucas.spring.components.folder.model.model.FolderContentCreationModel;

@@ -8,11 +8,24 @@ import {
 import {
   FolderCreationRequest,
   FolderImageAdditionRequest,
+  FolderUpdateRequest,
 } from "@model/forms/FolderCreationFormGroup";
 import PageableProperties from "@model/PageableProperties";
 import BaseResponse from "@model/response/BaseResponse";
 import PageableResponse from "@model/response/PageableResponse";
 import { RequestParamType } from "@model/types/RequestParamType";
+
+export const updateFolderCommand = (request: FolderUpdateRequest): Promise<BaseResponse> => {
+  return commandHandler<BaseResponse>({
+    type: RequestCommandTypes.POST,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendFolderControllerEndpoints.UpdateFolder,
+    obj: request,
+    header: {
+      isAuthTokenMandatory: true,
+    },
+  });
+};
 
 export const createNewFolderCommand = (request: FolderCreationRequest): Promise<BaseResponse> => {
   return commandHandler<BaseResponse>({

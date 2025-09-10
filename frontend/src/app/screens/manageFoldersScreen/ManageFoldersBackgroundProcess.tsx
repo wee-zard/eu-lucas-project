@@ -8,11 +8,18 @@ import { useSelector } from "react-redux";
 import ZipHelper from "@helper/zipHelper";
 import { setFolderSettingCellOption } from "@redux/actions/folderActions";
 import { clearFolderCommand, deleteFolderCommand } from "@api/command/folderCommands";
-import { openSnackbar } from "@helper/notificationUtil";
+import { openSnackbar, throwNotification, ToastSeverity } from "@helper/notificationUtil";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import EventListenerUtil from "@helper/eventListenerUtil";
 import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
 import ConfirmationDialog from "@dialogs/template/ConfirmationDialog";
+import { getGenericFormGroupHelper } from "@hooks/useFormGroup";
+import { FormGroupHelperEnum } from "@model/enum/FormGroupHelperEnum";
+import FolderDtoSlice from "@model/dto/FolderDtoSlice";
+import {
+  setFolderCreationDialogEditingFolderId,
+  setFolderCreationDialogToOpen,
+} from "@redux/actions/folderCreationActions";
 
 const ManageFoldersBackgroundProcess = () => {
   const [isOpen, setOpen] = useState(false);
@@ -20,6 +27,10 @@ const ManageFoldersBackgroundProcess = () => {
   const [isCancelClicked, setCancelClicked] = useState(false);
   const folderSettingOption = useSelector(selectSelectedFolderSettingCellOption);
   const dispatch = useDispatch();
+
+  const notImplementedYetMessage = () => {
+    throwNotification(ToastSeverity.Info, "Még nem került implementálásra!");
+  };
 
   const handleOnConfirmationDialogClose = () => {
     setCancelClicked(true);
@@ -34,13 +45,29 @@ const ManageFoldersBackgroundProcess = () => {
       return;
     }
 
-    const handler: GenericHandlerType<FolderSettingCellEnum, (folderId: number) => void> = {
-      [FolderSettingCellEnum.OPEN]: (_: number) => null,
-      [FolderSettingCellEnum.UPDATE]: (_: number) => null,
-      [FolderSettingCellEnum.SHARE]: (_: number) => null,
-      [FolderSettingCellEnum.IMPORT]: (_: number) => null,
-      [FolderSettingCellEnum.COPY]: (_: number) => null,
-      [FolderSettingCellEnum.DOWNLOAD]: (_: number) => {
+    const handler: GenericHandlerType<FolderSettingCellEnum, (folder: FolderDtoSlice) => void> = {
+      [FolderSettingCellEnum.OPEN]: (_: FolderDtoSlice) => {
+        notImplementedYetMessage();
+      },
+      [FolderSettingCellEnum.UPDATE]: (folder: FolderDtoSlice) => {
+        getGenericFormGroupHelper(FormGroupHelperEnum.FOLDER_CREATION_FORM_GROUP).saveAll([
+          { propertyToUpdate: "title", newValue: folder.title },
+          { propertyToUpdate: "description", newValue: folder.description },
+        ]);
+
+        dispatch(setFolderCreationDialogToOpen(true));
+        dispatch(setFolderCreationDialogEditingFolderId(folder.id));
+      },
+      [FolderSettingCellEnum.SHARE]: (_: FolderDtoSlice) => {
+        notImplementedYetMessage();
+      },
+      [FolderSettingCellEnum.IMPORT]: (_: FolderDtoSlice) => {
+        notImplementedYetMessage();
+      },
+      [FolderSettingCellEnum.COPY]: (_: FolderDtoSlice) => {
+        notImplementedYetMessage();
+      },
+      [FolderSettingCellEnum.DOWNLOAD]: (_: FolderDtoSlice) => {
         dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
 
         // TODO: Fetch the list of images here with a command (bounding boxes should be included)
@@ -51,7 +78,9 @@ const ManageFoldersBackgroundProcess = () => {
       },
 
       // TODO: Confirmation dialog should be pop up before calling the actual api command.
-      [FolderSettingCellEnum.LOCK]: (_: number) => null,
+      [FolderSettingCellEnum.LOCK]: (_: FolderDtoSlice) => {
+        notImplementedYetMessage();
+      },
 
       /**
        * A process to clear out the content inside the provided folder.
@@ -61,10 +90,10 @@ const ManageFoldersBackgroundProcess = () => {
        * @param folderId The id of the folder to clear out. In this case,
        * the folder will be not deleted, just the folder will be empty.
        */
-      [FolderSettingCellEnum.CLEAR]: (folderId: number) => {
+      [FolderSettingCellEnum.CLEAR]: (folder: FolderDtoSlice) => {
         handleConfirmationDialogBranching(() => {
           dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
-          clearFolderCommand(folderId)
+          clearFolderCommand(folder.id)
             .then(() => openSnackbar(SnackEnum.FOLDER_IS_CLEARED))
             .finally(() => {
               // Reset the paginated table on the Manage Folders page.
@@ -82,10 +111,10 @@ const ManageFoldersBackgroundProcess = () => {
        *
        * @param folderId The id of the folder to delete.
        */
-      [FolderSettingCellEnum.DELETE]: (folderId: number) => {
+      [FolderSettingCellEnum.DELETE]: (folder: FolderDtoSlice) => {
         handleConfirmationDialogBranching(() => {
           dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
-          deleteFolderCommand(folderId)
+          deleteFolderCommand(folder.id)
             .then(() => openSnackbar(SnackEnum.FOLDER_IS_DELETED))
             .finally(() => {
               // Reset the paginated table on the Manage Folders page.
@@ -98,7 +127,7 @@ const ManageFoldersBackgroundProcess = () => {
     };
 
     // Processing the setting option what was clicked by the user.
-    handler[folderSettingOption.option](folderSettingOption.folderId);
+    handler[folderSettingOption.option](folderSettingOption.folder);
   }, [folderSettingOption, isOpen, isSubmitClicked, isCancelClicked, dispatch]);
 
   /**
@@ -120,14 +149,10 @@ const ManageFoldersBackgroundProcess = () => {
    */
   const handleConfirmationDialogBranching = (handleSubmit: (obj?: any) => void) => {
     if (isSubmitClicked) {
-      console.log("isSubmitClicked is clicked");
-
       handleSettingOptionReset();
       handleSubmit();
       return;
     } else if (isCancelClicked) {
-      console.log("isCancelClicked is clicked");
-
       handleSettingOptionReset();
       handleConfirmationDialogReset();
       return;

@@ -1,5 +1,7 @@
 interface FolderCreationReducerStateType {
-  isFolderCreationDialogOpen: boolean;
+  isOpen: boolean;
+  isEmptyFolderCreated: boolean;
+  selectedFolderId?: number;
 }
 
 export default FolderCreationReducerStateType;

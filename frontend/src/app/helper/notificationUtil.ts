@@ -78,6 +78,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.FOLDER_IS_CLEARED]: () => throwSuccessToast(),
     [SnackEnum.IMAGE_SERVER_IS_TURNED_ON]: () => throwSuccessToast(),
     [SnackEnum.ZIP_DOWNLOADED]: () => throwSuccessToast(),
+    [SnackEnum.FOLDER_IS_UPDATED]: () => throwSuccessToast(),
 
     // Error toast messages
     [SnackEnum.LOG_NOT_FOUND]: () => throwErrorToast(),

@@ -7,6 +7,7 @@ import com.lucas.spring.commons.model.response.PageableResponse;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.folder.facade.FolderFacade;
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
+import com.lucas.spring.components.folder.model.model.FolderFormWithFolderIdModel;
 import com.lucas.spring.components.folder.model.request.FolderCreationRequest;
 import com.lucas.spring.components.folder.model.request.FolderImageAdditionRequest;
 import com.lucas.spring.components.folder.service.FolderService;
@@ -52,6 +53,22 @@ public class FolderController {
           @RequestBody @Valid final FolderCreationRequest request
   ) {
     this.folderFacade.save(request, user);
+    return new BaseResponse();
+  }
+
+  /**
+   * Updates a folder.
+   *
+   * @param user The authenticated user who initiated the request.
+   * @param request The request from the frontend that holds the folder update information.
+   */
+  @CrossOrigin
+  @PostMapping("/update")
+  public BaseResponse updateFolder(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestBody @Valid final FolderFormWithFolderIdModel request
+  ) {
+    this.folderService.update(request);
     return new BaseResponse();
   }
 

@@ -196,13 +196,11 @@ kanban-plugin: board
 ## 🔴Folder Page Backlog
 
 - [ ] [[204 - ManageFolders - Settings 1 - Mappák tartalmának megjelenítése]] #🔴ToDo #Folder-Page
-- [ ] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #🔴ToDo  #Folder-Page
 - [ ] [[205 - ManageFolders - Settings 3 - Lehessen egy specifikus mappát megosztani egy másik felhasználóval]] #Folder-Page
 - [ ] [[206 - ManageFolders - Settings 4 - Képek importálása egy mappába]] #Folder-Page
 - [ ] [[207 - ManageFolders - Settings 5 - Mappa másolatának létrehozása]] #Folder-Page
 - [ ] [[208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken]] #🔴ToDo   #Folder-Page #🟣Testing
 - [ ] [[209 - ManageFolders - Settings 7 - Mappa zárolása]] #Folder-Page
-- [ ] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🟣Testing   #Folder-Page #🔴ToDo
 - [ ] [[201 - Szűrési input mezők legyenek elérhetőek a DataGrid táblázat felett]] #🔴ToDo #Folder-Page
 - [ ] [[198 - Bulk delete, egyszerre több mappát is lehessen törölni]] #Folder-Page
 - [x] X - Pagination frissítése ez alapján: https://ardijorganxhi.medium.com/implement-pagination-at-your-spring-boot-application-a540270b5f60 #🟢Done #Folder-Page
@@ -212,6 +210,8 @@ kanban-plugin: board
 - [x] [[178 - Letöltött mappák neve legyen egyedi, előre specifikált]] #🟢Done  #Folder-Page
 - [x] [[197 - ManageFolders - Settings 9 - Lehessen mappákat törölni]] #🟢Done  #Folder-Page
 - [x] [[210 - ManageFolders - Settings 8 - Mappa tartalmának kiürítése]] #🟢Done #Folder-Page
+- [x] [[180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban]] #🟢Done  #Folder-Page
+- [x] [[202 - ManageFolders - Settings 2 - Mappa nevének- és leírásának módosítása]] #Folder-Page #🟢Done
 
 
 ## 🔴Deployment Backlog

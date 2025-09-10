@@ -3,6 +3,7 @@ package com.lucas.spring.components.folder.service;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
 import com.lucas.spring.components.folder.model.entity.FolderEntity;
+import com.lucas.spring.components.folder.model.model.FolderFormWithFolderIdModel;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface FolderService {
+
+  /**
+   * Saves a folder.
+   *
+   * @param request The request.
+   */
+  void update(FolderFormWithFolderIdModel request);
 
   /**
    * Saves a folder.

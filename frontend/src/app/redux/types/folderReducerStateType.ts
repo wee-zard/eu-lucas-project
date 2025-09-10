@@ -12,7 +12,7 @@ interface FolderReducerStateType {
   /**
    * Tells wether the "Folder creation" dialog is open or not.
    */
-  isFolderCreationDialogOpen: boolean;
+  isOpen: boolean;
 }
 
 export default FolderReducerStateType;

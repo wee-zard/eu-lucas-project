@@ -9,6 +9,7 @@ export enum SnackEnum {
   ERROR_ON_LOGIN = "screens.login.notifications.error-on-login",
   UPLOADED_XML_FILES = "screens.upload-procedures.notifications.successful-file-upload",
   FOLDER_IS_CREATED = "screens.folders.notifications.folder-is-created",
+  FOLDER_IS_UPDATED = "screens.folders.notifications.folderIsUpdated",
   IMAGES_TO_FOLDER = "screens.folders.notifications.images-added-to-folder",
   NO_IMAGE_TO_ADD_TO_FOLDER = "screens.folders.notifications.no-image-to-add-to-folder",
   FOLDER_IS_DELETED = "notifications.success.folderIsDeleted",

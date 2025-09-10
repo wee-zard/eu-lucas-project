@@ -21,8 +21,8 @@ export const setImageToFolderAdditionDialogOpen = (
 };
 
 export const setFolderCreationDialogOpen = (
-  data: FolderReducerStateType["isFolderCreationDialogOpen"],
-): FolderActionSetterType["isFolderCreationDialogOpen"] => {
+  data: FolderReducerStateType["isOpen"],
+): FolderActionSetterType["isOpen"] => {
   return {
     type: FolderConsts.SET_FOLDER_CREATION_DIALOG_OPEN,
     payload: data,

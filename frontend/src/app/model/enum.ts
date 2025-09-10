@@ -98,6 +98,7 @@ export enum BackendFolderControllerEndpoints {
   GetFoldersByUserIdSortedByUpdatedAt = "/api/folder/list-all",
   DeleteFolder = "/api/folder/",
   ClearFolder = "/api/folder/clear",
+  UpdateFolder = "/api/folder/update",
 }
 
 export enum GoogleTokenEndpoints {
