@@ -1,4 +1,4 @@
-package com.lucas.spring.components.folder.model.request;
+package com.lucas.spring.components.folder.model.model;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -22,5 +22,5 @@ public class QueriedImages {
   /**
    * The ids of the bounding boxes that has been applied on the selected image.
    */
-  private List<Long> boundingBoxIds;
+  private List<SelectedProcedureLogModel> logs;
 }

@@ -1,10 +1,12 @@
 package com.lucas.spring.components.procedure.model.entity;
 
 import com.lucas.spring.commons.model.entity.BaseEntity;
+import com.lucas.spring.components.folder.model.entity.FolderContentEntity;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
 import com.lucas.spring.components.user.model.entity.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -27,6 +29,15 @@ import lombok.NoArgsConstructor;
 @Entity(name = "ProcedureLog")
 @Table(name = "tb_procedure_log")
 public class ProcedureLogEntity extends BaseEntity {
+
+  /**
+   * Initializes the entity with an id.
+   *
+   * @param id The id of the log.
+   */
+  public ProcedureLogEntity(final Long id) {
+    setId(id);
+  }
 
   /**
    * The author of the procedure log.
@@ -78,4 +89,10 @@ public class ProcedureLogEntity extends BaseEntity {
    */
   @OneToMany(mappedBy = "procedureLog")
   private Set<BoundingBoxEntity> boundingBoxes;
+
+  /**
+   * Tells in which folders are present the given bounding box.
+   */
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "log")
+  private Set<FolderContentEntity> folderContents;
 }

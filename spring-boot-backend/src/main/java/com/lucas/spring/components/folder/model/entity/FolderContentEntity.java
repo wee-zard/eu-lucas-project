@@ -2,7 +2,7 @@ package com.lucas.spring.components.folder.model.entity;
 
 import com.lucas.spring.commons.model.entity.BaseEntity;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
-import com.lucas.spring.components.procedure.model.entity.BoundingBoxEntity;
+import com.lucas.spring.components.procedure.model.entity.ProcedureLogEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -39,8 +39,8 @@ public class FolderContentEntity extends BaseEntity {
   private ImageEntity image;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "bounding_box_id")
-  private BoundingBoxEntity boundingBox;
+  @JoinColumn(name = "log_id")
+  private ProcedureLogEntity log;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "content")
   private Set<FolderContentDataEntity> folderContentDataset;

@@ -1,7 +1,6 @@
 package com.lucas.spring.components.procedure.model.entity;
 
 import com.lucas.spring.commons.model.entity.BaseEntity;
-import com.lucas.spring.components.folder.model.entity.FolderContentEntity;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
 import com.lucas.spring.components.plant.model.entity.PlantEntity;
 import jakarta.persistence.Column;
@@ -9,9 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -68,10 +65,4 @@ public class BoundingBoxEntity extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "procedure_log_id")
   private ProcedureLogEntity procedureLog;
-
-  /**
-   * Tells in which folders are present the given bounding box.
-   */
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "boundingBox")
-  private Set<FolderContentEntity> folderContents;
 }

@@ -6,13 +6,18 @@ import com.lucas.spring.components.authorization.enums.AuthorizationExceptionEnu
 import com.lucas.spring.components.authorization.exception.AuthorizationException;
 import com.lucas.spring.components.folder.enums.FolderExceptionEnum;
 import com.lucas.spring.components.folder.exception.FolderException;
+import com.lucas.spring.components.folder.facade.FolderContentDataFacade;
 import com.lucas.spring.components.folder.facade.FolderFacade;
+import com.lucas.spring.components.folder.model.entity.FolderContentEntity;
+import com.lucas.spring.components.folder.model.entity.FolderContentKeyEntity;
 import com.lucas.spring.components.folder.model.entity.FolderEntity;
 import com.lucas.spring.components.folder.model.entity.ShareFolderEntity;
 import com.lucas.spring.components.folder.model.model.FolderContentCreationModel;
+import com.lucas.spring.components.folder.model.model.KeyValueModel;
+import com.lucas.spring.components.folder.model.model.QueriedImages;
+import com.lucas.spring.components.folder.model.model.SelectedProcedureLogModel;
 import com.lucas.spring.components.folder.model.request.FolderCreationRequest;
 import com.lucas.spring.components.folder.model.request.FolderImageAdditionRequest;
-import com.lucas.spring.components.folder.model.request.QueriedImages;
 import com.lucas.spring.components.folder.service.FolderContentService;
 import com.lucas.spring.components.folder.service.FolderService;
 import com.lucas.spring.components.folder.service.ShareFolderService;
@@ -20,7 +25,6 @@ import jakarta.transaction.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,6 +38,7 @@ public class FolderFacadeImpl implements FolderFacade {
   private final FolderService folderService;
   private final ShareFolderService shareFolderService;
   private final FolderContentService folderContentService;
+  private final FolderContentDataFacade folderContentDataFacade;
 
   /**
    * {@inheritDoc}
@@ -102,16 +107,36 @@ public class FolderFacadeImpl implements FolderFacade {
     final List<FolderContentCreationModel> models = new ArrayList<>();
 
     queriedImages.forEach(queriedImage -> {
-      if (queriedImage.getBoundingBoxIds().isEmpty()) {
+      if (queriedImage.getLogs().isEmpty()) {
         models.add(this.createContentCreationModel(queriedImage.getImageId(), folderId, null));
       } else {
-        queriedImage.getBoundingBoxIds().forEach(boundingBoxId ->
+        queriedImage.getLogs().forEach(boundingBoxId ->
                 models.add(this.createContentCreationModel(queriedImage.getImageId(), folderId, boundingBoxId))
         );
       }
     });
 
-    this.folderContentService.saveAll(models);
+    // Save the property keys
+    final List<List<List<KeyValueModel>>> keyList = queriedImages.stream()
+            .map(queriedImage -> queriedImage.getLogs().stream()
+                    .map(SelectedProcedureLogModel::getProperties)
+                    .toList()
+            ).toList();
+    this.folderContentDataFacade.save(keyList);
+
+    // Remove the old contents from the database
+    this.folderContentService.removeOldContents(models);
+
+    // Save the content properties
+    models.forEach(model -> {
+      final FolderContentEntity entity = this.folderContentService.save(model);
+
+      if (model.getLogModel() == null) {
+        return;
+      }
+
+      this.folderContentDataFacade.save(entity, model.getLogModel().getProperties());
+    });
   }
 
   private FolderEntity getFolder(final Long folderId, final AuthenticatedUser user) {
@@ -133,12 +158,12 @@ public class FolderFacadeImpl implements FolderFacade {
   private FolderContentCreationModel createContentCreationModel(
           final Long imageId,
           final Long folderId,
-          final Long boundingBoxId
+          final SelectedProcedureLogModel logModel
   ) {
     return FolderContentCreationModel.builder()
             .imageId(imageId)
             .folderId(folderId)
-            .boundingBoxId(boundingBoxId)
+            .logModel(logModel)
             .build();
   }
 

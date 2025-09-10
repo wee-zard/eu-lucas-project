@@ -6,7 +6,7 @@ import com.lucas.spring.components.folder.model.model.FolderContentCreationModel
 import com.lucas.spring.components.folder.repository.FolderContentRepository;
 import com.lucas.spring.components.folder.service.FolderContentService;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
-import com.lucas.spring.components.procedure.model.entity.BoundingBoxEntity;
+import com.lucas.spring.components.procedure.model.entity.ProcedureLogEntity;
 import java.util.List;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
@@ -24,26 +24,44 @@ public class FolderContentServiceImpl implements FolderContentService {
    * {@inheritDoc}
    */
   @Override
-  public void saveAll(final List<FolderContentCreationModel> models) {
+  public void removeOldContents(final List<FolderContentCreationModel> models) {
     if (models.isEmpty()) {
       return;
     }
 
-    final List<FolderContentCreationModel> folderContent =
-            this.repository.findFolderContentCreationModelByFolderId(models.get(0).getFolderId());
+    final List<FolderContentEntity> folderContent =
+            this.findAllByFolderId(models.get(0).getFolderId());
 
-    final List<FolderContentEntity> filteredModels = models.stream()
-            .filter(model -> !this.isExists(model, folderContent))
-            .map(model -> FolderContentEntity.builder()
-                    .folder(new FolderEntity(model.getFolderId()))
-                    .image(new ImageEntity(model.getImageId()))
-                    .boundingBox(model.getBoundingBoxId() == null
-                            ? null
-                            : new BoundingBoxEntity(model.getBoundingBoxId()))
-                    .build())
-            .toList();
+    folderContent.forEach(content -> {
+      final FolderContentCreationModel model = FolderContentCreationModel.builder()
+              .folderId(content.getFolder().getId())
+              .imageId(content.getImage().getId())
+              .build();
 
-    this.repository.saveAll(filteredModels);
+      if (this.isExists(model, models)) {
+        this.repository.deleteById(content.getId());
+      }
+    });
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public FolderContentEntity save(final FolderContentCreationModel model) {
+    if (model == null) {
+      return null;
+    }
+
+    final FolderContentEntity entity = FolderContentEntity.builder()
+            .folder(new FolderEntity(model.getFolderId()))
+            .image(new ImageEntity(model.getImageId()))
+            .log(model.getLogModel() == null
+                    ? null
+                    : new ProcedureLogEntity(model.getLogModel().getLogId()))
+            .build();
+
+    return this.repository.save(entity);
   }
 
   /**
@@ -68,11 +86,7 @@ public class FolderContentServiceImpl implements FolderContentService {
           final List<FolderContentCreationModel> folderContent
   ) {
     return folderContent.stream().anyMatch(content ->
-            Objects.equals(content.getBoundingBoxId(), model.getBoundingBoxId())
+            Objects.equals(content.getLogModel().getLogId(), model.getLogModel().getLogId())
                     && Objects.equals(content.getImageId(), model.getImageId()));
-  }
-
-  private boolean isNotExists(final FolderContentCreationModel model) {
-    return this.repository.existsFolderIdAndImageIdAndBoundingBoxIdByFolderIdAndImageIdAndBoundingBoxId(model.getFolderId(), model.getImageId(), model.getBoundingBoxId());
   }
 }

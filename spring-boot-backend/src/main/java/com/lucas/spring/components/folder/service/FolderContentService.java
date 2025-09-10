@@ -12,11 +12,19 @@ import org.springframework.stereotype.Service;
 public interface FolderContentService {
 
   /**
-   * Save all the provided models in the folder content.
+   * Removes the old folder content from the db if they are existing in the param.
    *
-   * @param models The models to save.
+   * @param models The list of models to check if they are exists in the folder.
+   *               If yes, then remove them from the db.
    */
-  void saveAll(List<FolderContentCreationModel> models);
+  void removeOldContents(List<FolderContentCreationModel> models);
+
+  /**
+   * Save the provided model in the folder content.
+   *
+   * @param model The model to save.
+   */
+  FolderContentEntity save(FolderContentCreationModel model);
 
   /**
    * Find all the folder contents by a given folder id.

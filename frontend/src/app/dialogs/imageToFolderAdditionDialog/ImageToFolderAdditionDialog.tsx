@@ -61,7 +61,10 @@ const ImageToFolderAdditionDialog = () => {
         imageId: model.image.id,
         logs: model.boundingBoxes.map((boxes) => ({
           logId: boxes.log.id,
-          properties: boxes.properties,
+          properties: Object.entries(boxes.properties).map((keyValue) => ({
+            key: keyValue[0].toString(),
+            value: keyValue[1].toString(),
+          })),
         })),
       })),
     };

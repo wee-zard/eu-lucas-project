@@ -13,5 +13,5 @@ import lombok.Getter;
 public class FolderContentCreationModel {
   private Long folderId;
   private Long imageId;
-  private Long boundingBoxId;
+  private SelectedProcedureLogModel logModel;
 }

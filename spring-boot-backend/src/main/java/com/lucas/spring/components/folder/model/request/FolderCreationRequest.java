@@ -1,6 +1,6 @@
 package com.lucas.spring.components.folder.model.request;
 
-import jakarta.annotation.Nullable;
+import com.lucas.spring.components.folder.model.model.QueriedImages;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.AllArgsConstructor;
