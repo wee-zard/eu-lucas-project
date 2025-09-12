@@ -62,7 +62,8 @@
       "no": "Nem",
       "download": "Letöltés",
       "create": "Létrehozás",
-      "modify": "Módosítás"
+      "modify": "Módosítás",
+      "delete": "Törlés"
     },
     "input-title": {
       "type1": "Mappa neve",
@@ -259,6 +260,9 @@
           "delete": "Törlés"
         }
       },
+      "folderSelection": {
+        "folder": "Mappa"
+      },
       "notifications": {
         "folder-is-created": "A mappa sikeresen létrehozásra került!",
         "images-added-to-folder": "A kiválasztott képek sikeresen hozzáadása kerültek a [{{name}}] mappához!",
@@ -312,7 +316,7 @@
       "selectedImageTooltips": {
         "delete": "Kép eltávolítása a kiválasztott képek közül",
         "search": "Befoglaló téglalapok megjelenítése",
-        "hide": "Befoglaló téglalapok elrejtésének befolyásolása"
+        "hide": "Befoglaló téglalapok elrejtésének kezelése"
       },
       "alert": {
         "images-not-saved-in-folder": "A kiválasztott képek még nem kerültek lementésre egy mappába, így a kiválasztásaid elvesztésre kerülhetnek! Ebből kifolyólag használd a ['Képek mentése'] menüpont egyik opcióját!"

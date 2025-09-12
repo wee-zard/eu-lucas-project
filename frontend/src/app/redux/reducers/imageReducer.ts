@@ -1,6 +1,6 @@
 import { ImageConsts } from "@redux/consts/imageConsts";
 import {
-  defaultFilteringPaginationModel,
+  defaultPaginationModel,
   defaultSelectedImagesModel,
 } from "@screens/filteringScreen/helper/FilteringHelper";
 import ImageReducerStateType from "@redux/types/imageReducerStateType";
@@ -12,7 +12,7 @@ const initialState: ImageReducerStateType = {
   selectedImage: undefined,
   filterMenuAction: undefined,
   filteringResponse: undefined,
-  filterPageable: defaultFilteringPaginationModel,
+  filterPageable: defaultPaginationModel,
 };
 
 const imageReducer = (state = initialState, action: ImageActionTypes): ImageReducerStateType => {

@@ -131,10 +131,16 @@ const axiosRequestHandler: GenericHandlerType<
     ),
 };
 
-const getRequestParamPath = (requestParams: unknown) => {
-  return Array.isArray(requestParams)
-    ? requestParams.map((item: RequestParamType) => `${item.key}=${item.value}`).join("?")
+const getRequestParamPath = (command: RequestCommand) => {
+  const allowedMethods = [RequestCommandTypes.POST, RequestCommandTypes.PUT];
+  const isRequestParamNeeded = !allowedMethods.includes(command.type);
+  const requestParams = command.obj;
+  const requestParamPrefix = Array.isArray(requestParams) && requestParams.length > 0 ? "?" : "";
+  const requestParam = Array.isArray(requestParams)
+    ? requestParams.map((item: RequestParamType) => `${item.key}=${item.value}`).join("&")
     : "";
+
+  return isRequestParamNeeded ? `${requestParamPrefix}${requestParam}` : "";
 };
 
 /**
@@ -145,11 +151,8 @@ const getRequestParamPath = (requestParams: unknown) => {
  */
 const initServerUrlPath = (command: RequestCommand) => {
   const endpoint = `${ConversionUtils.ServerConnectionToServerPath(command.server)}${command.endpoint}`;
-  const requestParams = command.obj;
 
-  return ![RequestCommandTypes.POST, RequestCommandTypes.PUT].includes(command.type)
-    ? `${endpoint}?${getRequestParamPath(requestParams)}`
-    : `${endpoint}`;
+  return `${endpoint}${getRequestParamPath(command)}`;
 };
 
 export default commandHandler;

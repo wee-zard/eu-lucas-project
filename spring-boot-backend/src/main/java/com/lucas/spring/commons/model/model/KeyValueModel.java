@@ -1,6 +1,7 @@
-package com.lucas.spring.components.folder.model.model;
+package com.lucas.spring.commons.model.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -10,6 +11,7 @@ import lombok.ToString;
  * procedure logs, so they could be displayed differently on
  * the image canvas.
  */
+@Builder
 @Getter
 @ToString
 @AllArgsConstructor

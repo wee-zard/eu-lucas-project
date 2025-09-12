@@ -1,20 +1,20 @@
-import StyledImageMediaCard from "./StyledImageMediaCard";
 import ImageAndPaginationCardContent from "./ImageAndPaginationCardContent";
 import { SelectedImageAction } from "@model/types/SelectedImageActionType";
-import ImageDto from "@model/dto/ImageDto";
+import ImageCanvas from "@cards/imageCanvas/ImageCanvas";
+import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 
 type Props = {
-  imageDto: ImageDto;
+  imageProperties: QueriedImagePropertyType;
   imageActions: SelectedImageAction[];
   isMenuDisabled?: boolean;
 };
 
-const ImageCardInnerElements = ({ imageDto, imageActions, isMenuDisabled }: Props) => {
+const ImageCardInnerElements = ({ imageProperties, imageActions, isMenuDisabled }: Props) => {
   return (
     <>
-      <StyledImageMediaCard imageDto={imageDto} />
+      <ImageCanvas imageProperty={imageProperties} />
       <ImageAndPaginationCardContent
-        imageDto={imageDto}
+        imageDto={imageProperties.image}
         imageActions={imageActions}
         isMenuDisabled={isMenuDisabled}
       />

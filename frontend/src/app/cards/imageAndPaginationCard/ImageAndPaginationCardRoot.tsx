@@ -1,4 +1,3 @@
-import ImageDto from "@model/dto/ImageDto";
 import PageableResponse from "@model/response/PageableResponse";
 import { SelectedImageAction } from "@model/types/SelectedImageActionType";
 import PageableProperties from "@model/PageableProperties";
@@ -10,6 +9,7 @@ import { StyledScrollBarHolder } from "@global/globalStyles";
 import EventListenerType from "@model/types/EventListenerType";
 import { useEffect, useState } from "react";
 import { handlePageableImageResponseSrcModification } from "@dialogs/filteringDialog/helper/FilteringHelper";
+import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 
 const rowsPerPageOptions = [3, 6, 9, 12, 15];
 
@@ -19,13 +19,13 @@ type Props = {
     emptyContentText: string;
     nullResultContentText: string;
   };
-  pageableResponse?: PageableResponse<ImageDto>;
+  pageableResponse?: PageableResponse<QueriedImagePropertyType>;
   imageActions?: SelectedImageAction[];
   isRippleDisabled?: boolean;
   isMenuDisabled?: boolean;
   setMenuAction: (menuAction?: MenuActions) => void;
   setPageable: (pageable: PageableProperties) => void;
-  handleClickOnRippleImage: (imageDto: ImageDto) => void;
+  handleClickOnRippleImage: (imageProperties: QueriedImagePropertyType) => void;
 };
 
 const ImageAndPaginationCardRoot = ({
@@ -39,7 +39,7 @@ const ImageAndPaginationCardRoot = ({
   setPageable,
   handleClickOnRippleImage,
 }: Props) => {
-  const [response, setResponse] = useState<PageableResponse<ImageDto>>();
+  const [response, setResponse] = useState<PageableResponse<QueriedImagePropertyType>>();
 
   useEffect(() => {
     setResponse(undefined);
@@ -49,10 +49,10 @@ const ImageAndPaginationCardRoot = ({
     }
 
     handlePageableImageResponseSrcModification(pageableResponse.content)
-      .then((imageDtoList) =>
+      .then((imageProperties) =>
         setResponse({
           ...pageableResponse,
-          content: imageDtoList,
+          content: imageProperties,
         }),
       )
       .catch(() => setResponse(undefined));

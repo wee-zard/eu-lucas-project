@@ -15,7 +15,7 @@ export const BoundingBoxDialogImage = () => {
         <ImageCanvas
           imageProperty={{
             image: selectedImage,
-            boundingBoxes: selectedListOfProcedureLogs,
+            logs: selectedListOfProcedureLogs,
           }}
         />
       </StyledBoundingBoxDialogImageHolder>

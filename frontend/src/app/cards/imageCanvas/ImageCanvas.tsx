@@ -109,7 +109,7 @@ const ImageCanvas = ({
       return;
     }
 
-    imageProperty.boundingBoxes.forEach((procedureLog) => {
+    imageProperty.logs.forEach((procedureLog) => {
       // Draw all the bounding boxes that are associated with the log
       procedureLog.log.boundingBoxes.forEach((box) => {
         // Create box instance
@@ -124,10 +124,15 @@ const ImageCanvas = ({
         );
 
         // The line width of the bounding boxes.
-        context.lineWidth = procedureLog.properties.lineWidth ?? 5;
+        context.lineWidth = procedureLog.properties.lineWidth
+          ? Number(procedureLog.properties.lineWidth)
+          : 5;
 
         // Set the color of the bounding boxes
-        context.strokeStyle = procedureLog.properties.strokeStyle;
+        if (procedureLog.properties.strokeStyle) {
+          context.strokeStyle = procedureLog.properties.strokeStyle;
+        }
+
         context.stroke(boundingBox);
       });
     });
@@ -141,7 +146,7 @@ const ImageCanvas = ({
       const widthRatio = canvas.clientWidth / canvas.width;
       const heightRatio = canvas.clientHeight / canvas.height;
 
-      imageProperty.boundingBoxes.forEach((logModel) => {
+      imageProperty.logs.forEach((logModel) => {
         logModel.log.boundingBoxes.forEach((box) => {
           const modifiedMinX = box.minCoordinateX * widthRatio;
           const modifiedMaxX = box.maxCoordinateX * widthRatio;

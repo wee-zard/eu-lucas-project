@@ -3,6 +3,7 @@ package com.lucas.spring.components.procedure.model.entity.embeddable;
 import com.lucas.spring.components.procedure.model.entity.ProcedureLogEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,7 @@ public class EmbeddedProcedureLogParam {
   /**
    * A foreign key reference to the procedure logs.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "procedure_log_id")
   private ProcedureLogEntity procedureLog;
 }

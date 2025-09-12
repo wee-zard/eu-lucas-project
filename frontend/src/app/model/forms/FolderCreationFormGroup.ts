@@ -31,6 +31,8 @@ export type FolderCreationRequest = {
 };
 
 export type FolderImageAdditionRequest = {
+  title: string;
+  description: string;
   queriedImages: FolderCreationQueriedImage[];
   folderId: number;
 };

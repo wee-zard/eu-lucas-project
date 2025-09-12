@@ -39,20 +39,6 @@
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
             }
-          },
-          {
-            "id": "ca26e3fb501a9aae",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Kanban Board/Nodes/208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken"
-            }
           }
         ]
       }
@@ -201,7 +187,7 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "981b7d1df804e240",
+  "active": "7213bd70899264c2",
   "lastOpenFiles": [
     "Kanban Board/Nodes/208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken.md",
     "Kanban Board/Lucas Kanban.md",

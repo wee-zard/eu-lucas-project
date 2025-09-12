@@ -2,6 +2,8 @@ import FolderCreationDialog from "@screens/manageFoldersScreen/dialog/folderCrea
 import ManageFoldersActions from "./ManageFoldersActions";
 import ManageFoldersDataGridTable from "./ManageFoldersDataGridTable";
 import ManageFoldersBackgroundProcess from "./ManageFoldersBackgroundProcess";
+import FolderSelectionDialog from "./dialog/selectedFolder/FolderSelectionDialog";
+import BoundingBoxDialog from "@dialogs/boundBoxDialog/BoundingBoxDialog";
 
 const ManageFoldersScreen = () => {
   return (
@@ -10,6 +12,8 @@ const ManageFoldersScreen = () => {
       <ManageFoldersDataGridTable />
       <ManageFoldersBackgroundProcess />
       <FolderCreationDialog />
+      <FolderSelectionDialog />
+      <BoundingBoxDialog />
     </div>
   );
 };

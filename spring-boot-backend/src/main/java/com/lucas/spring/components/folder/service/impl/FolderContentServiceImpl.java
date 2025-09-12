@@ -10,6 +10,8 @@ import com.lucas.spring.components.procedure.model.entity.ProcedureLogEntity;
 import java.util.List;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,7 +26,10 @@ public class FolderContentServiceImpl implements FolderContentService {
    * {@inheritDoc}
    */
   @Override
-  public void removeOldContents(final List<FolderContentCreationModel> models) {
+  public void removeOldContents(
+          final List<FolderContentCreationModel> models,
+          final boolean compareLogs
+  ) {
     if (models.isEmpty()) {
       return;
     }
@@ -38,7 +43,7 @@ public class FolderContentServiceImpl implements FolderContentService {
               .imageId(content.getImage().getId())
               .build();
 
-      if (this.isExists(model, models)) {
+      if (this.isExists(model, models, compareLogs)) {
         this.repository.deleteById(content.getId());
       }
     });
@@ -76,6 +81,25 @@ public class FolderContentServiceImpl implements FolderContentService {
    * {@inheritDoc}
    */
   @Override
+  public Page<Long> getImageIdsByFolderId(final Long folderId, final Pageable pageable) {
+    return this.repository.getImageIdsByFolderId(folderId, pageable);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<FolderContentEntity> findAllContentByFolderIdAndImageIds(
+          final Long folderId,
+          final List<Long> imageIds
+  ) {
+    return this.repository.findAllContentByFolderIdAndImageIds(folderId, imageIds);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void clearFolder(final Long folderId) {
     final List<FolderContentEntity> contents = this.findAllByFolderId(folderId);
     this.repository.deleteAll(contents);
@@ -83,10 +107,13 @@ public class FolderContentServiceImpl implements FolderContentService {
 
   private boolean isExists(
           final FolderContentCreationModel model,
-          final List<FolderContentCreationModel> folderContent
+          final List<FolderContentCreationModel> folderContent,
+          final boolean compareLogs
   ) {
     return folderContent.stream().anyMatch(content ->
-            Objects.equals(content.getLogModel().getLogId(), model.getLogModel().getLogId())
-                    && Objects.equals(content.getImageId(), model.getImageId()));
+            Objects.equals(content.getImageId(), model.getImageId())
+                    && ((compareLogs && (model.getLogModel() == null && content.getLogModel() == null) || (model.getLogModel() != null && content.getLogModel() != null))
+                    || !compareLogs)
+    );
   }
 }

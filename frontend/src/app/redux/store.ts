@@ -18,9 +18,10 @@ import backgroundReducer from "@redux/reducers/backgroundReducer";
 import userReducer from "@redux/reducers/userReducer";
 import filteringReducer from "@redux/reducers/filteringReducer";
 import boundingBoxReducer from "@redux/reducers/boundingBoxReducer";
-import folderCreationReducer from "./reducers/folderCreationReducer";
-import folderReducer from "./reducers/folderReducer";
-import confirmationDialogReducer from "./reducers/confirmationDialogReducer";
+import folderCreationReducer from "@redux/reducers/folderCreationReducer";
+import folderReducer from "@redux/reducers/folderReducer";
+import confirmationDialogReducer from "@redux/reducers/confirmationDialogReducer";
+import folderSelectionReducer from "@redux/reducers/folderSelectionReducer";
 
 const rootReducer = combineReducers({
   // Reducer Action type and Action setter type processed:
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   folderStore: folderReducer,
   confirmationDialogStore: confirmationDialogReducer,
   backgroundStore: backgroundReducer,
+  folderSelectionStore: folderSelectionReducer,
 
   // Processed:
   procedureUploadStorage: procedureUploadReducer,

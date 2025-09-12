@@ -15,12 +15,13 @@ import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import i18n from "@i18n/i18nHandler";
 import ImageAndPaginationCardRoot from "@cards/imageAndPaginationCard/ImageAndPaginationCardRoot";
 import PageableProperties from "@model/PageableProperties";
-import { defaultFilteringPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
+import { defaultPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
 import PageableResponse from "@model/response/PageableResponse";
 import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
 import { getUpdatedQueriedImageModel } from "./helper/FilteringHelper";
 import EventListenerType from "@model/types/EventListenerType";
 import { getImagesByFilters } from "@api/command/imageCommand";
+import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 
 const contentTextObj = {
   emptyContentText: i18n.t("screens.filtering.empty-body"),
@@ -28,13 +29,24 @@ const contentTextObj = {
 };
 
 const FilteringImageAndPaginationCard = () => {
-  const [pageable, setPageable] = useState<PageableProperties>(defaultFilteringPaginationModel);
+  const [pageable, setPageable] = useState<PageableProperties>(defaultPaginationModel);
   const [menuAction, setMenuAction] = useState<MenuActions>();
   const pageableResponse = useSelector(selectFilteringPageableResponse);
   const { queriedImageModel, filterMenuAction } = useSelector(selectImageStorage);
   const event: EventListenerType = {
     key: EventListenerIdEnum.FILTERING_IMAGE_TABLE,
   };
+  const response: PageableResponse<QueriedImagePropertyType> | undefined = pageableResponse
+    ? {
+        ...pageableResponse,
+        content: [
+          ...pageableResponse.content.map((imageDto) => ({
+            image: imageDto,
+            logs: [],
+          })),
+        ],
+      }
+    : undefined;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -66,10 +78,10 @@ const FilteringImageAndPaginationCard = () => {
    * we keep the list of images what the user selected as those images what they
    * want to save in folders.
    *
-   * @param imageDto The image that has been clicked.
+   * @param imageProperties The image that has been clicked.
    */
-  const handleClickOnRippleImage = (imageDto: ImageDto): void => {
-    const res = getUpdatedQueriedImageModel(imageDto, queriedImageModel);
+  const handleClickOnRippleImage = (imageProperties: QueriedImagePropertyType): void => {
+    const res = getUpdatedQueriedImageModel(imageProperties.image, queriedImageModel);
 
     if (!res) {
       return;
@@ -86,7 +98,7 @@ const FilteringImageAndPaginationCard = () => {
     <ImageAndPaginationCardRoot
       event={event}
       content={contentTextObj}
-      pageableResponse={pageableResponse}
+      pageableResponse={response}
       setPageable={setPageable}
       setMenuAction={setMenuAction}
       handleClickOnRippleImage={handleClickOnRippleImage}

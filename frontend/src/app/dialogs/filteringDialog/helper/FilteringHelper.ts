@@ -5,7 +5,7 @@ import i18n from "@i18n/i18nHandler";
 import ImageDto from "@model/dto/ImageDto";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import LocalImageRequest from "@model/request/LocalImageRequest";
-import { QueriedImageType } from "@model/SelectedImagesModel";
+import { QueriedImagePropertyType, QueriedImageType } from "@model/SelectedImagesModel";
 import { isSettingLocalImageServerTurnedOn } from "@screens/settingsScreen/helper/SettingsHelper";
 
 /**
@@ -37,15 +37,15 @@ export const getUpdatedQueriedImageModel = (
             ...queriedImageModel.images,
             {
               image: imageDto,
-              boundingBoxes: [],
+              logs: [],
             },
           ],
   };
 };
 
 export const handlePageableImageResponseSrcModification = (
-  responseContent: ImageDto[],
-): Promise<ImageDto[]> => {
+  responseContent: QueriedImagePropertyType[],
+): Promise<QueriedImagePropertyType[]> => {
   return new Promise(async (resolve, reject) => {
     try {
       // Is there even one image that was fetched by the filters and the pagination?
@@ -54,7 +54,9 @@ export const handlePageableImageResponseSrcModification = (
         return;
       }
 
-      const localImageRequest: LocalImageRequest = { images: responseContent };
+      const localImageRequest: LocalImageRequest = {
+        images: responseContent.map((content) => content.image),
+      };
       const localImages = await fetchImagesFromLocalServerCommand(localImageRequest);
       const errorImageModels = localImages.images.filter((image) => image.isError);
 
@@ -73,11 +75,14 @@ export const handlePageableImageResponseSrcModification = (
       }
 
       // Update the response content, so it could contain the base64 strings.
-      const res: ImageDto[] = responseContent.map((imageDto) => ({
-        ...imageDto,
-        base64Src: ImageUtils.appendBase64PrefixToImageSrc(
-          localImages.images.find((localImage) => localImage.imageId === imageDto.id),
-        ),
+      const res: QueriedImagePropertyType[] = responseContent.map((content) => ({
+        ...content,
+        image: {
+          ...content.image,
+          base64Src: ImageUtils.appendBase64PrefixToImageSrc(
+            localImages.images.find((localImage) => localImage.imageId === content.image.id),
+          ),
+        },
       }));
 
       resolve(res);

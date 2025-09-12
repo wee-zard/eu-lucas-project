@@ -1,7 +1,9 @@
 package com.lucas.spring.components.plant.converters;
 
+import com.lucas.spring.commons.utils.CommonConversionUtil;
 import com.lucas.spring.components.plant.model.dto.PlantDto;
 import com.lucas.spring.components.plant.model.entity.PlantEntity;
+import lombok.NonNull;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +16,7 @@ public class PlantEntityToPlantEntityDtoConverter implements Converter<PlantEnti
    * {@inheritDoc}
    */
   @Override
-  public PlantDto convert(final PlantEntity source) {
-    return PlantDto.builder()
-            .isPlantInvasive(source.getIsPlantInvasive())
-            .plantSpeciesName(source.getPlantSpeciesName() != null
-                    ? source.getPlantSpeciesName().getPlantScientificName()
-                    : null)
-            .plantScientificName(source.getPlantScientificName())
-            .build();
+  public PlantDto convert(final @NonNull PlantEntity source) {
+    return CommonConversionUtil.toPlantDto(source);
   }
 }

@@ -47,8 +47,9 @@ export default abstract class RequestHeaderHandler {
   };
 
   private static getPageablePropertiesQueryParam = (pageableProperties: PageableProperties) => {
-    return Object.keys(pageableProperties)
-      .map((key, index) => `${key}=${Object.values(pageableProperties)[index]}`)
+    return Object.entries(pageableProperties)
+      .filter((keyValue) => keyValue[1] !== undefined)
+      .map((keyValue) => `${keyValue[0]}=${keyValue[1]}`)
       .join(";");
   };
 

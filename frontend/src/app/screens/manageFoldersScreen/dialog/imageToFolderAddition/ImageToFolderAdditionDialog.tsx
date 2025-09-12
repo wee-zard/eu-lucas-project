@@ -10,7 +10,6 @@ import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { FolderImageAdditionRequest } from "@model/forms/FolderCreationFormGroup";
-import { imageToFolderCommand } from "@api/command/folderCommands";
 import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
 import { useFormGroupHelper } from "@hooks/useFormGroup";
 import {
@@ -20,6 +19,7 @@ import {
 import ImageToFolderAdditionContent from "./ImageToFolderAdditionContent";
 import { setSelectedImagesModel } from "@redux/actions/imageActions";
 import { defaultSelectedImagesModel } from "@screens/filteringScreen/helper/FilteringHelper";
+import { imageToFolderCommand } from "@api/command/folderContentCommands";
 
 const ImageToFolderAdditionDialog = () => {
   const cacheKey = FormEnums.ImageToFolderAdditionForm;
@@ -56,10 +56,12 @@ const ImageToFolderAdditionDialog = () => {
     const groupModel = helper.convert<ImageToFolderAdditionFormGroupModel>();
 
     const request: FolderImageAdditionRequest = {
+      title: "",
+      description: "",
       folderId: Number(groupModel.folder_id),
       queriedImages: selectedImagesModel.queryImages.map((model) => ({
         imageId: model.image.id,
-        logs: model.boundingBoxes.map((boxes) => ({
+        logs: model.logs.map((boxes) => ({
           logId: boxes.log.id,
           properties: Object.entries(boxes.properties).map((keyValue) => ({
             key: keyValue[0].toString(),

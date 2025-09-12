@@ -31,6 +31,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
       icon: <OpenInBrowserIcon />,
       menuTitle: i18n.t(FolderSettingCellEnum.OPEN),
       isDisplayed: true,
+      isDisabled: IS_NOT_EMPTY_FOLDER,
       onClick: (): void => {
         dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.OPEN, folder: row }));
       },

@@ -54,21 +54,21 @@ public class ProcedureLogEntity extends BaseEntity {
   /**
    * The procedure that was used on the image.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "procedure_id", nullable = false)
   private ProcedureEntity procedure;
 
   /**
    * The image which was used with the procedure.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "image_to_analyse", nullable = false)
   private ImageEntity image;
 
   /**
    * The user who created the log.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "log_init_user_id", nullable = false)
   private UserEntity user;
 
@@ -81,13 +81,13 @@ public class ProcedureLogEntity extends BaseEntity {
   /**
    * The list of params associated with the given procedure.
    */
-  @OneToMany(mappedBy = "procedureLogParam.procedureLog")
+  @OneToMany(mappedBy = "procedureLogParam.procedureLog", fetch = FetchType.LAZY)
   private Set<ProcedureLogParamEntity> procedureParams;
 
   /**
    * List of bounding boxes associated with this procedure log.
    */
-  @OneToMany(mappedBy = "procedureLog")
+  @OneToMany(mappedBy = "procedureLog", fetch = FetchType.LAZY)
   private Set<BoundingBoxEntity> boundingBoxes;
 
   /**

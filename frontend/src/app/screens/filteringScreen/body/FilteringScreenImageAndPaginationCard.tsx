@@ -1,15 +1,14 @@
-import ImageDto from "@model/dto/ImageDto";
 import { MenuActions } from "@model/enum";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import i18n from "@i18n/i18nHandler";
 import ImageAndPaginationCardRoot from "@cards/imageAndPaginationCard/ImageAndPaginationCardRoot";
 import PageableProperties from "@model/PageableProperties";
-import { defaultFilteringPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
+import { defaultPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
 import PageableResponse from "@model/response/PageableResponse";
 import { selectSelectedImagesModel } from "@redux/selectors/imageSelector";
-import { SelectedImageAction } from "@model/types/SelectedImageActionType";
 import { useImageActionTooltip } from "../config/useImageActionTooltip";
+import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 
 const contentTextObj = {
   emptyContentText: i18n.t("screens.filtering.empty-body"),
@@ -17,21 +16,20 @@ const contentTextObj = {
 };
 
 const FilteringScreenImageAndPaginationCard = () => {
-  const [pageable, setPageable] = useState<PageableProperties>(defaultFilteringPaginationModel);
+  const [pageable, setPageable] = useState<PageableProperties>(defaultPaginationModel);
   const [menuAction, setMenuAction] = useState<MenuActions>();
-  const [pageableResponse, setPageableResponse] = useState<PageableResponse<ImageDto>>();
+  const [response, setResponse] = useState<PageableResponse<QueriedImagePropertyType>>();
   const selectedImagesModel = useSelector(selectSelectedImagesModel);
-  const images = selectedImagesModel.queryImages.map((queryImage) => queryImage.image).flat();
-  const imageActionsObj: SelectedImageAction[] = useImageActionTooltip();
+  const imageActionsObj = useImageActionTooltip();
 
   useEffect(() => {
-    setPageableResponse({
-      content: images.slice(0, pageable.pageSize),
-      totalElements: images.length,
-      totalPages: Math.ceil(images.length / pageable.pageSize),
+    setResponse({
+      content: selectedImagesModel.queryImages.slice(0, pageable.pageSize),
+      totalElements: selectedImagesModel.queryImages.length,
+      totalPages: Math.ceil(selectedImagesModel.queryImages.length / pageable.pageSize),
       size: pageable.pageSize,
       page: 0,
-      empty: images.length === 0,
+      empty: selectedImagesModel.queryImages.length === 0,
     });
   }, [selectedImagesModel]);
 
@@ -41,16 +39,16 @@ const FilteringScreenImageAndPaginationCard = () => {
     }
 
     setMenuAction(undefined);
-    setPageableResponse({
-      content: images.slice(
+    setResponse({
+      content: selectedImagesModel.queryImages.slice(
         pageable.pageNo * pageable.pageSize,
         (pageable.pageNo + 1) * pageable.pageSize,
       ),
-      totalElements: images.length,
-      totalPages: Math.ceil(images.length / pageable.pageSize),
+      totalElements: selectedImagesModel.queryImages.length,
+      totalPages: Math.ceil(selectedImagesModel.queryImages.length / pageable.pageSize),
       size: pageable.pageSize,
       page: pageable.pageNo,
-      empty: images.length === 0,
+      empty: selectedImagesModel.queryImages.length === 0,
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,7 +57,7 @@ const FilteringScreenImageAndPaginationCard = () => {
   return (
     <ImageAndPaginationCardRoot
       content={contentTextObj}
-      pageableResponse={pageableResponse}
+      pageableResponse={response}
       imageActions={imageActionsObj}
       setPageable={setPageable}
       setMenuAction={setMenuAction}

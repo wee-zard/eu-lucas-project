@@ -24,7 +24,7 @@ const ManageUsersDataGridTable = () => {
 
     requestListOfUsers(dispatch);
     setRequested(true);
-  }, [isRequested]);
+  }, [isRequested, dispatch]);
 
   const paginationModel = { page: 0, pageSize: 7 };
 

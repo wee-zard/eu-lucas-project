@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import ZipHelper from "@helper/zipHelper";
 import { setFolderSettingCellOption } from "@redux/actions/folderActions";
-import { clearFolderCommand, deleteFolderCommand } from "@api/command/folderCommands";
+import { deleteFolderCommand } from "@api/command/folderCommands";
 import { openSnackbar, throwNotification, ToastSeverity } from "@helper/notificationUtil";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import EventListenerUtil from "@helper/eventListenerUtil";
@@ -20,6 +20,11 @@ import {
   setFolderCreationDialogEditingFolderId,
   setFolderCreationDialogToOpen,
 } from "@redux/actions/folderCreationActions";
+import {
+  setFolderSelectionFolderId,
+  setFolderSelectionToOpen,
+} from "@redux/actions/folderSelectionActions";
+import { clearFolderCommand } from "@api/command/folderContentCommands";
 
 const ManageFoldersBackgroundProcess = () => {
   const [isOpen, setOpen] = useState(false);
@@ -46,15 +51,15 @@ const ManageFoldersBackgroundProcess = () => {
     }
 
     const handler: GenericHandlerType<FolderSettingCellEnum, (folder: FolderDtoSlice) => void> = {
-      [FolderSettingCellEnum.OPEN]: (_: FolderDtoSlice) => {
-        notImplementedYetMessage();
+      [FolderSettingCellEnum.OPEN]: (folder: FolderDtoSlice) => {
+        dispatch(setFolderSelectionToOpen(true));
+        dispatch(setFolderSelectionFolderId(folder));
       },
       [FolderSettingCellEnum.UPDATE]: (folder: FolderDtoSlice) => {
         getGenericFormGroupHelper(FormGroupHelperEnum.FOLDER_CREATION_FORM_GROUP).saveAll([
           { propertyToUpdate: "title", newValue: folder.title },
           { propertyToUpdate: "description", newValue: folder.description },
         ]);
-
         dispatch(setFolderCreationDialogToOpen(true));
         dispatch(setFolderCreationDialogEditingFolderId(folder.id));
       },
@@ -67,14 +72,14 @@ const ManageFoldersBackgroundProcess = () => {
       [FolderSettingCellEnum.COPY]: (_: FolderDtoSlice) => {
         notImplementedYetMessage();
       },
-      [FolderSettingCellEnum.DOWNLOAD]: (_: FolderDtoSlice) => {
-        dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
-
-        // TODO: Fetch the list of images here with a command (bounding boxes should be included)
-
-        new ZipHelper(dispatch, {
-          queryImages: [] /** TODO: Pass the folder's images here.  */,
-        }).downloadZip();
+      [FolderSettingCellEnum.DOWNLOAD]: (folder: FolderDtoSlice) => {
+        new ZipHelper(
+          dispatch,
+          {
+            queryImages: [],
+          },
+          folder,
+        ).downloadZip();
       },
 
       // TODO: Confirmation dialog should be pop up before calling the actual api command.

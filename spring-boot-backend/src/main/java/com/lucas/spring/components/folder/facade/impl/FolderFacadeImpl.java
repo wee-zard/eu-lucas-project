@@ -1,30 +1,27 @@
 package com.lucas.spring.components.folder.facade.impl;
 
+import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.model.model.KeyValueModel;
 import com.lucas.spring.commons.utils.FormatParseUtil;
-import com.lucas.spring.components.authorization.enums.AuthorizationExceptionEnum;
-import com.lucas.spring.components.authorization.exception.AuthorizationException;
 import com.lucas.spring.components.folder.enums.FolderExceptionEnum;
 import com.lucas.spring.components.folder.exception.FolderException;
 import com.lucas.spring.components.folder.facade.FolderContentDataFacade;
 import com.lucas.spring.components.folder.facade.FolderFacade;
+import com.lucas.spring.components.folder.facade.FolderHelperFacade;
 import com.lucas.spring.components.folder.model.entity.FolderContentEntity;
 import com.lucas.spring.components.folder.model.entity.FolderEntity;
-import com.lucas.spring.components.folder.model.entity.ShareFolderEntity;
 import com.lucas.spring.components.folder.model.model.FolderContentCreationModel;
-import com.lucas.spring.components.folder.model.model.KeyValueModel;
 import com.lucas.spring.components.folder.model.model.QueriedImages;
 import com.lucas.spring.components.folder.model.model.SelectedProcedureLogModel;
 import com.lucas.spring.components.folder.model.request.FolderCreationRequest;
 import com.lucas.spring.components.folder.model.request.FolderImageAdditionRequest;
 import com.lucas.spring.components.folder.service.FolderContentService;
 import com.lucas.spring.components.folder.service.FolderService;
-import com.lucas.spring.components.folder.service.ShareFolderService;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +31,11 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class FolderFacadeImpl implements FolderFacade {
+  private final FolderHelperFacade folderHelperFacade;
   private final FolderService folderService;
-  private final ShareFolderService shareFolderService;
   private final FolderContentService folderContentService;
   private final FolderContentDataFacade folderContentDataFacade;
+  private final ConversionHelper conversionHelper;
 
   /**
    * {@inheritDoc}
@@ -60,30 +58,7 @@ public class FolderFacadeImpl implements FolderFacade {
     final Long folderId = FormatParseUtil.parseToLong(request.getFolderId());
     final FolderEntity folder = getFolder(folderId, user);
     this.saveImages(request.getQueriedImages(), folder.getId());
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean isFolderEditable(final FolderEntity folder, final AuthenticatedUser user) {
-    if (this.folderService.isUserOwnerOfFolder(folder, user)) {
-      return true;
-    }
-
-    final Optional<ShareFolderEntity> sharedFolder =
-            shareFolderService.getSharedFolderByIdByUser(folder.getId(), user.getUserId());
-
-    return sharedFolder.isPresent() && sharedFolder.get().getIsEditable();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void clearFolderContent(final Long folderId, AuthenticatedUser user) {
-    this.isFolderOwnedByUserElseException(folderId, user);
-    this.folderContentService.clearFolder(folderId);
+    folderHelperFacade.updateFolderModificationTime(folder);
   }
 
   /**
@@ -91,8 +66,9 @@ public class FolderFacadeImpl implements FolderFacade {
    */
   @Override
   public void delete(final Long folderId, final AuthenticatedUser user) {
-    final FolderEntity folder = this.isFolderOwnedByUserElseException(folderId, user);
+    final FolderEntity folder = folderHelperFacade.isFolderOwnedByUserElseException(folderId, user);
     this.folderService.delete(folder, user);
+    folderHelperFacade.updateFolderModificationTime(folder);
   }
 
   /**
@@ -124,7 +100,7 @@ public class FolderFacadeImpl implements FolderFacade {
     this.folderContentDataFacade.save(keyList);
 
     // Remove the old contents from the database
-    this.folderContentService.removeOldContents(models);
+    this.folderContentService.removeOldContents(models, true);
 
     // Save the content properties
     models.forEach(model -> {
@@ -144,14 +120,8 @@ public class FolderFacadeImpl implements FolderFacade {
     }
 
     final FolderEntity folder = folderService.getFolderById(folderId);
-
-    if (!this.isFolderEditable(folder, user)) {
-      throw new FolderException(FolderExceptionEnum.FOLDER_NO_WRITE_RIGHTS, folder.getId());
-    }
-
-    folder.setUpdatedAt(Instant.now());
-    folderService.save(folder);
-    return folder;
+    folderHelperFacade.isFolderEditableElseException(folder, user);
+    return folderHelperFacade.updateFolderModificationTime(folder);
   }
 
   private FolderContentCreationModel createContentCreationModel(
@@ -164,26 +134,5 @@ public class FolderFacadeImpl implements FolderFacade {
             .folderId(folderId)
             .logModel(logModel)
             .build();
-  }
-
-  /**
-   * Checks whether the provided user has an owner rights on the given folder.
-   *
-   * @param folderId The id of the folder to check.
-   * @param user The user who initiated the request.
-   * @return Returns a {@link FolderEntity} if the user has access to the folder,
-   *     else throws a {@link AuthorizationException} exception.
-   */
-  private FolderEntity isFolderOwnedByUserElseException(
-          final Long folderId,
-          final AuthenticatedUser user
-  ) {
-    final FolderEntity folder = this.folderService.getFolderById(folderId);
-
-    if (!this.folderService.isUserOwnerOfFolder(folder, user)) {
-      throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
-    }
-
-    return folder;
   }
 }

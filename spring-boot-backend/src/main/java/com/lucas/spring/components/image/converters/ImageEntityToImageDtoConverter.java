@@ -1,7 +1,9 @@
 package com.lucas.spring.components.image.converters;
 
+import com.lucas.spring.commons.utils.CommonConversionUtil;
 import com.lucas.spring.components.image.model.dto.ImageDto;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
+import lombok.NonNull;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -16,15 +18,7 @@ public class ImageEntityToImageDtoConverter
    * {@inheritDoc}
    */
   @Override
-  public ImageDto convert(final ImageEntity source) {
-    return ImageDto.builder()
-            .id(source.getId())
-            .year(source.getYear().getYear())
-            .imageName(source.getImageName())
-            .country(source.getCountry().getCountryCode())
-            .direction(source.getDirection().getDirectionName())
-            .coordinateX(source.getCoordinateX().getCoordinateX())
-            .coordinateY(source.getCoordinateY().getCoordinateY())
-            .build();
+  public ImageDto convert(final @NonNull ImageEntity source) {
+    return CommonConversionUtil.toImageDto(source);
   }
 }

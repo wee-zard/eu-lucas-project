@@ -92,13 +92,18 @@ export enum BackendSmtpEmailControllerEndpoints {
 }
 
 export enum BackendFolderControllerEndpoints {
-  CreateFolder = "/api/folder/create",
-  ImageToFolderAddition = "/api/folder/add",
   GetFolders = "/api/folder/",
   GetFoldersByUserIdSortedByUpdatedAt = "/api/folder/list-all",
   DeleteFolder = "/api/folder/",
-  ClearFolder = "/api/folder/clear",
   UpdateFolder = "/api/folder/update",
+}
+
+export enum BackendFolderContentControllerEndpoints {
+  CreateFolder = "/api/folder-content/create",
+  ImageToFolderAddition = "/api/folder-content/add",
+  GetContentOfFolderById = "/api/folder-content/",
+  ClearFolder = "/api/folder-content/clear",
+  DeleteFolderContent = "/api/folder-content/",
 }
 
 export enum GoogleTokenEndpoints {
@@ -108,6 +113,7 @@ export enum GoogleTokenEndpoints {
  * Stores the backend endpoints in one place.
  */
 export type BackendControllerEndpointTypes =
+  | BackendFolderContentControllerEndpoints
   | BackendUserControllerEndpoints
   | BackendAuthenticationEndpoints
   | BackendRoleControllerEndpoints
@@ -167,6 +173,7 @@ export enum LocalStorageKeys {
   FolderListDataGrid = "/folder-list",
   ReportCreationForm = "report-creation-form",
   Settings = "settings",
+  HideBoundingBoxesInsideFolder = "/selected-folder-hide-logs",
 }
 
 export enum FormEnums {

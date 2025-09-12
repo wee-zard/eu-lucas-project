@@ -12,7 +12,7 @@ import {
   FolderCreationRequest,
   FolderUpdateRequest,
 } from "@model/forms/FolderCreationFormGroup";
-import { createNewFolderCommand, updateFolderCommand } from "@api/command/folderCommands";
+import { updateFolderCommand } from "@api/command/folderCommands";
 import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
 import { getGenericFormGroupHelper } from "@hooks/useFormGroup";
 import { selectFolderCreationDialogStorage } from "@redux/selectors/folderCreationSelector";
@@ -20,6 +20,7 @@ import { setFolderCreationDialogToOpen } from "@redux/actions/folderCreationActi
 import { setSelectedImagesModel } from "@redux/actions/imageActions";
 import { defaultSelectedImagesModel } from "@screens/filteringScreen/helper/FilteringHelper";
 import { FormGroupHelperEnum } from "@model/enum/FormGroupHelperEnum";
+import { createNewFolderCommand } from "@api/command/folderContentCommands";
 
 const FolderCreationDialog = () => {
   const helper = getGenericFormGroupHelper(FormGroupHelperEnum.FOLDER_CREATION_FORM_GROUP);
@@ -62,7 +63,7 @@ const FolderCreationDialog = () => {
       ? []
       : selectedImagesModel.queryImages.map((model) => ({
           imageId: model.image.id,
-          logs: model.boundingBoxes.map((boxes) => ({
+          logs: model.logs.map((boxes) => ({
             logId: boxes.log.id,
             properties: Object.entries(boxes.properties).map((keyValue) => ({
               key: keyValue[0].toString(),

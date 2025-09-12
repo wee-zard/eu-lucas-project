@@ -36,5 +36,5 @@ export type QueriedImagePropertyType = {
   /**
    * The bound boxes applied to the images by the user.
    */
-  boundingBoxes: SelectedProcedureLogModel[];
+  logs: SelectedProcedureLogModel[];
 };

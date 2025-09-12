@@ -4,6 +4,7 @@ import java.util.Collection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * A response type that only gives back a portion of the
@@ -18,6 +19,23 @@ public class PageableResponse<T> {
   private Integer size;
   private Integer page;
   private boolean empty;
+
+  /**
+   * Constructs a {@link PageableResponse} instance.
+   */
+  public PageableResponse(
+          final Collection<T> content,
+          final Pageable pageable,
+          final Long totalElements,
+          final int totalPages
+  ) {
+    this.content = content;
+    this.totalPages = totalPages;
+    this.totalElements = totalElements;
+    this.size = pageable.getPageSize();
+    this.page = pageable.getPageNumber();
+    this.empty = content.isEmpty();
+  }
 
   /**
    * Constructs a {@link PageableResponse} instance.

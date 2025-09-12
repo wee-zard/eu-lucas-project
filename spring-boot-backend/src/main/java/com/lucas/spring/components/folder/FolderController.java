@@ -8,8 +8,6 @@ import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.folder.facade.FolderFacade;
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
 import com.lucas.spring.components.folder.model.model.FolderFormWithFolderIdModel;
-import com.lucas.spring.components.folder.model.request.FolderCreationRequest;
-import com.lucas.spring.components.folder.model.request.FolderImageAdditionRequest;
 import com.lucas.spring.components.folder.service.FolderService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -38,25 +36,6 @@ public class FolderController {
   private final ConversionHelper conversionHelper;
 
   /**
-   * Creates a new folder where the user could store their images.
-   * If no images were provided, then an empty folder will be created,
-   * else a folder with the content of the images.
-   *
-   * @param user The authenticated user who initiated the request.
-   * @param request The request which can be used to create the new folder.
-   *                Additionally, it contains the images and the queries.
-   */
-  @CrossOrigin
-  @PostMapping("/create")
-  public BaseResponse createFolder(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestBody @Valid final FolderCreationRequest request
-  ) {
-    this.folderFacade.save(request, user);
-    return new BaseResponse();
-  }
-
-  /**
    * Updates a folder.
    *
    * @param user The authenticated user who initiated the request.
@@ -69,23 +48,6 @@ public class FolderController {
           @RequestBody @Valid final FolderFormWithFolderIdModel request
   ) {
     this.folderService.update(request);
-    return new BaseResponse();
-  }
-
-  /**
-   * Add images to an existing folder.
-   *
-   * @param user The authenticated user who initiated the request.
-   * @param request The request which can be used to create the new folder.
-   *                Additionally, it contains the images and the queries.
-   */
-  @CrossOrigin
-  @PostMapping("/add")
-  public BaseResponse addToFolder(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestBody @Valid final FolderImageAdditionRequest request
-  ) {
-    this.folderFacade.save(request, user);
     return new BaseResponse();
   }
 
@@ -138,25 +100,6 @@ public class FolderController {
   ) {
     final Long parsedFolderId = FormatParseUtil.parseToLong(folderId);
     this.folderFacade.delete(parsedFolderId, user);
-    return new BaseResponse();
-  }
-
-  /**
-   * Completely deletes a specific folder and it's content provided by the param.
-   * After the deletion, the folder and it's content will be no longer be available
-   * for the users.
-   *
-   * @param user The authenticated user who initiated the request.
-   * @return Returns a {@link BaseResponse} about the success of the request.
-   */
-  @CrossOrigin
-  @DeleteMapping("/clear")
-  public BaseResponse clearFolderContent(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestParam String folderId
-  ) {
-    final Long parsedFolderId = FormatParseUtil.parseToLong(folderId);
-    this.folderFacade.clearFolderContent(parsedFolderId, user);
     return new BaseResponse();
   }
 }

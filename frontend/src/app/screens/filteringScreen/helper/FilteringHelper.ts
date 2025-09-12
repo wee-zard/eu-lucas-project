@@ -9,7 +9,7 @@ export const defaultSelectedImagesModel: SelectedImagesModel = {
 /**
  * Get the default pagination model for the filtering dialog.
  */
-export const defaultFilteringPaginationModel: PageableProperties = {
+export const defaultPaginationModel: PageableProperties = {
   pageNo: 0,
   pageSize: FILTERING_PAGE_SIZE,
 };

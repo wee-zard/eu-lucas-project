@@ -10,6 +10,7 @@ import { StyledComponentGap } from "@global/globalStyles";
 import ImageCardInnerElements from "./ImageCardInnerElements";
 import EventListenerType from "@model/types/EventListenerType";
 import EventListenerUtil from "@helper/eventListenerUtil";
+import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 
 type Props = {
   event?: EventListenerType;
@@ -17,11 +18,11 @@ type Props = {
     emptyContentText: string;
     nullResultContentText: string;
   };
-  pageableResponse?: PageableResponse<ImageDto>;
+  pageableResponse?: PageableResponse<QueriedImagePropertyType>;
   imageActions: SelectedImageAction[];
   isRippleDisabled?: boolean;
   isMenuDisabled?: boolean;
-  handleClickOnRippleImage: (imageDto: ImageDto) => void;
+  handleClickOnRippleImage: (imageProperties: QueriedImagePropertyType) => void;
 };
 
 const ImageAndPaginationCard = ({
@@ -74,33 +75,36 @@ const ImageAndPaginationCard = ({
     setSelectedImageIds(res);
   };
 
-  const renderImageCardContent = (imageDto: ImageDto): JSX.Element => {
-    const filteredImageCardDivId = IdUtils.GetFilteredImageCardDivId(imageDto.id);
+  const renderImageCardContent = (imageProperties: QueriedImagePropertyType): JSX.Element => {
+    const filteredImageCardDivId = IdUtils.GetFilteredImageCardDivId(imageProperties.image.id);
 
     return !isRippleDisabled ? (
       <StyledCard
-        key={imageDto.id}
+        key={imageProperties.image.id}
         id={filteredImageCardDivId}
-        is_card_selected={+isImagePresentInSelectedImages(imageDto)}
+        is_card_selected={+isImagePresentInSelectedImages(imageProperties.image)}
         onClick={(event) => {
-          handleImageSelection([imageDto]);
-          handleClickOnRippleImage({ ...imageDto, base64Src: undefined });
+          handleImageSelection([imageProperties.image]);
+          handleClickOnRippleImage({
+            ...imageProperties,
+            image: { ...imageProperties.image, base64Src: undefined },
+          });
           handleClickOnGlobalRippleEffect(event, filteredImageCardDivId);
         }}
       >
-        {renderImageCardInnerElements(imageDto)}
+        {renderImageCardInnerElements(imageProperties)}
       </StyledCard>
     ) : (
-      <StyledCardTemplate key={imageDto.id}>
-        {renderImageCardInnerElements(imageDto)}
+      <StyledCardTemplate key={imageProperties.image.id}>
+        {renderImageCardInnerElements(imageProperties)}
       </StyledCardTemplate>
     );
   };
 
-  const renderImageCardInnerElements = (imageDto: ImageDto): JSX.Element => {
+  const renderImageCardInnerElements = (imageProperties: QueriedImagePropertyType): JSX.Element => {
     return (
       <ImageCardInnerElements
-        imageDto={imageDto}
+        imageProperties={imageProperties}
         imageActions={imageActions}
         isMenuDisabled={isMenuDisabled}
       />
@@ -162,7 +166,7 @@ const commonStyles = {
   padding: 8,
   marginBottom: 4,
   marginRight: 2,
-  height: "90%",
+  height: "80%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",

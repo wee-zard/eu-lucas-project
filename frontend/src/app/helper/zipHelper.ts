@@ -5,9 +5,7 @@ import ImageUtils from "@helper/imageUtils";
 import FileUtils from "@helper/fileUtils";
 import FolderDtoSlice from "@model/dto/FolderDtoSlice";
 import ResourceModel from "@model/types/ResourceModel";
-import DateHelper from "./dateHelper";
 import { handlePageableImageResponseSrcModification } from "@dialogs/filteringDialog/helper/FilteringHelper";
-import ImageDto from "@model/dto/ImageDto";
 import { ZipStageEnum } from "@model/enum/ZipStageEnum";
 import i18n from "@i18n/i18nHandler";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
@@ -23,6 +21,8 @@ import {
   getImageCanvasDataUrl,
   UNIQUE_ID_OF_BACKGROUND_CANVAS_CARD,
 } from "@cards/imageCanvas/helper/imageCanvasHelper";
+import { getFolderContentByFolderIdCommand } from "@api/command/folderContentCommands";
+import PageableProperties from "@model/PageableProperties";
 
 type ZipObjType<T> = {
   imageProperty: QueriedImagePropertyType;
@@ -30,25 +30,20 @@ type ZipObjType<T> = {
 };
 
 class ZipHelper {
-  private readonly FOLDER_PREFIX_TITLE = "lucas";
+  private readonly FOLDER_PREFIX_TITLE = "[Lucas]";
 
   /**
    * Tells the number of images that will be downloaded at the same time
-   * to put them into the zip.
+   * to put them into the zip. Like in a pagination we could set the pageSize and
+   * the pageNo, this is similar to the pageSize, where we set how much
+   * record could be present on the page at the same time.
    */
-  private readonly MAX_IMAGE_TO_DOWNLOAD = 10;
+  private readonly PAGE_SIZE = 10;
 
   /**
    * The maximum size for the zip what the users could download.
    */
   private readonly MAXIMUM_RESOURCE_SIZE_IN_KB = 1900000;
-
-  /**
-   * The creation time of the zip.
-   */
-  private readonly timestamp = DateHelper.convertISOStringToDateTimeFormat(
-    new Date().toISOString(),
-  );
 
   /**
    * Tells how much resource has been downloaded from the server
@@ -57,7 +52,7 @@ class ZipHelper {
    */
   private downloadedResourcesInKb: number = 0;
 
-  private maximumNumberOfFilesToProcess: number = 0;
+  private numberOfFilesToProcess: number = 0;
 
   private numberOfProcessedFiles: number = 0;
 
@@ -87,7 +82,7 @@ class ZipHelper {
     private dispatch: Dispatch,
     private model?: SelectedImagesModel,
     private folder?: FolderDtoSlice,
-    private slicedImages: ImageDto[] = [],
+    private pagedImages: QueriedImagePropertyType[] = [],
     private index: number = 0,
 
     /**
@@ -134,17 +129,14 @@ class ZipHelper {
    */
   private handleZipProcessInspector(): void {
     const interval = setInterval(() => {
-      const numberOfProcessedFiles = this.numberOfProcessedFiles;
-      const maximumNumberOfFiles = this.maximumNumberOfFilesToProcess;
-
       this.handleBackdropChange({
         isBackdropOpen: true,
         loadingText: this.getBackdropText(
-          numberOfProcessedFiles,
-          maximumNumberOfFiles,
+          this.numberOfProcessedFiles,
+          this.numberOfFilesToProcess,
           this.stageTextHandler[this.stage],
         ),
-        progress: (numberOfProcessedFiles * 100.0) / maximumNumberOfFiles,
+        progress: (this.numberOfProcessedFiles * 100.0) / this.numberOfFilesToProcess,
       });
 
       if (this.getIsFinished()) {
@@ -165,21 +157,24 @@ class ZipHelper {
       return;
     }
 
-    this.maximumNumberOfFilesToProcess = this.model.queryImages.length;
+    console.log("folder:", this.folder);
+
+    this.numberOfFilesToProcess = this.folder?.folderContentSize ?? this.model.queryImages.length;
+
+    // Starts the inspector, so the users could see the loading progress.
     this.handleZipProcessInspector();
 
     try {
-      for await (let tmpIndex of this.getArrayOfIndexesToIterate()) {
+      for await (this.index of this.getArrayOfIndexesToIterate()) {
         // New Stage: Adding images to the zip to download them.
         this.stage = ZipStageEnum.ADDING_RESOURCES_TO_ZIP;
-        this.index = tmpIndex;
-        const slicedImages = this.getSlicedImageListByIndex().map((property) => property.image);
+        const pagedImages = await this.getPagedImages();
 
-        if (slicedImages.length === 0) {
+        if (pagedImages.length === 0) {
           return;
         }
 
-        this.slicedImages = await handlePageableImageResponseSrcModification(slicedImages);
+        this.pagedImages = await handlePageableImageResponseSrcModification(pagedImages);
         await this.addImagesToTheZip();
 
         if (this.downloadedResourcesInKb >= this.MAXIMUM_RESOURCE_SIZE_IN_KB) {
@@ -188,7 +183,7 @@ class ZipHelper {
       }
 
       // New Stage: The zip has been successfully downloaded
-      this.index = this.model.queryImages.length;
+      this.index = this.numberOfFilesToProcess;
       await this.handleCreationOfZip();
       this.stage = ZipStageEnum.SUCCESS;
     } catch (error) {
@@ -201,7 +196,7 @@ class ZipHelper {
   };
 
   public downloadBase64Strings = async (resources: ResourceModel[]): Promise<boolean> => {
-    this.maximumNumberOfFilesToProcess = resources.length;
+    this.numberOfFilesToProcess = resources.length;
     this.handleZipProcessInspector();
 
     try {
@@ -242,18 +237,29 @@ class ZipHelper {
       return [];
     }
 
-    const lengthPerLoop = Math.floor(this.model.queryImages.length / this.MAX_IMAGE_TO_DOWNLOAD);
-    return new Array(lengthPerLoop + 1)
-      .fill(0)
-      .map((_, index) => index * this.MAX_IMAGE_TO_DOWNLOAD);
+    const lengthPerLoop = Math.floor(this.numberOfFilesToProcess / this.PAGE_SIZE);
+    return new Array(lengthPerLoop + 1).fill(0).map((_, index) => index * this.PAGE_SIZE);
   }
 
-  private getSlicedImageListByIndex = () => {
-    if (!this.model) {
-      return [];
-    }
-
-    return this.model.queryImages.slice(this.index, this.index + this.MAX_IMAGE_TO_DOWNLOAD);
+  private getPagedImages = (): Promise<QueriedImagePropertyType[]> => {
+    return new Promise<QueriedImagePropertyType[]>((resolve) => {
+      if (!this.folder) {
+        // As a folder is not present, then slice out the object from the local environment.
+        return resolve(
+          !this.model ? [] : this.model.queryImages.slice(this.index, this.index + this.PAGE_SIZE),
+        );
+      } else {
+        // If a folder was provided, then fetch the paged images from the folder itself.
+        const pageable = new PageableProperties(this.index, this.PAGE_SIZE);
+        getFolderContentByFolderIdCommand(this.folder.id, pageable)
+          .then((res) => {
+            resolve(res.content);
+          })
+          .catch(() => {
+            resolve([]);
+          });
+      }
+    });
   };
 
   /**
@@ -264,42 +270,14 @@ class ZipHelper {
    */
   private getRemoteUrlsOfImages = (): ZipObjType<string | undefined>[] => {
     return (
-      this.getSlicedImageListByIndex().map((queriedImageProperty) => ({
+      this.pagedImages.map((queriedImageProperty) => ({
         imageProperty: queriedImageProperty,
         srcUrl: ImageUtils.initRemoteImageUrlPath(
-          this.slicedImages.find((image) => image.id === queriedImageProperty.image.id),
+          this.pagedImages.find((model) => model.image.id === queriedImageProperty.image.id)?.image,
         ),
       })) ?? []
     );
   };
-
-  /**
-   * Get the remote urls of the images while filtering them. After the filtering, undefined
-   * and not real url values will be not present in the list.
-   *
-   * @returns Returns a 1d list that contains the url links of the images that must be downloaded.
-   */
-  /*
-  private getFilteredRemoteUrlOfImages = (): ZipObjType<string>[] => {
-    const remoteImageUrls: ZipObjType<string | undefined>[] = this.getRemoteUrlsOfImages();
-    let filteredRemoteImageUrls: ZipObjType<string>[] = [];
-
-    remoteImageUrls.forEach((url: ZipObjType<string | undefined>) => {
-      if (
-        !url.srcUrl ||
-        filteredRemoteImageUrls
-          .map((filtered) => filtered.imageProperty.image.id)
-          .includes(url.imageProperty.image.id)
-      ) {
-        return;
-      }
-
-      filteredRemoteImageUrls = [...filteredRemoteImageUrls, url as ZipObjType<string>];
-    });
-
-    return filteredRemoteImageUrls;
-  };
-  */
 
   private updateDownloadedResourcesInKb = (dataUrl: string): void => {
     // Increase the downloaded resource number
@@ -322,10 +300,8 @@ class ZipHelper {
    */
   private addImagesToTheZip = (): Promise<void> => {
     return new Promise(async (resolve, reject) => {
-      const remoteImageUrls: ZipObjType<string | undefined>[] = this.getRemoteUrlsOfImages();
-
       // Step 1.3.: Adding images to the zip (pending state)
-      for await (let url of remoteImageUrls) {
+      for await (let url of this.getRemoteUrlsOfImages()) {
         try {
           if (url.srcUrl && ImageUtils.isImageUrlStartsWithBase64JpgPrefix(url.srcUrl)) {
             const dataUrl = await this.getImageCanvasDataUrl({
@@ -418,18 +394,15 @@ class ZipHelper {
    * and a postfix stating the extension of the file.
    */
   private getZipName = () => {
-    const folderId = this.folder?.id ? `_id-${this.folder.id}_` : "";
-    const folderTitle = this.folder?.title ? `_${this.folder.title}_` : "";
-    const shared = this.folder && this.folder?.isEditable !== null ? `_(Shared)_` : "";
-    const postfix = `_${this.timestamp}.zip`;
+    const folderId = this.folder?.id ? `_id${this.folder.id}` : "";
+    const folderTitle = this.folder?.title ? `_${this.folder.title}` : "";
+    const shared = this.folder && this.folder?.isEditable !== null ? `_(Shared)` : "";
 
-    return `${this.FOLDER_PREFIX_TITLE}_${folderId}${folderTitle}${shared}${postfix}`;
+    return `${this.FOLDER_PREFIX_TITLE}${folderId}${folderTitle}${shared}.zip`;
   };
 
   private getNormalZipName = () => {
-    const postfix = `_${this.timestamp}.zip`;
-
-    return `${this.FOLDER_PREFIX_TITLE}${postfix}`;
+    return `${this.FOLDER_PREFIX_TITLE}.zip`;
   };
 }
 

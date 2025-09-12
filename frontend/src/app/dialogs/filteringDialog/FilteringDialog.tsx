@@ -15,7 +15,7 @@ import {
 } from "@redux/actions/imageActions";
 import { selectIsFilteringDialogOpen } from "@redux/selectors/filteringSelector";
 import { setFilteringDialogToOpen } from "@redux/actions/filteringActions";
-import { defaultFilteringPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
+import { defaultPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
 import FilteringDialogActions from "./FilteringDialogActions";
 
 const FilteringDialog = () => {
@@ -25,7 +25,7 @@ const FilteringDialog = () => {
   console.log("[FilteringDialog]: is rendered", isFilteringDialogOpen);
 
   const handleDialogClose = () => {
-    dispatch(setFilteringPageableProperties(defaultFilteringPaginationModel));
+    dispatch(setFilteringPageableProperties(defaultPaginationModel));
     dispatch(setQueriedImageModel(undefined));
     dispatch(setFilterMenuAction(undefined));
     dispatch(setFilteringResponse(undefined));

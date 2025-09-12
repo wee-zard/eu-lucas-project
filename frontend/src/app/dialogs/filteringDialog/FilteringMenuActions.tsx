@@ -11,7 +11,7 @@ import {
 } from "@redux/actions/imageActions";
 import { MenuActions } from "@model/enum";
 import i18n from "@i18n/i18nHandler";
-import { defaultFilteringPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
+import { defaultPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { useSelector } from "react-redux";
 import { selectQueriedImageModel } from "@redux/selectors/imageSelector";
@@ -46,7 +46,7 @@ const FilteringMenuActions = () => {
         query: LocalStorageUtils.getQueryBuilderModel(),
       }),
     );
-    dispatch(setFilteringPageableProperties(defaultFilteringPaginationModel));
+    dispatch(setFilteringPageableProperties(defaultPaginationModel));
   };
 
   return (

@@ -60,7 +60,7 @@ export const useImageActionTooltip = () => {
         const entry = selectedImagesModel.queryImages.find(
           (property) => property.image.id === imageDto.id,
         );
-        dispatch(setProcedureLogSelectedProcedureLogs(entry?.boundingBoxes ?? []));
+        dispatch(setProcedureLogSelectedProcedureLogs(entry?.logs ?? []));
       },
     },
   ];

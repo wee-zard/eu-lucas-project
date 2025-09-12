@@ -1,7 +1,7 @@
 package com.lucas.spring.components.folder.facade;
 
+import com.lucas.spring.commons.model.model.KeyValueModel;
 import com.lucas.spring.components.folder.model.entity.FolderContentEntity;
-import com.lucas.spring.components.folder.model.model.KeyValueModel;
 import java.util.List;
 
 /**
