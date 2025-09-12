@@ -59,7 +59,7 @@ const StyledRightFileHolder = styled("div")({
 
 const StyledFileHolder = styled("div")<{ $isError?: boolean }>((props) => ({
   margin: "0 10%",
-  boxShadow: `0px 2px 6px ${props.$isError ? "rgba(255, 255, 255, 0.27)" : "rgba(0, 255, 0, 0.27)"}`,
+  boxShadow: `0px 2px 6px ${props.$isError ? "rgba(255, 255, 255, 0.17)" : "rgba(0, 255, 0, 0.27)"}`,
   borderLeft: `3px solid ${props.$isError ? "red" : "green"}`,
   padding: 24,
   backgroundColor: `${props.$isError ? "rgba(255, 120, 120, 0.1)" : "rgba(120, 255, 136, 0.1)"}`,

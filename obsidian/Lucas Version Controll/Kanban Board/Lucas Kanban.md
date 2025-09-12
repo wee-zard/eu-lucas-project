@@ -142,7 +142,7 @@ kanban-plugin: board
 
 ## 🔴Filtering Page Backlog
 
-- [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]] #🔴ToDo
+- [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]]
 - [ ] X - 3 "FilteringHelper" fájl van a projektben, ami nem előnyös, mert nem tudni, hogy ezek mit csinálnak #Filtering-Page
 - [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page

@@ -26,6 +26,7 @@ import { requestPlantList } from "@redux/actions/plantActions";
 // TODO: Allow filtering by plant species.
 //import { requestPlantSpeciesList } from "@redux/actions/plantSpeciesActions";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
+import i18n from "@i18n/i18nHandler";
 
 type Props = {
   id: number;
@@ -126,7 +127,7 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
       <StyledQueryComponentHolder>
         <StyledInputHolder>
           <StyledSelectComponent
-            inputTitle={"Query By"}
+            inputTitle={i18n.t("screens.filtering.query-builder.queryBy")}
             options={queryByOptions}
             inputValue={getQueryByInputValue(states.filtered?.selectedFilterTab)}
             setValue={setQueryByInputValue}
@@ -139,7 +140,7 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
         <StyledIconButton
           buttonIcon={<DeleteForeverOutlinedIcon />}
           tooltip={{
-            tooltipTitle: "Remove Filter Condition",
+            tooltipTitle: i18n.t("screens.filtering.query-builder.removeFilterCondition"),
             tooltipPlacement: "right-start",
           }}
           onClick={handleComponentRemoval}
@@ -165,6 +166,8 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
 export default FilteringQueryComponent;
 
 const StyledQueryComponentHolder = styled(StyledComponentGap)<{}>((_) => ({
+  borderLeft: "4px solid white",
+  borderRadius: "12px",
   paddingRight: "8px",
   justifyContent: "space-between",
 }));

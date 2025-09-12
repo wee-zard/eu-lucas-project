@@ -29,8 +29,6 @@ const ImageToFolderAdditionDialog = () => {
   const selectedImagesModel = useSelector(selectSelectedImagesModel);
   const dispatch = useDispatch();
 
-  console.log("[ImageToFolderAdditionDialog]: is rendered");
-
   const handleDialogClose = () => {
     dispatch(setImageToFolderAdditionDialogOpen(false));
   };

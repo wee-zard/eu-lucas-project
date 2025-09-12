@@ -11,6 +11,7 @@ import StyledSelectComponent from "@components/StyledSelectComponent";
 import { minWidthOfRelationColumn } from "./FilteringQueryBodyTemplate";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import { QueryTypes } from "@model/enum";
+import i18n from "@i18n/i18nHandler";
 
 type Props = {
   queryMultiType: QueryMultiType;
@@ -56,7 +57,7 @@ const FilteringQueryRelation = ({ queryMultiType }: Props) => {
       <StyledQueryRelationInputHolder>
         {isListLengthBiggerThenTwo ? <StyledTopQueryRelationHolder /> : null}
         <StyledSelectComponent
-          inputTitle={"Relation"}
+          inputTitle={i18n.t("screens.filtering.query-builder.relation")}
           options={Object.values(QueryElementRelations)}
           inputValue={queryMultiType.queryElementRelation ?? ""}
           setValue={handleElementRelationSelection}

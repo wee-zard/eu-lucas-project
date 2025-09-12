@@ -5,13 +5,15 @@ import {
   QueryBuilderModel,
   QueryMultiType,
 } from "@model/QueryBuilderModel";
-import StyledButton from "@components/StyledButton";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import { StyledComponentGap } from "@global/globalStyles";
 import { FilteringHelper, StateUpdateProps } from "@helper/filteringHelper";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
 import styled from "@emotion/styled";
+import i18n from "@i18n/i18nHandler";
+import StyledIconButton from "@components/StyledIconButton";
 
 type Props = {
   id: number;
@@ -74,23 +76,32 @@ const FilteringQueryBuilderActions = ({ id, states }: Props) => {
   return (
     <StyledActionsHolder>
       <StyledComponentGap gap={"8px"}>
-        <StyledButton
-          buttonIcon={<AddCircleOutlineIcon />}
-          buttonText="Add condition"
+        <StyledIconButton
+          buttonIcon={<AddBoxIcon />}
+          buttonColor={"success"}
+          tooltip={{
+            tooltipTitle: i18n.t("screens.filtering.query-builder.addFilterGroupTooltip"),
+          }}
           onClick={handleClickOnAddCondition}
         />
         {states.filtered.listOfQueries.length > 0 ? (
-          <StyledButton
-            buttonIcon={<AddCircleOutlineIcon />}
-            buttonText="Add group"
+          <StyledIconButton
+            buttonIcon={<AddToPhotosIcon />}
+            buttonColor={"info"}
+            tooltip={{
+              tooltipTitle: i18n.t("screens.filtering.query-builder.addDoubleFilterGroupTooltip"),
+            }}
             onClick={handleClickOnAddGroup}
           />
         ) : null}
       </StyledComponentGap>
       {states.filtered.parentId !== initFirstQueryParent ? (
-        <StyledButton
+        <StyledIconButton
           buttonIcon={<DeleteForeverOutlinedIcon />}
-          buttonText="Remove group"
+          buttonColor={"info"}
+          tooltip={{
+            tooltipTitle: i18n.t("screens.filtering.query-builder.removeQueryGroupTooltip"),
+          }}
           onClick={handleClickOnRemoveGroup}
         />
       ) : null}
@@ -101,6 +112,7 @@ const FilteringQueryBuilderActions = ({ id, states }: Props) => {
 export default FilteringQueryBuilderActions;
 
 const StyledActionsHolder = styled.div<{}>((_) => ({
+  padding: "0px 8px 0px 8px",
   display: "flex",
   justifyContent: "space-between",
 }));

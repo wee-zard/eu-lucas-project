@@ -11,6 +11,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { FilteringHelper } from "@helper/filteringHelper";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
+import i18n from "@i18n/i18nHandler";
 
 type Props = {
   id: number;
@@ -61,16 +62,17 @@ const FilteringQueryGroupActions = React.memo(function FilteringQueryGroupAction
       <StyledIconButton
         buttonIcon={<AddCircleOutlineIcon />}
         tooltip={{
-          tooltipTitle: "Add Filter Condition",
+          tooltipTitle: i18n.t("screens.filtering.query-builder.addFilterConditionTooltip"),
           tooltipPlacement: "top",
         }}
         onClick={handleOnClickAddFilterCondition}
       />
       <StyledIconButton
         buttonIcon={<DeleteForeverOutlinedIcon />}
+        buttonColor={"success"}
         tooltip={{
-          tooltipTitle: "Remove Query Group",
-          tooltipPlacement: "right-start",
+          tooltipTitle: i18n.t("screens.filtering.query-builder.removeQueryGroupTooltip"),
+          tooltipPlacement: "top",
         }}
         onClick={handleOnClickRemoveQueryGroup}
       />

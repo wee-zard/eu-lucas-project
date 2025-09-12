@@ -338,6 +338,13 @@
         "add-to-empty-folder": "Hozzáadás egy új mappához"
       },
       "query-builder": {
+        "queryBy": "Szűrés",
+        "removeFilterCondition": "Szűrési feltétel törlése",
+        "addFilterConditionTooltip": "Szűrési feltétel létrehozása",
+        "addFilterGroupTooltip": "Szűrési gyoport létrehozása",
+        "addDoubleFilterGroupTooltip": "Szűrési csoportban egy alcsoport létrehozása",
+        "removeQueryGroupTooltip": "Szűrési csoport törlése",
+        "relation": "Kapcsolat",
         "query-by-option-names": {
           "year": "Év",
           "country": "Ország",

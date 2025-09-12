@@ -157,8 +157,6 @@ class ZipHelper {
       return;
     }
 
-    console.log("folder:", this.folder);
-
     this.numberOfFilesToProcess = this.folder?.folderContentSize ?? this.model.queryImages.length;
 
     // Starts the inspector, so the users could see the loading progress.

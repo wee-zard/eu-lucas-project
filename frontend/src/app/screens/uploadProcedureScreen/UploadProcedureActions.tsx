@@ -257,11 +257,11 @@ const StyledBoxHolder = styled("div")({
   justifyContent: "center",
   alignItems: "center",
   border: "3px dashed gray",
-  boxShadow: "0px 4px 12px rgba(255, 255, 255, 0.27)",
+  boxShadow: "0px 2px 8px rgba(255, 255, 255, 0.17)",
   height: 350,
   ":hover": {
     border: "3px dashed rgb(138, 241, 255)",
-    boxShadow: "0px 4px 12px rgba(0, 255, 255, 0.3)",
+    boxShadow: "0px 2px 8px rgba(0, 255, 255, 0.3)",
     backgroundColor: "rgba(120, 239, 255, 0.05)",
   },
 });

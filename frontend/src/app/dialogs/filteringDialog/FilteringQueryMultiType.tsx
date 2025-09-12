@@ -42,12 +42,12 @@ const FilteringQueryMultiType = React.memo(function FilteringQueryMultiType({ id
 
 export default FilteringQueryMultiType;
 
-const StyledQueryBuilderHolder = styled.div<{}>((_) => ({
+const StyledQueryBuilderHolder = styled.div<{}>((props) => ({
   display: "grid",
   gap: "8px",
-  margin: "16px 0 16px 16px",
-  borderLeft: "4px solid cyan",
+  margin: "8px 0 8px 8px",
+  borderLeft: `4px solid ${(props.theme as any)?.palette?.info?.main}`,
   padding: "8px 0 8px 8px",
   borderRadius: "12px",
-  boxShadow: "0px 4px 12px rgba(73, 174, 181, 0.27)",
+  boxShadow: "0px 2px 8px rgba(73, 174, 181, 0.27)",
 }));
