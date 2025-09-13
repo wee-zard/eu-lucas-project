@@ -6,14 +6,14 @@ import { UnknownAction } from "@reduxjs/toolkit";
 import { defaultBoundingBoxPageableProperties } from "@dialogs/boundBoxDialog/helper/BoundingBoxDialogHelper";
 
 interface ReducerStateType {
-  listOfProcedureLogs: ProcedureLogDto[];
+  listOfProcedureLogs?: ProcedureLogDto[];
   selectedListOfProcedureLogs: SelectedProcedureLogModel[];
   pageableProperties: PageableProperties;
   isLogButtonDisabled: boolean;
 }
 
 const initialState: ReducerStateType = {
-  listOfProcedureLogs: [],
+  listOfProcedureLogs: undefined,
   selectedListOfProcedureLogs: [],
   pageableProperties: defaultBoundingBoxPageableProperties,
   isLogButtonDisabled: true,

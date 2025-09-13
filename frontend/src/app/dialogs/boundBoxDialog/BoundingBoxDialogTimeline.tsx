@@ -34,6 +34,7 @@ import { selectSelectedImage } from "@redux/selectors/imageSelector";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { defaultBoundingBoxPageableProperties } from "./helper/BoundingBoxDialogHelper";
 import DateHelper from "@helper/dateHelper";
+import StyledCircularProgressOverlay from "@components/progressbar/StyledCircularProgressOverlay";
 
 export const BoundingBoxDialogTimeline = () => {
   const { listOfProcedureLogs, selectedListOfProcedureLogs, isLogButtonDisabled } =
@@ -43,7 +44,7 @@ export const BoundingBoxDialogTimeline = () => {
   );
   const selectedImage = useSelector(selectSelectedImage);
   const IS_LOG_BUTTON_HIDDEN =
-    listOfProcedureLogs.length >= (pageable.pageNo + 1) * pageable.pageSize;
+    listOfProcedureLogs && listOfProcedureLogs.length >= (pageable.pageNo + 1) * pageable.pageSize;
   const dispatch = useDispatch();
 
   const fetchListOfProcedureLogs = () => {
@@ -57,7 +58,7 @@ export const BoundingBoxDialogTimeline = () => {
       }
 
       dispatch(setProcedureLogIsLogButtonDisabled(false));
-      dispatch(setProcedureLogListOfProcedureLogs([...listOfProcedureLogs, ...res.content]));
+      dispatch(setProcedureLogListOfProcedureLogs(res.content));
     });
   };
 
@@ -137,7 +138,7 @@ export const BoundingBoxDialogTimeline = () => {
       const filteredLogs = selectedListOfProcedureLogs.filter((model) => model.log.id !== dotId);
       dispatch(setProcedureLogSelectedProcedureLogs(filteredLogs));
     } else {
-      const selectedProcedureLog = listOfProcedureLogs.find((log) => log.id === dotId);
+      const selectedProcedureLog = listOfProcedureLogs?.find((log) => log.id === dotId);
 
       if (!selectedProcedureLog) {
         openSnackbar(SnackEnum.LOG_NOT_FOUND);
@@ -189,7 +190,7 @@ export const BoundingBoxDialogTimeline = () => {
   };
 
   const renderTimelineItems = () => {
-    return listOfProcedureLogs.map((item) => (
+    return listOfProcedureLogs?.map((item) => (
       <TimelineItem key={item.id}>
         {renderTimelineSeparator(item)}
         {renderProcedureLogContent(item)}
@@ -205,10 +206,12 @@ export const BoundingBoxDialogTimeline = () => {
     });
   };
 
+  console.log("listOfProcedureLogs", listOfProcedureLogs);
+
   return (
     <StyledBoundingBoxDialogTimelineHolder>
       <StyledTimeline>
-        {listOfProcedureLogs.length > 0 ? (
+        {listOfProcedureLogs && listOfProcedureLogs.length > 0 ? (
           <StyledComponentGap display="grid" gap="8px">
             <div>{renderTimelineItems()}</div>
             {IS_LOG_BUTTON_HIDDEN ? (
@@ -223,10 +226,17 @@ export const BoundingBoxDialogTimeline = () => {
               </StyledCenterComponent>
             ) : null}
           </StyledComponentGap>
-        ) : (
+        ) : listOfProcedureLogs && listOfProcedureLogs.length === 0 ? (
           <StyledCenterComponent>
             {i18n.t("screens.bounding-box.timelineMenu.noProcedureLogFetched")}
           </StyledCenterComponent>
+        ) : (
+          <div>
+            <StyledCircularProgressOverlay
+              variant={"indeterminate"}
+              styles={{ isBackgroundHidden: true }}
+            />
+          </div>
         )}
       </StyledTimeline>
     </StyledBoundingBoxDialogTimelineHolder>
