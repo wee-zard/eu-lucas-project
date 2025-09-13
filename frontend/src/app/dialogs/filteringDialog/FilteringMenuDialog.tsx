@@ -16,8 +16,6 @@ type Props = {
 };
 
 const FilteringMenuDialog = ({ isOpen, handleClose }: Props) => {
-  console.log("[FilteringMenuDialog]: RENDERED");
-
   return (
     <StyledDialog open={isOpen} onClose={handleClose}>
       <StyledDialogTitle>{i18n.t("screens.filtering.providing-filters")}</StyledDialogTitle>

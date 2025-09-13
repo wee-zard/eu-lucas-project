@@ -22,8 +22,6 @@ const FilteringDialog = () => {
   const isFilteringDialogOpen = useSelector(selectIsFilteringDialogOpen);
   const dispatch = useDispatch();
 
-  console.log("[FilteringDialog]: is rendered", isFilteringDialogOpen);
-
   const handleDialogClose = () => {
     dispatch(setFilteringPageableProperties(defaultPaginationModel));
     dispatch(setQueriedImageModel(undefined));
