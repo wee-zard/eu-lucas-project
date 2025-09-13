@@ -69,7 +69,7 @@ const FilteringQueryGroupActions = React.memo(function FilteringQueryGroupAction
       />
       <StyledIconButton
         buttonIcon={<DeleteForeverOutlinedIcon />}
-        buttonColor={"success"}
+        buttonColor={"warning"}
         tooltip={{
           tooltipTitle: i18n.t("screens.filtering.query-builder.removeQueryGroupTooltip"),
           tooltipPlacement: "top",

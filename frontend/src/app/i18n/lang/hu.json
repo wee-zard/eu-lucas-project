@@ -341,7 +341,7 @@
         "queryBy": "Szűrés",
         "removeFilterCondition": "Szűrési feltétel törlése",
         "addFilterConditionTooltip": "Szűrési feltétel létrehozása",
-        "addFilterGroupTooltip": "Szűrési gyoport létrehozása",
+        "addFilterGroupTooltip": "Szűrési csoport létrehozása",
         "addDoubleFilterGroupTooltip": "Szűrési csoportban egy alcsoport létrehozása",
         "removeQueryGroupTooltip": "Szűrési csoport törlése",
         "relation": "Kapcsolat",

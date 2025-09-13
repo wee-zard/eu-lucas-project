@@ -57,9 +57,9 @@ const StyledQueryComponentHolder = styled.div<{}>((props) => ({
   display: "grid",
   gap: "16px",
   margin: "8px 0 8px 8px",
-  borderLeft: `4px solid ${(props.theme as any)?.palette?.success?.main}`,
+  borderLeft: `4px solid ${(props.theme as any)?.palette?.warning?.main}`,
   padding: "16px 0 16px 8px",
-  boxShadow: "0px 2px 8px rgba(0, 255, 0, 0.17)",
+  boxShadow: "0px 2px 8px rgba(255, 255, 0, 0.17)",
   borderRadius: "12px",
 }));
 

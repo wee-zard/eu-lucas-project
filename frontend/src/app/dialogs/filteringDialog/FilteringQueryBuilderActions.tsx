@@ -78,7 +78,7 @@ const FilteringQueryBuilderActions = ({ id, states }: Props) => {
       <StyledComponentGap gap={"8px"}>
         <StyledIconButton
           buttonIcon={<AddBoxIcon />}
-          buttonColor={"success"}
+          buttonColor={"warning"}
           tooltip={{
             tooltipTitle: i18n.t("screens.filtering.query-builder.addFilterGroupTooltip"),
           }}
