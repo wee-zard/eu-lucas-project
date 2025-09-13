@@ -4,18 +4,15 @@ import { CoordinateXConsts } from "../consts/coordinateXConsts";
 
 interface CoordinateXType {
   isCoordinateXLoading: boolean;
-  listOfCoordinateX: CoordinateXDto[];
+  listOfCoordinateX?: CoordinateXDto[];
 }
 
 const initialState: CoordinateXType = {
   isCoordinateXLoading: false,
-  listOfCoordinateX: [],
+  listOfCoordinateX: undefined,
 };
 
-const coordinateXReducer = (
-  state = initialState,
-  action: UnknownAction
-): CoordinateXType => {
+const coordinateXReducer = (state = initialState, action: UnknownAction): CoordinateXType => {
   switch (action.type) {
     case CoordinateXConsts.REQUESTING_COORDINATE_X_FAILED:
       return {
@@ -31,6 +28,7 @@ const coordinateXReducer = (
     case CoordinateXConsts.REQUEST_COORDINATE_X:
       return {
         ...state,
+        listOfCoordinateX: undefined,
         isCoordinateXLoading: true,
       };
     default:

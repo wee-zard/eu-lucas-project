@@ -18,6 +18,7 @@ type Props = {
   icon?: JSX.Element;
   styles?: {
     height?: number;
+    isBorderLeftStyled?: boolean;
   };
   renderOption?: (option: string) => JSX.Element;
   setValue: (value: string, index: number) => void;
@@ -57,7 +58,17 @@ const StyledSelectComponent = ({
   };
 
   return (
-    <FormControl fullWidth required sx={{ ".MuiInputLabel-root": { top: "-5px" } }}>
+    <FormControl
+      fullWidth
+      required
+      sx={{
+        ".MuiInputLabel-root": { top: "-5px" },
+        fieldset: {
+          backgroundColor: isDisabled ? "rgba(0, 0, 0, 0.2)" : undefined,
+          borderLeft: styles?.isBorderLeftStyled ? "4px solid white" : undefined,
+        },
+      }}
+    >
       <StyledComponentGap display={"grid"}>
         {getInputTitle()}
         <StyledSelect

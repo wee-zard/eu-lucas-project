@@ -4,12 +4,12 @@ import { UnknownAction } from "redux";
 
 interface ReducerStateType {
   isProcedureLoading: boolean;
-  listOfProcedures: ProcedureDto[];
+  listOfProcedures?: ProcedureDto[];
 }
 
 const initialState: ReducerStateType = {
   isProcedureLoading: false,
-  listOfProcedures: [],
+  listOfProcedures: undefined,
 };
 
 const procedureReducer = (state = initialState, action: UnknownAction): ReducerStateType => {
@@ -28,6 +28,7 @@ const procedureReducer = (state = initialState, action: UnknownAction): ReducerS
     case ProcedureConsts.REQUEST_PROCEDURE:
       return {
         ...state,
+        listOfProcedures: undefined,
         isProcedureLoading: true,
       };
     default:

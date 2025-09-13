@@ -4,12 +4,12 @@ import { CreationDirectionConsts } from "../consts/creationDirectionConsts";
 
 interface CreationDirectionType {
   isCreationDirectionLoading: boolean;
-  listOfCreationDirections: CreationDirectionDto[];
+  listOfCreationDirections?: CreationDirectionDto[];
 }
 
 const initialState: CreationDirectionType = {
   isCreationDirectionLoading: false,
-  listOfCreationDirections: [],
+  listOfCreationDirections: undefined,
 };
 
 const creationDirectionReducer = (
@@ -31,6 +31,7 @@ const creationDirectionReducer = (
     case CreationDirectionConsts.REQUEST_CREATION_DIRECTION:
       return {
         ...state,
+        listOfCreationDirections: undefined,
         isCreationDirectionLoading: true,
       };
     default:

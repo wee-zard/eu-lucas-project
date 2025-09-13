@@ -4,12 +4,12 @@ import { UnknownAction } from "redux";
 
 interface ReducerStateType {
   isPlantLoading: boolean;
-  listOfPlants: PlantDto[];
+  listOfPlants?: PlantDto[];
 }
 
 const initialState: ReducerStateType = {
   isPlantLoading: false,
-  listOfPlants: [],
+  listOfPlants: undefined,
 };
 
 const plantReducer = (state = initialState, action: UnknownAction): ReducerStateType => {
@@ -28,6 +28,7 @@ const plantReducer = (state = initialState, action: UnknownAction): ReducerState
     case PlantConsts.REQUEST_PLANT:
       return {
         ...state,
+        listOfPlants: undefined,
         isPlantLoading: true,
       };
     default:

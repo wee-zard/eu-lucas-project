@@ -34,7 +34,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
   const listOfPlants = useSelector(selectListOfPlantsByName);
   // TODO: Allow filtering by plant species.
   //const listOfPlantSpecies = useSelector(selectListOfPlantSpeciesByScientificName);
-  const listOfProcedures = useSelector(selectListOfProcedures).map((item) => item.name);
+  const listOfProcedures = useSelector(selectListOfProcedures)?.map((item) => item.name);
   const listOfProcedureLogParams = useSelector(selectListOfProcedureLogParamsByParam);
   const probabilityList = Array.from(Array(101).keys()).map((element) => element.toString());
 
@@ -48,7 +48,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
         return [
           {
             inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.year"),
-            options: listOfCreationYears.map((obj) => obj.year.toString()),
+            options: listOfCreationYears?.map((obj) => obj.year.toString()),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
@@ -61,7 +61,9 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
         return [
           {
             inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.country"),
-            options: ConversionUtils.CreationCountriesToFormatString(listOfCreationCountries),
+            options: !listOfCreationCountries
+              ? undefined
+              : ConversionUtils.CreationCountriesToFormatString(listOfCreationCountries),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
@@ -76,7 +78,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
             inputTitle: i18n.t(
               "screens.filtering.query-builder.query-by-option-names.x-coordinates",
             ),
-            options: listOfCoordinateX.map((obj) => obj.coordinateX.toString()),
+            options: listOfCoordinateX?.map((obj) => obj.coordinateX.toString()),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
@@ -91,7 +93,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
             inputTitle: i18n.t(
               "screens.filtering.query-builder.query-by-option-names.y-coordinates",
             ),
-            options: listOfCoordinateY.map((obj) => obj.coordinateY.toString()),
+            options: listOfCoordinateY?.map((obj) => obj.coordinateY.toString()),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
@@ -104,7 +106,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
         return [
           {
             inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.direction"),
-            options: listOfCreationDirections.map((obj) => obj.directionName),
+            options: listOfCreationDirections?.map((obj) => obj.directionName),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {

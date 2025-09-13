@@ -4,12 +4,12 @@ import { CreationCountryConsts } from "../consts/creationCountryConsts";
 
 interface CreationCountryType {
   isCreationCountryLoading: boolean;
-  listOfCreationCountries: CreationCountryDto[];
+  listOfCreationCountries?: CreationCountryDto[];
 }
 
 const initialState: CreationCountryType = {
   isCreationCountryLoading: false,
-  listOfCreationCountries: [],
+  listOfCreationCountries: undefined,
 };
 
 const creationCountryReducer = (
@@ -31,6 +31,7 @@ const creationCountryReducer = (
     case CreationCountryConsts.REQUEST_CREATION_COUNTRY:
       return {
         ...state,
+        listOfCreationCountries: undefined,
         isCreationCountryLoading: true,
       };
     default:

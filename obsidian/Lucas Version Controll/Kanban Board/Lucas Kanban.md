@@ -18,15 +18,15 @@ kanban-plugin: board
 
 ## 🔴Backlog
 
+- [ ] [[123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével]] #🔴ToDo
 - [ ] Uncaught error 500 Internal Server Error on the frontend side. application is crashing #🔴ToDo
 - [ ] X - Loading indikátor hozzáadása a data grid táblákhoz, kis szürke háttérrel
 - [ ] [[064 - Validálás Validátorok kollektor]]
 - [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
 - [ ] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
-- [ ] [[123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével]]
 - [ ] [[124 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, miközben a képlekérdezések leáll]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
-- [x] [[167 - DockerHub-ról levenni a projektet]] #🟣Testing
+- [x] [[167 - DockerHub-ról levenni a projektet]] #🟢Done
 - [x] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]]  #🟢Done
 
 
@@ -112,11 +112,12 @@ kanban-plugin: board
 - [ ] X - Legyen egy oldal, ahol a felhasználók képesek elolvasni, hogy az alkalmazásban lévő egyes funkciók hogyan működnek lépésről-lépésre
 
 
-## 🔴Report Page Backlog
+## 🔴Report Page / Email Backlog
 
 - [ ] [[151 - Bejelentés - Több sorba tördelt üzenet szövege, egy egysoros üzenetté alakul át az email elküldésekor]]
 - [ ] [[060 - Scheduler a félóránkénti report emailek kiküldésére]]
 - [ ] [[062 - Lehessen képet feltölteni a csatolmányként report küldése során]]
+- [ ] Email - Amennyiben egy felhasználó meghívásra került az alkalmazásba, akkor küldjünk ki neki egy emailt
 - [x] [[063 - Validátorok hozzárendelése a Report üzenetekhez]] #🟢Done
 - [x] [[170 - Report - Hiba bejelentése után hiba került dobásra]] #🟢Done
 
@@ -134,36 +135,34 @@ kanban-plugin: board
 
 - [ ] [[186 - Legyen egy szöveg, ami explicit taglalja, hogy milyen formában engedett az xml feltöltés]] #🔴ToDo  #LogUpload-Page
 - [ ] [[185 - Feltöltött eljárás logokat lehessen törölni]] #LogUpload-Page #🔴ToDo
+- [ ] [[187 - Legyen egy űrlap, amin keresztül fel lehet tölteni eljárás eredményeket]] #LogUpload-Page
 - [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljük el]] #LogUpload-Page
 - [ ] [[039 - Procedures oldal létrehozása]] #LogUpload-Page
-- [ ] [[187 - Legyen egy űrlap, amin keresztül fel lehet tölteni eljárás eredményeket]] #LogUpload-Page
 - [x] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]] #LogUpload-Page  #🟢Done
 
 
 ## 🔴Filtering Page Backlog
 
-- [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]]
-- [ ] X - 3 "FilteringHelper" fájl van a projektben, ami nem előnyös, mert nem tudni, hogy ezek mit csinálnak #Filtering-Page
-- [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
+- [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]] #Filtering-Page
+- [ ] [[160 - Szűrés - Csökkenteni a szűrés során a lekérdezések számát]] #Filtering-Page #🔴ToDo
+- [ ] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]] #Filtering-Page #🔴ToDo
+- [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]] #Filtering-Page
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page
 - [ ] [[118 - Adatbázis feltöltése a képekhez tartozó EXIF adatokkal]] #mission #Filtering-Page
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]] #mission #Filtering-Page
-- [ ] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]] #mission #Filtering-Page
+- [ ] X - 3 "FilteringHelper" fájl van a projektben, ami nem előnyös, mert nem tudni, hogy ezek mit csinálnak #Filtering-Page
+- [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
 - [ ] [[104 - Filtering - Kiválasztott képre való rákattintás esetén, a szűrés eredmény képek kerüljenek megjelenítésre]] #mission #Filtering-Page
 - [ ] [[100 - Filtering - A localStorage-ben eltárolt adatok betöltése esetén, hibaüzenet kerül dobásra]] #mission #Filtering-Page
 - [ ] [[088 - 5 FilteringGroup-ot egymásba ágyazva túl kicsivé teszi a szűrési feltételek input mezőit]] #Filtering-Page
 - [ ] [[090 - FilteringDialog - Amikor először építi fel az input mezőket az ablak, akkor bizonyos esetekben többször újra rendereli az egész ablakot]] #Filtering-Page
 - [ ] [[074 - Filtering oldalon egy input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését]] #Filtering-Page
-- [ ] [[054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban]] #Filtering-Page
 - [ ] [[051 - Standard Input mező helyett Autocomplete input mezőt használjunk]] #Filtering-Page
 - [ ] [[016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]] #Filtering-Page
 - [ ] [[012 - FilterDialog ablakának dinamikus háttérszín adása a megjelenő Dark Light mode bekapcsolásával]] #Filtering-Page
-- [ ] [[160 - Szűrés - Csökkenteni a szűrés során a lekérdezések számát]] #Filtering-Page
-- [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]] #Filtering-Page
 - [ ] [[019 - Aktív szűrés eredményei, a kiválasztott képek és a hozzájuk tartozó szűrési feltételek kerüljenek eltárolásra localStorage-ben]] #Filtering-Page
 - [ ] [[169 - Backend - Képek exif adatainak lekérése a háttérben]] #Filtering-Page
 - [ ] [[165 - Filtering - A Feltétel input mező hossza kisebb lehetne]] #Filtering-Page
-- [ ] [[200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről]] #Filtering-Page
 - [x] [[172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz]] #Filtering-Page #🟢Done
 - [x] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]] #🟢Done    #Filtering-Page
 - [x] [[161 - Pagination - Pagination az egy sorban legyen a mentés gombokkal]] #Filtering-Page #🟢Done
@@ -175,6 +174,8 @@ kanban-plugin: board
 - [x] [[177 - Az összeépülő lekérdezés nem megfelelő, mivel a zárójelek kihagyásra kerülnek sprint boot-on]] #Filtering-Page #🟢Done
 - [x] [[171 - Lehessen egyszerre 9, illetve az összes lekért képet kiválasztani]] #Filtering-Page  #🟢Done
 - [x] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]] #Filtering-Page  #🟢Done
+- [x] [[054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban]] #Filtering-Page #🟢Done
+- [x] [[200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről]] #Filtering-Page #🟢Done
 
 
 ## 🔴Bounding Box Page Backlog
@@ -340,6 +341,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,true,true,false,false,false,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
+{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,false,true,false,false,false,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
 ```
 %%

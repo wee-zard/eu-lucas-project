@@ -174,6 +174,7 @@ export enum LocalStorageKeys {
   ReportCreationForm = "report-creation-form",
   Settings = "settings",
   HideBoundingBoxesInsideFolder = "/selected-folder-hide-logs",
+  PersistentFilterOptions = "persistent-filter-options",
 }
 
 export enum FormEnums {

@@ -13,6 +13,7 @@ type Props = {
     position: "end" | "start";
     icon: JSX.Element;
   };
+  isDisabled?: boolean;
   htmlInputValidation?: InputHTMLAttributes<HTMLInputElement>;
   setValue: (value: string) => void;
 };
@@ -25,6 +26,7 @@ const StyledTextFieldComponent = ({
   helperText,
   errorMessage,
   inputAdornment,
+  isDisabled,
   htmlInputValidation,
   setValue,
 }: Props) => {
@@ -37,7 +39,16 @@ const StyledTextFieldComponent = ({
   };
 
   return (
-    <CustomFormControl fullWidth required is_multiline_active={+isMultilineActive}>
+    <CustomFormControl
+      fullWidth
+      required
+      is_multiline_active={+isMultilineActive}
+      sx={{
+        fieldset: {
+          backgroundColor: isDisabled ? "rgba(0, 0, 0, 0.2)" : undefined,
+        },
+      }}
+    >
       <div style={{ display: "grid" }}>
         <TextField
           value={inputValue}

@@ -4,12 +4,12 @@ import { UnknownAction } from "redux";
 
 interface ReducerStateType {
   isProcedureLogParamLoading: boolean;
-  listOfProcedureLogParams: ProcedureLogParamDto[];
+  listOfProcedureLogParams?: ProcedureLogParamDto[];
 }
 
 const initialState: ReducerStateType = {
   isProcedureLogParamLoading: false,
-  listOfProcedureLogParams: [],
+  listOfProcedureLogParams: undefined,
 };
 
 const logParamReducer = (state = initialState, action: UnknownAction): ReducerStateType => {
@@ -28,6 +28,7 @@ const logParamReducer = (state = initialState, action: UnknownAction): ReducerSt
     case ProcedureLogParamConsts.REQUEST_PROCEDURE_LOG_PARAM:
       return {
         ...state,
+        listOfProcedureLogParams: undefined,
         isProcedureLogParamLoading: true,
       };
     default:

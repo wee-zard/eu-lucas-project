@@ -7,4 +7,4 @@ export const selectListOfProcedureLogParams = (state: RootState) =>
   state.procedureLogParamStore.listOfProcedureLogParams;
 
 export const selectListOfProcedureLogParamsByParam = (state: RootState) =>
-  state.procedureLogParamStore.listOfProcedureLogParams.map((param) => param.procedureParamName);
+  state.procedureLogParamStore.listOfProcedureLogParams?.map((param) => param.procedureParamName);

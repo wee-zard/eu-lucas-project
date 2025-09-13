@@ -5,4 +5,4 @@ export const selectPlantIsLoading = (state: RootState) => state.plantStore.isPla
 export const selectListOfPlants = (state: RootState) => state.plantStore.listOfPlants;
 
 export const selectListOfPlantsByName = (state: RootState) =>
-  state.plantStore.listOfPlants.map((plant) => plant.plantScientificName);
+  state.plantStore.listOfPlants?.map((plant) => plant.plantScientificName);

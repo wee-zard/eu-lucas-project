@@ -34,13 +34,13 @@ const rootReducer = combineReducers({
   confirmationDialogStore: confirmationDialogReducer,
   backgroundStore: backgroundReducer,
   folderSelectionStore: folderSelectionReducer,
+  creationYearStore: creationYearReducer,
 
   // Processed:
   procedureUploadStorage: procedureUploadReducer,
   userStore: userReducer,
 
   // Not processed yet:
-  creationYearStore: creationYearReducer,
   creationCountryStore: creationCountryReducer,
   creationDirectionStore: creationDirectionReducer,
   coordinateXStore: coordinateXReducer,

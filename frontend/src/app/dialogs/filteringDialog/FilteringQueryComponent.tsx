@@ -96,20 +96,20 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
    */
   const handleCallOfStorageInit = (item: FilterDialogFilters) => {
     const handler: GenericHandlerType<FilterDialogFilters, () => void> = {
-      [FilterDialogFilters.YEAR]: () => requestCreationYears(dispatch),
-      [FilterDialogFilters.Y_COORDINATE]: () => requestCoordinateYList(dispatch),
-      [FilterDialogFilters.X_COORDINATE]: () => requestCoordinateXList(dispatch),
-      [FilterDialogFilters.PROCEDURE_PARAMS]: () => requestProcedureLogParams(dispatch),
-      [FilterDialogFilters.PROCEDURE_NAME]: () => requestProcedureList(dispatch),
-      [FilterDialogFilters.PLANT_NAME]: () => requestPlantList(dispatch),
+      [FilterDialogFilters.YEAR]: () => requestCreationYears(dispatch), // DONE:
+      [FilterDialogFilters.Y_COORDINATE]: () => requestCoordinateYList(dispatch), // DONE:
+      [FilterDialogFilters.X_COORDINATE]: () => requestCoordinateXList(dispatch), // DONE:
+      [FilterDialogFilters.PROCEDURE_PARAMS]: () => requestProcedureLogParams(dispatch), // DONE:
+      [FilterDialogFilters.PROCEDURE_NAME]: () => requestProcedureList(dispatch), // DONE:
+      [FilterDialogFilters.PLANT_NAME]: () => requestPlantList(dispatch), // DONE:
 
       // TODO: Allow filtering by plant species.
       //[FilterDialogFilters.PLANT_SPECIES]: () => requestPlantSpeciesList(dispatch),
 
       // TODO: Allow filtering by EXIF_DATA
       //[FilterDialogFilters.EXIF_DATA]: () => requestExifKeys(dispatch),
-      [FilterDialogFilters.DIRECTION]: () => requestCreationDirections(dispatch),
-      [FilterDialogFilters.COUNTRY]: () => requestCreationCountries(dispatch),
+      [FilterDialogFilters.DIRECTION]: () => requestCreationDirections(dispatch), // DONE:
+      [FilterDialogFilters.COUNTRY]: () => requestCreationCountries(dispatch), // DONE:
       [FilterDialogFilters.IS_HOMOGENOUS]: () => null,
       [FilterDialogFilters.PROBABILITY]: () => null,
     };
@@ -131,6 +131,7 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
             options={queryByOptions}
             inputValue={getQueryByInputValue(states.filtered?.selectedFilterTab)}
             setValue={setQueryByInputValue}
+            styles={{ isBorderLeftStyled: true }}
             errorMessage={states.filtered?.errors?.selectedFilterTab}
           />
         </StyledInputHolder>
@@ -166,8 +167,6 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
 export default FilteringQueryComponent;
 
 const StyledQueryComponentHolder = styled(StyledComponentGap)<{}>((_) => ({
-  borderLeft: "4px solid white",
-  borderRadius: "12px",
   paddingRight: "8px",
   justifyContent: "space-between",
 }));

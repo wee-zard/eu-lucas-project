@@ -12,6 +12,7 @@ import { selectListOfCreationCountry } from "@redux/selectors/creationCountrySel
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
 import { FilteringHelper } from "@helper/filteringHelper";
 import { LocalStorageUtils } from "@helper/localStorageUtil";
+import StyledLinearProgress from "@components/progressbar/StyledLinearProgress";
 
 type Props = {
   component: QueryComponent;
@@ -72,14 +73,14 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
   }, [component, filterFormTemplate, handler]);
 
   const handleCountrySelectionConversion = (value: string) =>
-    queryComponent.selectedFilterTab === "COUNTRY"
+    queryComponent.selectedFilterTab === "COUNTRY" && listOfCreationCountries
       ? ConversionUtils.FormatStringToCreationCountryDto(value, listOfCreationCountries)
       : value;
 
   const handleCountryInputValueChange = () =>
     queryComponent.selectedFilterTab === "COUNTRY"
       ? ConversionUtils.CreationCountryToFormatString(
-          listOfCreationCountries.find(
+          listOfCreationCountries?.find(
             (country) => country.countryCode === queryComponent?.selectInput,
           ),
         )
@@ -116,46 +117,57 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
   };
 
   const renderInputField = (template: FilterFormTemplate) => {
+    const isComponentLoading = template.options === undefined;
+    const loadingTitle = "Loading...";
+    const inputTitle = isComponentLoading ? loadingTitle : template.inputTitle;
+
     switch (template.inputKey) {
       case FilteringFormInputKeys.SelectInput:
         return (
-          <StyledInputHolder>
+          <StyledInputHolder style={{ display: "grid", gap: 2 }}>
             <StyledSelectComponent
-              inputTitle={template.inputTitle}
+              inputTitle={inputTitle}
               options={template.options ?? []}
               inputValue={handleCountryInputValueChange() ?? ""}
               setValue={(value) => handleValueChanges(FilteringFormInputKeys.SelectInput, value)}
+              isDisabled={isComponentLoading}
               errorMessage={queryComponent.errors?.selectInput}
             />
+            {isComponentLoading && <StyledLinearProgress />}
           </StyledInputHolder>
         );
       case FilteringFormInputKeys.OperatorInput:
         return (
           <StyledInputHolder
+            style={{ display: "grid", gap: 2 }}
             $elementWidth={
               template.inputKey === FilteringFormInputKeys.OperatorInput ? "50%" : undefined
             }
           >
             <StyledSelectComponent
-              inputTitle={template.inputTitle}
+              inputTitle={inputTitle}
               options={template.options ?? []}
               inputValue={
                 ConversionUtils.OperatorItemsToOperatorItemNames(queryComponent.operatorInput) ?? ""
               }
               setValue={(value) => handleValueChanges(FilteringFormInputKeys.OperatorInput, value)}
+              isDisabled={isComponentLoading}
               errorMessage={queryComponent.errors?.operatorInput}
             />
+            {isComponentLoading && <StyledLinearProgress />}
           </StyledInputHolder>
         );
       case FilteringFormInputKeys.TextfieldInput:
         return (
-          <StyledInputHolder>
+          <StyledInputHolder style={{ display: "grid", gap: 2 }}>
             <StyledTextFieldComponent
-              inputTitle={template.inputTitle}
+              inputTitle={inputTitle}
               inputValue={queryComponent.textFieldInput ?? ""}
               setValue={(value) => handleValueChanges(FilteringFormInputKeys.TextfieldInput, value)}
+              isDisabled={isComponentLoading}
               errorMessage={queryComponent.errors?.textFieldInput}
             />
+            {isComponentLoading && <StyledLinearProgress />}
           </StyledInputHolder>
         );
     }

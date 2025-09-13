@@ -4,12 +4,12 @@ import { CoordinateYConsts } from "../consts/coordinateYConsts";
 
 interface CoordinateYType {
   isCoordinateYLoading: boolean;
-  listOfCoordinateY: CoordinateYDto[];
+  listOfCoordinateY?: CoordinateYDto[];
 }
 
 const initialState: CoordinateYType = {
   isCoordinateYLoading: false,
-  listOfCoordinateY: [],
+  listOfCoordinateY: undefined,
 };
 
 const coordinateYReducer = (state = initialState, action: UnknownAction): CoordinateYType => {
@@ -28,6 +28,7 @@ const coordinateYReducer = (state = initialState, action: UnknownAction): Coordi
     case CoordinateYConsts.REQUEST_COORDINATE_Y:
       return {
         ...state,
+        listOfCoordinateY: undefined,
         isCoordinateYLoading: true,
       };
     default:
