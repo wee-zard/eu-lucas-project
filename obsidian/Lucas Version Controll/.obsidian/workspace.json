@@ -39,8 +39,23 @@
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
             }
+          },
+          {
+            "id": "75382f4969526ab0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -113,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Kanban Board/Lucas Kanban.md",
+                "file": "Kanban Board/Nodes/164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +138,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Lucas Kanban visszahivatkozásai"
+              "title": "164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak visszahivatkozásai"
             }
           },
           {
@@ -187,10 +202,10 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "7213bd70899264c2",
+  "active": "75382f4969526ab0",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről.md",
     "Kanban Board/Nodes/054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban.md",
     "Kanban Board/Nodes/060 - Scheduler a félóránkénti report emailek kiküldésére.md",
     "Kanban Board/Nodes/123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével.md",

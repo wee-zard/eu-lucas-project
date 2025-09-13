@@ -49,5 +49,5 @@ const StyledQueryBuilderHolder = styled.div<{}>((props) => ({
   borderLeft: `4px solid ${(props.theme as any)?.palette?.info?.main}`,
   padding: "8px 0 8px 8px",
   borderRadius: "12px",
-  boxShadow: "0px 2px 8px rgba(73, 174, 181, 0.27)",
+  boxShadow: "0px 2px 4px rgba(73, 174, 181, 0.27)",
 }));

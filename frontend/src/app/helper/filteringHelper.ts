@@ -271,11 +271,7 @@ export const FilteringHelper = {
           }
 
           // Check whether the selectedFilterTab input field has not been filled out.
-          if (
-            (qc.errors?.selectedFilterTab === "" ||
-              qc.errors?.selectedFilterTab === i18n.t("validators.required")) &&
-            (!qc.selectedFilterTab || qc.selectedFilterTab.length === 0)
-          ) {
+          if (!qc.selectedFilterTab || qc.selectedFilterTab.length === 0) {
             isQcModified = true;
             qc = {
               ...qc,

@@ -167,6 +167,5 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
 export default FilteringQueryComponent;
 
 const StyledQueryComponentHolder = styled(StyledComponentGap)<{}>((_) => ({
-  paddingRight: "8px",
   justifyContent: "space-between",
 }));

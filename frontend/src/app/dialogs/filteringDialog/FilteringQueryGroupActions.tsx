@@ -84,7 +84,7 @@ export default FilteringQueryGroupActions;
 
 const StyledGroupActionsHolder = styled.div<{}>((_) => ({
   display: "flex",
-  gap: "16px",
+  gap: 8,
   justifyContent: "end",
   alignItems: "center",
   padding: "0 8px 0 8px",

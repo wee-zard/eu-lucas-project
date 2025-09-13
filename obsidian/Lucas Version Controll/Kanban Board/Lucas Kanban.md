@@ -143,8 +143,8 @@ kanban-plugin: board
 
 ## 🔴Filtering Page Backlog
 
-- [ ] [[160 - Szűrés - Csökkenteni a szűrés során a lekérdezések számát]] #Filtering-Page #🔴ToDo
 - [ ] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]] #Filtering-Page #🔴ToDo
+- [ ] [[160 - Szűrés - Csökkenteni a szűrés során a lekérdezések számát]] #Filtering-Page
 - [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]] #Filtering-Page
 - [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]] #Filtering-Page
 - [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page

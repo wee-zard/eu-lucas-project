@@ -24,7 +24,7 @@ const LucasSidebarFooterAccount = ({ mini }: SidebarFooterProps) => {
               sx: {
                 overflow: "visible",
                 filter: (theme) =>
-                  `drop-shadow(0px 2px 8px ${theme.palette.mode === "dark" ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.32)"})`,
+                  `drop-shadow(0px 2px 4px ${theme.palette.mode === "dark" ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.32)"})`,
                 mt: 1,
                 "&::before": {
                   content: '""',
