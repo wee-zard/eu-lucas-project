@@ -143,7 +143,6 @@ kanban-plugin: board
 
 ## 🔴Filtering Page Backlog
 
-- [ ] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]] #Filtering-Page #🔴ToDo
 - [ ] [[160 - Szűrés - Csökkenteni a szűrés során a lekérdezések számát]] #Filtering-Page
 - [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]] #Filtering-Page
 - [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]] #Filtering-Page
@@ -176,6 +175,7 @@ kanban-plugin: board
 - [x] [[050 - Filtering Dialog input mezői nem kerülnek validálásra]] #Filtering-Page  #🟢Done
 - [x] [[054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban]] #Filtering-Page #🟢Done
 - [x] [[200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről]] #Filtering-Page #🟢Done
+- [x] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]] #Filtering-Page #🟢Done
 
 
 ## 🔴Bounding Box Page Backlog

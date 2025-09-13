@@ -54,8 +54,7 @@
               "title": "164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -128,7 +127,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Kanban Board/Nodes/164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak.md",
+                "file": "Kanban Board/Lucas Kanban.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +137,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak visszahivatkozásai"
+              "title": "Lucas Kanban visszahivatkozásai"
             }
           },
           {
@@ -202,8 +201,9 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "75382f4969526ab0",
+  "active": "7213bd70899264c2",
   "lastOpenFiles": [
+    "Kanban Board/Nodes/164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak.md",
     "Kanban Board/Lucas Kanban.md",
     "Kanban Board/Nodes/200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről.md",
     "Kanban Board/Nodes/054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban.md",
@@ -229,7 +229,6 @@
     "Untitled.md",
     "Kanban Board/Névtelen.md",
     "Kanban Board/Nodes/157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán.md",
-    "Kanban Board/Nodes/096 - @deprecated - BaseController - Source type a pageToPageableResponse metódusban örökölhetne egy közös RootEntity-ből.md",
     "Kanban Board/Images/Pasted image 20250724184703.png",
     "Kanban Board/Images/Pasted image 20250712085053.png",
     "Kanban Board/Images/Pasted image 20250224232633.png",
