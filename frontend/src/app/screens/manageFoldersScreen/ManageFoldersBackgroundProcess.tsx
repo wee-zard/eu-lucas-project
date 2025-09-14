@@ -54,6 +54,7 @@ const ManageFoldersBackgroundProcess = () => {
       [FolderSettingCellEnum.OPEN]: (folder: FolderDtoSlice) => {
         dispatch(setFolderSelectionToOpen(true));
         dispatch(setFolderSelectionFolderId(folder));
+        dispatch(setFolderSettingCellOption(undefined));
       },
       [FolderSettingCellEnum.UPDATE]: (folder: FolderDtoSlice) => {
         getGenericFormGroupHelper(FormGroupHelperEnum.FOLDER_CREATION_FORM_GROUP).saveAll([
@@ -62,15 +63,19 @@ const ManageFoldersBackgroundProcess = () => {
         ]);
         dispatch(setFolderCreationDialogToOpen(true));
         dispatch(setFolderCreationDialogEditingFolderId(folder.id));
+        dispatch(setFolderSettingCellOption(undefined));
       },
       [FolderSettingCellEnum.SHARE]: (_: FolderDtoSlice) => {
         notImplementedYetMessage();
+        dispatch(setFolderSettingCellOption(undefined));
       },
       [FolderSettingCellEnum.IMPORT]: (_: FolderDtoSlice) => {
         notImplementedYetMessage();
+        dispatch(setFolderSettingCellOption(undefined));
       },
       [FolderSettingCellEnum.COPY]: (_: FolderDtoSlice) => {
         notImplementedYetMessage();
+        dispatch(setFolderSettingCellOption(undefined));
       },
       [FolderSettingCellEnum.DOWNLOAD]: (folder: FolderDtoSlice) => {
         new ZipHelper(
@@ -80,11 +85,13 @@ const ManageFoldersBackgroundProcess = () => {
           },
           folder,
         ).downloadZip();
+        dispatch(setFolderSettingCellOption(undefined));
       },
 
       // TODO: Confirmation dialog should be pop up before calling the actual api command.
       [FolderSettingCellEnum.LOCK]: (_: FolderDtoSlice) => {
         notImplementedYetMessage();
+        dispatch(setFolderSettingCellOption(undefined));
       },
 
       /**
@@ -105,6 +112,7 @@ const ManageFoldersBackgroundProcess = () => {
               EventListenerUtil.dispatchEvent(EventListenerIdEnum.PAGINATED_TABLE);
               dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
               handleConfirmationDialogReset();
+              dispatch(setFolderSettingCellOption(undefined));
             });
         });
       },
@@ -126,6 +134,7 @@ const ManageFoldersBackgroundProcess = () => {
               EventListenerUtil.dispatchEvent(EventListenerIdEnum.PAGINATED_TABLE);
               dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
               handleConfirmationDialogReset();
+              dispatch(setFolderSettingCellOption(undefined));
             });
         });
       },

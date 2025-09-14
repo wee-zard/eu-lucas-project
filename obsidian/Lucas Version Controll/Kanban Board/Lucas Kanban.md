@@ -221,10 +221,10 @@ kanban-plugin: board
 - [ ] [[215 - Backend deploy során beállítani, hogy a resource mappában lévő fájlok ne legyenek publikusan elérhetőek]] #🔴ToDo #Deployment
 - [ ] [[168 - Auto-Reloading certbot after every 60 days]] #Deployment #🔴ToDo
 - [ ] X - Deploy - Alkalmazás kitelepítése egy új VM-re #🔴ToDo #Deployment
+- [ ] 198 - A VM migrálása egy Rackhost VM-re #Deployment #🔴ToDo
 - [ ] [[166 - Compose.yml - The frontend container should wait for the backend to fully load]] #Deployment
 - [ ] 195 - projekt beütemezéséhez egy szkriptet írni, amivel egyszerűen lehetne futtatni a projektet #mission #Deployment
 - [ ] 196 - A képeket fel lehessen csatolni a backend docker containerhez #mission #Deployment
-- [ ] 198 - A VM migrálása egy Rackhost VM-re #Deployment #🔴ToDo
 - [x] [[193 - Fizetni egy MySQL adatbázis instance-t, és feltölteni oda az adatbázist]] #mission #Deployment #🟢Done
 - [x] 197 - @deprecated - A frontend és backend kiszervezése DockerHub-ra #mission #Deployment #🟢Done
 
