@@ -44,6 +44,7 @@ const ImageCanvas = ({
   });
   const imageCanvasId = getImageCanvasId(imageProperty, randomUniqueId);
   const label = isLoaded ? ImageCanvasLoadingStates.LOADED : ImageCanvasLoadingStates.NOT_LOADED;
+  const HEIGHT_OF_IMAGE_NAME = 55;
 
   useEffect(() => {
     if (imageProperty.image.base64Src) {
@@ -97,7 +98,7 @@ const ImageCanvas = ({
     ctx.fillStyle = "#000";
 
     // Initial the canvas's width and height
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, canvas.width, canvas.height + HEIGHT_OF_IMAGE_NAME);
 
     /**
      * TODO: fetch the images from the backend-server/locally-running-image-server with a GET request method.
@@ -115,16 +116,16 @@ const ImageCanvas = ({
 
       // Set the height and width of the canvas based on the natural width and height of the image
       ctx.canvas.width = naturalWidth;
-      ctx.canvas.height = naturalHeight;
+      ctx.canvas.height = naturalHeight + HEIGHT_OF_IMAGE_NAME;
 
       // Draw the image onto the canvas
-      ctx.drawImage(imageSprite, 0, 0, naturalWidth, naturalHeight);
+      restoreCanvas(ctx, imageSprite);
       setMapSprite(imageSprite);
       setContext(ctx);
     });
   };
 
-  const applyBoundingBoxes = (): void => {
+  const drawBoundingBoxes = (): void => {
     if (!context || !canvas) {
       return;
     }
@@ -138,7 +139,7 @@ const ImageCanvas = ({
         // Creates a box by the position fo the 4 corner of the bounding box.
         boundingBox.rect(
           box.minCoordinateX,
-          box.minCoordinateY,
+          box.minCoordinateY + HEIGHT_OF_IMAGE_NAME,
           box.maxCoordinateX - box.minCoordinateX,
           box.maxCoordinateY - box.minCoordinateY,
         );
@@ -177,8 +178,8 @@ const ImageCanvas = ({
 
           const modifiedMinX = box.minCoordinateX * widthRatio;
           const modifiedMaxX = box.maxCoordinateX * widthRatio;
-          const modifiedMinY = box.minCoordinateY * heightRatio;
-          const modifiedMaxY = box.maxCoordinateY * heightRatio;
+          const modifiedMinY = (box.minCoordinateY + HEIGHT_OF_IMAGE_NAME) * heightRatio;
+          const modifiedMaxY = (box.maxCoordinateY + HEIGHT_OF_IMAGE_NAME) * heightRatio;
           const isMouseInsideBox =
             modifiedMinX <= event.offsetX &&
             event.offsetX <= modifiedMaxX &&
@@ -208,6 +209,34 @@ const ImageCanvas = ({
     });
   };
 
+  const restoreCanvas = (context: CanvasRenderingContext2D, mapSprite: HTMLImageElement) => {
+    // Restore the canvas
+    context.drawImage(
+      mapSprite,
+      0,
+      HEIGHT_OF_IMAGE_NAME,
+      mapSprite.naturalWidth,
+      mapSprite.naturalHeight,
+    );
+  };
+
+  const drawImageName = (): void => {
+    if (!context || !canvas || !mapSprite) {
+      return;
+    }
+
+    // Add a filled rectangle to the top of the image
+    context.beginPath();
+    context.fillStyle = "#000000";
+    context.rect(0, 0, mapSprite.naturalWidth, HEIGHT_OF_IMAGE_NAME);
+    context.fill();
+
+    // Draw the name of the image onto the canvas
+    context.font = "bold 48px serif";
+    context.fillStyle = "#ffffff";
+    context.fillText(ImageUtils.getUniqueRemoteImageName(imageProperty), 10, 40);
+  };
+
   useEffect(
     () => {
       if (!imageUrl) {
@@ -221,15 +250,18 @@ const ImageCanvas = ({
       }
 
       // Restore the canvas
-      context.drawImage(mapSprite, 0, 0, mapSprite.naturalWidth, mapSprite.naturalHeight);
+      restoreCanvas(context, mapSprite);
 
       // If it was requested that the bounding boxes be hidden, then do not render them on the image.
       if (imageProperty.image.areBoundingBoxesHidden) {
         return;
       }
 
+      // Draw the name of the image onto the canvas
+      drawImageName();
+
       // Apply animation to the canvas
-      applyBoundingBoxes();
+      drawBoundingBoxes();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [imageProperty, mapSprite, context, canvas, imageUrl],
@@ -241,7 +273,7 @@ const ImageCanvas = ({
    * @returns Returns the built tooltip that should be displayed when the
    * users enters into a bounding box.
    */
-  const renderBoundingBoxTooltip = (): JSX.Element => {
+  const drawBoundingBoxTooltip = (): JSX.Element => {
     if (!hoverInfo.boundingBox || !hoverInfo.log) {
       return <></>;
     }
@@ -256,7 +288,7 @@ const ImageCanvas = ({
   return (
     <Box sx={{ position: "relative", display: "inline-block" }}>
       <Tooltip
-        title={renderBoundingBoxTooltip()}
+        title={drawBoundingBoxTooltip()}
         open={hoverInfo.isHovering}
         placement="top"
         slotProps={{

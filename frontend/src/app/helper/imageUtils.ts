@@ -1,4 +1,5 @@
 import ImageDto from "@model/dto/ImageDto";
+import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 import Base64ImageModel from "@model/types/Base64imageModel";
 
 export default class ImageUtils {
@@ -11,6 +12,16 @@ export default class ImageUtils {
 
   public static isImageUrlStartsWithBase64JpgPrefix = (url: string) => {
     return url.startsWith(this.base64JpgPrefix);
+  };
+
+  public static getUniqueRemoteImageName = (imageProperty: QueriedImagePropertyType) => {
+    const imageName = ImageUtils.initRemoteImageUrlPath(imageProperty.image, true);
+
+    if (!imageName) {
+      return "image.jpg";
+    }
+
+    return imageName.replace(`${ImageUtils.remoteUrl}/`, "").replaceAll("/", "-");
   };
 
   public static removeBase64Prefix = (url: string) => {

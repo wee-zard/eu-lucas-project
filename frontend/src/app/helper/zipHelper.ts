@@ -316,26 +316,14 @@ class ZipHelper {
             // Increase the downloaded resource number
             this.updateDownloadedResourcesInKb(dataUrl);
 
-            const remoteUrl = ImageUtils.initRemoteImageUrlPath(url.imageProperty.image, true);
-            const uniqueFileName =
-              remoteUrl?.replace(`${ImageUtils.remoteUrl}/`, "").replaceAll("/", "-") ??
-              `tmp${url.imageProperty.image.id}.jpg`;
+            const uniqueFileName = ImageUtils.getUniqueRemoteImageName(url.imageProperty);
             this.addBase64StringToZip(ImageUtils.removeBase64Prefix(dataUrl), uniqueFileName);
           } else {
-            const remoteUrl = ImageUtils.initRemoteImageUrlPath(url.imageProperty.image, true);
-
-            if (!remoteUrl) {
-              return;
-            }
-
             const dataUrl = await this.getImageCanvasDataUrl(url);
 
             // Increase the downloaded resource number
             this.updateDownloadedResourcesInKb(dataUrl);
-
-            const uniqueFileName = remoteUrl
-              .replace(`${ImageUtils.remoteUrl}/`, "")
-              .replaceAll("/", "-");
+            const uniqueFileName = ImageUtils.getUniqueRemoteImageName(url.imageProperty);
             this.addBase64StringToZip(dataUrl, uniqueFileName);
           }
 
