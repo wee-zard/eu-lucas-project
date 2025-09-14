@@ -5,6 +5,7 @@ import { BoundingBoxDialogTimeline } from "./timeline/BoundingBoxDialogTimeline"
 import styled from "@emotion/styled";
 import i18n from "@i18n/i18nHandler";
 import { StyledScrollBarHolder } from "@global/globalStyles";
+import BoundingBoxDialogSettings from "./settings/BoundingBoxDialogSettings";
 
 const BoundingBoxDialogTabs = () => {
   const [value, setValue] = useState(0);
@@ -20,7 +21,7 @@ const BoundingBoxDialogTabs = () => {
       case 1:
         return <>TODO</>;
       case 2:
-        return <>TODO</>;
+        return <BoundingBoxDialogSettings />;
       default:
         return <>TODO</>;
     }

@@ -10,3 +10,12 @@ export const setBoundingBoxDialogToOpen = (
     payload: data,
   };
 };
+
+export const setBoundingBoxDialogColors = (
+  data: BoundingBoxReducerStateType["boxColors"],
+): BoundingBoxActionSetterType["boxColors"] => {
+  return {
+    type: BoundingBoxConsts.SET_BOUNDING_BOX_COLORS,
+    payload: data,
+  };
+};

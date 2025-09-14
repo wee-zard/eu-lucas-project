@@ -175,6 +175,7 @@ export enum LocalStorageKeys {
   Settings = "settings",
   HideBoundingBoxesInsideFolder = "/selected-folder-hide-logs",
   PersistentFilterOptions = "persistent-filter-options",
+  BoundingBoxColors = "bounding-box-colors",
 }
 
 export enum FormEnums {

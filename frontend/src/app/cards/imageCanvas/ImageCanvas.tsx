@@ -10,6 +10,8 @@ import Tooltip from "@mui/material/Tooltip";
 import BoundingBoxDto from "@model/dto/BoundingBoxDto";
 import ProcedureLogDto from "@model/dto/ProcedureLogDto";
 import BoundingBoxDialogLogDetails from "@dialogs/boundBoxDialog/timeline/BoundingBoxDialogLogDetails";
+import { useSelector } from "react-redux";
+import { selectBoundingBoxColors } from "@redux/selectors/boundingBoxSelector";
 
 type MouseHoverTooltipType = {
   isHovering: boolean;
@@ -31,9 +33,8 @@ const ImageCanvas = ({
   isHidden,
   isSrcBase64Only,
 }: Props) => {
+  const boxColors = useSelector(selectBoundingBoxColors);
   const [mapSprite, setMapSprite] = useState<HTMLImageElement>();
-  const [context, setContext] = useState<CanvasRenderingContext2D>();
-  const [canvas, setCanvas] = useState<HTMLCanvasElement>();
   const [isLoaded, setLoaded] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
   const [hoverInfo, setHoverInfo] = useState<MouseHoverTooltipType>({
@@ -44,7 +45,8 @@ const ImageCanvas = ({
   });
   const imageCanvasId = getImageCanvasId(imageProperty, randomUniqueId);
   const label = isLoaded ? ImageCanvasLoadingStates.LOADED : ImageCanvasLoadingStates.NOT_LOADED;
-  const HEIGHT_OF_IMAGE_NAME = 55;
+  const EXTENDED_IMAGE_HEIGHT = imageProperty.logs.length > 0 ? 55 : 0;
+  const EXTENDED_IMAGE_HEADER_FONT_HEIGHT = EXTENDED_IMAGE_HEIGHT - 7;
 
   useEffect(() => {
     if (imageProperty.image.base64Src) {
@@ -72,6 +74,18 @@ const ImageCanvas = ({
     }
   }, [imageProperty, isSrcBase64Only]);
 
+  useEffect(
+    () => {
+      if (!imageUrl) {
+        return;
+      }
+
+      initCanvas();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [imageProperty, mapSprite, imageUrl, boxColors],
+  );
+
   /**
    * Initializes the canvas, and sets some basic properties of the canvas
    * while displaying an image on the canvas.
@@ -87,7 +101,6 @@ const ImageCanvas = ({
       return;
     }
 
-    setCanvas(canvas);
     let ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
 
     if (!ctx) {
@@ -98,7 +111,7 @@ const ImageCanvas = ({
     ctx.fillStyle = "#000";
 
     // Initial the canvas's width and height
-    ctx.fillRect(0, 0, canvas.width, canvas.height + HEIGHT_OF_IMAGE_NAME);
+    ctx.fillRect(0, 0, canvas.width, canvas.height + EXTENDED_IMAGE_HEIGHT);
 
     /**
      * TODO: fetch the images from the backend-server/locally-running-image-server with a GET request method.
@@ -109,27 +122,50 @@ const ImageCanvas = ({
      * painted on the images with the help of the canvas.
      */
     // Map sprite to pass to the canvas.
-    ImageUtils.initImageByRemoteUrlPath(imageUrl).then((imageSprite) => {
-      // The original width and height of the image
-      const naturalWidth = imageSprite.naturalWidth;
-      const naturalHeight = imageSprite.naturalHeight;
-
-      // Set the height and width of the canvas based on the natural width and height of the image
-      ctx.canvas.width = naturalWidth;
-      ctx.canvas.height = naturalHeight + HEIGHT_OF_IMAGE_NAME;
-
-      // Draw the image onto the canvas
-      restoreCanvas(ctx, imageSprite);
-      setMapSprite(imageSprite);
-      setContext(ctx);
-    });
+    if (!mapSprite) {
+      ImageUtils.initImageByRemoteUrlPath(imageUrl).then((imageSprite) => {
+        drawImageSprintOnCanvas(ctx, imageSprite, canvas);
+        setMapSprite(imageSprite);
+      });
+    } else {
+      drawImageSprintOnCanvas(ctx, mapSprite, canvas);
+    }
   };
 
-  const drawBoundingBoxes = (): void => {
-    if (!context || !canvas) {
+  const drawImageSprintOnCanvas = (
+    ctx: CanvasRenderingContext2D,
+    imageSprite: HTMLImageElement,
+    canvas: HTMLCanvasElement,
+  ): void => {
+    // The original width and height of the image
+    const naturalWidth = imageSprite.naturalWidth;
+    const naturalHeight = imageSprite.naturalHeight;
+
+    // Set the height and width of the canvas based on the natural width and height of the image
+    ctx.canvas.width = naturalWidth;
+    ctx.canvas.height = naturalHeight + EXTENDED_IMAGE_HEIGHT;
+
+    // Draw the image onto the canvas
+    restoreCanvas(ctx, imageSprite);
+
+    // If it was requested that the bounding boxes be hidden, then do not render them on the image.
+    if (imageProperty.image.areBoundingBoxesHidden) {
       return;
     }
 
+    if (imageProperty.logs.length > 0) {
+      // Draw the name of the image onto the canvas
+      drawImageHeader(ctx, imageSprite);
+    }
+
+    // Apply animation to the canvas
+    drawBoundingBoxes(ctx, canvas);
+  };
+
+  const drawBoundingBoxes = (
+    context: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
+  ): void => {
     imageProperty.logs.forEach((procedureLog) => {
       // Draw all the bounding boxes that are associated with the log
       procedureLog.log.boundingBoxes.forEach((box) => {
@@ -139,7 +175,7 @@ const ImageCanvas = ({
         // Creates a box by the position fo the 4 corner of the bounding box.
         boundingBox.rect(
           box.minCoordinateX,
-          box.minCoordinateY + HEIGHT_OF_IMAGE_NAME,
+          box.minCoordinateY + EXTENDED_IMAGE_HEIGHT,
           box.maxCoordinateX - box.minCoordinateX,
           box.maxCoordinateY - box.minCoordinateY,
         );
@@ -151,7 +187,9 @@ const ImageCanvas = ({
 
         // Set the color of the bounding boxes
         if (procedureLog.properties.strokeStyle) {
-          context.strokeStyle = procedureLog.properties.strokeStyle;
+          context.strokeStyle = box.isHomogenous
+            ? boxColors.invasiveBoxHexColor
+            : boxColors.homogenousBoxHexColor;
         }
 
         context.stroke(boundingBox);
@@ -178,8 +216,8 @@ const ImageCanvas = ({
 
           const modifiedMinX = box.minCoordinateX * widthRatio;
           const modifiedMaxX = box.maxCoordinateX * widthRatio;
-          const modifiedMinY = (box.minCoordinateY + HEIGHT_OF_IMAGE_NAME) * heightRatio;
-          const modifiedMaxY = (box.maxCoordinateY + HEIGHT_OF_IMAGE_NAME) * heightRatio;
+          const modifiedMinY = (box.minCoordinateY + EXTENDED_IMAGE_HEIGHT) * heightRatio;
+          const modifiedMaxY = (box.maxCoordinateY + EXTENDED_IMAGE_HEIGHT) * heightRatio;
           const isMouseInsideBox =
             modifiedMinX <= event.offsetX &&
             event.offsetX <= modifiedMaxX &&
@@ -209,63 +247,85 @@ const ImageCanvas = ({
     });
   };
 
-  const restoreCanvas = (context: CanvasRenderingContext2D, mapSprite: HTMLImageElement) => {
+  const restoreCanvas = (
+    context: CanvasRenderingContext2D,
+    imageSprite: HTMLImageElement,
+  ): void => {
     // Restore the canvas
     context.drawImage(
-      mapSprite,
+      imageSprite,
       0,
-      HEIGHT_OF_IMAGE_NAME,
-      mapSprite.naturalWidth,
-      mapSprite.naturalHeight,
+      EXTENDED_IMAGE_HEIGHT,
+      imageSprite.naturalWidth,
+      imageSprite.naturalHeight,
     );
   };
 
-  const drawImageName = (): void => {
-    if (!context || !canvas || !mapSprite) {
-      return;
-    }
-
+  const drawImageHeader = (
+    context: CanvasRenderingContext2D,
+    imageSprite: HTMLImageElement,
+  ): void => {
     // Add a filled rectangle to the top of the image
     context.beginPath();
     context.fillStyle = "#000000";
-    context.rect(0, 0, mapSprite.naturalWidth, HEIGHT_OF_IMAGE_NAME);
+    context.rect(0, 0, imageSprite.naturalWidth, EXTENDED_IMAGE_HEIGHT);
     context.fill();
 
+    // ===
     // Draw the name of the image onto the canvas
-    context.font = `bold ${HEIGHT_OF_IMAGE_NAME - 7}px serif`;
+    context.font = `bold ${EXTENDED_IMAGE_HEADER_FONT_HEIGHT}px serif`;
     context.fillStyle = "#ffffff";
     context.fillText(ImageUtils.getUniqueRemoteImageName(imageProperty), 10, 40);
+
+    // ===
+    // Draw the icon for the bounding boxes that detected homogenous plants
+    drawImageHeaderIconWithColor(context, imageSprite, boxColors.homogenousBoxHexColor, false);
+
+    // Draw the icon for the bounding boxes that detected invasive plants
+    drawImageHeaderIconWithColor(context, imageSprite, boxColors.invasiveBoxHexColor, true);
   };
 
-  useEffect(
-    () => {
-      if (!imageUrl) {
-        return;
-      }
+  const drawImageHeaderIconWithColor = (
+    context: CanvasRenderingContext2D,
+    imageSprite: HTMLImageElement,
+    color: string,
+    isInvasive: boolean,
+  ): void => {
+    const isPresent = imageProperty.logs.some((model) =>
+      model.log.boundingBoxes.some((box) => box.isHomogenous === isInvasive),
+    );
 
-      if (!context || !mapSprite) {
-        // If the context and the sprite are not defined, then create them
-        initCanvas();
-        return;
-      }
+    if (!isPresent) {
+      return;
+    }
 
-      // Restore the canvas
-      restoreCanvas(context, mapSprite);
+    const withPositionOfHomogenousBox = (imageSprite.naturalWidth / 7) * 6;
+    const withPositionOfInvasiveBox = (imageSprite.naturalWidth / 7) * 5;
 
-      // If it was requested that the bounding boxes be hidden, then do not render them on the image.
-      if (imageProperty.image.areBoundingBoxesHidden) {
-        return;
-      }
+    // Draw a circle for the icon
+    context.beginPath();
+    context.fillStyle = color;
+    const circleRadius = EXTENDED_IMAGE_HEIGHT / 4;
 
-      // Draw the name of the image onto the canvas
-      drawImageName();
+    if (isInvasive) {
+      context.arc(withPositionOfInvasiveBox, 26, circleRadius, 0, 2 * Math.PI);
+    } else {
+      context.arc(withPositionOfHomogenousBox, 26, circleRadius, 0, 2 * Math.PI);
+    }
 
-      // Apply animation to the canvas
-      drawBoundingBoxes();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [imageProperty, mapSprite, context, canvas, imageUrl],
-  );
+    context.stroke();
+    context.fill();
+
+    //  Draw the name of the icon with the same color as the param
+    context.font = `bold ${EXTENDED_IMAGE_HEADER_FONT_HEIGHT}px serif`;
+    context.fillStyle = color;
+
+    if (isInvasive) {
+      context.fillText("1db", withPositionOfInvasiveBox + 40, 40);
+    } else {
+      context.fillText("homogen", withPositionOfHomogenousBox + 40, 40);
+    }
+  };
 
   /**
    * Displays the information of the hovered over bounding box.

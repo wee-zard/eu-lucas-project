@@ -6,6 +6,10 @@ interface BoundingBoxActionSetterType {
     type: BoundingBoxConsts.SET_BOUNDING_BOX_DIALOG_OPEN;
     payload: BoundingBoxReducerStateType["isBoundingBoxDialogOpen"];
   };
+  boxColors: {
+    type: BoundingBoxConsts.SET_BOUNDING_BOX_COLORS;
+    payload: BoundingBoxReducerStateType["boxColors"];
+  };
 }
 
 export default BoundingBoxActionSetterType;
