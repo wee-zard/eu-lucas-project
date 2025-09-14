@@ -232,7 +232,7 @@ const ImageCanvas = ({
     context.fill();
 
     // Draw the name of the image onto the canvas
-    context.font = "bold 48px serif";
+    context.font = `bold ${HEIGHT_OF_IMAGE_NAME - 7}px serif`;
     context.fillStyle = "#ffffff";
     context.fillText(ImageUtils.getUniqueRemoteImageName(imageProperty), 10, 40);
   };
