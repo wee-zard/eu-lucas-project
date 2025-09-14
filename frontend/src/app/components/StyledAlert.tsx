@@ -1,4 +1,4 @@
-import { AlertTitle } from "@mui/material";
+import { AlertTitle, styled } from "@mui/material";
 import Alert, { AlertColor } from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
@@ -12,12 +12,16 @@ type Props = {
 const StyledAlert = ({ variant, severity, message, alertTitle }: Props) => {
   return (
     <Stack sx={{ width: "100%" }} spacing={2}>
-      <Alert variant={variant} severity={severity}>
+      <StyledAlertComponent variant={variant} severity={severity}>
         {alertTitle && <AlertTitle sx={{ fontWeight: "bold" }}>{alertTitle}</AlertTitle>}
         {message}
-      </Alert>
+      </StyledAlertComponent>
     </Stack>
   );
 };
 
 export default StyledAlert;
+
+const StyledAlertComponent = styled(Alert)({
+  borderRadius: 8,
+});

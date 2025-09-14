@@ -54,7 +54,7 @@ export const StyledDialog = styled(Dialog)<{
   styledmaxwidth?: string;
   styledmaxheight?: string;
 }>((props) => ({
-  "& .MuiPaper-root": {
+  "& .MuiDialog-paper": {
     width: "100%",
     height: props.$isHeightDynamic ? undefined : "100%",
     maxWidth: props?.styledmaxwidth ?? "80%",

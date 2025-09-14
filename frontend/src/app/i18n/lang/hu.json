@@ -286,6 +286,7 @@
     },
     "bounding-box": {
       "dialog-title": "Befoglaló téglalapok",
+      "canvasTooltipInfoAlert": "Amennyiben az egeret egy befoglaló téglalap fölő mozgatod, akkor az adott befoglaló téglalaphoz tartozó adatok megjelenítősre kerülnek egy felugró ablakban",
       "tabs": {
         "tab-1": "Logok",
         "tab-2": "Szűrés",
