@@ -49,7 +49,7 @@ const BoundingBoxDialogActions = ({ handleClose }: Props) => {
         imageProperties.image.id === selectedImage.id
           ? {
               ...imageProperties,
-              boundingBoxes: selectedLogs,
+              logs: selectedLogs,
             }
           : imageProperties,
       ),

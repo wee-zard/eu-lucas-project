@@ -365,4 +365,8 @@ export enum ProcedureLogProperties {
   User = "screens.bounding-box.procedureLogMenu.user",
   Box = "screens.bounding-box.procedureLogMenu.box",
   CreationDate = "screens.bounding-box.procedureLogMenu.creationDate",
+  PlantName = "screens.bounding-box.procedureLogMenu.plant",
+  PlantFamily = "screens.bounding-box.procedureLogMenu.plantFamily",
+  IsInvasive = "screens.bounding-box.procedureLogMenu.isInvasive",
+  BoundingBox = "screens.bounding-box.procedureLogMenu.boundingBox",
 }

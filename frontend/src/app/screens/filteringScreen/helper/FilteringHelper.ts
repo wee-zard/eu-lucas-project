@@ -1,4 +1,3 @@
-import { FILTERING_PAGE_SIZE } from "@global/globalConsts";
 import PageableProperties from "@model/PageableProperties";
 import SelectedImagesModel, { QueriedImageType } from "@model/SelectedImagesModel";
 
@@ -11,7 +10,7 @@ export const defaultSelectedImagesModel: SelectedImagesModel = {
  */
 export const defaultPaginationModel: PageableProperties = {
   pageNo: 0,
-  pageSize: FILTERING_PAGE_SIZE,
+  pageSize: 9,
 };
 
 export const defaultQueriedImageModel = (): QueriedImageType => ({

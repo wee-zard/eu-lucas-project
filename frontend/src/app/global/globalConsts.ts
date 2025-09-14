@@ -1,9 +1,5 @@
 import { ColorPairType } from "@model/types/ColorPairType";
 
-export const FILTERING_PAGE_SIZE = 9;
-
-export const PROCEDURE_LOG_PAGE_SIZE = 10;
-
 export const emptyCharacterPlaceholder = "-";
 
 export const distinctColors: ColorPairType[] = [

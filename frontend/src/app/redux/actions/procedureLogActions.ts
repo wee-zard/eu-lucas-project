@@ -1,14 +1,6 @@
-import ProcedureLogDto from "@model/dto/ProcedureLogDto";
 import SelectedProcedureLogModel from "@model/models/SelectedProcedureLogModel";
 import PageableProperties from "@model/PageableProperties";
 import { ProcedureLogConsts } from "@redux/consts/procedureLogConsts";
-
-export const setProcedureLogListOfProcedureLogs = (data: ProcedureLogDto[]) => {
-  return {
-    type: ProcedureLogConsts.SET_PROCEDURE_LOGS,
-    payload: data,
-  };
-};
 
 export const setProcedureLogSelectedProcedureLogs = (data: SelectedProcedureLogModel[]) => {
   return {
@@ -20,13 +12,6 @@ export const setProcedureLogSelectedProcedureLogs = (data: SelectedProcedureLogM
 export const setProcedureLogPageableProperties = (data: PageableProperties) => {
   return {
     type: ProcedureLogConsts.SET_PROCEDURE_LOG_PAGEABLE_PROPERTIEs,
-    payload: data,
-  };
-};
-
-export const setProcedureLogIsLogButtonDisabled = (data: boolean) => {
-  return {
-    type: ProcedureLogConsts.SET_PROCEDURE_LOG_IS_LOG_BUTTON_DISABLED,
     payload: data,
   };
 };

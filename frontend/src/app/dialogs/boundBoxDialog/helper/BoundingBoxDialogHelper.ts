@@ -1,9 +1,8 @@
-import { PROCEDURE_LOG_PAGE_SIZE } from "@global/globalConsts";
 import PageableProperties from "@model/PageableProperties";
 
-export const defaultBoundingBoxPageableProperties: PageableProperties = {
+export const boundingBoxPageable: PageableProperties = {
   pageNo: 0,
-  pageSize: PROCEDURE_LOG_PAGE_SIZE,
+  pageSize: 10,
   field: "createdAt",
   sort: "desc",
 };

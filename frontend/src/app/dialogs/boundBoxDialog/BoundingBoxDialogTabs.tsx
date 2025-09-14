@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { BoundingBoxDialogTimeline } from "./BoundingBoxDialogTimeline";
+import { BoundingBoxDialogTimeline } from "./timeline/BoundingBoxDialogTimeline";
 import styled from "@emotion/styled";
 import i18n from "@i18n/i18nHandler";
 import { StyledScrollBarHolder } from "@global/globalStyles";

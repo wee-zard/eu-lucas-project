@@ -294,11 +294,14 @@
         "plants": "Növények",
         "user": "Létrehozó",
         "box": "Befoglaló téglalapok",
-        "creationDate": "Létrehozás ideje"
+        "creationDate": "Létrehozás ideje",
+        "plant": "Növény neve",
+        "plantFamily": "Növényfajta",
+        "isInvasive": "Invazív-e?",
+        "boundingBox": "Befoglaló téglalap két pontja"
       },
       "timelineMenu": {
         "noProcedureLogFetched": "Eljárás logok nem találhatóak az adott képhez!",
-        "loadMoreLogButton": "További logok betöltése",
         "logTitle": "{{filename}} #{{logId}}"
       },
       "notifications": {

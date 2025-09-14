@@ -5,6 +5,18 @@ import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 import getRandomIdentification from "@helper/randomGeneratorHelper";
 import { getImageCanvasId, ImageCanvasLoadingStates } from "./helper/imageCanvasHelper";
 import { downloadImagesByUrlCommand } from "@api/command/imageFetcherCommands";
+import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
+import BoundingBoxDto from "@model/dto/BoundingBoxDto";
+import ProcedureLogDto from "@model/dto/ProcedureLogDto";
+import BoundingBoxDialogLogDetails from "@dialogs/boundBoxDialog/timeline/BoundingBoxDialogLogDetails";
+
+type MouseHoverTooltipType = {
+  isHovering: boolean;
+  boundingBox?: BoundingBoxDto;
+  log?: ProcedureLogDto;
+  position: { x: number; y: number };
+};
 
 type Props = {
   imageProperty: QueriedImagePropertyType;
@@ -24,6 +36,12 @@ const ImageCanvas = ({
   const [canvas, setCanvas] = useState<HTMLCanvasElement>();
   const [isLoaded, setLoaded] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
+  const [hoverInfo, setHoverInfo] = useState<MouseHoverTooltipType>({
+    isHovering: false,
+    boundingBox: undefined,
+    log: undefined,
+    position: { x: 0, y: 0 },
+  });
   const imageCanvasId = getImageCanvasId(imageProperty, randomUniqueId);
   const label = isLoaded ? ImageCanvasLoadingStates.LOADED : ImageCanvasLoadingStates.NOT_LOADED;
 
@@ -51,7 +69,7 @@ const ImageCanvas = ({
     } else {
       setImageUrl(ImageUtils.initRemoteImageUrlPath(imageProperty.image));
     }
-  }, []);
+  }, [imageProperty, isSrcBase64Only]);
 
   /**
    * Initializes the canvas, and sets some basic properties of the canvas
@@ -62,14 +80,14 @@ const ImageCanvas = ({
       return;
     }
 
-    let cv: any = document.getElementById(imageCanvasId);
+    let canvas = document.getElementById(imageCanvasId) as HTMLCanvasElement | null;
 
-    if (!cv) {
+    if (!canvas) {
       return;
     }
 
-    setCanvas(cv);
-    let ctx: CanvasRenderingContext2D = cv.getContext("2d");
+    setCanvas(canvas);
+    let ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
 
     if (!ctx) {
       return;
@@ -77,7 +95,9 @@ const ImageCanvas = ({
 
     // Clear Canvas
     ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, cv.width, cv.height);
+
+    // Initial the canvas's width and height
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     /**
      * TODO: fetch the images from the backend-server/locally-running-image-server with a GET request method.
@@ -104,7 +124,7 @@ const ImageCanvas = ({
     });
   };
 
-  const applyBoundingBoxes = () => {
+  const applyBoundingBoxes = (): void => {
     if (!context || !canvas) {
       return;
     }
@@ -145,9 +165,16 @@ const ImageCanvas = ({
 
       const widthRatio = canvas.clientWidth / canvas.width;
       const heightRatio = canvas.clientHeight / canvas.height;
+      let hoveredOverBoundingBox: BoundingBoxDto | undefined;
+      let hoveredOverLog: ProcedureLogDto | undefined;
 
       imageProperty.logs.forEach((logModel) => {
         logModel.log.boundingBoxes.forEach((box) => {
+          // If a bounding box has been selected, then do not check the other boxes.
+          if (hoveredOverBoundingBox) {
+            return;
+          }
+
           const modifiedMinX = box.minCoordinateX * widthRatio;
           const modifiedMaxX = box.maxCoordinateX * widthRatio;
           const modifiedMinY = box.minCoordinateY * heightRatio;
@@ -158,12 +185,26 @@ const ImageCanvas = ({
             modifiedMinY <= event.offsetY &&
             event.offsetY <= modifiedMaxY;
 
-          if (isMouseInsideBox) {
-            // TODO: Implement some functionality when the mouse is hovered inside the box.
-            console.log("Log of: ", box.id, "Box of:", box, "is entered!");
+          // If the mouse is not inside the box, then ignore this item.
+          if (!isMouseInsideBox) {
+            return;
           }
+
+          hoveredOverBoundingBox = box;
+          hoveredOverLog = logModel.log;
         });
       });
+
+      if (hoveredOverBoundingBox && hoveredOverLog) {
+        setHoverInfo({
+          isHovering: true,
+          boundingBox: hoveredOverBoundingBox,
+          log: hoveredOverLog,
+          position: { x: event.clientX, y: event.clientY },
+        });
+      } else {
+        setHoverInfo((prev) => ({ ...prev, isHovering: false }));
+      }
     });
   };
 
@@ -194,51 +235,57 @@ const ImageCanvas = ({
     [imageProperty, mapSprite, context, canvas, imageUrl],
   );
 
-  /*
-  useEffect(() => {
-    let cv: any = document.getElementById(imageCanvasId);
-
-    if (!cv) {
-      return;
+  /**
+   * Displays the information of the hovered over bounding box.
+   *
+   * @returns Returns the built tooltip that should be displayed when the
+   * users enters into a bounding box.
+   */
+  const renderBoundingBoxTooltip = (): JSX.Element => {
+    if (!hoverInfo.boundingBox || !hoverInfo.log) {
+      return <></>;
     }
 
-    let ctx: CanvasRenderingContext2D = cv.getContext("2d");
+    return (
+      <div>
+        <BoundingBoxDialogLogDetails log={hoverInfo.log} box={hoverInfo.boundingBox} />
+      </div>
+    );
+  };
 
-    if (!ctx) {
-      return;
-    }
-
-    // Set the height and width of the canvas
-    ctx.canvas.width = 500;
-    ctx.canvas.height = 500;
-
-    // Clear Canvas
-    ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, 500, 500);
-
-    let obj = new Path2D();
-    obj.rect(20, 20, 50, 50);
-    ctx.fillStyle = "red";
-    ctx.fill(obj);
-
-    // Listen for mouse moves
-    cv.addEventListener("mousemove", function (event: MouseEvent) {
-      // Check whether point is inside circle
-      if (ctx.isPointInPath(obj, event.offsetX, event.offsetY)) {
-        ctx.fillStyle = "green";
-      } else {
-        ctx.fillStyle = "red";
-      }
-
-      // Draw circle
-      ctx.clearRect(0, 0, cv.width, cv.height);
-      ctx.fill(obj);
-    });
-  }, []);
-  */
-
-  // TODO: Az 'aria-label' attribútumban fogjuk átadni, hogy a kép betöltésre került-e a canvas-re
-  return <StyledCanvas $hidden={isHidden} id={imageCanvasId} aria-label={label} />;
+  return (
+    <Box sx={{ position: "relative", display: "inline-block" }}>
+      <Tooltip
+        title={renderBoundingBoxTooltip()}
+        open={hoverInfo.isHovering}
+        placement="top"
+        slotProps={{
+          popper: {
+            anchorEl: {
+              getBoundingClientRect: () => ({
+                width: 0,
+                height: 0,
+                top: hoverInfo.position.y,
+                left: hoverInfo.position.x,
+                right: hoverInfo.position.x,
+                bottom: hoverInfo.position.y,
+                ...hoverInfo.position,
+                toJSON: () => "",
+              }),
+            },
+          },
+        }}
+      >
+        <span></span>
+      </Tooltip>
+      <StyledCanvas
+        $hidden={isHidden}
+        id={imageCanvasId}
+        aria-label={label}
+        onMouseLeave={() => setHoverInfo((prev) => ({ ...prev, isHovering: false }))}
+      />
+    </Box>
+  );
 };
 
 export default ImageCanvas;

@@ -2,12 +2,13 @@ import { BoundingBoxDialogImage } from "./BoundingBoxDialogImage";
 import styled from "@emotion/styled";
 import BoundingBoxDialogTabs from "./BoundingBoxDialogTabs";
 import { StyledDialogContent } from "@dialogs/filteringDialog/FilteringDialog";
+import getRandomIdentification from "@helper/randomGeneratorHelper";
 
 const BoundingBoxDialogContent = () => {
   return (
     <StyledDialogContent>
       <StyledBoundingBoxDialogHolder>
-        <BoundingBoxDialogImage />
+        <BoundingBoxDialogImage uniqueId={getRandomIdentification()} />
         <BoundingBoxDialogTabs />
       </StyledBoundingBoxDialogHolder>
     </StyledDialogContent>

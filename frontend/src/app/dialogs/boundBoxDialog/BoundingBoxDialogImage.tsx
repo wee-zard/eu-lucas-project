@@ -5,8 +5,12 @@ import { useSelector } from "react-redux";
 import { selectSelectedImage } from "@redux/selectors/imageSelector";
 import ImageCanvas from "@cards/imageCanvas/ImageCanvas";
 
-export const BoundingBoxDialogImage = () => {
-  const selectedListOfProcedureLogs = useSelector(selectSelectedListOfProcedureLogs);
+type Props = {
+  uniqueId: string;
+};
+
+export const BoundingBoxDialogImage = ({ uniqueId }: Props) => {
+  const selectedProcedureLogs = useSelector(selectSelectedListOfProcedureLogs);
   const selectedImage = useSelector(selectSelectedImage);
 
   return (
@@ -15,8 +19,9 @@ export const BoundingBoxDialogImage = () => {
         <ImageCanvas
           imageProperty={{
             image: selectedImage,
-            logs: selectedListOfProcedureLogs,
+            logs: selectedProcedureLogs,
           }}
+          randomUniqueId={uniqueId}
         />
       </StyledBoundingBoxDialogImageHolder>
     )

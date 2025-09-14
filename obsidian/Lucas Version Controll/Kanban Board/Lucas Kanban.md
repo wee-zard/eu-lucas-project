@@ -180,18 +180,18 @@ kanban-plugin: board
 
 ## 🔴Bounding Box Page Backlog
 
+- [ ] [[189 - A szín a logok mellett lévő körökben azon szín legyen, mint a befoglaló téglalap színe a képen]] #🔴ToDo  #BoundingBox-Page
+- [ ] [[192 - A befoglaló téglalapok mellett több minden jelenjen meg a képeken]] #🔴ToDo  #BoundingBox-Page
+- [ ] [[190 - A kép neve kerüljön megjelenítésre a képen]] #🔴ToDo  #BoundingBox-Page
 - [ ] [[182 - Eljárás logok szűrésének a megvalósítása]] #🔴ToDo  #BoundingBox-Page
-- [ ] [[183 - Három log kiválasztása esetén, egy szín kétszer szerepel a befoglaló téglalapoknál]] #mission #BoundingBox-Page
-- [ ] [[184 - Lehessen dinamikusan módosítani a befoglaló téglalapokhoz tartozó keretek színét]] #BoundingBox-Page
-- [ ] [[188 - A befoglaló téglalap fölé véve az egeret, egy tooltip popup jelenjen meg a növény adataival]] #mission #BoundingBox-Page
-- [ ] [[189 - A szín a logok mellett lévő körökben azon szín legyen, mint a befoglaló téglalap színe a képen]] #mission #BoundingBox-Page
-- [ ] [[190 - A kép neve kerüljön megjelenítésre a képen]] #mission #BoundingBox-Page
-- [ ] [[191 - A Logok kiválasztása után, a befoglaló téglalapok maradjanak a képen a dialogós ablak bezárása után]] #mission #BoundingBox-Page
-- [ ] [[192 - A befoglaló téglalapok mellett több minden jelenjen meg a képeken]] #mission #BoundingBox-Page
+- [ ] [[183 - Három log kiválasztása esetén, egy szín kétszer szerepel a befoglaló téglalapoknál]] #🔴ToDo  #BoundingBox-Page
+- [ ] [[184 - Lehessen dinamikusan módosítani a befoglaló téglalapokhoz tartozó keretek színét]] #BoundingBox-Page #🔴ToDo
 - [ ] [[004 - @deprecated Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]] #deprecated #BoundingBox-Page
 - [x] [[173 - Logok sorbarendezése a létrehozásuk ideje alapján, és a legfrissebb legyen a legelső]] #🟢Done   #BoundingBox-Page
 - [x] [[003 - Befoglaló téglalapok megjelenítése a képeken]] #🟢Done  #BoundingBox-Page
 - [x] [[181 - A log-ok nevei legyen a feltöltött xml fájl neve, és egy id]] #🟢Done  #BoundingBox-Page
+- [x] [[188 - A befoglaló téglalap fölé véve az egeret, egy tooltip popup jelenjen meg a növény adataival]] #🟢Done  #BoundingBox-Page
+- [x] [[191 - A Logok kiválasztása után, a befoglaló téglalapok maradjanak a képen a dialogós ablak bezárása után]] #🟢Done  #BoundingBox-Page
 
 
 ## 🔴Folder Page Backlog
