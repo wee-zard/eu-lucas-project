@@ -4,7 +4,7 @@ import AuthenticatedUserResponse from "@model/response/AuthenticatedUserResponse
 import { UserConsts } from "@redux/consts/userConsts";
 import { Dispatch } from "@reduxjs/toolkit";
 
-export const setListOfUsers = (data: UserDto[]) => {
+export const setListOfUsers = (data?: UserDto[]) => {
   return {
     type: UserConsts.SET_LIST_OF_USERS,
     payload: data,
@@ -26,8 +26,10 @@ export const setAuthenticatedUser = (data: AuthenticatedUserResponse) => {
 };
 
 export const requestListOfUsers = (dispatch: Dispatch) => {
+  dispatch(setListOfUsers(undefined));
   dispatch(setIsUserListLoading(true));
   getUsersCommand()
     .then((res) => dispatch(setListOfUsers(res)))
+    .catch(() => dispatch(setListOfUsers([])))
     .finally(() => dispatch(setIsUserListLoading(false)));
 };

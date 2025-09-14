@@ -29,5 +29,5 @@ const StyledGridOverlay = styled("div")<{ $hidden?: boolean }>((props) => ({
   alignItems: "center",
   justifyContent: "center",
   height: "100%",
-  backgroundColor: props.$hidden ? undefined : "rgba(18, 18, 18, 0.9)",
+  backgroundColor: props.$hidden ? undefined : "rgba(18, 18, 18, 0.17)",
 }));

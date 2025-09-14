@@ -12,7 +12,6 @@ type CommonButtonType = {
   variant?: ButtonVariantType;
   color?: ButtonColorType;
   width?: string;
-  isHidden?: boolean;
 };
 
 type Props = {
@@ -40,6 +39,9 @@ const TemplateDialog = ({
   onClose,
   onSubmit,
 }: Props) => {
+  const cancelButtonKeys = Object.keys(cancelButton).length > 0;
+  const submitButtonKeys = Object.keys(submitButton).length > 0;
+
   return (
     <StyledDialog
       fullWidth
@@ -51,29 +53,28 @@ const TemplateDialog = ({
     >
       {dialogTitle ? <StyledDialogTitle>{dialogTitle}</StyledDialogTitle> : null}
       <StyledDialogContent>{content}</StyledDialogContent>
-      {!cancelButton?.isHidden ||
-        (!submitButton?.isHidden && (
-          <DialogActions>
-            {!cancelButton?.isHidden && (
-              <StyledButton
-                buttonText={cancelButton.text ?? i18n.t("components.button.cancel")}
-                buttonVariant={cancelButton.variant ?? "outlined"}
-                buttonColor={cancelButton.color ?? "error"}
-                applyStyle={{ buttonWidth: cancelButton.width }}
-                onClick={onClose}
-              />
-            )}
-            {!submitButton?.isHidden && (
-              <StyledButton
-                buttonText={submitButton.text ?? i18n.t("components.button.delete")}
-                buttonVariant={submitButton.variant ?? "outlined"}
-                buttonColor={submitButton.color ?? "success"}
-                applyStyle={{ buttonWidth: submitButton.width }}
-                onClick={onSubmit}
-              />
-            )}
-          </DialogActions>
-        ))}
+      {cancelButtonKeys || submitButtonKeys ? (
+        <DialogActions>
+          {cancelButtonKeys && (
+            <StyledButton
+              buttonText={cancelButton.text ?? i18n.t("components.button.cancel")}
+              buttonVariant={cancelButton.variant ?? "outlined"}
+              buttonColor={cancelButton.color ?? "error"}
+              applyStyle={{ buttonWidth: cancelButton.width }}
+              onClick={onClose}
+            />
+          )}
+          {submitButtonKeys && (
+            <StyledButton
+              buttonText={submitButton.text ?? i18n.t("components.button.delete")}
+              buttonVariant={submitButton.variant ?? "outlined"}
+              buttonColor={submitButton.color ?? "success"}
+              applyStyle={{ buttonWidth: submitButton.width }}
+              onClick={onSubmit}
+            />
+          )}
+        </DialogActions>
+      ) : null}
     </StyledDialog>
   );
 };

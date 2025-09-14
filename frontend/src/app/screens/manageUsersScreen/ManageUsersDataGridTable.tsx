@@ -11,6 +11,8 @@ import { styled } from "@mui/material";
 import { GenericRowType } from "@model/types/GenericRowType";
 import UserDto from "@model/dto/UserDto";
 import { manageUsersDataGridColDef } from "./config/ManageUsersDataGridColDef";
+import StyledCircularProgressOverlay from "@components/progressbar/StyledCircularProgressOverlay";
+import i18n from "@i18n/i18nHandler";
 
 const ManageUsersDataGridTable = () => {
   const [isRequested, setRequested] = useState<boolean>(false);
@@ -28,8 +30,8 @@ const ManageUsersDataGridTable = () => {
 
   const paginationModel = { page: 0, pageSize: 7 };
 
-  const getDataGridRows = (): GenericRowType<UserDto>[] => {
-    return listOfUsers.map((user) => ({
+  const getDataGridRows = (): GenericRowType<UserDto>[] | undefined => {
+    return listOfUsers?.map((user) => ({
       ...user,
       profilePicture: FileUtils.base64ToResourceUrl(user.profilePicture),
       setting: false,
@@ -37,10 +39,19 @@ const ManageUsersDataGridTable = () => {
   };
 
   return (
+    // TODO: Replace it with the following component: "StyledPaginatedDataGridTable"
     <Paper sx={{ height: 640, width: "100%" }}>
       <StyledDataGrid
         rows={getDataGridRows()}
         columns={manageUsersDataGridColDef}
+        loading={!listOfUsers}
+        slots={{
+          loadingOverlay: () => (
+            <StyledCircularProgressOverlay
+              loadingText={i18n.t("components.dataGridTable.loadingText")}
+            />
+          ),
+        }}
         initialState={{ pagination: { paginationModel } }}
         rowHeight={dataGridUserTableRowHeight}
         getRowClassName={(params) =>

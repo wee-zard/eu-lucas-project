@@ -79,6 +79,9 @@
         "info": "Infó",
         "error": "Hiba"
       }
+    },
+    "dataGridTable": {
+      "loadingText": "Kérjük várjon, amíg az adatok lekérésre kerülnek…"
     }
   },
   "guards": {

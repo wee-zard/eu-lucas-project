@@ -13,9 +13,10 @@ import { GenericRowType } from "@model/types/GenericRowType";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import StyledCircularProgressOverlay from "./progressbar/StyledCircularProgressOverlay";
+import i18n from "@i18n/i18nHandler";
+import { getEmptyPageableResponse } from "@global/globalConsts";
 
 type Props<T> = {
   cacheKey: LocalStorageKeys;
@@ -36,14 +37,13 @@ function StyledPaginatedDataGridTable<T>({
 }: Props<T>) {
   const paginationModel = { page: 0, pageSize: 5 };
   const paginationOptions: number[] = [5, 10, 25, 50, 100];
-  const [pageable, setPageable] = useState<PageableResponse<T>>();
-  const dispatch = useDispatch();
+  const [response, setResponse] = useState<PageableResponse<T>>();
 
   /**
    * Fetch the rows for the data grid table.
    */
   const fetchRows = () => {
-    dispatch(setBackgroundBackdropOpen(true));
+    setResponse(undefined);
     commandHandler<PageableResponse<T>>({
       type: RequestCommandTypes.GET,
       server: ServersToConnectTo.Backend,
@@ -54,8 +54,15 @@ function StyledPaginatedDataGridTable<T>({
         pageableProperties: helper.getPageableFromLocalStorage(),
       },
     })
-      .then((res) => setPageable(res))
-      .finally(() => dispatch(setBackgroundBackdropOpen(false)));
+      .then(setResponse)
+      .catch(() =>
+        setResponse(
+          getEmptyPageableResponse({
+            pageNo: paginationModel.page,
+            pageSize: paginationModel.pageSize,
+          }),
+        ),
+      );
   };
 
   /**
@@ -72,8 +79,16 @@ function StyledPaginatedDataGridTable<T>({
   return (
     <Paper sx={{ height: helper.getDataGridTableHeight(rowHeight), width: "100%" }}>
       <StyledDataGrid
-        rows={getDataGridRows(pageable)}
+        rows={getDataGridRows(response)}
         columns={colDef}
+        loading={!response}
+        slots={{
+          loadingOverlay: () => (
+            <StyledCircularProgressOverlay
+              loadingText={i18n.t("components.dataGridTable.loadingText")}
+            />
+          ),
+        }}
         initialState={{ pagination: { paginationModel } }}
         rowHeight={rowHeight}
         autoPageSize={false}
@@ -86,11 +101,11 @@ function StyledPaginatedDataGridTable<T>({
         paginationMode="server"
         sortingMode="server"
         paginationModel={{
-          page: pageable?.page ?? paginationModel.page,
-          pageSize: pageable?.size ?? paginationModel.pageSize,
+          page: response?.page ?? paginationModel.page,
+          pageSize: response?.size ?? paginationModel.pageSize,
         }}
-        paginationMeta={{ hasNextPage: pageable && pageable.page < pageable.totalPages - 1 }}
-        rowCount={(pageable && pageable.totalElements) ?? 0}
+        paginationMeta={{ hasNextPage: response && response.page < response.totalPages - 1 }}
+        rowCount={(response && response.totalElements) ?? 0}
       />
     </Paper>
   );

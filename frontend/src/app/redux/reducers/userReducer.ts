@@ -5,13 +5,13 @@ import { UserConsts } from "@redux/consts/userConsts";
 
 interface UserReducerStateType {
   isUserListLoading: boolean;
-  listOfUsers: UserDto[];
+  listOfUsers?: UserDto[];
   authenticatedUser: AuthenticatedUserResponse | undefined;
 }
 
 const initialState: UserReducerStateType = {
   isUserListLoading: false,
-  listOfUsers: [],
+  listOfUsers: undefined,
   authenticatedUser: undefined,
 };
 

@@ -12,7 +12,7 @@ import { getProcedureLogByImageId } from "@api/command/procedureLogCommands";
 import { useDispatch } from "react-redux";
 import { setProcedureLogSelectedProcedureLogs } from "@redux/actions/procedureLogActions";
 import ProcedureLogDto from "@model/dto/ProcedureLogDto";
-import { distinctColors } from "@global/globalConsts";
+import { distinctColors, getEmptyPageableResponse } from "@global/globalConsts";
 import SelectedProcedureLogModel from "@model/models/SelectedProcedureLogModel";
 import { openSnackbar } from "@helper/notificationUtil";
 import i18n from "@i18n/i18nHandler";
@@ -37,7 +37,7 @@ export const BoundingBoxDialogTimeline = () => {
   const dispatch = useDispatch();
 
   const handleEmptyInitOfResponse = () => {
-    setResponse(new PageableResponse([], 0, 0, pageable.pageSize, pageable.pageNo, true));
+    setResponse(getEmptyPageableResponse(pageable));
   };
 
   /**

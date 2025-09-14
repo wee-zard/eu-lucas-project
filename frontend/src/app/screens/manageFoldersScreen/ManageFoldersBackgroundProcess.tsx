@@ -108,9 +108,9 @@ const ManageFoldersBackgroundProcess = () => {
           clearFolderCommand(folder.id)
             .then(() => openSnackbar(SnackEnum.FOLDER_IS_CLEARED))
             .finally(() => {
+              dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
               // Reset the paginated table on the Manage Folders page.
               EventListenerUtil.dispatchEvent(EventListenerIdEnum.PAGINATED_TABLE);
-              dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
               handleConfirmationDialogReset();
               dispatch(setFolderSettingCellOption(undefined));
             });
@@ -130,9 +130,9 @@ const ManageFoldersBackgroundProcess = () => {
           deleteFolderCommand(folder.id)
             .then(() => openSnackbar(SnackEnum.FOLDER_IS_DELETED))
             .finally(() => {
+              dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
               // Reset the paginated table on the Manage Folders page.
               EventListenerUtil.dispatchEvent(EventListenerIdEnum.PAGINATED_TABLE);
-              dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
               handleConfirmationDialogReset();
               dispatch(setFolderSettingCellOption(undefined));
             });
