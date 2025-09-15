@@ -9,7 +9,7 @@ import {
   selectFilteringPageableResponse,
   selectImageStorage,
 } from "@redux/selectors/imageSelector";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
 import i18n from "@i18n/i18nHandler";
@@ -36,27 +36,41 @@ const FilteringImageAndPaginationCard = () => {
   const event: EventListenerType = {
     key: EventListenerIdEnum.FILTERING_IMAGE_TABLE,
   };
-  const response: PageableResponse<QueriedImagePropertyType> | undefined = pageableResponse
-    ? {
-        ...pageableResponse,
-        content: [
-          ...pageableResponse.content.map((imageDto) => ({
-            image: imageDto,
-            logs: [],
-          })),
-        ],
-      }
-    : undefined;
+  const response: PageableResponse<QueriedImagePropertyType> | undefined = useMemo(
+    () =>
+      pageableResponse
+        ? {
+            ...pageableResponse,
+            content: [
+              ...pageableResponse.content.map((imageDto) => ({
+                image: imageDto,
+                logs: [],
+              })),
+            ],
+          }
+        : undefined,
+    [pageableResponse],
+  );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (filterMenuAction !== MenuActions.SUBMIT) {
+      return;
+    }
+
+    setPageable(defaultPaginationModel);
+    setMenuAction(MenuActions.PAGINATION_CHANGE);
+    dispatch(setFilterMenuAction(undefined));
+  }, [filterMenuAction]);
 
   useEffect(() => {
     handleFetchOfImages();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [menuAction, pageable, filterMenuAction]);
+  }, [menuAction, pageable]);
 
   const handleFetchOfImages = async () => {
-    if (menuAction !== MenuActions.PAGINATION_CHANGE && filterMenuAction !== MenuActions.SUBMIT) {
+    if (menuAction !== MenuActions.PAGINATION_CHANGE) {
       return;
     }
 
@@ -67,7 +81,6 @@ const FilteringImageAndPaginationCard = () => {
       // Nothing interesting is here.
     } finally {
       setMenuAction(undefined);
-      dispatch(setFilterMenuAction(undefined));
       dispatch(setBackgroundBackdropOpen(false));
     }
   };
