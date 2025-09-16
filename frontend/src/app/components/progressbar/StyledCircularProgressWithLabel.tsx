@@ -5,14 +5,15 @@ import CircularProgress, { CircularProgressProps } from "@mui/material/CircularP
 import Typography from "@mui/material/Typography";
 
 type Props = {
+  size?: number;
   progress?: number;
   variant?: CircularProgressProps["variant"];
 };
 
-const CircularProgressWithLabel = ({ progress, variant = "indeterminate" }: Props) => {
+const CircularProgressWithLabel = ({ size = 64, progress, variant = "indeterminate" }: Props) => {
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress size={64} variant={variant} color="inherit" />
+      <CircularProgress size={size} variant={variant} color="inherit" />
       <Box
         sx={{
           position: "absolute",
