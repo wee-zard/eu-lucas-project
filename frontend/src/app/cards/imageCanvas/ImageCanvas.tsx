@@ -299,8 +299,8 @@ const ImageCanvas = ({
       return;
     }
 
-    const withPositionOfHomogenousBox = (imageSprite.naturalWidth / 7) * 6;
-    const withPositionOfInvasiveBox = (imageSprite.naturalWidth / 7) * 5;
+    const withPositionOfHomogenousBox = (imageSprite.naturalWidth / 4) * 3;
+    const withPositionOfInvasiveBox = imageSprite.naturalWidth / 2;
 
     // Draw a circle for the icon
     context.beginPath();

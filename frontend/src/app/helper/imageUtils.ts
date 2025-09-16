@@ -15,7 +15,7 @@ export default class ImageUtils {
   };
 
   public static getUniqueRemoteImageName = (imageProperty: QueriedImagePropertyType) => {
-    const imageName = ImageUtils.initRemoteImageUrlPath(imageProperty.image, true);
+    const imageName = ImageUtils.initRemoteImageUrlPath(imageProperty.image, true, true);
 
     if (!imageName) {
       return "image.jpg";
@@ -44,14 +44,19 @@ export default class ImageUtils {
    * @param obj The selected image object which will help to construct the url path to the remote image.
    * @returns Returns a url path to the image to download.
    */
-  public static initRemoteImageUrlPath = (obj?: ImageDto, forceRemoteUrlToUse?: boolean) => {
+  public static initRemoteImageUrlPath = (
+    obj?: ImageDto,
+    forceRemoteUrlToUse?: boolean,
+    areCoordinatesHidden?: boolean,
+  ) => {
     if (!obj) {
       return;
     }
 
-    const x = this.formatCoordinates(obj.coordinateX);
-    const y = this.formatCoordinates(obj.coordinateY);
-    const remoteUrl = `${this.remoteUrl}/${obj.year}/${obj.country}/${x}/${y}/${obj.imageName}`;
+    const coordinates = areCoordinatesHidden
+      ? ""
+      : `/${this.formatCoordinates(obj.coordinateX)}/${this.formatCoordinates(obj.coordinateY)}`;
+    const remoteUrl = `${this.remoteUrl}/${obj.year}/${obj.country}${coordinates}/${obj.imageName}`;
 
     return !forceRemoteUrlToUse ? (obj.base64Src ?? remoteUrl) : remoteUrl;
   };
