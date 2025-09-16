@@ -20,8 +20,6 @@ type Props = {
 };
 
 const FilteringInputField = ({ component, setComponent }: Props) => {
-  console.log("[FilteringInputField]:", component);
-
   const [queryComponent, setQueryComponent] = useState<QueryComponent>(component);
   const listOfCreationCountries = useSelector(selectListOfCreationCountry);
   const filterFormTemplate = useSelectedTabToFilterTemplate(component?.selectedFilterTab);

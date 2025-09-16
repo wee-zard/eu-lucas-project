@@ -368,7 +368,7 @@ const ImageCanvas = ({
           },
         }}
       >
-        <span></span>
+        <div></div>
       </Tooltip>
       <StyledCanvas
         $hidden={isHidden}
