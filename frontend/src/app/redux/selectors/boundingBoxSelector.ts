@@ -4,3 +4,6 @@ export const selectIsBoundingBoxDialogOpen = (state: RootState) =>
   state.boundingBoxStore.isBoundingBoxDialogOpen;
 
 export const selectBoundingBoxColors = (state: RootState) => state.boundingBoxStore.boxColors;
+
+export const selectBoundingBoxPercentageDisplay = (state: RootState) =>
+  state.boundingBoxStore.isPercentageDisplayed;

@@ -19,3 +19,12 @@ export const setBoundingBoxDialogColors = (
     payload: data,
   };
 };
+
+export const setBoundingBoxDialogPercentageDisplay = (
+  data: BoundingBoxReducerStateType["isPercentageDisplayed"],
+): BoundingBoxActionSetterType["isPercentageDisplayed"] => {
+  return {
+    type: BoundingBoxConsts.SET_BOUNDING_BOX_PERCENTAGE_DISPLAY,
+    payload: data,
+  };
+};

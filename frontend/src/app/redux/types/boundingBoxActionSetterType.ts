@@ -10,6 +10,10 @@ interface BoundingBoxActionSetterType {
     type: BoundingBoxConsts.SET_BOUNDING_BOX_COLORS;
     payload: BoundingBoxReducerStateType["boxColors"];
   };
+  isPercentageDisplayed: {
+    type: BoundingBoxConsts.SET_BOUNDING_BOX_PERCENTAGE_DISPLAY;
+    payload: BoundingBoxReducerStateType["isPercentageDisplayed"];
+  };
 }
 
 export default BoundingBoxActionSetterType;

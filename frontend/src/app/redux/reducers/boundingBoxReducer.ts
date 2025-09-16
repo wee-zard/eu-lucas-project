@@ -4,9 +4,7 @@ import { BoundingBoxConsts } from "@redux/consts/boundingBoxConsts";
 import BoundingBoxActionTypes from "@redux/types/boundingBoxActionTypes";
 import BoundingBoxReducerStateType from "@redux/types/boundingBoxReducerStateType";
 
-const storageItem = getGenericLocalStorageItem<BoundingBoxReducerStateType["boxColors"]>(
-  LocalStorageKeys.BoundingBoxColors,
-);
+const storageItem = getGenericLocalStorageItem<any>(LocalStorageKeys.BoundingBoxSettings);
 
 const initialState: BoundingBoxReducerStateType = {
   isBoundingBoxDialogOpen: false,
@@ -14,6 +12,7 @@ const initialState: BoundingBoxReducerStateType = {
     homogenousBoxHexColor: storageItem?.homogenousBoxHexColor ?? "#fabed4",
     invasiveBoxHexColor: storageItem?.invasiveBoxHexColor ?? "#e6194B",
   },
+  isPercentageDisplayed: storageItem?.isPercentageDisplayed ?? true,
 };
 
 const boundingBoxReducer = (
@@ -30,6 +29,11 @@ const boundingBoxReducer = (
       return {
         ...state,
         boxColors: action.payload,
+      };
+    case BoundingBoxConsts.SET_BOUNDING_BOX_PERCENTAGE_DISPLAY:
+      return {
+        ...state,
+        isPercentageDisplayed: action.payload,
       };
     default:
       return {

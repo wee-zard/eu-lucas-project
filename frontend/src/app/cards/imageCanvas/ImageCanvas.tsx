@@ -11,7 +11,10 @@ import BoundingBoxDto from "@model/dto/BoundingBoxDto";
 import ProcedureLogDto from "@model/dto/ProcedureLogDto";
 import BoundingBoxDialogLogDetails from "@dialogs/boundBoxDialog/timeline/BoundingBoxDialogLogDetails";
 import { useSelector } from "react-redux";
-import { selectBoundingBoxColors } from "@redux/selectors/boundingBoxSelector";
+import {
+  selectBoundingBoxColors,
+  selectBoundingBoxPercentageDisplay,
+} from "@redux/selectors/boundingBoxSelector";
 
 type MouseHoverTooltipType = {
   isHovering: boolean;
@@ -34,6 +37,7 @@ const ImageCanvas = ({
   isSrcBase64Only,
 }: Props) => {
   const boxColors = useSelector(selectBoundingBoxColors);
+  const isPercentageDisplayed = useSelector(selectBoundingBoxPercentageDisplay);
   const [mapSprite, setMapSprite] = useState<HTMLImageElement>();
   const [isLoaded, setLoaded] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
@@ -83,7 +87,7 @@ const ImageCanvas = ({
       initCanvas();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [imageProperty, mapSprite, imageUrl, boxColors],
+    [imageProperty, mapSprite, imageUrl, boxColors, isPercentageDisplayed],
   );
 
   /**
@@ -193,6 +197,33 @@ const ImageCanvas = ({
         }
 
         context.stroke(boundingBox);
+
+        // Display the % of probability of the box
+        if (!box.probabilityOfDetection || !isPercentageDisplayed) {
+          return;
+        }
+
+        const fontSize = (EXTENDED_IMAGE_HEADER_FONT_HEIGHT / 3) * 2;
+
+        // Add a filled rectangle to the top of the image
+        context.beginPath();
+        context.fillStyle = context.strokeStyle;
+        context.rect(
+          box.minCoordinateX - 3,
+          box.minCoordinateY + 25,
+          box.probabilityOfDetection > 10 ? 71 : 54,
+          fontSize,
+        );
+        context.fill();
+
+        // Draw % above the box.
+        context.font = `bold ${fontSize}px serif`;
+        context.fillStyle = "#ffffff";
+        context.fillText(
+          `${box.probabilityOfDetection}%`,
+          box.minCoordinateX + 2,
+          box.minCoordinateY + 51,
+        );
       });
     });
 

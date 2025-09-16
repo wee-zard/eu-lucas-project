@@ -4,6 +4,7 @@ interface BoundingBoxReducerStateType {
     homogenousBoxHexColor: string;
     invasiveBoxHexColor: string;
   };
+  isPercentageDisplayed: boolean;
 }
 
 export default BoundingBoxReducerStateType;
