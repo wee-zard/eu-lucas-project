@@ -1,4 +1,4 @@
-import { BoundingBoxDialogImage } from "./BoundingBoxDialogImage";
+import { BoundingBoxDialogImage } from "./canvas/BoundingBoxDialogImage";
 import styled from "@emotion/styled";
 import BoundingBoxDialogTabs from "./BoundingBoxDialogTabs";
 import { StyledDialogContent } from "@dialogs/filteringDialog/FilteringDialog";

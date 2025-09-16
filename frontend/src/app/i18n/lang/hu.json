@@ -302,7 +302,8 @@
         "plant": "Növény neve",
         "plantFamily": "Növényfajta",
         "isInvasive": "Invazív-e?",
-        "boundingBox": "Befoglaló téglalap két pontja"
+        "boundingBox": "Befoglaló téglalap két pontja",
+        "detectionProbability": "Találat valószínűsége"
       },
       "timelineMenu": {
         "noProcedureLogFetched": "Eljárás logok nem találhatóak az adott képhez!",

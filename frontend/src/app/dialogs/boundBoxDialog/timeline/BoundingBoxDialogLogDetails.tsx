@@ -21,6 +21,7 @@ const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
         ProcedureLogProperties.PlantFamily,
         ProcedureLogProperties.IsInvasive,
         ProcedureLogProperties.BoundingBox,
+        ProcedureLogProperties.DetectionProbability,
       ];
   const propertyMap = [
     ...commonProperties,
@@ -55,6 +56,8 @@ const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
         `(${box?.minCoordinateX}, ${box?.minCoordinateY}) (${box?.maxCoordinateX}, ${box?.maxCoordinateY})`,
       [ProcedureLogProperties.IsInvasive]: () =>
         `${box?.plant.isPlantInvasive ? i18n.t("components.button.yes") : i18n.t("components.button.no")}`,
+      [ProcedureLogProperties.DetectionProbability]: () =>
+        box?.probabilityOfDetection ? `${box?.probabilityOfDetection}%` : undefined,
     });
 
     return handler[properties]() ?? emptyCharacterPlaceholder;

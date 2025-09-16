@@ -370,4 +370,5 @@ export enum ProcedureLogProperties {
   PlantFamily = "screens.bounding-box.procedureLogMenu.plantFamily",
   IsInvasive = "screens.bounding-box.procedureLogMenu.isInvasive",
   BoundingBox = "screens.bounding-box.procedureLogMenu.boundingBox",
+  DetectionProbability = "screens.bounding-box.procedureLogMenu.detectionProbability",
 }
