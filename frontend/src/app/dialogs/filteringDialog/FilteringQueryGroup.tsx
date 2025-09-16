@@ -4,6 +4,7 @@ import { QueryGroup } from "@model/QueryBuilderModel";
 import { FilteringHelper } from "@helper/filteringHelper";
 import FilteringQueryBodyTemplate from "./FilteringQueryBodyTemplate";
 import { IdUtils } from "@helper/idUtils";
+import FilteringQueryGroupActionsWrapper from "./FilteringQueryGroupActionsWrapper";
 
 type Props = {
   id: number;
@@ -19,10 +20,12 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({ id }: Prop
         {states.filtered.listOfComponents.length > 0 ? (
           <FilteringQueryBodyTemplate queryMultiType={states.filtered} />
         ) : (
-          <StyledEmptyGroupHolder
-          /** TODO: Add a default error message here. */
-          // TODO: Can this component be reused in the Query Builder Model Group as well?
-          ></StyledEmptyGroupHolder>
+          <StyleQueryGroupActionWrapper>
+            <FilteringQueryGroupActionsWrapper
+              queryMultiType={states.filtered}
+              isDisplayed={true}
+            />
+          </StyleQueryGroupActionWrapper>
         )}
       </StyledQueryComponentHolder>
     );
@@ -45,6 +48,12 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({ id }: Prop
 
 export default FilteringQueryGroup;
 
+const StyleQueryGroupActionWrapper = styled.div({
+  width: "100%",
+  display: "flex",
+  flexDirection: "row-reverse",
+});
+
 export const StyledQueryHolder = styled.div<{}>((_) => ({
   width: "100%",
   display: "grid",
@@ -59,10 +68,4 @@ const StyledQueryComponentHolder = styled.div<{}>((props) => ({
   padding: "16px 0 16px 8px",
   boxShadow: "0px 2px 4px rgba(255, 255, 0, 0.17)",
   borderRadius: "12px",
-}));
-
-const StyledEmptyGroupHolder = styled.div<{}>((_) => ({
-  margin: "16px",
-  borderLeft: "2px solid orange",
-  padding: "8px",
 }));

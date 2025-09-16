@@ -13,8 +13,7 @@ import { ArrayUtils } from "@helper/arrayUtils";
 import { QueryTypes } from "@model/enum";
 import { TransitionGroup } from "react-transition-group";
 import Collapse from "@mui/material/Collapse";
-import FilteringQueryGroupActions from "./FilteringQueryGroupActions";
-import Divider from "@mui/material/Divider";
+import FilteringQueryGroupActionsWrapper from "./FilteringQueryGroupActionsWrapper";
 
 type Props = {
   queryMultiType: QueryMultiType;
@@ -35,17 +34,6 @@ const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
       ? (queryMultiType as QueryBuilderModel).listOfQueries
       : (queryMultiType as QueryGroup).listOfComponents;
 
-  const renderActionsNextToRow = (isActionsDisplayed: boolean) => {
-    return (
-      queryMultiType.queryType === QueryTypes.QUERY_GROUP && (
-        <div style={{ display: "flex", visibility: isActionsDisplayed ? "visible" : "hidden" }}>
-          <Divider orientation="vertical" variant="middle" flexItem />
-          <FilteringQueryGroupActions id={queryMultiType.id} />
-        </div>
-      )
-    );
-  };
-
   return (
     <StyledQueryHolder>
       <StyledComponentGridGap>
@@ -56,7 +44,10 @@ const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
               <StyledMaxWidthComponentHolder key={getListOfElements[0].id}>
                 {getFilteringComponent(getListOfElements[0].id)}
               </StyledMaxWidthComponentHolder>
-              {renderActionsNextToRow(true)}
+              <FilteringQueryGroupActionsWrapper
+                queryMultiType={queryMultiType}
+                isDisplayed={true}
+              />
             </StyledCustomComponentGap>
           </Collapse>
 
@@ -73,7 +64,10 @@ const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
                     ))}
                   </StyledTransitionGroup>
                 </StyledComponentGridGap>
-                {renderActionsNextToRow(false)}
+                <FilteringQueryGroupActionsWrapper
+                  queryMultiType={queryMultiType}
+                  isDisplayed={false}
+                />
               </StyledCustomComponentGap>
             </Collapse>
           ) : null}

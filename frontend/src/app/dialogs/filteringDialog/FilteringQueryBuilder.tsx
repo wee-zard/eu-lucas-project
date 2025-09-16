@@ -51,6 +51,5 @@ export default FilteringQueryBuilder;
 
 const StyledEmptyQueryBuilderHolder = styled.div<{}>((_) => ({
   margin: "16px",
-  borderLeft: "2px solid yellow",
   padding: "8px",
 }));

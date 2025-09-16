@@ -27,6 +27,7 @@ import { requestPlantList } from "@redux/actions/plantActions";
 //import { requestPlantSpeciesList } from "@redux/actions/plantSpeciesActions";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
 import i18n from "@i18n/i18nHandler";
+import { handleComponentRemoval } from "./helper/FilteringModificationHelper";
 
 type Props = {
   id: number;
@@ -66,14 +67,6 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
     LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
     // Update the component itself on changes.
     FilteringHelper.sendUpdateEvent(states.filtered.id);
-  };
-
-  const handleComponentRemoval = () => {
-    const states = FilteringHelper.getUpdatedStates<QueryComponent>(id);
-    const obj = FilteringHelper.handleFilterChanges(states.root, id);
-    LocalStorageUtils.setQueryBuilderModelLocalStorage(obj);
-    // Update the parent component itself on component deletion.
-    FilteringHelper.sendUpdateEvent(states.filtered.parentId);
   };
 
   const getQueryByInputValue = (selectedFilterTab?: keyof typeof FilterDialogFilters) =>
@@ -144,7 +137,7 @@ const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id
             tooltipTitle: i18n.t("screens.filtering.query-builder.removeFilterCondition"),
             tooltipPlacement: "right-start",
           }}
-          onClick={handleComponentRemoval}
+          onClick={() => handleComponentRemoval(id)}
         />
       </StyledQueryComponentHolder>
     );
