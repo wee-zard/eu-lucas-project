@@ -352,6 +352,7 @@
         "addFilterGroupTooltip": "Szűrési csoport létrehozása",
         "addDoubleFilterGroupTooltip": "Szűrési csoportban egy alcsoport létrehozása",
         "removeQueryGroupTooltip": "Szűrési csoport törlése",
+        "emptyQueryGroupMessage": "Kérjük, hogy legalább egy szűrési feltételt válasszon ki ezen csoportban!",
         "relation": "Kapcsolat",
         "query-by-option-names": {
           "year": "Év",

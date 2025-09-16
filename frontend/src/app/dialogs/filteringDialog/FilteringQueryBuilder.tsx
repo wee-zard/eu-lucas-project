@@ -5,6 +5,8 @@ import { FilteringHelper } from "@helper/filteringHelper";
 import FilteringQueryBuilderActions from "./FilteringQueryBuilderActions";
 import FilteringQueryBodyTemplate from "./FilteringQueryBodyTemplate";
 import { IdUtils } from "@helper/idUtils";
+import StyledAlert from "@components/StyledAlert";
+import i18n from "@i18n/i18nHandler";
 
 type Props = {
   id: number;
@@ -24,7 +26,14 @@ const FilteringQueryBuilder = React.memo(function FilteringQueryBuilder({ id }: 
             ) : null}
           </div>
         ) : (
-          <StyledEmptyQueryBuilderHolder></StyledEmptyQueryBuilderHolder>
+          <StyledEmptyQueryBuilderHolder>
+            <StyledAlert
+              variant={"filled"}
+              severity={"warning"}
+              message={i18n.t("screens.filtering.query-builder.emptyQueryGroupMessage")}
+              alertTitle={i18n.t("components.alert.title.warning")}
+            />
+          </StyledEmptyQueryBuilderHolder>
         )}
         <FilteringQueryBuilderActions id={id} states={states} />
       </React.Fragment>
@@ -50,6 +59,5 @@ const FilteringQueryBuilder = React.memo(function FilteringQueryBuilder({ id }: 
 export default FilteringQueryBuilder;
 
 const StyledEmptyQueryBuilderHolder = styled.div<{}>((_) => ({
-  margin: "16px",
-  padding: "8px",
+  padding: "8px 8px 0px 0px",
 }));

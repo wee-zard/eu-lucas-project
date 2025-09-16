@@ -5,6 +5,8 @@ import { FilteringHelper } from "@helper/filteringHelper";
 import FilteringQueryBodyTemplate from "./FilteringQueryBodyTemplate";
 import { IdUtils } from "@helper/idUtils";
 import FilteringQueryGroupActionsWrapper from "./FilteringQueryGroupActionsWrapper";
+import StyledAlert from "@components/StyledAlert";
+import i18n from "@i18n/i18nHandler";
 
 type Props = {
   id: number;
@@ -20,12 +22,18 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({ id }: Prop
         {states.filtered.listOfComponents.length > 0 ? (
           <FilteringQueryBodyTemplate queryMultiType={states.filtered} />
         ) : (
-          <StyleQueryGroupActionWrapper>
+          <div className="flex-gap">
+            <StyledAlert
+              variant={"filled"}
+              severity={"warning"}
+              message={i18n.t("screens.filtering.query-builder.emptyQueryGroupMessage")}
+              alertTitle={i18n.t("components.alert.title.warning")}
+            />
             <FilteringQueryGroupActionsWrapper
               queryMultiType={states.filtered}
               isDisplayed={true}
             />
-          </StyleQueryGroupActionWrapper>
+          </div>
         )}
       </StyledQueryComponentHolder>
     );
@@ -47,12 +55,6 @@ const FilteringQueryGroup = React.memo(function FilteringQueryGroup({ id }: Prop
 });
 
 export default FilteringQueryGroup;
-
-const StyleQueryGroupActionWrapper = styled.div({
-  width: "100%",
-  display: "flex",
-  flexDirection: "row-reverse",
-});
 
 export const StyledQueryHolder = styled.div<{}>((_) => ({
   width: "100%",
