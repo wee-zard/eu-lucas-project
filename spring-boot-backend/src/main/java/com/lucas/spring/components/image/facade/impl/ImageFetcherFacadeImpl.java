@@ -1,9 +1,13 @@
 package com.lucas.spring.components.image.facade.impl;
 
+import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.services.HttpRequestService;
+import com.lucas.spring.components.image.enums.ImageFetcherExceptionEnums;
+import com.lucas.spring.components.image.exception.ImageFetcherException;
 import com.lucas.spring.components.image.facade.ImageFacadeService;
 import com.lucas.spring.components.image.facade.ImageFetcherFacade;
 import com.lucas.spring.components.image.model.request.ImageRequest;
+import com.lucas.spring.components.user.service.UserService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,6 +16,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,24 +28,34 @@ import org.springframework.stereotype.Service;
 public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
   private final HttpRequestService httpRequestService;
   private final ImageFacadeService imageFacadeService;
+  private final UserService userService;
+  private static final Logger logger = LoggerFactory.getLogger(ImageFetcherFacadeImpl.class);
+  private static final int WAIT_UNTIL_NEXT_FETCH_IN_MILI_SECS = 5000;
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void scalpLucasImageServer(final String urlPath) {
+  public void scalpLucasImageServer(final String urlPath, final AuthenticatedUser user) {
+    userService.validateIsUserAdminElseException(user);
+    scalpRemoteServer(urlPath);
+  }
+
+  private void scalpRemoteServer(final String urlPath) {
     final List<String> splitValuesDom = getSplitValuesDom(urlPath);
-    System.out.printf("%s %s\n", "Processed Url:", urlPath);
+    logger.info("{} {}\n", "Processed Url:", urlPath);
+
     splitValuesDom.forEach(domElement -> {
       final String newPath = String.format("%s%s", urlPath, domElement);
+
       if (domElement.contains("/")) {
         try {
-          Thread.sleep(5000);
+          Thread.sleep(WAIT_UNTIL_NEXT_FETCH_IN_MILI_SECS);
         } catch (InterruptedException e) {
-          // TODO: Throw a better exception here.
-          throw new RuntimeException(e.getMessage());
+          Thread.currentThread().interrupt();
+          throw new ImageFetcherException(ImageFetcherExceptionEnums.IMAGE_FETCHER_INTERRUPTED, e.getMessage());
         }
-        scalpLucasImageServer(newPath);
+        scalpRemoteServer(newPath);
       } else {
         processImageIntoObj(newPath);
       }
@@ -95,6 +111,7 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
               .coordinateY(Integer.parseInt(splitPath[splitPath.length - 2]))
               .coordinateX(Integer.parseInt(splitPath[splitPath.length - 3]))
               .countryCode(splitPath[splitPath.length - 4])
+              // TODO: Replace the use of 'Locale' here, because it is deprecated.
               .countryName(new Locale("", splitPath[splitPath.length - 4]).getDisplayCountry())
               .year(Integer.parseInt(splitPath[splitPath.length - 5]))
               .directionName(getDirection(splitPath[splitPath.length - 1]))
@@ -118,12 +135,13 @@ public class ImageFetcherFacadeImpl implements ImageFetcherFacade {
         return directionEntry.getValue();
       }
     }
+
     for (Map.Entry<String, String> directionEntry : directionList.entrySet()) {
       if (imageNameWithOutDot.toUpperCase().contains(directionEntry.getKey().toUpperCase())) {
         return directionEntry.getValue();
       }
     }
-    // TODO: Throw a better exception here.
-    throw new RuntimeException(String.format("%s %s", "Direction is not defined!", imageName));
+
+    throw new ImageFetcherException(ImageFetcherExceptionEnums.IMAGE_FETCHER_DIRECTION_NOT_DEFINED, imageName);
   }
 }

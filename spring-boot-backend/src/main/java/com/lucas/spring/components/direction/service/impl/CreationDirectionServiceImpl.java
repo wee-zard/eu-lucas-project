@@ -53,7 +53,7 @@ public class CreationDirectionServiceImpl implements CreationDirectionService {
    * {@inheritDoc}
    */
   @Override
-  @CacheEvict
+  @CacheEvict(allEntries = true)
   public void addCreationDirection(final String creationDirection) {
     final CreationDirectionEntity entity = CreationDirectionEntity
             .builder()

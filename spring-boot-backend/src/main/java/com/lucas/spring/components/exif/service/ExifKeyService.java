@@ -2,13 +2,11 @@ package com.lucas.spring.components.exif.service;
 
 import com.lucas.spring.components.exif.model.entity.ExifKeyEntity;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
  * related to the Exif Key records.
  */
-@Service
 public interface ExifKeyService {
   /**
    * Fetch the list of exif keys.

@@ -52,6 +52,7 @@ public class ImageFacadeServiceImpl implements ImageFacadeService {
               )
               .country(creationCountryService.getCreationCountry(imageRequest.getCountryCode()))
               .year(creationYearService.getCreationYear(imageRequest.getYear()))
+              .isHeaderExtracted(false)
               .build()));
     } else {
       return Optional.empty();

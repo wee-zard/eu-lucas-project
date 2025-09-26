@@ -57,7 +57,7 @@ public class CoordinateXthServiceImpl implements CoordinateXthService {
    * {@inheritDoc}
    */
   @Override
-  @CacheEvict
+  @CacheEvict(allEntries = true)
   public void addCoordinateX(final Integer coordinateX) {
     CoordinateXthEntity entity = CoordinateXthEntity
         .builder()

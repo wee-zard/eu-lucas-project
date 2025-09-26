@@ -56,4 +56,20 @@ public interface ImageService {
    * @return Returns a list of random images from the server.
    */
   Page<ImageEntity> getRandomImages();
+
+  /**
+   * Fetch images from the db where the images' header have not been extracted yet.
+   *
+   * @param pageSize The page size of the pageable properties.
+   * @return Return a pages image entities.
+   */
+  Page<ImageEntity> getImagesWithNotExtractedHeader(int pageSize);
+
+  /**
+   * Get the remote image url based on the provided entity.
+   *
+   * @param entity The image entity.
+   * @return Returns a string url to the remote resource.
+   */
+  String getRemoteImageUrlByEntity(ImageEntity entity);
 }

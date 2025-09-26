@@ -74,4 +74,12 @@ public interface UserService {
    * @param user the user to delete
    */
   void deleteUser(UserEntity user);
+
+  /**
+   * Checks whether the user has an admin role or not. If not, then
+   * throw an exception.
+   *
+   * @param user The user who initiated the request to the server.
+   */
+  void validateIsUserAdminElseException(AuthenticatedUser user);
 }

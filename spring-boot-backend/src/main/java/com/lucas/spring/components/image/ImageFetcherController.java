@@ -7,6 +7,7 @@ import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
 import com.lucas.spring.commons.utils.ResourceUtil;
 import com.lucas.spring.components.image.facade.ImageFetcherFacade;
+import com.lucas.spring.components.image.facade.ImageHeaderExtractionFacade;
 import com.lucas.spring.components.image.model.dto.ImageDto;
 import com.lucas.spring.components.image.service.ImageService;
 import java.util.List;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ImageFetcherController {
   @Value("${lucasRemoteImageServerPath}") private String lucasRemoteImageServerPath;
   private final ImageFetcherFacade imageFetcherFacade;
+  private final ImageHeaderExtractionFacade imageHeaderExtractionFacade;
   private final ConversionHelper conversionHelper;
   private final ImageService imageService;
 
@@ -40,10 +42,12 @@ public class ImageFetcherController {
    */
   public ImageFetcherController(
           final ImageFetcherFacade imageFetcherFacade,
+          final ImageHeaderExtractionFacade imageHeaderExtractionFacade,
           final ConversionHelper conversionHelper,
           final ImageService imageService
   ) {
     this.imageFetcherFacade = imageFetcherFacade;
+    this.imageHeaderExtractionFacade = imageHeaderExtractionFacade;
     this.conversionHelper = conversionHelper;
     this.imageService = imageService;
   }
@@ -64,7 +68,23 @@ public class ImageFetcherController {
      *  and upload them to the db, such as they want to download only the Hungarian
      *  related images (instead of downloading every country's images).
      */
-    imageFetcherFacade.scalpLucasImageServer(lucasRemoteImageServerPath);
+    imageFetcherFacade.scalpLucasImageServer(lucasRemoteImageServerPath, user);
+    return new BaseResponse();
+  }
+
+  /**
+   * // TODO: This method is not called on the frontend yet.
+   * Request the server to scalp the lucas remote image server and get
+   * every exif information extracted from the images, and upload them to the db.
+   *
+   * @param user The authenticated user who initiated the request.
+   */
+  @CrossOrigin
+  @PostMapping("/extract-image-headers")
+  public BaseResponse extractImageHeaders(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+  ) {
+    imageHeaderExtractionFacade.scalpLucasImageServer(user);
     return new BaseResponse();
   }
 

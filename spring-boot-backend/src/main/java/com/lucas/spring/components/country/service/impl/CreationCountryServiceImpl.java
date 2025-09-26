@@ -53,7 +53,7 @@ public class CreationCountryServiceImpl implements CreationCountryService {
    * {@inheritDoc}
    */
   @Override
-  @CacheEvict
+  @CacheEvict(allEntries = true)
   public void addCreationCountry(final String countryCode, final String countryName) {
     CreationCountryEntity creationCountryEntity = CreationCountryEntity
             .builder()

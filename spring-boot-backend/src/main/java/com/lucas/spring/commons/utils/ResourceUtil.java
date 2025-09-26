@@ -2,10 +2,7 @@ package com.lucas.spring.commons.utils;
 
 import com.lucas.spring.commons.model.model.ResourceModel;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -172,5 +169,15 @@ public class ResourceUtil {
    */
   public boolean isNotFolder(final Resource resource) {
     return !ResourceUtil.isFolder(resource);
+  }
+
+  /**
+   * Converts the provided binaries into an input stream.
+   *
+   * @param binaries The binaries of the resource.
+   * @return Returns an input stream of the binaries.
+   */
+  public InputStream toInputStream(byte[] binaries) {
+    return new ByteArrayInputStream(binaries);
   }
 }

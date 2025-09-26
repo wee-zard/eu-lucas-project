@@ -32,6 +32,7 @@ kanban-plugin: board
 
 ## 🔴Code Improvement ToDo
 
+- [ ] [[219 - Service interface és Facade interface esetén a @Service annotáció ne kerüljön használatra]] #🔴ToDo
 - [ ] [[213 - RequestParamType kerül használatra GET és DELETE request-nél, ami nem hatékony]]
 - [ ] [[157 - Ellenőrizni, hogy lehet-e a Matstruct-ot használni a Sprintboot oldalán]]
 - [ ] [[212 - Using better encryption, so we do not need to decrypt the email of users]]
@@ -180,9 +181,8 @@ kanban-plugin: board
 
 ## 🔴Bounding Box Page Backlog
 
-- [ ] [[189 - A szín a logok mellett lévő körökben azon szín legyen, mint a befoglaló téglalap színe a képen]] #🔴ToDo  #BoundingBox-Page
-- [x] [[192 - A befoglaló téglalapok mellett több minden jelenjen meg a képeken]] #🔴ToDo  #BoundingBox-Page
 - [ ] [[182 - Eljárás logok szűrésének a megvalósítása]] #🔴ToDo  #BoundingBox-Page
+- [ ] [[189 - A szín a logok mellett lévő körökben azon szín legyen, mint a befoglaló téglalap színe a képen]] #BoundingBox-Page
 - [x] [[183 - Három log kiválasztása esetén, egy szín kétszer szerepel a befoglaló téglalapoknál]] #🔴ToDo  #BoundingBox-Page
 - [x] [[184 - Lehessen dinamikusan módosítani a befoglaló téglalapokhoz tartozó keretek színét]] #BoundingBox-Page #🔴ToDo
 - [ ] [[004 - @deprecated Eljárás logok automatikus kiválasztása a legnagyobb közös alapján]] #deprecated #BoundingBox-Page
@@ -192,6 +192,7 @@ kanban-plugin: board
 - [x] [[188 - A befoglaló téglalap fölé véve az egeret, egy tooltip popup jelenjen meg a növény adataival]] #🟢Done  #BoundingBox-Page
 - [x] [[191 - A Logok kiválasztása után, a befoglaló téglalapok maradjanak a képen a dialogós ablak bezárása után]] #🟢Done  #BoundingBox-Page
 - [x] [[190 - A kép neve kerüljön megjelenítésre a canvas-en]] #BoundingBox-Page #🟢Done
+- [x] [[192 - A befoglaló téglalapok mellett több minden jelenjen meg a képeken]] #🟢Done  #BoundingBox-Page
 
 
 ## 🔴Folder Page Backlog
@@ -341,6 +342,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,true,true,true,true,false,true,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
+{"kanban-plugin":"board","list-collapse":[true,false,false,true,true,true,true,true,true,true,false,false,true,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
 ```
 %%

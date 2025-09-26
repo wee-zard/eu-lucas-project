@@ -2,6 +2,8 @@ package com.lucas.spring.components.image.repository;
 
 import com.lucas.spring.components.image.model.entity.ImageEntity;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -42,4 +44,9 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Integer> {
   Optional<ImageEntity> getEntityByNameAndYear(
           @Param("name") String name,
           @Param("year") Number year);
+
+  /**
+   * Fetch the list of entities which headers does not have been extracted.
+   */
+  Page<ImageEntity> findAllByIsHeaderExtracted(final Boolean isHeaderExtracted, Pageable pageable);
 }

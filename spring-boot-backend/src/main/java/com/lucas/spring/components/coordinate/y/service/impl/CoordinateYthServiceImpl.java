@@ -57,7 +57,7 @@ public class CoordinateYthServiceImpl implements CoordinateYthService {
    * {@inheritDoc}
    */
   @Override
-  @CacheEvict
+  @CacheEvict(allEntries = true)
   public void addCoordinateY(final Integer coordinateY) {
     final CoordinateYthEntity entity = CoordinateYthEntity
             .builder()

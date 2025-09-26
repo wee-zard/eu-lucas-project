@@ -43,7 +43,7 @@ public class ExifKeyServiceImpl implements ExifKeyService {
             .findFirst();
 
     if (selectedExifKey.isEmpty()) {
-      throw new ExifKeyException(ExifKeyExceptionEnum.EXIF_KEY_NOT_FOUNT, exifKey);
+      throw new ExifKeyException(ExifKeyExceptionEnum.EXIF_KEY_NOT_FOUND, exifKey);
     }
 
     return selectedExifKey.get();
@@ -53,7 +53,7 @@ public class ExifKeyServiceImpl implements ExifKeyService {
    * {@inheritDoc}
    */
   @Override
-  @CacheEvict
+  @CacheEvict(allEntries = true)
   public void addExifKey(final String exifKeyName) {
     final ExifKeyEntity exifKeyEntity = ExifKeyEntity.builder().exifKeyName(exifKeyName).build();
     exifKeyRepository.save(exifKeyEntity);

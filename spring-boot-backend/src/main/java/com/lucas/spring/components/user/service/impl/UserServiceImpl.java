@@ -1,6 +1,9 @@
 package com.lucas.spring.components.user.service.impl;
 
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.components.authorization.enums.AuthorizationExceptionEnum;
+import com.lucas.spring.components.authorization.exception.AuthorizationException;
+import com.lucas.spring.components.role.enums.RoleEnum;
 import com.lucas.spring.components.role.model.entity.RoleEntity;
 import com.lucas.spring.components.status.model.entity.StatusEntity;
 import com.lucas.spring.components.user.enums.UserExceptionEnum;
@@ -9,6 +12,7 @@ import com.lucas.spring.components.user.model.entity.UserEntity;
 import com.lucas.spring.components.user.repository.UserRepository;
 import com.lucas.spring.components.user.service.UserService;
 import java.util.List;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -114,5 +118,17 @@ public class UserServiceImpl implements UserService {
   @CacheEvict(cacheNames = { SERVICE_CACHE_NAME, SERVICE_CACHE_NAME_EMAIL }, allEntries = true)
   public void deleteUser(UserEntity user) {
     userRepository.delete(user);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void validateIsUserAdminElseException(final AuthenticatedUser user) {
+    if (Objects.equals(user.getRoleId(), RoleEnum.ADMIN.getRoleId())) {
+      return;
+    }
+
+    throw new AuthorizationException(AuthorizationExceptionEnum.PERMISSION_DENIED);
   }
 }

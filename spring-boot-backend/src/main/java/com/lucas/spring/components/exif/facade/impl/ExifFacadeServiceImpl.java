@@ -40,11 +40,11 @@ public class ExifFacadeServiceImpl implements ExifFacadeService {
         .stream()
         .map(exifDataModel -> ExifDataEntity
                 .builder()
-                .imageEntity(imageEntity)
+                .image(imageEntity)
                 .exifValue(exifDataModel.getExifValue())
-                .exifKeyEntity(exifKeyService.getExifKey(exifDataModel.getExifKey()))
+                .exifKey(exifKeyService.getExifKey(exifDataModel.getExifKey()))
                 .build())
                 .collect(Collectors.toCollection(ArrayList::new))
-        .forEach(exifDataEntity -> exifDataService.addExifDataModel(exifDataEntity));
+        .forEach(exifDataEntity -> exifDataService.save(exifDataEntity));
   }
 }

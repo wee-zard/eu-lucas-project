@@ -53,7 +53,7 @@ public class CreationYearServiceImpl implements CreationYearService {
    * {@inheritDoc}
    */
   @Override
-  @CacheEvict
+  @CacheEvict(allEntries = true)
   public void addCreationYear(final int creationYear) {
     final CreationYearEntity entity = CreationYearEntity.builder().year(creationYear).build();
     creationYearRepository.save(entity);

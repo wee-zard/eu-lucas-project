@@ -1,15 +1,10 @@
 package com.lucas.spring.commons.utils;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.lucas.spring.components.authorization.enums.AuthorizationExceptionEnum;
 import com.lucas.spring.components.authorization.exception.AuthorizationException;
-import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
 import lombok.experimental.UtilityClass;
-import org.json.simple.parser.ParseException;
 
 /**
  * Utility class for action, and methods for tokens.
@@ -36,28 +31,6 @@ public class TokenUtil {
     }
 
     return splitAuthToken[1];
-  }
-
-  /**
-   * Decodes the provided auth token into a Decoded JWT.
-   *
-   * @param authToken The auth token to decode.
-   * @return Returns a {@link DecodedJWT} instance that contains
-   *     the information of the token decoded token.
-   * @throws JWTDecodeException Throws an exception if the token was undecodable.
-   */
-  public DecodedJWT decodeToken(final String authToken) throws JWTDecodeException {
-    return JWT.decode(authToken.contains("Bearer ") ? getTokenWithoutBearer(authToken) : authToken);
-  }
-
-  /**
-   * Extracts the payload from the provided decoded jwt token instance.
-   *
-   * @param decodedJwt The jwt token to extract.
-   * @return Returns a map that contains the content of the payload from the decoded jwt token.
-   */
-  public Map<String, String> extractPayload(final DecodedJWT decodedJwt) throws ParseException {
-    return JsonUtil.parseJsonStringToMap(Base64.getUrlDecoder().decode(decodedJwt.getPayload()));
   }
 
   /**

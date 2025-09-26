@@ -52,6 +52,13 @@ public class ImageEntity extends BaseEntity {
    */
   @Column(name = "image_name", nullable = false, columnDefinition = "TEXT", length = 50)
   private String imageName;
+
+  /**
+   * Tells whether the actual image's header has been extracted or not.
+   */
+  @Column(name = "is_header_extracted", length = 1)
+  private Boolean isHeaderExtracted;
+
   /**
    * The direction where the image was taken.
    */
