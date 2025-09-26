@@ -6,13 +6,11 @@ import com.lucas.spring.components.image.model.request.ImageRequest;
 import com.lucas.spring.components.procedure.model.model.ProcedureResultFile;
 import java.util.List;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
  * related to the Images.
  */
-@Service
 public interface ImageService {
   /**
    * Fetch the name of the image name, if the requested image name is existing already in the db.

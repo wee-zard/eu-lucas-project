@@ -5,12 +5,10 @@ import com.lucas.spring.components.role.model.entity.RoleEntity;
 import com.lucas.spring.components.status.model.entity.StatusEntity;
 import com.lucas.spring.components.user.model.entity.UserEntity;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods related to the User.
  */
-@Service
 public interface UserService {
   /**
    * Fetch a user by id.

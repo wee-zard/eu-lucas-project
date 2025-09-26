@@ -2,13 +2,11 @@ package com.lucas.spring.components.coordinate.y.service;
 
 import com.lucas.spring.components.coordinate.y.model.entity.CoordinateYthEntity;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
  * related to the Y coordinates of the images.
  */
-@Service
 public interface CoordinateYthService {
   /**
    * Fetch the list of y coordinate from which the image was taken.

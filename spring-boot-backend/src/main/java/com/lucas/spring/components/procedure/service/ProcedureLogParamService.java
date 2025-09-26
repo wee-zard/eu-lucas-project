@@ -3,12 +3,10 @@ package com.lucas.spring.components.procedure.service;
 import com.lucas.spring.components.procedure.model.dto.ProcedureLogParamDto;
 import com.lucas.spring.components.procedure.model.entity.ProcedureLogParamEntity;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  * Stores methods related to the {@link ProcedureLogParamEntity}.
  */
-@Service
 public interface ProcedureLogParamService {
 
   /**

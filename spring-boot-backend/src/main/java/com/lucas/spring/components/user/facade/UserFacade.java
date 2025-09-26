@@ -3,14 +3,12 @@ package com.lucas.spring.components.user.facade;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.components.user.model.request.UserCreationRequest;
 import java.util.Optional;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
  * related to the user facade layer where other
  * services could be used together at the same time.
  */
-@Service
 public interface UserFacade {
 
   /**

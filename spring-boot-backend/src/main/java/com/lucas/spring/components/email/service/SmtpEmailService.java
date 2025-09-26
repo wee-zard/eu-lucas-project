@@ -2,13 +2,11 @@ package com.lucas.spring.components.email.service;
 
 import com.lucas.spring.components.email.model.request.ReportEmailRequest;
 import com.lucas.spring.components.user.model.request.UserCreationRequest;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
  * related to the email sender service.
  */
-@Service
 public interface SmtpEmailService {
 
   /**

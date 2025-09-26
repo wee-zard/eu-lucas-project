@@ -1,12 +1,9 @@
 package com.lucas.spring.commons.services;
 
-import org.springframework.stereotype.Service;
-
 /**
  * A service dedicated to sends out requests
  * to other servers and giving back their results.
  */
-@Service
 public interface HttpRequestService {
   /**
    * Send out a request to the provided url with the provided object

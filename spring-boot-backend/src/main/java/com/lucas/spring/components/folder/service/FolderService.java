@@ -7,12 +7,10 @@ import com.lucas.spring.components.folder.model.model.FolderFormWithFolderIdMode
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service for the Folders.
  */
-@Service
 public interface FolderService {
 
   /**

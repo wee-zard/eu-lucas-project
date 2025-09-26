@@ -2,13 +2,11 @@ package com.lucas.spring.components.country.service;
 
 import com.lucas.spring.components.country.model.entity.CreationCountryEntity;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
  * related to the Creation Countries.
  */
-@Service
 public interface CreationCountryService {
   /**
    * Fetch the list of countries where the images were taken.

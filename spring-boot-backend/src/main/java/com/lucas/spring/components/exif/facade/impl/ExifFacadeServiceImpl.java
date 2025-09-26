@@ -8,6 +8,7 @@ import com.lucas.spring.components.exif.service.ExifKeyService;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class ExifFacadeServiceImpl implements ExifFacadeService {
    */
   @Override
   public void saveImageExifHeader(
-          final ArrayList<ExifDataModel> exifDataModels,
+          final List<ExifDataModel> exifDataModels,
           final ImageEntity imageEntity
   ) {
     new ArrayList<>(new HashSet<>(
@@ -44,7 +45,7 @@ public class ExifFacadeServiceImpl implements ExifFacadeService {
                 .exifValue(exifDataModel.getExifValue())
                 .exifKey(exifKeyService.getExifKey(exifDataModel.getExifKey()))
                 .build())
-                .collect(Collectors.toCollection(ArrayList::new))
+            .toList()
         .forEach(exifDataEntity -> exifDataService.save(exifDataEntity));
   }
 }

@@ -4,12 +4,10 @@ import com.lucas.spring.components.image.model.entity.ImageEntity;
 import com.lucas.spring.components.plant.model.entity.PlantEntity;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Service;
 
 /**
  * Stores methods related to {@link PlantEntity}.
  */
-@Service
 public interface PlantService {
 
   /**

@@ -1,12 +1,10 @@
 package com.lucas.spring.components.procedure.service;
 
 import com.lucas.spring.components.procedure.model.entity.BoundingBoxEntity;
-import org.springframework.stereotype.Service;
 
 /**
  * Stores methods related to the {@link BoundingBoxEntity}.
  */
-@Service
 public interface BoundingBoxService {
 
   /**

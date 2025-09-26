@@ -1,12 +1,9 @@
 package com.lucas.spring.components.encryption.service;
 
-import org.springframework.stereotype.Service;
-
 /**
  * An interface service where we store methods
  * related to the Encryption and Decryption.
  */
-@Service
 public interface EncryptionService {
   /**
    * Construct a new input text while appending to it 512 characters long text,

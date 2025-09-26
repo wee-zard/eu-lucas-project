@@ -2,12 +2,10 @@ package com.lucas.spring.components.role.service;
 
 import com.lucas.spring.components.role.model.entity.RoleEntity;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods related to the User Roles.
  */
-@Service
 public interface RoleService {
   /**
    * Fetch a role by id.

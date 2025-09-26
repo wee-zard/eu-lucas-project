@@ -6,12 +6,10 @@ import com.lucas.spring.components.procedure.model.entity.ProcedureLogEntity;
 import com.lucas.spring.components.user.model.entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 /**
  * Stores methods related to the {@link ProcedureLogEntity}.
  */
-@Service
 public interface ProcedureLogService {
 
   /**

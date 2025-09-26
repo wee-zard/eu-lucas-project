@@ -4,12 +4,10 @@ import com.lucas.spring.components.procedure.model.entity.ProcedureEntity;
 import com.lucas.spring.components.user.model.entity.UserEntity;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Service;
 
 /**
  * Stores methods related to the Procedures.
  */
-@Service
 public interface ProcedureService {
 
   /**

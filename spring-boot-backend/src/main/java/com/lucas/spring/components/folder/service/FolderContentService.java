@@ -5,12 +5,10 @@ import com.lucas.spring.components.folder.model.model.FolderContentCreationModel
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 /**
  * Service of the Folder Content Entity.
  */
-@Service
 public interface FolderContentService {
 
   /**

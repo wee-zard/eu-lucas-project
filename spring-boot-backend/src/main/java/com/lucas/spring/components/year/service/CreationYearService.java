@@ -2,13 +2,11 @@ package com.lucas.spring.components.year.service;
 
 import com.lucas.spring.components.year.model.entity.CreationYearEntity;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
  * related to the Creation Years.
  */
-@Service
 public interface CreationYearService {
   /**
    * Fetch the list of creation years when the images were taken from.

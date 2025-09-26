@@ -1,12 +1,10 @@
 package com.lucas.spring.components.authorization.service;
 
 import com.lucas.spring.components.authorization.model.response.NewAccessTokenResponse;
-import org.springframework.stereotype.Service;
 
 /**
  * Service interface for the authorization of the users.
  */
-@Service
 public interface AuthorizationService {
 
   /**

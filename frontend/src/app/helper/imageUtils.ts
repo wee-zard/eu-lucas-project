@@ -62,7 +62,8 @@ export default class ImageUtils {
   };
 
   private static formatCoordinates = (coordinate: number) => {
-    return coordinate < 10 ? `00${coordinate}` : coordinate < 100 ? `0${coordinate}` : coordinate;
+    const prefix = coordinate < 10 ? "00" : coordinate < 100 ? "0" : "";
+    return `${prefix}${coordinate}`;
   };
 
   /**

@@ -3,12 +3,10 @@ package com.lucas.spring.components.folder.service;
 import com.lucas.spring.components.folder.model.entity.ShareFolderEntity;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service for the Share Folder Service.
  */
-@Service
 public interface ShareFolderService {
   /**
    * Get all shared folders.

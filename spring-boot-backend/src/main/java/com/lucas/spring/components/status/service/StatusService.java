@@ -2,13 +2,11 @@ package com.lucas.spring.components.status.service;
 
 import com.lucas.spring.components.status.model.entity.StatusEntity;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
  * related to the User Statue.
  */
-@Service
 public interface StatusService {
   /**
    * Fetches the list of status entities.

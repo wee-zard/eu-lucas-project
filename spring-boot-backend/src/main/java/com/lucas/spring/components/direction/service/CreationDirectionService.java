@@ -2,13 +2,11 @@ package com.lucas.spring.components.direction.service;
 
 import com.lucas.spring.components.direction.model.entity.CreationDirectionEntity;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  * An interface service where we store methods
  * related to the Creation Directions.
  */
-@Service
 public interface CreationDirectionService {
   /**
    * Fetch the list of directions where the images were taken from.
