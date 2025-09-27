@@ -1,7 +1,9 @@
 package com.lucas.spring.components.image.model.dto;
 
 import com.lucas.spring.commons.model.dto.RootDto;
+import com.lucas.spring.components.exif.model.dto.ExifDataDto;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,4 +25,5 @@ public class ImageDto implements RootDto {
   private int year;
   private int coordinateX;
   private int coordinateY;
+  private List<ExifDataDto> exifDataList;
 }

@@ -9,6 +9,8 @@ import { useState } from "react";
 import { SelectedImageAction } from "@model/types/SelectedImageActionType";
 import StyledZoomMap from "@components/StyledZoomMap";
 import { PopoverOrigin } from "@mui/material";
+import StyledIconAndTooltip from "@components/StyledIconAndTooltip";
+import StyledTooltipDataView from "@components/StyledTooltipDataView";
 
 type Props = {
   imageDto: ImageDto;
@@ -42,7 +44,18 @@ const ImageAndPaginationCardContent = ({ imageDto, imageActions, isMenuDisabled 
 
   return (
     <StyledCardContent>
-      <StyledTypography>{imageDto.imageName}</StyledTypography>
+      <div className="flex-gap">
+        <StyledTypography>{imageDto.imageName}</StyledTypography>
+        {imageDto.exifDataList.length > 0 && (
+          <StyledIconAndTooltip
+            tooltip={{
+              title: (
+                <StyledTooltipDataView title="Metaadatok" propertyMap={imageDto.exifDataList} />
+              ),
+            }}
+          />
+        )}
+      </div>
       {!isMenuDisabled && (
         <div>
           <StyledIconButton buttonIcon={<MoreVertIcon />} onClick={handleClick} />

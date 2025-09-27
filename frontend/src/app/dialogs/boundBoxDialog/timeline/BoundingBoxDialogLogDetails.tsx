@@ -1,10 +1,9 @@
 import { emptyCharacterPlaceholder } from "@global/globalConsts";
-import { StyledComponentGap } from "@global/globalStyles";
 import DateHelper from "@helper/dateHelper";
 import i18n from "@i18n/i18nHandler";
 import BoundingBoxDto from "@model/dto/BoundingBoxDto";
 import ProcedureLogDto from "@model/dto/ProcedureLogDto";
-import { ProcedureLogProperties } from "@model/enum";
+import { TooltipDataViewProperty } from "@model/enum";
 import { styled } from "@mui/material";
 
 type Props = {
@@ -13,27 +12,27 @@ type Props = {
 };
 
 const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
-  const commonProperties = [ProcedureLogProperties.Procedure, ProcedureLogProperties.Params];
+  const commonProperties = [TooltipDataViewProperty.Procedure, TooltipDataViewProperty.Params];
   const properties = !box
-    ? [ProcedureLogProperties.Plants, ProcedureLogProperties.Box]
+    ? [TooltipDataViewProperty.Plants, TooltipDataViewProperty.Box]
     : [
-        ProcedureLogProperties.PlantName,
-        ProcedureLogProperties.PlantFamily,
-        ProcedureLogProperties.IsInvasive,
-        ProcedureLogProperties.BoundingBox,
-        ProcedureLogProperties.DetectionProbability,
+        TooltipDataViewProperty.PlantName,
+        TooltipDataViewProperty.PlantFamily,
+        TooltipDataViewProperty.IsInvasive,
+        TooltipDataViewProperty.BoundingBox,
+        TooltipDataViewProperty.DetectionProbability,
       ];
   const propertyMap = [
     ...commonProperties,
     ...properties,
-    ProcedureLogProperties.User,
-    ProcedureLogProperties.CreationDate,
+    TooltipDataViewProperty.User,
+    TooltipDataViewProperty.CreationDate,
   ];
 
-  const getProcedureProperties = (log: ProcedureLogDto, properties: ProcedureLogProperties) => {
+  const getProcedureProperties = (log: ProcedureLogDto, properties: TooltipDataViewProperty) => {
     const handler = Object.freeze({
-      [ProcedureLogProperties.Procedure]: () => log.procedure,
-      [ProcedureLogProperties.Plants]: () =>
+      [TooltipDataViewProperty.Procedure]: () => log.procedure,
+      [TooltipDataViewProperty.Plants]: () =>
         log.boundingBoxes
           .map((box) => box.plant.plantScientificName)
           .filter((plant, index, listOfPlants) => plant !== listOfPlants[index + 1])
@@ -45,18 +44,18 @@ const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
               })`,
           )
           .join(", "),
-      [ProcedureLogProperties.Params]: () => log.params.join(", "),
-      [ProcedureLogProperties.CreationDate]: () =>
+      [TooltipDataViewProperty.Params]: () => log.params.join(", "),
+      [TooltipDataViewProperty.CreationDate]: () =>
         DateHelper.convertISOStringToDateTimeFormat(log.createdAt),
-      [ProcedureLogProperties.User]: () => log.user,
-      [ProcedureLogProperties.Box]: () => log.boundingBoxes.length,
-      [ProcedureLogProperties.PlantName]: () => box?.plant.plantScientificName,
-      [ProcedureLogProperties.PlantFamily]: () => box?.plant.plantSpeciesName,
-      [ProcedureLogProperties.BoundingBox]: () =>
+      [TooltipDataViewProperty.User]: () => log.user,
+      [TooltipDataViewProperty.Box]: () => log.boundingBoxes.length,
+      [TooltipDataViewProperty.PlantName]: () => box?.plant.plantScientificName,
+      [TooltipDataViewProperty.PlantFamily]: () => box?.plant.plantSpeciesName,
+      [TooltipDataViewProperty.BoundingBox]: () =>
         `(${box?.minCoordinateX}, ${box?.minCoordinateY}) (${box?.maxCoordinateX}, ${box?.maxCoordinateY})`,
-      [ProcedureLogProperties.IsInvasive]: () =>
+      [TooltipDataViewProperty.IsInvasive]: () =>
         `${box?.plant.isPlantInvasive ? i18n.t("components.button.yes") : i18n.t("components.button.no")}`,
-      [ProcedureLogProperties.DetectionProbability]: () =>
+      [TooltipDataViewProperty.DetectionProbability]: () =>
         box?.probabilityOfDetection ? `${box?.probabilityOfDetection}%` : undefined,
     });
 
@@ -72,9 +71,9 @@ const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
         })}
       </div>
       <br />
-      <StyledComponentGap display="grid" gap="8px">
+      <StyledTooltipDataWrapper>
         {propertyMap.map((property) => (
-          <StyledProcedurePropertyHolder key={`${log.id}-${property}`}>
+          <StyledProcedurePropertyHolder className="tooltipDataRow" key={`${log.id}-${property}`}>
             <StyledProcedurePropertyTitleHolder>
               {i18n.t(property)}:
             </StyledProcedurePropertyTitleHolder>
@@ -83,24 +82,34 @@ const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
             </StyledProcedurePropertyValueHolder>
           </StyledProcedurePropertyHolder>
         ))}
-      </StyledComponentGap>
+      </StyledTooltipDataWrapper>
     </>
   );
 };
 
 export default BoundingBoxDialogLogDetails;
 
-const StyledProcedurePropertyHolder = styled("div")({
-  display: "flex",
-  justifyContent: "space-between",
+const StyledTooltipDataWrapper = styled("div")({
+  display: "grid",
+  gap: 8,
+
+  "& .tooltipDataRow:nth-child(odd)": {
+    backgroundColor: "#777777bf",
+  },
 });
 
-const StyledProcedurePropertyTitleHolder = styled("div")({
+export const StyledProcedurePropertyHolder = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  gap: 4,
+});
+
+export const StyledProcedurePropertyTitleHolder = styled("div")({
   fontSize: 14,
   width: "40%",
 });
 
-const StyledProcedurePropertyValueHolder = styled("div")({
+export const StyledProcedurePropertyValueHolder = styled("div")({
   fontSize: 14,
   width: "60%",
   color: "gold",

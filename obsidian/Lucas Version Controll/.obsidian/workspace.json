@@ -10,6 +10,7 @@
           {
             "id": "7213bd70899264c2",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "kanban",
               "state": {
@@ -36,6 +37,7 @@
                   ]
                 }
               },
+              "pinned": true,
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
             }

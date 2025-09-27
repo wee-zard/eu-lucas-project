@@ -359,7 +359,7 @@ export enum GuardTypes {
   GOOGLE_ACCOUNT_GUARD = "GOOGLE_ACCOUNT_GUARD",
 }
 
-export enum ProcedureLogProperties {
+export enum TooltipDataViewProperty {
   Procedure = "screens.bounding-box.procedureLogMenu.procedure",
   Params = "screens.bounding-box.procedureLogMenu.params",
   Plants = "screens.bounding-box.procedureLogMenu.plants",

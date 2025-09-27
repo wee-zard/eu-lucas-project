@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { IdUtils } from "@helper/idUtils";
 import ImageDto from "@model/dto/ImageDto";
 import { StyledCardTemplate } from "@screens/filteringScreen/FilteringCommonStyledComponents";
-import { handleClickOnGlobalRippleEffect } from "app/scripts/rippleEffectOnClick";
 import PageableResponse from "@model/response/PageableResponse";
 import { SelectedImageAction } from "@model/types/SelectedImageActionType";
 import { useEffect, useState } from "react";
@@ -83,13 +82,12 @@ const ImageAndPaginationCard = ({
         key={imageProperties.image.id}
         id={filteredImageCardDivId}
         is_card_selected={+isImagePresentInSelectedImages(imageProperties.image)}
-        onClick={(event) => {
+        onClick={() => {
           handleImageSelection([imageProperties.image]);
           handleClickOnRippleImage({
             ...imageProperties,
             image: { ...imageProperties.image, base64Src: undefined },
           });
-          handleClickOnGlobalRippleEffect(event, filteredImageCardDivId);
         }}
       >
         {renderImageCardInnerElements(imageProperties)}
@@ -145,20 +143,6 @@ const StyledCard = styled(StyledCardTemplate)<{ is_card_selected: number }>((pro
     background: props.is_card_selected
       ? "linear-gradient(to right bottom, #ffffff, #ffff00aa, #00000050)"
       : "#00000020",
-
-    // Properties of the ripple.
-    cursor: "pointer",
-    position: "relative",
-    overflow: "hidden",
-    span: {
-      position: "absolute",
-      borderRadius: "50%",
-      backgroundColor: "rgba(255, 255, 255, 0.7)",
-      width: "100px",
-      height: "100px",
-      animation: "ripple 1s",
-      opacity: "0",
-    },
   },
 }));
 

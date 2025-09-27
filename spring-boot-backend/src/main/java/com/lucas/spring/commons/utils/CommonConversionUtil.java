@@ -1,6 +1,8 @@
 package com.lucas.spring.commons.utils;
 
 import com.lucas.spring.commons.model.model.KeyValueModel;
+import com.lucas.spring.components.exif.model.dto.ExifDataDto;
+import com.lucas.spring.components.exif.model.entity.ExifDataEntity;
 import com.lucas.spring.components.folder.model.entity.FolderContentDataEntity;
 import com.lucas.spring.components.image.model.dto.ImageDto;
 import com.lucas.spring.components.image.model.entity.ImageEntity;
@@ -98,6 +100,19 @@ public class CommonConversionUtil {
    * @param source The data to convert.
    * @return Returns the requested object.
    */
+  public ExifDataDto toExifDataDto(final ExifDataEntity source) {
+    return ExifDataDto.builder()
+            .exifValue(source.getExifValue())
+            .exifKey(source.getExifKey().getExifKeyName())
+            .build();
+  }
+
+  /**
+   * Converts the provided data to the another.
+   *
+   * @param source The data to convert.
+   * @return Returns the requested object.
+   */
   public ImageDto toImageDto(final ImageEntity source) {
     return ImageDto.builder()
             .id(source.getId())
@@ -107,6 +122,9 @@ public class CommonConversionUtil {
             .direction(source.getDirection().getDirectionName())
             .coordinateX(source.getCoordinateX().getCoordinateX())
             .coordinateY(source.getCoordinateY().getCoordinateY())
+            .exifDataList(source.getExifData().stream()
+                    .map(CommonConversionUtil::toExifDataDto)
+                    .toList())
             .build();
   }
 }

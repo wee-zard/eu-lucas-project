@@ -5,6 +5,7 @@ import com.lucas.spring.components.coordinate.x.model.entity.CoordinateXthEntity
 import com.lucas.spring.components.coordinate.y.model.entity.CoordinateYthEntity;
 import com.lucas.spring.components.country.model.entity.CreationCountryEntity;
 import com.lucas.spring.components.direction.model.entity.CreationDirectionEntity;
+import com.lucas.spring.components.exif.model.entity.ExifDataEntity;
 import com.lucas.spring.components.folder.model.entity.FolderContentEntity;
 import com.lucas.spring.components.plant.model.entity.PlantEntity;
 import com.lucas.spring.components.procedure.model.entity.BoundingBoxEntity;
@@ -112,4 +113,11 @@ public class ImageEntity extends BaseEntity {
    */
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
   private Set<FolderContentEntity> imageContents;
+
+  /**
+   * Tells what exif information has been extracted from
+   * the specific image.
+   */
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+  private Set<ExifDataEntity> exifData;
 }
