@@ -3,6 +3,7 @@ package com.lucas.spring.components.exif.repository;
 import com.lucas.spring.components.exif.model.entity.ExifDataEntity;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,4 +21,18 @@ public interface ExifDataRepository extends JpaRepository<ExifDataEntity, Long> 
    * @return Returns the list of exif data entities.
    */
   List<ExifDataEntity> findAllByImageId(Long imageId);
+
+  /**
+   * List all the exif values based on the provided exif key.
+   *
+   * @param keyId The exif key for the base of the search.
+   * @return Returns the list of exif values corresponding to the exif key.
+   */
+  @Query("""
+          select ed.exifValue
+          from ExifData ed
+          where ed.exifKey.id = :keyId
+          group by ed.exifValue
+          """)
+  List<String> findAllByExifKey(Long keyId);
 }

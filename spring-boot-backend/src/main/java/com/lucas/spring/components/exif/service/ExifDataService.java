@@ -25,6 +25,14 @@ public interface ExifDataService {
   List<ExifDataEntity> findAllByImageId(Long imageId);
 
   /**
+   * List all the exif values based on the provided exif key.
+   *
+   * @param keyId The exif key for the base of the search.
+   * @return Returns the list of exif values corresponding to the exif key.
+   */
+  List<String> findAllByExifKey(Long keyId);
+
+  /**
    * Delete all the exif data entities by image id.
    *
    * @param imageId The id of the image.

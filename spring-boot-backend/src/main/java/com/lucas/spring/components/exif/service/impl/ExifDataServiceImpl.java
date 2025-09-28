@@ -35,6 +35,14 @@ public class ExifDataServiceImpl implements ExifDataService {
    * {@inheritDoc}
    */
   @Override
+  public List<String> findAllByExifKey(final Long keyId) {
+    return repository.findAllByExifKey(keyId);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void deleteAllByImageId(final Long imageId) {
     final List<ExifDataEntity> entities = findAllByImageId(imageId);
     entities.forEach(entity -> repository.deleteById(entity.getId()));
