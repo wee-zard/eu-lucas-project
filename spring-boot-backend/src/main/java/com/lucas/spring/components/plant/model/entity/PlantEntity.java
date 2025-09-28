@@ -34,7 +34,7 @@ public class PlantEntity extends PlantNameEntity {
   /**
    * Stores the species category of the plant.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "plant_species_name")
   private PlantSpeciesEntity plantSpeciesName;
   /**

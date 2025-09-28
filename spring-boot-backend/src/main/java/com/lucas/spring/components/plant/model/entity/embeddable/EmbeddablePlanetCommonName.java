@@ -3,6 +3,7 @@ package com.lucas.spring.components.plant.model.entity.embeddable;
 import com.lucas.spring.components.plant.model.entity.PlantNameEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class EmbeddablePlanetCommonName {
   /**
    * A foreign key reference to the scientific name of the plant.
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "plant_scientific_name")
   private PlantNameEntity plantScientificName;
 }
