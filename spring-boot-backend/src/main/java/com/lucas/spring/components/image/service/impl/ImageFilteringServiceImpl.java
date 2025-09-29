@@ -1,13 +1,14 @@
 package com.lucas.spring.components.image.service.impl;
 
 import com.lucas.spring.commons.helper.ConversionHelper;
-import com.lucas.spring.commons.utils.CriteriaBuilderUtil;
 import com.lucas.spring.commons.utils.CriteriaBuilderOperatorUtil;
+import com.lucas.spring.commons.utils.CriteriaBuilderUtil;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.coordinate.x.model.entity.CoordinateXthEntity;
 import com.lucas.spring.components.coordinate.y.model.entity.CoordinateYthEntity;
 import com.lucas.spring.components.country.model.entity.CreationCountryEntity;
 import com.lucas.spring.components.direction.model.entity.CreationDirectionEntity;
+import com.lucas.spring.components.exif.model.entity.ExifDataEntity;
 import com.lucas.spring.components.folder.enums.QueryElementRelations;
 import com.lucas.spring.components.image.enums.FilterOption;
 import com.lucas.spring.components.image.enums.ImageFilteringEnum;
@@ -207,6 +208,21 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
                 tableJoin.get(FilterOption.PLANT_SPECIES.getTableColumn()),
                 component.getSelectInput());
+      }
+      case EXIF_DATA -> {
+        final Join<ImageEntity, ExifDataEntity> tableJoin = root.join("exifData", JoinType.LEFT);
+
+        final Predicate left = CriteriaBuilderOperatorUtil.operatorDispatcher(
+                cb, OperatorOption.EQUALS,
+                tableJoin.get("exifKey").get("exifKeyName"),
+                component.getSelectInput());
+
+        final Predicate right = CriteriaBuilderOperatorUtil.operatorDispatcher(
+                cb, operatorInput,
+                tableJoin.get("exifValue"),
+                component.getSecondSelectInput());
+
+        return cb.and(left, right);
       }
       default -> throw new ImageFilteringException(
               ImageFilteringEnum.UNKNOWN_OR_NO_FILTER_TAB_PROVIDED,

@@ -1,4 +1,4 @@
-import ExifKeyDto from "../../model/dto/ExifKeyDto";
+import ExifKeyDto from "@model/dto/ExifKeyDto";
 import {
   BackendExifKeyControllerEndpoints,
   RequestCommandTypes,

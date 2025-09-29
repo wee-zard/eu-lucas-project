@@ -17,6 +17,7 @@ import { selectIsFilteringDialogOpen } from "@redux/selectors/filteringSelector"
 import { setFilteringDialogToOpen } from "@redux/actions/filteringActions";
 import { defaultPaginationModel } from "@screens/filteringScreen/helper/FilteringHelper";
 import FilteringDialogActions from "./FilteringDialogActions";
+import { setExifCacheStorage } from "@redux/actions/exifKeyActions";
 
 const FilteringDialog = () => {
   const isFilteringDialogOpen = useSelector(selectIsFilteringDialogOpen);
@@ -28,6 +29,7 @@ const FilteringDialog = () => {
     dispatch(setFilterMenuAction(undefined));
     dispatch(setFilteringResponse(undefined));
     dispatch(setFilteringDialogToOpen(false));
+    dispatch(setExifCacheStorage({}));
   };
 
   return (

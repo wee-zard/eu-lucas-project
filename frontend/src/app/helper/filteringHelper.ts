@@ -254,18 +254,18 @@ export const FilteringHelper = {
             };
           }
 
-          // Check whether the text field input field has not been filled out.
+          // Check whether the select input field has not been filled out.
           if (
-            (qc.errors?.textFieldInput === "" ||
-              qc.errors?.textFieldInput === i18n.t("validators.required")) &&
-            (!qc.textFieldInput || qc.textFieldInput.length === 0)
+            (qc.errors?.secondSelectInput === "" ||
+              qc.errors?.secondSelectInput === i18n.t("validators.required")) &&
+            (!qc.secondSelectInput || qc.secondSelectInput.length === 0)
           ) {
             isQcModified = true;
             qc = {
               ...qc,
               errors: {
                 ...qc?.errors,
-                textFieldInput: i18n.t("validators.required"),
+                secondSelectInput: i18n.t("validators.required"),
               },
             };
           }

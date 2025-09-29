@@ -49,6 +49,10 @@ export enum BackendExifKeyControllerEndpoints {
   GetExifKeyList = "/api/exif-key",
 }
 
+export enum BackendExifDataControllerEndpoints {
+  GetExifDataList = "/api/exif-data",
+}
+
 export enum BackendImageControllerEndpoints {
   PostFilterImage = "/api/image/filter-images",
   GetImageByImageNameAndCreationYear = "/api/image/",
@@ -123,6 +127,7 @@ export type BackendControllerEndpointTypes =
   | BackendCoordinateXControllerEndpoints
   | BackendCoordinateYControllerEndpoints
   | BackendExifKeyControllerEndpoints
+  | BackendExifDataControllerEndpoints
   | BackendImageControllerEndpoints
   | BackendProcedureControllerEndpoints
   | BackendImageFetcherControllerEndpoints
@@ -199,8 +204,7 @@ export enum FilterDialogFilters {
   X_COORDINATE = "X Koordináta",
   Y_COORDINATE = "Y Koordináta",
   DIRECTION = "Készítés Iránya",
-  // TODO: Allow filtering by EXIF_DATA
-  //EXIF_DATA = "Exif adat",
+  EXIF_DATA = "Exif adat",
   PROCEDURE_NAME = "Eljárás neve",
   PROCEDURE_PARAMS = "Eljárás pareméterei",
   IS_HOMOGENOUS = "Detektált növény homogén-e",
@@ -230,14 +234,11 @@ export enum OperatorBooleanItemNames {
   BooleanNotEqual = "Nem",
 }
 
-export enum OperatorTextfieldItems {
-  Contains = "contains",
-  DoesNotContain = "does not contain",
-  StartsWith = "starts with",
-  EndsWith = "ends with",
-  //IsEmpty = "is empty",
-  //IsNotEmpty = "is not empty",
-  //IsAnyOf = "is any of",
+export enum OperatorTextfieldItem {
+  Contains = "CONTAINS",
+  DoesNotContain = "DOES_NOT_CONTAIN",
+  StartsWith = "STARTS_WITH",
+  EndsWith = "ENDS_WITH",
 }
 
 export enum OperatorComparableItems {
@@ -257,7 +258,7 @@ export enum OperatorComparableItemNames {
 export enum FilteringFormInputKeys {
   SelectInput = "selectInput",
   OperatorInput = "operatorInput",
-  TextfieldInput = "textFieldInput",
+  SecondSelectInput = "secondSelectInput",
 }
 
 export enum MenuActions {

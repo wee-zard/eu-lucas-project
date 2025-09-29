@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Root;
 import java.util.Objects;
 import lombok.experimental.UtilityClass;
@@ -57,11 +58,13 @@ public class CriteriaBuilderUtil {
       return criteriaQuery;
     }
 
-    if (Objects.equals(PageablePropertiesUtil.getSortDirection(pageable), Sort.Direction.ASC)) {
-      return criteriaQuery.orderBy(criteriaBuilder.asc(root.get(PageablePropertiesUtil.getSortColumn(pageable))));
-    } else {
-      return criteriaQuery.orderBy(criteriaBuilder.desc(root.get(PageablePropertiesUtil.getSortColumn(pageable))));
-    }
+    final Path<Object> path = root.get(PageablePropertiesUtil.getSortColumn(pageable));
+
+    return criteriaQuery.orderBy(
+            Objects.equals(PageablePropertiesUtil.getSortDirection(pageable), Sort.Direction.ASC)
+                    ? criteriaBuilder.asc(path)
+                    : criteriaBuilder.desc(path)
+    );
   }
 
   /**

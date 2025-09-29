@@ -15,7 +15,7 @@ type Props = {
   isDisabled?: boolean;
   inputValue?: string;
   errorMessage?: string;
-  icon?: JSX.Element;
+  icon?: JSX.Element | string;
   styles?: {
     height?: number;
     isBorderLeftStyled?: boolean;

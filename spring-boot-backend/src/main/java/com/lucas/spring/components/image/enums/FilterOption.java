@@ -19,7 +19,8 @@ public enum FilterOption {
   IS_HOMOGENOUS("Homogén", "homogenous", 8),
   PROBABILITY("Detektálás értéke", "probabilityOfDetection", 9),
   PLANT_SPECIES("Növényfajok", "plantScientificName", 10),
-  PLANT_NAME("Növények", "plantScientificName", 11);
+  PLANT_NAME("Növények", "plantScientificName", 11),
+  EXIF_DATA("Exif adat", "exifData", 12);
   /**
    * The name displayed in the side of the frontend.
    */

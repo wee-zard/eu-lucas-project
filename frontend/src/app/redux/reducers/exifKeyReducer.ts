@@ -1,15 +1,18 @@
 import { UnknownAction } from "redux";
-import ExifKeyDto from "../../model/dto/ExifKeyDto";
+import ExifKeyDto from "@model/dto/ExifKeyDto";
 import { ExifKeyConsts } from "../consts/exifKeyConsts";
+import { CacheStorageType } from "@model/types/CacheStorageType";
 
 interface ExifKeyType {
   isExifKeysLoading: boolean;
-  listOfExifKeys: ExifKeyDto[];
+  listOfExifKeys?: ExifKeyDto[];
+  exifCacheStorage: CacheStorageType;
 }
 
 const initialState: ExifKeyType = {
   isExifKeysLoading: false,
-  listOfExifKeys: [],
+  listOfExifKeys: undefined,
+  exifCacheStorage: {},
 };
 
 const exifKeyReducer = (state = initialState, action: UnknownAction): ExifKeyType => {
@@ -28,7 +31,13 @@ const exifKeyReducer = (state = initialState, action: UnknownAction): ExifKeyTyp
     case ExifKeyConsts.REQUEST_EXIF_KEY:
       return {
         ...state,
+        listOfExifKeys: undefined,
         isExifKeysLoading: true,
+      };
+    case ExifKeyConsts.SET_EXIF_CACHE_STORAGE:
+      return {
+        ...state,
+        exifCacheStorage: action.payload as CacheStorageType,
       };
     default:
       return {

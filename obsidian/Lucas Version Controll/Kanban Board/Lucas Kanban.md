@@ -144,11 +144,10 @@ kanban-plugin: board
 
 ## 🔴Filtering Page Backlog
 
+- [ ] [[118 - Adatbázis feltöltése a képekhez tartozó EXIF adatokkal]] #Filtering-Page #🟡InProgress
 - [ ] [[160 - Szűrés - Csökkenteni a szűrés során a lekérdezések számát]] #Filtering-Page
 - [ ] [[095 - A szűrési feltételekhez tartozó opciókat el lehetne tárolni localStorage-ben addíg, míg újra le nem kérjük ezen opciókat globálisan]] #Filtering-Page
 - [ ] [[218 - Filtering - Alert dobása a dialógus ablak első megnyitásával]] #Filtering-Page
-- [ ] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #mission #Filtering-Page
-- [ ] [[118 - Adatbázis feltöltése a képekhez tartozó EXIF adatokkal]] #mission #Filtering-Page
 - [ ] [[075 - Drag&Drop logika implementálása a Filtering oldalon a szűrési opciók cseréjének céljából]] #mission #Filtering-Page
 - [ ] X - 3 "FilteringHelper" fájl van a projektben, ami nem előnyös, mert nem tudni, hogy ezek mit csinálnak #Filtering-Page
 - [ ] [[176 - Az összeépített lekérdezés kerüljön megjelenítésre a mentés gomb mellett]] #mission #Filtering-Page
@@ -158,10 +157,8 @@ kanban-plugin: board
 - [ ] [[090 - FilteringDialog - Amikor először építi fel az input mezőket az ablak, akkor bizonyos esetekben többször újra rendereli az egész ablakot]] #Filtering-Page
 - [ ] [[074 - Filtering oldalon egy input mező kitöltése kikényszeríti mind a 4 input mező re-renderelését]] #Filtering-Page
 - [ ] [[051 - Standard Input mező helyett Autocomplete input mezőt használjunk]] #Filtering-Page
-- [ ] [[016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]] #Filtering-Page
 - [ ] [[012 - FilterDialog ablakának dinamikus háttérszín adása a megjelenő Dark Light mode bekapcsolásával]] #Filtering-Page
 - [ ] [[019 - Aktív szűrés eredményei, a kiválasztott képek és a hozzájuk tartozó szűrési feltételek kerüljenek eltárolásra localStorage-ben]] #Filtering-Page
-- [ ] [[169 - Backend - Képek exif adatainak lekérése a háttérben]] #Filtering-Page
 - [ ] [[165 - Filtering - A Feltétel input mező hossza kisebb lehetne]] #Filtering-Page
 - [x] [[172 - Kiválasztott képek hozzáadásra kerüljenek mappákhoz]] #Filtering-Page #🟢Done
 - [x] [[159 - Kiválasztott kép eltávolítása után, a Clear All gomb még mindig klikkelhető]] #🟢Done    #Filtering-Page
@@ -177,6 +174,9 @@ kanban-plugin: board
 - [x] [[054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban]] #Filtering-Page #🟢Done
 - [x] [[200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről]] #Filtering-Page #🟢Done
 - [x] [[164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak]] #Filtering-Page #🟢Done
+- [x] [[016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt]] #Filtering-Page
+- [x] [[169 - Backend - Képek exif adatainak lekérése a háttérben]] #Filtering-Page #🟢Done
+- [x] [[117 - Exif adatok mentén lehessen szűrni a FilteringDialog ablakban]] #🟢Done  #Filtering-Page
 
 
 ## 🔴Bounding Box Page Backlog

@@ -4,8 +4,6 @@ import {
   operatorBooleanItems,
   operatorComparableItems,
   operatorSelectItems,
-  // TODO: Allow filtering by EXIF_DATA
-  //operatorTextfieldItems,
 } from "@model/QueryBuilderModel";
 import { ConversionUtils } from "@helper/conversionUtils";
 import i18n from "@i18n/i18nHandler";
@@ -15,8 +13,7 @@ import { selectListOfCreationCountry } from "@redux/selectors/creationCountrySel
 import { selectListOfCreationDirection } from "@redux/selectors/creationDirectionSelector";
 import { selectListOfCoordinateX } from "@redux/selectors/coordinateXSelector";
 import { selectListOfCoordinateY } from "@redux/selectors/coordinateYSelector";
-// TODO: Allow filtering by EXIF_DATA
-//import { selectListOfExifKeys } from "@redux/selectors/exifKeySelector";
+import { selectListOfExifKeys } from "@redux/selectors/exifKeySelector";
 import { selectListOfProcedures } from "@redux/selectors/procedureSelector";
 import { selectListOfProcedureLogParamsByParam } from "@redux/selectors/procedureLogParamSelector";
 import { selectListOfPlantsByName } from "@redux/selectors/plantSelector";
@@ -29,8 +26,7 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
   const listOfCreationDirections = useSelector(selectListOfCreationDirection);
   const listOfCoordinateX = useSelector(selectListOfCoordinateX);
   const listOfCoordinateY = useSelector(selectListOfCoordinateY);
-  // TODO: Allow filtering by EXIF_DATA
-  //const listOfExifKeys = useSelector(selectListOfExifKeys);
+  const listOfExifKeys = useSelector(selectListOfExifKeys);
   const listOfPlants = useSelector(selectListOfPlantsByName);
   // TODO: Allow filtering by plant species.
   //const listOfPlantSpecies = useSelector(selectListOfPlantSpeciesByScientificName);
@@ -115,26 +111,23 @@ export const useSelectedTabToFilterTemplate = (filterTab?: keyof typeof FilterDi
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
         ];
-      /*
-      TODO: Allow filtering by the exif data.
       case "EXIF_DATA":
         return [
           {
             inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.exif-key"),
-            options: listOfExifKeys.map((obj) => obj.exifKeyName),
+            options: listOfExifKeys?.map((obj) => obj.name),
             inputKey: FilteringFormInputKeys.SelectInput,
           },
           {
             inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.condition"),
-            options: operatorTextfieldItems,
+            options: operatorSelectItems,
             inputKey: FilteringFormInputKeys.OperatorInput,
           },
           {
             inputTitle: i18n.t("screens.filtering.query-builder.query-by-option-names.exif-value"),
-            inputKey: FilteringFormInputKeys.TextfieldInput,
+            inputKey: FilteringFormInputKeys.SecondSelectInput,
           },
         ];
-        */
       case "PROCEDURE_NAME":
         return [
           {

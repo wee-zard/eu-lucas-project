@@ -95,7 +95,8 @@
               "title": "Könyvjelzők"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -191,8 +192,10 @@
   },
   "active": "7213bd70899264c2",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/219 - Service interface és Facade interface esetén a @Service annotáció ne kerüljön használatra.md",
+    "Kanban Board/Nodes/165 - Filtering - A Feltétel input mező hossza kisebb lehetne.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt.md",
+    "Kanban Board/Nodes/219 - Service interface és Facade interface esetén a @Service annotáció ne kerüljön használatra.md",
     "Kanban Board/Nodes/190 - A kép neve kerüljön megjelenítésre a canvas-en.md",
     "Kanban Board/Nodes/164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak.md",
     "Kanban Board/Nodes/200 - Disabled legyen az input mező addíg, míg a szűrési opció kiválasztásakor nem kértük le az adatokat a szerverről.md",
@@ -215,8 +218,6 @@
     "Kanban Board/Nodes/216 - Settings - Local Image Server - Port dinamikus változtathatása.md",
     "Kanban Board/Nodes/215 - Backend deploy során beállítani, hogy a resource mappában lévő fájlok ne legyenek publikusan elérhetőek.md",
     "Kanban Board/Nodes/025 - Settings oldal - Fordítás nyelvének beállítása.md",
-    "Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md",
-    "Untitled.md",
     "Kanban Board/Images/Pasted image 20250724184703.png",
     "Kanban Board/Images/Pasted image 20250712085053.png",
     "Kanban Board/Images/Pasted image 20250224232633.png",

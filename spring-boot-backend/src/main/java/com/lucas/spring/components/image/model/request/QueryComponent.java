@@ -17,6 +17,6 @@ import lombok.ToString;
 public class QueryComponent extends QueryRoot {
   private FilterOption selectedFilterTab;
   private String selectInput;
+  private String secondSelectInput;
   private OperatorOption operatorInput;
-  private String textFieldInput;
 }

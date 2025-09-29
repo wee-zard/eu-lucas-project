@@ -2,6 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import ExifKeyDto from "@model/dto/ExifKeyDto";
 import { ExifKeyConsts } from "@redux/consts/exifKeyConsts";
 import { getExifKeyList } from "@api/command/exifKeyCommands";
+import { CacheStorageType } from "@model/types/CacheStorageType";
 
 export const setExifKeyRequest = () => {
   return {
@@ -18,6 +19,13 @@ export const setExifKeyFailed = () => {
 export const setExifKeySucceeded = (data: ExifKeyDto[]) => {
   return {
     type: ExifKeyConsts.REQUESTING_EXIF_KEY_SUCCEEDED,
+    payload: data,
+  };
+};
+
+export const setExifCacheStorage = (data: CacheStorageType) => {
+  return {
+    type: ExifKeyConsts.SET_EXIF_CACHE_STORAGE,
     payload: data,
   };
 };

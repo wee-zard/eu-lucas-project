@@ -59,24 +59,4 @@ public class CriteriaBuilderOperatorUtil {
               operatorOption);
     }
   }
-
-  //  private Predicate applyExpressionsOnTextBasedFilters(
-  //          final CriteriaBuilder cb,
-  //          final FilterComponents component,
-  //          final Path<String> path,
-  //          final String entity
-  //  ) {
-  //    Predicate predicate = null;
-  //    switch (component.getOperatorInput()) {
-  //      case CONTAINS -> predicate = cb.like(path, "%" + entity + "%");
-  //      case DOES_NOT_CONTAIN -> predicate = cb.notLike(path, "%" + entity + "%");
-  //      case STARTS_WITH -> predicate = cb.like(path, entity + "%");
-  //      case ENDS_WITH -> predicate = cb.like(path, "%" + entity);
-  //      default -> throw new ImageFilteringException(
-  //              ImageFilteringEnum.UNKNOWN_OR_NO_OPERATOR_PROVIDED,
-  //              component.toString()
-  //      );
-  //    }
-  //    return predicate;
-  //
 }

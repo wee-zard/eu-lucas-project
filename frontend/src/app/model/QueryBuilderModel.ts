@@ -6,7 +6,6 @@ import {
   OperatorComparableItems,
   OperatorSelectItemNames,
   OperatorSelectItems,
-  OperatorTextfieldItems,
   QueryTypes,
 } from "./enum";
 
@@ -35,13 +34,13 @@ export type QueryComponent = {
   parentId: number;
   selectedFilterTab?: keyof typeof FilterDialogFilters;
   selectInput?: string;
+  secondSelectInput?: string;
   operatorInput?: QueryConditions;
-  textFieldInput?: string;
   errors?: {
     selectedFilterTab?: string;
     selectInput?: string;
+    secondSelectInput?: string;
     operatorInput?: string;
-    textFieldInput?: string;
   };
 };
 
@@ -59,11 +58,7 @@ export type QueryMultiType = QueryBuilderModel | QueryGroup;
  * Conditions that can be applied onto the table column
  * in query building.
  */
-export type QueryConditions =
-  | OperatorSelectItems
-  | OperatorTextfieldItems
-  | OperatorComparableItems
-  | OperatorBooleanItems;
+export type QueryConditions = OperatorSelectItems | OperatorComparableItems | OperatorBooleanItems;
 
 export const getNewIdToElement = () => Date.now();
 
@@ -104,10 +99,4 @@ export const operatorSelectItems = Object.values(OperatorSelectItemNames).sort()
 export const operatorComparableItems = [
   ...operatorSelectItems,
   ...Object.values(OperatorComparableItemNames),
-].sort();
-
-// TODO: It is not used yet. Please change the Object.values(OperatorTextfieldItems) to look the same as the above ones.
-export const operatorTextfieldItems = [
-  ...operatorSelectItems,
-  ...Object.values(OperatorTextfieldItems),
 ].sort();
