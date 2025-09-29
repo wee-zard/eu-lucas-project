@@ -9,11 +9,11 @@ import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PermMedia from "@mui/icons-material/PermMedia";
-import PhotoFilterIcon from "@mui/icons-material/PhotoFilter";
+import TableViewIcon from "@mui/icons-material/TableView";
 
 export enum NavigationSegments {
-  ManageProcedures = "ManageProcedures",
   UploadProcedureResults = "UploadProcedureResults",
+  UploadLogManagement = "UploadLogManagement",
   ReportError = "ReportErrors",
   Settings = "Settings",
   Manual = "Manual",
@@ -31,8 +31,8 @@ export enum NavigationTitles {
   ImageFolders = "Lementett képek mappái",
 
   Procedures = "Eljárások",
-  ManageProcedures = "Eljárások kezeléses",
   UploadProcedureResults = "Eljárás log feltöltése",
+  UploadLogManagement = "Eljárás logok kezelése",
 
   Others = "Egyéb",
   ReportError = "Hibabejelentés",
@@ -78,20 +78,13 @@ export const navigation: Navigation = [
   },
   {
     segment: NavigationTitles.Filtering,
-    title: NavigationTitles.Images,
-    icon: <PhotoFilterIcon />,
-    children: [
-      {
-        segment: NavigationSegments.Filtering,
-        title: NavigationTitles.Filtering,
-        icon: <FilterListIcon />,
-      },
-      {
-        segment: NavigationSegments.ImageFolders,
-        title: NavigationTitles.ImageFolders,
-        icon: <PermMedia />,
-      },
-    ],
+    title: NavigationTitles.Filtering,
+    icon: <FilterListIcon />,
+  },
+  {
+    segment: NavigationSegments.ImageFolders,
+    title: NavigationTitles.ImageFolders,
+    icon: <PermMedia />,
   },
 
   // ==================================
@@ -106,25 +99,11 @@ export const navigation: Navigation = [
     segment: NavigationSegments.UploadProcedureResults,
     title: NavigationTitles.UploadProcedureResults,
     icon: <UploadFileIcon />,
-    /*
-    segment: NavigationTitles.Procedures,
-    title: NavigationTitles.Procedures,
-    icon: <TableRowsIcon />,
-    children: [
-      {
-        // Page where the users could manage the procedures such as adding, modifying, and removing them.
-        segment: NavigationSegments.ManageProcedures,
-        title: NavigationTitles.ManageProcedures,
-        icon: <FunctionsIcon />,
-      },
-      {
-        // Page where the users could upload past procedure results to the server.
-        segment: NavigationSegments.UploadProcedureResults,
-        title: NavigationTitles.UploadProcedureResults,
-        icon: <UploadFileIcon />,
-      },
-    ],
-    */
+  },
+  {
+    segment: NavigationSegments.UploadLogManagement,
+    title: NavigationTitles.UploadLogManagement,
+    icon: <TableViewIcon />,
   },
   // ==================================
   {

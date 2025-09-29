@@ -67,13 +67,13 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
     const handler: GenericHandlerType<NavigationSegments, JSX.Element> = {
       [NavigationSegments.Filtering]: <FilteringScreen />,
       [NavigationSegments.UploadProcedureResults]: <UploadProcedureScreen />,
+      [NavigationSegments.UploadLogManagement]: <TmpScreen />,
       [NavigationSegments.ReportError]: <ReportScreen />,
       [NavigationSegments.UserManagement]: <ManageUsersScreen />,
       [NavigationSegments.ImageFolders]: <ManageFoldersScreen />,
       [NavigationSegments.Dashboard]: <TmpScreen />,
       [NavigationSegments.Manual]: <TmpScreen />,
       [NavigationSegments.Settings]: <SettingsScreen />,
-      [NavigationSegments.ManageProcedures]: <TmpScreen />,
     };
 
     return handler[pathName as NavigationSegments];

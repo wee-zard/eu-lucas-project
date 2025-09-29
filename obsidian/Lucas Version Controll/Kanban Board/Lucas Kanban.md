@@ -218,7 +218,7 @@ kanban-plugin: board
 
 ## 🔴Deployment Backlog
 
-- [ ] 194 - Lemondani a domaint (amennyiben docker kerül használatra lokálban) #🟡InProgress #🔴ToDo  #Deployment
+- [ ] 194 - Lemondani a domaint (amennyiben docker kerül használatra lokálban) #🟡InProgress #Deployment
 - [ ] [[215 - Backend deploy során beállítani, hogy a resource mappában lévő fájlok ne legyenek publikusan elérhetőek]] #🔴ToDo #Deployment
 - [ ] [[168 - Auto-Reloading certbot after every 60 days]] #Deployment #🔴ToDo
 - [ ] X - Deploy - Alkalmazás kitelepítése egy új VM-re #🔴ToDo #Deployment
