@@ -7,7 +7,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 //import TableRowsIcon from "@mui/icons-material/TableRows";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import SwitchAccountIcon from "@mui/icons-material/SwitchAccount";
 import PermMedia from "@mui/icons-material/PermMedia";
 import TableViewIcon from "@mui/icons-material/TableView";
 
@@ -66,7 +66,7 @@ export const navigation: Navigation = [
   {
     segment: NavigationSegments.UserManagement,
     title: NavigationTitles.UserManagement,
-    icon: <AccountBoxIcon />,
+    icon: <SwitchAccountIcon />,
   },
   // ==================================
   {
