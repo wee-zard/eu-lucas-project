@@ -74,7 +74,6 @@ public class ProcedureLogController {
   @DeleteMapping("/")
   public BaseResponse deleteLogById(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable,
           @RequestParam String logId
   ) {
     procedureLogService.deleteById(FormatParseUtil.parseToLong(logId));

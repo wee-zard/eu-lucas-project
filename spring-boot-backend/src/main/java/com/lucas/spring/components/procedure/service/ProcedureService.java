@@ -11,11 +11,6 @@ import java.util.Optional;
 public interface ProcedureService {
 
   /**
-   * Removes all existing procedure from the system.
-   */
-  void deleteAll();
-
-  /**
    * Creates a new procedure.
    *
    * @param name The name of the procedure.
