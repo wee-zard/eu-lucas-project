@@ -14,7 +14,7 @@ type RenderCellParamType = GridRenderCellParams<GenericRowType<ProcedureLogDto>>
 const manageLogsDataGridColDef: GridColDef[] = [
   {
     field: "id",
-    headerName: "id",
+    headerName: "ID",
     sortable: true,
     flex: 1,
   },
