@@ -23,17 +23,34 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping(path = "api/procedure-log")
 public class ProcedureLogController {
-
   private final ProcedureLogService procedureLogService;
   private final ConversionHelper conversionHelper;
 
   /**
-   * Fetches the procedure logs associated with the requested image.
+   * Fetches the list of procedure logs from the server.
    *
-   * @return List of procedure logs that are associated with the image.
+   * @param user The user who initiated the request.
+   * @return List of procedure logs.
    */
   @CrossOrigin
   @GetMapping("/")
+  public PageableResponse<ProcedureLogDto> getProcedureLogs(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable
+  ) {
+    return conversionHelper.convertPage(
+            procedureLogService.findAll(pageable),
+            ProcedureLogDto.class);
+  }
+
+  /**
+   * Fetches the procedure logs associated with the requested image.
+   *
+   * @param user The user who initiated the request.
+   * @return List of procedure logs that are associated with the image.
+   */
+  @CrossOrigin
+  @GetMapping("/log-by-image")
   public PageableResponse<ProcedureLogDto> getProcedureLogsByImageId(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable,
@@ -41,7 +58,7 @@ public class ProcedureLogController {
   ) {
     final int formattedImageId = FormatParseUtil.parseToInteger(imageId);
     return conversionHelper.convertPage(
-            procedureLogService.getProcedureLogsByImageId(formattedImageId, pageable),
+            procedureLogService.findAllByImageId(formattedImageId, pageable),
             ProcedureLogDto.class);
   }
 }

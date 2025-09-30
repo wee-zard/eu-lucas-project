@@ -41,6 +41,34 @@
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
             }
+          },
+          {
+            "id": "98845ac29c41d282",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "064 - Validálás Validátorok kollektor"
+            }
+          },
+          {
+            "id": "406c5c3f498fa3ec",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kanban Board/Nodes/016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt"
+            }
           }
         ]
       }
@@ -192,9 +220,10 @@
   },
   "active": "7213bd70899264c2",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/165 - Filtering - A Feltétel input mező hossza kisebb lehetne.md",
-    "Kanban Board/Lucas Kanban.md",
     "Kanban Board/Nodes/016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt.md",
+    "Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md",
+    "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/165 - Filtering - A Feltétel input mező hossza kisebb lehetne.md",
     "Kanban Board/Nodes/219 - Service interface és Facade interface esetén a @Service annotáció ne kerüljön használatra.md",
     "Kanban Board/Nodes/190 - A kép neve kerüljön megjelenítésre a canvas-en.md",
     "Kanban Board/Nodes/164 - Filtering - A szűrési ablakban lévő input mezők túl nagy helyet foglalnak.md",
@@ -202,7 +231,6 @@
     "Kanban Board/Nodes/054 - Loading ikon megjelenítése a FilteringDialog űrlapjaiban.md",
     "Kanban Board/Nodes/060 - Scheduler a félóránkénti report emailek kiküldésére.md",
     "Kanban Board/Nodes/123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével.md",
-    "Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md",
     "Kanban Board/Nodes/208 - ManageFolders - Settings 6 - Mappák letöltése, befoglaló téglalapok megjelenítése képeken.md",
     "Kanban Board/Nodes/130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja.md",
     "Kanban Board/Nodes/050 - Filtering Dialog input mezői nem kerülnek validálásra.md",

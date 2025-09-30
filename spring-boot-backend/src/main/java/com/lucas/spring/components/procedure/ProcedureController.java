@@ -34,15 +34,15 @@ public class ProcedureController {
    * Upload a parsed xml object into the server that contains the
    * results of a procedure that analyzed an image.
    *
-   * @param authenticatedUser The user who initiated the request.
+   * @param user The user who initiated the request.
    */
   @CrossOrigin
   @PostMapping("/upload")
   public BaseResponse postValidateEmailAddress(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser,
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestBody final List<ProcedureResultRequest> requests
   ) {
-    requests.forEach(request -> procedureFacade.uploadLog(request, authenticatedUser.getUserId()));
+    requests.forEach(request -> procedureFacade.uploadLog(request, user.getUserId()));
     return new BaseResponse();
   }
 

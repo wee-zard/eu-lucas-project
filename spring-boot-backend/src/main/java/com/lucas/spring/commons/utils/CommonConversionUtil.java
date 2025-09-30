@@ -27,6 +27,10 @@ public class CommonConversionUtil {
    * @return Returns the requested object.
    */
   public KeyValueModel toKeyValueModel(final FolderContentDataEntity source) {
+    if (source == null) {
+      return null;
+    }
+
     return KeyValueModel.builder()
             .key(source.getKey().getName())
             .value(source.getValue())
@@ -56,6 +60,7 @@ public class CommonConversionUtil {
                     .map(CommonConversionUtil::toBoundingBoxDto)
                     .toList())
             .filename(source.getFilename())
+            .image(toImageDtoWithoutExifHeader(source.getImage()))
             .build();
   }
 
@@ -66,6 +71,10 @@ public class CommonConversionUtil {
    * @return Returns the requested object.
    */
   public PlantDto toPlantDto(final PlantEntity source) {
+    if (source == null) {
+      return null;
+    }
+
     return PlantDto.builder()
             .isPlantInvasive(source.getIsPlantInvasive())
             .plantSpeciesName(source.getPlantSpeciesName() != null
@@ -82,6 +91,10 @@ public class CommonConversionUtil {
    * @return Returns the requested object.
    */
   public BoundingBoxDto toBoundingBoxDto(final BoundingBoxEntity source) {
+    if (source == null) {
+      return null;
+    }
+
     return BoundingBoxDto.builder()
             .id(source.getId())
             .isHomogenous(source.getHomogenous())
@@ -101,6 +114,10 @@ public class CommonConversionUtil {
    * @return Returns the requested object.
    */
   public ExifDataDto toExifDataDto(final ExifDataEntity source) {
+    if (source == null) {
+      return null;
+    }
+
     return ExifDataDto.builder()
             .exifValue(source.getExifValue())
             .exifKey(source.getExifKey().getExifKeyName())
@@ -114,6 +131,28 @@ public class CommonConversionUtil {
    * @return Returns the requested object.
    */
   public ImageDto toImageDto(final ImageEntity source) {
+    if (source == null) {
+      return null;
+    }
+
+    final ImageDto imageDto = toImageDtoWithoutExifHeader(source);
+    imageDto.setExifDataList(source.getExifData().stream()
+            .map(CommonConversionUtil::toExifDataDto)
+            .toList());
+    return imageDto;
+  }
+
+  /**
+   * Converts the provided data to the another.
+   *
+   * @param source The data to convert.
+   * @return Returns the requested object.
+   */
+  public ImageDto toImageDtoWithoutExifHeader(final ImageEntity source) {
+    if (source == null) {
+      return null;
+    }
+
     return ImageDto.builder()
             .id(source.getId())
             .year(source.getYear().getYear())
@@ -122,9 +161,6 @@ public class CommonConversionUtil {
             .direction(source.getDirection().getDirectionName())
             .coordinateX(source.getCoordinateX().getCoordinateX())
             .coordinateY(source.getCoordinateY().getCoordinateY())
-            .exifDataList(source.getExifData().stream()
-                    .map(CommonConversionUtil::toExifDataDto)
-                    .toList())
             .build();
   }
 }

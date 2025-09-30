@@ -21,13 +21,13 @@ kanban-plugin: board
 - [ ] [[123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével]] #🔴ToDo
 - [ ] Uncaught error 500 Internal Server Error on the frontend side. application is crashing #🔴ToDo
 - [ ] X - Loading indikátor hozzáadása a data grid táblákhoz, kis szürke háttérrel
-- [ ] [[064 - Validálás Validátorok kollektor]]
 - [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
-- [ ] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
 - [ ] [[124 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, miközben a képlekérdezések leáll]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
 - [x] [[167 - DockerHub-ról levenni a projektet]] #🟢Done
 - [x] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]]  #🟢Done
+- [x] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
+- [x] [[064 - Validálás Validátorok kollektor]] #🟢Done
 
 
 ## 🔴Code Improvement ToDo

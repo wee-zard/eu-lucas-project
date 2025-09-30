@@ -27,13 +27,13 @@ public class ProcedureParamController {
   /**
    * Fetches the list of procedure params filtered by the procedure id.
    *
-   * @param authenticatedUser The user who initiated the request.
+   * @param user The user who initiated the request.
    * @return Returns the list of procedure params stored in the server.
    */
   @CrossOrigin
   @GetMapping("/")
   public List<ProcedureLogParamDto> getProcedureParamsByProcedureId(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
   ) {
     return conversionHelper.convertList(
             procedureLogParamService.getProcedureLogParamsByProcedureId(),

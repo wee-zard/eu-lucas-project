@@ -9,6 +9,19 @@ import PageableProperties from "@model/PageableProperties";
 import PageableResponse from "@model/response/PageableResponse";
 import { RequestParamType } from "@model/types/RequestParamType";
 
+export const getProcedureLogsCommand = async (pageable: PageableProperties) => {
+  return commandHandler<PageableResponse<ProcedureLogDto>>({
+    type: RequestCommandTypes.GET,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendProcedureLogControllerEndpoints.GetProcedureLogs,
+    obj: {},
+    header: {
+      isAuthTokenMandatory: true,
+      pageableProperties: pageable,
+    },
+  });
+};
+
 /**
  * Fetches the procedure logs associated with the requested image.
  *

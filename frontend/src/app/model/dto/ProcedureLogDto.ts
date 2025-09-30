@@ -1,4 +1,5 @@
 import BoundingBoxDto from "./BoundingBoxDto";
+import ImageDto from "./ImageDto";
 
 export default class ProcedureLogDto {
   constructor(
@@ -9,5 +10,6 @@ export default class ProcedureLogDto {
     public procedure: string,
     public filename: string,
     public user: string,
+    public image: ImageDto,
   ) {}
 }

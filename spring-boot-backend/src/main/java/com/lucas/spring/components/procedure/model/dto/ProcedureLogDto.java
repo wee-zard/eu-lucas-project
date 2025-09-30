@@ -1,6 +1,7 @@
 package com.lucas.spring.components.procedure.model.dto;
 
 import com.lucas.spring.commons.model.dto.RootDto;
+import com.lucas.spring.components.image.model.dto.ImageDto;
 import com.lucas.spring.components.procedure.model.entity.ProcedureLogEntity;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -24,4 +25,5 @@ public class ProcedureLogDto implements RootDto {
   private String procedure;
   private String filename;
   private String user;
+  private ImageDto image;
 }

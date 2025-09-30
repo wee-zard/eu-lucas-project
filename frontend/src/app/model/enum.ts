@@ -72,7 +72,8 @@ export enum BackendProcedureControllerEndpoints {
 }
 
 export enum BackendProcedureLogControllerEndpoints {
-  GetProcedureLogsByImageId = "/api/procedure-log/",
+  GetProcedureLogs = "/api/procedure-log/",
+  GetProcedureLogsByImageId = "/api/procedure-log/log-by-image",
 }
 
 export enum BackendPlantNameControllerEndpoints {
@@ -176,6 +177,7 @@ export enum LocalStorageKeys {
   UserCreationForm = "user-creation-form",
   FolderCreationForm = "folder-creation-form",
   FolderListDataGrid = "/folder-list",
+  ManageLogsDataGrid = "/log-list",
   ReportCreationForm = "report-creation-form",
   Settings = "settings",
   HideBoundingBoxesInsideFolder = "/selected-folder-hide-logs",

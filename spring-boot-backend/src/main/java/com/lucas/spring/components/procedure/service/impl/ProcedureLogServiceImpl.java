@@ -23,23 +23,30 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ProcedureLogServiceImpl implements ProcedureLogService {
   private final EntityManager entityManager;
-  private final ProcedureLogRepository procedureLogRepository;
+  private final ProcedureLogRepository repository;
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public Page<ProcedureLogEntity> getProcedureLogsByImageId(
-          final Number imageId,
-          final Pageable pageable
-  ) {
+  public Page<ProcedureLogEntity> findAll(final Pageable pageable) {
+    return this.findAllByImageId(null, pageable);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Page<ProcedureLogEntity> findAllByImageId(final Number imageId, final Pageable pageable) {
     // Setting up the objects for the query builder.
     final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     final CriteriaQuery<ProcedureLogEntity> qc = cb.createQuery(ProcedureLogEntity.class);
     final Root<ProcedureLogEntity> root = qc.from(ProcedureLogEntity.class);
 
-    // Query by the image id.
-    qc.select(root).where(cb.equal(root.get("image").get("id"), imageId));
+    if (imageId != null) {
+      // Query by the image id.
+      qc.select(root).where(cb.equal(root.get("image").get("id"), imageId));
+    }
 
     return CriteriaBuilderUtil.getPagedResult(qc, cb, root, pageable, entityManager);
   }
@@ -53,20 +60,19 @@ public class ProcedureLogServiceImpl implements ProcedureLogService {
           final ImageEntity image,
           final UserEntity user
   ) {
-    return saveProcedureLog(
-            ProcedureLogEntity.builder()
-                    .procedure(procedure)
-                    .image(image)
-                    .user(user)
-                    .build()
-    );
+    final ProcedureLogEntity entity = ProcedureLogEntity.builder()
+            .procedure(procedure)
+            .image(image)
+            .user(user)
+            .build();
+    return save(entity);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public ProcedureLogEntity saveProcedureLog(ProcedureLogEntity entity) {
-    return procedureLogRepository.save(entity);
+  public ProcedureLogEntity save(final ProcedureLogEntity entity) {
+    return repository.save(entity);
   }
 }

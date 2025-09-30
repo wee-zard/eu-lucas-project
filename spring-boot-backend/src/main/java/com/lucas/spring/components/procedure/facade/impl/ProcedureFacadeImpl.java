@@ -60,7 +60,7 @@ public class ProcedureFacadeImpl implements ProcedureFacade {
       );
 
       // Save the procedure log entity.
-      final ProcedureLogEntity procedureLogEntity = procedureLogService.saveProcedureLog(
+      final ProcedureLogEntity procedureLogEntity = procedureLogService.save(
               ProcedureLogEntity.builder()
                       .procedure(procedureEntity)
                       .image(imageEntity)

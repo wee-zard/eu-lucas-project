@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -16,6 +17,7 @@ import lombok.ToString;
 @ToString
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 public class ImageDto implements RootDto {
   private Long id;

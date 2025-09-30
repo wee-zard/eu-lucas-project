@@ -13,13 +13,21 @@ import org.springframework.data.domain.Pageable;
 public interface ProcedureLogService {
 
   /**
+   * Fetches the procedure logs.
+   *
+   * @param pageable Properties the page the records.
+   * @return Returns the list of procedure logs.
+   */
+  Page<ProcedureLogEntity> findAll(Pageable pageable);
+
+  /**
    * Fetches the procedure logs associated with the requested image.
    *
    * @param imageId The id of the image.
    * @param pageable Properties the page the records.
    * @return Returns the list of procedure logs that are associated with the requested image.
    */
-  Page<ProcedureLogEntity> getProcedureLogsByImageId(Number imageId, Pageable pageable);
+  Page<ProcedureLogEntity> findAllByImageId(Number imageId, Pageable pageable);
 
   /**
    * Creates a new {@link ProcedureLogEntity}.
@@ -40,5 +48,5 @@ public interface ProcedureLogService {
    * @param entity The procedure log entity to save and update.
    * @return Returns the saved entity.
    */
-  ProcedureLogEntity saveProcedureLog(ProcedureLogEntity entity);
+  ProcedureLogEntity save(ProcedureLogEntity entity);
 }
