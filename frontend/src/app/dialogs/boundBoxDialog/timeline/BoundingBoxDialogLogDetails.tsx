@@ -1,35 +1,46 @@
-import { emptyCharacterPlaceholder } from "@global/globalConsts";
+import { emptyPlaceholder } from "@global/globalConsts";
+import { customScrollBar, StyledScrollBarHolder } from "@global/globalStyles";
 import DateHelper from "@helper/dateHelper";
 import i18n from "@i18n/i18nHandler";
 import BoundingBoxDto from "@model/dto/BoundingBoxDto";
 import ProcedureLogDto from "@model/dto/ProcedureLogDto";
 import { TooltipDataViewProperty } from "@model/enum";
-import { styled } from "@mui/material";
+import { Divider, styled } from "@mui/material";
 
 type Props = {
   log: ProcedureLogDto;
   box?: BoundingBoxDto;
+  isEverythingDisplayed?: boolean;
 };
 
-const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
-  const commonProperties = [TooltipDataViewProperty.Procedure, TooltipDataViewProperty.Params];
-  const properties = !box
-    ? [TooltipDataViewProperty.Plants, TooltipDataViewProperty.Box]
-    : [
-        TooltipDataViewProperty.PlantName,
-        TooltipDataViewProperty.PlantFamily,
-        TooltipDataViewProperty.IsInvasive,
-        TooltipDataViewProperty.BoundingBox,
-        TooltipDataViewProperty.DetectionProbability,
-      ];
-  const propertyMap = [
-    ...commonProperties,
-    ...properties,
+const BoundingBoxDialogLogDetails = ({ log, box, isEverythingDisplayed }: Props) => {
+  const commonPrefixProperties = [
+    TooltipDataViewProperty.Procedure,
+    TooltipDataViewProperty.Params,
+  ];
+  const commonPostfixProperties = [
     TooltipDataViewProperty.User,
     TooltipDataViewProperty.CreationDate,
   ];
 
-  const getProcedureProperties = (log: ProcedureLogDto, properties: TooltipDataViewProperty) => {
+  const getProperties = (isLogDisplayed: boolean = true) => {
+    const logOnlyProperties = [TooltipDataViewProperty.Plants, TooltipDataViewProperty.Box];
+    const boxOnlyProperties = [
+      TooltipDataViewProperty.PlantName,
+      TooltipDataViewProperty.PlantFamily,
+      TooltipDataViewProperty.IsInvasive,
+      TooltipDataViewProperty.BoundingBox,
+      TooltipDataViewProperty.DetectionProbability,
+    ];
+
+    return isLogDisplayed ? logOnlyProperties : boxOnlyProperties;
+  };
+
+  const getProcedureProperties = (
+    log: ProcedureLogDto,
+    properties: TooltipDataViewProperty,
+    box?: BoundingBoxDto,
+  ) => {
     const handler = Object.freeze({
       [TooltipDataViewProperty.Procedure]: () => log.procedure,
       [TooltipDataViewProperty.Plants]: () =>
@@ -59,7 +70,21 @@ const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
         box?.probabilityOfDetection ? `${box?.probabilityOfDetection}%` : undefined,
     });
 
-    return handler[properties]() ?? emptyCharacterPlaceholder;
+    return handler[properties]() ?? emptyPlaceholder;
+  };
+
+  const renderContent = (property: TooltipDataViewProperty, box?: BoundingBoxDto) => {
+    return (
+      <StyledProcedurePropertyHolder
+        className="tooltipDataRow"
+        key={`${log.id}-${property}-${box?.id ?? 0}`}
+      >
+        <StyledProcedurePropertyTitleHolder>{i18n.t(property)}:</StyledProcedurePropertyTitleHolder>
+        <StyledProcedurePropertyValueHolder>
+          {getProcedureProperties(log, property, box)}
+        </StyledProcedurePropertyValueHolder>
+      </StyledProcedurePropertyHolder>
+    );
   };
 
   return (
@@ -72,16 +97,16 @@ const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
       </div>
       <br />
       <StyledTooltipDataWrapper>
-        {propertyMap.map((property) => (
-          <StyledProcedurePropertyHolder className="tooltipDataRow" key={`${log.id}-${property}`}>
-            <StyledProcedurePropertyTitleHolder>
-              {i18n.t(property)}:
-            </StyledProcedurePropertyTitleHolder>
-            <StyledProcedurePropertyValueHolder>
-              {getProcedureProperties(log, property)}
-            </StyledProcedurePropertyValueHolder>
-          </StyledProcedurePropertyHolder>
-        ))}
+        {commonPrefixProperties.map((property) => renderContent(property, box))}
+        {!isEverythingDisplayed
+          ? getProperties(!box).map((property) => renderContent(property, box))
+          : log.boundingBoxes.map((boundingBox, index, array) => (
+              <>
+                {getProperties(false).map((property) => renderContent(property, boundingBox))}
+                {index < array.length - 1 && <Divider />}
+              </>
+            ))}
+        {commonPostfixProperties.map((property) => renderContent(property, box))}
       </StyledTooltipDataWrapper>
     </>
   );
@@ -89,13 +114,12 @@ const BoundingBoxDialogLogDetails = ({ log, box }: Props) => {
 
 export default BoundingBoxDialogLogDetails;
 
-const StyledTooltipDataWrapper = styled("div")({
+const StyledTooltipDataWrapper = styled(StyledScrollBarHolder)({
   display: "grid",
   gap: 8,
-
-  "& .tooltipDataRow:nth-child(odd)": {
-    backgroundColor: "#777777bf",
-  },
+  minHeight: 200,
+  maxHeight: 350,
+  ...customScrollBar(),
 });
 
 export const StyledProcedurePropertyHolder = styled("div")({

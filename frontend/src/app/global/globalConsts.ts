@@ -2,7 +2,7 @@ import PageableProperties from "@model/PageableProperties";
 import PageableResponse from "@model/response/PageableResponse";
 import { ColorPairType } from "@model/types/ColorPairType";
 
-export const emptyCharacterPlaceholder = "-";
+export const emptyPlaceholder = "-";
 
 export const getEmptyPageableResponse = (pageable: PageableProperties) => {
   return new PageableResponse([], 0, 0, pageable.pageSize, pageable.pageNo, true);

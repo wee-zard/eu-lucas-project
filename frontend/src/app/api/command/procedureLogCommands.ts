@@ -49,7 +49,7 @@ export const getProcedureLogByImageId = (imageId: number, pageable: PageableProp
   });
 };
 
-export const deleteProcedureLogById = (logId: number, pageable: PageableProperties) => {
+export const deleteProcedureLogById = (logId: number) => {
   const requestParamType: RequestParamType[] = [
     {
       key: "logId",
@@ -64,7 +64,6 @@ export const deleteProcedureLogById = (logId: number, pageable: PageableProperti
     obj: requestParamType,
     header: {
       isAuthTokenMandatory: true,
-      pageableProperties: pageable,
     },
   });
 };

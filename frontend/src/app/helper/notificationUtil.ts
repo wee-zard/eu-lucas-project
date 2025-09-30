@@ -69,7 +69,6 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
 
   const handler: GenericHandlerType<SnackEnum, () => void> = {
     // Successful toast messages
-    [SnackEnum.LOGS_ARE_DELETED]: () => throwSuccessToast(),
     [SnackEnum.REPORT_SENT_OUT]: () => throwSuccessToast(),
     [SnackEnum.UPLOADED_XML_FILES]: () => throwSuccessToast(),
     [SnackEnum.FOLDER_IS_CREATED]: () => throwSuccessToast(),
@@ -79,6 +78,7 @@ const throwNotificationBySnackEnum = (snack: SnackEnum, options?: TranslateOptio
     [SnackEnum.IMAGE_SERVER_IS_TURNED_ON]: () => throwSuccessToast(),
     [SnackEnum.ZIP_DOWNLOADED]: () => throwSuccessToast(),
     [SnackEnum.FOLDER_IS_UPDATED]: () => throwSuccessToast(),
+    [SnackEnum.LOG_IS_DELETED]: () => throwSuccessToast(),
 
     // Error toast messages
     [SnackEnum.LOG_NOT_FOUND]: () => throwErrorToast(),

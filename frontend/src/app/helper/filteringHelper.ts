@@ -256,6 +256,7 @@ export const FilteringHelper = {
 
           // Check whether the select input field has not been filled out.
           if (
+            qc.selectedFilterTab === "EXIF_DATA" &&
             (qc.errors?.secondSelectInput === "" ||
               qc.errors?.secondSelectInput === i18n.t("validators.required")) &&
             (!qc.secondSelectInput || qc.secondSelectInput.length === 0)

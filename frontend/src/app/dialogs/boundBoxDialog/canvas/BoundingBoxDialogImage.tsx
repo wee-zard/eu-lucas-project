@@ -17,7 +17,7 @@ export const BoundingBoxDialogImage = ({ uniqueId }: Props) => {
 
   return (
     selectedImage && (
-      <div>
+      <div style={{ width: "80%" }}>
         <StyledInfoIconWrapper>
           <StyledIconAndTooltip
             tooltip={{

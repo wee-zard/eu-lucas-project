@@ -1,5 +1,4 @@
 export enum SnackEnum {
-  LOGS_ARE_DELETED = "screens.upload-procedures.notifications.logs-are-deleted",
   LOG_NOT_FOUND = "screens.bounding-box.notifications.log-not-found",
   CANNOT_SELECT_MORE_LOGS = "screens.bounding-box.notifications.cannot-select-more-logs",
   REFRESH_TOKEN_IS_MISSING = "guards.authentication.refresh-token-is-missing",
@@ -13,6 +12,7 @@ export enum SnackEnum {
   IMAGES_TO_FOLDER = "screens.folders.notifications.images-added-to-folder",
   NO_IMAGE_TO_ADD_TO_FOLDER = "screens.folders.notifications.no-image-to-add-to-folder",
   FOLDER_IS_DELETED = "notifications.success.folderIsDeleted",
+  LOG_IS_DELETED = "notifications.success.logIsDeleted",
   FOLDER_IS_CLEARED = "notifications.success.folderIsCleared",
   IMAGE_SERVER_IS_TURNED_ON = "screens.settings.imageServerIsTurnedOn",
   IMAGE_SERVER_IS_TURNED_ON_BUT_NOT_FOUND = "screens.settings.imageServerIsTurnedOnButNotFound",

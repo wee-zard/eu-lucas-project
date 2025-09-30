@@ -68,17 +68,12 @@ export enum BackendImageFetcherControllerEndpoints {
 export enum BackendProcedureControllerEndpoints {
   UploadProcedure = "/api/procedure/upload",
   GetProcedures = "/api/procedure/",
-  DeleteProcedures = "/api/procedure/delete-all",
 }
 
 export enum BackendProcedureLogControllerEndpoints {
   GetProcedureLogs = "/api/procedure-log/",
   GetProcedureLogsByImageId = "/api/procedure-log/log-by-image",
   DeleteProcedureLogById = "/api/procedure-log/",
-}
-
-export enum BackendPlantNameControllerEndpoints {
-  DeletePlantNames = "/api/plant-name/delete-all",
 }
 
 export enum BackendPlantControllerEndpoints {
@@ -133,7 +128,6 @@ export type BackendControllerEndpointTypes =
   | BackendImageControllerEndpoints
   | BackendProcedureControllerEndpoints
   | BackendImageFetcherControllerEndpoints
-  | BackendPlantNameControllerEndpoints
   | BackendPlantControllerEndpoints
   | BackendPlantSpeciesControllerEndpoints
   | BackendProcedureLogParamControllerEndpoints

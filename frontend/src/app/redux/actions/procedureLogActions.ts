@@ -1,10 +1,18 @@
 import SelectedProcedureLogModel from "@model/models/SelectedProcedureLogModel";
 import PageableProperties from "@model/PageableProperties";
+import { LogSettingCellType } from "@model/types/SelectedSettingCellType";
 import { ProcedureLogConsts } from "@redux/consts/procedureLogConsts";
 
 export const setProcedureLogSelectedProcedureLogs = (data: SelectedProcedureLogModel[]) => {
   return {
     type: ProcedureLogConsts.SET_PROCEDURE_LOG_SELECTED_LOGS,
+    payload: data,
+  };
+};
+
+export const setProcedureLogSettingCell = (data?: LogSettingCellType) => {
+  return {
+    type: ProcedureLogConsts.SET_PROCEDURE_LOG_SETTING_CELL,
     payload: data,
   };
 };

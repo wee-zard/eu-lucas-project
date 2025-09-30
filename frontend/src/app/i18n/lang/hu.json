@@ -106,6 +106,7 @@
   },
   "notifications": {
     "success": {
+      "logIsDeleted": "A log sikeresen törlésre került!",
       "folderIsDeleted": "A mappa sikeresen törlésre került!",
       "folderIsCleared": "A mappa sikeresen kiürítésre került!"
     }
@@ -148,7 +149,6 @@
       },
       "notifications": {
         "file-uploaded": "A fájl sikeresen feltöltésre került!",
-        "logs-are-deleted": "Eljárások, eljárásokhoz tartozó logok, befoglaló téglalapok és növények sikeresen törlésre kerültek",
         "successful-file-upload": "XML fájlok sikeresen feltöltésre kerültek a szerverre!"
       },
       "error": {
@@ -312,6 +312,14 @@
       "notifications": {
         "log-not-found": "Eljárás log nem található!",
         "cannot-select-more-logs": "Nem lehet több logot kiválasztani, mivel legfeljebb {{logCount}} log választható ki!"
+      }
+    },
+    "manageLogs": {
+      "tableHeader": {
+        "logTitle": "Név",
+        "createdAt": "Létrehozás ideje",
+        "logDetails": "Log Részletek",
+        "imageName": "Kép neve"
       }
     },
     "filtering": {

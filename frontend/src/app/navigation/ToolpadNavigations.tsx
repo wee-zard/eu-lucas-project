@@ -77,7 +77,7 @@ export const navigation: Navigation = [
     title: NavigationTitles.Images,
   },
   {
-    segment: NavigationTitles.Filtering,
+    segment: NavigationSegments.Filtering,
     title: NavigationTitles.Filtering,
     icon: <FilterListIcon />,
   },

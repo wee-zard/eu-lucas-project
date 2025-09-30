@@ -8,8 +8,7 @@ import FolderDtoSlice from "@model/dto/FolderDtoSlice";
 import FolderPermissionCell from "./FolderPermissionCell";
 import FolderTitleCell from "./FolderTitleCell";
 import ManageFolderSettingCell from "./ManageFolderSettingCell";
-
-const EMPTY_CONTENT = "-";
+import { emptyPlaceholder } from "@global/globalConsts";
 
 type RenderCellParamType = GridRenderCellParams<GenericRowType<FolderDtoSlice>>;
 
@@ -20,7 +19,7 @@ const manageFoldersDataGridColDef: GridColDef[] = [
     sortable: true,
     flex: 1.2,
     renderCell: (param: RenderCellParamType) => (
-      <FolderTitleCell row={param.row} emptyContent={EMPTY_CONTENT} />
+      <FolderTitleCell row={param.row} emptyContent={emptyPlaceholder} />
     ),
   },
   {
@@ -36,8 +35,8 @@ const manageFoldersDataGridColDef: GridColDef[] = [
     sortable: true,
     flex: 1.2,
     renderCell: (param: RenderCellParamType) => (
-      <Tooltip title={param.row.description ?? EMPTY_CONTENT}>
-        <div>{param.row.description ?? EMPTY_CONTENT}</div>
+      <Tooltip title={param.row.description ?? emptyPlaceholder}>
+        <div>{param.row.description ?? emptyPlaceholder}</div>
       </Tooltip>
     ),
   },
@@ -45,7 +44,9 @@ const manageFoldersDataGridColDef: GridColDef[] = [
     field: "folderContentSize",
     headerName: i18n.t("screens.folders.manageFolders.config.folder-size"),
     flex: 0.6,
-    renderCell: (param: RenderCellParamType) => <>{param.row.folderContentSize ?? EMPTY_CONTENT}</>,
+    renderCell: (param: RenderCellParamType) => (
+      <>{param.row.folderContentSize ?? emptyPlaceholder}</>
+    ),
   },
   {
     field: "createdAt",
@@ -53,7 +54,7 @@ const manageFoldersDataGridColDef: GridColDef[] = [
     flex: 0.85,
     sortable: true,
     renderCell: (param: RenderCellParamType) => (
-      <>{DateHelper.convertISOStringToDateTimeFormat(param.row.createdAt) ?? EMPTY_CONTENT}</>
+      <>{DateHelper.convertISOStringToDateTimeFormat(param.row.createdAt) ?? emptyPlaceholder}</>
     ),
   },
   {
@@ -62,7 +63,7 @@ const manageFoldersDataGridColDef: GridColDef[] = [
     flex: 0.85,
     sortable: true,
     renderCell: (param: RenderCellParamType) => (
-      <>{DateHelper.convertISOStringToDateTimeFormat(param.row.updatedAt) ?? EMPTY_CONTENT}</>
+      <>{DateHelper.convertISOStringToDateTimeFormat(param.row.updatedAt) ?? emptyPlaceholder}</>
     ),
   },
   {

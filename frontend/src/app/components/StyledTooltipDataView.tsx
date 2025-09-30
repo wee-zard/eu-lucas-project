@@ -3,10 +3,10 @@ import {
   StyledProcedurePropertyTitleHolder,
   StyledProcedurePropertyValueHolder,
 } from "@dialogs/boundBoxDialog/timeline/BoundingBoxDialogLogDetails";
-import { emptyCharacterPlaceholder } from "@global/globalConsts";
+import { emptyPlaceholder } from "@global/globalConsts";
 import { customScrollBar, StyledScrollBarHolder } from "@global/globalStyles";
 import ExifDataDto from "@model/dto/ExifDataDto";
-import { Divider, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 type Props = {
@@ -18,7 +18,7 @@ const StyledTooltipDataView = ({ title, propertyMap }: Props) => {
   return (
     <div>
       {title && <Typography>{title}</Typography>}
-      <Divider />
+      <br />
       <StyledTooltipDataWrapper>
         {propertyMap.map((property, index) => (
           <StyledProcedurePropertyHolder className="tooltipDataRow" key={`${property}-${index}`}>
@@ -26,7 +26,7 @@ const StyledTooltipDataView = ({ title, propertyMap }: Props) => {
               {property.exifKey}:
             </StyledProcedurePropertyTitleHolder>
             <StyledProcedurePropertyValueHolder>
-              {property.exifValue ?? emptyCharacterPlaceholder}
+              {property.exifValue ?? emptyPlaceholder}
             </StyledProcedurePropertyValueHolder>
           </StyledProcedurePropertyHolder>
         ))}
@@ -42,8 +42,4 @@ const StyledTooltipDataWrapper = styled(StyledScrollBarHolder)({
   gap: 8,
   height: 300,
   ...customScrollBar(),
-
-  "& .tooltipDataRow:nth-child(odd)": {
-    backgroundColor: "#777777bf",
-  },
 });

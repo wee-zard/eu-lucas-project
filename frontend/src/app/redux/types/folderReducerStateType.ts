@@ -1,10 +1,10 @@
-import SelectedFolderSettingCellType from "@model/types/SelectedFolderSettingCellType";
+import { FolderSettingCellType } from "@model/types/SelectedSettingCellType";
 
 interface FolderReducerStateType {
   /**
    * Tells what setting cell option was selected by the user.
    */
-  selectedFolderSettingCellOption?: SelectedFolderSettingCellType;
+  selectedFolderSettingCellOption?: FolderSettingCellType;
   /**
    * Tells wether the "Image to Folder Addition" dialog is open or not.
    */

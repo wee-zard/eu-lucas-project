@@ -26,6 +26,7 @@ import SessionUtil from "@helper/SessionUtil";
 import { GenericHandlerType } from "@model/types/GenericHandlerType";
 import ManageFoldersScreen from "@screens/manageFoldersScreen/ManageFoldersScreen";
 import SettingsScreen from "@screens/settingsScreen/SettingsScreen";
+import ManageLogsScreen from "@screens/manageLogsScreen/ManageLogsScreen";
 
 type Props = {
   navigation?: Navigation;
@@ -67,7 +68,7 @@ const LucasScreen = ({ navigation = [], renderComponent }: Props) => {
     const handler: GenericHandlerType<NavigationSegments, JSX.Element> = {
       [NavigationSegments.Filtering]: <FilteringScreen />,
       [NavigationSegments.UploadProcedureResults]: <UploadProcedureScreen />,
-      [NavigationSegments.UploadLogManagement]: <TmpScreen />,
+      [NavigationSegments.UploadLogManagement]: <ManageLogsScreen />,
       [NavigationSegments.ReportError]: <ReportScreen />,
       [NavigationSegments.UserManagement]: <ManageUsersScreen />,
       [NavigationSegments.ImageFolders]: <ManageFoldersScreen />,

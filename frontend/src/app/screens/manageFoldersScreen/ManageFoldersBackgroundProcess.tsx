@@ -141,7 +141,7 @@ const ManageFoldersBackgroundProcess = () => {
     };
 
     // Processing the setting option what was clicked by the user.
-    handler[folderSettingOption.option](folderSettingOption.folder);
+    handler[folderSettingOption.option](folderSettingOption.data);
   }, [folderSettingOption, isOpen, isSubmitClicked, isCancelClicked, dispatch]);
 
   /**
