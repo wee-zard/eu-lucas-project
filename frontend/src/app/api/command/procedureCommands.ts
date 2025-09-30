@@ -42,18 +42,3 @@ export const getProcedureList = async () => {
     },
   });
 };
-
-/**
- * Deletes all procedures from the server.
- */
-export const deleteProceduresCommand = async () => {
-  return commandHandler<BaseResponse>({
-    type: RequestCommandTypes.DELETE,
-    server: ServersToConnectTo.Backend,
-    endpoint: BackendProcedureControllerEndpoints.DeleteProcedures,
-    obj: {},
-    header: {
-      isAuthTokenMandatory: true,
-    },
-  });
-};
