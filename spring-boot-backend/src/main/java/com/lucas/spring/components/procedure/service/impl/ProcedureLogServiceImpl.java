@@ -75,4 +75,12 @@ public class ProcedureLogServiceImpl implements ProcedureLogService {
   public ProcedureLogEntity save(final ProcedureLogEntity entity) {
     return repository.save(entity);
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void deleteById(final Long logId) {
+    repository.deleteById(logId);
+  }
 }

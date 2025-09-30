@@ -74,6 +74,7 @@ export enum BackendProcedureControllerEndpoints {
 export enum BackendProcedureLogControllerEndpoints {
   GetProcedureLogs = "/api/procedure-log/",
   GetProcedureLogsByImageId = "/api/procedure-log/log-by-image",
+  DeleteProcedureLogById = "/api/procedure-log/",
 }
 
 export enum BackendPlantNameControllerEndpoints {

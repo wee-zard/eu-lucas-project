@@ -49,4 +49,11 @@ public interface ProcedureLogService {
    * @return Returns the saved entity.
    */
   ProcedureLogEntity save(ProcedureLogEntity entity);
+
+  /**
+   * Delete a log by their id.
+   *
+   * @param logId The id of the log to delete.
+   */
+  void deleteById(Long logId);
 }

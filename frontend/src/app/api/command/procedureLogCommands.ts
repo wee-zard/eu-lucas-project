@@ -29,10 +29,7 @@ export const getProcedureLogsCommand = async (pageable: PageableProperties) => {
  * @param pageableProperties Pageable properties to fetch a limited number of logs from the server.
  * @returns Returns a {@link PageableResponse<ProcedureLogDto>} if the request is successful.
  */
-export const getProcedureLogByImageId = async (
-  imageId: number,
-  pageableProperties: PageableProperties,
-) => {
+export const getProcedureLogByImageId = (imageId: number, pageable: PageableProperties) => {
   const requestParamType: RequestParamType[] = [
     {
       key: "imageId",
@@ -47,7 +44,27 @@ export const getProcedureLogByImageId = async (
     obj: requestParamType,
     header: {
       isAuthTokenMandatory: true,
-      pageableProperties: pageableProperties,
+      pageableProperties: pageable,
+    },
+  });
+};
+
+export const deleteProcedureLogById = (logId: number, pageable: PageableProperties) => {
+  const requestParamType: RequestParamType[] = [
+    {
+      key: "logId",
+      value: `${logId}`,
+    },
+  ];
+
+  return commandHandler<PageableResponse<ProcedureLogDto>>({
+    type: RequestCommandTypes.DELETE,
+    server: ServersToConnectTo.Backend,
+    endpoint: BackendProcedureLogControllerEndpoints.DeleteProcedureLogById,
+    obj: requestParamType,
+    header: {
+      isAuthTokenMandatory: true,
+      pageableProperties: pageable,
     },
   });
 };

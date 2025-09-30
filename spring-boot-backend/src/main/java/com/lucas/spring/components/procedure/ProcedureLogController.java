@@ -2,6 +2,7 @@ package com.lucas.spring.components.procedure;
 
 import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.procedure.model.dto.ProcedureLogDto;
@@ -10,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,5 +62,22 @@ public class ProcedureLogController {
     return conversionHelper.convertPage(
             procedureLogService.findAllByImageId(formattedImageId, pageable),
             ProcedureLogDto.class);
+  }
+
+  /**
+   * Fetches the procedure logs associated with the requested image.
+   *
+   * @param user The user who initiated the request.
+   * @return List of procedure logs that are associated with the image.
+   */
+  @CrossOrigin
+  @DeleteMapping("/")
+  public BaseResponse deleteLogById(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable,
+          @RequestParam String logId
+  ) {
+    procedureLogService.deleteById(FormatParseUtil.parseToLong(logId));
+    return new BaseResponse();
   }
 }
