@@ -1,6 +1,6 @@
 {
   "name": "lucas-frontend",
-  "version": "0.6.0.canvas&boundingBoxes",
+  "version": "0.7.0.logManagement",
   "private": true,
   "dependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.25.9",
