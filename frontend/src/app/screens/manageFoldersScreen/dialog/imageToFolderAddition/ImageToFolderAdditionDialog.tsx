@@ -93,11 +93,11 @@ const ImageToFolderAdditionDialog = () => {
       isOpen={isOpen}
       dialogTitle={i18n.t("screens.folders.image-to-folder-addition-dialog.dialog-title")}
       cancelButton={{
-        text: i18n.t("screens.folders.creation-dialog.buttons.cancel"),
+        text: i18n.t("components.button.cancel"),
         width: "120px",
       }}
       submitButton={{
-        text: i18n.t("screens.folders.creation-dialog.buttons.submit"),
+        text: i18n.t("components.button.save"),
         width: "120px",
       }}
       height={"65%"}
