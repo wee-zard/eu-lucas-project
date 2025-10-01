@@ -5,4 +5,5 @@ export enum EventListenerIdEnum {
   PAGINATED_TABLE = "paginated-table",
   SETTINGS_SCREEN = "settings-screen",
   FILTERING_IMAGE_TABLE = "filtering-image-table",
+  REPORT_FORM = "report-form",
 }

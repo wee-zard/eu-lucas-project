@@ -5,26 +5,30 @@ import StyledTextFieldComponent from "@components/StyledTextFieldComponent";
 import { StyledInputHolder } from "@dialogs/filteringDialog/FilteringMenu";
 import { StyledComponentGap } from "@global/globalStyles";
 import { ConversionUtils } from "@helper/conversionUtils";
-import { FormGroupHelper } from "@helper/formGroupHelper";
 import { openSnackbar } from "@helper/notificationUtil";
+import { useEventListenerRender } from "@hooks/useEventListenerRender";
+import { useFormGroupHelper } from "@hooks/useFormGroup";
 import i18n from "@i18n/i18nHandler";
 import { FormEnums, ReportTypesNames } from "@model/enum";
+import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { ReportFormGroup, ReportFormGroupModel } from "@model/forms/ReportFormGroup";
-import { setBackgroundBackdropOpen } from "@redux/actions/backgroundActions";
-import { useMemo, useState } from "react";
+import { setBackgroundBackdropConfig } from "@redux/actions/backgroundActions";
+import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 
 const ReportScreen = () => {
-  const helper = new FormGroupHelper<ReportFormGroup>(FormEnums.ReportCreationForm);
-  const [formGroup, setFormGroup] = useState(helper.construct());
+  const helper = useFormGroupHelper<ReportFormGroup>(
+    FormEnums.ReportCreationForm,
+    EventListenerIdEnum.REPORT_FORM,
+  );
   const getReportTypeOptions = useMemo(
     () => Object.values(ReportTypesNames).map((option) => i18n.t(option)),
     [],
   );
   const dispatch = useDispatch();
 
-  const getSelectedReportTypeOption = () => {
+  const getSelectedReportTypeOption = (formGroup: ReportFormGroup) => {
     if (!formGroup.reportType.data) {
       return "";
     }
@@ -41,85 +45,78 @@ const ReportScreen = () => {
     return i18n.t(enumValue);
   };
 
-  /**
-   * When the form input entires are changes then they will
-   * call this method that will actualize the form based on the updated form entry's value.
-   *
-   * @param value The new value from the input.
-   * @param enumKey The name of the form input property that has been changed.
-   */
-  const handleFormUpdate = (value: string, enumKey: keyof ReportFormGroup): void => {
-    setFormGroup(helper.save(value, enumKey));
-  };
+  const handleSubmit = async () => {
+    dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
 
-  const handleSubmit = (): void => {
-    dispatch(setBackgroundBackdropOpen(true));
+    try {
+      if (helper.validate()) {
+        return;
+      }
 
-    const errorCandidateFormGroup = helper.validate();
+      const res = helper.convert<ReportFormGroupModel>();
+      const response = await sendReportEmail(res);
 
-    if (errorCandidateFormGroup) {
-      setFormGroup(errorCandidateFormGroup);
-      dispatch(setBackgroundBackdropOpen(false));
-      return;
+      if (!response) {
+        return;
+      }
+
+      helper.construct();
+      openSnackbar(SnackEnum.REPORT_SENT_OUT);
+    } catch (error) {
+      openSnackbar(SnackEnum.REPORT_NOT_SENT_OUT);
+      helper.refresh();
+    } finally {
+      dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
     }
-
-    const res = helper.convert<ReportFormGroupModel>();
-    dispatch(setBackgroundBackdropOpen(false));
-
-    sendReportEmail(res)
-      .then((response) => {
-        if (response) {
-          setFormGroup(helper.construct());
-          openSnackbar(SnackEnum.REPORT_SENT_OUT);
-        }
-      })
-      .catch(() => openSnackbar(SnackEnum.REPORT_NOT_SENT_OUT))
-      .finally(() => dispatch(setBackgroundBackdropOpen(false)));
   };
 
-  return (
-    <StyledComponentGap display={"grid"} gap={"32px"}>
-      <StyledInputHolder>
-        <StyledSelectComponent
-          inputTitle={i18n.t("screens.reporting.form.report-type")}
-          options={getReportTypeOptions}
-          inputValue={getSelectedReportTypeOption()}
-          setValue={(_, index) =>
-            handleFormUpdate(Object.keys(ReportTypesNames)[index], "reportType")
-          }
-          errorMessage={formGroup.reportType.error}
+  const renderComponent = (): JSX.Element => {
+    const formGroup = helper.get();
+
+    return (
+      <StyledComponentGap display={"grid"} gap={"32px"}>
+        <StyledInputHolder>
+          <StyledSelectComponent
+            inputTitle={i18n.t("screens.reporting.form.report-type")}
+            options={getReportTypeOptions}
+            inputValue={getSelectedReportTypeOption(formGroup)}
+            setValue={(_, index) => helper.save(Object.keys(ReportTypesNames)[index], "reportType")}
+            errorMessage={formGroup.reportType.error}
+          />
+        </StyledInputHolder>
+        <StyledInputHolder>
+          <StyledTextFieldComponent
+            inputTitle={i18n.t("screens.reporting.form.report-title")}
+            inputValue={formGroup.title.data ?? ""}
+            setValue={(value) => helper.save(value, "title")}
+            errorMessage={formGroup.title.error}
+            htmlInputValidation={formGroup.title.validators}
+            helperText={`${formGroup.title.data?.length ?? 0}/${formGroup.title.validators.maxLength}`}
+          />
+        </StyledInputHolder>
+        <StyledInputHolder>
+          <StyledTextFieldComponent
+            inputTitle={i18n.t("screens.reporting.form.report-content")}
+            inputValue={formGroup.message.data ?? ""}
+            setValue={(value) => helper.save(value, "message")}
+            errorMessage={formGroup.message.error}
+            helperText={`${formGroup.message.data?.length ?? 0}/${formGroup.message.validators.maxLength}`}
+            htmlInputValidation={formGroup.message.validators}
+            isMultilineActive
+            multilineRows={8}
+          />
+        </StyledInputHolder>
+        <StyledButton
+          buttonVariant={"outlined"}
+          buttonText={i18n.t("components.button.submit")}
+          buttonType={"submit"}
+          onClick={handleSubmit}
         />
-      </StyledInputHolder>
-      <StyledInputHolder>
-        <StyledTextFieldComponent
-          inputTitle={i18n.t("screens.reporting.form.report-title")}
-          inputValue={formGroup.title.data ?? ""}
-          setValue={(value) => handleFormUpdate(value, "title")}
-          errorMessage={formGroup.title.error}
-          htmlInputValidation={formGroup.title.validators}
-          helperText={`${formGroup.title.data?.length ?? 0}/${formGroup.title.validators.maxLength}`}
-        />
-      </StyledInputHolder>
-      <StyledInputHolder>
-        <StyledTextFieldComponent
-          inputTitle={i18n.t("screens.reporting.form.report-content")}
-          inputValue={formGroup.message.data ?? ""}
-          setValue={(value) => handleFormUpdate(value, "message")}
-          errorMessage={formGroup.message.error}
-          helperText={`${formGroup.message.data?.length ?? 0}/${formGroup.message.validators.maxLength}`}
-          htmlInputValidation={formGroup.message.validators}
-          isMultilineActive
-          multilineRows={8}
-        />
-      </StyledInputHolder>
-      <StyledButton
-        buttonVariant={"outlined"}
-        buttonText={i18n.t("components.button.submit")}
-        buttonType={"submit"}
-        onClick={handleSubmit}
-      />
-    </StyledComponentGap>
-  );
+      </StyledComponentGap>
+    );
+  };
+
+  return useEventListenerRender(helper.getRefreshKey(), renderComponent);
 };
 
 export default ReportScreen;
