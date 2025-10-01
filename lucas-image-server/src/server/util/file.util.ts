@@ -1,6 +1,7 @@
 import fs from 'fs';
 import ImageModel from '../models/model/image.model';
 import path from 'path';
+import EnvironmentUtil from './environment.util';
 
 abstract class FileUtil {
   /**
@@ -16,22 +17,18 @@ abstract class FileUtil {
   public static readFileAtPath(pathToResource: string): NonSharedBuffer {
     try {
       const rootFolderPath = path.resolve(__dirname, '../../../');
+      let pathToImage = '';
 
-      // TODO: Remove from production code.
-      var files = fs.readdirSync(path.join(rootFolderPath, 'media', 'tmp'));
-      const pathToImage = path.join(
-        rootFolderPath,
-        'media',
-        'tmp',
-        files[Math.round(Math.random() * (files.length - 1))]
-      );
+      if (new EnvironmentUtil().isTmpFolderInUse) {
+        const files = fs.readdirSync(path.join(rootFolderPath, 'media', 'tmp'));
+        const randomFilePath = files[Math.round(Math.random() * (files.length - 1))];
+        pathToImage = path.join(rootFolderPath, 'media', 'tmp', randomFilePath);
+      } else {
+        pathToImage = path.join(rootFolderPath, pathToResource);
+      }
 
-      //const pathToImage = path.join(rootFolderPath, pathToResource);
-
-      // Read the image file synchronously
-      const imageBuffer = fs.readFileSync(pathToImage);
-
-      return imageBuffer;
+      // Read the image file synchronously and return it.
+      return fs.readFileSync(pathToImage);
     } catch (error) {
       console.error('Error reading file:', error);
       throw error;

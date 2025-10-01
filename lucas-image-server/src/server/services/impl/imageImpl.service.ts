@@ -22,7 +22,7 @@ export default class ImageServiceImpl implements ImageService {
       } catch (error) {
         return {
           imageId: image.id,
-          base64String: `[HIBA] A kép a következő útvonalon nem található! Kérjük ellenőrizze, hogy a megadott útvonalon valóban megtalálható-e keresett kép: [${imagePath}]`,
+          base64String: `[HIBA] Egy random kép beolvasását kezdeményezte az alkalmazás, de a random kép a következő útvonalon nem található! Kérjük ellenőrizze, hogy a megadott útvonalon valóban megtalálható-e keresett kép: [${imagePath}]`,
           isError: true,
         };
       }

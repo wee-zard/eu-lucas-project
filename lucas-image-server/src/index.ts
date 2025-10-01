@@ -3,6 +3,9 @@ import bodyParser from 'body-parser';
 import { configureCorsMiddleware } from './middlewares/cors/cors.middleware';
 import { configureRoutesMiddleware } from './middlewares/routes/routes.middleware';
 import isMediaFolderCorrectlyStructured from './middlewares/media/media.middleware';
+import EnvironmentUtil from './server/util/environment.util';
+
+const port = new EnvironmentUtil().port;
 
 // Init express app
 const app = express();
@@ -18,8 +21,8 @@ app.use('/api', configureRoutesMiddleware());
 
 if (isMediaFolderCorrectlyStructured()) {
   // Make the backend listening on a specific port.
-  app.listen(6792, function check(error) {
-    if (error) console.log(`Error while listening on port 6792!`, error);
-    else console.log(`App listening on port 6792!`);
+  app.listen(port, function check(error) {
+    if (error) console.log(`Error while listening on port ${port}!`, error);
+    else console.log(`App listening on port ${port}!`);
   });
 }
