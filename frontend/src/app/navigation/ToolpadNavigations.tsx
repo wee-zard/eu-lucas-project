@@ -36,7 +36,7 @@ export enum NavigationTitles {
 
   Others = "Egyéb",
   ReportError = "Hibabejelentés",
-  Settings = "Renderbeállítások",
+  Settings = "Rendszerbeállítások",
   Manual = "Manual",
 
   // ===== Old Menu options ===== //
