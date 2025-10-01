@@ -5,12 +5,12 @@ import { useDispatch } from "react-redux";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import ShareIcon from "@mui/icons-material/Share";
+//import ShareIcon from "@mui/icons-material/Share";
 import DownloadIcon from "@mui/icons-material/Download";
 import ClearIcon from "@mui/icons-material/Clear";
-import LockIcon from "@mui/icons-material/Lock";
-import FolderCopyIcon from "@mui/icons-material/FolderCopy";
-import ImportExportIcon from "@mui/icons-material/ImportExport";
+//import LockIcon from "@mui/icons-material/Lock";
+//import FolderCopyIcon from "@mui/icons-material/FolderCopy";
+//import ImportExportIcon from "@mui/icons-material/ImportExport";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 import i18n from "@i18n/i18nHandler";
 import { FolderSettingCellEnum } from "@model/enum/FolderSettingCellEnum";
@@ -44,6 +44,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
         dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.UPDATE, data: row }));
       },
     },
+    /*
     {
       icon: <ShareIcon />,
       menuTitle: i18n.t(FolderSettingCellEnum.SHARE),
@@ -68,6 +69,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
         dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.COPY, data: row }));
       },
     },
+    */
     {
       icon: <DownloadIcon />,
       menuTitle: i18n.t(FolderSettingCellEnum.DOWNLOAD),
@@ -77,6 +79,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
         dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.DOWNLOAD, data: row }));
       },
     },
+    /*
     {
       icon: <LockIcon />,
       color: "orange",
@@ -87,6 +90,7 @@ const ManageFolderSettingCell = ({ row }: Props) => {
         dispatch(setFolderSettingCellOption({ option: FolderSettingCellEnum.LOCK, data: row }));
       },
     },
+    */
     {
       icon: <ClearIcon />,
       color: "red",
