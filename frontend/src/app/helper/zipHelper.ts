@@ -193,19 +193,24 @@ class ZipHelper {
     }
   };
 
-  public downloadBase64Strings = async (resources: ResourceModel[]): Promise<boolean> => {
+  public downloadBase64Strings = async (resources: ResourceModel[]): Promise<void> => {
     this.numberOfFilesToProcess = resources.length;
     this.handleZipProcessInspector();
 
     try {
+      this.stage = ZipStageEnum.ADDING_RESOURCES_TO_ZIP;
+
       resources.forEach((resource) => {
         this.addBase64StringToZip(resource.base64, resource.filename);
         this.index++;
+        this.numberOfProcessedFiles++;
       });
-      return await this.createZip(this.getNormalZipName());
+
+      await this.createZip(this.getNormalZipName());
+      this.stage = ZipStageEnum.SUCCESS;
     } catch (error) {
       console.error("downloadBase64Strings", error);
-      return false;
+      this.stage = ZipStageEnum.FAILED;
     }
   };
 
