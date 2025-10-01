@@ -13,7 +13,7 @@ import { NavigationSegments } from "@navigation/ToolpadNavigations";
 import TmpScreen from "@screens/TmpScreen";
 import FilteringScreen from "@screens/filteringScreen/FilteringScreen";
 import UploadProcedureScreen from "@screens/uploadProcedureScreen/UploadProcedureScreen";
-import ReportScreen from "@screens/ReportScreen";
+import ReportScreen from "@screens/reportScreen/ReportScreen";
 import i18n from "@i18n/i18nHandler";
 import { useEffect, useMemo, useState } from "react";
 import LucasSidebarFooterAccount from "./LucasSidebarFooterAccount";
