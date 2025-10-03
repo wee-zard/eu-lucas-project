@@ -7,4 +7,5 @@ package com.lucas.spring.components.email.enums;
 public enum EmailExceptionEnum {
   EMAIL_USER_CREATION,
   EMAIL_REPORTING,
+  EMAIL_UNKNOWN_TYPE,
 }

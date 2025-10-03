@@ -1,9 +1,10 @@
-package com.lucas.spring.components.email;
+package com.lucas.spring.components.report;
 
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
-import com.lucas.spring.components.email.model.request.ReportEmailRequest;
-import com.lucas.spring.components.email.service.SmtpEmailService;
+import com.lucas.spring.components.report.facade.ReportFacade;
+import com.lucas.spring.components.report.model.request.ReportRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,27 +15,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Stores the endpoints related to the report email.
+ * A controller for the report functionalities.
  */
 @RestController
-@RequestMapping(path = "api/email")
+@RequestMapping(path = "api/report")
 @RequiredArgsConstructor
-public class SmtpEmailController {
-  private final SmtpEmailService smtpEmailService;
+public class ReportController {
+  private final ReportFacade reportFacade;
 
   /**
-   * Upload a report log and send it out to an email address.
+   * Upload a report log.
    *
    * @param user The user who initialized the request.
-   * @param emailRequest The email template we want to send to the server.
+   * @param request The request that contains the report.
    */
   @CrossOrigin
-  @PostMapping("/report")
+  @PostMapping("/save")
   public BaseResponse postReportEmail(
-      @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-      @RequestBody final ReportEmailRequest emailRequest
+          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestBody @Valid final ReportRequest request
   ) {
-    smtpEmailService.buildEmail(emailRequest, user.getUserId());
+    reportFacade.save(request, user);
     return new BaseResponse();
   }
 }
