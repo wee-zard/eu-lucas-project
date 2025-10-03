@@ -1,7 +1,10 @@
 package com.lucas.spring.components.report.service;
 
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.components.report.model.entity.ReportEntity;
 import com.lucas.spring.components.report.model.request.ReportRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service interface for the uploaded reports.
@@ -15,4 +18,12 @@ public interface ReportService {
    * @param user The user who initiated the request.
    */
   void save(ReportRequest request, AuthenticatedUser user);
+
+  /**
+   * List out all the reports.
+   *
+   * @param pageable The pageable.
+   * @return Returns paged list of reports.
+   */
+  Page<ReportEntity> findAll(Pageable pageable);
 }

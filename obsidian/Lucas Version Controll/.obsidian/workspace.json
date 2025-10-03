@@ -25,12 +25,13 @@
                     true,
                     true,
                     true,
-                    true,
-                    true,
+                    false,
                     true,
                     false,
                     false,
+                    false,
                     true,
+                    false,
                     false,
                     false,
                     true
@@ -40,34 +41,6 @@
               "pinned": true,
               "icon": "lucide-trello",
               "title": "Lucas Kanban"
-            }
-          },
-          {
-            "id": "98845ac29c41d282",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "064 - Validálás Validátorok kollektor"
-            }
-          },
-          {
-            "id": "406c5c3f498fa3ec",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Kanban Board/Nodes/016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt"
             }
           }
         ]
@@ -123,8 +96,7 @@
               "title": "Könyvjelzők"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -220,9 +192,10 @@
   },
   "active": "7213bd70899264c2",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt.md",
-    "Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md",
+    "Kanban Board/Nodes/220 - Redis docker container használata user session, és cache tárolása céljából.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md",
+    "Kanban Board/Nodes/016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt.md",
     "Kanban Board/Nodes/165 - Filtering - A Feltétel input mező hossza kisebb lehetne.md",
     "Kanban Board/Nodes/219 - Service interface és Facade interface esetén a @Service annotáció ne kerüljön használatra.md",
     "Kanban Board/Nodes/190 - A kép neve kerüljön megjelenítésre a canvas-en.md",
@@ -245,7 +218,6 @@
     "Kanban Board/Nodes/214 - Lokálisan tárolt képek használata checkbox.md",
     "Kanban Board/Nodes/216 - Settings - Local Image Server - Port dinamikus változtathatása.md",
     "Kanban Board/Nodes/215 - Backend deploy során beállítani, hogy a resource mappában lévő fájlok ne legyenek publikusan elérhetőek.md",
-    "Kanban Board/Nodes/025 - Settings oldal - Fordítás nyelvének beállítása.md",
     "Kanban Board/Images/Pasted image 20250724184703.png",
     "Kanban Board/Images/Pasted image 20250712085053.png",
     "Kanban Board/Images/Pasted image 20250224232633.png",

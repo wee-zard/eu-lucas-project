@@ -134,8 +134,8 @@ export enum BackendProcedureLogParamControllerEndpoints {
   GetProcedureParamsByProcedureId = "/api/procedure-param/",
 }
 
-export enum BackendSmtpEmailControllerEndpoints {
-  ReportEmail = "/api/email/report",
+export enum BackendReportControllerEndpoints {
+  SaveReport = "/api/email/report",
 }
 
 /**

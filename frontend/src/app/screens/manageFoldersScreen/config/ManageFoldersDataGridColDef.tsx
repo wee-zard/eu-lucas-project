@@ -1,7 +1,5 @@
 import { GridColDef } from "@mui/x-data-grid/models/colDef";
 import { GridRenderCellParams } from "@mui/x-data-grid/models/params";
-import DateHelper from "@helper/dateHelper";
-import { Tooltip } from "@mui/material";
 import { GenericRowType } from "@model/types/GenericRowType";
 import i18n from "@i18n/i18nHandler";
 import FolderDtoSlice from "@model/dto/FolderDtoSlice";
@@ -9,6 +7,11 @@ import FolderPermissionCell from "./FolderPermissionCell";
 import FolderTitleCell from "./FolderTitleCell";
 import ManageFolderSettingCell from "./ManageFolderSettingCell";
 import { emptyPlaceholder } from "@global/globalConsts";
+import {
+  renderDateTimeCell,
+  renderTextCell,
+  renderTooltipTextCell,
+} from "@helper/dataGridColDefUtil";
 
 type RenderCellParamType = GridRenderCellParams<GenericRowType<FolderDtoSlice>>;
 
@@ -34,37 +37,27 @@ const manageFoldersDataGridColDef: GridColDef[] = [
     headerName: i18n.t("screens.folders.manageFolders.config.description"),
     sortable: true,
     flex: 1.2,
-    renderCell: (param: RenderCellParamType) => (
-      <Tooltip title={param.row.description ?? emptyPlaceholder}>
-        <div>{param.row.description ?? emptyPlaceholder}</div>
-      </Tooltip>
-    ),
+    renderCell: (param: RenderCellParamType) => renderTooltipTextCell(param, "description"),
   },
   {
     field: "folderContentSize",
     headerName: i18n.t("screens.folders.manageFolders.config.folder-size"),
     flex: 0.6,
-    renderCell: (param: RenderCellParamType) => (
-      <>{param.row.folderContentSize ?? emptyPlaceholder}</>
-    ),
+    renderCell: (param: RenderCellParamType) => renderTextCell(param, "folderContentSize"),
   },
   {
     field: "createdAt",
     headerName: i18n.t("screens.folders.manageFolders.config.created-at"),
     flex: 0.85,
     sortable: true,
-    renderCell: (param: RenderCellParamType) => (
-      <>{DateHelper.convertISOStringToDateTimeFormat(param.row.createdAt) ?? emptyPlaceholder}</>
-    ),
+    renderCell: (param: RenderCellParamType) => renderDateTimeCell(param, "createdAt"),
   },
   {
     field: "updatedAt",
     headerName: i18n.t("screens.folders.manageFolders.config.last-updated-at"),
     flex: 0.85,
     sortable: true,
-    renderCell: (param: RenderCellParamType) => (
-      <>{DateHelper.convertISOStringToDateTimeFormat(param.row.updatedAt) ?? emptyPlaceholder}</>
-    ),
+    renderCell: (param: RenderCellParamType) => renderDateTimeCell(param, "updatedAt"),
   },
   {
     field: "setting",

@@ -1,4 +1,28 @@
 {
+  "translations": {
+    "reportStatuses": {
+      "PENDING": {
+        "name": "Függőben",
+        "description": "A bejelentett ügy még nem került megtekintésre egy fejlesztő vagy kliens által."
+      },
+      "TODO": {
+        "name": "Teendő",
+        "description": "A bejelentett ügy megtekintésre került egy fejlesztő vagy kliens által, de tervezett javítás még nem került elkezdésre."
+      },
+      "IN_PROGRESS": {
+        "name": "Folyamatban",
+        "description": "A bejelentett ügy megtekintésre került egy fejlesztő vagy kliens által, és egy fejlesztő már foglalkozik az ügyön."
+      },
+      "DONE": {
+        "name": "Kész",
+        "description": "A bejelentett ügy lezására került egy fejlesztő vagy kliens által, mivel az ügy megoldásra került."
+      },
+      "DENIED": {
+        "name": "Elutasítva",
+        "description": "A bejelentett ügy elutasításra került egy fejlesztő vagy kliens által. Esetleg kevés az információ az bejelentett ügyben, avagy az ügy már nem releváns."
+      }
+    }
+  },
   "validators": {
     "required": "A mező kitöltése kötelező!",
     "maxLength": "Az input nem lehet hosszabb mint {{param}} karakter!",
@@ -211,6 +235,14 @@
       "notifications": {
         "report-cannot-be-sent-out": "A bejelentést nem sikerült elküldeni!",
         "report-sent-out": "A bejelentés sikeresen el lett küldve!"
+      },
+      "tableHeader": {
+        "title": "Cím",
+        "type": "Típus",
+        "content": "Tartalom",
+        "status": "Státusz",
+        "reporter": "Bejelentő",
+        "createdAt": "Létrehozás ideje"
       }
     },
     "folders": {

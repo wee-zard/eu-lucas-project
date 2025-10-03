@@ -9,6 +9,8 @@ import com.lucas.spring.components.report.repository.ReportRepository;
 import com.lucas.spring.components.report.service.ReportService;
 import com.lucas.spring.components.user.model.entity.UserEntity;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,5 +35,13 @@ public class ReportServiceImpl implements ReportService {
             .build();
 
     repository.save(entity);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Page<ReportEntity> findAll(final Pageable pageable) {
+    return repository.findAll(pageable);
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "lucas-frontend",
-  "version": "0.7.0.logManagement",
+  "version": "0.8.0.reportManagement",
   "private": true,
   "dependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.25.9",

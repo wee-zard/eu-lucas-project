@@ -88,8 +88,9 @@ export enum BackendProcedureLogParamControllerEndpoints {
   GetProcedureParamsByProcedureId = "/api/procedure-param/",
 }
 
-export enum BackendSmtpEmailControllerEndpoints {
-  ReportEmail = "/api/email/report",
+export enum BackendReportControllerEndpoints {
+  SaveReport = "/api/report/save",
+  ListAllReport = "/api/report/",
 }
 
 export enum BackendFolderControllerEndpoints {
@@ -133,7 +134,7 @@ export type BackendControllerEndpointTypes =
   | BackendProcedureLogParamControllerEndpoints
   | BackendProcedureLogControllerEndpoints
   | BackendFolderControllerEndpoints
-  | BackendSmtpEmailControllerEndpoints;
+  | BackendReportControllerEndpoints;
 
 /**
  * Stores the Lucas-image-server endpoints in one place.
@@ -173,6 +174,7 @@ export enum LocalStorageKeys {
   FolderCreationForm = "folder-creation-form",
   FolderListDataGrid = "/folder-list",
   ManageLogsDataGrid = "/log-list",
+  ManageReportsDataGrid = "/report-list",
   ReportCreationForm = "report-creation-form",
   Settings = "settings",
   HideBoundingBoxesInsideFolder = "/selected-folder-hide-logs",

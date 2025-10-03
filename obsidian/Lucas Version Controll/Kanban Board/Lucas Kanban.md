@@ -115,12 +115,12 @@ kanban-plugin: board
 
 ## 🔴Report Page / Email Backlog
 
+- [ ] Email - Amennyiben egy felhasználó meghívásra került az alkalmazásba, akkor küldjünk ki neki egy emailt #🔴ToDo
 - [ ] [[151 - Bejelentés - Több sorba tördelt üzenet szövege, egy egysoros üzenetté alakul át az email elküldésekor]]
-- [ ] [[060 - Scheduler a félóránkénti report emailek kiküldésére]]
 - [ ] [[062 - Lehessen képet feltölteni a csatolmányként report küldése során]]
-- [ ] Email - Amennyiben egy felhasználó meghívásra került az alkalmazásba, akkor küldjünk ki neki egy emailt
 - [x] [[063 - Validátorok hozzárendelése a Report üzenetekhez]] #🟢Done
 - [x] [[170 - Report - Hiba bejelentése után hiba került dobásra]] #🟢Done
+- [x] [[060 - Scheduler a félóránkénti report emailek kiküldésére]] #🟢Done
 
 
 ## 🔴Settings Page Backlog
@@ -135,11 +135,11 @@ kanban-plugin: board
 ## 🔴Log Upload Backlog
 
 - [ ] [[186 - Legyen egy szöveg, ami explicit taglalja, hogy milyen formában engedett az xml feltöltés]] #🔴ToDo  #LogUpload-Page
-- [ ] [[185 - Feltöltött eljárás logokat lehessen törölni]] #LogUpload-Page #🔴ToDo
 - [ ] [[187 - Legyen egy űrlap, amin keresztül fel lehet tölteni eljárás eredményeket]] #LogUpload-Page
 - [ ] [[131 - ProcedureLog és BoundingBox duplikációkat kerüljük el]] #LogUpload-Page
-- [ ] [[039 - Procedures oldal létrehozása]] #LogUpload-Page
 - [x] [[130 - Procedure Log - CreationTime az aktuális időpont helyett az XML-ben feltűntetett CreationTime értéket használja]] #LogUpload-Page  #🟢Done
+- [x] [[185 - Feltöltött eljárás logokat lehessen törölni]] #LogUpload-Page #🟢Done
+- [x] [[039 - Procedures oldal létrehozása]] #LogUpload-Page #🟢Done
 
 
 ## 🔴Filtering Page Backlog
@@ -228,6 +228,14 @@ kanban-plugin: board
 - [ ] 196 - A képeket fel lehessen csatolni a backend docker containerhez #mission #Deployment
 - [x] [[193 - Fizetni egy MySQL adatbázis instance-t, és feltölteni oda az adatbázist]] #mission #Deployment #🟢Done
 - [x] 197 - @deprecated - A frontend és backend kiszervezése DockerHub-ra #mission #Deployment #🟢Done
+
+
+## 🔴Devops Backlog
+
+- [ ] [[220 - Redis docker container használata user session, és cache tárolása céljából]]
+- [ ] X - Jenkins pipeline írása, amely segítségével folyamatos integrálás (CI) lehetséges
+- [ ] X - Logolások bevezetése
+- [ ] X - Tesztek írása az alkalmazáshoz. Több teszt és junit teszt írása
 
 
 ## 🟡In Progress
@@ -342,6 +350,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,true,true,true,false,false,true,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
+{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,false,true,false,false,false,true,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
 ```
 %%
