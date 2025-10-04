@@ -1,7 +1,7 @@
 version: '3'
 services:
   lucas-image-server:
-    image: udvattila99/image-server:latest
+    image: udvattila99/lucas-image-server:latest
     restart: unless-stopped
     ports:
       - '$USE_PORT_FOR_SERVER:$USE_PORT_FOR_SERVER'

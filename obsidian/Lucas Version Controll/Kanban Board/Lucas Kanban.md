@@ -20,7 +20,6 @@ kanban-plugin: board
 
 - [ ] [[123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével]] #🔴ToDo
 - [ ] Uncaught error 500 Internal Server Error on the frontend side. application is crashing #🔴ToDo
-- [ ] X - Loading indikátor hozzáadása a data grid táblákhoz, kis szürke háttérrel
 - [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
 - [ ] [[124 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, miközben a képlekérdezések leáll]]
 - [ ] [[047 - Mobilra is reszponzív legyen az alkalmazás, minden legyen reszponzív és kényelmes]]
@@ -28,6 +27,7 @@ kanban-plugin: board
 - [x] [[174 - Progressbar frissítése, hogy a % is megjelenítésre kerüljön]]  #🟢Done
 - [x] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
 - [x] [[064 - Validálás Validátorok kollektor]] #🟢Done
+- [x] X - Loading indikátor hozzáadása a data grid táblákhoz, kis szürke háttérrel #🟢Done
 
 
 ## 🔴Code Improvement ToDo
@@ -113,9 +113,13 @@ kanban-plugin: board
 - [ ] X - Legyen egy oldal, ahol a felhasználók képesek elolvasni, hogy az alkalmazásban lévő egyes funkciók hogyan működnek lépésről-lépésre
 
 
+## 🔴User Page Backlog
+
+- [x] Email - Amennyiben egy felhasználó meghívásra került az alkalmazásba, akkor küldjünk ki neki egy emailt #🟢Done
+
+
 ## 🔴Report Page / Email Backlog
 
-- [ ] Email - Amennyiben egy felhasználó meghívásra került az alkalmazásba, akkor küldjünk ki neki egy emailt #🔴ToDo
 - [ ] [[151 - Bejelentés - Több sorba tördelt üzenet szövege, egy egysoros üzenetté alakul át az email elküldésekor]]
 - [ ] [[062 - Lehessen képet feltölteni a csatolmányként report küldése során]]
 - [x] [[063 - Validátorok hozzárendelése a Report üzenetekhez]] #🟢Done
@@ -350,6 +354,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,false,true,false,false,false,true,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
+{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,true,false,true,false,false,false,true,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
 ```
 %%
