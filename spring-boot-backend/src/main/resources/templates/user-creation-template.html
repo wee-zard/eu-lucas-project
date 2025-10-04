@@ -4,10 +4,49 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Meghívó a Lucas Képelemző alkalmazáshoz</title>
     <style>
+        .primary-background {
+            background-color: #121f57;
+        }
+        .center-content {
+            display: flex;
+            justify-content: center;
+        }
+        body {
+            background-color: #e6e9eb;
+        }
     </style>
 </head>
 <body>
-    TODO
-    <p>Thanks.</p>
+    <div class="primary-background" style="height: 110px">
+        <div style="display: flex; padding-left: 20%; align-items: center; height: 100%; color: white">LUCAS</div>
+    </div>
+    <div style="display: flex" class="primary-background">
+        <div style="width: 30%">
+            <div style="height: 235px"></div>
+            <div style="height: 100%; background-color: #e6e9eb"></div>
+        </div>
+        <div style="width: 100%; padding: 16px; background-color: white; border-radius: 12px; box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.4)">
+            <div class="center-content">
+                <h2>Üdvözöljük a fedélzeten!</h2>
+            </div>
+            <div style="display: grid">
+                <p>Ön meghívásra került <strong><span th:utext="${inviter_user}"></span></strong> felhasználó által a <strong>Lucas Képelemző Szoftverhez</strong>. Az alkalmazáshoz való hozzáféréshez kérjük tekintse meg az alábbi linken elérhető oldalt:</p>
+                <div class="center-content">
+                    <a href="www.lucasimageanalyzer.com">www.lucasimageanalyzer.com</a>
+                </div>
+                <div class="center-content" style="color: gray; font-size: 12px">
+                    <p>Amennyiben ön nem szeretne csatlakozni, akkor kérjük tekintse ezen üzenetünket tárgytalannak!</p>
+                </div>
+            </div>
+            <hr />
+            <div class="center-content">
+                <p>Köszönjük, hogy minket választott!</p>
+            </div>
+        </div>
+        <div style="width: 30%">
+            <div style="height: 235px"></div>
+            <div style="height: 100%; background-color: #e6e9eb"></div>
+        </div>
+    </div>
 </body>
 </html>

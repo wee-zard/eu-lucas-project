@@ -5,6 +5,7 @@ import com.lucas.spring.commons.utils.JsonUtil;
 import com.lucas.spring.components.email.enums.EmailExceptionEnum;
 import com.lucas.spring.components.email.enums.EmailReportKeyEnum;
 import com.lucas.spring.components.email.enums.EmailTypeEnum;
+import com.lucas.spring.components.email.enums.EmailUserCreationKeyEnum;
 import com.lucas.spring.components.email.facade.SmtpEmailFacade;
 import com.lucas.spring.components.email.model.entity.EmailEntity;
 import com.lucas.spring.components.user.model.entity.UserEntity;
@@ -35,8 +36,8 @@ public class SmtpEmailFacadeImpl implements SmtpEmailFacade {
   private final JavaMailSender mailSender;
   private final TemplateEngine templateEngine;
   private final UserService userService;
-  @Value("${spring.mail.username}") private String sender;
-  @Value("${spring.mail.recipient}") private String recipient;
+  @Value("${spring.mail.sender}") private String sender;
+  @Value("${spring.mail.recipient}") private String noReplyRecipient;
 
   /**
    * {@inheritDoc}
@@ -81,7 +82,7 @@ public class SmtpEmailFacadeImpl implements SmtpEmailFacade {
       // Send out the email.
       final String emailSubject = String.format("[%s - Report]", APPLICATION_TITLE);
       final String templateName = "report-template.html";
-      sendEmail(cx, templateName, emailSubject);
+      sendEmail(cx, templateName, emailSubject, noReplyRecipient);
 
       return true;
     } catch (Exception e) {
@@ -98,15 +99,17 @@ public class SmtpEmailFacadeImpl implements SmtpEmailFacade {
    */
   private boolean buildUserCreationEmail(final EmailEntity email) {
     try {
+      final Map<String, String> map = JsonUtil.parseJsonStringToMap(email.getContent());
+
       // content is the variable defined in our HTML template within the div tag
-      // TODO: Be kell fejezni az email template létrehozását.
-      // TODO: Be kell állítani a szükséges paramétereket itt.
       Context cx = new Context();
+      cx.setVariable(EmailUserCreationKeyEnum.INVITER_USER.getName(), map.get(EmailUserCreationKeyEnum.INVITER_USER.getName()));
 
       // Send out the email.
       final String emailSubject = String.format("[%s - Meghívó]", APPLICATION_TITLE);
       final String templateName = "user-creation-template.html";
-      sendEmail(cx, templateName, emailSubject);
+      final String sendToAddress = map.get(EmailUserCreationKeyEnum.INVITED_USER_EMAIL.getName());
+      sendEmail(cx, templateName, emailSubject, sendToAddress);
 
       return true;
     } catch (Exception e) {
@@ -124,7 +127,8 @@ public class SmtpEmailFacadeImpl implements SmtpEmailFacade {
   private void sendEmail(
           final Context context,
           final String templateName,
-          final String emailSubject
+          final String emailSubject,
+          final String recipient
   ) throws MessagingException {
     // Creating a simple mail message.
     MimeMessage message = mailSender.createMimeMessage();

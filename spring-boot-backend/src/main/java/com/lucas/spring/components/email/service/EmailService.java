@@ -3,6 +3,7 @@ package com.lucas.spring.components.email.service;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.components.email.model.entity.EmailEntity;
 import com.lucas.spring.components.report.model.request.ReportRequest;
+import com.lucas.spring.components.user.model.request.UserCreationRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -40,4 +41,12 @@ public interface EmailService {
    * @param user The user who initiated the request and sent the report.
    */
   void save(final ReportRequest report, final AuthenticatedUser user);
+
+  /**
+   * Saves the provided user and creates an email template.
+   *
+   * @param createdUser The user that has been created.
+   * @param user The user who initiated the request and sent the report.
+   */
+  void save(final UserCreationRequest createdUser, final AuthenticatedUser user);
 }
