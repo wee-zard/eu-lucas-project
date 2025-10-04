@@ -25,7 +25,6 @@ public class ReportEntityToReportDtoConverter
             .description(source.getDescription())
             .reporter(source.getReporter().getUserName())
             .status(source.getStatus().getStatus())
-            .createdAt(source.getCreatedAt().toString())
             .build();
   }
 }

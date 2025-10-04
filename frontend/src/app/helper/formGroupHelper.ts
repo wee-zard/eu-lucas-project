@@ -157,7 +157,7 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
    * If the form is valid, then the method will return undefined, else it will return
    * the T typed form group that will contain error messages.
    */
-  public validate = (): T | undefined => {
+  private validate = (): T | undefined => {
     const errorCandidateFormGroup = validateFormControlGroup<T>(this.get());
 
     if (isFormValid(errorCandidateFormGroup)) {
@@ -165,6 +165,21 @@ export class FormGroupHelper<T extends BaseFormControlGroup> {
     }
 
     return errorCandidateFormGroup;
+  };
+
+  /**
+   * Validates a provided form group.
+   */
+  public isValid = (): boolean => {
+    const errorCandidate = this.validate();
+
+    if (!errorCandidate) {
+      return true;
+    }
+
+    this.saveInLocalStorage(errorCandidate);
+    this.refresh();
+    return false;
   };
 
   /**

@@ -22,5 +22,4 @@ public class ReportDto implements RootDto {
   private String description;
   private String reporter;
   private String status;
-  private String createdAt;
 }

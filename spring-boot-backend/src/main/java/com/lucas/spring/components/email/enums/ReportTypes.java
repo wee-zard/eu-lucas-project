@@ -13,10 +13,9 @@ public enum ReportTypes {
   /**
    * The user is reporting a bug.
    */
-  BUG("Bug"),
+  BUG,
   /**
    * The user is requesting an implementation of a new feature.
    */
-  REQUEST_FEATURE("Request Feature");
-  private final String name;
+  REQUEST_FEATURE,
 }

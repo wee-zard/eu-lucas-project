@@ -1,20 +1,25 @@
 import ChipColorType from "@model/types/ChipColorType";
-import { styled } from "@mui/material";
+import { styled, Tooltip } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 
 type Props = {
   label: string;
   color?: ChipColorType;
+  tooltip?: {
+    title?: string;
+  };
 };
 
-const StyledStackChip = ({ label, color }: Props) => {
+const StyledStackChip = ({ label, color, tooltip }: Props) => {
   return (
-    <StackWrapper className="flex-align-to-center">
-      <Stack direction="row" spacing={1}>
-        <StyledChip label={label} color={color ?? "info"} />
-      </Stack>
-    </StackWrapper>
+    <Tooltip title={tooltip?.title ?? undefined}>
+      <StackWrapper className="flex-align-to-center">
+        <Stack direction="row" spacing={1}>
+          <StyledChip label={label} color={color ?? "info"} />
+        </Stack>
+      </StackWrapper>
+    </Tooltip>
   );
 };
 

@@ -225,7 +225,7 @@
     "reporting": {
       "report-types": {
         "bug": "Hibabejelentés",
-        "request-feature": "Új funkció igénylénye"
+        "request-feature": "Új funkció igénylése"
       },
       "form": {
         "report-type": "Bejelentés típusa",
@@ -239,7 +239,7 @@
       "tableHeader": {
         "title": "Cím",
         "type": "Típus",
-        "content": "Tartalom",
+        "description": "Tartalom",
         "status": "Státusz",
         "reporter": "Bejelentő",
         "createdAt": "Létrehozás ideje"

@@ -5,6 +5,7 @@ import StyledTextFieldComponent from "@components/StyledTextFieldComponent";
 import { StyledInputHolder } from "@dialogs/filteringDialog/FilteringMenu";
 import { StyledComponentGap } from "@global/globalStyles";
 import { ConversionUtils } from "@helper/conversionUtils";
+import EventListenerUtil from "@helper/eventListenerUtil";
 import { openSnackbar } from "@helper/notificationUtil";
 import { useEventListenerRender } from "@hooks/useEventListenerRender";
 import { useFormGroupHelper } from "@hooks/useFormGroup";
@@ -14,7 +15,7 @@ import { EventListenerIdEnum } from "@model/enum/EventListenerIdEnum";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import { ReportFormGroup, ReportFormGroupModel } from "@model/forms/ReportFormGroup";
 import { setBackgroundBackdropConfig } from "@redux/actions/backgroundActions";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 
 const ReportScreenForm = () => {
@@ -27,6 +28,13 @@ const ReportScreenForm = () => {
     [],
   );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      // Remove the localStorage entry when leaving the page.
+      helper.remove();
+    };
+  }, [helper]);
 
   const getSelectedReportTypeOption = (formGroup: ReportFormGroup) => {
     if (!formGroup.reportType.data) {
@@ -46,12 +54,12 @@ const ReportScreenForm = () => {
   };
 
   const handleSubmit = async () => {
-    dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
-
     try {
-      if (helper.validate()) {
+      if (!helper.isValid()) {
         return;
       }
+
+      dispatch(setBackgroundBackdropConfig({ isBackdropOpen: true }));
 
       const res = helper.convert<ReportFormGroupModel>();
       const response = await saveReportCommand(res);
@@ -61,11 +69,12 @@ const ReportScreenForm = () => {
       }
 
       helper.construct();
+      EventListenerUtil.dispatchEvent(EventListenerIdEnum.PAGINATED_TABLE);
       openSnackbar(SnackEnum.REPORT_SENT_OUT);
     } catch (error) {
       openSnackbar(SnackEnum.REPORT_NOT_SENT_OUT);
-      helper.refresh();
     } finally {
+      helper.refresh();
       dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
     }
   };

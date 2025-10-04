@@ -6,6 +6,5 @@ export default class ReportDto {
     public description: string,
     public reporter: string,
     public status: string,
-    public createdAt: string,
   ) {}
 }

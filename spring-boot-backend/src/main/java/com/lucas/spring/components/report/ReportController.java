@@ -7,7 +7,6 @@ import com.lucas.spring.commons.model.response.PageableResponse;
 import com.lucas.spring.components.report.facade.ReportFacade;
 import com.lucas.spring.components.report.model.dto.ReportDto;
 import com.lucas.spring.components.report.model.request.ReportRequest;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -53,7 +52,7 @@ public class ReportController {
   @PostMapping("/save")
   public BaseResponse postReportEmail(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestBody @Valid final ReportRequest request
+          @RequestBody final ReportRequest request
   ) {
     reportFacade.save(request, user);
     return new BaseResponse();
