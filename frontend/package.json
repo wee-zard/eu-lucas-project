@@ -1,5 +1,6 @@
 {
   "name": "lucas-frontend",
+  "homepage": ".",
   "version": "0.8.0.reportManagement",
   "private": true,
   "dependencies": {
