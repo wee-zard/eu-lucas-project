@@ -1,6 +1,6 @@
 package com.lucas.spring.components.folder;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
+import com.lucas.spring.commons.constants.ApplicationConstants;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
@@ -128,7 +128,7 @@ public class FolderContentController {
   @GetMapping("/")
   public PageableResponse<FolderContentDto> getFolderContentByFolderId(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable,
+          @RequestHeader(ApplicationConstants.PAGEABLE_PROPERTIES) Pageable pageable,
           @RequestParam String folderId
   ) {
     return this.folderContentFacade.findAllByFolderId(folderId, user, pageable);

@@ -1,6 +1,6 @@
 package com.lucas.spring.components.report;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
+import com.lucas.spring.commons.constants.ApplicationConstants;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
@@ -36,8 +36,8 @@ public class ReportController {
   @CrossOrigin
   @GetMapping("/")
   public PageableResponse<ReportDto> listAllReport(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
+          @RequestHeader(ApplicationConstants.PAGEABLE_PROPERTIES) final Pageable pageable
   ) {
     return conversionHelper.convertPage(reportFacade.findAll(pageable), ReportDto.class);
   }

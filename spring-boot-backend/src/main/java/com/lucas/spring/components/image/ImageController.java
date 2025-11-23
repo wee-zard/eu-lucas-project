@@ -1,6 +1,6 @@
 package com.lucas.spring.components.image;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
+import com.lucas.spring.commons.constants.ApplicationConstants;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.PageableResponse;
 import com.lucas.spring.components.exif.facade.ExifFacadeService;
@@ -73,7 +73,7 @@ public class ImageController {
   @PostMapping("/filter-images")
   public PageableResponse<ImageDto> postQueryBuilderImage(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable,
+          @RequestHeader(ApplicationConstants.PAGEABLE_PROPERTIES) Pageable pageable,
           @RequestBody FilteringQueryRequest request
   ) {
     return conversionHelper.convertPage(

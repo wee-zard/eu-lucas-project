@@ -1,6 +1,6 @@
 package com.lucas.spring.components.procedure;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
+import com.lucas.spring.commons.constants.ApplicationConstants;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
@@ -37,8 +37,8 @@ public class ProcedureLogController {
   @CrossOrigin
   @GetMapping("/")
   public PageableResponse<ProcedureLogDto> getProcedureLogs(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
+          @RequestHeader(ApplicationConstants.PAGEABLE_PROPERTIES) final Pageable pageable
   ) {
     return conversionHelper.convertPage(
             procedureLogService.findAll(pageable),
@@ -54,9 +54,9 @@ public class ProcedureLogController {
   @CrossOrigin
   @GetMapping("/log-by-image")
   public PageableResponse<ProcedureLogDto> getProcedureLogsByImageId(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestHeader(ConversionHelper.PAGEABLE_PROPERTIES) Pageable pageable,
-          @RequestParam String imageId
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
+          @RequestHeader(ApplicationConstants.PAGEABLE_PROPERTIES) final Pageable pageable,
+          @RequestParam final String imageId
   ) {
     final int formattedImageId = FormatParseUtil.parseToInteger(imageId);
     return conversionHelper.convertPage(
