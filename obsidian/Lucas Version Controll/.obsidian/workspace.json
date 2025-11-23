@@ -21,13 +21,13 @@
                     true,
                     false,
                     true,
-                    true,
+                    false,
                     true,
                     true,
                     true,
                     true,
                     false,
-                    true,
+                    false,
                     false,
                     false,
                     false,
@@ -176,7 +176,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 273
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -193,8 +194,12 @@
   },
   "active": "7213bd70899264c2",
   "lastOpenFiles": [
-    "Kanban Board/Nodes/220 - Redis docker container használata user session, és cache tárolása céljából.md",
+    "Kanban Board/Nodes/224 - Spring Boot Security felállítása a backend oldalán.md",
     "Kanban Board/Lucas Kanban.md",
+    "Kanban Board/Nodes/223 - A táblázat pagination részénél a Rows per page szöveg angolul van, magyar helyett.md",
+    "Kanban Board/Nodes/222 - Felhasználó meghívása email-ben nincsen benne az, hogy milyen felhasználó névvel lehet bejelentkezni az alkalmazásba.md",
+    "Kanban Board/Nodes/221 - Rendszerbeállítások - Lokálisan tárolt képek haszálata checkbox nem működik.md",
+    "Kanban Board/Nodes/220 - Redis docker container használata user session, és cache tárolása céljából.md",
     "Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md",
     "Kanban Board/Nodes/016 - ExifData szűrés esetén a text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt.md",
     "Kanban Board/Nodes/165 - Filtering - A Feltétel input mező hossza kisebb lehetne.md",
@@ -215,10 +220,6 @@
     "Kanban Board/Nodes/094 - QueryComponent - Szűrásnél, csak a kiválasztott feltételhez tartozó opciók kerüljenek lekérésre a backend-ről.md",
     "Kanban Board/Nodes/175 - @deprecated Kiválasztott képek csoportosítása a szűrési feltétel alapján.md",
     "Kanban Board/Nodes/180 - Kiválasztott befoglaló téglalapok kerüljenek elmentésre a mappákban.md",
-    "Kanban Board/Nodes/217 - Settings - Local Image Server - Amennyiben bekapcsolásra került, akkor minden kép innen kerüljön lekérésre.md",
-    "Kanban Board/Nodes/214 - Lokálisan tárolt képek használata checkbox.md",
-    "Kanban Board/Nodes/216 - Settings - Local Image Server - Port dinamikus változtathatása.md",
-    "Kanban Board/Nodes/215 - Backend deploy során beállítani, hogy a resource mappában lévő fájlok ne legyenek publikusan elérhetőek.md",
     "Kanban Board/Images/Pasted image 20250724184703.png",
     "Kanban Board/Images/Pasted image 20250712085053.png",
     "Kanban Board/Images/Pasted image 20250224232633.png",

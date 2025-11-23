@@ -18,6 +18,7 @@ kanban-plugin: board
 
 ## 🔴Backlog
 
+- [ ] [[223 - A táblázat pagination részénél a Rows per page szöveg angolul van, magyar helyett]] #🔴ToDo
 - [ ] [[123 - IOException kerül dobásra, amikor a távoli szerver visszautasítja a kapcsolatot, amit lehetne helyreállítani a http üzenet újraküldésével]] #🔴ToDo
 - [ ] Uncaught error 500 Internal Server Error on the frontend side. application is crashing #🔴ToDo
 - [ ] [[070 - Spellchecker-ből jövő hibák és elírások javítása]]
@@ -28,6 +29,7 @@ kanban-plugin: board
 - [x] [[073 - TextField komponens minden egyes beírt karakter után kikényszerít re-rendert]]
 - [x] [[064 - Validálás Validátorok kollektor]] #🟢Done
 - [x] X - Loading indikátor hozzáadása a data grid táblákhoz, kis szürke háttérrel #🟢Done
+- [ ] 
 
 
 ## 🔴Code Improvement ToDo
@@ -68,6 +70,7 @@ kanban-plugin: board
 
 ## 🔴ToDo
 
+- [ ] [[224 - Spring Boot Security felállítása a backend oldalán]] #🔴ToDo
 - [ ] [[023 - Sidebar-on lévő menüpontok véglegesítése]]
 - [ ] [[153 - Input, Select komponensekben kerüljön az i18n fordítás, mintsem a komponens meghívásán kívül]]
 - [ ] [[152 - A throwNotification metóduon belül kerüljön meghívásra az i18n fordítás az üzenetekre]]
@@ -115,20 +118,23 @@ kanban-plugin: board
 
 ## 🔴User Page Backlog
 
-- [x] Email - Amennyiben egy felhasználó meghívásra került az alkalmazásba, akkor küldjünk ki neki egy emailt #🟢Done
 
 
-## 🔴Report Page / Email Backlog
+## 🔴Report / Email Backlog
 
-- [ ] [[151 - Bejelentés - Több sorba tördelt üzenet szövege, egy egysoros üzenetté alakul át az email elküldésekor]]
+- [ ] [[222 - Felhasználó meghívása email-ben nincsen benne az, hogy milyen felhasználó névvel lehet bejelentkezni az alkalmazásba]] #🔴ToDo #Email
+- [ ] X - Felhasználó azonosítója (aki létrehozásra került) az benne lehetne a tb_email táblában (azért, hogy amennyiben a felhasználó törlésre kerül, akkor az email NE kerüljön kiküldésre) #🔴ToDo
+- [ ] [[151 - Bejelentés - Több sorba tördelt üzenet szövege, egy egysoros üzenetté alakul át az email elküldésekor]] #Email
 - [ ] [[062 - Lehessen képet feltölteni a csatolmányként report küldése során]]
 - [x] [[063 - Validátorok hozzárendelése a Report üzenetekhez]] #🟢Done
 - [x] [[170 - Report - Hiba bejelentése után hiba került dobásra]] #🟢Done
 - [x] [[060 - Scheduler a félóránkénti report emailek kiküldésére]] #🟢Done
+- [x] Email - Amennyiben egy felhasználó meghívásra került az alkalmazásba, akkor küldjünk ki neki egy emailt #🟢Done
 
 
 ## 🔴Settings Page Backlog
 
+- [ ] [[221 - Rendszerbeállítások - Lokálisan tárolt képek haszálata checkbox nem működik]] #Setting-Page #🔴ToDo
 - [ ] [[119 - Settings - Legyen egy gomb, amivel frissíteni lehet az adatbázisban lévő képinformációkat]] #Setting-Page
 - [ ] [[025 - Settings oldal - Fordítás nyelvének beállítása]] #Setting-Page
 - [ ] [[216 - Settings - Local Image Server - Port dinamikus változtathatása]]
@@ -225,13 +231,13 @@ kanban-plugin: board
 - [ ] 194 - Lemondani a domaint (amennyiben docker kerül használatra lokálban) #🟡InProgress #Deployment
 - [ ] [[215 - Backend deploy során beállítani, hogy a resource mappában lévő fájlok ne legyenek publikusan elérhetőek]] #🔴ToDo #Deployment
 - [ ] [[168 - Auto-Reloading certbot after every 60 days]] #Deployment #🔴ToDo
-- [ ] X - Deploy - Alkalmazás kitelepítése egy új VM-re #🔴ToDo #Deployment
-- [ ] 198 - A VM migrálása egy Rackhost VM-re #Deployment #🔴ToDo
 - [ ] [[166 - Compose.yml - The frontend container should wait for the backend to fully load]] #Deployment
 - [ ] 195 - projekt beütemezéséhez egy szkriptet írni, amivel egyszerűen lehetne futtatni a projektet #mission #Deployment
 - [ ] 196 - A képeket fel lehessen csatolni a backend docker containerhez #mission #Deployment
 - [x] [[193 - Fizetni egy MySQL adatbázis instance-t, és feltölteni oda az adatbázist]] #mission #Deployment #🟢Done
 - [x] 197 - @deprecated - A frontend és backend kiszervezése DockerHub-ra #mission #Deployment #🟢Done
+- [x] X - Deploy - Alkalmazás kitelepítése egy új VM-re #🟢Done  #Deployment
+- [x] 198 - A VM migrálása egy Rackhost VM-re #Deployment #🟢Done
 
 
 ## 🔴Devops Backlog
@@ -354,6 +360,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[true,false,true,true,true,true,true,true,false,true,false,false,false,true,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
+{"kanban-plugin":"board","list-collapse":[true,false,true,false,true,true,true,true,false,false,false,false,false,true,false,false,false,true],"show-checkboxes":true,"move-tags":true,"show-relative-date":true,"archive-with-date":true,"date-picker-week-start":1,"tag-colors":[{"tagKey":"#🔴ToDo","color":"","backgroundColor":"rgba(255, 42, 0, 0.25)"},{"tagKey":"#🟡InProgress","color":"rgba(245, 224, 220, 1)","backgroundColor":"rgba(255, 254, 0, 0.25)"},{"tagKey":"#🟢Done","color":"","backgroundColor":"rgba(26, 255, 0, 0.25)"},{"tagKey":"#🟣Testing","color":"","backgroundColor":"rgba(255, 38, 237, 0.45)"},{"tagKey":"#","color":"","backgroundColor":""}],"hide-card-count":false,"new-note-template":"Templates/Node Template.md","new-note-folder":"Kanban Board/Nodes","metadata-keys":[{"metadataKey":"sprint","label":"sprint","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"type","label":"type","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"priority","label":"priority","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"platform","label":"platform","shouldHideLabel":false,"containsMarkdown":false},{"metadataKey":"related","label":"related","shouldHideLabel":false,"containsMarkdown":false}],"move-task-metadata":false,"lane-width":300,"full-list-lane-width":true,"tag-sort":[]}
 ```
 %%
