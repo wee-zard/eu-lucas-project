@@ -3,6 +3,7 @@ package com.lucas.spring.components.image;
 import com.lucas.spring.commons.constants.ApplicationConstants;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.PageableResponse;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.components.exif.facade.ExifFacadeService;
 import com.lucas.spring.components.image.facade.ImageFacadeService;
 import com.lucas.spring.components.image.model.dto.ImageDto;
@@ -34,7 +35,7 @@ public class ImageController {
   private final ImageFacadeService imageFacadeService;
   private final ExifFacadeService exifFacadeService;
   private final ImageFilterService imageFilterService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
   private final ImageService imageService;
 
   /**
@@ -76,7 +77,7 @@ public class ImageController {
           @RequestHeader(ApplicationConstants.PAGEABLE_PROPERTIES) Pageable pageable,
           @RequestBody FilteringQueryRequest request
   ) {
-    return conversionHelper.convertPage(
+    return conversionService.convert(
             imageFilterService.filterImages(request, pageable),
             ImageDto.class);
   }
@@ -96,7 +97,7 @@ public class ImageController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestBody ProcedureResultFileRequest filesRequest
   ) {
-    return conversionHelper.convertList(
+    return conversionService.convert(
             imageService.getImagesByProcedureFiles(filesRequest.getFiles()),
             ImageDto.class);
   }

@@ -1,6 +1,5 @@
 package com.lucas.spring.components.folder.facade.impl;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.model.KeyValueModel;
 import com.lucas.spring.commons.utils.FormatParseUtil;
@@ -19,7 +18,6 @@ import com.lucas.spring.components.folder.model.request.FolderImageAdditionReque
 import com.lucas.spring.components.folder.service.FolderContentService;
 import com.lucas.spring.components.folder.service.FolderService;
 import jakarta.transaction.Transactional;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -35,7 +33,6 @@ public class FolderFacadeImpl implements FolderFacade {
   private final FolderService folderService;
   private final FolderContentService folderContentService;
   private final FolderContentDataFacade folderContentDataFacade;
-  private final ConversionHelper conversionHelper;
 
   /**
    * {@inheritDoc}

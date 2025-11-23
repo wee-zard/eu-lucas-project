@@ -1,8 +1,8 @@
 package com.lucas.spring.components.procedure;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.components.procedure.facade.ProcedureFacade;
 import com.lucas.spring.components.procedure.model.dto.ProcedureDto;
 import com.lucas.spring.components.procedure.model.model.ProcedureResultRequest;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProcedureController {
   private final ProcedureFacade procedureFacade;
   private final ProcedureService procedureService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * Upload a parsed xml object into the server that contains the
@@ -38,7 +38,7 @@ public class ProcedureController {
   @CrossOrigin
   @PostMapping("/upload")
   public BaseResponse postValidateEmailAddress(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
           @RequestBody final List<ProcedureResultRequest> requests
   ) {
     requests.forEach(request -> procedureFacade.uploadLog(request, user.getUserId()));
@@ -54,9 +54,9 @@ public class ProcedureController {
   @CrossOrigin
   @GetMapping("/")
   public List<ProcedureDto> getProcedures(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser authenticatedUser
   ) {
-    return conversionHelper.convertList(
+    return conversionService.convert(
             procedureService.getProcedures(),
             ProcedureDto.class
     );

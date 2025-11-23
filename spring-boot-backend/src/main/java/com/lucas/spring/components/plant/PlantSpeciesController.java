@@ -1,7 +1,7 @@
 package com.lucas.spring.components.plant;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.components.plant.model.dto.PlantSpeciesDto;
 import com.lucas.spring.components.plant.service.PlantSpeciesService;
 import java.util.List;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "api/plant-species")
 public class PlantSpeciesController {
   private final PlantSpeciesService plantSpeciesService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * Fetches the list of plant species.
@@ -32,9 +32,9 @@ public class PlantSpeciesController {
   @CrossOrigin
   @GetMapping("/")
   public List<PlantSpeciesDto> getPlantSpecies(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser authenticatedUser
   ) {
-    return conversionHelper.convertList(
+    return conversionService.convert(
             plantSpeciesService.getPlantSpecies(),
             PlantSpeciesDto.class
     );

@@ -4,6 +4,7 @@ import com.lucas.spring.commons.constants.ApplicationConstants;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.procedure.model.dto.ProcedureLogDto;
 import com.lucas.spring.components.procedure.service.ProcedureLogService;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "api/procedure-log")
 public class ProcedureLogController {
   private final ProcedureLogService procedureLogService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * Fetches the list of procedure logs from the server.
@@ -40,7 +41,7 @@ public class ProcedureLogController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
           @RequestHeader(ApplicationConstants.PAGEABLE_PROPERTIES) final Pageable pageable
   ) {
-    return conversionHelper.convertPage(
+    return conversionService.convert(
             procedureLogService.findAll(pageable),
             ProcedureLogDto.class);
   }
@@ -59,7 +60,7 @@ public class ProcedureLogController {
           @RequestParam final String imageId
   ) {
     final int formattedImageId = FormatParseUtil.parseToInteger(imageId);
-    return conversionHelper.convertPage(
+    return conversionService.convert(
             procedureLogService.findAllByImageId(formattedImageId, pageable),
             ProcedureLogDto.class);
   }
@@ -73,8 +74,8 @@ public class ProcedureLogController {
   @CrossOrigin
   @DeleteMapping("/")
   public BaseResponse deleteLogById(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestParam String logId
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
+          @RequestParam final String logId
   ) {
     procedureLogService.deleteById(FormatParseUtil.parseToLong(logId));
     return new BaseResponse();

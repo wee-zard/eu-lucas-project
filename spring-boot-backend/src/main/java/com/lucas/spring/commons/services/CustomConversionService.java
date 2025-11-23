@@ -1,23 +1,15 @@
-package com.lucas.spring.commons.helper;
+package com.lucas.spring.commons.services;
 
 import com.lucas.spring.commons.model.response.PageableResponse;
-import java.util.Collection;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
 
 /**
- * Defines conversions from type to another type.
+ * Defines an interface that will handle the conversions from
+ * one type to another type.
  */
-@Component
-@AllArgsConstructor
-public class ConversionHelper {
-  private final ConversionService conversionService;
-  public static final String PAGEABLE_PROPERTIES = "X-Pageable-Properties";
-
+public interface CustomConversionService {
   /**
    * Convert the requested entities into {@link PageableResponse}.
    *
@@ -28,13 +20,10 @@ public class ConversionHelper {
    * @return Returns a {@link PageableResponse} that hold the
    *     items and the {@link Pageable} in a single object.
    */
-  public final <S, T> PageableResponse<T> convertPage(final Page<S> page, final Class<T> target) {
-    final List<T> listOfDto = page.stream().map(source -> this.convert(source, target)).toList();
-    return new PageableResponse<>(page, listOfDto);
-  }
+  <S, T> PageableResponse<T> convert(final Page<S> page, final Class<T> target);
 
   /**
-   * Convert the requested entities into Dto.
+   * Convert the requested entities into Dto list.
    *
    * @param list The list.
    * @param target The target dto.
@@ -42,9 +31,7 @@ public class ConversionHelper {
    * @param <T> Target class type.
    * @return Returns the list of type target.
    */
-  public final <S, T> List<T> convertList(final Collection<S> list, final Class<T> target) {
-    return list.stream().map(source -> this.convert(source, target)).toList();
-  }
+  <S, T> List<T> convert(final List<S> list, final Class<T> target);
 
   /**
    * Convert the requested single entity into single dto.
@@ -55,7 +42,5 @@ public class ConversionHelper {
    * @param <T> Target class type.
    * @return Returns the list of type target.
    */
-  public final <S, T> T convert(final S source, final Class<T> target) {
-    return conversionService.convert(source, target);
-  }
+  <S, T> T convert(final S source, final Class<T> target);
 }

@@ -4,6 +4,7 @@ import com.lucas.spring.commons.constants.ApplicationConstants;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.components.folder.facade.FolderFacade;
 import com.lucas.spring.components.folder.model.dto.FolderDtoSlice;
@@ -33,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FolderController {
   private final FolderFacade folderFacade;
   private final FolderService folderService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * Updates a folder.
@@ -64,7 +65,7 @@ public class FolderController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
           @RequestHeader(ApplicationConstants.PAGEABLE_PROPERTIES) Pageable pageable
   ) {
-    return conversionHelper.convertPage(
+    return conversionService.convert(
             folderService.getFoldersByUserId(user.getUserId(), pageable),
             FolderDtoSlice.class);
   }

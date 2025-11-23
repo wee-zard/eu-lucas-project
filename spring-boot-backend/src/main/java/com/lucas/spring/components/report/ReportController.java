@@ -4,6 +4,7 @@ import com.lucas.spring.commons.constants.ApplicationConstants;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.components.report.facade.ReportFacade;
 import com.lucas.spring.components.report.model.dto.ReportDto;
 import com.lucas.spring.components.report.model.request.ReportRequest;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ReportController {
   private final ReportFacade reportFacade;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * Upload a report log.
@@ -39,7 +40,7 @@ public class ReportController {
           @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
           @RequestHeader(ApplicationConstants.PAGEABLE_PROPERTIES) final Pageable pageable
   ) {
-    return conversionHelper.convertPage(reportFacade.findAll(pageable), ReportDto.class);
+    return conversionService.convert(reportFacade.findAll(pageable), ReportDto.class);
   }
 
   /**
@@ -51,7 +52,7 @@ public class ReportController {
   @CrossOrigin
   @PostMapping("/save")
   public BaseResponse postReportEmail(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
           @RequestBody final ReportRequest request
   ) {
     reportFacade.save(request, user);

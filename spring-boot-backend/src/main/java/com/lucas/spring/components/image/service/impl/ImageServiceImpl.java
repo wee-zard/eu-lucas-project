@@ -1,6 +1,6 @@
 package com.lucas.spring.components.image.service.impl;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.commons.utils.PageablePropertiesUtil;
 import com.lucas.spring.commons.utils.RandomUtil;
@@ -26,15 +26,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class ImageServiceImpl implements ImageService {
   private final ImageRepository imageRepository;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
   @Value("${lucasRemoteImageServerPath}") private String lucasRemoteImageServerPath;
 
+  /**
+   * Constructor of the image service implementation.
+   *
+   * @param imageRepository Repository of the images.
+   * @param conversionService Conversion service.
+   */
   public ImageServiceImpl(
           final ImageRepository imageRepository,
-          final ConversionHelper conversionHelper
+          final CustomConversionService conversionService
   ) {
     this.imageRepository = imageRepository;
-    this.conversionHelper = conversionHelper;
+    this.conversionService = conversionService;
   }
 
   /**
@@ -110,7 +116,7 @@ public class ImageServiceImpl implements ImageService {
    */
   @Override
   public String getRemoteImageUrlByEntity(final ImageEntity entity) {
-    final ImageDto dto = conversionHelper.convert(entity, ImageDto.class);
+    final ImageDto dto = conversionService.convert(entity, ImageDto.class);
     return String.format(
             "%s/%d/%s/%s/%s/%s",
             lucasRemoteImageServerPath,

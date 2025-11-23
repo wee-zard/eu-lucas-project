@@ -1,6 +1,6 @@
 package com.lucas.spring.components.image.service.impl;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.commons.utils.CriteriaBuilderOperatorUtil;
 import com.lucas.spring.commons.utils.CriteriaBuilderUtil;
 import com.lucas.spring.commons.utils.FormatParseUtil;
@@ -46,7 +46,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ImageFilteringServiceImpl implements ImageFilterService {
   private final EntityManager entityManager;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * {@inheritDoc}
@@ -134,27 +134,27 @@ public class ImageFilteringServiceImpl implements ImageFilterService {
       case YEAR -> {
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
                 root.get(FilterOption.YEAR.getTableColumn()),
-                conversionHelper.convert(component, CreationYearEntity.class));
+                conversionService.convert(component, CreationYearEntity.class));
       }
       case COUNTRY -> {
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
                 root.get(FilterOption.COUNTRY.getTableColumn()),
-                conversionHelper.convert(component, CreationCountryEntity.class));
+                conversionService.convert(component, CreationCountryEntity.class));
       }
       case X_COORDINATE -> {
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
                 root.get(FilterOption.X_COORDINATE.getTableColumn()),
-                conversionHelper.convert(component, CoordinateXthEntity.class));
+                conversionService.convert(component, CoordinateXthEntity.class));
       }
       case Y_COORDINATE -> {
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
                 root.get(FilterOption.Y_COORDINATE.getTableColumn()),
-                conversionHelper.convert(component, CoordinateYthEntity.class));
+                conversionService.convert(component, CoordinateYthEntity.class));
       }
       case DIRECTION -> {
         return CriteriaBuilderOperatorUtil.operatorDispatcher(cb, operatorInput,
                 root.get(FilterOption.DIRECTION.getTableColumn()),
-                conversionHelper.convert(component, CreationDirectionEntity.class));
+                conversionService.convert(component, CreationDirectionEntity.class));
       }
       case PROCEDURE_NAME -> {
         final Join<ProcedureLogEntity, ProcedureEntity> pplJoin =

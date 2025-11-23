@@ -1,8 +1,8 @@
 package com.lucas.spring.components.user;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.response.BaseResponse;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.commons.utils.FormatParseUtil;
 import com.lucas.spring.commons.utils.ImageManipulationUtil;
 import com.lucas.spring.components.user.facade.UserFacade;
@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
   private final UserFacade userFacade;
   private final UserService userService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * An endpoint to upload email addresses to the db by another users.
@@ -48,7 +48,7 @@ public class UserController {
   @CrossOrigin
   @PostMapping("/save-email")
   public BaseResponse postEmailAddressToDb(
-      @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+      @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
       @RequestBody @Valid final UserCreationRequest[] request
   ) {
     userFacade.saveUser(user, request);
@@ -64,7 +64,7 @@ public class UserController {
   @CrossOrigin
   @PostMapping("/activate")
   public BaseResponse activateUser(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
           @RequestBody final UserStatusChangeRequest req
   ) {
     final String imageBase64 = ImageManipulationUtil.scaleDownImage(req.getImageUrl());
@@ -80,10 +80,10 @@ public class UserController {
    */
   @CrossOrigin
   @GetMapping("/toolpad-session")
-  public UserToolpadSession getToolpadSession(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+  public UserToolpadSession getSession(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user
   ) {
-    return conversionHelper.convert(
+    return conversionService.convert(
             userService.getUserById(user.getUserId()),
             UserToolpadSession.class
     );
@@ -97,8 +97,10 @@ public class UserController {
    */
   @CrossOrigin
   @GetMapping("/")
-  public List<UserDto> getUsers(@RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user) {
-    return conversionHelper.convertList(userService.getUsers(), UserDto.class);
+  public List<UserDto> getUsers(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user
+  ) {
+    return conversionService.convert(userService.getUsers(), UserDto.class);
   }
 
   /**
@@ -110,8 +112,8 @@ public class UserController {
   @CrossOrigin
   @PostMapping("/activate-deleted")
   public BaseResponse activateDeletedUser(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestBody UserActivateDeletedRequest request
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
+          @RequestBody final UserActivateDeletedRequest request
   ) {
     userFacade.activateUser(request.getId());
     return new BaseResponse();
@@ -127,8 +129,8 @@ public class UserController {
   @CrossOrigin
   @DeleteMapping("/")
   public BaseResponse deleteUser(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestParam String id
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
+          @RequestParam final String id
   ) {
     userFacade.deleteUser(FormatParseUtil.parseToLong(id), user);
     return new BaseResponse();

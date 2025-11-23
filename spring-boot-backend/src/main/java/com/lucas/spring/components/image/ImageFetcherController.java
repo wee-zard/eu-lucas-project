@@ -1,10 +1,10 @@
 package com.lucas.spring.components.image;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
 import com.lucas.spring.commons.model.model.ResourceModel;
 import com.lucas.spring.commons.model.response.BaseResponse;
 import com.lucas.spring.commons.model.response.PageableResponse;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.commons.utils.ResourceUtil;
 import com.lucas.spring.components.image.facade.ImageFetcherFacade;
 import com.lucas.spring.components.image.facade.ImageHeaderExtractionFacade;
@@ -32,7 +32,7 @@ public class ImageFetcherController {
   @Value("${lucasRemoteImageServerPath}") private String lucasRemoteImageServerPath;
   private final ImageFetcherFacade imageFetcherFacade;
   private final ImageHeaderExtractionFacade imageHeaderExtractionFacade;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
   private final ImageService imageService;
 
   /**
@@ -43,12 +43,12 @@ public class ImageFetcherController {
   public ImageFetcherController(
           final ImageFetcherFacade imageFetcherFacade,
           final ImageHeaderExtractionFacade imageHeaderExtractionFacade,
-          final ConversionHelper conversionHelper,
+          final CustomConversionService conversionService,
           final ImageService imageService
   ) {
     this.imageFetcherFacade = imageFetcherFacade;
     this.imageHeaderExtractionFacade = imageHeaderExtractionFacade;
-    this.conversionHelper = conversionHelper;
+    this.conversionService = conversionService;
     this.imageService = imageService;
   }
 
@@ -62,7 +62,9 @@ public class ImageFetcherController {
    */
   @CrossOrigin
   @PostMapping("/")
-  public BaseResponse validate(@RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user) {
+  public BaseResponse validate(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user
+  ) {
     /*
      * TODO: The user should be able to set which images they want to download
      *  and upload them to the db, such as they want to download only the Hungarian
@@ -82,7 +84,7 @@ public class ImageFetcherController {
   @CrossOrigin
   @PostMapping("/extract-image-headers")
   public BaseResponse extractImageHeaders(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user
   ) {
     imageHeaderExtractionFacade.scalpLucasImageServer(user);
     return new BaseResponse();
@@ -98,8 +100,8 @@ public class ImageFetcherController {
   @CrossOrigin
   @PostMapping(value  = "/download-image")
   public String downloadImage(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user,
-          @RequestBody String[] urls
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user,
+          @RequestBody final String[] urls
   ) {
     return ResourceUtil.urlToBase64(urls[0]);
   }
@@ -113,9 +115,9 @@ public class ImageFetcherController {
   @CrossOrigin
   @GetMapping("/random")
   public PageableResponse<ImageDto> getRandomImages(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user
   ) {
-    return conversionHelper.convertPage(imageService.getRandomImages(), ImageDto.class);
+    return conversionService.convert(imageService.getRandomImages(), ImageDto.class);
   }
 
   /**
@@ -127,7 +129,7 @@ public class ImageFetcherController {
   @CrossOrigin
   @GetMapping("/image-server")
   public List<ResourceModel> getLocalImageServer(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user
   ) {
     return ResourceUtil.getResourceModels("localImageServer");
   }

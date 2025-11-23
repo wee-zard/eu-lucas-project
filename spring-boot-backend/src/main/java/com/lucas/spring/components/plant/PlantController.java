@@ -1,7 +1,7 @@
 package com.lucas.spring.components.plant;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.components.plant.model.dto.PlantDto;
 import com.lucas.spring.components.plant.service.PlantService;
 import java.util.List;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "api/plant")
 public class PlantController {
   private final PlantService plantService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * Fetches the list of plants.
@@ -32,8 +32,8 @@ public class PlantController {
   @CrossOrigin
   @GetMapping("/")
   public List<PlantDto> getPlants(
-          @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser authenticatedUser
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser authenticatedUser
   ) {
-    return conversionHelper.convertList(plantService.getPlants(), PlantDto.class);
+    return conversionService.convert(plantService.getPlants(), PlantDto.class);
   }
 }

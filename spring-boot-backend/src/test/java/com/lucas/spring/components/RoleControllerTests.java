@@ -2,7 +2,7 @@ package com.lucas.spring.components;
 
 import com.lucas.spring.commons.annotation.ControllerConfigurationWrapper;
 import com.lucas.spring.commons.exception.abstraction.BaseException;
-import com.lucas.spring.commons.helper.ConversionHelper;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.commons.utils.GeneratorUtil;
 import com.lucas.spring.commons.utils.JsonUtil;
 import com.lucas.spring.components.role.enums.RoleExceptionEnum;
@@ -33,7 +33,7 @@ class RoleControllerTests {
   private TestRestTemplate restTemplate;
 
   @Autowired
-  private ConversionHelper conversionHelper;
+  private CustomConversionService conversionService;
 
   @Autowired
   private RoleService roleService;
@@ -124,7 +124,7 @@ class RoleControllerTests {
    * and validates the {@link RoleDto}.
    */
   private void validateConvertedRoleEntity(final RoleEntity roleEntity) {
-    final RoleDto roleDto = conversionHelper.convert(roleEntity, RoleDto.class);
+    final RoleDto roleDto = conversionService.convert(roleEntity, RoleDto.class);
     assertThat(roleDto).isNotNull();
     assertThat(roleDto).isExactlyInstanceOf(RoleDto.class);
     assertThat(roleDto.getId()).isNotNegative().isEqualTo(roleEntity.getId());

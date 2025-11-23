@@ -1,7 +1,7 @@
 package com.lucas.spring.components.role;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.components.role.model.dto.RoleDto;
 import com.lucas.spring.components.role.service.RoleService;
 import java.util.List;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class RoleController {
   private final RoleService roleService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * Get the list of roles stored inside the database.
@@ -30,10 +30,9 @@ public class RoleController {
    */
   @CrossOrigin
   @GetMapping("/")
-  public List<RoleDto> getRoles(@RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user) {
-    return conversionHelper.convertList(
-            roleService.getAll(),
-            RoleDto.class
-    );
+  public List<RoleDto> getRoles(
+          @RequestHeader(HttpHeaders.AUTHORIZATION) final AuthenticatedUser user
+  ) {
+    return conversionService.convert(roleService.getAll(), RoleDto.class);
   }
 }

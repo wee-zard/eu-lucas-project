@@ -1,7 +1,7 @@
 package com.lucas.spring.components.exif;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.components.exif.model.dto.ExifKeyDto;
 import com.lucas.spring.components.exif.service.ExifKeyService;
 import java.util.List;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "api/exif-key")
 public class ExifKeyController {
   private final ExifKeyService exifKeyService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * Fetches the list of exif keys from the server.
@@ -34,6 +34,6 @@ public class ExifKeyController {
   public List<ExifKeyDto> getExifKeys(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
   ) {
-    return conversionHelper.convertList(exifKeyService.getExifKeys(), ExifKeyDto.class);
+    return conversionService.convert(exifKeyService.getExifKeys(), ExifKeyDto.class);
   }
 }

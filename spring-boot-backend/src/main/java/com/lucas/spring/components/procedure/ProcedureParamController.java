@@ -1,7 +1,7 @@
 package com.lucas.spring.components.procedure;
 
-import com.lucas.spring.commons.helper.ConversionHelper;
 import com.lucas.spring.commons.model.model.AuthenticatedUser;
+import com.lucas.spring.commons.services.CustomConversionService;
 import com.lucas.spring.components.procedure.model.dto.ProcedureLogParamDto;
 import com.lucas.spring.components.procedure.service.ProcedureLogParamService;
 import java.util.List;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProcedureParamController {
 
   private final ProcedureLogParamService procedureLogParamService;
-  private final ConversionHelper conversionHelper;
+  private final CustomConversionService conversionService;
 
   /**
    * Fetches the list of procedure params filtered by the procedure id.
@@ -35,7 +35,7 @@ public class ProcedureParamController {
   public List<ProcedureLogParamDto> getProcedureParamsByProcedureId(
           @RequestHeader(HttpHeaders.AUTHORIZATION) AuthenticatedUser user
   ) {
-    return conversionHelper.convertList(
+    return conversionService.convert(
             procedureLogParamService.getProcedureLogParamsByProcedureId(),
             ProcedureLogParamDto.class);
   }
