@@ -12,12 +12,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableScheduling
 public class Application {
+
   /**
-    * The entry point of our application.
-    *
-    * @param args the possible args for our app.
-    *     Currently, we are not using any of them.
-    */
+   * The entry point of our application.
+   *
+   * @param args the possible args for our app.
+   *     Currently, we are not using any of them.
+   */
   public static void main(final String[] args) {
     SpringApplication.run(Application.class, args);
   }
