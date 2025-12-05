@@ -70,11 +70,11 @@ pipeline {
             }
         }
 
-        stage('Clean') {
-            steps {
-                deleteDir()
-            }
-        }
+        // stage('Clean') {
+        //     steps {
+        //         deleteDir()
+        //     }
+        // }
     }
 
     post {
