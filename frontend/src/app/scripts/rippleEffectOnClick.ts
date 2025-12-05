@@ -13,7 +13,7 @@ export const handleClickOnGlobalRippleEffect = (event: React.MouseEvent, id: str
   }
 
   // Create span element
-  let ripple = document.createElement("span");
+  const ripple = document.createElement("span");
 
   // Add ripple class to span
   ripple.classList.add("ripple");

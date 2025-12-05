@@ -39,9 +39,10 @@ const CreateUserDialogContent = () => {
         <StyledInputHolder>
           <div className="grid-container">
             <p>
-              Új felhasználó létrehozása esetén, csak a felhasználó <strong>gmail címét</strong>{" "}
-              kell megadni. A <strong>@gmail.com</strong> kiíratása NEM szükséges! Pl.{" "}
-              <strong>'example@gmail.com'</strong> esetén elegendő az <strong>'example'</strong>{" "}
+              Új felhasználó létrehozása esetén, csak a felhasználó <strong>gmail címét</strong>
+              kell megadni. A <strong>@gmail.com</strong> kiíratása NEM szükséges! Pl.
+              <strong>&apos;example@gmail.com&apos;</strong> esetén elegendő az{" "}
+              <strong>&apos;example&apos;</strong>
               megadása!
             </p>
             <p>

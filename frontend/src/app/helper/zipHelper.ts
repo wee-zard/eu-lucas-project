@@ -304,7 +304,7 @@ class ZipHelper {
   private addImagesToTheZip = (): Promise<void> => {
     return new Promise(async (resolve, reject) => {
       // Step 1.3.: Adding images to the zip (pending state)
-      for await (let url of this.getRemoteUrlsOfImages()) {
+      for await (const url of this.getRemoteUrlsOfImages()) {
         try {
           if (url.srcUrl && ImageUtils.isImageUrlStartsWithBase64JpgPrefix(url.srcUrl)) {
             const dataUrl = await this.getImageCanvasDataUrl({

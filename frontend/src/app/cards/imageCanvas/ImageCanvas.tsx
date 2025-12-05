@@ -99,13 +99,13 @@ const ImageCanvas = ({
       return;
     }
 
-    let canvas = document.getElementById(imageCanvasId) as HTMLCanvasElement | null;
+    const canvas = document.getElementById(imageCanvasId) as HTMLCanvasElement | null;
 
     if (!canvas) {
       return;
     }
 
-    let ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
+    const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
 
     if (!ctx) {
       return;
@@ -174,7 +174,7 @@ const ImageCanvas = ({
       // Draw all the bounding boxes that are associated with the log
       procedureLog.log.boundingBoxes.forEach((box) => {
         // Create box instance
-        let boundingBox = new Path2D();
+        const boundingBox = new Path2D();
 
         // Creates a box by the position fo the 4 corner of the bounding box.
         boundingBox.rect(

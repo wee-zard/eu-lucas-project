@@ -75,7 +75,7 @@ export default class ImageUtils {
   public static initImageByRemoteUrlPath = (imageUrl: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
       // Map sprite to pass to the canvas.
-      let imageSprite = new Image();
+      const imageSprite = new Image();
       imageSprite.src = imageUrl;
       imageSprite.onload = () => resolve(imageSprite);
       imageSprite.onerror = (error) => reject(error);

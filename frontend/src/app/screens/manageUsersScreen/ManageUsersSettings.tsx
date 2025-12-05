@@ -51,8 +51,8 @@ const ManageUsersSettings = ({ row }: Props) => {
         </div>
         <div>
           A törlést követően a felhasználó fiókja véglegesen törlésre kerül, és a hozzá tartozó
-          minden adat ugyancsak törlésre került. Ezen opció csak a <strong>"pending"</strong>{" "}
-          státusszal rendelkező felhasználók számára elérhető!
+          minden adat ugyancsak törlésre került. Ezen opció csak a
+          <strong>&quot;pending&quot;</strong> státusszal rendelkező felhasználók számára elérhető!
         </div>
       </div>
     ),
@@ -64,8 +64,8 @@ const ManageUsersSettings = ({ row }: Props) => {
         <div>
           A deaktiválást követően a felhasználónak már nem lesz jogosultsága az alkalmazás
           használatához, de az általa felvett és rögzített adatok továbbra is elérhetőek lesznek a
-          rendszerben! Ezen opció csak az <strong>"aktivált"</strong> státusszal rendelkező
-          felhasználók számára elérhető.
+          rendszerben! Ezen opció csak az <strong>&quot;aktivált&quot;</strong> státusszal
+          rendelkező felhasználók számára elérhető.
         </div>
       </div>
     ),
@@ -75,9 +75,9 @@ const ManageUsersSettings = ({ row }: Props) => {
           Biztosan <strong>aktiválni</strong> szeretnéd ezen fiókot?
         </div>
         <div>
-          A műveletet követően a fiók <strong>"aktivált"</strong> státuszba fog kerülni, aminek
-          segítségével az adott felhasználó képes lesz bejelentkezni az alkalmazásba és hozzáférni
-          annak tartalmaihoz.
+          A műveletet követően a fiók <strong>&quot;aktivált&quot;</strong> státuszba fog kerülni,
+          aminek segítségével az adott felhasználó képes lesz bejelentkezni az alkalmazásba és
+          hozzáférni annak tartalmaihoz.
         </div>
       </div>
     ),
