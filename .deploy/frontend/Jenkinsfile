@@ -19,31 +19,41 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install --legacy-peer-deps'
+                dir('frontend') {
+                    sh 'npm install --legacy-peer-deps'
+                }
             }
         }
 
         stage('Check types') {
             steps {
-                sh 'npm run check-types'
+                dir('frontend') {
+                    sh 'npm run check-types'
+                }
             }
         }
 
         stage('Test Source') {
             steps {
-                sh 'npm run test'
+                dir('frontend') {
+                    sh 'npm run test'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                sh 'craco build'
+                dir('frontend') {
+                    sh 'craco build'
+                }
             }
         }
 
         stage('Archive Artifacts') {
             steps {
-                archiveArtifacts artifacts: 'dist/**/*', fingerprint: true
+               dir('frontend') {
+                    archiveArtifacts artifacts: 'dist/**/*', fingerprint: true
+               }
             }
         }
 
@@ -54,7 +64,9 @@ pipeline {
                 }
             }
             steps {
-                echo 'TODO: Deploying the application'
+               // dir('frontend') {
+               // }
+               echo 'TODO: Deploying the application'
             }
         }
 
