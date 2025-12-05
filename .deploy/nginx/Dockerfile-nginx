@@ -7,6 +7,10 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copying built assets from builder
 COPY ./build /usr/share/nginx/html
 
+# Set permission to public
+RUN chmod -R 755 /usr/share/nginx/html
+
+# Set the working directory
 WORKDIR /app
 
 # Expose port 80 for the NGINX server

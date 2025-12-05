@@ -1,7 +1,7 @@
 version: "3"
 services:
   lucas-nginx:
-    build: ./nginx/frontend
+    build: ./nginx
     restart: unless-stopped
     ports:
       - '80:80'
@@ -9,20 +9,18 @@ services:
     environment:
       NODE_ENV: production
     volumes:
-      #- ./nginx/frontend:/app
-      #- ./nginx/frontend/node_modules:/app/node_modules
+      - ./nginx/startup.sh:/startup.sh
       - ./nginx/build:/usr/share/nginx/html
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-      #- ./nginx/frontend/99-autoreload.sh:/docker-entrypoint.d/99-autoreload.sh # Script to autoreload Nginx when certs are renewed
-    #depends_on:
-    #  - lucas-backend
-    #  #  condition: service_healthy
+      - ./nginx/build:/var/www/lucasimageanalyzer.com
+      - ./certbot/www:/var/www/html
+  #    depends_on:
+  #      - lucas-backend
 
   lucas-backend:
     restart: unless-stopped
-    build: ./backend/build
+    build: ./backend
     ports:
       - "8989:8989"
     environment:
@@ -31,6 +29,16 @@ services:
       lucas.db.password: ${DATABASE_USER_PASSWORD}
       lucas.db.port: 3307
       lucas.db.name: ${DATABASE_NAME}
+
+      # Setting up the email sender
+      spring.mail.host: ${SPRING_MAIL_HOST}
+      spring.mail.port: ${SPRING_MAIL_PORT}
+      spring.mail.username: ${SPRING_MAIL_USERNAME}
+      spring.mail.password: ${SPRING_MAIL_PASSWORD}
+
+      # Disabling the sql display on the output
+      spring.jpa.show-sql: false
+      spring.jpa.properties.hibernate.format_sql: false
     depends_on:
       lucas-mysqldb:
         condition: service_healthy
@@ -39,17 +47,11 @@ services:
     #  interval: 7s
     #  retries: 10
     #  timeout: 7s
-    deploy:
-      resources:
-        limits:
-          cpus: '0.25'
-        reservations:
-          cpus: '0.20'
 
   lucas-mysqldb:
-    image: mysql:latest
+    image: mysql:8.0-debian
     ports:
-     - "3307:3307"
+      - "3307:3307"
     environment:
       MYSQL_DATABASE: ${DATABASE_NAME}
       MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
@@ -61,16 +63,10 @@ services:
       interval: 7s
       timeout: 7s
       retries: 15
-    deploy:
-      resources:
-        limits:
-          cpus: '0.25'
-        reservations:
-          cpus: '0.20'
 
   lucas-certbot:
     image: certbot/certbot
     volumes:
       - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email ${CERTBOT_EMAIL} -d ${APPLICATION_DOMAIN} --agree-tos
+      - ./certbot/www:/var/www/html
+    command: certonly --webroot -w /var/www/html --force-renewal --email ${CERTBOT_EMAIL} -d ${APPLICATION_DOMAIN} --agree-tos
