@@ -87,7 +87,6 @@ const SettingLocalImageServer = ({ helper }: Props) => {
           openSnackbar(SnackEnum.IMAGE_SERVER_IS_TURNED_ON);
         }
       } catch (error) {
-        console.log("Error", error);
         helper.saveError(
           "localImageServer",
           uniqueId,

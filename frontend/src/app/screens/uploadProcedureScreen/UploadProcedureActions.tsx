@@ -26,7 +26,6 @@ const UploadProcedureActions = () => {
     processedErrorFiles: ProcedureProcessModel[],
   ): ProcedureProcessModel[] => {
     if (!(error instanceof ProcedureLogError)) {
-      console.error("Uncaught error occurred!", error);
       return processedErrorFiles;
     }
 
@@ -45,7 +44,6 @@ const UploadProcedureActions = () => {
     processedErrorFiles: ProcedureProcessModel[],
   ): ProcedureProcessModel[] => {
     if (!(error instanceof ProcedureLogError)) {
-      console.error("Uncaught error occurred!", error);
       return processedErrorFiles;
     }
 

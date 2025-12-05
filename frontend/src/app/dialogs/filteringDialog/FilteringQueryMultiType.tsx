@@ -12,8 +12,6 @@ type Props = {
 };
 
 const FilteringQueryMultiType = React.memo(function FilteringQueryMultiType({ id }: Props) {
-  console.log("[FilteringQueryMultiType]: RENDERED");
-
   const renderComponent = () => {
     const states = FilteringHelper.getUpdatedStates<QueryMultiType>(id);
     return states.filtered.queryType === QueryTypes.QUERY_BUILDER ? (

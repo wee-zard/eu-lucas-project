@@ -14,8 +14,6 @@ type Props = {
 };
 
 const FilteringMenuContent = ({ handleClose }: Props) => {
-  console.log("[FilteringMenuContent]: RENDERED");
-
   const filterMenuAction = useSelector(selectFilterMenuActions);
   const [element, setElement] = useState<JSX.Element>();
   const dispatch = useDispatch();

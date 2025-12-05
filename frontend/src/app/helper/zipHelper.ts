@@ -189,7 +189,6 @@ class ZipHelper {
         // TODO: Reduce the MAXIMUM_RESOURCE_SIZE_IN_KB's value by 33% and call the download zip method.
       }
       this.stage = ZipStageEnum.FAILED;
-      console.log(error);
     }
   };
 
@@ -209,7 +208,6 @@ class ZipHelper {
       await this.createZip(this.getNormalZipName());
       this.stage = ZipStageEnum.SUCCESS;
     } catch (error) {
-      console.error("downloadBase64Strings", error);
       this.stage = ZipStageEnum.FAILED;
     }
   };
@@ -335,7 +333,6 @@ class ZipHelper {
           // Increasing the number of processed files counter.
           this.numberOfProcessedFiles++;
         } catch (error) {
-          console.error("addImagesToTheZip", error);
           reject(error);
           return;
         }

@@ -20,8 +20,6 @@ type Props = {
 };
 
 const FilteringQueryBodyTemplate = ({ queryMultiType }: Props) => {
-  console.log("[FilteringQueryBodyTemplate]: RENDERED");
-
   const getFilteringComponent = (id: number) =>
     queryMultiType.queryType === QueryTypes.QUERY_BUILDER ? (
       <FilteringQueryMultiType id={id} />

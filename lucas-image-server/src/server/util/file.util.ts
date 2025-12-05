@@ -30,7 +30,6 @@ abstract class FileUtil {
       // Read the image file synchronously and return it.
       return fs.readFileSync(pathToImage);
     } catch (error) {
-      console.error('Error reading file:', error);
       throw error;
     }
   }

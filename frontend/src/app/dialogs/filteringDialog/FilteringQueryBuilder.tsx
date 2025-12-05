@@ -13,8 +13,6 @@ type Props = {
 };
 
 const FilteringQueryBuilder = React.memo(function FilteringQueryBuilder({ id }: Props) {
-  console.log("[FilteringQueryBuilder]: RENDERED");
-
   const renderComponent = () => {
     const states = FilteringHelper.getUpdatedStates<QueryBuilderModel>(id);
     return (

@@ -21,8 +21,6 @@ type Props = {
 };
 
 const FilteringQueryBuilderActions = ({ id, states }: Props) => {
-  console.log("[FilteringQueryBuilderActions]: RENDERED");
-
   /**
    * Adding a new {@link QueryBuilderModel} to the TREE.
    * Only add a new group to the list, of one element is already

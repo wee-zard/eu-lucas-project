@@ -33,8 +33,6 @@ type Props = {
 };
 
 const FilteringQueryComponent = React.memo(function FilteringQueryComponent({ id }: Props) {
-  console.log("[FilteringQueryComponent]: rendered");
-
   const queryByOptions = Object.values(FilterDialogFilters).sort((a, b) => a.localeCompare(b));
 
   const dispatch = useDispatch();

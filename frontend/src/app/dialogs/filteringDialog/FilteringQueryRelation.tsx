@@ -18,8 +18,6 @@ type Props = {
 };
 
 const FilteringQueryRelation = ({ queryMultiType }: Props) => {
-  console.log("[FilteringQueryRelation]: RENDERED");
-
   const isListLengthBiggerThenTwo =
     queryMultiType.queryType === QueryTypes.QUERY_BUILDER
       ? (queryMultiType as QueryBuilderModel).listOfQueries.length > 2

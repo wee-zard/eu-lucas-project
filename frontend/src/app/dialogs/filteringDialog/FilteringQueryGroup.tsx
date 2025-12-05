@@ -13,8 +13,6 @@ type Props = {
 };
 
 const FilteringQueryGroup = React.memo(function FilteringQueryGroup({ id }: Props) {
-  console.log("[FilteringQueryGroup]: RENDERED");
-
   const renderComponent = () => {
     const states = FilteringHelper.getUpdatedStates<QueryGroup>(id);
     return (

@@ -14,8 +14,6 @@ type Props = {
 };
 
 const FilteringQueryGroupActions = React.memo(function FilteringQueryGroupActions({ id }: Props) {
-  console.log("[FilteringQueryGroupActions]: RENDERED");
-
   return (
     <StyledGroupActionsHolder>
       <StyledIconButton

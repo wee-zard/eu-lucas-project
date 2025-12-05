@@ -28,7 +28,6 @@ const GoogleAuthCard = () => {
   const dispatch = useDispatch();
 
   const throwErrorFromCommand = (err: any) => {
-    console.error(err);
     throwNotification(ToastSeverity.Error, err.message);
     dispatch(setBackgroundBackdropOpen(false));
   };

@@ -75,7 +75,6 @@ const ImageToFolderAdditionDialog = () => {
       dispatch(setSelectedImagesModel(defaultSelectedImagesModel));
       handleDialogClose();
     } catch (error) {
-      console.log(error);
     } finally {
       dispatch(setBackgroundBackdropConfig({ isBackdropOpen: false }));
     }

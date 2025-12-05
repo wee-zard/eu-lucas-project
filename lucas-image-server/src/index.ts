@@ -22,7 +22,9 @@ app.use('/api', configureRoutesMiddleware());
 if (isMediaFolderCorrectlyStructured()) {
   // Make the backend listening on a specific port.
   app.listen(port, function check(error) {
+    // eslint-disable-next-line no-console
     if (error) console.log(`Error while listening on port ${port}!`, error);
+    // eslint-disable-next-line no-console
     else console.log(`App listening on port ${port}!`);
   });
 }

@@ -5,8 +5,6 @@ import styled from "@emotion/styled";
 import FilteringMenuDialog from "./FilteringMenuDialog";
 
 const FilteringMenu = () => {
-  console.log("[FilteringMenu]: RENDERED");
-
   const [isOpen, setOpen] = useState(false);
 
   const handleClick = () => {

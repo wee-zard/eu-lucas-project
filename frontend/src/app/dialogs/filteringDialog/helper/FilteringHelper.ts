@@ -1,7 +1,6 @@
 import { fetchImagesFromLocalServerCommand } from "@api/command/imageFetcherCommands";
 import ImageUtils from "@helper/imageUtils";
 import { openSnackbar } from "@helper/notificationUtil";
-import i18n from "@i18n/i18nHandler";
 import ImageDto from "@model/dto/ImageDto";
 import { SnackEnum } from "@model/enum/SnackEnum";
 import LocalImageRequest from "@model/request/LocalImageRequest";
@@ -65,12 +64,6 @@ export const handlePageableImageResponseSrcModification = (
         errorImageModels.forEach((errorImageModel) => {
           const imagePath = { imagePath: errorImageModel.base64String };
           openSnackbar(SnackEnum.IMAGE_SERVER_IS_TURNED_ON_BUT_NOT_FOUND, imagePath);
-          console.warn(
-            "[WARNING]:",
-            i18n.t("screens.settings.imageServerIsTurnedOnButNotFound", {
-              imagePath: errorImageModel.base64String,
-            }),
-          );
         });
       }
 
