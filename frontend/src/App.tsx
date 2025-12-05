@@ -1,5 +1,5 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import AppRouterProvider from "./app/providers/AppRouterProvider";
+import AppRouterProvider from "@providers/AppRouterProvider";
 import AppBackgroundProcessCard from "@cards/appCard/AppBackgroundProcessCard";
 import { styled } from "@mui/material";
 
