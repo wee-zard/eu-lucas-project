@@ -8,6 +8,12 @@ pipeline {
     environment {
         GITHUB_REPO = 'https://github.com/wee-zard/eu-lucas-project.git'
         BRANCH = 'main'
+
+        // Store sensitive data in Jenkins Credentials
+        LUCAS_DOMAIN = credentials('lucas-domain')
+        LUCAS_API_DOMAIN = credentials('lucas-api-domain')
+        LUCAS_GOOGLE_OATH_CLIENT_ID = credentials('lucas-google-oauth-client-id')
+        LUCAS_GOOGLE_OAUTH_CLIENT_SECRET = credentials('lucas-google-oauth-client-secret')
     }
 
     stages {
@@ -21,6 +27,29 @@ pipeline {
             steps {
                 dir('frontend') {
                     sh 'npm install --legacy-peer-deps'
+                    sh 'npm install update-browserslist-db@latest --legacy-peer-deps'
+                }
+            }
+        }
+
+        stage('Setting up .env file') {
+            steps {
+                dir('frontend') {
+                    script {
+                        // Read the .env-example template
+                        def envExample = readFile('.env-example')
+                        
+                        // Replace placeholder values
+                        def envContent = envExample
+                            .replace('REACT_APP_USE_HOST_PATH=', 'REACT_APP_USE_HOST_PATH="' + env.LUCAS_DOMAIN + '"')
+                            .replace('REACT_APP_USE_BACKEND=', 'REACT_APP_USE_BACKEND="' + env.LUCAS_API_DOMAIN + '"')
+                            .replace('REACT_APP_USE_GOOGLE_OAUTH_CLIENT_ID=', 'REACT_APP_USE_GOOGLE_OAUTH_CLIENT_ID="' + env.LUCAS_GOOGLE_OATH_CLIENT_ID + '"')
+                            .replace('REACT_APP_USE_GOOGLE_OAUTH_CLIENT_SECRET=', 'REACT_APP_USE_GOOGLE_OAUTH_CLIENT_SECRET="' + env.LUCAS_GOOGLE_OAUTH_CLIENT_SECRET + '"')
+                            .replace('NODE_ENV=', "NODE_ENV=production")
+                        
+                        // Write the actual .env file
+                        writeFile file: '.env', text: envContent
+                    }
                 }
             }
         }
@@ -37,14 +66,23 @@ pipeline {
             steps {
                 dir('frontend') {
                     sh 'npm run test'
+                    sh 'npm run lint'
                 }
             }
         }
+
+            steps {
+                dir('frontend') {
+                    sh 'npm run test'
+                }
+            }
+        }*/
 
         stage('Build') {
             steps {
                 dir('frontend') {
                     sh 'craco build'
+                    sh 'npm run build'
                 }
             }
         }
