@@ -10,12 +10,6 @@ server:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #  jpa:
 #    generate-ddl: false
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
 #===== Actuator HEALTH properties ======#
 management:
   endpoints:
@@ -24,6 +18,8 @@ management:
         include: health
 spring:
   jpa:
+    hibernate:
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -31,12 +27,3 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration/lucasdb
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
