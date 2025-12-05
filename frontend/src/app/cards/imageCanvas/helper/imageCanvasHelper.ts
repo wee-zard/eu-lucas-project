@@ -1,3 +1,4 @@
+import { ImageCanvasLoadingStatesEnum } from "@model/enum/ImageCanvasLoadingStatesEnum";
 import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 
 export const getImageCanvasId = (
@@ -17,7 +18,7 @@ export const getImageCanvasDataUrl = (
     const interval = setInterval(() => {
       const canvas = document.getElementById(imageCanvasId);
 
-      if (canvas?.ariaLabel === ImageCanvasLoadingStates.LOADED) {
+      if (canvas?.ariaLabel === ImageCanvasLoadingStatesEnum.LOADED) {
         clearInterval(interval);
         const dataURLs = (
           (canvas as HTMLCanvasElement).toDataURL("image/jpeg", 1.0) as string
@@ -29,8 +30,3 @@ export const getImageCanvasDataUrl = (
 };
 
 export const UNIQUE_ID_OF_BACKGROUND_CANVAS_CARD = "hidden-background-canvas";
-
-export enum ImageCanvasLoadingStates {
-  LOADED = "true",
-  NOT_LOADED = "false",
-}

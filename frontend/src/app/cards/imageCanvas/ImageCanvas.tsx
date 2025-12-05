@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import ImageUtils from "@helper/imageUtils";
 import { QueriedImagePropertyType } from "@model/SelectedImagesModel";
 import getRandomIdentification from "@helper/randomGeneratorHelper";
-import { getImageCanvasId, ImageCanvasLoadingStates } from "./helper/imageCanvasHelper";
+import { getImageCanvasId } from "./helper/imageCanvasHelper";
 import { downloadImagesByUrlCommand } from "@api/command/imageFetcherCommands";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
@@ -15,6 +15,7 @@ import {
   selectBoundingBoxColors,
   selectBoundingBoxPercentageDisplay,
 } from "@redux/selectors/boundingBoxSelector";
+import { ImageCanvasLoadingStatesEnum } from "@model/enum/ImageCanvasLoadingStatesEnum";
 
 type MouseHoverTooltipType = {
   isHovering: boolean;
@@ -48,7 +49,9 @@ const ImageCanvas = ({
     position: { x: 0, y: 0 },
   });
   const imageCanvasId = getImageCanvasId(imageProperty, randomUniqueId);
-  const label = isLoaded ? ImageCanvasLoadingStates.LOADED : ImageCanvasLoadingStates.NOT_LOADED;
+  const label = isLoaded
+    ? ImageCanvasLoadingStatesEnum.LOADED
+    : ImageCanvasLoadingStatesEnum.NOT_LOADED;
   const EXTENDED_IMAGE_HEIGHT = imageProperty.logs.length > 0 ? 55 : 0;
   const EXTENDED_IMAGE_HEADER_FONT_HEIGHT = EXTENDED_IMAGE_HEIGHT - 7;
 

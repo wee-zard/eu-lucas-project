@@ -50,6 +50,7 @@ const ImageAndPaginationCard = ({
         ...event,
         method: handleImageSelection,
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [event]);
 
   const isImagePresentInSelectedImages = (imageDto: ImageDto): boolean =>
