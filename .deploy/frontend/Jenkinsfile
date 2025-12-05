@@ -50,7 +50,7 @@ pipeline {
         stage('Deploy') {
             when {
                 anyOf {
-                    branch 'main'
+                    branch env.BRANCH
                 }
             }
             steps {
