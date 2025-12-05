@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="950c6dad-19a3-45b6-9673-130cf5d5a46f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/screens/LucasScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/screens/LucasScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/StyledBackdrop.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/StyledBackdrop.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helper/formBuilderHelper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helper/formBuilderHelper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/model/request/SmtpEmailRequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/model/request/SmtpEmailRequest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/screens/NotFoundScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/screens/NotFoundScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/screens/ReportScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/screens/ReportScreen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/.obsidian/workspace.json" beforeDir="false" afterPath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/.obsidian/workspace.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Lucas Kanban.md" beforeDir="false" afterPath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Lucas Kanban.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md" beforeDir="false" afterPath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/003 - Befoglaló téglalapok megjelenítése a képeken.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/004 - Eljárás logok automatikus kiválasztása a legnagyobb közös területű befoglaló téglalapok alapján.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/016 - ExifData szűrés esetén az text input mező hossza és karakterkészlete kerüljön validálása a backendre való elküldés előtt.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md" beforeDir="false" afterPath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/064 - Validálás Validátorok kollektor.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/108 - Filtering - Jobb szöveg kiíratása azon esetekben, amennyiben nincs kép kiválasztva, vagy a szűrésből nem jött vissza kép.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/118 - Adatbázos feltöltése a képekhez tartozó EXIF adatokkal.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/143 - Lottifiles - 404 Not found animáció.md" beforeDir="false" afterPath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/143 - Lottifiles - 404 Not found animáció.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra.md" beforeDir="false" afterPath="$PROJECT_DIR$/../obsidian/Lucas Version Controll/Kanban Board/Nodes/162 - Filtering - Üres szűrési eredmény esetében kerüljön Üres eredmény kiíratásra.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +92,7 @@
       <workItem from="1748278001290" duration="2913000" />
       <workItem from="1748291744016" duration="1863000" />
       <workItem from="1748418329228" duration="347000" />
+      <workItem from="1750924066970" duration="134000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor to use 'const' and improve comments for clarity.&#10;&#10;Replaced 'var' with 'const' for variable declarations to enforce immutability and modern coding practices. Adjusted comments and documentation for better readability and consistency across functions.">
       <option name="closed" value="true" />
