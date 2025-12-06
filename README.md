@@ -157,6 +157,23 @@ We do not want the Jenkins to use hybridly english and our local language, as it
      - Secret: Paste here your Google OAth Client Secret
      - ID: `lucas-google-oauth-client-secret`
 
+### 3.5. Generate SSH keys
+If we wants to uplaod our build files to the VM, we need to SSH into the VM. For this purpose, we are creating SSH key pairs.
+
+#### 3.5.1. Create SSH keys from terminal
+
+Open terminal in the project root folder and use the following commands to create the keys:
+```sh
+ssh-keygen -t rsa -b 4096 -C "jenkins-deploy"
+```
+
+Enter file in which to save the key:
+```sh
+./.keys/jenkins_deploy_key
+```
+
+After we provided the **passphrase** as well to the SSH keys, now we have a public and private key pairs what we could use to SSH into the VM through the jenkins and upload the files.
+
 ---
 
 ---
