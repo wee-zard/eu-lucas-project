@@ -111,7 +111,6 @@ pipeline {
                         """
                     }
                }
-               echo 'TODO: Deploying the application'
             }
         }
 
