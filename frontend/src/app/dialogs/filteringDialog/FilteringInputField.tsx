@@ -161,6 +161,7 @@ const FilteringInputField = ({ component, setComponent }: Props) => {
         updateSecondSelectInputOptions(keyId);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getExifKeyIdByValue, exifCacheStorage]);
 
   const updateSecondSelectInputOptions = (keyId: number) => {

@@ -49,6 +49,7 @@ const FilteringMenuContent = ({ handleClose }: Props) => {
     };
 
     handle[filterMenuAction]();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, filterMenuAction]);
 
   return <>{element}</>;

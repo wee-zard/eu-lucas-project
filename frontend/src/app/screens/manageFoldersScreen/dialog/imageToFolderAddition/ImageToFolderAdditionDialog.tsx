@@ -41,6 +41,7 @@ const ImageToFolderAdditionDialog = () => {
       handleDialogClose();
       return;
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [helper, isOpen, selectedImagesModel]);
 
   const handleOnSubmit = async () => {

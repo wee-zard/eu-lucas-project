@@ -61,7 +61,7 @@ const FilteringImageAndPaginationCard = () => {
     setPageable(defaultPaginationModel);
     setMenuAction(MenuActions.PAGINATION_CHANGE);
     dispatch(setFilterMenuAction(undefined));
-  }, [filterMenuAction]);
+  }, [filterMenuAction, dispatch]);
 
   useEffect(() => {
     handleFetchOfImages();

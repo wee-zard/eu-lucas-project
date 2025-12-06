@@ -31,6 +31,7 @@ const FilteringScreenImageAndPaginationCard = () => {
       page: 0,
       empty: selectedImagesModel.queryImages.length === 0,
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedImagesModel]);
 
   useEffect(() => {

@@ -60,6 +60,7 @@ const ManageLogsBackgroundProcess = () => {
 
     // Processing the setting option what was clicked by the user.
     handler[settingOptions.option](settingOptions.data);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settingOptions, isOpen, isSubmitClicked, isCancelClicked, dispatch]);
 
   /**

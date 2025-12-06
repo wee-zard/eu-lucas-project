@@ -142,6 +142,7 @@ const ManageFoldersBackgroundProcess = () => {
 
     // Processing the setting option what was clicked by the user.
     handler[folderSettingOption.option](folderSettingOption.data);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderSettingOption, isOpen, isSubmitClicked, isCancelClicked, dispatch]);
 
   /**

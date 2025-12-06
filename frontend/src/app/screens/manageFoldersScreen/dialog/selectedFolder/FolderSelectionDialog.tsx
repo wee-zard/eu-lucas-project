@@ -46,7 +46,7 @@ const FolderSelectionDialog = () => {
       // When the component itself is destroyed, then we are updating the paginated table.
       EventListenerUtil.dispatchEvent(EventListenerIdEnum.PAGINATED_TABLE);
     };
-  }, [isOpen]);
+  }, [isOpen, dispatch]);
 
   return (
     <StyledDialog open={isOpen} onClose={handleDialogClose}>

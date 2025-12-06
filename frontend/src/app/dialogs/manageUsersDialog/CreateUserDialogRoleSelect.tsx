@@ -14,6 +14,7 @@ type Props = {
 };
 
 const CreateUserDialogRoleSelect = memo(function FilteringQueryBuilder({ id }: Props) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setEntry] = useState<InputFormControlEntry>(getCreateUserFormStorageItem().role);
   const [listOfRoles, setListOfRoles] = useState<RoleDto[]>([]);
 
