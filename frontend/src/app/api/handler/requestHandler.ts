@@ -77,12 +77,14 @@ const handleUnauthorizedError = <T>(command: RequestCommand): Promise<T> => {
   });
 };
 
-const throwErrorNotification = (command: RequestCommand, error: any) => {
+const throwErrorNotification = (command: RequestCommand, error: any): void => {
   const errorMessage = error?.response?.data?.detail;
 
-  errorMessage
-    ? baseErrorResponseToErrorMessage(JSON.parse(errorMessage), command.isToastHidden)
-    : throwNotification(ToastSeverity.Error, serverErrorMessage, command.isToastHidden);
+  if (errorMessage) {
+    baseErrorResponseToErrorMessage(JSON.parse(errorMessage), command.isToastHidden);
+  } else {
+    throwNotification(ToastSeverity.Error, serverErrorMessage, command.isToastHidden);
+  }
 };
 
 /**
