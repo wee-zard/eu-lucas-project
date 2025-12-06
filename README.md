@@ -69,12 +69,26 @@ In this section we are detailing how to set up the Jenkins Docker Container to r
 
 ### 3.1. Installing Jenkins
 
-#### 3.1.1. Creating Jenkins Volume
+#### 3.1.0. Build Jenkins Dockerfile
 
-Create Jenkins Docker Container in the root folder and attach the **.jenkins_home** folder as a volume to it.
+Step into the following directory in which the Jenkins Dockerfile is located from the root folder of the project:
 
 ```sh
-docker run -it --rm -p 8080:8080 -p 50000:50000 -v ./.jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+cd .deploy/frontend
+```
+
+Build the Dockerfile with the following command:
+
+```sh
+docker build -f Dockerfile-jenkins -t jenkins-image:1.0 .
+```
+
+#### 3.1.1. Creating Jenkins Volume
+
+Create Jenkins Docker Container in the root folder and attach the **.jenkins_home** folder as a volume to it in the root folder of the project.
+
+```sh
+docker run -it --rm -p 8080:8080 -p 50000:50000 -v ./.jenkins_home:/var/jenkins_home jenkins-image:1.0
 ```
 
 #### 3.1.2. Unlock Jenkins

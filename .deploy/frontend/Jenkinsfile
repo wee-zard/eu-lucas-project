@@ -85,12 +85,18 @@ pipeline {
                     sh 'npm run build'
                 }
             }
+        stage('Wrap build to zip') {
+            steps {
+                dir('frontend') {
+                    sh 'zip -r build.zip build'
+                }
+            }
         }
 
         stage('Archive Artifacts') {
             steps {
                dir('frontend') {
-                    archiveArtifacts artifacts: 'dist/**/*', fingerprint: true
+                    archiveArtifacts artifacts: 'build.zip', fingerprint: true
                }
             }
         }
@@ -109,6 +115,11 @@ pipeline {
                                 ls -la
                             '
                         """
+
+                        sh """
+                            scp -o StrictHostKeyChecking=no build.zip root@${env.REMOTE_SERVER_IP_ADDRESS}:/root/projects/lucas/frontend/
+                        """
+
                     }
                }
             }
