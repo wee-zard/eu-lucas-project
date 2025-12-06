@@ -74,7 +74,7 @@ In this section we are detailing how to set up the Jenkins Docker Container to r
 Step into the following directory in which the Jenkins Dockerfile is located from the root folder of the project:
 
 ```sh
-cd .deploy/frontend
+cd .deploy/jenkins
 ```
 
 Build the Dockerfile with the following command:
