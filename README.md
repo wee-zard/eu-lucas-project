@@ -193,6 +193,25 @@ After we provided the **passphrase** as well to the SSH keys, now we have a publ
      - Secret: Domain name of the application without the "https://www." prefix!
      - ID: `jenkins-deploy-key`
 
+#### 3.5.3. Upload public key to the remote server
+1. SSH into your remote server. The command should look like this: `ssh USER@REMOTE_SERVER_IP_ADDRESS`.
+2. Go inside the `~/.ssh` folder. If this folder does not exists then run the following commands:
+
+```txt
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+```
+
+3. Add the public key to authorized_keys:
+```txt
+echo "your-public-key-content" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+```
+
+4. Ensure proper permissions
+```txt
+chown -R $USER:$USER ~/.ssh
+```
 
 ---
 
