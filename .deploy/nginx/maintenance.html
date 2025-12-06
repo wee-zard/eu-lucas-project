@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Site Maintenance | Temporary Unavailable</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #f0f0f0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .maintenance-container {
+        max-width: 900px;
+        width: 100%;
+        background-color: rgba(25, 25, 45, 0.9);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .maintenance-header {
+        background: linear-gradient(90deg, #0f3460 0%, #533483 100%);
+        padding: 40px 30px;
+        text-align: center;
+      }
+
+      .logo {
+        font-size: 2.8rem;
+        margin-bottom: 15px;
+        color: #4cc9f0;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        background: linear-gradient(to right, #4cc9f0, #f72585);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        font-weight: 300;
+      }
+
+      .maintenance-content {
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #aaa;
+        font-size: 0.9rem;
+      }
+
+      .nginx-badge {
+        display: inline-block;
+        background: #009639;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-weight: 600;
+        margin-left: 5px;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .maintenance-header,
+        .maintenance-content {
+          padding: 25px 20px;
+        }
+
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        .logo {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="maintenance-container">
+      <div class="maintenance-header">
+        <div class="logo">
+          <i class="fas fa-tools"></i>
+        </div>
+        <h1>Az oldal karbantartás alatt van</h1>
+        <p class="subtitle">
+          Fontos frissítéseket hajtunk végre a háttérben. Kérjük térj vissza egy kicsit később.
+          Megértésedet köszönjük.
+        </p>
+      </div>
+
+      <div class="footer">
+        <p>&copy; 2025. Minden jog fenntartva. <span class="nginx-badge">NGINX</span></p>
+        <p>Ezt a karbantartási oldalt az NGINX webszerver szolgálja ki.</p>
+      </div>
+    </div>
+  </body>
+</html>
