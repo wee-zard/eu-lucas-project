@@ -156,6 +156,11 @@ We do not want the Jenkins to use hybridly english and our local language, as it
      - Scope: `Global`
      - Secret: Paste here your Google OAth Client Secret
      - ID: `lucas-google-oauth-client-secret`
+   - Remote Server IP Address:
+     - Kind: `Secret text`
+     - Scope: `Global`
+     - Secret: The IP address of the remote server (such as: **23.192.228.80** which is the **example.com**'s IP address)
+     - ID: `remote-server-ip-address`
 
 ### 3.5. Generate SSH keys
 If we wants to uplaod our build files to the VM, we need to SSH into the VM. For this purpose, we are creating SSH key pairs.
@@ -173,6 +178,21 @@ Enter file in which to save the key:
 ```
 
 After we provided the **passphrase** as well to the SSH keys, now we have a public and private key pairs what we could use to SSH into the VM through the jenkins and upload the files.
+
+#### 3.5.2. Upload private to jenkins as credential
+1. Click on the "gear button" on the top right corner of the Jenkins web application. Under **Security**, select the **Credentials** sub menu option, or enter the following url: http://localhost:8080/manage/credentials/
+2. Under the **Stores scoped to Jenkins** table, click on the **System** user (Click on his name)
+3. Under the **System**'s available credentials, clink on the **Global credentials (unrestricted)**
+4. Now on the top right side of the window, click on the "+ Add Credentials" button
+5. Under the **New credentials** form, we need to create the following credentials for the Jenkins jobs:
+   - Domain:
+     - Kind: `SSH Username with private key`
+     - Scope: `Global`
+     - Username: `deploy`
+     - Private Key: Upload the **.keys/jenkins_deploy_key** file here
+     - Secret: Domain name of the application without the "https://www." prefix!
+     - ID: `jenkins-deploy-key`
+
 
 ---
 

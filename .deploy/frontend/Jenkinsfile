@@ -14,6 +14,7 @@ pipeline {
         LUCAS_API_DOMAIN = credentials('lucas-api-domain')
         LUCAS_GOOGLE_OATH_CLIENT_ID = credentials('lucas-google-oauth-client-id')
         LUCAS_GOOGLE_OAUTH_CLIENT_SECRET = credentials('lucas-google-oauth-client-secret')
+        REMOTE_SERVER_IP_ADDRESS = credentials('remote-server-ip-address')
     }
 
     stages {
@@ -70,13 +71,13 @@ pipeline {
             }
         }
 
-        /*stage('Test Source') {
+        stage('Test Source') {
             steps {
                 dir('frontend') {
                     sh 'npm run test'
                 }
             }
-        }*/
+        }
 
         stage('Build') {
             steps {
@@ -101,8 +102,15 @@ pipeline {
                 }
             }
             steps {
-               // dir('frontend') {
-               // }
+               dir('frontend') {
+                    sshagent(credentials: ['jenkins-deploy-key']) {
+                        sh """
+                            ssh -o StrictHostKeyChecking=no root@${env.REMOTE_SERVER_IP_ADDRESS} -p 22 '
+                                ls -la
+                            '
+                        """
+                    }
+               }
                echo 'TODO: Deploying the application'
             }
         }
