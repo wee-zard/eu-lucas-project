@@ -1,0 +1,41 @@
+# k8s/certbot-initial.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: certbot-initial
+spec:
+  #ttlSecondsAfterFinished: 86400  # Delete after 24 hours
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: certbot
+        image: certbot/certbot:latest
+        command: ["certbot"]
+        args:
+          - "certonly" 
+          - "--webroot"
+          - "-w"
+          - "/var/www/html"
+          - "--force-renewal"
+          - "--email"
+          - "${CERTBOT_EMAIL}"
+          - "-d"
+          - "${APPLICATION_DOMAIN}"
+          - "-d"
+          - "api.${APPLICATION_DOMAIN}"
+          - "--agree-tos"
+        env:
+        - name: CERTBOT_EMAIL
+          value: "${CERTBOT_EMAIL}"
+        - name: APPLICATION_DOMAIN
+          value: "${APPLICATION_DOMAIN}"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: certbot-certs
+          mountPath: /etc/letsencrypt
+      volumes:
+      - name: certbot-certs
+        persistentVolumeClaim:
+          claimName: certbot-pvc
