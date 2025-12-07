@@ -13,11 +13,6 @@ spec:
     metadata:
       labels:
         app: nginx
-      # TODO: Add Prometheus scraping annotations if needed
-      #annotations:
-      #  prometheus.io/scrape: "true"
-      #  prometheus.io/port: "80"
-      #  prometheus.io/path: "/metrics"  # If nginx exposes metrics
     spec:
       containers:
         - name: nginx

@@ -1,14 +1,13 @@
-# k8s/certbot-initial.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: certbot-initial
 spec:
-  #ttlSecondsAfterFinished: 86400  # Delete after 24 hours
   template:
     spec:
       restartPolicy: OnFailure
-      initContainers:
+      containers:
+      # First container: nginx for challenges
       - name: nginx-challenge-server
         image: nginx:alpine
         command: ["sh", "-c"]
@@ -16,53 +15,55 @@ spec:
           - |
             mkdir -p /var/www/html/.well-known/acme-challenge
             echo "Challenge server ready" > /var/www/html/index.html
+            echo "Starting nginx challenge server..."
             nginx -g "daemon off;"
         volumeMounts:
         - name: webroot
           mountPath: /var/www/html
-        #- name: nginx-config
-        #  mountPath: /etc/nginx/conf.d/default.conf
-        #  subPath: default.conf
         ports:
         - containerPort: 80
-      containers:
+      # Second container: certbot
       - name: certbot
         image: certbot/certbot:latest
-        command: ["certbot"]
+        command: ["sh", "-c"]
         args:
-          - "certonly"
-          - "--webroot"
-          - "-w"
-          - "/var/www/html"
-          - "--force-renewal"
-          - "--email"
-          - "${CERTBOT_EMAIL}"
-          - "-d"
-          - "${APPLICATION_DOMAIN}"
-          - "-d"
-          - "api.${APPLICATION_DOMAIN}"
-          - "--agree-tos"
-        env:
-        - name: CERTBOT_EMAIL
-          value: "${CERTBOT_EMAIL}"
-        - name: APPLICATION_DOMAIN
-          value: "${APPLICATION_DOMAIN}"
+          - |
+            # Wait for nginx to be ready
+            echo "Waiting for nginx to start..."
+            sleep 15
+            
+            # Request certificates
+            echo "Requesting certificates from Let's Encrypt..."
+            certbot certonly --webroot \
+              -w /var/www/html \
+              --email udvattila99@gmail.com \
+              -d lucasimageanalyzer.com \
+              -d api.lucasimageanalyzer.com \
+              --agree-tos \
+              --force-renewal \
+              --non-interactive \
+              --verbose
+            
+            # Check if certificates were created
+            if [ -d "/etc/letsencrypt/live/lucasimageanalyzer.com" ]; then
+              echo "✅ Certificates created successfully!"
+              echo "Certificate files:"
+              ls -la /etc/letsencrypt/live/lucasimageanalyzer.com/
+            else
+              echo "❌ Failed to create certificates"
+              exit 1
+            fi
+            
+            # Kill nginx so the job can complete
+            pkill nginx
         volumeMounts:
         - name: certbot-certs
           mountPath: /etc/letsencrypt
         - name: webroot
           mountPath: /var/www/html
-        ports:
-        - containerPort: 8080
-        volumeMounts:
-        - name: certbot-certs
-          mountPath: /etc/letsencrypt
       volumes:
       - name: certbot-certs
         persistentVolumeClaim:
           claimName: certbot-pvc
       - name: webroot
         emptyDir: {}
-      #- name: nginx-config
-      #  configMap:
-      #    name: nginx-challenge-config
