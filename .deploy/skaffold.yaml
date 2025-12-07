@@ -41,6 +41,20 @@ portForward:
 #    resourceName: your-app-service
 #    port: 8080
 #    localPort: 8080
+deploy:
+  kubectl: {}
+
+# Defining environment variables.
+env:
+  # Read from .env file or environment
+  - name: CERTBOT_EMAIL
+    value: "your-default@example.com"  # Default email
+  - name: APPLICATION_DOMAIN
+    value: "example.com"  # Default domain
+  - name: APPLICATION_API_DOMAIN
+    value: "api.example.com"  # Default api.domain
+
+# Defining profiles
 profiles:
   - name: nginx-ssl # Add SSL certificates to the domain
     activation:
@@ -55,5 +69,3 @@ profiles:
       rawYaml:
         - k8s/nginx-deployment.yaml
         - k8s/nginx-service.yaml
-deploy:
-  kubectl: {}
