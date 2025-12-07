@@ -1,0 +1,63 @@
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: lucas-app
+build:
+  artifacts:
+  - image: my-nginx
+    context: nginx
+    docker:
+      dockerfile: Dockerfile-nginx
+    # TODO: Uncomment when there are actual HTML files inside the nginx/html folder.
+    #sync:
+    #  # Auto-sync changes for faster development
+    #  manual:
+    #    - src: "nginx/html/**"
+    #      dest: "/usr/share/nginx/html"
+
+  #tagPolicy:
+  #  gitCommit: {}
+  local:
+    push: false
+    useDockerCLI: true
+    useBuildkit: false
+manifests:
+  kustomize:
+    paths:
+    - k8s  # Service + Deployment fájlok felsorolása
+portForward:
+  - resourceType: service
+    resourceName: nginx-service
+    port: 80
+    localPort: 8080 # Access at http://localhost:8080
+#  - resourceType: service
+#    resourceName: prometheus-service
+#    port: 9090
+#    localPort: 9090
+#  - resourceType: service
+#    resourceName: grafana-service
+#    port: 3000
+#    localPort: 3000
+#  - resourceType: service
+#    resourceName: your-app-service
+#    port: 8080
+#    localPort: 8080
+profiles:
+  - name: prod
+    activation:
+      - command: run
+      - command: deploy
+    build:
+      artifacts:
+        - image: my-nginx
+          context: nginx
+          docker:
+            dockerfile: Dockerfile-nginx
+          kaniko:
+            cache: {}
+    manifests:
+      kustomize:
+        paths:
+        - k8s
+deploy:
+  kubectl: {}
