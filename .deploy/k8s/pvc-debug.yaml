@@ -6,7 +6,7 @@ spec:
   volumes:
     - name: cert-volume
       persistentVolumeClaim:
-        claimName: your-cert-pvc-name  # Replace with your PVC name
+        claimName: certbot-pvc
   containers:
     - name: debug
       image: alpine

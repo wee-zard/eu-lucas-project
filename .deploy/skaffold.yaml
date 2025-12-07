@@ -22,11 +22,7 @@ build:
 
 manifests:
   rawYaml:
-    - k8s/nginx-deployment.yaml
-    - k8s/certbot-pvc.yaml
-    - k8s/certbot-initial.yaml
-    - k8s/ingress.yaml
-    - k8/pvc-debug.yaml
+    - k8s/*
 
 portForward:
   - resourceType: service
