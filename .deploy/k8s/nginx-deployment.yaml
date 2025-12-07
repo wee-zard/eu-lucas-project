@@ -67,6 +67,5 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-      protocol: TCP
-      name: http
-  type: LoadBalancer  # Change to LoadBalancer or NodePort for external access
+      nodePort: 30080
+  type: NodePort
