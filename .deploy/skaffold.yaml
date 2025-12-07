@@ -22,9 +22,8 @@ build:
     useDockerCLI: true
     useBuildkit: false
 manifests:
-  kustomize:
-    paths:
-    - k8s  # Service + Deployment fájlok felsorolása
+  rawYaml:
+    - k8s/nginx-deployment.yaml
 portForward:
   - resourceType: service
     resourceName: nginx-service
