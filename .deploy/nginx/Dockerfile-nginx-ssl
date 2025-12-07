@@ -1,0 +1,17 @@
+# Fetching the latest nginx image
+FROM nginx:stable-alpine AS prod
+
+# Copy custom nginx configuration
+COPY nginx-ssl.conf /etc/nginx/nginx.conf
+
+# Set permission to public
+RUN chmod -R 755 /usr/share/nginx/html
+
+# Set the working directory
+WORKDIR /app
+
+# Expose port 80 for the NGINX server
+EXPOSE 80
+
+# Command to start NGINX when the container is run
+CMD ["nginx", "-g", "daemon off;"]

@@ -42,21 +42,18 @@ portForward:
 #    port: 8080
 #    localPort: 8080
 profiles:
-  - name: prod
+  - name: nginx-ssl # Add SSL certificates to the domain
     activation:
-      - command: run
-      - command: deploy
+      - command: nginx-ssl
     build:
       artifacts:
         - image: my-nginx
           context: nginx
           docker:
-            dockerfile: Dockerfile-nginx
-          kaniko:
-            cache: {}
+            dockerfile: Dockerfile-nginx-ssl
     manifests:
-      kustomize:
-        paths:
-        - k8s
+      rawYaml:
+        - k8s/nginx-deployment.yaml
+        - k8s/nginx-service.yaml
 deploy:
   kubectl: {}
