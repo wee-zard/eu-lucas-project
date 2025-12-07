@@ -1,0 +1,93 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'M3'
+        jdk 'JDK17'
+    }
+
+    environment {
+        GITHUB_REPO = 'https://github.com/wee-zard/eu-lucas-project.git'
+        BRANCH = 'main'
+        REMOTE_SERVER_IP_ADDRESS = credentials('remote-server-ip-address')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: env.BRANCH, url: env.GITHUB_REPO
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                dir('backend') {
+                    sh 'npm install --legacy-peer-deps'
+                    sh 'npm install update-browserslist-db@latest --legacy-peer-deps'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('backend') {
+                    sh 'mvn clean compile -DskipTests'
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                dir('backend') {
+                    sh 'mvn package -DskipTests'
+                }
+            }
+        }
+
+        stage('Archive Artifacts') {
+            steps {
+                dir('backend') {
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+               dir('backend') {
+                    sshagent(credentials: ['jenkins-deploy-key']) {
+                        // Clear out the destination remote folder.
+                        sh """
+                            ssh -o StrictHostKeyChecking=no minikubeuser@${env.REMOTE_SERVER_IP_ADDRESS} -p 22 '
+                                cd projects/lucas/backend
+                                rm -rf *
+                            '
+                        """
+                    }
+
+                    sshagent(credentials: ['jenkins-deploy-key']) {
+                        // Upload build zip to the destination remote folder.
+                        sh """
+                            scp -o StrictHostKeyChecking=no spring-boot-0.2.0.jar minikubeuser@${env.REMOTE_SERVER_IP_ADDRESS}:/home/minikubeuser/projects/lucas/backend/
+                        """
+                    }
+               }
+            }
+        }
+
+        stage('Clean') {
+            steps {
+                deleteDir()
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Backend Pipeline run successfully.'
+        }
+        failure {
+            echo 'Backend Pipeline failed to run.'
+        }
+    }
+}
