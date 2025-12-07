@@ -1,7 +1,9 @@
 version: "3"
 services:
   lucas-nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile-nginx
     restart: unless-stopped
     ports:
       - '80:80'
@@ -65,7 +67,7 @@ services:
       retries: 15
 
   lucas-certbot:
-    image: certbot/certbot
+    image: certbot/certbot:latest
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/html
