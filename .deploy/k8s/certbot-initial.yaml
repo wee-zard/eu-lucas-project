@@ -13,7 +13,7 @@ spec:
         image: certbot/certbot:latest
         command: ["certbot"]
         args:
-          - "certonly" 
+          - "certonly"
           - "--webroot"
           - "-w"
           - "/var/www/html"
