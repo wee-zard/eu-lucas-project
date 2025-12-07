@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        GITHUB_REPO = 'https://github.com/wee-zard/eu-lucas-project.git'
         BRANCH = 'main'
         REMOTE_SERVER_IP_ADDRESS = credentials('remote-server-ip-address')
     }
@@ -32,7 +33,7 @@ pipeline {
         stage('Deploy Configurations') {
             steps {
                 dir('.deploy') {
-                    sshagent(credentials: ['jenkins-deploy-key']) { 
+                    sshagent(credentials: ['jenkins-deploy-key']) {
                         // Upload configuration zip to the destination remote folder.
                         sh """
                             scp -o StrictHostKeyChecking=no config.zip minikubeuser@${env.REMOTE_SERVER_IP_ADDRESS}:/home/minikubeuser/projects/lucas/
@@ -44,7 +45,7 @@ pipeline {
                         sh """
                             ssh -o StrictHostKeyChecking=no minikubeuser@${env.REMOTE_SERVER_IP_ADDRESS} -p 22 '
                                 cd projects/lucas
-                                unzip config.zip
+                                unzip -o config.zip
                                 rm config.zip
                             '
                         """
