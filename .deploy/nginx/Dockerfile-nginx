@@ -7,6 +7,9 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copying built assets from builder
 COPY ./build /usr/share/nginx/html
 
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
 # Set permission to public
 RUN chmod -R 755 /usr/share/nginx/html
 
