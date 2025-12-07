@@ -47,46 +47,12 @@ portForward:
 deploy:
   kubectl: {}
 
-# Defining environment variables at root level
-env:
-  # Read from .env file or environment
-  - name: CERTBOT_EMAIL
-    value: "your-default@example.com"  # Default email
-  - name: APPLICATION_DOMAIN
-    value: "example.com"  # Default domain
-  - name: APPLICATION_API_DOMAIN
-    value: "api.example.com"  # Default api.domain
-
 # Defining profiles
 profiles:
   - name: nginx-ssl # Add SSL certificates to the domain
     activation:
       - command: nginx-ssl
-    build:
-      artifacts:
-        - image: my-nginx
-          context: nginx
-          docker:
-            dockerfile: Dockerfile-nginx-ssl
-        - image: certbot/certbot:latest
-      local:
-        push: false
-        useDockerCLI: true
-        useBuildkit: false
-
-    # Profiles can override environment variables
-    env:
-      - name: CERTBOT_EMAIL
-        value: "ssl-email@example.com"  # Override for SSL profile
-      - name: APPLICATION_DOMAIN
-        value: "ssl-domain.com"
-      - name: APPLICATION_API_DOMAIN
-        value: "api.ssl-domain.com"
-    
-    manifests:
-      rawYaml:
-        - k8s/nginx-deployment.yaml
-        - k8s/nginx-service.yaml
-    
-    deploy:
-      kubectl: {}
+    patches:
+      - op: replace
+        path: /build/artifacts/0/docker/dockerfile
+        value: Dockerfile-nginx-ssl
