@@ -21,13 +21,21 @@ pipeline {
             }
         }
 
+        stage('Archive Artifacts') {
+            steps {
+                dir('.deploy') {
+                    archiveArtifacts artifacts: 'config.zip', fingerprint: true
+                }
+            }
+        }
+
         stage('Deploy Configurations') {
             steps {
                 dir('.deploy') {
                     sshagent(credentials: ['jenkins-deploy-key']) { 
                         // Upload configuration zip to the destination remote folder.
                         sh """
-                            scp -o StrictHostKeyChecking=no config.zip minikubeuser@${env.REMOTE_SERVER_IP_ADDRESS}:/home/minikubeuser/projects/lucas/config/
+                            scp -o StrictHostKeyChecking=no config.zip minikubeuser@${env.REMOTE_SERVER_IP_ADDRESS}:/home/minikubeuser/projects/lucas/
                         """
                     }
 
