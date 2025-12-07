@@ -26,6 +26,7 @@ manifests:
     - k8s/certbot-pvc.yaml
     - k8s/certbot-initial.yaml
     - k8s/ingress.yaml
+    - k8/pvc-debug.yaml
 
 portForward:
   - resourceType: service

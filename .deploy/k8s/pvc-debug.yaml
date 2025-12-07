@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-debug
+spec:
+  volumes:
+    - name: cert-volume
+      persistentVolumeClaim:
+        claimName: your-cert-pvc-name  # Replace with your PVC name
+  containers:
+    - name: debug
+      image: alpine
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: cert-volume
+          mountPath: /certs
