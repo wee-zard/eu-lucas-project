@@ -8,14 +8,13 @@ build:
   - image: my-nginx
     context: nginx
     docker:
-      dockerfile: Dockerfile-nginx
+      dockerfile: Dockerfile-nginx-ssl
     # TODO: Uncomment when there are actual HTML files inside the nginx/html folder.
     #sync:
     #  # Auto-sync changes for faster development
     #  manual:
     #    - src: "nginx/html/**"
     #      dest: "/usr/share/nginx/html"
-  - image: certbot/certbot:latest
   local:
     push: false
     useDockerCLI: true
@@ -46,13 +45,3 @@ portForward:
 #    localPort: 8080
 deploy:
   kubectl: {}
-
-# Defining profiles
-profiles:
-  - name: nginx-ssl # Add SSL certificates to the domain
-    activation:
-      - command: nginx-ssl
-    patches:
-      - op: replace
-        path: /build/artifacts/0/docker/dockerfile
-        value: Dockerfile-nginx-ssl
