@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+
+    environment {
+        BRANCH = 'main'
+        REMOTE_SERVER_IP_ADDRESS = credentials('remote-server-ip-address')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: env.BRANCH, url: env.GITHUB_REPO
+            }
+        }
+
+        stage('Wrap config to zip') {
+            steps {
+                dir('.deploy') {
+                    sh 'zip -r config.zip .'
+                }
+            }
+        }
+
+        stage('Deploy Configurations') {
+            steps {
+                dir('.deploy') {
+                    sshagent(credentials: ['jenkins-deploy-key']) { 
+                        // Upload configuration zip to the destination remote folder.
+                        sh """
+                            scp -o StrictHostKeyChecking=no config.zip minikubeuser@${env.REMOTE_SERVER_IP_ADDRESS}:/home/minikubeuser/projects/lucas/config/
+                        """
+                    }
+
+                    sshagent(credentials: ['jenkins-deploy-key']) {
+                        // Unzip uploaded file, and place them to their specific places.
+                        sh """
+                            ssh -o StrictHostKeyChecking=no minikubeuser@${env.REMOTE_SERVER_IP_ADDRESS} -p 22 '
+                                cd projects/lucas
+                                unzip config.zip
+                                rm config.zip
+                            '
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Clean') {
+            steps {
+                deleteDir()
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline run successfully.'
+        }
+        failure {
+            echo 'Pipeline failed to run.'
+        }
+    }
+}
