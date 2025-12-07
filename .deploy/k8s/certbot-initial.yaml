@@ -8,6 +8,23 @@ spec:
   template:
     spec:
       restartPolicy: OnFailure
+      initContainers:
+      - name: nginx-challenge-server
+        image: nginx:alpine
+        command: ["sh", "-c"]
+        args:
+          - |
+            mkdir -p /var/www/html/.well-known/acme-challenge
+            echo "Challenge server ready" > /var/www/html/index.html
+            nginx -g "daemon off;"
+        volumeMounts:
+        - name: webroot
+          mountPath: /var/www/html
+        #- name: nginx-config
+        #  mountPath: /etc/nginx/conf.d/default.conf
+        #  subPath: default.conf
+        ports:
+        - containerPort: 80
       containers:
       - name: certbot
         image: certbot/certbot:latest
@@ -30,6 +47,11 @@ spec:
           value: "${CERTBOT_EMAIL}"
         - name: APPLICATION_DOMAIN
           value: "${APPLICATION_DOMAIN}"
+        volumeMounts:
+        - name: certbot-certs
+          mountPath: /etc/letsencrypt
+        - name: webroot
+          mountPath: /var/www/html
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -39,3 +61,8 @@ spec:
       - name: certbot-certs
         persistentVolumeClaim:
           claimName: certbot-pvc
+      - name: webroot
+        emptyDir: {}
+      #- name: nginx-config
+      #  configMap:
+      #    name: nginx-challenge-config
