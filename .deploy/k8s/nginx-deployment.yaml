@@ -25,15 +25,14 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
-
-          # Volume mounts for custom content (optional)
-          # volumeMounts:
-          #   - name: html-content
-          #     mountPath: /usr/share/nginx/html
-      # volumes:
-      #   - name: html-content
-      #     configMap:
-      #       name: nginx-html
+          volumeMounts:
+            - name: ssl-certs
+              mountPath: /etc/nginx/ssl
+              readOnly: true
+      volumes:
+        - name: ssl-certs
+          persistentVolumeClaim:
+            claimName: certbot-pvc
 ---
 apiVersion: v1
 kind: Service
