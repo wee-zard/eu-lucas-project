@@ -26,9 +26,10 @@ manifests:
     - k8s/mysql-deployment.yaml
     - k8s/backend-deployment.yaml
     - k8s/certbot-pvc.yaml
-    - k8/webroot-pvc
+    - k8/webroot-pvc.yaml
+    - k8/pvc-debug.yaml
     - k8s/nginx-deployment.yaml
-    #- k8s/certbot-initial.yaml
+    - k8s/certbot-initial.yaml
     - k8s/ingress.yaml
 
 portForward:
