@@ -1,3 +1,37 @@
+# Lucas Image Analyzer
+
+## Project Description
+It's a project about the EU's Lucas initiative, where a group of people take photos all over the European Union, and the Department of Image Processing of the University of Szeged (from Hungary) takes these photos and runs different algorithms on them to analyze them for invasive plants (plants that "should not be there").
+- This application is NOT implementing any algorithm for image processing but creating a Web UI interface that could help the Department of Image Processing's job by:
+- Creating a query builder, which can be used to create complex queries to filter their results provided by the European Union's public database.
+- Displaying the invasive plants with bounding boxes on the images with JavaScript canvas.
+- Downloading the images and the bounding boxes applied to them into zip folders.
+- Uploading individual people's XML results from their image analyzer algorithms so they could be used on the query builder for adding more options to the filters.
+- Creating a view where they could report any bug that might arise from using the web application.
+- Building a view that will help add users to the application. (Important! If the user tries to log in, but their email address is not present in the database, then they will be unable to log into the application.)
+
+## File Structure
+There are three groups of folders in this repository: one for the frontend, one for the backend (named spring-boot-backend), and one for the DevOps (named .deploy).
+1. Frontend ("frontend" folder):
+    - Made in React with Typescript
+    - Google OAuth provider for authentication
+    - ESLint
+2. Backend ("spring-boot-backend" folder):
+    - Spring Boot Java backend, with Maven.
+    - Some JUnit tests have been added to this project.
+    - Connecting to the MySQL database.
+    - Database migration is run by Flyway.
+3. DevOps (".deploy" folder):
+    - Minikube
+    - Skaffold
+    - Nginx & Certbot with Let's Encrypt (for SSL)
+    - Jenkins
+      - There are three Jenkinsfiles in this folder, one for each: frontend, backend, and DevOps.
+4. Jenkins Home ("jenkins_home" folder):
+    - This is the folder that should be mounted to the Jenkins Docker Container.
+5. Keys (".keys" folder):
+    - Folder for the public-private key pairs
+
 ## 1. Run Locally
 
 In this section we will detail how to run the application on the local environment.
@@ -42,6 +76,8 @@ In this section we will detail how to run specifically the **backend** part of t
 
 The application is hosted under the following DNS (= Domain Name System): `lucasimageanalyzer.com`.
 This domain was bought from the following Domain Name Provider: [GoDaddy](https://www.godaddy.com/en-ph/offers/godaddy).
+
+The production application is accessible from the following url: https://lucasimageanalyzer.com
 
 In the below section we will describe how to add a DNS to the application and what **Domain records** should be set both on the side of the _DNS Provider_ and the _VM (Virtual Machine) Provider_.
 
