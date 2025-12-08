@@ -188,22 +188,22 @@ We do not want the Jenkins to use hybridly english and our local language, as it
    - Domain:
      - Kind: `Secret text`
      - Scope: `Global`
-     - Secret: Domain name of the application without the "https://www." prefix!
+     - Secret: Domain name of the application without the "https://" prefix!
      - ID: `lucas-host-domain`
    - api.Domain:
      - Kind: `Secret text`
      - Scope: `Global`
-     - Secret: Domain name of the application without the "https://www." prefix, BUT with the prefix of "api.", such as: "api.DOMAIN_NAME"!
+     - Secret: Domain name of the application without the "https://" prefix, BUT with the prefix of "api.", such as: "https://api.${DOMAIN_NAME}"!
      - ID: `lucas-api-domain`
    - Google OAuth Client ID:
      - Kind: `Secret text`
      - Scope: `Global`
-     - Secret: Paste here your Google OAth Client ID
+     - Secret: Paste here your Google OAuth Client ID
      - ID: `lucas-google-oauth-client-id`
    - Google OAuth Client ID:
      - Kind: `Secret text`
      - Scope: `Global`
-     - Secret: Paste here your Google OAth Client Secret
+     - Secret: Paste here your Google OAuth Client Secret
      - ID: `lucas-google-oauth-client-secret`
    - Remote Server IP Address:
      - Kind: `Secret text`
@@ -212,7 +212,7 @@ We do not want the Jenkins to use hybridly english and our local language, as it
      - ID: `remote-server-ip-address`
 
 ### 3.5. Generate SSH keys
-If we wants to uplaod our build files to the VM, we need to SSH into the VM. For this purpose, we are creating SSH key pairs.
+If we wants to upload the build files to the VM, we need to SSH into the VM. For this purpose, we are creating SSH key pairs.
 
 #### 3.5.1. Create SSH keys from terminal
 
