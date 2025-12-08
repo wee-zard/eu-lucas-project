@@ -69,8 +69,7 @@ After it is done, the application will be available on: **localhost:3000**.
 In this section we will detail how to run specifically the **backend** part of the application.
 
 1. Creating the MySQL database
-   ohoh
-   TODO: ...
+TODO:
 
 ## 2. DNS
 
@@ -99,7 +98,7 @@ In the place of the `${IP_ADDRESS_OF_THE_VM}` you should use your own **VM**'s I
 The _VM_ is provided by [Rackforest](rackforest.com).
 For this provider, it was enough to set a **Reverse DNS** that is pointing to an already existing DNS name. Here, we just needed to add the following name: `lucasimageanalyzer.com`, as this is our domain.
 
-### 3. Jenkins
+## 3. Jenkins
 
 In this section we are detailing how to set up the Jenkins Docker Container to run CI/CD pipelines to build, test, and deploy the application to a VM instance.
 
@@ -229,7 +228,7 @@ Enter file in which to save the key:
 
 After we provided the **passphrase** as well to the SSH keys, now we have a public and private key pairs what we could use to SSH into the VM through the jenkins and upload the files.
 
-#### 3.5.2. Upload private to jenkins as credential
+#### 3.5.2. Upload private key to Jenkins as credential
 1. Click on the "gear button" on the top right corner of the Jenkins web application. Under **Security**, select the **Credentials** sub menu option, or enter the following url: http://localhost:8080/manage/credentials/
 2. Under the **Stores scoped to Jenkins** table, click on the **System** user (Click on his name)
 3. Under the **System**'s available credentials, clink on the **Global credentials (unrestricted)**
@@ -263,16 +262,4 @@ chmod 600 ~/.ssh/authorized_keys
 chown -R $USER:$USER ~/.ssh
 ```
 
----
-
----
-
-### 3.4. Create new Pipeline
-
-1. Click on the "New Item" button on the top left, or visit this url: http://localhost:8080/view/all/newJob
-
-add pipeline
-
-approve script
-
-apply + save
+TODO:
