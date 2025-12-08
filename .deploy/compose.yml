@@ -17,8 +17,6 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./nginx/build:/var/www/lucasimageanalyzer.com
       - ./certbot/www:/var/www/html
-  #    depends_on:
-  #      - lucas-backend
 
   lucas-backend:
     restart: unless-stopped
@@ -44,11 +42,6 @@ services:
     depends_on:
       lucas-mysqldb:
         condition: service_healthy
-    #healthcheck:
-    #  test: curl -f http://lucas-backend:8989/actuator/health || exit 1
-    #  interval: 7s
-    #  retries: 10
-    #  timeout: 7s
 
   lucas-mysqldb:
     image: mysql:8.0-debian
