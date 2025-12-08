@@ -25,10 +25,16 @@ spec:
             - name: ssl-certs
               mountPath: /etc/nginx/ssl
               readOnly: true
+            - name: webroot
+              mountPath: /var/www/html
+              readOnly: true
       volumes:
         - name: ssl-certs
           persistentVolumeClaim:
             claimName: certbot-pvc
+        - name: webroot
+          persistentVolumeClaim:
+            claimName: webroot-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -40,7 +46,12 @@ spec:
   selector:
     app: nginx
   ports:
-    - port: 80
+    - name: http
+      port: 80
       targetPort: 80
       nodePort: 30080
+    - name: https
+      port: 443
+      targetPort: 443
+      nodePort: 30443
   type: NodePort

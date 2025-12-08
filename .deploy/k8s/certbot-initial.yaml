@@ -5,60 +5,113 @@ metadata:
 spec:
   template:
     spec:
-      restartPolicy: OnFailure
+      restartPolicy: Never
       containers:
-      # First container: nginx for challenges
       - name: nginx-challenge-server
         image: nginx:alpine
         command: ["sh", "-c"]
         args:
           - |
+            # Create directory
             mkdir -p /var/www/html/.well-known/acme-challenge
-            echo "Challenge server ready" > /var/www/html/index.html
-            echo "Starting nginx challenge server..."
+
+            # Create proper nginx config
+            cat > /etc/nginx/conf.d/default.conf << 'EOF'
+            server {
+                listen 80;
+                server_name _;
+
+                root /var/www/html;
+
+                location /.well-known/acme-challenge/ {
+                    allow all;
+                    try_files $uri =404;
+                }
+
+                location / {
+                    return 404;
+                }
+            }
+            EOF
+
+            echo "Nginx config created:"
+            cat /etc/nginx/conf.d/default.conf
+
+            echo "Starting nginx..."
             nginx -g "daemon off;"
         volumeMounts:
         - name: webroot
           mountPath: /var/www/html
         ports:
         - containerPort: 80
-      # Second container: certbot
+
       - name: certbot
         image: certbot/certbot:latest
         command: ["sh", "-c"]
         args:
           - |
-            # Wait for nginx to be ready
+            # Skip curl installation - use wget instead
             echo "Waiting for nginx to start..."
             sleep 15
-            
+
             # Request certificates
             echo "Requesting certificates from Let's Encrypt..."
             certbot certonly --webroot \
               -w /var/www/html \
               --email udvattila99@gmail.com \
               -d lucasimageanalyzer.com \
+              --agree-tos \
+              --force-renewal \
+              --non-interactive \
+              --verbose
+
+            # Check result
+            if [ -d "/etc/letsencrypt/live/lucasimageanalyzer.com" ]; then
+              echo "✅ lucasimageanalyzer.com Staging certificates created!"
+              ls -la /etc/letsencrypt/live/lucasimageanalyzer.com/
+
+              # Copy to PVC
+              mkdir -p /certs/live/
+              cp -r /etc/letsencrypt/live/lucasimageanalyzer.com /certs/live/
+              echo "Certificates copied to PVC"
+            else
+              echo "❌ Staging failed"
+              echo "Checking /etc/letsencrypt:"
+              find /etc/letsencrypt -type f 2>/dev/null || echo "Empty"
+              exit 1
+            fi
+
+            # Request certificates
+            echo "Requesting certificates from Let's Encrypt..."
+            certbot certonly --webroot \
+              -w /var/www/html \
+              --email udvattila99@gmail.com \
               -d api.lucasimageanalyzer.com \
               --agree-tos \
               --force-renewal \
               --non-interactive \
               --verbose
-            
-            # Check if certificates were created
-            if [ -d "/etc/letsencrypt/live/lucasimageanalyzer.com" ]; then
-              echo "✅ Certificates created successfully!"
-              echo "Certificate files:"
-              ls -la /etc/letsencrypt/live/lucasimageanalyzer.com/
+
+            # Check result
+            if [ -d "/etc/letsencrypt/live/api.lucasimageanalyzer.com" ]; then
+              echo "✅ api.lucasimageanalyzer.com Staging certificates created!"
+              ls -la /etc/letsencrypt/live/api.lucasimageanalyzer.com/
+
+              # Copy to PVC
+              cp -r /etc/letsencrypt/live/api.lucasimageanalyzer.com /certs/live/
+              echo "Certificates copied to PVC"
+              exit 0
             else
-              echo "❌ Failed to create certificates"
+              echo "❌ Staging failed"
+              echo "Checking /etc/letsencrypt:"
+              find /etc/letsencrypt -type f 2>/dev/null || echo "Empty"
               exit 1
             fi
-            
-            # Kill nginx so the job can complete
-            pkill nginx
         volumeMounts:
         - name: certbot-certs
           mountPath: /etc/letsencrypt
+        - name: certbot-certs
+          mountPath: /certs
         - name: webroot
           mountPath: /var/www/html
       volumes:
@@ -66,4 +119,5 @@ spec:
         persistentVolumeClaim:
           claimName: certbot-pvc
       - name: webroot
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: webroot-pvc

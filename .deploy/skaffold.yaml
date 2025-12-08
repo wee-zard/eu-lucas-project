@@ -16,12 +16,6 @@ build:
     context: nginx
     docker:
       dockerfile: Dockerfile-nginx-ssl
-    # TODO: Uncomment when there are actual HTML files inside the nginx/html folder.
-    #sync:
-    #  # Auto-sync changes for faster development
-    #  manual:
-    #    - src: "nginx/html/**"
-    #      dest: "/usr/share/nginx/html"
   local:
     push: false
     useDockerCLI: true
@@ -31,9 +25,10 @@ manifests:
   rawYaml:
     - k8s/mysql-deployment.yaml
     - k8s/backend-deployment.yaml
-    - k8s/certbot-pvc.yaml          # PVC first
-    - k8s/nginx-deployment.yaml     # Then nginx (it also uses PVC)
-    #- k8s/certbot-initial.yaml    # Don't include this in skaffold - run manually
+    - k8s/certbot-pvc.yaml
+    - k8/webroot-pvc
+    - k8s/nginx-deployment.yaml
+    #- k8s/certbot-initial.yaml
     - k8s/ingress.yaml
 
 portForward:

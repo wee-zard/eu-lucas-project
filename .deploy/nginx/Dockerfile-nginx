@@ -2,10 +2,13 @@
 FROM nginx:stable-alpine AS prod
 
 # Removes default configurations
-#RUN rm -rf /usr/share/nginx/html/*
+RUN rm -rf /usr/share/nginx/html/*
 
 # Copying built assets from builder
-#COPY ./build /usr/share/nginx/html
+COPY ./build /usr/share/nginx/html
+
+# Remove default config
+RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -13,11 +16,14 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Set permission to public
 RUN chmod -R 755 /usr/share/nginx/html
 
+# Create necessary directories
+RUN mkdir -p /var/www/html/.well-known/acme-challenge
+
 # Set the working directory
 WORKDIR /app
 
 # Expose port 80 for the NGINX server
-EXPOSE 80
+EXPOSE 80 443
 
 # Command to start NGINX when the container is run
 CMD ["nginx", "-g", "daemon off;"]
