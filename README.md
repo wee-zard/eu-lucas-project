@@ -12,25 +12,64 @@ It's a project about the EU's Lucas initiative, where a group of people take pho
 
 ## File Structure
 There are three groups of folders in this repository: one for the frontend, one for the backend (named spring-boot-backend), and one for the DevOps (named .deploy).
-1. Frontend ("frontend" folder):
-    - Made in React with Typescript
-    - Google OAuth provider for authentication
+1. DevOps (".deploy" folder):
+    - Backend
+      - `compose-mailput.yaml` - A compose file that runs a local mailpit server to catch sent out emails from the backend server, only during the development cycle of the application.
+      - `Dockerfile-backend` - The Dockerfile specifically for the backend project. This will built by *skaffold*.
+    - Jenkins
+      - `Dockerfile-jenkins` - The Dockerfile specifically for the Jenkins. This way, we could use the *zip* command inside the container.
+      - `Jenkinsfile-backend` - The Jenkins pipeline (build & deploy with sshagent) for the backend project.
+      - `Jenkinsfile-frontend` - The Jenkins pipeline (build & test & deploy) for the frontend project.
+      - `Jenkinsfile-config` - The Jenkins pipeline for deploying the devops related files to the VM.
+    - K8s
+      - `backend-deployment.yaml` - The deployment file of the backend
+      - `certbot-initial.yaml` - It will create the SSL certifications for both domains (for the *lucasimageanalyzer.com* and the *api.lucasimageanalyzer.com*)
+      - `certbot-pvc.yaml` - A Persistent Volume that will help storing the certbot certificates, and sharing them between the docker container running inside minikube.
+      - `pvc-debuger.yaml` - A debug pod to check wether the ssl certificates have been stored properly inside the *certbot-pvc* or not. It could be used to list out the content of that persistent volume.
+      - `mysql-deployment` - The deployment file for the mysql
+      - `nginx-deployment` - The deployment file for the nginx server, opening both 80, and 443 port of the container, and sharing those ports with the host machine.
+    - Mysql
+      - `init.sql` - A simple sql file that will pre-create the database for the application.
+    - Nginx
+      - `Dockerfile-nginx-ssl` - Initial Dockerfile for the purpose of exposing only the port 80 of the nginx proxy.
+      - `Dockerfile-nginx` - Finalized version of the nginx Dockerfile that exposes both 80 and 443 ports, uses the live nginx config file, and loads the uploaded JavaScripts.
+      - `nginx-ssl.conf` - A simplified version of the nginx.conf file for the purpose of running the certbot challenges first while not using https and ssl, and once these certs are created, it will be replaced by the `nginx-live.conf` file.
+      - `nginx-live.conf` - Finalized version of the nginx.conf file that redirects the http requests to https, and separates the frontend and backend requests from each other. Contains a simple reverse_proxy that sends the requests to the backend.
+    - Others:
+      - `.env-example` - A `.env` template file that describes what should be present inside a `.env` file. **IMPORTANT!** Currently, even if these values are filled out, there nothing that passes these values into the *Minikube pods*. Currently it is needed to be hardcod these values on the server side. Not used currently.
+      - `compose.yml` - An old format of running the project where every component was built by a *compose* file. Not used currently.
+      - `skaffold.yaml` - The file that describes how the minikube pods, services, jobs and persistent volumes should be created.
+2. Jenkins Home ("jenkins_home" folder):
+    - This is the folder that should be mounted to the Jenkins Docker Container.
+3. Keys (".keys" folder):
+    - Folder for the public-private key pairs
+4. Frontend ("frontend" folder):
+    - Contains the frontend project
+5. Backend ("spring-boot-backend" folder):
+    - Contains the backend proejct
+
+## Used Technologies
+1. Frontend
+    - Typescript + React
     - ESLint
-2. Backend ("spring-boot-backend" folder):
-    - Spring Boot Java backend, with Maven.
-    - Some JUnit tests have been added to this project.
-    - Connecting to the MySQL database.
-    - Database migration is run by Flyway.
-3. DevOps (".deploy" folder):
+    - Craco
+    - Google OAuth client for authentication
+
+2. Backend
+    - Spring Boot Java
+    - Maven
+    - JUnit
+
+3. Devops
     - Minikube
     - Skaffold
-    - Nginx & Certbot with Let's Encrypt (for SSL)
+    - NgInx
+    - Certbot (generating SSL certificates)
+
+4. Others:
     - Jenkins
-      - There are three Jenkinsfiles in this folder, one for each: frontend, backend, and DevOps.
-4. Jenkins Home ("jenkins_home" folder):
-    - This is the folder that should be mounted to the Jenkins Docker Container.
-5. Keys (".keys" folder):
-    - Folder for the public-private key pairs
+    - Custom DNS (read below)
+    - Custom Virtual Machine
 
 ## 1. Run Locally
 
